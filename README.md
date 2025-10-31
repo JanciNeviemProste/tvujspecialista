@@ -64,31 +64,48 @@ frontend/
 
 ### ✅ Hotovo
 
-- ✅ Next.js 14 projekt s TypeScript
-- ✅ TailwindCSS konfigurace
-- ✅ Základní UI komponenty (Button, Card, Input, Badge)
-- ✅ TypeScript typy pro všechny entity
-- ✅ Mock data (10 specialistů, reviews, kategorie, lokality)
-- ✅ Homepage s hero sekci a vyhledáváním
-- ✅ React Query provider
-- ✅ Responsive design struktura
+**Základní infrastruktura:**
+- ✅ Next.js 16 projekt s TypeScript a Turbopack
+- ✅ TailwindCSS 4.x konfigurace
+- ✅ Základní UI komponenty (Button s Radix Slot, RatingStars, SpecialistCard)
+- ✅ TypeScript typy pro všechny entity (Specialist, Review, Lead, User)
+- ✅ Mock data (10 specialistů s realistickými českými daty, reviews)
+- ✅ Responsive design struktura (Mobile-first)
 
-### 🚧 Zbývá doprogramovat
+**Veřejné stránky:**
+- ✅ Homepage (/) - Hero, kategorie, statistiky, CTA
+- ✅ Stránka vyhledávání (/hledat) - Filtry (kategorie, lokace, hodnocení, cena), seznam specialistů
+- ✅ Detail specialisty (/specialista/[slug]) - Profil, služby, recenze, kontaktní formulář
+- ✅ Ceník (/ceny) - 3 tarify (Basic 300 Kč, Pro 800 Kč, Premium 1500 Kč)
+- ✅ O nás (/o-nas) - Mise, hodnoty, výhody
+- ✅ Kontakt (/kontakt) - Kontaktní formulář a informace
+- ✅ Právní stránky (/pravidla, /ochrana-osobnich-udaju)
 
-- ⏳ Stránka vyhledávání (/hledat) s filtry
-- ⏳ Detail specialisty (/specialista/[slug])
-- ⏳ 7-krokový registrační wizard
-- ⏳ Provider dashboard s CRM
-- ⏳ LeadForm modal
-- ⏳ Kompletní Header a Footer komponenty
-- ⏳ SpecialistCard, ReviewCard komponenty
-- ⏳ RatingStars komponenta
-- ⏳ Stránka s cenami
-- ⏳ Právní stránky (pravidla, privacy)
-- ⏳ API funkce a React Query hooks
-- ⏳ i18n implementace (CS/SK)
-- ⏳ SEO optimalizace
+**Provider sekce:**
+- ✅ Přihlášení (/profi/prihlaseni) - Login formulář
+- ✅ Registrace (/profi/registrace) - Kompletní registrační formulář
+- ✅ Dashboard (/profi/dashboard) - Statistiky, poslední leady, quick actions
+
+### 🚧 Fáze 2 - Zbývá doprogramovat
+
+**Frontend pokročilé funkce:**
+- ⏳ 7-krokový registrační wizard (aktuálně jednoduchý formulář)
+- ⏳ Provider CRM funkcionality (správa leadů, konverzace)
+- ⏳ LeadForm modal (rychlá poptávka)
+- ⏳ Notifikační systém
+- ⏳ Správa recenzí (write review form)
+- ⏳ Upload profilových fotek
+- ⏳ i18n implementace (Czech/Slovak switching)
+- ⏳ SEO optimalizace (meta tagy, structured data, sitemap)
 - ⏳ CookieBanner s TCF 2.2
+
+**Backend (Fáze 2):**
+- ⏳ NestJS API s PostgreSQL
+- ⏳ Autentizace (JWT + Refresh tokens)
+- ⏳ Email service (SendGrid/Mailgun)
+- ⏳ Payment processing (Stripe/GoPay)
+- ⏳ Admin panel
+- ⏳ Analytics tracking
 
 ## 🛠 Technologie
 
@@ -101,13 +118,24 @@ frontend/
 
 ## 📝 Další kroky
 
-1. **Dokončit vyhledávací stránku** - implementovat FilterPanel a SpecialistCard
-2. **Detail specialisty** - kompletní profil s reviews a contact formem
-3. **Registrační wizard** - 7-step onboarding pro poskytovatele
-4. **Dashboard** - CRM pro správu leadů a recenzí
-5. **API layer** - dokončit mock API funkce
-6. **i18n** - české a slovenské lokalizace
-7. **SEO** - meta tagy, structured data, sitemap
+**Fáze 1 - Hotovo** ✅
+Frontend MVP je kompletní s mock daty a připravený pro napojení na backend API.
+
+**Fáze 2 - Backend (Priorita):**
+1. **NestJS projekt setup** - TypeORM + PostgreSQL
+2. **API endpointy** - CRUD operace pro specialisty, leady, reviews
+3. **Autentizace** - JWT tokens, registrace, login
+4. **Email notifikace** - SendGrid integrace
+5. **Payment processing** - Stripe/GoPay pro subscription model
+6. **Admin panel** - Správa uživatelů a leadů
+
+**Fáze 3 - Pokročilé frontend funkce:**
+1. **7-step registration wizard** - Postupné onboarding
+2. **CRM dashboard** - Správa leadů, kalendář, statistiky
+3. **Real-time notifikace** - WebSockets pro nové leady
+4. **i18n** - CS/SK language switching
+5. **SEO** - Metadata, structured data, sitemap.xml
+6. **Performance** - Image optimization, code splitting
 
 ## 🎨 Design system
 
@@ -176,6 +204,77 @@ V Vercel dashboardu nastavte tyto environment variables:
 - ⚠️ Lokální production build může selhat kvůli českým znakům v cestě (Turbopack bug)
 - ✅ Dev server funguje bez problémů (`npm run dev`)
 - ✅ Vercel build environment nemá tento problém a build projde úspěšně
+
+## 🐛 Známé problémy a řešení
+
+### Turbopack path issue
+**Problém:** Build selže s chybou "panic: path contains invalid UTF-8 character" při českých znacích v cestě.
+
+**Řešení:**
+- Pro lokální vývoj: Použijte `npm run dev` (funguje normálně)
+- Pro produkci: Deploy na Vercel (build projde bez problémů)
+
+### Server Components a event handlers
+**Problém:** Next.js 16 je přísný na míchání Server/Client Components.
+
+**Řešení:**
+- Všechny event handlers (`onClick`, `onChange`, `onError`) vyžadují `'use client'` direktivu
+- Aktuálně používáme pure Server Components s HTML + Tailwind
+- Pro interaktivitu přidejte `'use client'` na začátek souboru
+
+### Image onError handlers
+**Problém:** `onError` handler na `<img>` tagu v Server Component způsobí build error.
+
+**Řešení:**
+- Odstraněn všude kde byl používán
+- Používáme CSS fallback: `bg-gray-200` pro placeholder
+
+## 📚 Dokumentace
+
+### Přidání nové stránky
+```typescript
+// app/nova-stranka/page.tsx
+export default function NovaStranka() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Váš obsah */}
+    </div>
+  )
+}
+```
+
+### Přidání nové komponenty
+```typescript
+// components/shared/MyComponent.tsx
+export function MyComponent({ prop }: { prop: string }) {
+  return <div>{prop}</div>
+}
+```
+
+### Mock data pattern
+```typescript
+// V souboru stránky
+const mockData = [
+  { id: '1', name: 'Jan Novák', /* ... */ },
+  // ...
+]
+
+export default function Page() {
+  return (
+    <div>
+      {mockData.map(item => (
+        <div key={item.id}>{item.name}</div>
+      ))}
+    </div>
+  )
+}
+```
+
+## 🔗 Odkazy
+
+- **Live site:** https://tvujspecialista.vercel.app
+- **GitHub:** https://github.com/JanciNeviemProste/tvujspecialista
+- **Vercel Dashboard:** [Vercel Project](https://vercel.com/dashboard)
 
 ## 📄 Licence
 
