@@ -29,9 +29,6 @@ export function SpecialistCard({ specialist }: SpecialistCardProps) {
               src={specialist.photo}
               alt={specialist.name}
               className="h-full w-full object-cover"
-              onError={(e) => {
-                e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="80" height="80"%3E%3Crect width="80" height="80" fill="%23e5e7eb"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="24" fill="%239ca3af"%3E' + specialist.name[0] + '%3C/text%3E%3C/svg%3E'
-              }}
             />
           </div>
         </div>

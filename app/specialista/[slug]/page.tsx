@@ -77,12 +77,6 @@ export default function SpecialistDetailPage() {
                     src={mockSpecialist.photo}
                     alt={mockSpecialist.name}
                     className="h-full w-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="128" height="128"%3E%3Crect width="128" height="128" fill="%23e5e7eb"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="48" fill="%239ca3af"%3E' +
-                        mockSpecialist.name[0] +
-                        '%3C/text%3E%3C/svg%3E'
-                    }}
                   />
                 </div>
 
