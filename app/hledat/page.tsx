@@ -4,45 +4,45 @@ import { SpecialistCard } from '@/components/shared/SpecialistCard'
 const mockSpecialists = [
   {
     id: '1',
-    slug: 'jan-novak-hypoteky-praha',
+    slug: 'jan-novak-financni-poradce-praha',
     name: 'Jan Novák',
     photo: '/images/placeholder-avatar.png',
     verified: true,
     topSpecialist: true,
-    category: 'Hypotéky',
+    category: 'Finanční poradce',
     location: 'Praha',
-    bio: 'Zabývám se hypotékami přes 10 let. Pomohl jsem stovkám klientů najít tu nejlepší hypotéku...',
+    bio: 'Komplexní finanční poradenství přes 10 let. Pomohl jsem stovkám klientů s hypotékami, pojištěním a investicemi...',
     rating: 4.9,
     reviewsCount: 47,
     hourlyRate: 800,
   },
   {
     id: '2',
-    slug: 'petra-svobodova-pojisteni-brno',
+    slug: 'petra-svobodova-financni-poradce-brno',
     name: 'Petra Svobodová',
     photo: '/images/placeholder-avatar.png',
     verified: true,
     topSpecialist: false,
-    category: 'Pojištění',
+    category: 'Finanční poradce',
     location: 'Brno',
-    bio: 'Jsem nezávislá pojišťovací makléřka s 8 lety praxe. Pomohu vám najít optimální pojištění...',
+    bio: 'Finanční poradkyně s 8 lety praxe. Pomohu vám s komplexním finančním plánováním...',
     rating: 4.8,
     reviewsCount: 32,
     hourlyRate: 600,
   },
   {
     id: '3',
-    slug: 'martin-dvorak-investice-praha',
-    name: 'Martin Dvořák',
+    slug: 'lucie-novotna-realitni-makler-ostrava',
+    name: 'Lucie Novotná',
     photo: '/images/placeholder-avatar.png',
     verified: true,
-    topSpecialist: true,
-    category: 'Investice',
-    location: 'Praha',
-    bio: 'Investiční poradce s mezinárodními zkušenostmi. Pomohu vám vytvořit investiční portfolio...',
-    rating: 4.9,
-    reviewsCount: 63,
-    hourlyRate: 1200,
+    topSpecialist: false,
+    category: 'Realitní makléř',
+    location: 'Ostrava',
+    bio: 'Realitní makléřka se specializací na prodej bytů a rodinných domů. Za svou kariéru jsem úspěšně zprostředkovala přes 150 transakcí...',
+    rating: 4.7,
+    reviewsCount: 28,
+    hourlyRate: 0,
   },
 ]
 
@@ -88,14 +88,11 @@ export default function SearchPage() {
 
               {/* Category Filter */}
               <div className="mb-6">
-                <label className="mb-2 block text-sm font-medium text-gray-700">Obor</label>
+                <label className="mb-2 block text-sm font-medium text-gray-700">Kategorie</label>
                 <select className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                  <option value="">Všechny obory</option>
-                  <option value="hypoteky">Hypotéky</option>
-                  <option value="pojisteni">Pojištění</option>
-                  <option value="investice">Investice</option>
-                  <option value="reality">Reality</option>
-                  <option value="ucetnictvi">Účetnictví</option>
+                  <option value="">Všechny kategorie</option>
+                  <option value="financni-poradce">Finanční poradce</option>
+                  <option value="realitni-makler">Realitní makléř</option>
                 </select>
               </div>
 

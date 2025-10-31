@@ -87,15 +87,12 @@ export default function RegistrationPage() {
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Obor *
+                        Kategorie *
                       </label>
                       <select className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                        <option value="">Vyberte obor</option>
-                        <option value="hypoteky">Hypotéky</option>
-                        <option value="pojisteni">Pojištění</option>
-                        <option value="investice">Investice</option>
-                        <option value="reality">Reality</option>
-                        <option value="ucetnictvi">Účetnictví</option>
+                        <option value="">Vyberte kategorii</option>
+                        <option value="financni-poradce">Finanční poradce</option>
+                        <option value="realitni-makler">Realitní makléř</option>
                       </select>
                     </div>
                     <div>

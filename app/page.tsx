@@ -28,27 +28,23 @@ export default function HomePage() {
 
         <section className="py-16">
           <div className="container mx-auto px-4">
-            <h2 className="mb-8 text-center text-3xl font-bold">Nejoblíbenější kategorie</h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <a href="/hledat?category=hypoteky" className="rounded-lg border bg-white p-6 shadow-sm hover:shadow-md">
-                <h3 className="mb-2 text-xl font-semibold">Hypotéky</h3>
-                <p className="text-gray-600">Najděte nejlepší hypotéku pro váš domov</p>
+            <h2 className="mb-8 text-center text-3xl font-bold">Vyberte kategorii specialisty</h2>
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-8 md:grid-cols-2">
+              <a href="/hledat?category=financni-poradce" className="rounded-lg border bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="mb-4 text-5xl">💼</div>
+                <h3 className="mb-3 text-2xl font-semibold">Finanční poradce</h3>
+                <p className="mb-4 text-gray-600">
+                  Komplexní finanční poradenství - hypotéky, pojištění, investice a úvěry
+                </p>
+                <div className="text-sm font-medium text-blue-600">Zobrazit specialisty →</div>
               </a>
-              <a href="/hledat?category=pojisteni" className="rounded-lg border bg-white p-6 shadow-sm hover:shadow-md">
-                <h3 className="mb-2 text-xl font-semibold">Pojištění</h3>
-                <p className="text-gray-600">Ochrana pro vás i vaše blízké</p>
-              </a>
-              <a href="/hledat?category=investice" className="rounded-lg border bg-white p-6 shadow-sm hover:shadow-md">
-                <h3 className="mb-2 text-xl font-semibold">Investice</h3>
-                <p className="text-gray-600">Zhodnoťte své úspory chytře</p>
-              </a>
-              <a href="/hledat?category=reality" className="rounded-lg border bg-white p-6 shadow-sm hover:shadow-md">
-                <h3 className="mb-2 text-xl font-semibold">Reality</h3>
-                <p className="text-gray-600">Najděte svůj nový domov</p>
-              </a>
-              <a href="/hledat?category=ucetnictvi" className="rounded-lg border bg-white p-6 shadow-sm hover:shadow-md">
-                <h3 className="mb-2 text-xl font-semibold">Účetnictví</h3>
-                <p className="text-gray-600">Profesionální účetní služby</p>
+              <a href="/hledat?category=realitni-makler" className="rounded-lg border bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className="mb-4 text-5xl">🏠</div>
+                <h3 className="mb-3 text-2xl font-semibold">Realitní makléř</h3>
+                <p className="mb-4 text-gray-600">
+                  Prodej, pronájem a správa nemovitostí - byty, domy a komerční prostory
+                </p>
+                <div className="text-sm font-medium text-blue-600">Zobrazit specialisty →</div>
               </a>
             </div>
           </div>

@@ -69,12 +69,13 @@ frontend/
 - ✅ TailwindCSS 4.x konfigurace
 - ✅ Základní UI komponenty (Button s Radix Slot, RatingStars, SpecialistCard)
 - ✅ TypeScript typy pro všechny entity (Specialist, Review, Lead, User)
-- ✅ Mock data (10 specialistů s realistickými českými daty, reviews)
+- ✅ Mock data (9 specialistů: 7 finančních poradců, 2 realitní makléři)
+- ✅ **Kategorie zjednodušeny na 2 typy:** Finanční poradce (hypotéky, pojištění, investice) a Realitní makléř
 - ✅ Responsive design struktura (Mobile-first)
 
 **Veřejné stránky:**
-- ✅ Homepage (/) - Hero, kategorie, statistiky, CTA
-- ✅ Stránka vyhledávání (/hledat) - Filtry (kategorie, lokace, hodnocení, cena), seznam specialistů
+- ✅ Homepage (/) - Hero, 2 kategorie (Finanční poradce, Realitní makléř), statistiky, CTA
+- ✅ Stránka vyhledávání (/hledat) - Filtry (2 kategorie, lokace, hodnocení, cena), seznam specialistů
 - ✅ Detail specialisty (/specialista/[slug]) - Profil, služby, recenze, kontaktní formulář
 - ✅ Ceník (/ceny) - 3 tarify (Basic 300 Kč, Pro 800 Kč, Premium 1500 Kč)
 - ✅ O nás (/o-nas) - Mise, hodnoty, výhody

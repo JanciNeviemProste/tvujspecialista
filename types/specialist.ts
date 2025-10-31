@@ -1,5 +1,7 @@
 export type SubscriptionTier = 'basic' | 'pro' | 'premium'
 
+export type SpecialistCategory = 'Finanční poradce' | 'Realitní makléř'
+
 export interface Specialist {
   id: string
   slug: string
@@ -9,7 +11,7 @@ export interface Specialist {
   photo: string
   verified: boolean
   topSpecialist: boolean
-  category: string
+  category: SpecialistCategory
   location: string
   bio: string
   yearsExperience: number
