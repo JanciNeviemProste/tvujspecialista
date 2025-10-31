@@ -1,7 +1,14 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { categories } from '@/mocks'
+
+const categories = [
+  { id: '1', name: 'Hypotéky', slug: 'hypoteky', description: 'Najděte nejlepší hypotéku pro váš domov' },
+  { id: '2', name: 'Pojištění', slug: 'pojisteni', description: 'Ochrana pro vás i vaše blízké' },
+  { id: '3', name: 'Investice', slug: 'investice', description: 'Zhodnoťte své úspory chytře' },
+  { id: '4', name: 'Reality', slug: 'reality', description: 'Najděte svůj nový domov' },
+  { id: '5', name: 'Účetnictví', slug: 'ucetnictvi', description: 'Profesionální účetní služby' },
+]
 
 export default function HomePage() {
   return (
