@@ -6,6 +6,8 @@ export interface SpecialistFilters {
   location?: string;
   minRating?: number;
   maxPrice?: number;
+  verified?: boolean;
+  sortBy?: 'rating' | 'price-asc' | 'price-desc' | 'newest';
   page?: number;
   limit?: number;
 }
