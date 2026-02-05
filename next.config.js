@@ -37,7 +37,6 @@ const nextConfig = {
   },
 
   // Performance optimizations
-  swcMinify: true,
   poweredByHeader: false,
 
   // Experimental features for better performance
