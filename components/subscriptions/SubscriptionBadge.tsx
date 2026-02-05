@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { SubscriptionType, SubscriptionStatus } from '@/types/subscriptions';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils/cn';
 
 interface SubscriptionBadgeProps {
   type?: SubscriptionType;
