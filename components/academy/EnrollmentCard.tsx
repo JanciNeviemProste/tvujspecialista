@@ -96,27 +96,25 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
 
         {/* Action buttons */}
         <div className="space-y-2">
-          <Button
-            variant={buttonVariant as any}
-            className="w-full"
-            asChild
-          >
-            <Link href={`/academy/learn/${enrollment.course.slug}`}>
+          <Link href={`/academy/learn/${enrollment.course.slug}`}>
+            <Button
+              variant={buttonVariant as any}
+              className="w-full"
+            >
               {buttonText}
-            </Link>
-          </Button>
+            </Button>
+          </Link>
 
           {enrollment.certificateIssued && (
-            <Button
-              variant="outline"
-              className="w-full"
-              asChild
-            >
-              <Link href={`/academy/certificates/${enrollment.id}`}>
+            <Link href={`/academy/certificates/${enrollment.id}`}>
+              <Button
+                variant="outline"
+                className="w-full"
+              >
                 <Award className="h-4 w-4 mr-2" />
                 Stiahnuť certifikát
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           )}
         </div>
       </CardContent>

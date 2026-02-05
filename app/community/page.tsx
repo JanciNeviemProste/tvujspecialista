@@ -31,16 +31,15 @@ export default function CommunityLandingPage() {
             <p className="mb-8 text-xl lg:text-2xl opacity-90">
               Pripojte sa k networkingu, workshopom a eventom pre realitných agentov a finančných poradcov
             </p>
-            <Button
-              size="lg"
-              variant="glass"
-              className="shadow-lg"
-              asChild
-            >
-              <Link href="/community/events">
+            <Link href="/community/events">
+              <Button
+                size="lg"
+                variant="glass"
+                className="shadow-lg"
+              >
                 Preskúmať eventy
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -154,16 +153,15 @@ export default function CommunityLandingPage() {
               <p className="mb-8 text-lg text-white/90">
                 Prezrite si všetky plánované eventy a zaregistrujte sa na tie, ktoré vás zaujímajú
               </p>
-              <Button
-                size="lg"
-                variant="glass"
-                className="shadow-lg"
-                asChild
-              >
-                <Link href="/community/events">
+              <Link href="/community/events">
+                <Button
+                  size="lg"
+                  variant="glass"
+                  className="shadow-lg"
+                >
                   Zobraziť všetky eventy
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>

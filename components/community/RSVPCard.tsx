@@ -104,15 +104,14 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
         {/* Action buttons */}
         <div className="space-y-2">
           {/* View details button */}
-          <Button
-            variant="outline"
-            className="w-full"
-            asChild
-          >
-            <Link href={`/community/events/${event.slug}`}>
+          <Link href={`/community/events/${event.slug}`}>
+            <Button
+              variant="outline"
+              className="w-full"
+            >
               Zobraziť detail
-            </Link>
-          </Button>
+            </Button>
+          </Link>
 
           {/* Confirm/Cancel actions */}
           {isPending && onConfirm && (

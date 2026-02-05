@@ -141,16 +141,15 @@ export function EventCard({ event, showRSVPButton = true, className }: EventCard
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <Button
-          variant="premium"
-          className="w-full bg-accent-500 hover:bg-accent-600"
-          asChild
-          disabled={isFullyBooked}
-        >
-          <Link href={href}>
+        <Link href={href}>
+          <Button
+            variant="premium"
+            className="w-full bg-accent-500 hover:bg-accent-600"
+            disabled={isFullyBooked}
+          >
             {isFullyBooked ? 'Obsadené' : showRSVPButton ? 'Registrovať sa' : 'Zobraziť detail'}
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   )
