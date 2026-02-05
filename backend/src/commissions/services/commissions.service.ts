@@ -100,7 +100,7 @@ export class CommissionsService {
     commission.invoicedAt = new Date();
     await this.commissionRepository.save(commission);
 
-    return { clientSecret: paymentIntent.client_secret };
+    return { clientSecret: paymentIntent.client_secret as string };
   }
 
   async handlePaymentSuccess(paymentIntentId: string): Promise<void> {

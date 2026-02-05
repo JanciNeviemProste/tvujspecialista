@@ -8,12 +8,15 @@ import { commissionsApi } from '@/lib/api/commissions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, DollarSign, AlertCircle } from 'lucide-react';
+import { ArrowLeft, DollarSign, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { sk } from 'date-fns/locale';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import { PaymentForm } from '@/components/commissions';
 
-// NOTE: This page requires @stripe/stripe-js and @stripe/react-stripe-js to be installed
-// Run: npm install @stripe/stripe-js @stripe/react-stripe-js
+// Initialize Stripe
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CommissionPaymentPage() {
   const router = useRouter();
@@ -25,6 +28,8 @@ export default function CommissionPaymentPage() {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [isLoadingPayment, setIsLoadingPayment] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   const commission = commissions?.find((c) => c.id === commissionId);
 
@@ -67,6 +72,21 @@ export default function CommissionPaymentPage() {
 
   const handleBack = () => {
     router.push('/profi/dashboard/commissions');
+  };
+
+  const handlePaymentSuccess = () => {
+    setPaymentSuccess(true);
+    setPaymentError(null);
+
+    // Redirect after a short delay to show success message
+    setTimeout(() => {
+      router.push('/profi/dashboard/commissions?payment=success');
+    }, 2000);
+  };
+
+  const handlePaymentError = (errorMessage: string) => {
+    setPaymentError(errorMessage);
+    setPaymentSuccess(false);
   };
 
   // Loading state
@@ -166,47 +186,51 @@ export default function CommissionPaymentPage() {
           </CardContent>
         </Card>
 
-        {/* Payment form - requires Stripe Elements */}
-        <Card variant="elevated">
-          <CardHeader>
-            <CardTitle>Platba</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="p-8 text-center border-2 border-dashed rounded-lg">
-              <DollarSign className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-              <h3 className="text-lg font-semibold mb-2">Stripe Elements Required</h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Pre dokončenie platby je potrebné nainštalovať Stripe knižnice:
+        {/* Payment form with Stripe Elements */}
+        {paymentSuccess ? (
+          <Card variant="elevated">
+            <CardContent className="p-8 text-center">
+              <CheckCircle2 className="h-16 w-16 text-success mx-auto mb-4" />
+              <h2 className="text-2xl font-semibold mb-2">Platba úspešná!</h2>
+              <p className="text-muted-foreground mb-4">
+                Vaša platba bola úspešne spracovaná. Budete presmerovaní na zoznam provízií...
               </p>
-              <code className="block p-3 bg-muted rounded text-sm mb-4">
-                npm install @stripe/stripe-js @stripe/react-stripe-js
-              </code>
-              <p className="text-xs text-muted-foreground">
-                Po inštalácii tu bude Stripe CardElement pre bezpečnú platbu.
-              </p>
-            </div>
+              <div className="flex justify-center">
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
+              </div>
+            </CardContent>
+          </Card>
+        ) : (
+          <Card variant="elevated">
+            <CardHeader>
+              <CardTitle>Platba kartou</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {clientSecret ? (
+                <Elements stripe={stripePromise} options={{ clientSecret }}>
+                  <PaymentForm
+                    clientSecret={clientSecret}
+                    amount={commission.commissionAmount}
+                    commissionId={commissionId}
+                    onSuccess={handlePaymentSuccess}
+                    onError={handlePaymentError}
+                  />
+                </Elements>
+              ) : (
+                <div className="p-8 text-center">
+                  <div className="mb-4 text-4xl">⏳</div>
+                  <p className="text-muted-foreground">Načítavam platobné údaje...</p>
+                </div>
+              )}
 
-            <div className="mt-6 flex gap-3">
-              <Button variant="outline" onClick={handleBack} className="flex-1">
-                Zrušiť
-              </Button>
-              <Button disabled className="flex-1">
-                Zaplatiť {formatCurrency(commission.commissionAmount)}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Instructions */}
-        <div className="mt-6 p-4 rounded-lg bg-muted">
-          <h4 className="font-semibold mb-2">Postup integrácie Stripe:</h4>
-          <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-            <li>Nainštalujte Stripe knižnice (príkaz vyššie)</li>
-            <li>Vytvorte PaymentForm komponent s CardElement</li>
-            <li>Implementujte confirmCardPayment() s clientSecret</li>
-            <li>Po úspešnej platbe redirect na commissions stránku</li>
-          </ol>
-        </div>
+              <div className="mt-6 pt-6 border-t">
+                <Button variant="outline" onClick={handleBack} className="w-full">
+                  Späť na provízie
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </div>
   );

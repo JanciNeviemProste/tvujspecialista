@@ -167,7 +167,7 @@ export class StripeService {
       // Handle scheduled downgrade
       if (subscription.scheduledDowngradeTo && stripeSubscription.status === 'active') {
         subscription.subscriptionType = subscription.scheduledDowngradeTo;
-        subscription.scheduledDowngradeTo = null;
+        subscription.scheduledDowngradeTo = null as any;
       }
 
       await this.subscriptionRepository.save(subscription);
