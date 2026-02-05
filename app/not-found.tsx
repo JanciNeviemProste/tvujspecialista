@@ -23,18 +23,18 @@ export default function NotFound() {
           </p>
         </CardContent>
         <CardFooter className="flex flex-col gap-3 sm:flex-row">
-          <Button asChild variant="default" className="w-full sm:flex-1">
-            <Link href="/">
+          <Link href="/" className="w-full sm:flex-1">
+            <Button variant="default" className="w-full">
               <Home className="mr-2 h-4 w-4" />
               Domov
-            </Link>
-          </Button>
-          <Button asChild variant="outline" className="w-full sm:flex-1">
-            <Link href="/hledat">
+            </Button>
+          </Link>
+          <Link href="/hledat" className="w-full sm:flex-1">
+            <Button variant="outline" className="w-full">
               <Search className="mr-2 h-4 w-4" />
               Hľadať
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </CardFooter>
         <div className="pb-6">
           <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
