@@ -15,12 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { LayoutGrid, List, Search } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-// Simple toast replacement (we'll install sonner later)
-const toast = {
-  success: (msg: string) => alert(msg),
-  error: (msg: string) => alert(msg),
-  info: (msg: string) => alert(msg),
-};
+import { toast } from 'sonner';
 
 type ViewMode = 'kanban' | 'list';
 

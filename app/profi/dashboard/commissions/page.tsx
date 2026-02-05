@@ -9,12 +9,7 @@ import { CommissionStats } from '@/components/commissions/CommissionStats';
 import { CommissionCard } from '@/components/commissions/CommissionCard';
 import { CommissionStatsSkeleton, CommissionCardSkeleton } from '@/components/commissions/LoadingStates';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-// Simple toast replacement (we'll install sonner later)
-const toast = {
-  success: (msg: string) => alert(msg),
-  error: (msg: string) => alert(msg),
-  info: (msg: string) => alert(msg),
-};
+import { toast } from 'sonner';
 
 export default function CommissionsPage() {
   const router = useRouter();
