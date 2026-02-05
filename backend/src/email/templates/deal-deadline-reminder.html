@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pripomienka uzavretia dealu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .highlight {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ff6b6b;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⏰ Pripomienka uzavretia</h1>
+    </div>
+    <div class="content">
+        <p>Dobrý deň <strong>{{specialistName}}</strong>,</p>
+
+        <p>Váš deal sa blíži k predpokladanému dátumu uzavretia!</p>
+
+        <div class="highlight">
+            <p><strong>Zákazník:</strong> {{customerName}}</p>
+            <p><strong>Predpokladané uzavretie:</strong> {{estimatedCloseDate}}</p>
+            <p><strong>Hodnota dealu:</strong> {{dealValue}} €</p>
+        </div>
+
+        <p>Nezabudnite aktualizovať status dealu po uzavretí.</p>
+
+        <a href="{{dealsUrl}}" class="button">Zobraziť dealy</a>
+    </div>
+    <div class="footer">
+        <p>tvujspecialista.cz</p>
+        <p>Tento email bol odoslaný automaticky, prosím neodpovedajte.</p>
+    </div>
+</body>
+</html>

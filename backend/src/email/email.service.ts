@@ -303,4 +303,136 @@ export class EmailService {
       console.error('Error sending commission receipt email:', error);
     }
   }
+
+  async sendDealStatusChange(
+    email: string,
+    specialistName: string,
+    deal: any,
+    oldStatus: string,
+    newStatus: string,
+  ): Promise<void> {
+    const template = this.loadTemplate('deal-status-change');
+
+    const html = this.replaceVariables(template, {
+      specialistName,
+      customerName: deal.customerName,
+      oldStatus: this.getStatusLabel(oldStatus),
+      newStatus: this.getStatusLabel(newStatus),
+      dealsUrl: `${this.configService.get('FRONTEND_URL')}/profi/dashboard/deals`,
+    });
+
+    try {
+      await sgMail.send({
+        to: email,
+        from: {
+          email: this.configService.get('SENDGRID_FROM_EMAIL')!,
+          name: this.configService.get('SENDGRID_FROM_NAME'),
+        },
+        subject: 'Zmena statusu dealu',
+        html: html || `
+          <h1>Zmena statusu dealu</h1>
+          <p>Dobrý deň ${specialistName},</p>
+          <p>Status vášho dealu pre ${deal.customerName} bol zmenený z ${this.getStatusLabel(oldStatus)} na ${this.getStatusLabel(newStatus)}.</p>
+        `,
+      });
+    } catch (error) {
+      console.error('Error sending deal status change email:', error);
+    }
+  }
+
+  async sendDealValueSet(
+    email: string,
+    specialistName: string,
+    deal: any,
+  ): Promise<void> {
+    const template = this.loadTemplate('deal-value-set');
+
+    const formattedValue = new Intl.NumberFormat('sk-SK', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(deal.dealValue);
+
+    const formattedDate = new Date(deal.estimatedCloseDate).toLocaleDateString('sk-SK');
+
+    const html = this.replaceVariables(template, {
+      specialistName,
+      customerName: deal.customerName,
+      dealValue: formattedValue,
+      estimatedCloseDate: formattedDate,
+      dealsUrl: `${this.configService.get('FRONTEND_URL')}/profi/dashboard/deals`,
+    });
+
+    try {
+      await sgMail.send({
+        to: email,
+        from: {
+          email: this.configService.get('SENDGRID_FROM_EMAIL')!,
+          name: this.configService.get('SENDGRID_FROM_NAME'),
+        },
+        subject: 'Hodnota dealu nastavená',
+        html: html || `
+          <h1>Hodnota dealu nastavená</h1>
+          <p>Dobrý deň ${specialistName},</p>
+          <p>Hodnota vášho dealu pre ${deal.customerName} bola nastavená na ${formattedValue} €.</p>
+          <p>Predpokladané uzavretie: ${formattedDate}</p>
+        `,
+      });
+    } catch (error) {
+      console.error('Error sending deal value set email:', error);
+    }
+  }
+
+  async sendDealDeadlineReminder(
+    email: string,
+    specialistName: string,
+    deal: any,
+  ): Promise<void> {
+    const template = this.loadTemplate('deal-deadline-reminder');
+
+    const formattedValue = new Intl.NumberFormat('sk-SK', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(deal.dealValue);
+
+    const formattedDate = new Date(deal.estimatedCloseDate).toLocaleDateString('sk-SK');
+
+    const html = this.replaceVariables(template, {
+      specialistName,
+      customerName: deal.customerName,
+      dealValue: formattedValue,
+      estimatedCloseDate: formattedDate,
+      dealsUrl: `${this.configService.get('FRONTEND_URL')}/profi/dashboard/deals`,
+    });
+
+    try {
+      await sgMail.send({
+        to: email,
+        from: {
+          email: this.configService.get('SENDGRID_FROM_EMAIL')!,
+          name: this.configService.get('SENDGRID_FROM_NAME'),
+        },
+        subject: 'Pripomienka uzavretia dealu',
+        html: html || `
+          <h1>Pripomienka uzavretia</h1>
+          <p>Dobrý deň ${specialistName},</p>
+          <p>Váš deal pre ${deal.customerName} sa blíži k predpokladanému dátumu uzavretia: ${formattedDate}</p>
+          <p>Hodnota dealu: ${formattedValue} €</p>
+        `,
+      });
+    } catch (error) {
+      console.error('Error sending deal deadline reminder email:', error);
+    }
+  }
+
+  private getStatusLabel(status: string): string {
+    const labels = {
+      'new': 'Nový',
+      'contacted': 'Kontaktovaný',
+      'qualified': 'Kvalifikovaný',
+      'in_progress': 'V procese',
+      'closed_won': 'Uzavretý (Vyhrané)',
+      'closed_lost': 'Uzavretý (Prehrané)',
+    };
+    return labels[status] || status;
+  }
 }

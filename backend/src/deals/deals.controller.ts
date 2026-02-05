@@ -74,6 +74,10 @@ export class DealsController {
       where: { userId: req.user.userId },
     });
 
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
     return this.dealsService.updateDealValue(
       id,
       specialist.id,
@@ -96,6 +100,10 @@ export class DealsController {
       where: { userId: req.user.userId },
     });
 
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
     return this.dealsService.closeDeal(
       id,
       specialist.id,
@@ -114,6 +122,10 @@ export class DealsController {
       where: { userId: req.user.userId },
     });
 
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
     return this.dealsService.reopenDeal(id, specialist.id);
   }
 
@@ -124,5 +136,39 @@ export class DealsController {
   @ApiResponse({ status: 200, description: 'Note added' })
   async addNote(@Param('id') id: string, @Request() req, @Body() addNoteDto: AddNoteDto) {
     return this.dealsService.addNote(id, req.user.userId, addNoteDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('my/events/:dealId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get events for a specific deal' })
+  @ApiResponse({ status: 200, description: 'Returns all events for the deal' })
+  async getDealEvents(@Param('dealId') dealId: string, @Request() req) {
+    const specialist = await this.dealsService['specialistRepository'].findOne({
+      where: { userId: req.user.userId },
+    });
+
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
+    return this.dealsService.getEventsByDeal(dealId, specialist.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('my/analytics')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get deal analytics' })
+  @ApiResponse({ status: 200, description: 'Returns analytics data' })
+  async getDealAnalytics(@Request() req) {
+    const specialist = await this.dealsService['specialistRepository'].findOne({
+      where: { userId: req.user.userId },
+    });
+
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
+    return this.dealsService.getAnalytics(specialist.id);
   }
 }
