@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import { RatingStars } from '@/components/shared/RatingStars';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
+import type { Review } from '@/types/review';
 
 export default function SpecialistDetailPage({ params }: { params: { slug: string } }) {
   const { data: specialist, isLoading, error } = useSpecialist(params.slug);
@@ -171,7 +172,7 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
               <div className="rounded-lg border bg-white p-8">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">Služby</h2>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
-                  {specialist.services.map((service, index) => (
+                  {specialist.services.map((service: string, index: number) => (
                     <div key={index} className="flex items-center">
                       <svg
                         className="mr-2 h-5 w-5 text-green-500"
@@ -206,7 +207,7 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
                     <div>
                       <h3 className="font-semibold text-gray-900">Certifikace</h3>
                       <ul className="list-inside list-disc text-gray-700">
-                        {specialist.certifications.map((cert, index) => (
+                        {specialist.certifications.map((cert: string, index: number) => (
                           <li key={index}>{cert}</li>
                         ))}
                       </ul>
@@ -223,7 +224,7 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
                   Recenze ({specialist.reviews.length})
                 </h2>
                 <div className="space-y-6">
-                  {specialist.reviews.map((review) => (
+                  {specialist.reviews.map((review: Review) => (
                     <div key={review.id} className="border-b pb-6 last:border-b-0 last:pb-0">
                       <div className="mb-2 flex items-center justify-between">
                         <div className="flex items-center gap-3">
@@ -241,11 +242,11 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
                       <div className="mb-2">
                         <RatingStars rating={review.rating} showCount={false} size="sm" />
                       </div>
-                      <p className="text-gray-700">{review.comment}</p>
-                      {review.specialistResponse && (
+                      <p className="text-gray-700">{review.text}</p>
+                      {review.response && (
                         <div className="mt-3 rounded-lg bg-gray-50 p-3">
                           <p className="text-sm font-semibold text-gray-900">Odpověď specialisty:</p>
-                          <p className="text-sm text-gray-700">{review.specialistResponse}</p>
+                          <p className="text-sm text-gray-700">{review.response.text}</p>
                         </div>
                       )}
                     </div>

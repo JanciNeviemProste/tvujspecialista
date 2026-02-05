@@ -6,6 +6,7 @@ import { useMyLeads } from '@/lib/hooks/useMyLeads';
 import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
 import { leadsApi } from '@/lib/api/leads';
+import type { Lead } from '@/types/lead';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -162,7 +163,7 @@ export default function DashboardPage() {
 
               {leadsData && leadsData.leads && leadsData.leads.length > 0 ? (
                 <div className="divide-y">
-                  {leadsData.leads.slice(0, 5).map((lead) => {
+                  {leadsData.leads.slice(0, 5).map((lead: Lead) => {
                     const statusInfo = getStatusBadge(lead.status);
                     return (
                       <div key={lead.id} className="p-6">
@@ -172,8 +173,8 @@ export default function DashboardPage() {
                             <p className="text-sm text-gray-500">
                               {new Date(lead.createdAt).toLocaleDateString('cs-CZ')}
                             </p>
-                            <p className="mt-1 text-sm text-gray-600">{lead.customerEmail}</p>
-                            <p className="text-sm text-gray-600">{lead.customerPhone}</p>
+                            <p className="mt-1 text-sm text-gray-600">{lead.email}</p>
+                            <p className="text-sm text-gray-600">{lead.phone}</p>
                             {lead.message && (
                               <p className="mt-2 text-sm text-gray-700">
                                 "{lead.message.substring(0, 100)}

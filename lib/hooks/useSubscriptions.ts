@@ -1,10 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { subscriptionsApi } from '@/lib/api/subscriptions';
 import { SubscriptionType } from '@/types/subscriptions';
-import { loadStripe } from '@stripe/stripe-js';
 import { toast } from 'sonner';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export function useMySubscriptions() {
   return useQuery({
@@ -37,10 +34,13 @@ export function useCreateCheckout(type: SubscriptionType) {
       }
       return response.data;
     },
-    onSuccess: async (data) => {
-      const stripe = await stripePromise;
-      if (stripe) {
-        await stripe.redirectToCheckout({ sessionId: data.sessionId });
+    onSuccess: async (data: { sessionId?: string; url?: string }) => {
+      // Use the checkout URL directly from the session (Stripe.js v8+)
+      if (data.url) {
+        window.location.href = data.url;
+      } else if (data.sessionId) {
+        // Fallback for older implementation
+        window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
       }
     },
     onError: (error: any) => {

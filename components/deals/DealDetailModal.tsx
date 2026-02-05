@@ -181,10 +181,15 @@ export function DealDetailModal({
             {deal.notes && deal.notes.length > 0 ? (
               <div className="space-y-2 mb-4">
                 {deal.notes.map((note, index) => (
-                  <div key={index} className="bg-muted p-3 rounded-lg">
+                  <div key={note.id || index} className="bg-muted p-3 rounded-lg">
                     <div className="flex items-start gap-2">
                       <MessageSquare className="h-4 w-4 text-muted-foreground mt-0.5" />
-                      <p className="text-sm flex-1">{note}</p>
+                      <div className="flex-1">
+                        <p className="text-sm">{note.content}</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {note.author.name} • {new Date(note.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}

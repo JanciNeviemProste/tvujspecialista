@@ -1,5 +1,14 @@
 import type { Commission } from './commissions';
 
+export interface DealNote {
+  id: string;
+  content: string;
+  createdAt: string;
+  author: {
+    name: string;
+  };
+}
+
 export interface Deal {
   id: string;
   specialistId: string;
@@ -14,7 +23,7 @@ export interface Deal {
   commissionId?: string;
   commission?: Commission;
   events?: DealEvent[];
-  notes?: string[];
+  notes?: DealNote[];
   createdAt: string;
   updatedAt: string;
 }
@@ -28,27 +37,12 @@ export enum DealStatus {
   CLOSED_LOST = 'closed_lost',
 }
 
-export enum LeadEventType {
-  CREATED = 'created',
-  STATUS_CHANGED = 'status_changed',
-  NOTE_ADDED = 'note_added',
-  EMAIL_SENT = 'email_sent',
-}
-
 export interface DealEvent {
   id: string;
   dealId: string;
   type: string;
   description: string;
   metadata?: any;
-  createdAt: string;
-}
-
-export interface LeadEvent {
-  id: string;
-  leadId: string;
-  type: LeadEventType;
-  data: Record<string, any>;
   createdAt: string;
 }
 

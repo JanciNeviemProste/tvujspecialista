@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { authApi } from '@/lib/api/auth';
+import type { SpecialistCategory } from '@/types/specialist';
 
 export default function RegistrationPage() {
   const router = useRouter();
@@ -52,7 +53,7 @@ export default function RegistrationPage() {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
-        category: formData.category,
+        category: formData.category as SpecialistCategory,
         location: formData.location,
         yearsExperience: parseInt(formData.yearsExperience),
         bio: formData.bio,

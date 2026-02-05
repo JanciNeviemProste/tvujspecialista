@@ -1,4 +1,4 @@
-export type SubscriptionTier = 'basic' | 'pro' | 'premium'
+import { SubscriptionTier } from './subscriptions'
 
 export type SpecialistCategory = 'Finanční poradce' | 'Realitní makléř'
 
