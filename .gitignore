@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+**/*.test.ts.snap
+**/*.test.tsx.snap
 
 # next.js
 /.next/
