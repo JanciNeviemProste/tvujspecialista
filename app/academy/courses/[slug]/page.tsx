@@ -137,11 +137,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
             <p className="mb-4 text-muted-foreground">
               Ospravedlňujeme sa, ale tento kurz neexistuje alebo bol odstránený.
             </p>
-            <Button variant="outline" asChild>
-              <Link href="/academy/courses">
+            <Link href="/academy/courses">
+              <Button variant="outline">
                 Späť na katalóg
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -270,11 +270,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                       <p className="text-sm text-muted-foreground">
                         Pre prístup ku kurzu sa musíte prihlásiť
                       </p>
-                      <Button variant="default" className="w-full" asChild>
-                        <Link href="/profi/prihlaseni">
+                      <Link href="/profi/prihlaseni" className="w-full">
+                        <Button variant="default" className="w-full">
                           Prihlásiť sa
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </>
                   ) : isEnrolled ? (
                     <>
@@ -285,15 +285,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                           {Math.round(enrollment.progress)}% dokončené
                         </p>
                       </div>
-                      <Button
-                        variant="premium"
-                        className="w-full"
-                        asChild
-                      >
-                        <Link href={`/academy/learn/${course.slug}`}>
+                      <Link href={`/academy/learn/${course.slug}`} className="w-full">
+                        <Button variant="premium" className="w-full">
                           Pokračovať v učení
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </>
                   ) : (
                     <>

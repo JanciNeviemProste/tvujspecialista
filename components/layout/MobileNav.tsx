@@ -116,24 +116,24 @@ export function MobileNav() {
                       <p className="text-sm text-muted-foreground">
                         Prihlásený ako: <span className="font-medium text-foreground">{user?.email}</span>
                       </p>
-                      <Button asChild variant="outline" className="w-full" size="lg">
-                        <Link href="/my-account" onClick={closeMenu}>
+                      <Link href="/my-account" onClick={closeMenu} className="w-full">
+                        <Button variant="outline" className="w-full" size="lg">
                           Môj účet
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </>
                   ) : (
                     <>
-                      <Button asChild variant="outline" className="w-full" size="lg">
-                        <Link href="/profi/prihlaseni" onClick={closeMenu}>
+                      <Link href="/profi/prihlaseni" onClick={closeMenu} className="w-full">
+                        <Button variant="outline" className="w-full" size="lg">
                           Prihlásiť sa
-                        </Link>
-                      </Button>
-                      <Button asChild className="w-full" size="lg">
-                        <Link href="/profi/registrace" onClick={closeMenu}>
+                        </Button>
+                      </Link>
+                      <Link href="/profi/registrace" onClick={closeMenu} className="w-full">
+                        <Button className="w-full" size="lg">
                           Registrácia zdarma
-                        </Link>
-                      </Button>
+                        </Button>
+                      </Link>
                     </>
                   )}
                 </div>

@@ -29,16 +29,15 @@ export default function AcademyLandingPage() {
             <p className="mb-8 text-xl lg:text-2xl opacity-90">
               Prémiové online kurzy pre realitných agentov a finančných poradcov
             </p>
-            <Button
-              size="lg"
-              variant="glass"
-              className="shadow-lg"
-              asChild
-            >
-              <Link href="/academy/courses">
+            <Link href="/academy/courses">
+              <Button
+                size="lg"
+                variant="glass"
+                className="shadow-lg"
+              >
                 Preskúmať kurzy
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -152,16 +151,15 @@ export default function AcademyLandingPage() {
               <p className="mb-8 text-lg text-white/90">
                 Prezrite si náš kompletný katalóg kurzov a nájdite ten správny pre vás
               </p>
-              <Button
-                size="lg"
-                variant="glass"
-                className="shadow-lg"
-                asChild
-              >
-                <Link href="/academy/courses">
+              <Link href="/academy/courses">
+                <Button
+                  size="lg"
+                  variant="glass"
+                  className="shadow-lg"
+                >
                   Zobraziť všetky kurzy
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>

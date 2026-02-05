@@ -125,9 +125,9 @@ export default function SubscriptionManagementPage() {
             <CardDescription>Momentálne nemáte žiadne aktívne predplatné</CardDescription>
           </CardHeader>
           <CardFooter>
-            <Button asChild>
-              <a href="/ceny">Pozrieť cenové plány</a>
-            </Button>
+            <a href="/ceny">
+              <Button>Pozrieť cenové plány</Button>
+            </a>
           </CardFooter>
         </Card>
       </div>

@@ -41,12 +41,12 @@ export default function AcademyError({
             <RefreshCw className="mr-2 h-4 w-4" />
             Skúsiť znova
           </Button>
-          <Button asChild variant="outline" className="w-full sm:flex-1">
-            <Link href="/academy">
+          <Link href="/academy" className="w-full sm:flex-1">
+            <Button variant="outline" className="w-full">
               <Home className="mr-2 h-4 w-4" />
               Späť na Akadémiu
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

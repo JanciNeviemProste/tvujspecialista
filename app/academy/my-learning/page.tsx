@@ -60,9 +60,9 @@ function EmptyState({ icon: Icon, heading, description, buttonText, buttonHref }
       <h3 className="text-lg font-semibold mb-2">{heading}</h3>
       <p className="text-muted-foreground mb-4">{description}</p>
       {buttonText && buttonHref && (
-        <Button asChild>
-          <Link href={buttonHref}>{buttonText}</Link>
-        </Button>
+        <Link href={buttonHref}>
+          <Button>{buttonText}</Button>
+        </Link>
       )}
     </div>
   );

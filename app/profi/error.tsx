@@ -41,12 +41,12 @@ export default function ProfiError({
             <RefreshCw className="mr-2 h-4 w-4" />
             Skúsiť znova
           </Button>
-          <Button asChild variant="outline" className="w-full sm:flex-1">
-            <Link href="/profi/dashboard">
+          <Link href="/profi/dashboard" className="w-full sm:flex-1">
+            <Button variant="outline" className="w-full">
               <Home className="mr-2 h-4 w-4" />
               Späť na Dashboard
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>
