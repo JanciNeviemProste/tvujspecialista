@@ -4,10 +4,11 @@ import { useEffect } from 'react'
 import { EventCard } from '@/components/community/EventCard'
 import { EventsGridSkeleton } from '@/components/community/LoadingStates'
 import { useUpcomingEvents } from '@/lib/hooks/useCommunity'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Users, Calendar, TrendingUp } from 'lucide-react'
 import Link from 'next/link'
+import { cn } from '@/lib/utils/cn'
 
 export default function CommunityLandingPage() {
   const { data: featuredEvents, isLoading, error } = useUpcomingEvents()
@@ -31,16 +32,15 @@ export default function CommunityLandingPage() {
             <p className="mb-8 text-xl lg:text-2xl opacity-90">
               Pripojte sa k networkingu, workshopom a eventom pre realitných agentov a finančných poradcov
             </p>
-            <Button
-              size="lg"
-              variant="glass"
-              className="shadow-lg"
-              asChild
+            <Link
+              href="/community/events"
+              className={cn(
+                buttonVariants({ size: 'lg', variant: 'glass' }),
+                'shadow-lg'
+              )}
             >
-              <Link href="/community/events">
-                Preskúmať eventy
-              </Link>
-            </Button>
+              Preskúmať eventy
+            </Link>
           </div>
         </div>
 
@@ -154,16 +154,15 @@ export default function CommunityLandingPage() {
               <p className="mb-8 text-lg text-white/90">
                 Prezrite si všetky plánované eventy a zaregistrujte sa na tie, ktoré vás zaujímajú
               </p>
-              <Button
-                size="lg"
-                variant="glass"
-                className="shadow-lg"
-                asChild
+              <Link
+                href="/community/events"
+                className={cn(
+                  buttonVariants({ size: 'lg', variant: 'glass' }),
+                  'shadow-lg'
+                )}
               >
-                <Link href="/community/events">
-                  Zobraziť všetky eventy
-                </Link>
-              </Button>
+                Zobraziť všetky eventy
+              </Link>
             </CardContent>
           </Card>
         </div>

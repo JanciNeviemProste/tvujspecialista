@@ -1,6 +1,6 @@
 import { Event, EventType, EventFormat } from '@/types/community'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { MapPin, Video, Calendar, Users } from 'lucide-react'
 import Image from 'next/image'
@@ -141,16 +141,17 @@ export function EventCard({ event, showRSVPButton = true, className }: EventCard
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <Button
-          variant="premium"
-          className="w-full bg-accent-500 hover:bg-accent-600"
-          asChild
-          disabled={isFullyBooked}
+        <Link
+          href={href}
+          aria-disabled={isFullyBooked}
+          tabIndex={isFullyBooked ? -1 : undefined}
+          className={cn(
+            buttonVariants({ variant: 'premium', className: 'w-full bg-accent-500 hover:bg-accent-600' }),
+            isFullyBooked && 'pointer-events-none opacity-50'
+          )}
         >
-          <Link href={href}>
-            {isFullyBooked ? 'Obsadené' : showRSVPButton ? 'Registrovať sa' : 'Zobraziť detail'}
-          </Link>
-        </Button>
+          {isFullyBooked ? 'Obsadené' : showRSVPButton ? 'Registrovať sa' : 'Zobraziť detail'}
+        </Link>
       </CardFooter>
     </Card>
   )
