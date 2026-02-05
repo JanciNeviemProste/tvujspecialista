@@ -15,6 +15,7 @@ import {
 } from '@nestjs/swagger';
 import { CommissionsService } from '../services/commissions.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../../auth/guards/admin.guard';
 import { WaiveCommissionDto } from '../dto/waive-commission.dto';
 
 @ApiTags('commissions')
@@ -32,6 +33,10 @@ export class CommissionsController {
       where: { userId: req.user.userId },
     });
 
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
     return this.commissionsService.getMyCommissions(specialist.id);
   }
 
@@ -44,6 +49,10 @@ export class CommissionsController {
     const specialist = await this.commissionsService['specialistRepository'].findOne({
       where: { userId: req.user.userId },
     });
+
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
 
     return this.commissionsService.getCommissionStats(specialist.id);
   }
@@ -58,20 +67,23 @@ export class CommissionsController {
       where: { userId: req.user.userId },
     });
 
+    if (!specialist) {
+      throw new Error('Specialist not found');
+    }
+
     return this.commissionsService.payCommission(id, specialist.id);
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Get('pending')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all pending commissions (Admin only)' })
   @ApiResponse({ status: 200, description: 'Returns all pending commissions' })
   async getAllPending(@Request() req) {
-    // TODO: Add admin guard
     return this.commissionsService.getAllPending();
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AdminGuard)
   @Post(':id/waive')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Waive commission (Admin only)' })
@@ -81,7 +93,6 @@ export class CommissionsController {
     @Request() req,
     @Body() dto: WaiveCommissionDto,
   ) {
-    // TODO: Add admin guard
     return this.commissionsService.waiveCommission(id, dto.note);
   }
 }
