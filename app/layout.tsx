@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
 import '@/styles/globals.css'
 import { Providers } from './providers'
+import { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Najděte ověřeného specialistu | tvujspecialista.cz',
@@ -41,8 +41,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="cs">
-      <body>
+    <html lang="cs" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <Providers>
           {children}
         </Providers>
