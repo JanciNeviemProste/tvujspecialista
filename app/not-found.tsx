@@ -37,11 +37,9 @@ export default function NotFound() {
           </Button>
         </CardFooter>
         <div className="pb-6">
-          <Button asChild variant="ghost" size="sm">
-            <Link href="javascript:history.back()">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Späť
-            </Link>
+          <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Späť
           </Button>
         </div>
       </Card>
