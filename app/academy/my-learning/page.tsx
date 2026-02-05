@@ -71,7 +71,8 @@ function EmptyState({ icon: Icon, heading, description, buttonText, buttonHref }
 export default function MyLearningPage() {
   const router = useRouter();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
-  const { data: enrollments, isLoading: enrollmentsLoading } = useMyEnrollments();
+  const { data, isLoading: enrollmentsLoading } = useMyEnrollments();
+  const enrollments = data?.enrollments ?? [];
 
   // Auth guard - redirect if not authenticated
   useEffect(() => {
