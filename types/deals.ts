@@ -28,12 +28,27 @@ export enum DealStatus {
   CLOSED_LOST = 'closed_lost',
 }
 
+export enum LeadEventType {
+  CREATED = 'created',
+  STATUS_CHANGED = 'status_changed',
+  NOTE_ADDED = 'note_added',
+  EMAIL_SENT = 'email_sent',
+}
+
 export interface DealEvent {
   id: string;
   dealId: string;
   type: string;
   description: string;
   metadata?: any;
+  createdAt: string;
+}
+
+export interface LeadEvent {
+  id: string;
+  leadId: string;
+  type: LeadEventType;
+  data: Record<string, any>;
   createdAt: string;
 }
 
@@ -49,4 +64,24 @@ export interface UpdateDealValueDto {
 export interface CloseDealDto {
   status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST;
   actualDealValue?: number;
+}
+
+export interface DealFilters {
+  search: string;
+  status: DealStatus | 'all';
+  valueRange: [number, number];
+  dateRange: {
+    from: string | null;
+    to: string | null;
+  };
+  dateType: 'created' | 'estimatedClose';
+}
+
+export interface DealAnalyticsData {
+  conversionRate: number;
+  averageDealValue: number;
+  averageTimeToClose: number; // in days
+  winRate: number;
+  statusDistribution: { status: DealStatus; count: number }[];
+  monthlyTrend: { month: string; won: number; lost: number }[];
 }
