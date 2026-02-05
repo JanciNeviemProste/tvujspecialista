@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { SpecialistCard } from '@/components/shared/SpecialistCard';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
-import { SpecialistCategory } from '@/types/specialist';
+import { SpecialistCategory, Specialist } from '@/types/specialist';
 
 export default function SearchPage() {
   const [filters, setFilters] = useState({
@@ -228,7 +228,7 @@ export default function SearchPage() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {data.specialists.map((specialist) => (
+                    {data.specialists.map((specialist: Specialist) => (
                       <SpecialistCard key={specialist.id} specialist={specialist} />
                     ))}
                   </div>
