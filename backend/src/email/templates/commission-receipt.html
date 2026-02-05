@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potvrzení platby provize</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        .receipt {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid #11998e;
+        }
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .receipt-row:last-child {
+            border-bottom: none;
+            font-size: 20px;
+            font-weight: bold;
+            color: #11998e;
+            margin-top: 10px;
+            padding-top: 20px;
+            border-top: 2px solid #11998e;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #11998e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .checkmark {
+            font-size: 64px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="checkmark">✅</div>
+        <h1>Platba úspěšně přijata</h1>
+        <p>Děkujeme za vaši platbu</p>
+    </div>
+    <div class="content">
+        <p>Dobrý den <strong>{{specialistName}}</strong>,</p>
+
+        <p>Vaše platba provize byla úspěšně zpracována a zaregistrována v našem systému.</p>
+
+        <div class="receipt">
+            <h2 style="margin-top: 0; color: #11998e;">Potvrzení o platbě</h2>
+
+            <div class="receipt-row">
+                <span>ID platby:</span>
+                <span><strong>{{commissionId}}</strong></span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Datum:</span>
+                <span><strong>{{date}}</strong></span>
+            </div>
+
+            <div class="receipt-row">
+                <span>Částka:</span>
+                <span><strong>{{commissionAmount}} Kč</strong></span>
+            </div>
+
+            <div class="receipt-row">
+                <span>CELKEM:</span>
+                <span>{{commissionAmount}} Kč</span>
+            </div>
+        </div>
+
+        <p>Tento email slouží jako potvrzení o platbě. Pro daňové účely si prosím uschovejte.</p>
+
+        <a href="{{dashboardUrl}}" class="button">Přejít na dashboard</a>
+
+        <p>Děkujeme za vaši důvěru a těšíme se na další spolupráci!</p>
+    </div>
+    <div class="footer">
+        <p>tvujspecialista.cz</p>
+        <p>Tento email byl odeslán automaticky, prosím neodpovídejte.</p>
+        <p>V případě dotazů nás kontaktujte na: info@tvujspecialista.cz</p>
+    </div>
+</body>
+</html>
