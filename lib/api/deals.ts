@@ -1,5 +1,5 @@
 import apiClient from './client';
-import type { Deal, UpdateDealStatusDto, UpdateDealValueDto, CloseDealDto } from '@/types/deals';
+import type { Deal, UpdateDealStatusDto, UpdateDealValueDto, CloseDealDto, DealEvent, DealAnalyticsData } from '@/types/deals';
 
 export const dealsApi = {
   getMyDeals: () =>
@@ -19,4 +19,10 @@ export const dealsApi = {
 
   addNote: (id: string, note: string) =>
     apiClient.post(`/deals/${id}/notes`, { note }),
+
+  getMyEvents: (dealId: string) =>
+    apiClient.get<DealEvent[]>(`/deals/my/events/${dealId}`),
+
+  getMyAnalytics: () =>
+    apiClient.get<DealAnalyticsData>('/deals/my/analytics'),
 };

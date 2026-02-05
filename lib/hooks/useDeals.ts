@@ -70,3 +70,20 @@ export function useAddDealNote() {
     },
   });
 }
+
+export function useDealEvents(dealId: string) {
+  return useQuery({
+    queryKey: ['dealEvents', dealId],
+    queryFn: () => dealsApi.getMyEvents(dealId).then((res) => res.data),
+    enabled: !!dealId, // Only run if dealId is provided
+    staleTime: 30 * 1000, // 30 seconds
+  });
+}
+
+export function useDealAnalytics() {
+  return useQuery({
+    queryKey: ['dealAnalytics'],
+    queryFn: () => dealsApi.getMyAnalytics().then((res) => res.data),
+    staleTime: 60 * 1000, // 1 minute - analytics don't change frequently
+  });
+}

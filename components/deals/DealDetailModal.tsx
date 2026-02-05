@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { Deal, DealStatus } from '@/types/deals';
-import { useAddDealNote, useReopenDeal } from '@/lib/hooks/useDeals';
+import { useAddDealNote, useReopenDeal, useDealEvents } from '@/lib/hooks/useDeals';
+import { DealTimeline } from '@/components/deals/DealTimeline';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -29,6 +30,7 @@ export function DealDetailModal({
 }: DealDetailModalProps) {
   const [newNote, setNewNote] = useState('');
   const addNote = useAddDealNote();
+  const { data: events, isLoading: eventsLoading } = useDealEvents(deal?.id || '');
 
   if (!isOpen || !deal) return null;
 
@@ -205,6 +207,15 @@ export function DealDetailModal({
                 </Button>
               </div>
             )}
+          </div>
+
+          {/* Timeline/Events */}
+          <div>
+            <h3 className="text-sm font-semibold text-muted-foreground mb-3">História udalostí</h3>
+            <DealTimeline
+              events={events || []}
+              isLoading={eventsLoading}
+            />
           </div>
         </CardContent>
 
