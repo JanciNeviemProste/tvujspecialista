@@ -51,12 +51,12 @@ export function DealFilters({
     filters.dateRange.to;
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn('space-y-4', className)} role="search" aria-label="Deal filters">
       {/* Search and Status (Always Visible) */}
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
           <Input
             type="text"
             placeholder="Hľadať dealy..."
@@ -65,6 +65,7 @@ export function DealFilters({
               onFiltersChange({ ...filters, search: e.target.value })
             }
             className="pl-10"
+            aria-label="Search deals by name, email, or phone"
           />
         </div>
 
@@ -78,6 +79,7 @@ export function DealFilters({
             })
           }
           className="px-4 py-2 rounded-lg border bg-card text-sm min-w-[180px]"
+          aria-label="Filter by deal status"
         >
           <option value="all">Všetky statusy</option>
           <option value={DealStatus.NEW}>Nový</option>
@@ -94,8 +96,11 @@ export function DealFilters({
           size="sm"
           onClick={() => setIsExpanded(!isExpanded)}
           className="gap-2"
+          aria-expanded={isExpanded}
+          aria-controls="advanced-filters"
+          aria-label={isExpanded ? 'Hide advanced filters' : 'Show advanced filters'}
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           {isExpanded ? 'Menej' : 'Viac filtrov'}
         </Button>
 
@@ -106,8 +111,9 @@ export function DealFilters({
             size="sm"
             onClick={handleClearFilters}
             className="gap-2"
+            aria-label="Clear all filters"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4" aria-hidden="true" />
             Vymazať
           </Button>
         )}
@@ -115,13 +121,13 @@ export function DealFilters({
 
       {/* Advanced Filters (Collapsible) */}
       {isExpanded && (
-        <Card>
+        <Card id="advanced-filters" role="region" aria-label="Advanced filters">
           <CardContent className="pt-6 space-y-6">
             {/* Value Range Slider */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-sm font-medium">Hodnota dealu</Label>
-                <span className="text-sm text-muted-foreground">
+                <Label className="text-sm font-medium" htmlFor="value-range-slider">Hodnota dealu</Label>
+                <span className="text-sm text-muted-foreground" aria-live="polite" aria-atomic="true">
                   {new Intl.NumberFormat('sk-SK', {
                     style: 'currency',
                     currency: 'EUR',
@@ -136,6 +142,7 @@ export function DealFilters({
                 </span>
               </div>
               <Slider
+                id="value-range-slider"
                 min={0}
                 max={maxDealValue}
                 step={100}
@@ -147,6 +154,7 @@ export function DealFilters({
                   })
                 }
                 className="py-4"
+                aria-label="Deal value range"
               />
             </div>
 

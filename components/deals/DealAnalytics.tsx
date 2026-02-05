@@ -96,7 +96,7 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
   );
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn('space-y-6', className)} role="region" aria-label="Deal analytics">
       {/* Metric Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat) => {
@@ -106,12 +106,17 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-muted-foreground">
+                    <p className="text-sm font-medium text-muted-foreground" id={`stat-${stat.title.toLowerCase().replace(/\s+/g, '-')}-label`}>
                       {stat.title}
                     </p>
-                    <p className="text-2xl font-bold">{stat.value}</p>
+                    <p
+                      className="text-2xl font-bold"
+                      aria-labelledby={`stat-${stat.title.toLowerCase().replace(/\s+/g, '-')}-label`}
+                    >
+                      {stat.value}
+                    </p>
                   </div>
-                  <div className={cn('p-3 rounded-full', stat.bgColor)}>
+                  <div className={cn('p-3 rounded-full', stat.bgColor)} aria-hidden="true">
                     <Icon className={cn('h-6 w-6', stat.color)} />
                   </div>
                 </div>
@@ -140,7 +145,14 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
                       {item.count} ({percentage.toFixed(0)}%)
                     </span>
                   </div>
-                  <div className="h-2 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="h-2 rounded-full bg-muted overflow-hidden"
+                    role="progressbar"
+                    aria-valuenow={percentage}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label={`${getStatusLabel(item.status)}: ${percentage.toFixed(0)}%`}
+                  >
                     <div
                       className="h-full bg-primary rounded-full transition-all"
                       style={{ width: `${percentage}%` }}

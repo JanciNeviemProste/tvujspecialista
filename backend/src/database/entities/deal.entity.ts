@@ -24,19 +24,25 @@ export enum DealStatus {
 }
 
 @Entity('leads') // Keep table name for backward compatibility
-@Index(['specialistId', 'createdAt'])
-@Index(['status'])
+@Index(['specialistId', 'createdAt']) // Composite index for specialist's deals ordered by date
+@Index(['status']) // Index for status filtering
+@Index(['specialistId', 'status']) // Composite index for filtered queries by specialist
+@Index(['estimatedCloseDate']) // Index for date range filtering
+@Index(['dealValue']) // Index for value range filtering
+@Index(['actualCloseDate']) // Index for closed deals analytics
 export class Deal {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
+  @Index() // Individual index for lookups
   specialistId: string;
 
   @Column()
   customerName: string;
 
   @Column()
+  @Index() // Index for email searches
   customerEmail: string;
 
   @Column()

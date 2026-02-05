@@ -67,17 +67,17 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
   };
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <ol className={cn('space-y-4', className)} role="list" aria-label="Deal timeline">
       {events.map((event, index) => {
         const Icon = getEventIcon(event.type);
         const colorClass = getEventColor(event.type);
         const isLast = index === events.length - 1;
 
         return (
-          <div key={event.id} className="relative flex gap-4">
+          <li key={event.id} className="relative flex gap-4">
             {/* Vertical line */}
             {!isLast && (
-              <div className="absolute left-4 top-10 bottom-0 w-px bg-border" />
+              <div className="absolute left-4 top-10 bottom-0 w-px bg-border" aria-hidden="true" />
             )}
 
             {/* Icon */}
@@ -86,6 +86,7 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
                 'relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
                 colorClass
               )}
+              aria-hidden="true"
             >
               <Icon className="h-4 w-4" />
             </div>
@@ -96,12 +97,14 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
                 {event.description}
               </p>
               <p className="text-xs text-muted-foreground">
-                {formatDateTime(event.createdAt, 'sk')}
+                <time dateTime={event.createdAt}>
+                  {formatDateTime(event.createdAt, 'sk')}
+                </time>
               </p>
             </div>
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ol>
   );
 }

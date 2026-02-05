@@ -89,14 +89,18 @@ export function DealDetailModal({
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="deal-modal-title"
     >
       <Card
         className="w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
+        role="document"
       >
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <div className="flex items-center gap-3">
-            <CardTitle>Detail dealu</CardTitle>
+            <CardTitle id="deal-modal-title">Detail dealu</CardTitle>
             <Badge className={cn('text-white', getStatusColor(deal.status))}>
               {getStatusLabel(deal.status)}
             </Badge>
@@ -105,8 +109,9 @@ export function DealDetailModal({
             variant="ghost"
             size="sm"
             onClick={onClose}
+            aria-label="Close modal"
           >
-            <X className="h-4 w-4" />
+            <X className="h-4 w-4" aria-hidden="true" />
           </Button>
         </CardHeader>
 
@@ -196,13 +201,15 @@ export function DealDetailModal({
                   value={newNote}
                   onChange={(e) => setNewNote(e.target.value)}
                   className="min-h-[80px]"
+                  aria-label="New note"
                 />
                 <Button
                   size="sm"
                   onClick={handleAddNote}
                   disabled={!newNote.trim() || addNote.isPending}
+                  aria-label="Add note to deal"
                 >
-                  <Plus className="h-4 w-4 mr-2" />
+                  <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
                   {addNote.isPending ? 'Pridávam...' : 'Pridať poznámku'}
                 </Button>
               </div>

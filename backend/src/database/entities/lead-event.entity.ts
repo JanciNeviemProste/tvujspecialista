@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
 import { Lead } from './lead.entity';
 
 export enum LeadEventType {
@@ -9,11 +9,15 @@ export enum LeadEventType {
 }
 
 @Entity('lead_events')
+@Index(['leadId', 'createdAt']) // Composite index for timeline queries
+@Index(['type']) // Index for filtering by event type
+@Index(['leadId', 'type']) // Composite index for filtered event queries
 export class LeadEvent {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
+  @Index() // Individual index for lead lookups
   leadId: string;
 
   @Column({
@@ -30,5 +34,6 @@ export class LeadEvent {
   lead: Lead;
 
   @CreateDateColumn()
+  @Index() // Index for sorting by date
   createdAt: Date;
 }

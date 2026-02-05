@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMyDeals, useUpdateDealStatus, useUpdateDealValue, useCloseDeal, useReopenDeal, useDealAnalytics } from '@/lib/hooks/useDeals';
@@ -9,16 +10,31 @@ import { DealKanban } from '@/components/deals/DealKanban';
 import { DealCard } from '@/components/deals/DealCard';
 import { DealValueModal } from '@/components/deals/DealValueModal';
 import { CloseDealModal } from '@/components/deals/CloseDealModal';
-import { DealDetailModal } from '@/components/deals/DealDetailModal';
 import { DealFilters } from '@/components/deals/DealFilters';
-import { DealAnalytics } from '@/components/deals/DealAnalytics';
-import { KanbanSkeleton, DealCardSkeleton } from '@/components/deals/LoadingStates';
+import { KanbanSkeleton, DealCardSkeleton, DealAnalyticsSkeleton } from '@/components/deals/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { LayoutGrid, List, Download, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { toast } from 'sonner';
 import { exportDealsToCSV } from '@/lib/utils/exportDeals';
+import { measureExportPerformance } from '@/lib/utils/performance';
+
+// Dynamic imports for code splitting
+const DealAnalytics = dynamic(
+  () => import('@/components/deals/DealAnalytics').then(mod => mod.DealAnalytics),
+  {
+    loading: () => <DealAnalyticsSkeleton />,
+    ssr: false,
+  }
+);
+
+const DealDetailModal = dynamic(
+  () => import('@/components/deals/DealDetailModal').then(mod => mod.DealDetailModal),
+  {
+    ssr: false,
+  }
+);
 
 type ViewMode = 'kanban' | 'list';
 
@@ -87,52 +103,54 @@ export default function DealsPage() {
     );
   }
 
-  // Filter deals
-  const filteredDeals = deals?.filter((deal) => {
-    // Search filter
-    const matchesSearch =
-      deal.customerName.toLowerCase().includes(filters.search.toLowerCase()) ||
-      deal.customerEmail.toLowerCase().includes(filters.search.toLowerCase()) ||
-      deal.customerPhone.includes(filters.search);
+  // Filter deals with memoization
+  const filteredDeals = useMemo(() => {
+    return deals?.filter((deal) => {
+      // Search filter
+      const matchesSearch =
+        deal.customerName.toLowerCase().includes(filters.search.toLowerCase()) ||
+        deal.customerEmail.toLowerCase().includes(filters.search.toLowerCase()) ||
+        deal.customerPhone.includes(filters.search);
 
-    // Status filter
-    const matchesStatus = filters.status === 'all' || deal.status === filters.status;
+      // Status filter
+      const matchesStatus = filters.status === 'all' || deal.status === filters.status;
 
-    // Value range filter
-    const dealValue = deal.dealValue || 0;
-    const matchesValue =
-      dealValue >= filters.valueRange[0] && dealValue <= filters.valueRange[1];
+      // Value range filter
+      const dealValue = deal.dealValue || 0;
+      const matchesValue =
+        dealValue >= filters.valueRange[0] && dealValue <= filters.valueRange[1];
 
-    // Date range filter
-    let matchesDate = true;
-    if (filters.dateRange.from || filters.dateRange.to) {
-      const dateToCheck =
-        filters.dateType === 'created'
-          ? new Date(deal.createdAt)
-          : deal.estimatedCloseDate
-          ? new Date(deal.estimatedCloseDate)
-          : null;
+      // Date range filter
+      let matchesDate = true;
+      if (filters.dateRange.from || filters.dateRange.to) {
+        const dateToCheck =
+          filters.dateType === 'created'
+            ? new Date(deal.createdAt)
+            : deal.estimatedCloseDate
+            ? new Date(deal.estimatedCloseDate)
+            : null;
 
-      if (dateToCheck) {
-        if (filters.dateRange.from) {
-          const fromDate = new Date(filters.dateRange.from);
-          matchesDate = matchesDate && dateToCheck >= fromDate;
+        if (dateToCheck) {
+          if (filters.dateRange.from) {
+            const fromDate = new Date(filters.dateRange.from);
+            matchesDate = matchesDate && dateToCheck >= fromDate;
+          }
+          if (filters.dateRange.to) {
+            const toDate = new Date(filters.dateRange.to);
+            toDate.setHours(23, 59, 59, 999); // End of day
+            matchesDate = matchesDate && dateToCheck <= toDate;
+          }
+        } else if (filters.dateType === 'estimatedClose') {
+          matchesDate = false; // No estimated close date
         }
-        if (filters.dateRange.to) {
-          const toDate = new Date(filters.dateRange.to);
-          toDate.setHours(23, 59, 59, 999); // End of day
-          matchesDate = matchesDate && dateToCheck <= toDate;
-        }
-      } else if (filters.dateType === 'estimatedClose') {
-        matchesDate = false; // No estimated close date
       }
-    }
 
-    return matchesSearch && matchesStatus && matchesValue && matchesDate;
-  }) || [];
+      return matchesSearch && matchesStatus && matchesValue && matchesDate;
+    }) || [];
+  }, [deals, filters]);
 
-  // Handlers
-  const handleStatusChange = (deal: Deal) => {
+  // Handlers with useCallback
+  const handleStatusChange = useCallback((deal: Deal) => {
     setSelectedDeal(deal);
     if (deal.status === DealStatus.IN_PROGRESS) {
       setCloseModalOpen(true);
@@ -140,14 +158,14 @@ export default function DealsPage() {
       // Show value modal for other statuses
       setValueModalOpen(true);
     }
-  };
+  }, []);
 
-  const handleViewDetails = (deal: Deal) => {
+  const handleViewDetails = useCallback((deal: Deal) => {
     setSelectedDeal(deal);
     setDetailModalOpen(true);
-  };
+  }, []);
 
-  const handleValueSubmit = async (dealId: string, data: { dealValue: number; estimatedCloseDate: string }) => {
+  const handleValueSubmit = useCallback(async (dealId: string, data: { dealValue: number; estimatedCloseDate: string }) => {
     try {
       await updateValue.mutateAsync({ id: dealId, data });
       toast.success('Hodnota dealu bola úspešne nastavená');
@@ -156,9 +174,9 @@ export default function DealsPage() {
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Chyba pri nastavovaní hodnoty dealu');
     }
-  };
+  }, [updateValue]);
 
-  const handleCloseDeal = async (
+  const handleCloseDeal = useCallback(async (
     dealId: string,
     data: { status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST; actualDealValue?: number }
   ) => {
@@ -174,16 +192,23 @@ export default function DealsPage() {
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Chyba pri uzatváraní dealu');
     }
-  };
+  }, [closeDeal]);
 
-  // Stats
-  const stats = {
+  const handleExport = useCallback(async () => {
+    await measureExportPerformance('CSV', () => {
+      exportDealsToCSV(filteredDeals);
+    }, { dealsCount: filteredDeals.length });
+    toast.success(`Exportovaných ${filteredDeals.length} dealov`);
+  }, [filteredDeals]);
+
+  // Stats with memoization
+  const stats = useMemo(() => ({
     total: filteredDeals.length,
     new: filteredDeals.filter((d) => d.status === DealStatus.NEW).length,
     inProgress: filteredDeals.filter((d) => d.status === DealStatus.IN_PROGRESS).length,
     won: filteredDeals.filter((d) => d.status === DealStatus.CLOSED_WON).length,
     totalValue: filteredDeals.reduce((sum, d) => sum + (d.dealValue || 0), 0),
-  };
+  }), [filteredDeals]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -240,7 +265,7 @@ export default function DealsPage() {
 
           <Button
             variant="outline"
-            onClick={() => exportDealsToCSV(filteredDeals)}
+            onClick={handleExport}
             disabled={filteredDeals.length === 0}
             className="gap-2"
           >
