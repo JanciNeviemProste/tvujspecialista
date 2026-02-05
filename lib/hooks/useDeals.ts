@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { dealsApi } from '@/lib/api/deals';
 import type { UpdateDealStatusDto, UpdateDealValueDto, CloseDealDto } from '@/types/deals';
+import { toast } from 'sonner';
 
 export function useMyDeals() {
   return useQuery({
@@ -51,6 +52,21 @@ export function useReopenDeal() {
       dealsApi.reopenDeal(id).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
+    },
+  });
+}
+
+export function useAddDealNote() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, note }: { id: string; note: string }) =>
+      dealsApi.addNote(id, note).then((res) => res.data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
+      toast.success('Poznámka bola úspešne pridaná');
+    },
+    onError: () => {
+      toast.error('Nepodarilo sa pridať poznámku');
     },
   });
 }

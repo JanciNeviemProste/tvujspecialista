@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { useMyDeals, useUpdateDealStatus, useUpdateDealValue, useCloseDeal } from '@/lib/hooks/useDeals';
+import { useMyDeals, useUpdateDealStatus, useUpdateDealValue, useCloseDeal, useReopenDeal } from '@/lib/hooks/useDeals';
 import { Deal, DealStatus } from '@/types/deals';
 import { DealKanban } from '@/components/deals/DealKanban';
 import { DealCard } from '@/components/deals/DealCard';
 import { DealValueModal } from '@/components/deals/DealValueModal';
 import { CloseDealModal } from '@/components/deals/CloseDealModal';
+import { DealDetailModal } from '@/components/deals/DealDetailModal';
 import { KanbanSkeleton, DealCardSkeleton } from '@/components/deals/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -26,6 +27,7 @@ export default function DealsPage() {
   const updateStatus = useUpdateDealStatus();
   const updateValue = useUpdateDealValue();
   const closeDeal = useCloseDeal();
+  const reopenDeal = useReopenDeal();
 
   const [viewMode, setViewMode] = useState<ViewMode>('kanban');
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,6 +36,7 @@ export default function DealsPage() {
   // Modal states
   const [valueModalOpen, setValueModalOpen] = useState(false);
   const [closeModalOpen, setCloseModalOpen] = useState(false);
+  const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
 
   // Redirect if not authenticated
@@ -86,8 +89,7 @@ export default function DealsPage() {
 
   const handleViewDetails = (deal: Deal) => {
     setSelectedDeal(deal);
-    // TODO: Implement detail view
-    toast.info('Detail view coming soon');
+    setDetailModalOpen(true);
   };
 
   const handleValueSubmit = async (dealId: string, data: { dealValue: number; estimatedCloseDate: string }) => {
@@ -263,6 +265,26 @@ export default function DealsPage() {
         }}
         onSubmit={handleCloseDeal}
         isLoading={closeDeal.isPending}
+      />
+
+      <DealDetailModal
+        deal={selectedDeal}
+        isOpen={detailModalOpen}
+        onClose={() => {
+          setDetailModalOpen(false);
+          setSelectedDeal(null);
+        }}
+        onEditValue={(deal) => {
+          setSelectedDeal(deal);
+          setValueModalOpen(true);
+        }}
+        onCloseDeal={(deal) => {
+          setSelectedDeal(deal);
+          setCloseModalOpen(true);
+        }}
+        onReopen={(deal) => {
+          reopenDeal.mutate(deal.id);
+        }}
       />
     </div>
   );

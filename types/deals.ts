@@ -14,6 +14,7 @@ export interface Deal {
   commissionId?: string;
   commission?: Commission;
   events?: DealEvent[];
+  notes?: string[];
   createdAt: string;
   updatedAt: string;
 }
