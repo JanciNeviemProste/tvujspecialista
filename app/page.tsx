@@ -1,3 +1,5 @@
+'use client';
+
 import { MobileNav } from '@/components/layout/MobileNav';
 
 export default function HomePage() {
