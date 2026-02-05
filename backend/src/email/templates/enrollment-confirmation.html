@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background-color: #0ea5e9; color: white; padding: 20px; text-align: center; }
+    .content { padding: 30px; background-color: #f9fafb; }
+    .button { display: inline-block; padding: 12px 24px; background-color: #0ea5e9; color: white; text-decoration: none; border-radius: 6px; margin-top: 20px; }
+    .footer { padding: 20px; text-align: center; color: #666; font-size: 12px; }
+    .course-info { background-color: white; padding: 20px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #0ea5e9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Gratulujeme k zápisu do kurzu!</h1>
+    </div>
+    <div class="content">
+      <p>Dobrý den <strong>{{userName}}</strong>,</p>
+      <p>Těší nás, že jste se přihlásil/a do kurzu na tvujspecialista.cz.</p>
+
+      <div class="course-info">
+        <h3 style="margin-top: 0; color: #0ea5e9;">{{courseTitle}}</h3>
+        <p>Váš přístup ke kurzu je nyní aktivní a můžete začít se učit!</p>
+      </div>
+
+      <h3>Jak začít:</h3>
+      <ul>
+        <li>Klikněte na tlačítko níže pro vstup do kurzu</li>
+        <li>Procházejte lekce vlastním tempem</li>
+        <li>Využívejte dostupné materiály a zdroje</li>
+        <li>Sledujte svůj pokrok v dashboardu</li>
+      </ul>
+
+      <a href="{{courseUrl}}" class="button">Začít se učit</a>
+
+      <p style="margin-top: 30px;">Své kurzy najdete také v <a href="{{dashboardUrl}}" style="color: #0ea5e9;">Mém vzdělávání</a>.</p>
+
+      <p style="margin-top: 30px; color: #666; font-size: 14px;">Přejeme hodně úspěchů při studiu!</p>
+    </div>
+    <div class="footer">
+      <p>&copy; 2025 tvujspecialista.cz</p>
+    </div>
+  </div>
+</body>
+</html>
