@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { SpecialistCard } from '@/components/shared/SpecialistCard';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
+import { SpecialistCategory } from '@/types/specialist';
 
 export default function SearchPage() {
   const [filters, setFilters] = useState({
@@ -15,7 +16,7 @@ export default function SearchPage() {
   });
 
   const { data, isLoading, error } = useSpecialists({
-    category: filters.category || undefined,
+    category: (filters.category || undefined) as SpecialistCategory | undefined,
     location: filters.location || undefined,
     minRating: filters.minRating,
     maxPrice: filters.maxPrice,
