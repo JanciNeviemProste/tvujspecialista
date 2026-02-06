@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as sgMail from '@sendgrid/mail';
 import * as fs from 'fs';
@@ -6,6 +6,8 @@ import * as path from 'path';
 
 @Injectable()
 export class EmailService {
+  private readonly logger = new Logger(EmailService.name);
+
   constructor(private configService: ConfigService) {
     const apiKey = this.configService.get('SENDGRID_API_KEY');
     if (apiKey && apiKey !== 'SG.xxxxxxxxxxxxx') {
@@ -58,7 +60,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      this.logger.error('Error sending email:', error);
     }
   }
 
@@ -84,7 +86,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      this.logger.error('Error sending email:', error);
     }
   }
 
@@ -110,7 +112,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      this.logger.error('Error sending email:', error);
     }
   }
 
@@ -147,7 +149,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending enrollment confirmation email:', error);
+      this.logger.error('Error sending enrollment confirmation email:', error);
     }
   }
 
@@ -185,7 +187,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending RSVP confirmation email:', error);
+      this.logger.error('Error sending RSVP confirmation email:', error);
     }
   }
 
@@ -220,7 +222,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending event cancellation email:', error);
+      this.logger.error('Error sending event cancellation email:', error);
     }
   }
 
@@ -260,7 +262,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending commission notification email:', error);
+      this.logger.error('Error sending commission notification email:', error);
     }
   }
 
@@ -300,7 +302,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending commission receipt email:', error);
+      this.logger.error('Error sending commission receipt email:', error);
     }
   }
 
@@ -336,7 +338,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending deal status change email:', error);
+      this.logger.error('Error sending deal status change email:', error);
     }
   }
 
@@ -378,7 +380,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending deal value set email:', error);
+      this.logger.error('Error sending deal value set email:', error);
     }
   }
 
@@ -420,7 +422,7 @@ export class EmailService {
         `,
       });
     } catch (error) {
-      console.error('Error sending deal deadline reminder email:', error);
+      this.logger.error('Error sending deal deadline reminder email:', error);
     }
   }
 

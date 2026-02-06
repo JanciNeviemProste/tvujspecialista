@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, BadRequestException, Inject, forwardRef } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, Inject, forwardRef, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -13,6 +13,8 @@ import { CommissionsService } from '../commissions/services/commissions.service'
 
 @Injectable()
 export class DealsService {
+  private readonly logger = new Logger(DealsService.name);
+
   constructor(
     @InjectRepository(Deal)
     private dealRepository: Repository<Deal>,
@@ -140,7 +142,7 @@ export class DealsService {
         );
       }
     } catch (error) {
-      console.error('Failed to send status change email:', error);
+      this.logger.error('Failed to send status change email:', error);
       // Don't block the update if email fails
     }
 
@@ -225,7 +227,7 @@ export class DealsService {
         );
       }
     } catch (error) {
-      console.error('Failed to send value set email:', error);
+      this.logger.error('Failed to send value set email:', error);
       // Don't block the update if email fails
     }
 
@@ -300,12 +302,12 @@ export class DealsService {
   @Cron(CronExpression.EVERY_1ST_DAY_OF_MONTH_AT_MIDNIGHT)
   async resetMonthlyLeadCounts() {
     await this.specialistRepository.update({}, { leadsThisMonth: 0 });
-    console.log('Monthly lead counts reset');
+    this.logger.log('Monthly lead counts reset');
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_9AM)
   async sendDeadlineReminders() {
-    console.log('Running deadline reminder cron job...');
+    this.logger.log('Running deadline reminder cron job...');
 
     try {
       // Find deals with estimated close date in 3 days
@@ -335,7 +337,7 @@ export class DealsService {
         return closeDate >= threeDaysFromNow && closeDate <= threeDaysEnd;
       });
 
-      console.log(`Found ${dealsToRemind.length} deals with deadline in 3 days`);
+      this.logger.log(`Found ${dealsToRemind.length} deals with deadline in 3 days`);
 
       // Send reminders
       for (const deal of dealsToRemind) {
@@ -361,14 +363,14 @@ export class DealsService {
                 estimatedCloseDate: new Date(deal.estimatedCloseDate).toLocaleDateString('sk-SK'),
               },
             );
-            console.log(`Sent deadline reminder for deal ${deal.id}`);
+            this.logger.log(`Sent deadline reminder for deal ${deal.id}`);
           }
         } catch (error) {
-          console.error(`Failed to send reminder for deal ${deal.id}:`, error);
+          this.logger.error(`Failed to send reminder for deal ${deal.id}:`, error);
         }
       }
     } catch (error) {
-      console.error('Error in deadline reminder cron job:', error);
+      this.logger.error('Error in deadline reminder cron job:', error);
     }
   }
 

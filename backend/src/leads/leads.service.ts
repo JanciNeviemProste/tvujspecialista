@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -12,6 +12,8 @@ import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class LeadsService {
+  private readonly logger = new Logger(LeadsService.name);
+
   constructor(
     @InjectRepository(Lead)
     private leadRepository: Repository<Lead>,
@@ -120,6 +122,6 @@ export class LeadsService {
   @Cron(CronExpression.EVERY_1ST_DAY_OF_MONTH_AT_MIDNIGHT)
   async resetMonthlyLeadCounts() {
     await this.specialistRepository.update({}, { leadsThisMonth: 0 });
-    console.log('Monthly lead counts reset');
+    this.logger.log('Monthly lead counts reset');
   }
 }

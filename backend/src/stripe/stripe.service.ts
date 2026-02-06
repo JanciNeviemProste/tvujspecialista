@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,6 +11,7 @@ import { CreateCheckoutDto } from './dto/create-checkout.dto';
 
 @Injectable()
 export class StripeService {
+  private readonly logger = new Logger(StripeService.name);
   private stripe: Stripe;
 
   constructor(
@@ -240,7 +241,7 @@ export class StripeService {
         }
         break;
       case 'payment_intent.payment_failed':
-        console.error('Commission payment failed:', event.data.object);
+        this.logger.error('Commission payment failed:', JSON.stringify(event.data.object));
         break;
     }
   }
@@ -263,6 +264,6 @@ export class StripeService {
       Number(commission.commissionAmount),
     );
 
-    console.log('Commission payment processed successfully:', commission.id);
+    this.logger.log(`Commission payment processed successfully: ${commission.id}`);
   }
 }

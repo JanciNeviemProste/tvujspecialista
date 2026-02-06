@@ -3,6 +3,7 @@ import {
   NotFoundException,
   BadRequestException,
   ForbiddenException,
+  Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,6 +14,8 @@ import { CloudinaryService } from '../../cloudinary/cloudinary.service';
 
 @Injectable()
 export class VideosService {
+  private readonly logger = new Logger(VideosService.name);
+
   // Allowed video MIME types
   private readonly ALLOWED_VIDEO_TYPES = [
     'video/mp4',
@@ -184,7 +187,7 @@ export class VideosService {
       });
 
       if (!video) {
-        console.warn(`Video not found for public_id: ${publicId}`);
+        this.logger.warn(`Video not found for public_id: ${publicId}`);
         return;
       }
 
@@ -195,10 +198,10 @@ export class VideosService {
         await this.videoRepository.save(video);
       } else if (notificationType === 'delete') {
         // Handle deletion if needed
-        console.log(`Video deleted: ${publicId}`);
+        this.logger.log(`Video deleted: ${publicId}`);
       }
     } catch (error) {
-      console.error('Webhook processing error:', error);
+      this.logger.error('Webhook processing error:', error);
       throw error;
     }
   }
@@ -218,7 +221,7 @@ export class VideosService {
       // 2. Delete from Cloudinary
       await this.cloudinaryService.deleteVideo(video.cloudinaryPublicId);
     } catch (error) {
-      console.error('Failed to delete video from Cloudinary:', error);
+      this.logger.error('Failed to delete video from Cloudinary:', error);
       // Continue with database deletion even if Cloudinary deletion fails
     }
 
