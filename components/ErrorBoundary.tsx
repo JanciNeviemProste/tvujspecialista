@@ -160,7 +160,7 @@ export function ErrorBoundaryWrapper({
   resetKeys = [],
 }: {
   children: ReactNode;
-  resetKeys?: any[];
+  resetKeys?: unknown[];
 }) {
   const key = resetKeys.join('-');
 

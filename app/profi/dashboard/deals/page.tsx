@@ -18,6 +18,7 @@ import { LayoutGrid, List, Download, ChevronDown, ChevronUp } from 'lucide-react
 import { cn } from '@/lib/utils/cn';
 import { toast } from 'sonner';
 import { exportDealsToCSV } from '@/lib/utils/exportDeals';
+import { getErrorMessage } from '@/lib/utils/error';
 import { measureExportPerformance } from '@/lib/utils/performance';
 
 // Dynamic imports for code splitting
@@ -171,8 +172,8 @@ export default function DealsPage() {
       toast.success('Hodnota dealu bola úspešne nastavená');
       setValueModalOpen(false);
       setSelectedDeal(null);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Chyba pri nastavovaní hodnoty dealu');
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error));
     }
   }, [updateValue]);
 
@@ -189,8 +190,8 @@ export default function DealsPage() {
       );
       setCloseModalOpen(false);
       setSelectedDeal(null);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Chyba pri uzatváraní dealu');
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error));
     }
   }, [closeDeal]);
 

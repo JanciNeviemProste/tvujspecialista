@@ -42,7 +42,7 @@ export interface DealEvent {
   dealId: string;
   type: string;
   description: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
   createdAt: string;
 }
 

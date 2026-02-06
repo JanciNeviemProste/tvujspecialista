@@ -5,6 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMyCommissions } from '@/lib/hooks/useCommissions';
 import { commissionsApi } from '@/lib/api/commissions';
+import { getErrorMessage } from '@/lib/utils/error';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -63,8 +64,8 @@ export default function CommissionPaymentPage() {
     try {
       const { data } = await commissionsApi.payCommission(commission.id);
       setClientSecret(data.clientSecret);
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Chyba pri načítavaní platby');
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     } finally {
       setIsLoadingPayment(false);
     }

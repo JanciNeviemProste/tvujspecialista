@@ -91,8 +91,8 @@ export function PaymentForm({
         setError(errorMessage);
         onError(errorMessage);
       }
-    } catch (err: any) {
-      const errorMessage = err.message || 'Chyba pri spracovaní platby';
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Chyba pri spracovaní platby';
       setError(errorMessage);
       onError(errorMessage);
     } finally {

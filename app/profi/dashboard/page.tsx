@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
 import { leadsApi } from '@/lib/api/leads';
 import type { Lead } from '@/types/lead';
+import type { LeadStatus } from '@/lib/api/leads';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function DashboardPage() {
 
   const handleStatusChange = async (leadId: string, newStatus: string) => {
     try {
-      await leadsApi.updateStatus(leadId, newStatus as any);
+      await leadsApi.updateStatus(leadId, newStatus as LeadStatus);
       // React Query will automatically refetch
     } catch (error) {
       console.error('Error updating lead status:', error);

@@ -4,6 +4,7 @@ import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import { authApi } from '@/lib/api/auth';
 import type { SpecialistCategory } from '@/types/specialist';
+import { getErrorMessage } from '@/lib/utils/error';
 
 export default function RegistrationPage() {
   const router = useRouter();
@@ -65,10 +66,8 @@ export default function RegistrationPage() {
 
       // Redirect to dashboard
       router.push('/profi/dashboard');
-    } catch (err: any) {
-      setError(
-        err.response?.data?.message || 'Chyba při registraci. Zkontrolujte své údaje a zkuste to znovu.'
-      );
+    } catch (err: unknown) {
+      setError(getErrorMessage(err));
     } finally {
       setIsLoading(false);
     }

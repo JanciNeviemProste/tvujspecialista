@@ -98,7 +98,7 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
         <div className="space-y-2">
           <Link href={`/academy/learn/${enrollment.course.slug}`}>
             <Button
-              variant={buttonVariant as any}
+              variant={buttonVariant as "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "premium" | "glass" | null | undefined}
               className="w-full"
             >
               {buttonText}

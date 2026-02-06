@@ -115,7 +115,7 @@ export function CourseCard({ course, enrolled = false, progress, className }: Co
       <CardFooter className="p-4 pt-0">
         <Link href={href}>
           <Button
-            variant={buttonVariant as any}
+            variant={buttonVariant as "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "premium" | "glass" | null | undefined}
             className="w-full"
           >
             {buttonText}

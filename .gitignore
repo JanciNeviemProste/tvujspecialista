@@ -49,8 +49,5 @@ next-env.d.ts
 /.claude/
 nul
 
-.vercel
-
 # backup files
 *-backup.*
-app/page-backup.tsx

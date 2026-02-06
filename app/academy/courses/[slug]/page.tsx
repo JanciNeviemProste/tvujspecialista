@@ -15,6 +15,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { CourseLevel, CourseCategory } from '@/types/academy'
+import { getErrorMessage } from '@/lib/utils/error'
 
 interface CourseDetailPageProps {
   params: { slug: string }
@@ -84,14 +85,10 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
         type: 'success',
         message: 'Úspešne ste sa zapísali do kurzu!'
       })
-    } catch (error: any) {
-      const errorMessage = error?.response?.status === 403
-        ? 'Potrebujete Education alebo Premium subscription'
-        : 'Chyba pri zápise do kurzu'
-
+    } catch (error: unknown) {
       setToastMessage({
         type: 'error',
-        message: errorMessage
+        message: getErrorMessage(error)
       })
     }
   }

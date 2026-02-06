@@ -19,7 +19,7 @@ export function exportDealsToCSV(deals: Deal[], filename?: string) {
     return labels[status] || status;
   };
 
-  const formatValue = (value: any) => {
+  const formatValue = (value: unknown) => {
     if (value === null || value === undefined) return '';
     if (typeof value === 'string') {
       // Escape quotes and wrap in quotes if contains comma or newline
@@ -28,7 +28,7 @@ export function exportDealsToCSV(deals: Deal[], filename?: string) {
       }
       return value;
     }
-    return value.toString();
+    return String(value);
   };
 
   // CSV Headers

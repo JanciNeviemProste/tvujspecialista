@@ -70,7 +70,7 @@ export interface Lesson {
   videoId?: string;
   duration: number;
   type: LessonType;
-  content?: any;
+  content?: Record<string, unknown>;
   published: boolean;
   free: boolean;
   video?: Video;

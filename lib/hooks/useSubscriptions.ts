@@ -43,8 +43,8 @@ export function useCreateCheckout(type: SubscriptionType) {
         window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
       }
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Chyba pri vytváraní platby');
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri vytváraní platby');
     },
   });
 }
@@ -59,8 +59,8 @@ export function useUpgradeSubscription() {
       queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
       toast.success('Predplatné úspešne upgradované!');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Chyba pri upgrade predplatného');
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri upgrade predplatného');
     },
   });
 }
@@ -75,8 +75,8 @@ export function useDowngradeSubscription() {
       queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
       toast.success('Downgrade naplánovaný na koniec obdobia');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Chyba pri downgrade predplatného');
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri downgrade predplatného');
     },
   });
 }
@@ -90,8 +90,8 @@ export function useCancelSubscription() {
       queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
       toast.success('Predplatné zrušené. Prístup máte do konca plateného obdobia.');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Chyba pri zrušení predplatného');
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri zrušení predplatného');
     },
   });
 }
@@ -105,8 +105,8 @@ export function useResumeSubscription() {
       queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
       toast.success('Predplatné obnovené!');
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Chyba pri obnovení predplatného');
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri obnovení predplatného');
     },
   });
 }
@@ -117,8 +117,8 @@ export function useCustomerPortal() {
     onSuccess: (data) => {
       window.location.href = data.url;
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || 'Chyba pri otváraní portálu');
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri otváraní portálu');
     },
   });
 }
