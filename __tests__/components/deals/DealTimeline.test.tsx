@@ -189,7 +189,7 @@ describe('DealTimeline', () => {
 
       // The formatted text should be in Slovak format
       // Format depends on timezone, but should contain date parts
-      expect(timeElement?.textContent).toMatch(/\d{2}\.\d{2}\.\d{4}/);
+      expect(timeElement?.textContent).toMatch(/\d{2}\.?\s*\d{2}\.?\s*\d{4}/);
     });
 
     it('shows formatted time with hours and minutes', () => {

@@ -71,6 +71,7 @@ const customJestConfig = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/.next/',
+    '/backend/',
   ],
 
   // Transform ignore patterns
