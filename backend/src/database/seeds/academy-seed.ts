@@ -5,7 +5,7 @@ import { Lesson, LessonType } from '../entities/lesson.entity';
 
 export async function seedAcademyCourses(dataSource: DataSource) {
   const courseRepository = dataSource.getRepository(Course);
-  const moduleRepository = dataSource.getRepository('Module');
+  const moduleRepository = dataSource.getRepository(Module);
   const lessonRepository = dataSource.getRepository(Lesson);
 
   console.log('🌱 Seeding academy courses...');
@@ -15,12 +15,14 @@ export async function seedAcademyCourses(dataSource: DataSource) {
     {
       slug: 'zaklady-hypotecniho-poradenstvi',
       title: 'Základy hypotečního poradenství',
-      description: 'Komplexní kurz pro začínající finanční poradce. Naučte se všechny aspekty hypotečního poradenství - od úvodních konzultací až po uzavření smlouvy.',
+      description:
+        'Komplexní kurz pro začínající finanční poradce. Naučte se všechny aspekty hypotečního poradenství - od úvodních konzultací až po uzavření smlouvy.',
       thumbnailUrl: '/images/courses/hypoteky-zaklady.jpg',
       level: CourseLevel.BEGINNER,
       category: CourseCategory.FINANCIAL,
       instructorName: 'Ing. Martin Dvořák',
-      instructorBio: 'Senior hypoteční poradce s 15 lety zkušeností. Vedl více než 500 klientů k získání hypotéky.',
+      instructorBio:
+        'Senior hypoteční poradce s 15 lety zkušeností. Vedl více než 500 klientů k získání hypotéky.',
       instructorPhoto: '/images/instructors/martin-dvorak.jpg',
       duration: 180, // 3 hours
       published: true,
@@ -137,12 +139,14 @@ export async function seedAcademyCourses(dataSource: DataSource) {
     {
       slug: 'prodej-nemovitosti-pro-makelare',
       title: 'Prodej nemovitostí pro začínající makléře',
-      description: 'Praktický kurz zaměřený na proces prodeje nemovitostí. Od ocenění přes marketing až po uzavření smlouvy.',
+      description:
+        'Praktický kurz zaměřený na proces prodeje nemovitostí. Od ocenění přes marketing až po uzavření smlouvy.',
       thumbnailUrl: '/images/courses/reality-prodej.jpg',
       level: CourseLevel.BEGINNER,
       category: CourseCategory.REAL_ESTATE,
       instructorName: 'Lucie Novotná',
-      instructorBio: 'Realitní makléřka s 10 lety zkušeností. Prodala více než 200 nemovitostí v hodnotě přes 500 mil. Kč.',
+      instructorBio:
+        'Realitní makléřka s 10 lety zkušeností. Prodala více než 200 nemovitostí v hodnotě přes 500 mil. Kč.',
       instructorPhoto: '/images/instructors/lucie-novotna.jpg',
       duration: 240, // 4 hours
       published: true,
@@ -259,12 +263,14 @@ export async function seedAcademyCourses(dataSource: DataSource) {
     {
       slug: 'investicni-strategie-pro-pokrocile',
       title: 'Investiční strategie pro pokročilé',
-      description: 'Pokročilý kurz pro finanční poradce. ETF, akcie, dluhopisy, diverzifikace portfolia a daňová optimalizace.',
+      description:
+        'Pokročilý kurz pro finanční poradce. ETF, akcie, dluhopisy, diverzifikace portfolia a daňová optimalizace.',
       thumbnailUrl: '/images/courses/investice-advanced.jpg',
       level: CourseLevel.ADVANCED,
       category: CourseCategory.FINANCIAL,
       instructorName: 'Ing. Jan Král, MBA',
-      instructorBio: 'Investiční specialista s 20 lety zkušeností. Spravuje portfolia v hodnotě přes 2 miliardy Kč.',
+      instructorBio:
+        'Investiční specialista s 20 lety zkušeností. Spravuje portfolia v hodnotě přes 2 miliardy Kč.',
       instructorPhoto: '/images/instructors/jan-kral.jpg',
       duration: 300, // 5 hours
       published: true,

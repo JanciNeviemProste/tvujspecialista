@@ -1,4 +1,15 @@
-import { IsEmail, IsNotEmpty, IsString, MinLength, IsEnum, IsInt, Min, IsOptional, IsArray, IsUrl } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  IsEnum,
+  IsInt,
+  Min,
+  IsOptional,
+  IsArray,
+  IsUrl,
+} from 'class-validator';
 import { SpecialistCategory } from '../../database/entities/specialist.entity';
 
 export class RegisterDto {

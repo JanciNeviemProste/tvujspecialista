@@ -7,7 +7,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Enrollment, EnrollmentStatus } from '../../database/entities/enrollment.entity';
+import {
+  Enrollment,
+  EnrollmentStatus,
+} from '../../database/entities/enrollment.entity';
 import { Course } from '../../database/entities/course.entity';
 import { LessonProgress } from '../../database/entities/lesson-progress.entity';
 import { QueryEnrollmentsDto } from '../dto/query-enrollments.dto';
@@ -59,7 +62,11 @@ export class EnrollmentsService {
       existingEnrollment.progress = 0;
 
       // Increment enrollment count
-      await this.courseRepository.increment({ id: courseId }, 'enrollmentCount', 1);
+      await this.courseRepository.increment(
+        { id: courseId },
+        'enrollmentCount',
+        1,
+      );
 
       return this.enrollmentRepository.save(existingEnrollment);
     }
@@ -78,7 +85,11 @@ export class EnrollmentsService {
     const savedEnrollment = await this.enrollmentRepository.save(enrollment);
 
     // 4. Increment course enrollment count
-    await this.courseRepository.increment({ id: courseId }, 'enrollmentCount', 1);
+    await this.courseRepository.increment(
+      { id: courseId },
+      'enrollmentCount',
+      1,
+    );
 
     // 5. Return enrollment with course relation
     return this.enrollmentRepository.findOne({
@@ -180,7 +191,12 @@ export class EnrollmentsService {
     // Find enrollment with lesson progress
     const enrollment = await this.enrollmentRepository.findOne({
       where: { id: enrollmentId },
-      relations: ['lessonProgress', 'course', 'course.modules', 'course.modules.lessons'],
+      relations: [
+        'lessonProgress',
+        'course',
+        'course.modules',
+        'course.modules.lessons',
+      ],
     });
 
     if (!enrollment) {
@@ -192,7 +208,9 @@ export class EnrollmentsService {
     if (enrollment.course.modules) {
       enrollment.course.modules.forEach((module) => {
         if (module.lessons) {
-          totalLessons += module.lessons.filter((lesson) => lesson.published).length;
+          totalLessons += module.lessons.filter(
+            (lesson) => lesson.published,
+          ).length;
         }
       });
     }

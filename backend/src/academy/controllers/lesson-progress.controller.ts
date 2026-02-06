@@ -17,6 +17,7 @@ import {
 import { LessonProgressService } from '../services/lesson-progress.service';
 import { UpdateProgressDto } from '../dto/update-progress.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('Academy - Progress')
 @Controller('academy/progress')
@@ -48,7 +49,10 @@ export class LessonProgressController {
     status: 404,
     description: 'Enrollment or lesson not found',
   })
-  async updateProgress(@Request() req, @Body() dto: UpdateProgressDto) {
+  async updateProgress(
+    @Request() req: AuthenticatedRequest,
+    @Body() dto: UpdateProgressDto,
+  ) {
     return this.lessonProgressService.updateProgress(req.user.userId, dto);
   }
 
@@ -79,7 +83,13 @@ export class LessonProgressController {
     status: 404,
     description: 'Enrollment not found',
   })
-  async getProgress(@Request() req, @Param('enrollmentId') enrollmentId: string) {
-    return this.lessonProgressService.getProgress(req.user.userId, enrollmentId);
+  async getProgress(
+    @Request() req: AuthenticatedRequest,
+    @Param('enrollmentId') enrollmentId: string,
+  ) {
+    return this.lessonProgressService.getProgress(
+      req.user.userId,
+      enrollmentId,
+    );
   }
 }

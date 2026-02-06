@@ -24,11 +24,7 @@ export class RSVPsService {
     private emailService: EmailService,
   ) {}
 
-  async rsvp(
-    userId: string,
-    eventId: string,
-    notes?: string,
-  ): Promise<RSVP> {
+  async rsvp(userId: string, eventId: string, notes?: string): Promise<RSVP> {
     // 1. Validate event exists and published
     const event = await this.eventRepository.findOne({
       where: { id: eventId },
@@ -44,12 +40,16 @@ export class RSVPsService {
 
     // Check if event has already started
     if (new Date(event.startDate) <= new Date()) {
-      throw new BadRequestException('Cannot register for event that has already started');
+      throw new BadRequestException(
+        'Cannot register for event that has already started',
+      );
     }
 
     // 2. Check maxAttendees limit
     if (event.maxAttendees && event.attendeeCount >= event.maxAttendees) {
-      throw new BadRequestException('Event has reached maximum attendee capacity');
+      throw new BadRequestException(
+        'Event has reached maximum attendee capacity',
+      );
     }
 
     // 3. Check if already registered
@@ -59,7 +59,9 @@ export class RSVPsService {
 
     if (existingRSVP) {
       if (existingRSVP.status !== RSVPStatus.CANCELLED) {
-        throw new ConflictException('You are already registered for this event');
+        throw new ConflictException(
+          'You are already registered for this event',
+        );
       }
       // If previously cancelled, allow re-registration
       existingRSVP.status = RSVPStatus.PENDING;
@@ -138,7 +140,9 @@ export class RSVPsService {
 
     // Verify ownership
     if (rsvp.userId !== userId) {
-      throw new ForbiddenException('You are not authorized to confirm this RSVP');
+      throw new ForbiddenException(
+        'You are not authorized to confirm this RSVP',
+      );
     }
 
     if (rsvp.status === RSVPStatus.CANCELLED) {
@@ -168,7 +172,9 @@ export class RSVPsService {
 
     // Verify ownership
     if (rsvp.userId !== userId) {
-      throw new ForbiddenException('You are not authorized to cancel this RSVP');
+      throw new ForbiddenException(
+        'You are not authorized to cancel this RSVP',
+      );
     }
 
     if (rsvp.status === RSVPStatus.CANCELLED) {

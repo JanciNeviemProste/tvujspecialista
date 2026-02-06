@@ -1,4 +1,11 @@
-import { IsOptional, IsEnum, IsString, IsInt, Min, IsNumber } from 'class-validator';
+import {
+  IsOptional,
+  IsEnum,
+  IsString,
+  IsInt,
+  Min,
+  IsNumber,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { SpecialistCategory } from '../../database/entities/specialist.entity';
 

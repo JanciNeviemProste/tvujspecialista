@@ -1,4 +1,12 @@
-import { IsNotEmpty, IsUUID, IsInt, Min, IsOptional, IsBoolean, IsString } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsUUID,
+  IsInt,
+  Min,
+  IsOptional,
+  IsBoolean,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateProgressDto {

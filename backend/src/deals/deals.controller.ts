@@ -22,6 +22,7 @@ import { CloseDealDto } from './dto/close-deal.dto';
 import { AddNoteDto } from './dto/add-note.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LeadLimitGuard } from '../leads/guards/lead-limit.guard';
+import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('deals')
 @Controller('deals')
@@ -41,9 +42,14 @@ export class DealsController {
   @Get('my')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get my deals' })
-  @ApiResponse({ status: 200, description: 'Returns all deals for the authenticated specialist' })
-  async getMyDeals(@Request() req) {
-    const specialist = await this.dealsService.findBySpecialist(req.user.userId);
+  @ApiResponse({
+    status: 200,
+    description: 'Returns all deals for the authenticated specialist',
+  })
+  async getMyDeals(@Request() req: AuthenticatedRequest) {
+    const specialist = await this.dealsService.findBySpecialist(
+      req.user.userId,
+    );
     return specialist;
   }
 
@@ -54,7 +60,7 @@ export class DealsController {
   @ApiResponse({ status: 200, description: 'Deal status updated' })
   async updateStatus(
     @Param('id') id: string,
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
     @Body() updateDto: UpdateDealStatusDto,
   ) {
     return this.dealsService.updateStatus(id, req.user.userId, updateDto);
@@ -67,7 +73,7 @@ export class DealsController {
   @ApiResponse({ status: 200, description: 'Deal value updated' })
   async updateDealValue(
     @Param('id') id: string,
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
     @Body() dto: UpdateDealValueDto,
   ) {
     const specialist = await this.dealsService['specialistRepository'].findOne({
@@ -93,7 +99,7 @@ export class DealsController {
   @ApiResponse({ status: 200, description: 'Deal closed' })
   async closeDeal(
     @Param('id') id: string,
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
     @Body() dto: CloseDealDto,
   ) {
     const specialist = await this.dealsService['specialistRepository'].findOne({
@@ -117,7 +123,10 @@ export class DealsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Reopen closed lost deal' })
   @ApiResponse({ status: 200, description: 'Deal reopened' })
-  async reopenDeal(@Param('id') id: string, @Request() req) {
+  async reopenDeal(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+  ) {
     const specialist = await this.dealsService['specialistRepository'].findOne({
       where: { userId: req.user.userId },
     });
@@ -134,7 +143,11 @@ export class DealsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Add note to deal' })
   @ApiResponse({ status: 200, description: 'Note added' })
-  async addNote(@Param('id') id: string, @Request() req, @Body() addNoteDto: AddNoteDto) {
+  async addNote(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+    @Body() addNoteDto: AddNoteDto,
+  ) {
     return this.dealsService.addNote(id, req.user.userId, addNoteDto);
   }
 
@@ -143,7 +156,10 @@ export class DealsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get events for a specific deal' })
   @ApiResponse({ status: 200, description: 'Returns all events for the deal' })
-  async getDealEvents(@Param('dealId') dealId: string, @Request() req) {
+  async getDealEvents(
+    @Param('dealId') dealId: string,
+    @Request() req: AuthenticatedRequest,
+  ) {
     const specialist = await this.dealsService['specialistRepository'].findOne({
       where: { userId: req.user.userId },
     });
@@ -160,7 +176,7 @@ export class DealsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get deal analytics' })
   @ApiResponse({ status: 200, description: 'Returns analytics data' })
-  async getDealAnalytics(@Request() req) {
+  async getDealAnalytics(@Request() req: AuthenticatedRequest) {
     const specialist = await this.dealsService['specialistRepository'].findOne({
       where: { userId: req.user.userId },
     });

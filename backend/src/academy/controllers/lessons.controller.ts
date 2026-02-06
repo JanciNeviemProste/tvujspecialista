@@ -20,6 +20,7 @@ import { CreateLessonDto } from '../dto/create-lesson.dto';
 import { UpdateLessonDto } from '../dto/update-lesson.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../../auth/guards/admin.guard';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('Academy - Lessons')
 @Controller('academy')
@@ -36,11 +37,16 @@ export class LessonsController {
   @Get('lessons/:id')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get lesson by ID (requires enrollment if not free)' })
+  @ApiOperation({
+    summary: 'Get lesson by ID (requires enrollment if not free)',
+  })
   @ApiResponse({ status: 200, description: 'Returns lesson details' })
   @ApiResponse({ status: 404, description: 'Lesson not found' })
   @ApiResponse({ status: 403, description: 'Enrollment required' })
-  async findById(@Param('id') id: string, @Request() req) {
+  async findById(
+    @Param('id') id: string,
+    @Request() req: AuthenticatedRequest,
+  ) {
     return this.lessonsService.findById(id, req.user.userId);
   }
 

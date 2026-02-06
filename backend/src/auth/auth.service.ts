@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  ConflictException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -25,7 +29,9 @@ export class AuthService {
   ) {}
 
   async register(registerDto: RegisterDto) {
-    const existingUser = await this.userRepository.findOne({ where: { email: registerDto.email } });
+    const existingUser = await this.userRepository.findOne({
+      where: { email: registerDto.email },
+    });
     if (existingUser) {
       throw new ConflictException('Email already registered');
     }
@@ -41,7 +47,11 @@ export class AuthService {
     });
     const savedUser = await this.userRepository.save(user);
 
-    const slug = generateSlug(registerDto.name, registerDto.category, registerDto.location);
+    const slug = generateSlug(
+      registerDto.name,
+      registerDto.category,
+      registerDto.location,
+    );
 
     const specialist = this.specialistRepository.create({
       userId: savedUser.id,
@@ -57,8 +67,8 @@ export class AuthService {
       services: registerDto.services || [],
       certifications: registerDto.certifications || [],
       education: registerDto.education || '',
-      website: registerDto.website || null,
-      linkedin: registerDto.linkedin || null,
+      website: registerDto.website || undefined,
+      linkedin: registerDto.linkedin || undefined,
       availability: registerDto.availability || [],
     });
     await this.specialistRepository.save(specialist);
@@ -78,12 +88,17 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const user = await this.userRepository.findOne({ where: { email: loginDto.email } });
+    const user = await this.userRepository.findOne({
+      where: { email: loginDto.email },
+    });
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const isPasswordValid = await bcrypt.compare(loginDto.password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      loginDto.password,
+      user.password,
+    );
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
@@ -103,7 +118,9 @@ export class AuthService {
   }
 
   async refreshToken(refreshToken: string) {
-    const storedToken = await this.refreshTokenRepository.findOne({ where: { token: refreshToken } });
+    const storedToken = await this.refreshTokenRepository.findOne({
+      where: { token: refreshToken },
+    });
     if (!storedToken) {
       throw new UnauthorizedException('Invalid refresh token');
     }
@@ -113,7 +130,9 @@ export class AuthService {
       throw new UnauthorizedException('Refresh token expired');
     }
 
-    const user = await this.userRepository.findOne({ where: { id: storedToken.userId } });
+    const user = await this.userRepository.findOne({
+      where: { id: storedToken.userId },
+    });
     if (!user) {
       throw new UnauthorizedException('User not found');
     }

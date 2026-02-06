@@ -3,7 +3,10 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { NotFoundException, BadRequestException } from '@nestjs/common';
 import { CommissionsService } from './commissions.service';
-import { Commission, CommissionStatus } from '../../database/entities/commission.entity';
+import {
+  Commission,
+  CommissionStatus,
+} from '../../database/entities/commission.entity';
 import { Deal } from '../../database/entities/deal.entity';
 import { Specialist } from '../../database/entities/specialist.entity';
 import { StripeService } from '../../stripe/stripe.service';
@@ -163,14 +166,19 @@ describe('CommissionsService', () => {
       };
 
       commissionRepository.findOne.mockResolvedValue(mockCommission);
-      stripeService.createPaymentIntent.mockResolvedValue(mockPaymentIntent as any);
+      stripeService.createPaymentIntent.mockResolvedValue(
+        mockPaymentIntent as any,
+      );
       commissionRepository.save.mockResolvedValue({
         ...mockCommission,
         status: CommissionStatus.INVOICED,
         stripePaymentIntentId: 'pi_123',
       });
 
-      const result = await service.payCommission('commission-123', 'specialist-123');
+      const result = await service.payCommission(
+        'commission-123',
+        'specialist-123',
+      );
 
       expect(result).toEqual({ clientSecret: 'secret_123' });
       expect(commissionRepository.findOne).toHaveBeenCalledWith({
@@ -211,7 +219,10 @@ describe('CommissionsService', () => {
     it('should calculate correct amount with platform fee', async () => {
       const commissionAmount = 15000;
       const expectedStripeAmount = 1500000; // 15000 CZK * 100 cents
-      const pendingCommission = { ...mockCommission, status: CommissionStatus.PENDING };
+      const pendingCommission = {
+        ...mockCommission,
+        status: CommissionStatus.PENDING,
+      };
 
       commissionRepository.findOne.mockResolvedValue(pendingCommission);
       stripeService.createPaymentIntent.mockResolvedValue({
@@ -230,7 +241,10 @@ describe('CommissionsService', () => {
     });
 
     it('should include commission metadata in payment intent', async () => {
-      const pendingCommission = { ...mockCommission, status: CommissionStatus.PENDING };
+      const pendingCommission = {
+        ...mockCommission,
+        status: CommissionStatus.PENDING,
+      };
 
       commissionRepository.findOne.mockResolvedValue(pendingCommission);
       stripeService.createPaymentIntent.mockResolvedValue({
@@ -289,7 +303,9 @@ describe('CommissionsService', () => {
 
       commissionRepository.findOne.mockResolvedValue(commission);
       specialistRepository.findOne.mockResolvedValue(mockSpecialist);
-      commissionRepository.save.mockImplementation((entity) => Promise.resolve(entity as Commission));
+      commissionRepository.save.mockImplementation((entity) =>
+        Promise.resolve(entity as Commission),
+      );
       emailService.sendCommissionReceipt.mockResolvedValue(undefined);
 
       await service.handlePaymentSuccess(paymentIntentId);
@@ -441,9 +457,14 @@ describe('CommissionsService', () => {
   describe('waiveCommission', () => {
     it('should update status to WAIVED', async () => {
       commissionRepository.findOne.mockResolvedValue(mockCommission);
-      commissionRepository.save.mockImplementation((entity) => Promise.resolve(entity as Commission));
+      commissionRepository.save.mockImplementation((entity) =>
+        Promise.resolve(entity as Commission),
+      );
 
-      const result = await service.waiveCommission('commission-123', 'Admin approved waiver');
+      const result = await service.waiveCommission(
+        'commission-123',
+        'Admin approved waiver',
+      );
 
       expect(result.status).toBe(CommissionStatus.WAIVED);
       expect(commissionRepository.save).toHaveBeenCalledWith(
@@ -456,7 +477,9 @@ describe('CommissionsService', () => {
     it('should record waived note', async () => {
       const adminNote = 'Special case - waiving fee';
       commissionRepository.findOne.mockResolvedValue(mockCommission);
-      commissionRepository.save.mockImplementation((entity) => Promise.resolve(entity as Commission));
+      commissionRepository.save.mockImplementation((entity) =>
+        Promise.resolve(entity as Commission),
+      );
 
       const result = await service.waiveCommission('commission-123', adminNote);
 
@@ -470,7 +493,9 @@ describe('CommissionsService', () => {
 
     it('should use default note if none provided', async () => {
       commissionRepository.findOne.mockResolvedValue(mockCommission);
-      commissionRepository.save.mockImplementation((entity) => Promise.resolve(entity as Commission));
+      commissionRepository.save.mockImplementation((entity) =>
+        Promise.resolve(entity as Commission),
+      );
 
       const result = await service.waiveCommission('commission-123');
 
@@ -480,18 +505,30 @@ describe('CommissionsService', () => {
     it('should throw error if commission not found', async () => {
       commissionRepository.findOne.mockResolvedValue(null);
 
-      await expect(
-        service.waiveCommission('invalid-id'),
-      ).rejects.toThrow(NotFoundException);
+      await expect(service.waiveCommission('invalid-id')).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 
   describe('getCommissionStats', () => {
     it('should calculate pending and paid totals', async () => {
       const commissions = [
-        { ...mockCommission, status: CommissionStatus.PENDING, commissionAmount: 10000 },
-        { ...mockCommission, status: CommissionStatus.PENDING, commissionAmount: 5000 },
-        { ...mockCommission, status: CommissionStatus.PAID, commissionAmount: 15000 },
+        {
+          ...mockCommission,
+          status: CommissionStatus.PENDING,
+          commissionAmount: 10000,
+        },
+        {
+          ...mockCommission,
+          status: CommissionStatus.PENDING,
+          commissionAmount: 5000,
+        },
+        {
+          ...mockCommission,
+          status: CommissionStatus.PAID,
+          commissionAmount: 15000,
+        },
       ] as Commission[];
 
       commissionRepository.find.mockResolvedValue(commissions);

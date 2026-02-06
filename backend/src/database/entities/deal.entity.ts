@@ -84,7 +84,9 @@ export class Deal {
   @OneToMany(() => LeadEvent, (event) => event.lead)
   events: LeadEvent[];
 
-  @OneToOne(() => Commission, (commission) => commission.deal, { nullable: true })
+  @OneToOne(() => Commission, (commission) => commission.deal, {
+    nullable: true,
+  })
   @JoinColumn({ name: 'commissionId' })
   commission: Commission;
 

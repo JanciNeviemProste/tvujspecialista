@@ -2,8 +2,11 @@ import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { Lead, LeadStatus } from '../database/entities/lead.entity';
-import { LeadEvent, LeadEventType } from '../database/entities/lead-event.entity';
+import { Lead } from '../database/entities/lead.entity';
+import {
+  LeadEvent,
+  LeadEventType,
+} from '../database/entities/lead-event.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadStatusDto } from './dto/update-lead-status.dto';
@@ -72,13 +75,19 @@ export class LeadsService {
     });
   }
 
-  async updateStatus(leadId: string, userId: string, updateDto: UpdateLeadStatusDto) {
+  async updateStatus(
+    leadId: string,
+    userId: string,
+    updateDto: UpdateLeadStatusDto,
+  ) {
     const lead = await this.leadRepository.findOne({ where: { id: leadId } });
     if (!lead) {
       throw new NotFoundException('Lead not found');
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist || lead.specialistId !== specialist.id) {
       throw new NotFoundException('Unauthorized');
     }
@@ -102,7 +111,9 @@ export class LeadsService {
       throw new NotFoundException('Lead not found');
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist || lead.specialistId !== specialist.id) {
       throw new NotFoundException('Unauthorized');
     }

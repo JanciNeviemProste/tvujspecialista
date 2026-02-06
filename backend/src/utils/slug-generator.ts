@@ -1,4 +1,8 @@
-export function generateSlug(name: string, category: string, location: string): string {
+export function generateSlug(
+  name: string,
+  category: string,
+  location: string,
+): string {
   const normalize = (str: string): string => {
     return str
       .toLowerCase()
@@ -9,7 +13,8 @@ export function generateSlug(name: string, category: string, location: string): 
   };
 
   const namePart = normalize(name);
-  const categoryPart = category === 'Finanční poradce' ? 'financni-poradce' : 'realitni-makler';
+  const categoryPart =
+    category === 'Finanční poradce' ? 'financni-poradce' : 'realitni-makler';
   const locationPart = normalize(location);
 
   return `${namePart}-${categoryPart}-${locationPart}`;

@@ -101,11 +101,7 @@ export class ModulesService {
     await this.moduleRepository.delete(id);
 
     // Update course counts
-    await this.courseRepository.decrement(
-      { id: courseId },
-      'moduleCount',
-      1,
-    );
+    await this.courseRepository.decrement({ id: courseId }, 'moduleCount', 1);
     await this.courseRepository.decrement(
       { id: courseId },
       'lessonCount',

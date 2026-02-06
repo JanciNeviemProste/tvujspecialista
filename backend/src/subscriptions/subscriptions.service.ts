@@ -1,10 +1,21 @@
-import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ConfigService } from '@nestjs/config';
 import Stripe from 'stripe';
-import { Subscription, SubscriptionType, SubscriptionStatus } from '../database/entities/subscription.entity';
-import { User } from '../database/entities/user.entity';
+import {
+  Subscription,
+  SubscriptionType,
+  SubscriptionStatus,
+} from '../database/entities/subscription.entity';
+import {
+  User,
+  SubscriptionType as UserSubscriptionType,
+} from '../database/entities/user.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 
 @Injectable()
@@ -20,20 +31,22 @@ export class SubscriptionsService {
     private specialistRepository: Repository<Specialist>,
     private configService: ConfigService,
   ) {
-    const apiKey = this.configService.get('STRIPE_SECRET_KEY');
+    const apiKey = this.configService.get<string>('STRIPE_SECRET_KEY');
     if (apiKey && apiKey !== 'sk_test_xxxxxxxxxxxxx') {
       this.stripe = new Stripe(apiKey, { apiVersion: '2025-02-24.acacia' });
     }
   }
 
-  async createEducationCheckout(userId: string): Promise<{ sessionId: string }> {
+  async createEducationCheckout(
+    userId: string,
+  ): Promise<{ sessionId: string }> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
     // Check for existing subscription
-    let subscription = await this.subscriptionRepository.findOne({
+    const subscription = await this.subscriptionRepository.findOne({
       where: { userId },
     });
 
@@ -68,18 +81,24 @@ export class SubscriptionsService {
     return { sessionId: session.id };
   }
 
-  async createMarketplaceCheckout(userId: string): Promise<{ sessionId: string }> {
+  async createMarketplaceCheckout(
+    userId: string,
+  ): Promise<{ sessionId: string }> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist) {
-      throw new BadRequestException('Marketplace subscription requires a specialist account');
+      throw new BadRequestException(
+        'Marketplace subscription requires a specialist account',
+      );
     }
 
-    let subscription = await this.subscriptionRepository.findOne({
+    const subscription = await this.subscriptionRepository.findOne({
       where: { userId },
     });
 
@@ -121,9 +140,11 @@ export class SubscriptionsService {
       throw new NotFoundException('User not found');
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
 
-    let subscription = await this.subscriptionRepository.findOne({
+    const subscription = await this.subscriptionRepository.findOne({
       where: { userId },
     });
 
@@ -175,7 +196,10 @@ export class SubscriptionsService {
     });
   }
 
-  async upgradeSubscription(userId: string, newType: SubscriptionType): Promise<Subscription> {
+  async upgradeSubscription(
+    userId: string,
+    newType: SubscriptionType,
+  ): Promise<Subscription> {
     const subscription = await this.findActiveByUserId(userId);
 
     if (!subscription) {
@@ -188,7 +212,7 @@ export class SubscriptionsService {
 
     // Get current Stripe subscription
     const stripeSubscription = await this.stripe.subscriptions.retrieve(
-      subscription.stripeSubscriptionId
+      subscription.stripeSubscriptionId,
     );
 
     // Update Stripe subscription with proration
@@ -203,17 +227,20 @@ export class SubscriptionsService {
     });
 
     subscription.subscriptionType = newType;
-    subscription.scheduledDowngradeTo = null;
+    subscription.scheduledDowngradeTo = null!;
 
     // Update user subscription type
     await this.userRepository.update(userId, {
-      subscriptionType: newType as any,
+      subscriptionType: newType as unknown as UserSubscriptionType,
     });
 
     return this.subscriptionRepository.save(subscription);
   }
 
-  async downgradeSubscription(userId: string, newType: SubscriptionType): Promise<Subscription> {
+  async downgradeSubscription(
+    userId: string,
+    newType: SubscriptionType,
+  ): Promise<Subscription> {
     const subscription = await this.findActiveByUserId(userId);
 
     if (!subscription) {
@@ -226,7 +253,7 @@ export class SubscriptionsService {
 
     // Get current Stripe subscription
     const stripeSubscription = await this.stripe.subscriptions.retrieve(
-      subscription.stripeSubscriptionId
+      subscription.stripeSubscriptionId,
     );
 
     // Schedule change for end of billing period
@@ -246,7 +273,10 @@ export class SubscriptionsService {
     return this.subscriptionRepository.save(subscription);
   }
 
-  async cancelSubscription(userId: string, subscriptionId: string): Promise<Subscription> {
+  async cancelSubscription(
+    userId: string,
+    subscriptionId: string,
+  ): Promise<Subscription> {
     const subscription = await this.subscriptionRepository.findOne({
       where: { id: subscriptionId, userId },
     });
@@ -269,7 +299,10 @@ export class SubscriptionsService {
     return this.subscriptionRepository.save(subscription);
   }
 
-  async resumeSubscription(userId: string, subscriptionId: string): Promise<Subscription> {
+  async resumeSubscription(
+    userId: string,
+    subscriptionId: string,
+  ): Promise<Subscription> {
     const subscription = await this.subscriptionRepository.findOne({
       where: { id: subscriptionId, userId },
     });
@@ -287,7 +320,7 @@ export class SubscriptionsService {
       cancel_at_period_end: false,
     });
 
-    subscription.canceledAt = null;
+    subscription.canceledAt = null!;
 
     return this.subscriptionRepository.save(subscription);
   }

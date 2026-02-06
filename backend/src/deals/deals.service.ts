@@ -1,9 +1,19 @@
-import { Injectable, NotFoundException, BadRequestException, Inject, forwardRef, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Inject,
+  forwardRef,
+  Logger,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Deal, DealStatus } from '../database/entities/deal.entity';
-import { LeadEvent, LeadEventType } from '../database/entities/lead-event.entity';
+import {
+  LeadEvent,
+  LeadEventType,
+} from '../database/entities/lead-event.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { CreateDealDto } from './dto/create-deal.dto';
 import { UpdateDealStatusDto } from './dto/update-deal-status.dto';
@@ -93,7 +103,11 @@ export class DealsService {
     return deal;
   }
 
-  async updateStatus(dealId: string, userId: string, updateDto: UpdateDealStatusDto) {
+  async updateStatus(
+    dealId: string,
+    userId: string,
+    updateDto: UpdateDealStatusDto,
+  ) {
     const deal = await this.dealRepository.findOne({
       where: { id: dealId },
       relations: ['specialist', 'specialist.user'],
@@ -102,7 +116,9 @@ export class DealsService {
       throw new NotFoundException('Deal not found');
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist || deal.specialistId !== specialist.id) {
       throw new BadRequestException('Unauthorized');
     }
@@ -155,7 +171,9 @@ export class DealsService {
       throw new NotFoundException('Deal not found');
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist || deal.specialistId !== specialist.id) {
       throw new BadRequestException('Unauthorized');
     }
@@ -211,7 +229,9 @@ export class DealsService {
           {
             customerName: deal.customerName,
             dealValue,
-            estimatedCloseDate: new Date(estimatedCloseDate).toLocaleDateString('sk-SK'),
+            estimatedCloseDate: new Date(estimatedCloseDate).toLocaleDateString(
+              'sk-SK',
+            ),
           },
         );
       } else if (deal.specialist?.email) {
@@ -222,7 +242,9 @@ export class DealsService {
           {
             customerName: deal.customerName,
             dealValue,
-            estimatedCloseDate: new Date(estimatedCloseDate).toLocaleDateString('sk-SK'),
+            estimatedCloseDate: new Date(estimatedCloseDate).toLocaleDateString(
+              'sk-SK',
+            ),
           },
         );
       }
@@ -284,7 +306,7 @@ export class DealsService {
     }
 
     deal.status = DealStatus.IN_PROGRESS;
-    deal.actualCloseDate = null as any;
+    deal.actualCloseDate = null!;
 
     await this.leadEventRepository.save({
       leadId: dealId,
@@ -337,7 +359,9 @@ export class DealsService {
         return closeDate >= threeDaysFromNow && closeDate <= threeDaysEnd;
       });
 
-      this.logger.log(`Found ${dealsToRemind.length} deals with deadline in 3 days`);
+      this.logger.log(
+        `Found ${dealsToRemind.length} deals with deadline in 3 days`,
+      );
 
       // Send reminders
       for (const deal of dealsToRemind) {
@@ -354,19 +378,20 @@ export class DealsService {
           }
 
           if (email) {
-            await this.emailService.sendDealDeadlineReminder(
-              email,
-              name,
-              {
-                customerName: deal.customerName,
-                dealValue: deal.dealValue,
-                estimatedCloseDate: new Date(deal.estimatedCloseDate).toLocaleDateString('sk-SK'),
-              },
-            );
+            await this.emailService.sendDealDeadlineReminder(email, name, {
+              customerName: deal.customerName,
+              dealValue: deal.dealValue,
+              estimatedCloseDate: new Date(
+                deal.estimatedCloseDate,
+              ).toLocaleDateString('sk-SK'),
+            });
             this.logger.log(`Sent deadline reminder for deal ${deal.id}`);
           }
         } catch (error) {
-          this.logger.error(`Failed to send reminder for deal ${deal.id}:`, error);
+          this.logger.error(
+            `Failed to send reminder for deal ${deal.id}:`,
+            error,
+          );
         }
       }
     } catch (error) {
@@ -374,7 +399,10 @@ export class DealsService {
     }
   }
 
-  async getEventsByDeal(dealId: string, specialistId: string): Promise<LeadEvent[]> {
+  async getEventsByDeal(
+    dealId: string,
+    specialistId: string,
+  ): Promise<LeadEvent[]> {
     // First verify the deal belongs to this specialist
     const deal = await this.dealRepository.findOne({
       where: { id: dealId, specialistId },
@@ -399,37 +427,42 @@ export class DealsService {
     });
 
     const closedDeals = deals.filter(
-      (d) => d.status === DealStatus.CLOSED_WON || d.status === DealStatus.CLOSED_LOST
+      (d) =>
+        d.status === DealStatus.CLOSED_WON ||
+        d.status === DealStatus.CLOSED_LOST,
     );
     const wonDeals = deals.filter((d) => d.status === DealStatus.CLOSED_WON);
     const lostDeals = deals.filter((d) => d.status === DealStatus.CLOSED_LOST);
 
     // Conversion rate
-    const conversionRate = closedDeals.length > 0
-      ? (wonDeals.length / closedDeals.length) * 100
-      : 0;
+    const conversionRate =
+      closedDeals.length > 0 ? (wonDeals.length / closedDeals.length) * 100 : 0;
 
     // Average deal value
     const dealsWithValue = deals.filter((d) => d.dealValue && d.dealValue > 0);
-    const averageDealValue = dealsWithValue.length > 0
-      ? dealsWithValue.reduce((sum, d) => sum + d.dealValue, 0) / dealsWithValue.length
-      : 0;
+    const averageDealValue =
+      dealsWithValue.length > 0
+        ? dealsWithValue.reduce((sum, d) => sum + d.dealValue, 0) /
+          dealsWithValue.length
+        : 0;
 
     // Average time to close (in days)
     const dealsWithCloseDates = wonDeals.filter((d) => d.actualCloseDate);
-    const averageTimeToClose = dealsWithCloseDates.length > 0
-      ? dealsWithCloseDates.reduce((sum, d) => {
-          const created = new Date(d.createdAt);
-          const closed = new Date(d.actualCloseDate);
-          const days = Math.floor((closed.getTime() - created.getTime()) / (1000 * 60 * 60 * 24));
-          return sum + days;
-        }, 0) / dealsWithCloseDates.length
-      : 0;
+    const averageTimeToClose =
+      dealsWithCloseDates.length > 0
+        ? dealsWithCloseDates.reduce((sum, d) => {
+            const created = new Date(d.createdAt);
+            const closed = new Date(d.actualCloseDate);
+            const days = Math.floor(
+              (closed.getTime() - created.getTime()) / (1000 * 60 * 60 * 24),
+            );
+            return sum + days;
+          }, 0) / dealsWithCloseDates.length
+        : 0;
 
     // Win rate
-    const winRate = closedDeals.length > 0
-      ? (wonDeals.length / closedDeals.length) * 100
-      : 0;
+    const winRate =
+      closedDeals.length > 0 ? (wonDeals.length / closedDeals.length) * 100 : 0;
 
     // Status distribution
     const statusDistribution = Object.values(DealStatus).map((status) => ({
@@ -439,12 +472,16 @@ export class DealsService {
 
     // Monthly trend (last 6 months)
     const now = new Date();
-    const monthlyTrend: Array<{ month: string; won: number; lost: number }> = [];
+    const monthlyTrend: Array<{ month: string; won: number; lost: number }> =
+      [];
     for (let i = 5; i >= 0; i--) {
       const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
       const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
 
-      const monthName = monthDate.toLocaleDateString('sk-SK', { month: 'short', year: 'numeric' });
+      const monthName = monthDate.toLocaleDateString('sk-SK', {
+        month: 'short',
+        year: 'numeric',
+      });
 
       const won = wonDeals.filter((d) => {
         const closeDate = new Date(d.actualCloseDate);

@@ -3,7 +3,6 @@ import {
   NotFoundException,
   BadRequestException,
   ForbiddenException,
-  ConflictException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, MoreThan } from 'typeorm';
@@ -163,7 +162,9 @@ export class EventsService {
 
     // Verify ownership
     if (event.organizerId !== userId) {
-      throw new ForbiddenException('You are not authorized to update this event');
+      throw new ForbiddenException(
+        'You are not authorized to update this event',
+      );
     }
 
     // If title changed, regenerate slug
@@ -211,12 +212,16 @@ export class EventsService {
 
     // Verify ownership
     if (event.organizerId !== userId) {
-      throw new ForbiddenException('You are not authorized to delete this event');
+      throw new ForbiddenException(
+        'You are not authorized to delete this event',
+      );
     }
 
     // Check if event has confirmed attendees
     const confirmedRSVPs = event.rsvps?.filter(
-      (rsvp) => rsvp.status === RSVPStatus.CONFIRMED || rsvp.status === RSVPStatus.ATTENDED,
+      (rsvp) =>
+        rsvp.status === RSVPStatus.CONFIRMED ||
+        rsvp.status === RSVPStatus.ATTENDED,
     );
     if (confirmedRSVPs && confirmedRSVPs.length > 0) {
       throw new BadRequestException(
@@ -280,7 +285,9 @@ export class EventsService {
 
     // Verify ownership
     if (event.organizerId !== userId) {
-      throw new ForbiddenException('You are not authorized to cancel this event');
+      throw new ForbiddenException(
+        'You are not authorized to cancel this event',
+      );
     }
 
     // Check if event is already cancelled or completed
@@ -298,7 +305,9 @@ export class EventsService {
 
     // Send cancellation emails to all confirmed attendees
     const confirmedRSVPs = event.rsvps?.filter(
-      (rsvp) => rsvp.status === RSVPStatus.CONFIRMED || rsvp.status === RSVPStatus.PENDING,
+      (rsvp) =>
+        rsvp.status === RSVPStatus.CONFIRMED ||
+        rsvp.status === RSVPStatus.PENDING,
     );
 
     if (confirmedRSVPs && confirmedRSVPs.length > 0) {

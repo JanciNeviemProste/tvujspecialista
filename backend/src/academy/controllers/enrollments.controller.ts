@@ -20,6 +20,7 @@ import { CreateEnrollmentDto } from '../dto/create-enrollment.dto';
 import { QueryEnrollmentsDto } from '../dto/query-enrollments.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { SubscriptionGuard } from '../guards/subscription.guard';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('Academy - Enrollments')
 @Controller('academy/enrollments')
@@ -35,7 +36,10 @@ export class EnrollmentsController {
   @ApiResponse({ status: 403, description: 'Subscription required' })
   @ApiResponse({ status: 404, description: 'Course not found' })
   @ApiResponse({ status: 409, description: 'Already enrolled in this course' })
-  async enroll(@Request() req, @Body() dto: CreateEnrollmentDto) {
+  async enroll(
+    @Request() req: AuthenticatedRequest,
+    @Body() dto: CreateEnrollmentDto,
+  ) {
     return this.enrollmentsService.enroll(req.user.userId, dto.courseId);
   }
 
@@ -44,7 +48,10 @@ export class EnrollmentsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get my enrollments' })
   @ApiResponse({ status: 200, description: 'Returns list of user enrollments' })
-  async findMyEnrollments(@Request() req, @Query() filters: QueryEnrollmentsDto) {
+  async findMyEnrollments(
+    @Request() req: AuthenticatedRequest,
+    @Query() filters: QueryEnrollmentsDto,
+  ) {
     return this.enrollmentsService.findMyEnrollments(req.user.userId, filters);
   }
 
@@ -52,9 +59,15 @@ export class EnrollmentsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get enrollment by course ID' })
-  @ApiResponse({ status: 200, description: 'Returns enrollment for the course' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns enrollment for the course',
+  })
   @ApiResponse({ status: 404, description: 'Not enrolled in this course' })
-  async findByCourseId(@Request() req, @Param('courseId') courseId: string) {
+  async findByCourseId(
+    @Request() req: AuthenticatedRequest,
+    @Param('courseId') courseId: string,
+  ) {
     return this.enrollmentsService.findByCourseId(req.user.userId, courseId);
   }
 
@@ -62,10 +75,19 @@ export class EnrollmentsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get enrollment detail with progress' })
-  @ApiResponse({ status: 200, description: 'Returns enrollment with course and progress details' })
-  @ApiResponse({ status: 403, description: 'Not authorized to view this enrollment' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns enrollment with course and progress details',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Not authorized to view this enrollment',
+  })
   @ApiResponse({ status: 404, description: 'Enrollment not found' })
-  async findById(@Request() req, @Param('id') id: string) {
+  async findById(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
     return this.enrollmentsService.findById(id, req.user.userId);
   }
 
@@ -75,9 +97,12 @@ export class EnrollmentsController {
   @ApiOperation({ summary: 'Drop a course' })
   @ApiResponse({ status: 200, description: 'Course dropped successfully' })
   @ApiResponse({ status: 400, description: 'Cannot drop completed course' })
-  @ApiResponse({ status: 403, description: 'Not authorized to modify this enrollment' })
+  @ApiResponse({
+    status: 403,
+    description: 'Not authorized to modify this enrollment',
+  })
   @ApiResponse({ status: 404, description: 'Enrollment not found' })
-  async drop(@Request() req, @Param('id') id: string) {
+  async drop(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     await this.enrollmentsService.drop(id, req.user.userId);
     return { message: 'Course dropped successfully' };
   }

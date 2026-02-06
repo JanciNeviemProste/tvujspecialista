@@ -91,11 +91,7 @@ export class LessonsService {
     const savedLesson = await this.lessonRepository.save(lesson);
 
     // Update module and course lessonCount
-    await this.moduleRepository.increment(
-      { id: moduleId },
-      'lessonCount',
-      1,
-    );
+    await this.moduleRepository.increment({ id: moduleId }, 'lessonCount', 1);
     await this.courseRepository.increment(
       { id: module.courseId },
       'lessonCount',

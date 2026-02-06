@@ -7,9 +7,7 @@ import { Specialist } from '../database/entities/specialist.entity';
 import { Lead } from '../database/entities/lead.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User, Specialist, Lead]),
-  ],
+  imports: [TypeOrmModule.forFeature([User, Specialist, Lead])],
   controllers: [AdminController],
   providers: [AdminService],
   exports: [AdminService],

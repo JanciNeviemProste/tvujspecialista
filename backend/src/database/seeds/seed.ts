@@ -1,7 +1,11 @@
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { User, UserRole } from '../entities/user.entity';
-import { Specialist, SpecialistCategory, SubscriptionTier } from '../entities/specialist.entity';
+import {
+  Specialist,
+  SpecialistCategory,
+  SubscriptionTier,
+} from '../entities/specialist.entity';
 import { Review } from '../entities/review.entity';
 
 // Mock specialists data (imported from frontend mocks)
@@ -22,8 +26,17 @@ const mockSpecialists = [
     hourlyRate: 800,
     rating: 4.9,
     reviewsCount: 47,
-    services: ['Hypotéky a refinancování', 'Životní pojištění', 'Investiční strategie', 'Finanční plánování'],
-    certifications: ['Certifikovaný hypoteční poradce', 'Finanční analytik', 'Pojišťovací makléř'],
+    services: [
+      'Hypotéky a refinancování',
+      'Životní pojištění',
+      'Investiční strategie',
+      'Finanční plánování',
+    ],
+    certifications: [
+      'Certifikovaný hypoteční poradce',
+      'Finanční analytik',
+      'Pojišťovací makléř',
+    ],
     education: 'VŠE Praha, Finance a účetnictví',
     website: 'https://finance-novak.cz',
     linkedin: 'https://linkedin.com/in/jannovak',
@@ -46,8 +59,16 @@ const mockSpecialists = [
     hourlyRate: 600,
     rating: 4.8,
     reviewsCount: 32,
-    services: ['Životní pojištění', 'Hypotéky', 'Penzijní připojištění', 'Investice a spoření'],
-    certifications: ['Certifikovaný pojišťovací makléř', 'Hypoteční specialista'],
+    services: [
+      'Životní pojištění',
+      'Hypotéky',
+      'Penzijní připojištění',
+      'Investice a spoření',
+    ],
+    certifications: [
+      'Certifikovaný pojišťovací makléř',
+      'Hypoteční specialista',
+    ],
     education: 'Masarykova univerzita, Ekonomie',
     website: 'https://finance-svobodova.cz',
     availability: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So'],
@@ -69,8 +90,17 @@ const mockSpecialists = [
     hourlyRate: 1200,
     rating: 4.9,
     reviewsCount: 63,
-    services: ['Investiční strategie', 'Portfolio management', 'Hypotéky a úvěry', 'Pojištění majetku'],
-    certifications: ['CFA charterholder', 'Certifikovaný finanční poradce', 'Hypoteční poradce'],
+    services: [
+      'Investiční strategie',
+      'Portfolio management',
+      'Hypotéky a úvěry',
+      'Pojištění majetku',
+    ],
+    certifications: [
+      'CFA charterholder',
+      'Certifikovaný finanční poradce',
+      'Hypoteční poradce',
+    ],
     education: 'VŠE Praha, Finanční trhy',
     website: 'https://finance-dvorak.cz',
     linkedin: 'https://linkedin.com/in/martindvorak',
@@ -93,7 +123,12 @@ const mockSpecialists = [
     hourlyRate: 0,
     rating: 4.7,
     reviewsCount: 28,
-    services: ['Prodej bytů', 'Prodej domů', 'Pronájem nemovitostí', 'Odhad tržní ceny'],
+    services: [
+      'Prodej bytů',
+      'Prodej domů',
+      'Pronájem nemovitostí',
+      'Odhad tržní ceny',
+    ],
     certifications: ['Certifikovaný realitní makléř'],
     education: 'VŠB TU Ostrava, Management',
     website: 'https://reality-novotna.cz',
@@ -117,7 +152,12 @@ const mockSpecialists = [
     hourlyRate: 500,
     rating: 4.6,
     reviewsCount: 15,
-    services: ['Hypotéky pro mladé', 'Životní pojištění', 'Rodinné finance', 'Státní podpora'],
+    services: [
+      'Hypotéky pro mladé',
+      'Životní pojištění',
+      'Rodinné finance',
+      'Státní podpora',
+    ],
     certifications: ['Hypoteční specialista', 'Pojišťovací poradce'],
     education: 'Masarykova univerzita, Finance',
     availability: ['Po', 'Út', 'St', 'Čt', 'Pá'],
@@ -139,8 +179,17 @@ const mockSpecialists = [
     hourlyRate: 900,
     rating: 4.8,
     reviewsCount: 56,
-    services: ['Finanční plánování pro firmy', 'Podnikatelské pojištění', 'Hypotéky a úvěry', 'Investiční poradenství'],
-    certifications: ['Senior finanční konzultant', 'Risk manager', 'Pojišťovací makléř'],
+    services: [
+      'Finanční plánování pro firmy',
+      'Podnikatelské pojištění',
+      'Hypotéky a úvěry',
+      'Investiční poradenství',
+    ],
+    certifications: [
+      'Senior finanční konzultant',
+      'Risk manager',
+      'Pojišťovací makléř',
+    ],
     education: 'VŠE Praha, Pojišťovnictví',
     website: 'https://finance-kral.cz',
     linkedin: 'https://linkedin.com/in/jankral',
@@ -163,8 +212,16 @@ const mockSpecialists = [
     hourlyRate: 0,
     rating: 4.9,
     reviewsCount: 39,
-    services: ['Luxusní nemovitosti', 'Prodej bytů Praha', 'Investiční nemovitosti', 'VIP služby'],
-    certifications: ['Certifikovaný realitní makléř', 'Luxury property specialist'],
+    services: [
+      'Luxusní nemovitosti',
+      'Prodej bytů Praha',
+      'Investiční nemovitosti',
+      'VIP služby',
+    ],
+    certifications: [
+      'Certifikovaný realitní makléř',
+      'Luxury property specialist',
+    ],
     education: 'VŠCHT Praha, Marketing',
     website: 'https://reality-vesela.cz',
     instagram: 'https://instagram.com/realityvesela',
@@ -187,7 +244,12 @@ const mockSpecialists = [
     hourlyRate: 600,
     rating: 4.7,
     reviewsCount: 22,
-    services: ['Investice pro začátečníky', 'První hypotéka', 'Životní pojištění', 'Finanční plánování'],
+    services: [
+      'Investice pro začátečníky',
+      'První hypotéka',
+      'Životní pojištění',
+      'Finanční plánování',
+    ],
     certifications: ['Certifikovaný finanční poradce'],
     education: 'Masarykova univerzita, Finance',
     website: 'https://finance-horak.cz',
@@ -218,7 +280,9 @@ async function seed() {
 
   // 1. Create admin user
   console.log('Creating admin user...');
-  const existingAdmin = await userRepository.findOne({ where: { email: 'admin@tvujspecialista.cz' } });
+  const existingAdmin = await userRepository.findOne({
+    where: { email: 'admin@tvujspecialista.cz' },
+  });
 
   if (!existingAdmin) {
     const hashedPassword = await bcrypt.hash('Admin123!', 10);
@@ -240,7 +304,9 @@ async function seed() {
   console.log('\nCreating specialists...');
   for (const mock of mockSpecialists) {
     // Check if specialist already exists
-    const existing = await specialistRepository.findOne({ where: { email: mock.email } });
+    const existing = await specialistRepository.findOne({
+      where: { email: mock.email },
+    });
     if (existing) {
       console.log(`Specialist ${mock.name} already exists, skipping...`);
       continue;
@@ -260,14 +326,18 @@ async function seed() {
 
     // Create specialist profile
     // Map category string to enum
-    const category = mock.category === 'Finanční poradce'
-      ? SpecialistCategory.FINANCIAL_ADVISOR
-      : SpecialistCategory.REAL_ESTATE_AGENT;
+    const category =
+      mock.category === 'Finanční poradce'
+        ? SpecialistCategory.FINANCIAL_ADVISOR
+        : SpecialistCategory.REAL_ESTATE_AGENT;
 
     // Map subscription tier string to enum
-    const tier = mock.subscriptionTier === 'basic' ? SubscriptionTier.BASIC
-      : mock.subscriptionTier === 'pro' ? SubscriptionTier.PRO
-      : SubscriptionTier.PREMIUM;
+    const tier =
+      mock.subscriptionTier === 'basic'
+        ? SubscriptionTier.BASIC
+        : mock.subscriptionTier === 'pro'
+          ? SubscriptionTier.PRO
+          : SubscriptionTier.PREMIUM;
 
     const specialist = specialistRepository.create({
       userId: user.id,
@@ -290,8 +360,12 @@ async function seed() {
       education: mock.education,
       website: mock.website,
       linkedin: mock.linkedin || undefined,
-      facebook: (mock as any).facebook || undefined,
-      instagram: (mock as any).instagram || undefined,
+      facebook: (mock as Record<string, unknown>).facebook as
+        | string
+        | undefined,
+      instagram: (mock as Record<string, unknown>).instagram as
+        | string
+        | undefined,
       availability: mock.availability,
       subscriptionTier: tier,
       leadCount: 0,
@@ -318,7 +392,10 @@ async function seed() {
       ];
 
       // Create 2-3 sample reviews
-      const reviewCount = Math.min(3, Math.max(2, Math.floor(mock.reviewsCount / 15)));
+      const reviewCount = Math.min(
+        3,
+        Math.max(2, Math.floor(mock.reviewsCount / 15)),
+      );
       for (let i = 0; i < reviewCount; i++) {
         await reviewRepository.save({
           specialistId: specialist.id,

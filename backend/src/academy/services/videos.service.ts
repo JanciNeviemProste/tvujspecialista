@@ -12,6 +12,15 @@ import { Lesson } from '../../database/entities/lesson.entity';
 import { Enrollment } from '../../database/entities/enrollment.entity';
 import { CloudinaryService } from '../../cloudinary/cloudinary.service';
 
+interface UploadedVideoFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  buffer: Buffer;
+}
+
 @Injectable()
 export class VideosService {
   private readonly logger = new Logger(VideosService.name);
@@ -38,7 +47,7 @@ export class VideosService {
   ) {}
 
   async uploadVideo(
-    file: any,
+    file: UploadedVideoFile,
     lessonId: string,
     title: string,
   ): Promise<Video> {
@@ -108,7 +117,9 @@ export class VideosService {
       // If upload fails, update video status to ERROR
       savedVideo.status = VideoStatus.ERROR;
       await this.videoRepository.save(savedVideo);
-      throw new BadRequestException(`Video upload failed: ${error.message}`);
+      throw new BadRequestException(
+        `Video upload failed: ${error instanceof Error ? error.message : 'Upload failed'}`,
+      );
     }
   }
 
@@ -160,7 +171,7 @@ export class VideosService {
     }
 
     // 4. Generate signed URL using cloudinaryService.getSignedVideoUrl()
-    const streamUrl = await this.cloudinaryService.getSignedVideoUrl(
+    const streamUrl = this.cloudinaryService.getSignedVideoUrl(
       video.cloudinaryPublicId,
     );
 
@@ -171,14 +182,17 @@ export class VideosService {
     };
   }
 
-  async handleWebhook(payload: any): Promise<void> {
+  async handleWebhook(payload: Record<string, unknown>): Promise<void> {
     try {
       // Cloudinary webhook payload structure varies, but typically includes public_id
-      const publicId = payload.public_id;
-      const notificationType = payload.notification_type;
+      const publicId = (payload as Record<string, string>).public_id;
+      const notificationType = (payload as Record<string, string>)
+        .notification_type;
 
       if (!publicId) {
-        throw new BadRequestException('Invalid webhook payload: missing public_id');
+        throw new BadRequestException(
+          'Invalid webhook payload: missing public_id',
+        );
       }
 
       // Find video by Cloudinary public ID
@@ -227,7 +241,7 @@ export class VideosService {
 
     // 3. Update lesson (set videoId = null, duration = 0)
     if (video.lesson) {
-      video.lesson.videoId = null as any;
+      video.lesson.videoId = null!;
       video.lesson.duration = 0;
       await this.lessonRepository.save(video.lesson);
     }

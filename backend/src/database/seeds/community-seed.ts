@@ -1,6 +1,12 @@
 import { DataSource } from 'typeorm';
-import { Event, EventType, EventFormat, EventCategory, EventStatus } from '../entities/event.entity';
-import { User } from '../entities/user.entity';
+import {
+  Event,
+  EventType,
+  EventFormat,
+  EventCategory,
+  EventStatus,
+} from '../entities/event.entity';
+import { User, UserRole } from '../entities/user.entity';
 
 export async function seedCommunityEvents(dataSource: DataSource) {
   const eventRepository = dataSource.getRepository(Event);
@@ -9,7 +15,9 @@ export async function seedCommunityEvents(dataSource: DataSource) {
   console.log('🌱 Seeding community events...');
 
   // Find or create an organizer user
-  let organizer = await userRepository.findOne({ where: { email: 'organizer@tvujspecialista.cz' } });
+  let organizer = await userRepository.findOne({
+    where: { email: 'organizer@tvujspecialista.cz' },
+  });
 
   if (!organizer) {
     organizer = userRepository.create({
@@ -17,7 +25,7 @@ export async function seedCommunityEvents(dataSource: DataSource) {
       password: 'hashed_password_placeholder',
       name: 'Jan Organizátor',
       phone: '+420 777 888 999',
-      role: 'admin',
+      role: UserRole.ADMIN,
       verified: true,
     });
     organizer = await userRepository.save(organizer);
@@ -183,7 +191,7 @@ Každý může přispět svým tématem nebo dotazem. Volná diskuze a přátels
       timezone: 'Europe/Prague',
       meetingLink: 'https://meet.google.com/xyz-uvwx-rst',
       organizerId: organizer.id,
-      maxAttendees: null, // unlimited
+      maxAttendees: undefined, // unlimited
       attendeeCount: 0,
       price: 0,
       currency: 'CZK',

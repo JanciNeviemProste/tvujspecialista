@@ -8,7 +8,10 @@ import { Specialist } from '../database/entities/specialist.entity';
 import { SpecialistsModule } from '../specialists/specialists.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Review, ReviewToken, Specialist]), SpecialistsModule],
+  imports: [
+    TypeOrmModule.forFeature([Review, ReviewToken, Specialist]),
+    SpecialistsModule,
+  ],
   controllers: [ReviewsController],
   providers: [ReviewsService],
   exports: [ReviewsService],

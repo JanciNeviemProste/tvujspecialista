@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Review } from '../database/entities/review.entity';
@@ -69,7 +73,9 @@ export class ReviewsService {
   }
 
   async findMyReviews(userId: string) {
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist) {
       throw new NotFoundException('Specialist not found');
     }
@@ -80,13 +86,21 @@ export class ReviewsService {
     });
   }
 
-  async respond(reviewId: string, userId: string, respondDto: RespondReviewDto) {
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+  async respond(
+    reviewId: string,
+    userId: string,
+    respondDto: RespondReviewDto,
+  ) {
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist) {
       throw new NotFoundException('Specialist not found');
     }
 
-    const review = await this.reviewRepository.findOne({ where: { id: reviewId } });
+    const review = await this.reviewRepository.findOne({
+      where: { id: reviewId },
+    });
     if (!review) {
       throw new NotFoundException('Review not found');
     }
@@ -101,8 +115,14 @@ export class ReviewsService {
     return this.reviewRepository.save(review);
   }
 
-  async createReviewToken(specialistId: string, leadId: string, customerEmail: string) {
-    const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  async createReviewToken(
+    specialistId: string,
+    leadId: string,
+    customerEmail: string,
+  ) {
+    const token =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 30);

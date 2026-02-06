@@ -21,6 +21,7 @@ import { CreateEventDto } from '../dto/create-event.dto';
 import { UpdateEventDto } from '../dto/update-event.dto';
 import { QueryEventsDto } from '../dto/query-events.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('Community - Events')
 @Controller('community/events')
@@ -36,7 +37,10 @@ export class EventsController {
 
   @Get('upcoming')
   @ApiOperation({ summary: 'Get upcoming events' })
-  @ApiResponse({ status: 200, description: 'Returns upcoming published events' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns upcoming published events',
+  })
   async findUpcoming() {
     return this.eventsService.findUpcoming();
   }
@@ -56,7 +60,10 @@ export class EventsController {
   @ApiResponse({ status: 201, description: 'Event created successfully' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 400, description: 'Invalid input data' })
-  async create(@Request() req, @Body() dto: CreateEventDto) {
+  async create(
+    @Request() req: AuthenticatedRequest,
+    @Body() dto: CreateEventDto,
+  ) {
     return this.eventsService.create(req.user.userId, dto);
   }
 
@@ -68,7 +75,7 @@ export class EventsController {
   @ApiResponse({ status: 404, description: 'Event not found' })
   @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
   async update(
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
     @Param('id') id: string,
     @Body() dto: UpdateEventDto,
   ) {
@@ -81,9 +88,12 @@ export class EventsController {
   @ApiOperation({ summary: 'Delete event (owner only)' })
   @ApiResponse({ status: 200, description: 'Event deleted successfully' })
   @ApiResponse({ status: 404, description: 'Event not found' })
-  @ApiResponse({ status: 400, description: 'Cannot delete event with confirmed attendees' })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot delete event with confirmed attendees',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
-  async delete(@Request() req, @Param('id') id: string) {
+  async delete(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     await this.eventsService.delete(id, req.user.userId);
     return { message: 'Event deleted successfully' };
   }
@@ -97,7 +107,7 @@ export class EventsController {
   @ApiResponse({ status: 400, description: 'Event not ready for publishing' })
   @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
   async publish(
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
     @Param('id') id: string,
     @Body('published') published: boolean,
   ) {
@@ -108,11 +118,17 @@ export class EventsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Cancel event (owner only)' })
-  @ApiResponse({ status: 200, description: 'Event cancelled and attendees notified' })
+  @ApiResponse({
+    status: 200,
+    description: 'Event cancelled and attendees notified',
+  })
   @ApiResponse({ status: 404, description: 'Event not found' })
-  @ApiResponse({ status: 400, description: 'Event already cancelled or completed' })
+  @ApiResponse({
+    status: 400,
+    description: 'Event already cancelled or completed',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
-  async cancel(@Request() req, @Param('id') id: string) {
+  async cancel(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     await this.eventsService.cancel(id, req.user.userId);
     return { message: 'Event cancelled successfully' };
   }
@@ -124,7 +140,10 @@ export class EventsController {
   @ApiResponse({ status: 200, description: 'Returns list of attendees' })
   @ApiResponse({ status: 404, description: 'Event not found' })
   @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
-  async getAttendees(@Request() req, @Param('id') id: string) {
+  async getAttendees(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
     return this.eventsService.getAttendees(id, req.user.userId);
   }
 }

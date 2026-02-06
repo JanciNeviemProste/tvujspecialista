@@ -26,6 +26,16 @@ import { VideosService } from '../services/videos.service';
 import { UploadVideoDto } from '../dto/upload-video.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../../auth/guards/admin.guard';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
+
+interface UploadedVideoFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  buffer: Buffer;
+}
 
 @ApiTags('Academy - Videos')
 @Controller('academy/videos')
@@ -39,7 +49,8 @@ export class VideosController {
   @ApiConsumes('multipart/form-data')
   @ApiOperation({
     summary: 'Upload a video for a lesson',
-    description: 'Admin only. Upload video file with lesson ID and title. Max size: 500MB. Supported formats: mp4, mov, avi, webm',
+    description:
+      'Admin only. Upload video file with lesson ID and title. Max size: 500MB. Supported formats: mp4, mov, avi, webm',
   })
   @ApiBody({
     schema: {
@@ -78,12 +89,13 @@ export class VideosController {
         validators: [
           new MaxFileSizeValidator({ maxSize: 500 * 1024 * 1024 }), // 500MB
           new FileTypeValidator({
-            fileType: /(video\/mp4|video\/quicktime|video\/x-msvideo|video\/webm)/,
+            fileType:
+              /(video\/mp4|video\/quicktime|video\/x-msvideo|video\/webm)/,
           }),
         ],
       }),
     )
-    file: any,
+    file: UploadedVideoFile,
     @Body() dto: UploadVideoDto,
   ) {
     return this.videosService.uploadVideo(file, dto.lessonId, dto.title);
@@ -94,7 +106,8 @@ export class VideosController {
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Get signed streaming URL for a video',
-    description: 'Returns a signed URL valid for 1 hour. Requires enrollment in the course or the lesson must be marked as free.',
+    description:
+      'Returns a signed URL valid for 1 hour. Requires enrollment in the course or the lesson must be marked as free.',
   })
   @ApiResponse({
     status: 200,
@@ -119,18 +132,22 @@ export class VideosController {
     description: 'Must be enrolled in course to access this video',
   })
   @ApiResponse({ status: 404, description: 'Video not found' })
-  async getStreamUrl(@Request() req, @Param('id') id: string) {
+  async getStreamUrl(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
     return this.videosService.getStreamUrl(id, req.user.userId);
   }
 
   @Post('webhook')
   @ApiOperation({
     summary: 'Cloudinary webhook endpoint',
-    description: 'Receives notifications from Cloudinary when video processing is complete',
+    description:
+      'Receives notifications from Cloudinary when video processing is complete',
   })
   @ApiResponse({ status: 200, description: 'Webhook processed successfully' })
   @ApiResponse({ status: 400, description: 'Invalid webhook payload' })
-  async handleWebhook(@Body() payload: any) {
+  async handleWebhook(@Body() payload: Record<string, unknown>) {
     await this.videosService.handleWebhook(payload);
     return { message: 'Webhook processed successfully' };
   }
@@ -140,7 +157,8 @@ export class VideosController {
   @ApiBearerAuth()
   @ApiOperation({
     summary: 'Delete a video',
-    description: 'Admin only. Deletes video from Cloudinary and database, and updates the associated lesson.',
+    description:
+      'Admin only. Deletes video from Cloudinary and database, and updates the associated lesson.',
   })
   @ApiResponse({ status: 200, description: 'Video deleted successfully' })
   @ApiResponse({ status: 403, description: 'Admin access required' })

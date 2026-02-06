@@ -65,7 +65,9 @@ export class Enrollment {
   @JoinColumn({ name: 'courseId' })
   course: Course;
 
-  @OneToMany(() => LessonProgress, (progress) => progress.enrollment, { cascade: true })
+  @OneToMany(() => LessonProgress, (progress) => progress.enrollment, {
+    cascade: true,
+  })
   lessonProgress: LessonProgress[];
 
   @CreateDateColumn()

@@ -3,10 +3,14 @@ import { CommissionsController } from './commissions.controller';
 import { CommissionsService } from '../services/commissions.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../../auth/guards/admin.guard';
-import { Commission, CommissionStatus } from '../../database/entities/commission.entity';
+import {
+  Commission,
+  CommissionStatus,
+} from '../../database/entities/commission.entity';
 import { NotFoundException, ForbiddenException } from '@nestjs/common';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Specialist } from '../../database/entities/specialist.entity';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 describe('CommissionsController', () => {
   let controller: CommissionsController;
@@ -36,7 +40,7 @@ describe('CommissionsController', () => {
       email: 'john@example.com',
       role: 'specialist',
     },
-  };
+  } as unknown as AuthenticatedRequest;
 
   const mockAdminRequest = {
     user: {
@@ -44,7 +48,7 @@ describe('CommissionsController', () => {
       email: 'admin@example.com',
       role: 'admin',
     },
-  };
+  } as unknown as AuthenticatedRequest;
 
   beforeEach(async () => {
     const mockSpecialistRepository = {
@@ -78,7 +82,7 @@ describe('CommissionsController', () => {
       .compile();
 
     controller = module.get<CommissionsController>(CommissionsController);
-    service = module.get(CommissionsService) as jest.Mocked<CommissionsService>;
+    service = module.get(CommissionsService);
     specialistRepository = service['specialistRepository'];
   });
 
@@ -92,7 +96,10 @@ describe('CommissionsController', () => {
 
   describe('getMyCommissions', () => {
     it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.getMyCommissions);
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        controller.getMyCommissions,
+      );
       expect(guards).toBeDefined();
       expect(guards.length).toBeGreaterThan(0);
     });
@@ -140,7 +147,10 @@ describe('CommissionsController', () => {
 
   describe('payCommission', () => {
     it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.payCommission);
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        controller.payCommission,
+      );
       expect(guards).toBeDefined();
     });
 
@@ -149,10 +159,16 @@ describe('CommissionsController', () => {
       specialistRepository.findOne.mockResolvedValue(mockSpecialist);
       service.payCommission.mockResolvedValue(clientSecret);
 
-      const result = await controller.payCommission('commission-123', mockRequest);
+      const result = await controller.payCommission(
+        'commission-123',
+        mockRequest,
+      );
 
       expect(result).toEqual(clientSecret);
-      expect(service.payCommission).toHaveBeenCalledWith('commission-123', 'specialist-123');
+      expect(service.payCommission).toHaveBeenCalledWith(
+        'commission-123',
+        'specialist-123',
+      );
     });
 
     it('should return clientSecret', async () => {
@@ -160,14 +176,19 @@ describe('CommissionsController', () => {
       specialistRepository.findOne.mockResolvedValue(mockSpecialist);
       service.payCommission.mockResolvedValue(clientSecret);
 
-      const result = await controller.payCommission('commission-123', mockRequest);
+      const result = await controller.payCommission(
+        'commission-123',
+        mockRequest,
+      );
 
       expect(result.clientSecret).toBe('secret_abc123');
     });
 
     it('should throw 404 if commission not found', async () => {
       specialistRepository.findOne.mockResolvedValue(mockSpecialist);
-      service.payCommission.mockRejectedValue(new NotFoundException('Commission not found'));
+      service.payCommission.mockRejectedValue(
+        new NotFoundException('Commission not found'),
+      );
 
       await expect(
         controller.payCommission('invalid-id', mockRequest),
@@ -177,12 +198,18 @@ describe('CommissionsController', () => {
 
   describe('getAllPending', () => {
     it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.getAllPending);
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        controller.getAllPending,
+      );
       expect(guards).toBeDefined();
     });
 
     it('should require AdminGuard', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.getAllPending);
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        controller.getAllPending,
+      );
       const guardNames = guards.map((guard: any) => guard.name);
       expect(guardNames).toContain('AdminGuard');
     });
@@ -202,12 +229,18 @@ describe('CommissionsController', () => {
     const waiveDto = { note: 'Special case approved' };
 
     it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.waiveCommission);
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        controller.waiveCommission,
+      );
       expect(guards).toBeDefined();
     });
 
     it('should require AdminGuard', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.waiveCommission);
+      const guards = Reflect.getMetadata(
+        '__guards__',
+        controller.waiveCommission,
+      );
       const guardNames = guards.map((guard: any) => guard.name);
       expect(guardNames).toContain('AdminGuard');
     });
@@ -227,7 +260,10 @@ describe('CommissionsController', () => {
       );
 
       expect(result).toEqual(waivedCommission);
-      expect(service.waiveCommission).toHaveBeenCalledWith('commission-123', waiveDto.note);
+      expect(service.waiveCommission).toHaveBeenCalledWith(
+        'commission-123',
+        waiveDto.note,
+      );
     });
 
     it('should pass note to service', async () => {
@@ -236,9 +272,16 @@ describe('CommissionsController', () => {
         status: CommissionStatus.WAIVED,
       });
 
-      await controller.waiveCommission('commission-123', mockAdminRequest, waiveDto);
+      await controller.waiveCommission(
+        'commission-123',
+        mockAdminRequest,
+        waiveDto,
+      );
 
-      expect(service.waiveCommission).toHaveBeenCalledWith('commission-123', 'Special case approved');
+      expect(service.waiveCommission).toHaveBeenCalledWith(
+        'commission-123',
+        'Special case approved',
+      );
     });
   });
 
@@ -262,7 +305,11 @@ describe('CommissionsController', () => {
 
     it('should apply AdminGuard only to admin endpoints', () => {
       const adminMethods = ['getAllPending', 'waiveCommission'];
-      const nonAdminMethods = ['getMyCommissions', 'getMyStats', 'payCommission'];
+      const nonAdminMethods = [
+        'getMyCommissions',
+        'getMyStats',
+        'payCommission',
+      ];
 
       adminMethods.forEach((method) => {
         const guards = Reflect.getMetadata('__guards__', controller[method]);
@@ -282,9 +329,7 @@ describe('CommissionsController', () => {
     it('should handle specialist not found error', async () => {
       specialistRepository.findOne.mockResolvedValue(null);
 
-      await expect(
-        controller.getMyCommissions(mockRequest),
-      ).rejects.toThrow();
+      await expect(controller.getMyCommissions(mockRequest)).rejects.toThrow();
     });
 
     it('should propagate service errors', async () => {

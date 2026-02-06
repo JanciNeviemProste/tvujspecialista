@@ -1,7 +1,15 @@
-import { Injectable, CanActivate, ExecutionContext, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Specialist, SubscriptionTier } from '../../database/entities/specialist.entity';
+import {
+  Specialist,
+  SubscriptionTier,
+} from '../../database/entities/specialist.entity';
 
 @Injectable()
 export class LeadLimitGuard implements CanActivate {
@@ -11,14 +19,18 @@ export class LeadLimitGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request = context
+      .switchToHttp()
+      .getRequest<{ body: { specialistId?: string } }>();
     const { specialistId } = request.body;
 
     if (!specialistId) {
       return true;
     }
 
-    const specialist = await this.specialistRepository.findOne({ where: { id: specialistId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { id: specialistId },
+    });
     if (!specialist) {
       throw new BadRequestException('Specialist not found');
     }

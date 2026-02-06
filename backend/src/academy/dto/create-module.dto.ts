@@ -1,10 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  IsOptional,
-  IsInt,
-  Min,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional, IsInt, Min } from 'class-validator';
 
 export class CreateModuleDto {
   @IsNotEmpty()

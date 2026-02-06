@@ -17,6 +17,7 @@ import {
 import { RSVPsService } from '../services/rsvps.service';
 import { CreateRSVPDto } from '../dto/create-rsvp.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('Community - RSVPs')
 @Controller('community')
@@ -27,12 +28,21 @@ export class RSVPsController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'RSVP to an event' })
-  @ApiResponse({ status: 201, description: 'Successfully registered for event' })
-  @ApiResponse({ status: 400, description: 'Event not published or at capacity' })
+  @ApiResponse({
+    status: 201,
+    description: 'Successfully registered for event',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Event not published or at capacity',
+  })
   @ApiResponse({ status: 404, description: 'Event not found' })
-  @ApiResponse({ status: 409, description: 'Already registered for this event' })
+  @ApiResponse({
+    status: 409,
+    description: 'Already registered for this event',
+  })
   async rsvp(
-    @Request() req,
+    @Request() req: AuthenticatedRequest,
     @Param('eventId') eventId: string,
     @Body() dto: CreateRSVPDto,
   ) {
@@ -44,7 +54,7 @@ export class RSVPsController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get my RSVPs' })
   @ApiResponse({ status: 200, description: 'Returns list of user RSVPs' })
-  async findMyRSVPs(@Request() req) {
+  async findMyRSVPs(@Request() req: AuthenticatedRequest) {
     return this.rsvpsService.findMyRSVPs(req.user.userId);
   }
 
@@ -54,9 +64,15 @@ export class RSVPsController {
   @ApiOperation({ summary: 'Confirm RSVP' })
   @ApiResponse({ status: 200, description: 'RSVP confirmed successfully' })
   @ApiResponse({ status: 404, description: 'RSVP not found' })
-  @ApiResponse({ status: 400, description: 'Cannot confirm cancelled or already confirmed RSVP' })
-  @ApiResponse({ status: 403, description: 'Not authorized to confirm this RSVP' })
-  async confirm(@Request() req, @Param('id') id: string) {
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot confirm cancelled or already confirmed RSVP',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Not authorized to confirm this RSVP',
+  })
+  async confirm(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     return this.rsvpsService.confirm(id, req.user.userId);
   }
 
@@ -66,9 +82,15 @@ export class RSVPsController {
   @ApiOperation({ summary: 'Cancel RSVP' })
   @ApiResponse({ status: 200, description: 'RSVP cancelled successfully' })
   @ApiResponse({ status: 404, description: 'RSVP not found' })
-  @ApiResponse({ status: 400, description: 'Cannot cancel attended or already cancelled RSVP' })
-  @ApiResponse({ status: 403, description: 'Not authorized to cancel this RSVP' })
-  async cancel(@Request() req, @Param('id') id: string) {
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot cancel attended or already cancelled RSVP',
+  })
+  @ApiResponse({
+    status: 403,
+    description: 'Not authorized to cancel this RSVP',
+  })
+  async cancel(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     await this.rsvpsService.cancel(id, req.user.userId);
     return { message: 'RSVP cancelled successfully' };
   }
@@ -79,9 +101,12 @@ export class RSVPsController {
   @ApiOperation({ summary: 'Check in attendee (organizer only)' })
   @ApiResponse({ status: 200, description: 'Attendee checked in successfully' })
   @ApiResponse({ status: 404, description: 'RSVP not found' })
-  @ApiResponse({ status: 400, description: 'Cannot check in cancelled or already checked in RSVP' })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot check in cancelled or already checked in RSVP',
+  })
   @ApiResponse({ status: 403, description: 'Not authorized - Organizer only' })
-  async checkIn(@Request() req, @Param('id') id: string) {
+  async checkIn(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     return this.rsvpsService.checkIn(id, req.user.userId);
   }
 }

@@ -6,8 +6,13 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User, SubscriptionType } from '../../database/entities/user.entity';
-import { Subscription, SubscriptionStatus } from '../../database/entities/subscription.entity';
+import { User } from '../../database/entities/user.entity';
+import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
+import {
+  Subscription,
+  SubscriptionStatus,
+  SubscriptionType,
+} from '../../database/entities/subscription.entity';
 
 @Injectable()
 export class SubscriptionGuard implements CanActivate {
@@ -19,7 +24,7 @@ export class SubscriptionGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
     const userId = request.user?.userId;
 
     if (!userId) {
@@ -44,7 +49,7 @@ export class SubscriptionGuard implements CanActivate {
     }
 
     // Check subscription type based on route path
-    const path = request.route?.path || request.url;
+    const path = request.url;
 
     // Academy routes require EDUCATION or PREMIUM
     if (path.includes('/academy') || path.includes('/courses')) {
@@ -74,11 +79,12 @@ export class SubscriptionGuard implements CanActivate {
     if (subscription.currentPeriodEnd) {
       const now = new Date();
       if (subscription.currentPeriodEnd < now) {
-        throw new ForbiddenException('Your subscription has expired. Please renew to continue.');
+        throw new ForbiddenException(
+          'Your subscription has expired. Please renew to continue.',
+        );
       }
     }
 
     return true;
   }
 }
-

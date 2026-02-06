@@ -8,7 +8,10 @@ import { Specialist } from '../database/entities/specialist.entity';
 import { EmailModule } from '../email/email.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Lead, LeadEvent, Specialist]), EmailModule],
+  imports: [
+    TypeOrmModule.forFeature([Lead, LeadEvent, Specialist]),
+    EmailModule,
+  ],
   controllers: [LeadsController],
   providers: [LeadsService],
   exports: [LeadsService],

@@ -21,7 +21,16 @@ export class AdminService {
    */
   async getAllUsers(): Promise<User[]> {
     return this.userRepository.find({
-      select: ['id', 'email', 'name', 'phone', 'role', 'verified', 'createdAt', 'updatedAt'],
+      select: [
+        'id',
+        'email',
+        'name',
+        'phone',
+        'role',
+        'verified',
+        'createdAt',
+        'updatedAt',
+      ],
       order: { createdAt: 'DESC' },
     });
   }

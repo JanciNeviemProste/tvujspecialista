@@ -4,9 +4,18 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Stripe from 'stripe';
 import { StripeService } from './stripe.service';
-import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
-import { Specialist, SubscriptionTier } from '../database/entities/specialist.entity';
-import { Commission, CommissionStatus } from '../database/entities/commission.entity';
+import {
+  Subscription,
+  SubscriptionStatus,
+} from '../database/entities/subscription.entity';
+import {
+  Specialist,
+  SubscriptionTier,
+} from '../database/entities/specialist.entity';
+import {
+  Commission,
+  CommissionStatus,
+} from '../database/entities/commission.entity';
 
 describe('StripeService', () => {
   let service: StripeService;
@@ -351,7 +360,9 @@ describe('StripeService', () => {
 
       mockStripe.webhooks.constructEvent.mockReturnValue(mockEvent);
       commissionRepository.findOne.mockResolvedValue(mockCommission);
-      commissionRepository.save.mockImplementation((entity) => Promise.resolve(entity as Commission));
+      commissionRepository.save.mockImplementation((entity) =>
+        Promise.resolve(entity as Commission),
+      );
       specialistRepository.increment.mockResolvedValue({} as any);
 
       await service.handleWebhook(mockSignature, mockBody);

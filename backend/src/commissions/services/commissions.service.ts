@@ -1,8 +1,15 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Commission, CommissionStatus } from '../../database/entities/commission.entity';
-import { Deal, DealStatus } from '../../database/entities/deal.entity';
+import {
+  Commission,
+  CommissionStatus,
+} from '../../database/entities/commission.entity';
+import { Deal } from '../../database/entities/deal.entity';
 import { Specialist } from '../../database/entities/specialist.entity';
 import { StripeService } from '../../stripe/stripe.service';
 import { EmailService } from '../../email/email.service';
@@ -148,19 +155,26 @@ export class CommissionsService {
   async getCommissionStats(specialistId: string) {
     const commissions = await this.getMyCommissions(specialistId);
 
-    const pending = commissions.filter((c) => c.status === CommissionStatus.PENDING);
+    const pending = commissions.filter(
+      (c) => c.status === CommissionStatus.PENDING,
+    );
     const paid = commissions.filter((c) => c.status === CommissionStatus.PAID);
 
     return {
       pending,
       paid,
-      totalPending: pending.reduce((sum, c) => sum + Number(c.commissionAmount), 0),
+      totalPending: pending.reduce(
+        (sum, c) => sum + Number(c.commissionAmount),
+        0,
+      ),
       totalPaid: paid.reduce((sum, c) => sum + Number(c.commissionAmount), 0),
       totalCommissions: commissions.length,
       averageCommission:
         commissions.length > 0
-          ? commissions.reduce((sum, c) => sum + Number(c.commissionAmount), 0) /
-            commissions.length
+          ? commissions.reduce(
+              (sum, c) => sum + Number(c.commissionAmount),
+              0,
+            ) / commissions.length
           : 0,
     };
   }
@@ -173,7 +187,10 @@ export class CommissionsService {
     });
   }
 
-  async waiveCommission(commissionId: string, adminNote?: string): Promise<Commission> {
+  async waiveCommission(
+    commissionId: string,
+    adminNote?: string,
+  ): Promise<Commission> {
     const commission = await this.commissionRepository.findOne({
       where: { id: commissionId },
     });

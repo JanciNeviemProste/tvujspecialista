@@ -26,10 +26,12 @@ import { CommunityModule } from './community/community.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
-    ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 60,
-    }]),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 60,
+      },
+    ]),
     ScheduleModule.forRoot(),
     DatabaseModule,
     AuthModule,

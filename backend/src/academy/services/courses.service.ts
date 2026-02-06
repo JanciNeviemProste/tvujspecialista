@@ -2,7 +2,6 @@ import {
   Injectable,
   NotFoundException,
   BadRequestException,
-  ConflictException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -21,9 +20,12 @@ export class CoursesService {
     private moduleRepository: Repository<CourseModule>,
   ) {}
 
-  async findAll(
-    filters: QueryCoursesDto,
-  ): Promise<{ courses: Course[]; total: number; page: number; limit: number }> {
+  async findAll(filters: QueryCoursesDto): Promise<{
+    courses: Course[];
+    total: number;
+    page: number;
+    limit: number;
+  }> {
     const query = this.courseRepository.createQueryBuilder('course');
 
     // Always filter by published for public access

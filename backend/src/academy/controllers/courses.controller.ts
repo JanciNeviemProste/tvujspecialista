@@ -36,7 +36,10 @@ export class CoursesController {
 
   @Get(':slug')
   @ApiOperation({ summary: 'Get course by slug' })
-  @ApiResponse({ status: 200, description: 'Returns course with modules and lessons' })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns course with modules and lessons',
+  })
   @ApiResponse({ status: 404, description: 'Course not found' })
   async findBySlug(@Param('slug') slug: string) {
     return this.coursesService.findBySlug(slug);
@@ -70,7 +73,10 @@ export class CoursesController {
   @ApiOperation({ summary: 'Delete course (admin only)' })
   @ApiResponse({ status: 200, description: 'Course deleted successfully' })
   @ApiResponse({ status: 404, description: 'Course not found' })
-  @ApiResponse({ status: 400, description: 'Cannot delete course with enrollments' })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot delete course with enrollments',
+  })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async delete(@Param('id') id: string) {
     await this.coursesService.delete(id);

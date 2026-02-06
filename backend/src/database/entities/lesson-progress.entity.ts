@@ -38,7 +38,9 @@ export class LessonProgress {
   @Column({ type: 'text', nullable: true })
   notes: string;
 
-  @ManyToOne(() => Enrollment, (enrollment) => enrollment.lessonProgress, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Enrollment, (enrollment) => enrollment.lessonProgress, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'enrollmentId' })
   enrollment: Enrollment;
 

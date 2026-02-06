@@ -4,9 +4,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import Stripe from 'stripe';
-import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
-import { Specialist, SubscriptionTier } from '../database/entities/specialist.entity';
-import { Commission, CommissionStatus } from '../database/entities/commission.entity';
+import {
+  Subscription,
+  SubscriptionStatus,
+  SubscriptionType,
+} from '../database/entities/subscription.entity';
+import {
+  Specialist,
+  SubscriptionTier,
+} from '../database/entities/specialist.entity';
+import {
+  Commission,
+  CommissionStatus,
+} from '../database/entities/commission.entity';
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
 
 @Injectable()
@@ -23,19 +33,24 @@ export class StripeService {
     @InjectRepository(Commission)
     private commissionRepository: Repository<Commission>,
   ) {
-    const apiKey = this.configService.get('STRIPE_SECRET_KEY');
+    const apiKey = this.configService.get<string>('STRIPE_SECRET_KEY');
     if (apiKey && apiKey !== 'sk_test_xxxxxxxxxxxxx') {
       this.stripe = new Stripe(apiKey, { apiVersion: '2025-02-24.acacia' });
     }
   }
 
-  async createCheckoutSession(userId: string, createCheckoutDto: CreateCheckoutDto) {
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+  async createCheckoutSession(
+    userId: string,
+    createCheckoutDto: CreateCheckoutDto,
+  ) {
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist) {
       throw new Error('Specialist not found');
     }
 
-    let subscription = await this.subscriptionRepository.findOne({
+    const subscription = await this.subscriptionRepository.findOne({
       where: { specialistId: specialist.id },
     });
 
@@ -50,9 +65,15 @@ export class StripeService {
     }
 
     const priceIds = {
-      [SubscriptionTier.BASIC]: this.configService.get('STRIPE_BASIC_PRICE_ID'),
-      [SubscriptionTier.PRO]: this.configService.get('STRIPE_PRO_PRICE_ID'),
-      [SubscriptionTier.PREMIUM]: this.configService.get('STRIPE_PREMIUM_PRICE_ID'),
+      [SubscriptionTier.BASIC]: this.configService.get<string>(
+        'STRIPE_BASIC_PRICE_ID',
+      ),
+      [SubscriptionTier.PRO]: this.configService.get<string>(
+        'STRIPE_PRO_PRICE_ID',
+      ),
+      [SubscriptionTier.PREMIUM]: this.configService.get<string>(
+        'STRIPE_PREMIUM_PRICE_ID',
+      ),
     };
 
     const session = await this.stripe.checkout.sessions.create({
@@ -65,8 +86,8 @@ export class StripeService {
         },
       ],
       mode: 'subscription',
-      success_url: `${this.configService.get('FRONTEND_URL')}/profi/dashboard?payment=success`,
-      cancel_url: `${this.configService.get('FRONTEND_URL')}/ceny?payment=cancel`,
+      success_url: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard?payment=success`,
+      cancel_url: `${this.configService.get<string>('FRONTEND_URL')}/ceny?payment=cancel`,
       metadata: {
         specialistId: specialist.id,
         userId,
@@ -78,27 +99,35 @@ export class StripeService {
   }
 
   async handleWebhook(signature: string, body: Buffer) {
-    const webhookSecret = this.configService.get('STRIPE_WEBHOOK_SECRET');
+    const webhookSecret = this.configService.get<string>(
+      'STRIPE_WEBHOOK_SECRET',
+    )!;
     let event: Stripe.Event;
 
     try {
-      event = this.stripe.webhooks.constructEvent(body, signature, webhookSecret);
+      event = this.stripe.webhooks.constructEvent(
+        body,
+        signature,
+        webhookSecret,
+      );
     } catch (err) {
-      throw new Error(`Webhook signature verification failed: ${err.message}`);
+      throw new Error(
+        `Webhook signature verification failed: ${err instanceof Error ? err.message : 'Unknown error'}`,
+      );
     }
 
     switch (event.type) {
       case 'checkout.session.completed':
-        await this.handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
+        await this.handleCheckoutCompleted(event.data.object);
         break;
       case 'customer.subscription.updated':
-        await this.handleSubscriptionUpdated(event.data.object as Stripe.Subscription);
+        await this.handleSubscriptionUpdated(event.data.object);
         break;
       case 'customer.subscription.deleted':
-        await this.handleSubscriptionDeleted(event.data.object as Stripe.Subscription);
+        await this.handleSubscriptionDeleted(event.data.object);
         break;
       case 'invoice.payment_failed':
-        await this.handlePaymentFailed(event.data.object as Stripe.Invoice);
+        await this.handlePaymentFailed(event.data.object);
         break;
       case 'payment_intent.succeeded':
       case 'payment_intent.payment_failed':
@@ -110,12 +139,12 @@ export class StripeService {
   }
 
   private async handleCheckoutCompleted(session: Stripe.Checkout.Session) {
-    const metadata = session.metadata as any;
+    const metadata = session.metadata ?? {};
     const { userId, specialistId, tier, subscriptionType } = metadata;
 
     // Get subscription details from Stripe
     const stripeSubscription = await this.stripe.subscriptions.retrieve(
-      session.subscription as string
+      session.subscription as string,
     );
 
     let subscription = await this.subscriptionRepository.findOne({
@@ -130,19 +159,31 @@ export class StripeService {
         stripeSubscriptionId: session.subscription as string,
         stripeSubscriptionItemId: stripeSubscription.items.data[0].id,
         tier: tier as SubscriptionTier,
-        subscriptionType: subscriptionType || 'marketplace',
+        subscriptionType:
+          (subscriptionType as SubscriptionType) ||
+          SubscriptionType.MARKETPLACE,
         status: SubscriptionStatus.ACTIVE,
-        currentPeriodStart: new Date(stripeSubscription.current_period_start * 1000),
-        currentPeriodEnd: new Date(stripeSubscription.current_period_end * 1000),
-      });
+        currentPeriodStart: new Date(
+          stripeSubscription.current_period_start * 1000,
+        ),
+        currentPeriodEnd: new Date(
+          stripeSubscription.current_period_end * 1000,
+        ),
+      } as Partial<Subscription>);
     } else {
       subscription.stripeSubscriptionId = session.subscription as string;
-      subscription.stripeSubscriptionItemId = stripeSubscription.items.data[0].id;
+      subscription.stripeSubscriptionItemId =
+        stripeSubscription.items.data[0].id;
       subscription.tier = tier as SubscriptionTier;
-      subscription.subscriptionType = subscriptionType || subscription.subscriptionType;
+      subscription.subscriptionType =
+        (subscriptionType as SubscriptionType) || subscription.subscriptionType;
       subscription.status = SubscriptionStatus.ACTIVE;
-      subscription.currentPeriodStart = new Date(stripeSubscription.current_period_start * 1000);
-      subscription.currentPeriodEnd = new Date(stripeSubscription.current_period_end * 1000);
+      subscription.currentPeriodStart = new Date(
+        stripeSubscription.current_period_start * 1000,
+      );
+      subscription.currentPeriodEnd = new Date(
+        stripeSubscription.current_period_end * 1000,
+      );
     }
 
     await this.subscriptionRepository.save(subscription);
@@ -155,27 +196,38 @@ export class StripeService {
     }
   }
 
-  private async handleSubscriptionUpdated(stripeSubscription: Stripe.Subscription) {
+  private async handleSubscriptionUpdated(
+    stripeSubscription: Stripe.Subscription,
+  ) {
     const subscription = await this.subscriptionRepository.findOne({
       where: { stripeSubscriptionId: stripeSubscription.id },
     });
 
     if (subscription) {
       subscription.status = stripeSubscription.status as SubscriptionStatus;
-      subscription.currentPeriodStart = new Date(stripeSubscription.current_period_start * 1000);
-      subscription.currentPeriodEnd = new Date(stripeSubscription.current_period_end * 1000);
+      subscription.currentPeriodStart = new Date(
+        stripeSubscription.current_period_start * 1000,
+      );
+      subscription.currentPeriodEnd = new Date(
+        stripeSubscription.current_period_end * 1000,
+      );
 
       // Handle scheduled downgrade
-      if (subscription.scheduledDowngradeTo && stripeSubscription.status === 'active') {
+      if (
+        subscription.scheduledDowngradeTo &&
+        stripeSubscription.status === 'active'
+      ) {
         subscription.subscriptionType = subscription.scheduledDowngradeTo;
-        subscription.scheduledDowngradeTo = null as any;
+        subscription.scheduledDowngradeTo = null!;
       }
 
       await this.subscriptionRepository.save(subscription);
     }
   }
 
-  private async handleSubscriptionDeleted(stripeSubscription: Stripe.Subscription) {
+  private async handleSubscriptionDeleted(
+    stripeSubscription: Stripe.Subscription,
+  ) {
     const subscription = await this.subscriptionRepository.findOne({
       where: { stripeSubscriptionId: stripeSubscription.id },
     });
@@ -207,7 +259,9 @@ export class StripeService {
     const expiredSubscriptions = await this.subscriptionRepository
       .createQueryBuilder('subscription')
       .where('subscription.currentPeriodEnd < :now', { now: new Date() })
-      .andWhere('subscription.status = :status', { status: SubscriptionStatus.ACTIVE })
+      .andWhere('subscription.status = :status', {
+        status: SubscriptionStatus.ACTIVE,
+      })
       .getMany();
 
     for (const subscription of expiredSubscriptions) {
@@ -220,7 +274,7 @@ export class StripeService {
   async createPaymentIntent(params: {
     amount: number;
     currency: string;
-    metadata: any;
+    metadata: Record<string, string>;
   }): Promise<Stripe.PaymentIntent> {
     return this.stripe.paymentIntents.create({
       amount: params.amount,
@@ -234,19 +288,25 @@ export class StripeService {
 
   async handleCommissionWebhook(event: Stripe.Event): Promise<void> {
     switch (event.type) {
-      case 'payment_intent.succeeded':
-        const paymentIntent = event.data.object as Stripe.PaymentIntent;
+      case 'payment_intent.succeeded': {
+        const paymentIntent = event.data.object;
         if (paymentIntent.metadata.commissionId) {
           await this.handleCommissionPaymentSuccess(paymentIntent.id);
         }
         break;
+      }
       case 'payment_intent.payment_failed':
-        this.logger.error('Commission payment failed:', JSON.stringify(event.data.object));
+        this.logger.error(
+          'Commission payment failed:',
+          JSON.stringify(event.data.object),
+        );
         break;
     }
   }
 
-  private async handleCommissionPaymentSuccess(paymentIntentId: string): Promise<void> {
+  private async handleCommissionPaymentSuccess(
+    paymentIntentId: string,
+  ): Promise<void> {
     const commission = await this.commissionRepository.findOne({
       where: { stripePaymentIntentId: paymentIntentId },
     });
@@ -264,6 +324,8 @@ export class StripeService {
       Number(commission.commissionAmount),
     );
 
-    this.logger.log(`Commission payment processed successfully: ${commission.id}`);
+    this.logger.log(
+      `Commission payment processed successfully: ${commission.id}`,
+    );
   }
 }

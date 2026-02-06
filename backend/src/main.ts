@@ -32,7 +32,9 @@ async function bootstrap() {
   // Swagger documentation
   const config = new DocumentBuilder()
     .setTitle('tvujspecialista.cz API')
-    .setDescription('Marketplace API for financial advisors and real estate agents')
+    .setDescription(
+      'Marketplace API for financial advisors and real estate agents',
+    )
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -45,4 +47,4 @@ async function bootstrap() {
   logger.log(`Application is running on: http://localhost:${port}/api`);
   logger.log(`Swagger documentation: http://localhost:${port}/api/docs`);
 }
-bootstrap();
+void bootstrap();

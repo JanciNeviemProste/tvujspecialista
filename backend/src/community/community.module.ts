@@ -10,21 +10,9 @@ import { User } from '../database/entities/user.entity';
 import { EmailModule } from '../email/email.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Event, RSVP, User]),
-    EmailModule,
-  ],
-  controllers: [
-    EventsController,
-    RSVPsController,
-  ],
-  providers: [
-    EventsService,
-    RSVPsService,
-  ],
-  exports: [
-    EventsService,
-    RSVPsService,
-  ],
+  imports: [TypeOrmModule.forFeature([Event, RSVP, User]), EmailModule],
+  controllers: [EventsController, RSVPsController],
+  providers: [EventsService, RSVPsService],
+  exports: [EventsService, RSVPsService],
 })
 export class CommunityModule {}

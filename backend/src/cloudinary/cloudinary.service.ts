@@ -5,6 +5,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Specialist } from '../database/entities/specialist.entity';
 
+interface UploadedFile {
+  buffer: Buffer;
+  originalname: string;
+  mimetype: string;
+  size: number;
+}
+
 @Injectable()
 export class CloudinaryService {
   constructor(
@@ -12,9 +19,9 @@ export class CloudinaryService {
     @InjectRepository(Specialist)
     private specialistRepository: Repository<Specialist>,
   ) {
-    const cloudName = this.configService.get('CLOUDINARY_CLOUD_NAME');
-    const apiKey = this.configService.get('CLOUDINARY_API_KEY');
-    const apiSecret = this.configService.get('CLOUDINARY_API_SECRET');
+    const cloudName = this.configService.get<string>('CLOUDINARY_CLOUD_NAME');
+    const apiKey = this.configService.get<string>('CLOUDINARY_API_KEY');
+    const apiSecret = this.configService.get<string>('CLOUDINARY_API_SECRET');
 
     if (
       cloudName &&
@@ -32,7 +39,7 @@ export class CloudinaryService {
     }
   }
 
-  async uploadImage(file: any, userId: string): Promise<string> {
+  async uploadImage(file: UploadedFile, userId: string): Promise<string> {
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -41,7 +48,7 @@ export class CloudinaryService {
           transformation: [{ width: 400, height: 400, crop: 'fill' }],
         },
         (error, result) => {
-          if (error) return reject(error);
+          if (error) return reject(new Error(error.message));
           if (!result) return reject(new Error('Upload failed: no result'));
           resolve(result.secure_url);
         },
@@ -51,8 +58,10 @@ export class CloudinaryService {
     });
   }
 
-  async updateProfilePhoto(userId: string, file: any) {
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+  async updateProfilePhoto(userId: string, file: UploadedFile) {
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist) {
       throw new Error('Specialist not found');
     }
@@ -66,10 +75,15 @@ export class CloudinaryService {
   }
 
   async uploadVideo(
-    file: any,
+    file: UploadedFile,
     lessonId: string,
-    title: string,
-  ): Promise<{ publicId: string; url: string; duration: number; thumbnailUrl: string }> {
+    _title: string,
+  ): Promise<{
+    publicId: string;
+    url: string;
+    duration: number;
+    thumbnailUrl: string;
+  }> {
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -88,22 +102,21 @@ export class CloudinaryService {
           eager_async: true, // Avoid timeout during processing
         },
         (error, result) => {
-          if (error) return reject(error);
-          if (!result) return reject(new Error('Video upload failed: no result'));
+          if (error) return reject(new Error(error.message));
+          if (!result)
+            return reject(new Error('Video upload failed: no result'));
 
           // Generate thumbnail URL
           const thumbnailUrl = cloudinary.url(result.public_id, {
             resource_type: 'video',
             format: 'jpg',
-            transformation: [
-              { width: 640, height: 360, crop: 'fill' },
-            ],
+            transformation: [{ width: 640, height: 360, crop: 'fill' }],
           });
 
           resolve({
             publicId: result.public_id,
             url: result.secure_url,
-            duration: Math.round(result.duration || 0),
+            duration: Math.round(Number(result.duration) || 0),
             thumbnailUrl,
           });
         },
@@ -113,7 +126,7 @@ export class CloudinaryService {
     });
   }
 
-  async getSignedVideoUrl(publicId: string, expiresIn: number = 3600): Promise<string> {
+  getSignedVideoUrl(publicId: string, expiresIn: number = 3600): string {
     // Generate signed URL for secure streaming
     const signedUrl = cloudinary.url(publicId, {
       resource_type: 'video',
@@ -127,11 +140,11 @@ export class CloudinaryService {
 
   async deleteVideo(publicId: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      cloudinary.uploader.destroy(
+      void cloudinary.uploader.destroy(
         publicId,
         { resource_type: 'video' },
-        (error, result) => {
-          if (error) return reject(error);
+        (error) => {
+          if (error) return reject(new Error(String(error)));
           resolve();
         },
       );

@@ -16,7 +16,14 @@ export class SpecialistsService {
   ) {}
 
   async findAll(filters: SpecialistFiltersDto) {
-    const { category, location, minRating, maxPrice, page = 1, limit = 12 } = filters;
+    const {
+      category,
+      location,
+      minRating,
+      maxPrice,
+      page = 1,
+      limit = 12,
+    } = filters;
 
     const query = this.specialistRepository.createQueryBuilder('specialist');
 
@@ -25,7 +32,9 @@ export class SpecialistsService {
     }
 
     if (location) {
-      query.andWhere('specialist.location ILIKE :location', { location: `%${location}%` });
+      query.andWhere('specialist.location ILIKE :location', {
+        location: `%${location}%`,
+      });
     }
 
     if (minRating !== undefined) {
@@ -55,7 +64,9 @@ export class SpecialistsService {
   }
 
   async findBySlug(slug: string) {
-    const specialist = await this.specialistRepository.findOne({ where: { slug } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { slug },
+    });
     if (!specialist) {
       throw new NotFoundException('Specialist not found');
     }
@@ -73,7 +84,9 @@ export class SpecialistsService {
   }
 
   async findByUserId(userId: string) {
-    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
     if (!specialist) {
       throw new NotFoundException('Specialist profile not found');
     }
