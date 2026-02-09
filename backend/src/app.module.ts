@@ -19,12 +19,14 @@ import { EmailModule } from './email/email.module';
 import { AdminModule } from './admin/admin.module';
 import { AcademyModule } from './academy/academy.module';
 import { CommunityModule } from './community/community.module';
+import { validate } from './config/env.validation';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+      validate,
     }),
     ThrottlerModule.forRoot([
       {

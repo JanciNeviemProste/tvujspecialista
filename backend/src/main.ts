@@ -3,6 +3,7 @@ import { ValidationPipe, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,6 +29,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  // Global exception filter
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   // Swagger documentation
   const config = new DocumentBuilder()

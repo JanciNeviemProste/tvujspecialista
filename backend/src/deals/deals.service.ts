@@ -141,6 +141,8 @@ export class DealsService {
           deal.specialist.user.name || 'Špecialista',
           {
             customerName: deal.customerName,
+            dealValue: deal.dealValue || 0,
+            estimatedCloseDate: deal.estimatedCloseDate || new Date(),
           },
           oldStatus,
           updateDto.status,
@@ -152,6 +154,8 @@ export class DealsService {
           deal.specialist.name || 'Špecialista',
           {
             customerName: deal.customerName,
+            dealValue: deal.dealValue || 0,
+            estimatedCloseDate: deal.estimatedCloseDate || new Date(),
           },
           oldStatus,
           updateDto.status,

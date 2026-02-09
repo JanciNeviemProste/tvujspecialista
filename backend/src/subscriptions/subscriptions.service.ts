@@ -153,7 +153,7 @@ export class SubscriptionsService {
     if (!customerId) {
       const customer = await this.stripe.customers.create({
         email: user.email,
-        metadata: { userId, specialistId: specialist?.id },
+        metadata: { userId, specialistId: specialist?.id ?? '' },
       });
       customerId = customer.id;
     }
@@ -172,7 +172,7 @@ export class SubscriptionsService {
       cancel_url: `${this.configService.get('FRONTEND_URL')}/pricing?payment=cancel`,
       metadata: {
         userId,
-        specialistId: specialist?.id,
+        specialistId: specialist?.id ?? '',
         subscriptionType: SubscriptionType.PREMIUM,
       },
     });
