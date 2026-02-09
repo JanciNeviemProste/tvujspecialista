@@ -8,6 +8,7 @@ import {
   RawBodyRequest,
   Req,
 } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { StripeService } from './stripe.service';
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -29,6 +30,7 @@ export class StripeController {
     );
   }
 
+  @Throttle({ default: { limit: 100, ttl: 60000 } })
   @Post('webhook')
   async handleWebhook(
     @Headers('stripe-signature') signature: string,
