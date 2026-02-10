@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';

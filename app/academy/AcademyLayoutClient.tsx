@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/contexts/AuthContext';
 import { BookOpen, Home, Library, User } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 

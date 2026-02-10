@@ -25,6 +25,7 @@ export enum SubscriptionType {
 @Entity('subscriptions')
 @Index(['specialistId'])
 @Index(['userId'])
+@Index(['userId', 'status'])
 @Index(['stripeSubscriptionId'])
 export class Subscription {
   @PrimaryGeneratedColumn('uuid')

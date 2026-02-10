@@ -4,6 +4,7 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  Index,
 } from 'typeorm';
 
 export enum UserRole {
@@ -43,6 +44,7 @@ export class User {
   })
   role: UserRole;
 
+  @Index()
   @Column({ default: false })
   verified: boolean;
 

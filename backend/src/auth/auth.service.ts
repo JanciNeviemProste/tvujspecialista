@@ -14,6 +14,7 @@ import { Specialist } from '../database/entities/specialist.entity';
 import { RefreshToken } from '../database/entities/refresh-token.entity';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { UserResponseDto } from './dto/user-response.dto';
 import { ConfigService } from '@nestjs/config';
 import { generateSlug } from '../utils/slug-generator';
 import { EmailService } from '../email/email.service';
@@ -163,7 +164,19 @@ export class AuthService {
     };
   }
 
-  async forgotPassword(email: string): Promise<void> {
+  async getProfile(userId: string): Promise<UserResponseDto> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) throw new UnauthorizedException('User not found');
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      verified: user.verified,
+    };
+  }
+
+    async forgotPassword(email: string): Promise<void> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) return; // Don't reveal if user exists
 

@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { PricingCard } from '@/components/subscriptions/PricingCard';
 import { PricingPlan, SubscriptionType } from '@/types/subscriptions';
 import { useCreateCheckout, useMyActiveSubscription } from '@/lib/hooks/useSubscriptions';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/contexts/AuthContext';
 
 const pricingPlans: PricingPlan[] = [
   {

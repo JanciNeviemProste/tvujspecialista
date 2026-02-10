@@ -11,7 +11,7 @@ import { Calendar, MapPin, Video, Users, Clock, Tag, ExternalLink } from 'lucide
 import Image from 'next/image'
 import { EventType, EventFormat, EventCategory } from '@/types/community'
 import { formatDate } from '@/lib/utils/dateFormat'
-import { useAuth } from '@/lib/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 
 function getEventTypeLabel(type: EventType): string {

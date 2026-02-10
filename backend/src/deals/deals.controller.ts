@@ -47,10 +47,8 @@ export class DealsController {
     description: 'Returns all deals for the authenticated specialist',
   })
   async getMyDeals(@Request() req: AuthenticatedRequest) {
-    const specialist = await this.dealsService.findBySpecialist(
-      req.user.userId,
-    );
-    return specialist;
+    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
+    return this.dealsService.findBySpecialist(specialist.id);
   }
 
   @UseGuards(JwtAuthGuard)

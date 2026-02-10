@@ -6,7 +6,7 @@ import { RSVPCard } from '@/components/community/RSVPCard'
 import { RSVPsGridSkeleton } from '@/components/community/LoadingStates'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useAuth } from '@/lib/hooks/useAuth'
+import { useAuth } from '@/contexts/AuthContext'
 import { useRouter } from 'next/navigation'
 import { RSVPStatus } from '@/types/community'
 

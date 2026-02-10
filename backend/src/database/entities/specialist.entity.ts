@@ -9,6 +9,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';
 import { Review } from './review.entity';
 import { Lead } from './lead.entity';
 import { Deal } from './deal.entity';
@@ -121,9 +122,11 @@ export class Specialist {
   subscriptionExpiresAt: Date;
 
   // Commission tracking (NEW)
+  @Exclude()
   @Column({ type: 'decimal', precision: 5, scale: 4, default: 0.15 })
   commissionRate: number; // default 15%
 
+  @Exclude()
   @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
   totalCommissionPaid: number;
 

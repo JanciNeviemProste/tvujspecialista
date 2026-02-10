@@ -53,6 +53,7 @@ describe('AuthController', () => {
             register: jest.fn(),
             login: jest.fn(),
             refreshToken: jest.fn(),
+            getProfile: jest.fn(),
             logout: jest.fn(),
           },
         },
@@ -112,14 +113,20 @@ describe('AuthController', () => {
   });
 
   describe('getProfile', () => {
-    it('should return req.user', () => {
-      const result = controller.getProfile(mockRequest);
-
-      expect(result).toEqual({
-        userId: 'user-123',
+    it('should call authService.getProfile with userId', async () => {
+      const mockProfile = {
+        id: 'user-123',
         email: 'john@example.com',
+        name: 'John Doe',
         role: UserRole.SPECIALIST,
-      });
+        verified: true,
+      };
+      authService.getProfile.mockResolvedValue(mockProfile);
+
+      const result = await controller.getProfile(mockRequest);
+
+      expect(authService.getProfile).toHaveBeenCalledWith('user-123');
+      expect(result).toEqual(mockProfile);
     });
   });
 

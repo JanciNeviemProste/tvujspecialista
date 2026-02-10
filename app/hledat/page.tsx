@@ -26,10 +26,6 @@ export default function SearchPage() {
     limit: 20,
   });
 
-  const handleApplyFilters = () => {
-    // Filters are already applied via React Query
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -81,6 +77,7 @@ export default function SearchPage() {
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700">Kategorie</label>
                 <select
+                  aria-label="Vyberte kategorii"
                   className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.category}
                   onChange={(e) => setFilters({ ...filters, category: e.target.value })}
@@ -95,6 +92,7 @@ export default function SearchPage() {
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700">Lokalita</label>
                 <select
+                  aria-label="Vyberte lokalitu"
                   className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.location}
                   onChange={(e) => setFilters({ ...filters, location: e.target.value })}
@@ -163,12 +161,6 @@ export default function SearchPage() {
                 />
               </div>
 
-              <button
-                onClick={handleApplyFilters}
-                className="w-full rounded-md bg-blue-600 py-2 text-sm font-medium text-white hover:bg-blue-700"
-              >
-                Použít filtry
-              </button>
             </div>
           </aside>
 
@@ -178,6 +170,7 @@ export default function SearchPage() {
             <div className="mb-4 flex items-center justify-between">
               <p className="text-sm text-gray-600">Seřadit podle:</p>
               <select
+                aria-label="Seřadit výsledky"
                 className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 value={filters.sortBy}
                 onChange={(e) =>

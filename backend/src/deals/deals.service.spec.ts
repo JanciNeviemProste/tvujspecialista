@@ -70,6 +70,7 @@ describe('DealsService', () => {
             find: jest.fn(),
             findOne: jest.fn(),
             update: jest.fn(),
+            createQueryBuilder: jest.fn(),
           },
         },
         {
@@ -646,29 +647,49 @@ describe('DealsService', () => {
   });
 
   describe('getAnalytics', () => {
-    it('should return analytics for a specialist', async () => {
-      const deals = [
-        {
-          ...mockDeal,
-          status: DealStatus.CLOSED_WON,
-          dealValue: 100000,
-          actualCloseDate: new Date(),
-          createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000),
-        },
-        {
-          ...mockDeal,
-          status: DealStatus.CLOSED_LOST,
-          dealValue: 50000,
-          actualCloseDate: new Date(),
-        },
-        {
-          ...mockDeal,
-          status: DealStatus.NEW,
-          dealValue: 75000,
-        },
-      ] as unknown as Deal[];
+    function mockQueryBuilder(results: { getRawMany?: any[]; getRawOne?: any }[]) {
+      let callIndex = 0;
+      const qb = {
+        select: jest.fn().mockReturnThis(),
+        addSelect: jest.fn().mockReturnThis(),
+        where: jest.fn().mockReturnThis(),
+        andWhere: jest.fn().mockReturnThis(),
+        groupBy: jest.fn().mockReturnThis(),
+        addGroupBy: jest.fn().mockReturnThis(),
+        setParameter: jest.fn().mockReturnThis(),
+        setParameters: jest.fn().mockReturnThis(),
+        getRawMany: jest.fn().mockImplementation(() => {
+          const r = results[callIndex];
+          callIndex++;
+          return Promise.resolve(r?.getRawMany || []);
+        }),
+        getRawOne: jest.fn().mockImplementation(() => {
+          const r = results[callIndex];
+          callIndex++;
+          return Promise.resolve(r?.getRawOne || null);
+        }),
+      };
+      dealRepository.createQueryBuilder.mockReturnValue(qb as any);
+      return qb;
+    }
 
-      dealRepository.find.mockResolvedValue(deals);
+    it('should return analytics for a specialist', async () => {
+      mockQueryBuilder([
+        // 1st call: status distribution (getRawMany)
+        {
+          getRawMany: [
+            { status: DealStatus.CLOSED_WON, count: '1' },
+            { status: DealStatus.CLOSED_LOST, count: '1' },
+            { status: DealStatus.NEW, count: '1' },
+          ],
+        },
+        // 2nd call: aggregates (getRawOne)
+        {
+          getRawOne: { avgValue: '75000', avgDaysToClose: '10' },
+        },
+        // 3rd call: monthly trend (getRawMany)
+        { getRawMany: [] },
+      ]);
 
       const result = await service.getAnalytics('specialist-123');
 
@@ -683,7 +704,11 @@ describe('DealsService', () => {
     });
 
     it('should handle zero deals gracefully', async () => {
-      dealRepository.find.mockResolvedValue([]);
+      mockQueryBuilder([
+        { getRawMany: [] },
+        { getRawOne: null },
+        { getRawMany: [] },
+      ]);
 
       const result = await service.getAnalytics('specialist-123');
 
@@ -691,19 +716,6 @@ describe('DealsService', () => {
       expect(result.averageDealValue).toBe(0);
       expect(result.averageTimeToClose).toBe(0);
       expect(result.winRate).toBe(0);
-    });
-  });
-
-  describe('resetMonthlyLeadCounts', () => {
-    it('should reset all specialist lead counts', async () => {
-      specialistRepository.update.mockResolvedValue({} as any);
-
-      await service.resetMonthlyLeadCounts();
-
-      expect(specialistRepository.update).toHaveBeenCalledWith(
-        {},
-        { leadsThisMonth: 0 },
-      );
     });
   });
 });

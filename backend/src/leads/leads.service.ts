@@ -75,6 +75,13 @@ export class LeadsService {
     });
   }
 
+  async findSpecialistByUserId(userId: string): Promise<Specialist> {
+    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    if (!specialist) throw new NotFoundException('Specialist not found');
+    return specialist;
+  }
+
+
   async updateStatus(
     leadId: string,
     userId: string,
@@ -132,7 +139,11 @@ export class LeadsService {
 
   @Cron(CronExpression.EVERY_1ST_DAY_OF_MONTH_AT_MIDNIGHT)
   async resetMonthlyLeadCounts() {
-    await this.specialistRepository.update({}, { leadsThisMonth: 0 });
-    this.logger.log('Monthly lead counts reset');
+    try {
+      await this.specialistRepository.update({}, { leadsThisMonth: 0 });
+      this.logger.log('Monthly lead counts reset');
+    } catch (error) {
+      this.logger.error('Failed to reset monthly lead counts:', error);
+    }
   }
 }

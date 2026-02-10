@@ -1,7 +1,7 @@
 'use client';
 
 import { useMyEnrollments } from '@/lib/hooks/useAcademy';
-import { useAuth } from '@/lib/hooks/useAuth';
+import { useAuth } from '@/contexts/AuthContext';
 import { EnrollmentCard } from '@/components/academy/EnrollmentCard';
 import { EnrollmentsGridSkeleton } from '@/components/academy/LoadingStates';
 import { Card, CardContent } from '@/components/ui/card';

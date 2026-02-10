@@ -62,22 +62,18 @@ export class CoursesService {
   }
 
   async findBySlug(slug: string): Promise<Course> {
-    const course = await this.courseRepository.findOne({
-      where: { slug, published: true },
-      relations: ['modules', 'modules.lessons'],
-    });
+    const course = await this.courseRepository
+      .createQueryBuilder('course')
+      .leftJoinAndSelect('course.modules', 'module')
+      .leftJoinAndSelect('module.lessons', 'lesson', 'lesson.published = :pub', { pub: true })
+      .where('course.slug = :slug', { slug })
+      .andWhere('course.published = :published', { published: true })
+      .orderBy('module.position', 'ASC')
+      .addOrderBy('lesson.position', 'ASC')
+      .getOne();
 
     if (!course) {
       throw new NotFoundException('Course not found or not available');
-    }
-
-    // Filter only published lessons
-    if (course.modules) {
-      course.modules.forEach((module) => {
-        if (module.lessons) {
-          module.lessons = module.lessons.filter((lesson) => lesson.published);
-        }
-      });
     }
 
     return course;

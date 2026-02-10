@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as crypto from 'crypto';
 import { Review } from '../database/entities/review.entity';
 import { ReviewToken } from '../database/entities/review-token.entity';
 import { Specialist } from '../database/entities/specialist.entity';
@@ -120,9 +121,7 @@ export class ReviewsService {
     leadId: string,
     customerEmail: string,
   ) {
-    const token =
-      Math.random().toString(36).substring(2, 15) +
-      Math.random().toString(36).substring(2, 15);
+    const token = crypto.randomBytes(32).toString('hex');
 
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 30);

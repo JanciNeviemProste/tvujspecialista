@@ -63,6 +63,7 @@ describe('CoursesService', () => {
     addOrderBy: jest.fn().mockReturnThis(),
     skip: jest.fn().mockReturnThis(),
     take: jest.fn().mockReturnThis(),
+    leftJoinAndSelect: jest.fn().mockReturnThis(),
     getManyAndCount: jest.fn().mockResolvedValue([[mockCourse], 1]),
     getOne: jest.fn(),
   };
@@ -164,28 +165,38 @@ describe('CoursesService', () => {
   });
 
   describe('findBySlug', () => {
-    it('should return course with published lessons only', async () => {
-      courseRepository.findOne.mockResolvedValue(mockCourseWithModules);
+    it('should return course with published lessons via SQL filter', async () => {
+      const courseWithPublishedOnly = {
+        ...mockCourse,
+        modules: [
+          {
+            id: 'module-1',
+            title: 'Introduction',
+            lessons: [
+              { id: 'lesson-1', title: 'Welcome', published: true },
+            ],
+          },
+        ],
+      } as unknown as Course;
+
+      mockQueryBuilder.getOne.mockResolvedValue(courseWithPublishedOnly);
 
       const result = await service.findBySlug('financial-planning-basics');
 
-      expect(courseRepository.findOne).toHaveBeenCalledWith({
-        where: { slug: 'financial-planning-basics', published: true },
-        relations: ['modules', 'modules.lessons'],
-      });
-      // Should filter out unpublished lessons
+      expect(courseRepository.createQueryBuilder).toHaveBeenCalledWith('course');
+      expect(mockQueryBuilder.leftJoinAndSelect).toHaveBeenCalled();
+      expect(mockQueryBuilder.where).toHaveBeenCalledWith(
+        'course.slug = :slug',
+        { slug: 'financial-planning-basics' },
+      );
       expect(result.modules[0].lessons).toHaveLength(1);
-      expect(result.modules[0].lessons[0].published).toBe(true);
     });
 
     it('should throw NotFoundException if course not found', async () => {
-      courseRepository.findOne.mockResolvedValue(null);
+      mockQueryBuilder.getOne.mockResolvedValue(null);
 
       await expect(service.findBySlug('nonexistent-course')).rejects.toThrow(
         NotFoundException,
-      );
-      await expect(service.findBySlug('nonexistent-course')).rejects.toThrow(
-        'Course not found or not available',
       );
     });
   });

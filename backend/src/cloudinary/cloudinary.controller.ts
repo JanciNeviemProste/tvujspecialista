@@ -7,6 +7,7 @@ import {
   Request,
   BadRequestException,
 } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiConsumes } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from './cloudinary.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -21,6 +22,7 @@ interface UploadedFile {
   buffer: Buffer;
 }
 
+@ApiTags('Upload')
 @Controller('upload')
 export class CloudinaryController {
   constructor(private cloudinaryService: CloudinaryService) {}
@@ -28,6 +30,11 @@ export class CloudinaryController {
   @UseGuards(JwtAuthGuard)
   @Post('profile-photo')
   @UseInterceptors(FileInterceptor('photo'))
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Upload profile photo' })
+  @ApiConsumes('multipart/form-data')
+  @ApiResponse({ status: 201, description: 'Photo uploaded successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid file type or size' })
   async uploadProfilePhoto(
     @Request() req: AuthenticatedRequest,
     @UploadedFile() file: UploadedFile,

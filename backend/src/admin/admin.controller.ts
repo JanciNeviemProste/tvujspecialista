@@ -8,6 +8,7 @@ import {
   ApiOperation,
   ApiResponse,
 } from '@nestjs/swagger';
+import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 
 @ApiTags('Admin')
 @ApiBearerAuth()
@@ -20,28 +21,16 @@ export class AdminController {
   @ApiOperation({ summary: 'Get all users (Admin only)' })
   @ApiResponse({ status: 200, description: 'Returns paginated users' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
-  async getAllUsers(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-  ) {
-    return this.adminService.getAllUsers(
-      page ? parseInt(page, 10) : 1,
-      limit ? parseInt(limit, 10) : 20,
-    );
+  async getAllUsers(@Query() query: PaginationQueryDto) {
+    return this.adminService.getAllUsers(query.page, query.limit);
   }
 
   @Get('specialists')
   @ApiOperation({ summary: 'Get all specialists (Admin only)' })
   @ApiResponse({ status: 200, description: 'Returns paginated specialists' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
-  async getAllSpecialists(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-  ) {
-    return this.adminService.getAllSpecialists(
-      page ? parseInt(page, 10) : 1,
-      limit ? parseInt(limit, 10) : 20,
-    );
+  async getAllSpecialists(@Query() query: PaginationQueryDto) {
+    return this.adminService.getAllSpecialists(query.page, query.limit);
   }
 
   @Patch('specialists/:id/verify')
@@ -57,14 +46,8 @@ export class AdminController {
   @ApiOperation({ summary: 'Get all leads (Admin only)' })
   @ApiResponse({ status: 200, description: 'Returns paginated leads' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
-  async getAllLeads(
-    @Query('page') page?: string,
-    @Query('limit') limit?: string,
-  ) {
-    return this.adminService.getAllLeads(
-      page ? parseInt(page, 10) : 1,
-      limit ? parseInt(limit, 10) : 20,
-    );
+  async getAllLeads(@Query() query: PaginationQueryDto) {
+    return this.adminService.getAllLeads(query.page, query.limit);
   }
 
   @Get('stats')

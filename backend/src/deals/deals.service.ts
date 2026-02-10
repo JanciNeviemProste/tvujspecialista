@@ -337,12 +337,6 @@ export class DealsService {
     return this.dealRepository.save(deal);
   }
 
-  @Cron(CronExpression.EVERY_1ST_DAY_OF_MONTH_AT_MIDNIGHT)
-  async resetMonthlyLeadCounts() {
-    await this.specialistRepository.update({}, { leadsThisMonth: 0 });
-    this.logger.log('Monthly lead counts reset');
-  }
-
   @Cron(CronExpression.EVERY_DAY_AT_9AM)
   async sendDeadlineReminders() {
     this.logger.log('Running deadline reminder cron job...');
@@ -438,85 +432,123 @@ export class DealsService {
   }
 
   async getAnalytics(specialistId: string) {
-    const deals = await this.dealRepository.find({
-      where: { specialistId },
-    });
+    // 1. Status distribution via SQL aggregation
+    const statusCounts: Array<{ status: string; count: string }> =
+      await this.dealRepository
+        .createQueryBuilder('deal')
+        .select('deal.status', 'status')
+        .addSelect('COUNT(*)', 'count')
+        .where('deal.specialistId = :specialistId', { specialistId })
+        .groupBy('deal.status')
+        .getRawMany();
 
-    const closedDeals = deals.filter(
-      (d) =>
-        d.status === DealStatus.CLOSED_WON ||
-        d.status === DealStatus.CLOSED_LOST,
-    );
-    const wonDeals = deals.filter((d) => d.status === DealStatus.CLOSED_WON);
-    const lostDeals = deals.filter((d) => d.status === DealStatus.CLOSED_LOST);
+    const statusMap = new Map<string, number>();
+    let totalDeals = 0;
+    for (const row of statusCounts) {
+      const c = Number(row.count);
+      statusMap.set(row.status, c);
+      totalDeals += c;
+    }
 
-    // Conversion rate
-    const conversionRate =
-      closedDeals.length > 0 ? (wonDeals.length / closedDeals.length) * 100 : 0;
+    const closedWon = statusMap.get(DealStatus.CLOSED_WON) || 0;
+    const closedLost = statusMap.get(DealStatus.CLOSED_LOST) || 0;
+    const closedDeals = closedWon + closedLost;
 
-    // Average deal value
-    const dealsWithValue = deals.filter((d) => d.dealValue && d.dealValue > 0);
-    const averageDealValue =
-      dealsWithValue.length > 0
-        ? dealsWithValue.reduce((sum, d) => sum + d.dealValue, 0) /
-          dealsWithValue.length
-        : 0;
-
-    // Average time to close (in days)
-    const dealsWithCloseDates = wonDeals.filter((d) => d.actualCloseDate);
-    const averageTimeToClose =
-      dealsWithCloseDates.length > 0
-        ? dealsWithCloseDates.reduce((sum, d) => {
-            const created = new Date(d.createdAt);
-            const closed = new Date(d.actualCloseDate);
-            const days = Math.floor(
-              (closed.getTime() - created.getTime()) / (1000 * 60 * 60 * 24),
-            );
-            return sum + days;
-          }, 0) / dealsWithCloseDates.length
-        : 0;
-
-    // Win rate
-    const winRate =
-      closedDeals.length > 0 ? (wonDeals.length / closedDeals.length) * 100 : 0;
-
-    // Status distribution
     const statusDistribution = Object.values(DealStatus).map((status) => ({
       status,
-      count: deals.filter((d) => d.status === status).length,
+      count: statusMap.get(status) || 0,
     }));
 
-    // Monthly trend (last 6 months)
+    // 2. Aggregate values via SQL
+    const aggregates = await this.dealRepository
+      .createQueryBuilder('deal')
+      .select(
+        'AVG(CASE WHEN deal.dealValue > 0 THEN deal.dealValue ELSE NULL END)',
+        'avgValue',
+      )
+      .addSelect(
+        `AVG(CASE WHEN deal.status = :wonStatus AND deal."actualCloseDate" IS NOT NULL THEN EXTRACT(EPOCH FROM (deal."actualCloseDate" - deal."createdAt")) / 86400 ELSE NULL END)`,
+        'avgDaysToClose',
+      )
+      .where('deal.specialistId = :specialistId', { specialistId })
+      .setParameter('wonStatus', DealStatus.CLOSED_WON)
+      .getRawOne();
+
+    const averageDealValue = aggregates?.avgValue
+      ? Math.round(Number(aggregates.avgValue) * 100) / 100
+      : 0;
+    const averageTimeToClose = aggregates?.avgDaysToClose
+      ? Math.round(Number(aggregates.avgDaysToClose))
+      : 0;
+
+    // 3. Conversion / win rate
+    const conversionRate =
+      closedDeals > 0
+        ? Math.round((closedWon / closedDeals) * 1000) / 10
+        : 0;
+    const winRate = conversionRate;
+
+    // 4. Monthly trend (last 6 months) via SQL
     const now = new Date();
+    const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 5, 1);
+
+    const monthlyRaw: Array<{
+      m: string;
+      y: string;
+      status: string;
+      cnt: string;
+    }> = await this.dealRepository
+      .createQueryBuilder('deal')
+      .select(`EXTRACT(MONTH FROM deal."actualCloseDate")::int`, 'm')
+      .addSelect(`EXTRACT(YEAR FROM deal."actualCloseDate")::int`, 'y')
+      .addSelect('deal.status', 'status')
+      .addSelect('COUNT(*)', 'cnt')
+      .where('deal.specialistId = :specialistId', { specialistId })
+      .andWhere(`deal."actualCloseDate" >= :since`, { since: sixMonthsAgo })
+      .andWhere('deal.status IN (:...statuses)', {
+        statuses: [DealStatus.CLOSED_WON, DealStatus.CLOSED_LOST],
+      })
+      .groupBy('y')
+      .addGroupBy('m')
+      .addGroupBy('deal.status')
+      .getRawMany();
+
     const monthlyTrend: Array<{ month: string; won: number; lost: number }> =
       [];
     for (let i = 5; i >= 0; i--) {
       const monthDate = new Date(now.getFullYear(), now.getMonth() - i, 1);
-      const monthEnd = new Date(now.getFullYear(), now.getMonth() - i + 1, 0);
-
+      const monthNum = monthDate.getMonth() + 1;
+      const yearNum = monthDate.getFullYear();
       const monthName = monthDate.toLocaleDateString('sk-SK', {
         month: 'short',
         year: 'numeric',
       });
 
-      const won = wonDeals.filter((d) => {
-        const closeDate = new Date(d.actualCloseDate);
-        return closeDate >= monthDate && closeDate <= monthEnd;
-      }).length;
-
-      const lost = lostDeals.filter((d) => {
-        const closeDate = new Date(d.actualCloseDate);
-        return closeDate >= monthDate && closeDate <= monthEnd;
-      }).length;
+      const won = Number(
+        monthlyRaw.find(
+          (r) =>
+            Number(r.m) === monthNum &&
+            Number(r.y) === yearNum &&
+            r.status === DealStatus.CLOSED_WON,
+        )?.cnt || 0,
+      );
+      const lost = Number(
+        monthlyRaw.find(
+          (r) =>
+            Number(r.m) === monthNum &&
+            Number(r.y) === yearNum &&
+            r.status === DealStatus.CLOSED_LOST,
+        )?.cnt || 0,
+      );
 
       monthlyTrend.push({ month: monthName, won, lost });
     }
 
     return {
-      conversionRate: Math.round(conversionRate * 10) / 10,
-      averageDealValue: Math.round(averageDealValue * 100) / 100,
-      averageTimeToClose: Math.round(averageTimeToClose),
-      winRate: Math.round(winRate * 10) / 10,
+      conversionRate,
+      averageDealValue,
+      averageTimeToClose,
+      winRate,
       statusDistribution,
       monthlyTrend,
     };

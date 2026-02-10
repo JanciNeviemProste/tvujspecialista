@@ -6,6 +6,8 @@ import {
   Param,
   Body,
   UseGuards,
+  UseInterceptors,
+  ClassSerializerInterceptor,
   Request,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
@@ -17,6 +19,7 @@ import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.i
 
 @ApiTags('Specialists')
 @Controller('specialists')
+@UseInterceptors(ClassSerializerInterceptor)
 export class SpecialistsController {
   constructor(private specialistsService: SpecialistsService) {}
 
