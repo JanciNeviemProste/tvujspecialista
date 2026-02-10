@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, MoreThan } from 'typeorm';
+import * as crypto from 'crypto';
 import { Event, EventStatus } from '../../database/entities/event.entity';
 import { RSVP, RSVPStatus } from '../../database/entities/rsvp.entity';
 import { User } from '../../database/entities/user.entity';
@@ -129,7 +130,7 @@ export class EventsService {
     });
     if (existingEvent) {
       // Append random suffix to make it unique
-      slug = `${slug}-${Math.random().toString(36).substring(2, 8)}`;
+      slug = `${slug}-${crypto.randomBytes(4).toString('hex')}`;
     }
 
     // Create event
@@ -181,7 +182,7 @@ export class EventsService {
         .getOne();
 
       if (existingEvent) {
-        newSlug = `${newSlug}-${Math.random().toString(36).substring(2, 8)}`;
+        newSlug = `${newSlug}-${crypto.randomBytes(4).toString('hex')}`;
       }
 
       event.slug = newSlug;
