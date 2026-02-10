@@ -130,6 +130,10 @@ class EnvironmentVariables {
   @IsString()
   @IsOptional()
   CLOUDINARY_API_SECRET?: string;
+
+  @IsString()
+  @IsOptional()
+  CLOUDINARY_WEBHOOK_SECRET?: string;
 }
 
 export function validate(config: Record<string, unknown>) {

@@ -6,6 +6,7 @@ import { useMyLeads } from '@/lib/hooks/useMyLeads';
 import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
 import { leadsApi } from '@/lib/api/leads';
+import { specialistsApi } from '@/lib/api/specialists';
 import type { Lead } from '@/types/lead';
 import type { LeadStatus } from '@/lib/api/leads';
 
@@ -16,6 +17,10 @@ export default function DashboardPage() {
   const { data: subscription } = useQuery({
     queryKey: ['mySubscription'],
     queryFn: () => paymentsApi.getMySubscription().then((res) => res.data),
+  });
+  const { data: specialistProfile } = useQuery({
+    queryKey: ['mySpecialistProfile'],
+    queryFn: () => specialistsApi.getMyProfile().then((res) => res.data),
   });
 
   const handleLogout = async () => {
@@ -60,8 +65,10 @@ export default function DashboardPage() {
   const stats = {
     newLeads: leadsData?.stats?.new || 0,
     totalLeads: leadsData?.total || 0,
-    rating: 4.8, // This should come from specialist profile
-    successRate: 72, // This should be calculated from leads
+    rating: specialistProfile?.rating ?? 0,
+    successRate: leadsData?.total
+      ? Math.round(((leadsData?.stats?.closedWon || 0) / leadsData.total) * 100)
+      : 0,
   };
 
   const getStatusBadge = (status: string) => {
@@ -156,7 +163,7 @@ export default function DashboardPage() {
               <div className="border-b p-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-gray-900">Poslední leady</h2>
-                  <a href="#" className="text-sm font-medium text-blue-600 hover:underline">
+                  <a href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
                     Zobrazit vše
                   </a>
                 </div>
@@ -236,13 +243,13 @@ export default function DashboardPage() {
                   💰 Provízie
                 </a>
                 <a
-                  href="#"
+                  href="/profi/dashboard/profil"
                   className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                 >
                   📝 Upravit profil
                 </a>
                 <a
-                  href="#"
+                  href="/profi/dashboard/recenze"
                   className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                 >
                   💬 Správa recenzí
@@ -254,7 +261,7 @@ export default function DashboardPage() {
                   💳 Upgrade plánu
                 </a>
                 <a
-                  href="#"
+                  href="/profi/dashboard/deals"
                   className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                 >
                   📊 Statistiky

@@ -103,6 +103,18 @@ export class DealsService {
     return deal;
   }
 
+  async findSpecialistByUserId(userId: string): Promise<Specialist> {
+    const specialist = await this.specialistRepository.findOne({
+      where: { userId },
+    });
+
+    if (!specialist) {
+      throw new NotFoundException('Specialist not found');
+    }
+
+    return specialist;
+  }
+
   async updateStatus(
     dealId: string,
     userId: string,

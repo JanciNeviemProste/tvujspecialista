@@ -5,6 +5,7 @@ import {
   Delete,
   Param,
   Body,
+  Headers,
   Request,
   UseGuards,
   UseInterceptors,
@@ -12,6 +13,7 @@ import {
   ParseFilePipe,
   MaxFileSizeValidator,
   FileTypeValidator,
+  BadRequestException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import {
@@ -22,6 +24,8 @@ import {
   ApiConsumes,
   ApiBody,
 } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
+import * as crypto from 'crypto';
 import { VideosService } from '../services/videos.service';
 import { UploadVideoDto } from '../dto/upload-video.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -40,7 +44,10 @@ interface UploadedVideoFile {
 @ApiTags('Academy - Videos')
 @Controller('academy/videos')
 export class VideosController {
-  constructor(private videosService: VideosService) {}
+  constructor(
+    private videosService: VideosService,
+    private configService: ConfigService,
+  ) {}
 
   @Post('upload')
   @UseGuards(JwtAuthGuard, AdminGuard)
@@ -143,11 +150,28 @@ export class VideosController {
   @ApiOperation({
     summary: 'Cloudinary webhook endpoint',
     description:
-      'Receives notifications from Cloudinary when video processing is complete',
+      'Receives notifications from Cloudinary when video processing is complete. Validates webhook signature.',
   })
   @ApiResponse({ status: 200, description: 'Webhook processed successfully' })
-  @ApiResponse({ status: 400, description: 'Invalid webhook payload' })
-  async handleWebhook(@Body() payload: Record<string, unknown>) {
+  @ApiResponse({ status: 400, description: 'Invalid webhook payload or signature' })
+  async handleWebhook(
+    @Body() payload: Record<string, unknown>,
+    @Headers('x-cld-signature') signature: string,
+    @Headers('x-cld-timestamp') timestamp: string,
+  ) {
+    // Verify webhook signature if secret is configured
+    const webhookSecret = this.configService.get<string>('CLOUDINARY_WEBHOOK_SECRET');
+    if (webhookSecret) {
+      const expectedSignature = crypto
+        .createHmac('sha256', webhookSecret)
+        .update(JSON.stringify(payload) + timestamp)
+        .digest('hex');
+
+      if (signature !== expectedSignature) {
+        throw new BadRequestException('Invalid webhook signature');
+      }
+    }
+
     await this.videosService.handleWebhook(payload);
     return { message: 'Webhook processed successfully' };
   }

@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { EventCard } from '@/components/community/EventCard'
 import { EventsGridSkeleton } from '@/components/community/LoadingStates'
 import { useUpcomingEvents } from '@/lib/hooks/useCommunity'
@@ -11,10 +10,6 @@ import Link from 'next/link'
 
 export default function CommunityLandingPage() {
   const { data: featuredEvents, isLoading, error } = useUpcomingEvents()
-
-  useEffect(() => {
-    document.title = 'Komunita | tvujspecialista.cz'
-  }, [])
 
   // Take only first 3 events
   const displayEvents = featuredEvents?.slice(0, 3) || []

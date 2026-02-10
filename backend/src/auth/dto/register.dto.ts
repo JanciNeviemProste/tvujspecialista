@@ -3,6 +3,8 @@ import {
   IsNotEmpty,
   IsString,
   MinLength,
+  MaxLength,
+  Matches,
   IsEnum,
   IsInt,
   Min,
@@ -15,6 +17,7 @@ import { SpecialistCategory } from '../../database/entities/specialist.entity';
 export class RegisterDto {
   @IsNotEmpty()
   @IsString()
+  @MaxLength(200)
   name: string;
 
   @IsNotEmpty()
@@ -23,11 +26,16 @@ export class RegisterDto {
 
   @IsNotEmpty()
   @IsString()
-  @MinLength(6)
+  @MinLength(8)
+  @MaxLength(128)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, {
+    message: 'Password must contain at least one uppercase letter, one lowercase letter, and one digit',
+  })
   password: string;
 
   @IsNotEmpty()
   @IsString()
+  @MaxLength(20)
   phone: string;
 
   @IsNotEmpty()
@@ -45,6 +53,7 @@ export class RegisterDto {
 
   @IsOptional()
   @IsString()
+  @MaxLength(5000)
   bio?: string;
 
   @IsOptional()
@@ -64,6 +73,7 @@ export class RegisterDto {
 
   @IsOptional()
   @IsString()
+  @MaxLength(500)
   education?: string;
 
   @IsOptional()

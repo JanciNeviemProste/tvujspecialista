@@ -65,6 +65,9 @@ export class User {
   @Column({ nullable: true })
   emailVerificationToken: string;
 
+  @Column({ type: 'timestamp', nullable: true })
+  emailVerificationExpires: Date;
+
   @Column({ default: 0 })
   failedLoginAttempts: number;
 

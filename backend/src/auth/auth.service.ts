@@ -56,6 +56,7 @@ export class AuthService {
       .createHash('sha256')
       .update(verificationToken)
       .digest('hex');
+    savedUser.emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
     await this.userRepository.save(savedUser);
     await this.emailService.sendEmailVerification(
       savedUser.email,
@@ -200,6 +201,24 @@ export class AuthService {
     await this.refreshTokenRepository.delete({ userId: user.id });
   }
 
+  async changePassword(userId: string, currentPassword: string, newPassword: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const isCurrentPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isCurrentPasswordValid) {
+      throw new UnauthorizedException('Current password is incorrect');
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    await this.userRepository.save(user);
+
+    // Invalidate all refresh tokens to force re-login
+    await this.refreshTokenRepository.delete({ userId: user.id });
+  }
+
   async verifyEmail(token: string): Promise<void> {
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
@@ -211,8 +230,13 @@ export class AuthService {
       throw new BadRequestException('Invalid verification token');
     }
 
+    if (user.emailVerificationExpires && user.emailVerificationExpires < new Date()) {
+      throw new BadRequestException('Verification token has expired. Please request a new one.');
+    }
+
     user.verified = true;
     user.emailVerificationToken = null!;
+    user.emailVerificationExpires = null!;
     await this.userRepository.save(user);
   }
 
@@ -225,6 +249,7 @@ export class AuthService {
       .createHash('sha256')
       .update(verificationToken)
       .digest('hex');
+    user.emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
     await this.userRepository.save(user);
 
     await this.emailService.sendEmailVerification(

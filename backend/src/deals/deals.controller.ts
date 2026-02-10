@@ -76,13 +76,7 @@ export class DealsController {
     @Request() req: AuthenticatedRequest,
     @Body() dto: UpdateDealValueDto,
   ) {
-    const specialist = await this.dealsService['specialistRepository'].findOne({
-      where: { userId: req.user.userId },
-    });
-
-    if (!specialist) {
-      throw new Error('Specialist not found');
-    }
+    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
 
     return this.dealsService.updateDealValue(
       id,
@@ -102,13 +96,7 @@ export class DealsController {
     @Request() req: AuthenticatedRequest,
     @Body() dto: CloseDealDto,
   ) {
-    const specialist = await this.dealsService['specialistRepository'].findOne({
-      where: { userId: req.user.userId },
-    });
-
-    if (!specialist) {
-      throw new Error('Specialist not found');
-    }
+    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
 
     return this.dealsService.closeDeal(
       id,
@@ -127,13 +115,7 @@ export class DealsController {
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,
   ) {
-    const specialist = await this.dealsService['specialistRepository'].findOne({
-      where: { userId: req.user.userId },
-    });
-
-    if (!specialist) {
-      throw new Error('Specialist not found');
-    }
+    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
 
     return this.dealsService.reopenDeal(id, specialist.id);
   }
@@ -160,13 +142,7 @@ export class DealsController {
     @Param('dealId') dealId: string,
     @Request() req: AuthenticatedRequest,
   ) {
-    const specialist = await this.dealsService['specialistRepository'].findOne({
-      where: { userId: req.user.userId },
-    });
-
-    if (!specialist) {
-      throw new Error('Specialist not found');
-    }
+    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
 
     return this.dealsService.getEventsByDeal(dealId, specialist.id);
   }
@@ -177,13 +153,7 @@ export class DealsController {
   @ApiOperation({ summary: 'Get deal analytics' })
   @ApiResponse({ status: 200, description: 'Returns analytics data' })
   async getDealAnalytics(@Request() req: AuthenticatedRequest) {
-    const specialist = await this.dealsService['specialistRepository'].findOne({
-      where: { userId: req.user.userId },
-    });
-
-    if (!specialist) {
-      throw new Error('Specialist not found');
-    }
+    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
 
     return this.dealsService.getAnalytics(specialist.id);
   }

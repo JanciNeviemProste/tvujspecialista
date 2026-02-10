@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Param, UseGuards } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Query, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../auth/guards/admin.guard';
@@ -18,18 +18,30 @@ export class AdminController {
 
   @Get('users')
   @ApiOperation({ summary: 'Get all users (Admin only)' })
-  @ApiResponse({ status: 200, description: 'Returns all users' })
+  @ApiResponse({ status: 200, description: 'Returns paginated users' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
-  async getAllUsers() {
-    return this.adminService.getAllUsers();
+  async getAllUsers(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.adminService.getAllUsers(
+      page ? parseInt(page, 10) : 1,
+      limit ? parseInt(limit, 10) : 20,
+    );
   }
 
   @Get('specialists')
   @ApiOperation({ summary: 'Get all specialists (Admin only)' })
-  @ApiResponse({ status: 200, description: 'Returns all specialists' })
+  @ApiResponse({ status: 200, description: 'Returns paginated specialists' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
-  async getAllSpecialists() {
-    return this.adminService.getAllSpecialists();
+  async getAllSpecialists(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.adminService.getAllSpecialists(
+      page ? parseInt(page, 10) : 1,
+      limit ? parseInt(limit, 10) : 20,
+    );
   }
 
   @Patch('specialists/:id/verify')
@@ -43,10 +55,16 @@ export class AdminController {
 
   @Get('leads')
   @ApiOperation({ summary: 'Get all leads (Admin only)' })
-  @ApiResponse({ status: 200, description: 'Returns all leads' })
+  @ApiResponse({ status: 200, description: 'Returns paginated leads' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
-  async getAllLeads() {
-    return this.adminService.getAllLeads();
+  async getAllLeads(
+    @Query('page') page?: string,
+    @Query('limit') limit?: string,
+  ) {
+    return this.adminService.getAllLeads(
+      page ? parseInt(page, 10) : 1,
+      limit ? parseInt(limit, 10) : 20,
+    );
   }
 
   @Get('stats')

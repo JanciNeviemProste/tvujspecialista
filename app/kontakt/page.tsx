@@ -1,4 +1,40 @@
+'use client';
+
+import { useState } from 'react';
+import { toast } from 'sonner';
+
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
+  const [isSending, setIsSending] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      toast.error('Vyplňte prosím všechna povinná pole');
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      // Send contact form data via mailto as fallback
+      const mailtoLink = `mailto:info@tvujspecialista.cz?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Jméno: ${formData.name}\nEmail: ${formData.email}\nTelefon: ${formData.phone}\n\n${formData.message}`)}`;
+      window.open(mailtoLink, '_blank');
+      toast.success('Zpráva byla připravena k odeslání');
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch {
+      toast.error('Nepodařilo se odeslat zprávu');
+    } finally {
+      setIsSending(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="border-b bg-white">
@@ -16,7 +52,7 @@ export default function ContactPage() {
           {/* Contact Form */}
           <div className="rounded-lg border bg-white p-8">
             <h2 className="mb-6 text-2xl font-bold text-gray-900">Napište nám</h2>
-            <form className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
                   Jméno a příjmení *
@@ -24,6 +60,8 @@ export default function ContactPage() {
                 <input
                   type="text"
                   placeholder="Jan Novák"
+                  value={formData.name}
+                  onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
@@ -35,6 +73,8 @@ export default function ContactPage() {
                 <input
                   type="email"
                   placeholder="jan@example.cz"
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
@@ -46,6 +86,8 @@ export default function ContactPage() {
                 <input
                   type="tel"
                   placeholder="+420 777 123 456"
+                  value={formData.phone}
+                  onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
@@ -54,7 +96,11 @@ export default function ContactPage() {
                 <label className="mb-1 block text-sm font-medium text-gray-700">
                   Předmět *
                 </label>
-                <select className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                <select
+                  value={formData.subject}
+                  onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
+                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                >
                   <option value="">Vyberte předmět</option>
                   <option value="general">Obecný dotaz</option>
                   <option value="specialist">Dotaz pro specialisty</option>
@@ -71,15 +117,18 @@ export default function ContactPage() {
                 <textarea
                   rows={6}
                   placeholder="Popište svůj dotaz..."
+                  value={formData.message}
+                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700"
+                disabled={isSending}
+                className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
               >
-                Odeslat zprávu
+                {isSending ? 'Odesílání...' : 'Odeslat zprávu'}
               </button>
             </form>
           </div>

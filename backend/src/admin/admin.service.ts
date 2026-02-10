@@ -19,8 +19,8 @@ export class AdminService {
   /**
    * Get all users in the system
    */
-  async getAllUsers(): Promise<User[]> {
-    return this.userRepository.find({
+  async getAllUsers(page = 1, limit = 20) {
+    const [users, total] = await this.userRepository.findAndCount({
       select: [
         'id',
         'email',
@@ -32,16 +32,22 @@ export class AdminService {
         'updatedAt',
       ],
       order: { createdAt: 'DESC' },
+      skip: (page - 1) * limit,
+      take: limit,
     });
+    return { users, total, page, limit, totalPages: Math.ceil(total / limit) };
   }
 
   /**
    * Get all specialists with their user information
    */
-  async getAllSpecialists(): Promise<Specialist[]> {
-    return this.specialistRepository.find({
+  async getAllSpecialists(page = 1, limit = 20) {
+    const [specialists, total] = await this.specialistRepository.findAndCount({
       order: { createdAt: 'DESC' },
+      skip: (page - 1) * limit,
+      take: limit,
     });
+    return { specialists, total, page, limit, totalPages: Math.ceil(total / limit) };
   }
 
   /**
@@ -73,11 +79,14 @@ export class AdminService {
   /**
    * Get all leads in the system
    */
-  async getAllLeads(): Promise<Lead[]> {
-    return this.leadRepository.find({
+  async getAllLeads(page = 1, limit = 20) {
+    const [leads, total] = await this.leadRepository.findAndCount({
       relations: ['specialist'],
       order: { createdAt: 'DESC' },
+      skip: (page - 1) * limit,
+      take: limit,
     });
+    return { leads, total, page, limit, totalPages: Math.ceil(total / limit) };
   }
 
   /**

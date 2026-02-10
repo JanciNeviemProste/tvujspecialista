@@ -1,7 +1,5 @@
 'use client'
 
-import type { Metadata } from 'next'
-import { useEffect } from 'react'
 import { CourseCard } from '@/components/academy/CourseCard'
 import { CoursesGridSkeleton } from '@/components/academy/LoadingStates'
 import { useCourses } from '@/lib/hooks/useAcademy'
@@ -12,10 +10,6 @@ import Link from 'next/link'
 
 export default function AcademyLandingPage() {
   const { data: featuredCourses, isLoading, error } = useCourses({ featured: true, limit: 3 })
-
-  useEffect(() => {
-    document.title = 'Akadémia | tvujspecialista.cz'
-  }, [])
 
   return (
     <div className="min-h-screen bg-background">
