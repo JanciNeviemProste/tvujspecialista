@@ -56,6 +56,21 @@ export class User {
   @Column({ type: 'timestamp', nullable: true })
   educationSubscriptionExpiresAt: Date;
 
+  @Column({ nullable: true })
+  passwordResetToken: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  passwordResetExpires: Date;
+
+  @Column({ nullable: true })
+  emailVerificationToken: string;
+
+  @Column({ default: 0 })
+  failedLoginAttempts: number;
+
+  @Column({ type: 'timestamp', nullable: true })
+  lockedUntil: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 

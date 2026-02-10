@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { authApi, type LoginCredentials } from '@/lib/api/auth';
+import { toast } from 'sonner';
 
 interface User {
   id: string;
@@ -41,10 +42,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (credentials: LoginCredentials) => {
-    const { data } = await authApi.login(credentials);
-    localStorage.setItem('accessToken', data.accessToken);
-    localStorage.setItem('refreshToken', data.refreshToken);
-    setUser(data.user);
+    try {
+      const { data } = await authApi.login(credentials);
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
+      setUser(data.user);
+      toast.success('Přihlášení úspěšné');
+    } catch (error) {
+      toast.error('Přihlášení se nezdařilo');
+      throw error;
+    }
   };
 
   const logout = async () => {
@@ -55,6 +62,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       localStorage.clear();
       setUser(null);
+      toast.success('Odhlášení úspěšné');
     }
   };
 

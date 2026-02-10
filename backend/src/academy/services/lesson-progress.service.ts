@@ -94,10 +94,10 @@ export class LessonProgressService {
         lessonId,
         watchTimeSeconds,
         completed: completed || false,
-        completedAt: completed ? now : null,
+        completedAt: completed ? now : undefined,
         lastWatchedAt: now,
-        notes: notes || null,
-      });
+        notes: notes || undefined,
+      } as Partial<LessonProgress>);
     }
 
     // 8. Save LessonProgress
@@ -111,10 +111,16 @@ export class LessonProgressService {
     await this.enrollmentsService.updateProgress(enrollmentId);
 
     // 11. Return updated LessonProgress with lesson relation
-    return this.lessonProgressRepository.findOne({
+    const result = await this.lessonProgressRepository.findOne({
       where: { id: savedProgress.id },
       relations: ['lesson'],
     });
+
+    if (!result) {
+      throw new NotFoundException('Progress not found after save');
+    }
+
+    return result;
   }
 
   async getProgress(

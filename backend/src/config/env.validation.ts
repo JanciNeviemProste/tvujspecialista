@@ -113,6 +113,11 @@ class EnvironmentVariables {
   @IsOptional()
   STRIPE_PREMIUM_SUBSCRIPTION_PRICE_ID?: string;
 
+  // Sentry - optional
+  @IsString()
+  @IsOptional()
+  SENTRY_DSN?: string;
+
   // Cloudinary - optional
   @IsString()
   @IsOptional()

@@ -480,6 +480,62 @@ export class EmailService {
     }
   }
 
+  async sendPasswordReset(
+    email: string,
+    name: string,
+    token: string,
+  ): Promise<void> {
+    const resetUrl = `${this.configService.get<string>('FRONTEND_URL')}/profi/reset-password?token=${token}`;
+
+    try {
+      await sgMail.send({
+        to: email,
+        from: {
+          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
+          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
+        },
+        subject: 'Obnovení hesla - tvujspecialista.cz',
+        html: `
+          <h1>Obnovení hesla</h1>
+          <p>Dobrý den ${name},</p>
+          <p>Obdrželi jsme žádost o obnovení vašeho hesla.</p>
+          <p><a href="${resetUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">Obnovit heslo</a></p>
+          <p>Odkaz je platný 1 hodinu.</p>
+          <p>Pokud jste o obnovení hesla nežádali, tento email můžete ignorovat.</p>
+        `,
+      });
+    } catch (error) {
+      this.logger.error('Error sending password reset email:', error);
+    }
+  }
+
+  async sendEmailVerification(
+    email: string,
+    name: string,
+    token: string,
+  ): Promise<void> {
+    const verifyUrl = `${this.configService.get<string>('FRONTEND_URL')}/profi/verify-email?token=${token}`;
+
+    try {
+      await sgMail.send({
+        to: email,
+        from: {
+          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
+          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
+        },
+        subject: 'Ověření emailu - tvujspecialista.cz',
+        html: `
+          <h1>Ověření emailu</h1>
+          <p>Dobrý den ${name},</p>
+          <p>Děkujeme za registraci. Prosím ověřte svůj email kliknutím na tlačítko níže.</p>
+          <p><a href="${verifyUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">Ověřit email</a></p>
+        `,
+      });
+    } catch (error) {
+      this.logger.error('Error sending email verification:', error);
+    }
+  }
+
   private getStatusLabel(status: string): string {
     const labels: Record<string, string> = {
       new: 'Nový',

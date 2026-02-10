@@ -92,10 +92,16 @@ export class EnrollmentsService {
     );
 
     // 5. Return enrollment with course relation
-    return this.enrollmentRepository.findOne({
+    const result = await this.enrollmentRepository.findOne({
       where: { id: savedEnrollment.id },
       relations: ['course'],
     });
+
+    if (!result) {
+      throw new NotFoundException('Enrollment not found after creation');
+    }
+
+    return result;
   }
 
   async findMyEnrollments(

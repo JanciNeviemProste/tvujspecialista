@@ -1,6 +1,10 @@
+// Sentry must be imported before everything else
+import './instrument';
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe, Logger } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SentryGlobalFilter } from '@sentry/nestjs/setup';
 import helmet from 'helmet';
 import { json, urlencoded } from 'express';
 import { AppModule } from './app.module';
@@ -37,8 +41,8 @@ async function bootstrap() {
     }),
   );
 
-  // Global exception filter
-  app.useGlobalFilters(new AllExceptionsFilter());
+  // Global exception filters (Sentry captures first, then custom filter formats response)
+  app.useGlobalFilters(new SentryGlobalFilter(), new AllExceptionsFilter());
 
   // Swagger documentation
   const config = new DocumentBuilder()
@@ -52,6 +56,9 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
+
+  // Graceful shutdown
+  app.enableShutdownHooks();
 
   const port = process.env.PORT || 3001;
   await app.listen(port);

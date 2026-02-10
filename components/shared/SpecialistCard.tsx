@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { RatingStars } from './RatingStars'
 
 interface SpecialistCardProps {
@@ -24,11 +25,13 @@ export function SpecialistCard({ specialist }: SpecialistCardProps) {
     >
       <div className="flex gap-4">
         <div className="flex-shrink-0">
-          <div className="h-20 w-20 overflow-hidden rounded-full bg-gray-200">
-            <img
+          <div className="relative h-20 w-20 overflow-hidden rounded-full bg-gray-200">
+            <Image
               src={specialist.photo}
               alt={specialist.name}
-              className="h-full w-full object-cover"
+              fill
+              sizes="80px"
+              className="object-cover"
             />
           </div>
         </div>

@@ -2,11 +2,13 @@ import {
   Injectable,
   UnauthorizedException,
   ConflictException,
+  BadRequestException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import * as crypto from 'crypto';
 import { User, UserRole } from '../database/entities/user.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { RefreshToken } from '../database/entities/refresh-token.entity';
@@ -14,6 +16,7 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { generateSlug } from '../utils/slug-generator';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +29,7 @@ export class AuthService {
     private refreshTokenRepository: Repository<RefreshToken>,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private emailService: EmailService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -46,6 +50,18 @@ export class AuthService {
       role: UserRole.SPECIALIST,
     });
     const savedUser = await this.userRepository.save(user);
+
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    savedUser.emailVerificationToken = crypto
+      .createHash('sha256')
+      .update(verificationToken)
+      .digest('hex');
+    await this.userRepository.save(savedUser);
+    await this.emailService.sendEmailVerification(
+      savedUser.email,
+      savedUser.name,
+      verificationToken,
+    );
 
     const slug = generateSlug(
       registerDto.name,
@@ -95,12 +111,41 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
+    // Check if account is locked
+    if (user.lockedUntil && user.lockedUntil > new Date()) {
+      const minutesLeft = Math.ceil(
+        (user.lockedUntil.getTime() - Date.now()) / 60000,
+      );
+      throw new UnauthorizedException(
+        `Account is locked. Try again in ${minutesLeft} minutes`,
+      );
+    }
+
     const isPasswordValid = await bcrypt.compare(
       loginDto.password,
       user.password,
     );
+
     if (!isPasswordValid) {
+      user.failedLoginAttempts += 1;
+
+      if (user.failedLoginAttempts >= 5) {
+        user.lockedUntil = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+        await this.userRepository.save(user);
+        throw new UnauthorizedException(
+          'Account locked due to too many failed attempts. Try again in 15 minutes',
+        );
+      }
+
+      await this.userRepository.save(user);
       throw new UnauthorizedException('Invalid credentials');
+    }
+
+    // Reset failed attempts on successful login
+    if (user.failedLoginAttempts > 0 || user.lockedUntil) {
+      user.failedLoginAttempts = 0;
+      user.lockedUntil = null!;
+      await this.userRepository.save(user);
     }
 
     const tokens = await this.generateTokens(user);
@@ -115,6 +160,78 @@ export class AuthService {
         role: user.role,
       },
     };
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user) return; // Don't reveal if user exists
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    user.passwordResetToken = hashedToken;
+    user.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    await this.userRepository.save(user);
+
+    await this.emailService.sendPasswordReset(user.email, user.name, token);
+  }
+
+  async resetPassword(token: string, newPassword: string): Promise<void> {
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const user = await this.userRepository.findOne({
+      where: { passwordResetToken: hashedToken },
+    });
+
+    if (
+      !user ||
+      !user.passwordResetExpires ||
+      user.passwordResetExpires < new Date()
+    ) {
+      throw new BadRequestException('Token is invalid or has expired');
+    }
+
+    user.password = await bcrypt.hash(newPassword, 10);
+    user.passwordResetToken = null!;
+    user.passwordResetExpires = null!;
+    await this.userRepository.save(user);
+
+    // Invalidate all refresh tokens
+    await this.refreshTokenRepository.delete({ userId: user.id });
+  }
+
+  async verifyEmail(token: string): Promise<void> {
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const user = await this.userRepository.findOne({
+      where: { emailVerificationToken: hashedToken },
+    });
+
+    if (!user) {
+      throw new BadRequestException('Invalid verification token');
+    }
+
+    user.verified = true;
+    user.emailVerificationToken = null!;
+    await this.userRepository.save(user);
+  }
+
+  async resendVerification(email: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { email } });
+    if (!user || user.verified) return;
+
+    const verificationToken = crypto.randomBytes(32).toString('hex');
+    user.emailVerificationToken = crypto
+      .createHash('sha256')
+      .update(verificationToken)
+      .digest('hex');
+    await this.userRepository.save(user);
+
+    await this.emailService.sendEmailVerification(
+      user.email,
+      user.name,
+      verificationToken,
+    );
   }
 
   async refreshToken(refreshToken: string) {

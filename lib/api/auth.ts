@@ -23,10 +23,16 @@ export interface RegistrationData {
   availability?: string[];
 }
 
+export interface ChangePasswordData {
+  currentPassword: string;
+  newPassword: string;
+}
+
 export const authApi = {
   register: (data: RegistrationData) => apiClient.post('/auth/register', data),
   login: (credentials: LoginCredentials) => apiClient.post('/auth/login', credentials),
   logout: () => apiClient.post('/auth/logout'),
   refreshToken: (token: string) => apiClient.post('/auth/refresh', { refreshToken: token }),
   getMe: () => apiClient.get('/auth/me'),
+  changePassword: (data: ChangePasswordData) => apiClient.post('/auth/change-password', data),
 };

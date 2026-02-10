@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
@@ -112,11 +113,14 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
             {/* Profile Header */}
             <div className="rounded-lg border bg-white p-8">
               <div className="flex items-start gap-6">
-                <div className="h-32 w-32 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
-                  <img
+                <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+                  <Image
                     src={specialist.photo || '/images/placeholder-avatar.png'}
                     alt={specialist.name}
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="128px"
+                    className="object-cover"
+                    priority
                   />
                 </div>
 

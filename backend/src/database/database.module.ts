@@ -60,6 +60,12 @@ import { RSVP } from './entities/rsvp.entity';
         migrations: ['dist/database/migrations/*.js'],
         migrationsRun: true,
         logging: configService.get('NODE_ENV') === 'development',
+        extra: {
+          max: 20,
+          min: 5,
+          idleTimeoutMillis: 30000,
+          connectionTimeoutMillis: 5000,
+        },
       }),
     }),
   ],

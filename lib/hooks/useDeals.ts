@@ -26,6 +26,10 @@ export function useUpdateDealStatus() {
       dealsApi.updateDealStatus(id, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
+      toast.success('Status dealu aktualizován');
+    },
+    onError: () => {
+      toast.error('Chyba při aktualizaci statusu dealu');
     },
   });
 }
@@ -37,6 +41,10 @@ export function useUpdateDealValue() {
       dealsApi.updateDealValue(id, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
+      toast.success('Hodnota dealu aktualizována');
+    },
+    onError: () => {
+      toast.error('Chyba při aktualizaci hodnoty dealu');
     },
   });
 }
@@ -50,6 +58,10 @@ export function useCloseDeal() {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
       queryClient.invalidateQueries({ queryKey: ['myCommissions'] });
       queryClient.invalidateQueries({ queryKey: ['commissionStats'] });
+      toast.success('Deal uzavřen');
+    },
+    onError: () => {
+      toast.error('Chyba při uzavírání dealu');
     },
   });
 }
@@ -61,6 +73,10 @@ export function useReopenDeal() {
       dealsApi.reopenDeal(id).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
+      toast.success('Deal znovu otevřen');
+    },
+    onError: () => {
+      toast.error('Chyba při znovuotevření dealu');
     },
   });
 }

@@ -11,6 +11,7 @@ import { RefreshToken } from '../database/entities/refresh-token.entity';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { SpecialistCategory } from '../database/entities/specialist.entity';
+import { EmailService } from '../email/email.service';
 
 jest.mock('bcrypt', () => ({
   hash: jest.fn().mockResolvedValue('hashed_password'),
@@ -30,6 +31,7 @@ describe('AuthService', () => {
   let refreshTokenRepository: jest.Mocked<Repository<RefreshToken>>;
   let jwtService: jest.Mocked<JwtService>;
   let configService: jest.Mocked<ConfigService>;
+  let emailService: jest.Mocked<EmailService>;
 
   const mockUser = {
     id: 'user-123',
@@ -39,9 +41,11 @@ describe('AuthService', () => {
     phone: '+420123456789',
     role: UserRole.SPECIALIST,
     verified: false,
+    failedLoginAttempts: 0,
+    lockedUntil: null,
     createdAt: new Date(),
     updatedAt: new Date(),
-  } as User;
+  } as unknown as User;
 
   const mockSpecialist = {
     id: 'specialist-123',
@@ -122,6 +126,14 @@ describe('AuthService', () => {
             }),
           },
         },
+        {
+          provide: EmailService,
+          useValue: {
+            sendEmailVerification: jest.fn().mockResolvedValue(undefined),
+            sendPasswordReset: jest.fn().mockResolvedValue(undefined),
+            sendWelcomeEmail: jest.fn().mockResolvedValue(undefined),
+          },
+        },
       ],
     }).compile();
 
@@ -131,6 +143,7 @@ describe('AuthService', () => {
     refreshTokenRepository = module.get(getRepositoryToken(RefreshToken));
     jwtService = module.get(JwtService);
     configService = module.get(ConfigService);
+    emailService = module.get(EmailService);
   });
 
   afterEach(() => {
