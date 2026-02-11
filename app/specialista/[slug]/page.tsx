@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
@@ -44,9 +45,9 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
       <div className="min-h-screen bg-gray-50">
         <header className="border-b bg-white">
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <a href="/" className="text-2xl font-bold text-blue-600">
+            <Link href="/" className="text-2xl font-bold text-blue-600">
               tvujspecialista.cz
-            </a>
+            </Link>
           </div>
         </header>
         <div className="flex items-center justify-center py-20">
@@ -64,9 +65,9 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
       <div className="min-h-screen bg-gray-50">
         <header className="border-b bg-white">
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <a href="/" className="text-2xl font-bold text-blue-600">
+            <Link href="/" className="text-2xl font-bold text-blue-600">
               tvujspecialista.cz
-            </a>
+            </Link>
           </div>
         </header>
         <div className="container mx-auto px-4 py-20">
@@ -75,12 +76,12 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
             <p className="mb-4 text-red-600">
               Omlouváme se, ale tento specialista neexistuje nebo byl odstraněn.
             </p>
-            <a
+            <Link
               href="/hledat"
               className="inline-block rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700"
             >
               Zpět na vyhledávání
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -92,16 +93,16 @@ export default function SpecialistDetailPage({ params }: { params: { slug: strin
       {/* Header */}
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
           <nav className="flex items-center gap-6">
-            <a href="/hledat" className="text-sm font-medium hover:text-blue-600">
+            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
               Hledat
-            </a>
-            <a href="/ceny" className="text-sm font-medium hover:text-blue-600">
+            </Link>
+            <Link href="/ceny" className="text-sm font-medium hover:text-blue-600">
               Ceny
-            </a>
+            </Link>
           </nav>
         </div>
       </header>

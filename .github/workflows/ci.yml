@@ -63,6 +63,9 @@ jobs:
         run: npm audit --audit-level=high
         continue-on-error: true
 
+      - name: Type check
+        run: npx tsc --noEmit
+
       - name: Lint
         run: npm run lint
 

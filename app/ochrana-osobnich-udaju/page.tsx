@@ -1,11 +1,19 @@
+import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Ochrana osobních údajů | TvůjSpecialista.cz',
+  description: 'Informace o zpracování a ochraně osobních údajů (GDPR) na platformě TvůjSpecialista.cz. Vaše práva, účel zpracování a kontaktní údaje.',
+};
+
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
         </div>
       </header>
 

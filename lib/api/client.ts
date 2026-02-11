@@ -40,8 +40,9 @@ apiClient.interceptors.response.use(
 
             return axios(originalRequest);
           } catch (refreshError) {
-            // Refresh failed, clear storage and redirect
-            localStorage.clear();
+            // Refresh failed, remove auth keys and redirect
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
             if (typeof window !== 'undefined') {
               window.location.href = '/profi/prihlaseni';
             }

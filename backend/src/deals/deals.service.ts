@@ -443,11 +443,9 @@ export class DealsService {
         .getRawMany();
 
     const statusMap = new Map<string, number>();
-    let totalDeals = 0;
     for (const row of statusCounts) {
       const c = Number(row.count);
       statusMap.set(row.status, c);
-      totalDeals += c;
     }
 
     const closedWon = statusMap.get(DealStatus.CLOSED_WON) || 0;

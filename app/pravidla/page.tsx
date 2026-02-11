@@ -1,11 +1,19 @@
+import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Obchodní podmínky | TvůjSpecialista.cz',
+  description: 'Obchodní podmínky platformy TvůjSpecialista.cz. Práva a povinnosti zákazníků, poskytovatelů a provozovatele služby.',
+};
+
 export default function TermsPage() {
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -72,9 +80,9 @@ export default function TermsPage() {
             <h2 className="mb-4 text-2xl font-bold text-gray-900">6. Ochrana osobních údajů</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Zpracování osobních údajů se řídí samostatným dokumentem{' '}
-              <a href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
+              <Link href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
                 Ochrana osobních údajů
-              </a>
+              </Link>
               .
             </p>
           </section>

@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useMyLeads } from '@/lib/hooks/useMyLeads';
@@ -42,9 +43,9 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-gray-50">
         <header className="border-b bg-white">
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <a href="/" className="text-2xl font-bold text-blue-600">
+            <Link href="/" className="text-2xl font-bold text-blue-600">
               tvujspecialista.cz
-            </a>
+            </Link>
           </div>
         </header>
         <div className="flex items-center justify-center py-20">
@@ -87,13 +88,13 @@ export default function DashboardPage() {
       {/* Header */}
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
           <nav className="flex items-center gap-6">
-            <a href="/profi/dashboard" className="text-sm font-medium text-blue-600">
+            <Link href="/profi/dashboard" className="text-sm font-medium text-blue-600">
               Dashboard
-            </a>
+            </Link>
             <button
               onClick={handleLogout}
               className="text-sm font-medium text-gray-600 hover:text-gray-900"
@@ -163,9 +164,9 @@ export default function DashboardPage() {
               <div className="border-b p-6">
                 <div className="flex items-center justify-between">
                   <h2 className="text-lg font-semibold text-gray-900">Poslední leady</h2>
-                  <a href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
+                  <Link href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
                     Zobrazit vše
-                  </a>
+                  </Link>
                 </div>
               </div>
 

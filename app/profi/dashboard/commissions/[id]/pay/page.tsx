@@ -17,7 +17,11 @@ import { Elements } from '@stripe/react-stripe-js';
 import { PaymentForm } from '@/components/commissions';
 
 // Initialize Stripe
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
+const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+if (!stripeKey) {
+  console.warn('Missing NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY environment variable. Stripe payments will not work.');
+}
+const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 export default function CommissionPaymentPage() {
   const router = useRouter();

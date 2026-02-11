@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { toast } from 'sonner';
 
 export default function ContactPage() {
@@ -39,9 +40,9 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -191,18 +192,18 @@ export default function ContactPage() {
             <div className="rounded-lg border bg-white p-6">
               <h2 className="mb-4 text-xl font-bold text-gray-900">Rychlé odkazy</h2>
               <div className="space-y-2">
-                <a href="/o-nas" className="block text-blue-600 hover:underline">
+                <Link href="/o-nas" className="block text-blue-600 hover:underline">
                   O nás
-                </a>
-                <a href="/ceny" className="block text-blue-600 hover:underline">
+                </Link>
+                <Link href="/ceny" className="block text-blue-600 hover:underline">
                   Ceník
-                </a>
-                <a href="/pravidla" className="block text-blue-600 hover:underline">
+                </Link>
+                <Link href="/pravidla" className="block text-blue-600 hover:underline">
                   Obchodní podmínky
-                </a>
-                <a href="/ochrana-osobnich-udaju" className="block text-blue-600 hover:underline">
+                </Link>
+                <Link href="/ochrana-osobnich-udaju" className="block text-blue-600 hover:underline">
                   Ochrana osobních údajů
-                </a>
+                </Link>
               </div>
             </div>
 

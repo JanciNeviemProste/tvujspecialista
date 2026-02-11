@@ -1,4 +1,5 @@
 import { DataSource } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 import {
   Event,
   EventType,
@@ -22,7 +23,7 @@ export async function seedCommunityEvents(dataSource: DataSource) {
   if (!organizer) {
     organizer = userRepository.create({
       email: 'organizer@tvujspecialista.cz',
-      password: 'hashed_password_placeholder',
+      password: bcrypt.hashSync('Organizer123!', 10),
       name: 'Jan Organizátor',
       phone: '+420 777 888 999',
       role: UserRole.ADMIN,

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -50,9 +51,9 @@ export default function AccountSettingsPage() {
       <div className="min-h-screen bg-gray-50">
         <header className="border-b bg-white">
           <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <a href="/" className="text-2xl font-bold text-blue-600">
+            <Link href="/" className="text-2xl font-bold text-blue-600">
               tvujspecialista.cz
-            </a>
+            </Link>
           </div>
         </header>
         <div className="flex items-center justify-center py-20">
@@ -89,13 +90,13 @@ export default function AccountSettingsPage() {
     <div className="min-h-screen bg-gray-50">
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
           <nav className="flex items-center gap-6">
-            <a href="/profi/dashboard" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+            <Link href="/profi/dashboard" className="text-sm font-medium text-gray-600 hover:text-gray-900">
               Dashboard
-            </a>
+            </Link>
           </nav>
         </div>
       </header>

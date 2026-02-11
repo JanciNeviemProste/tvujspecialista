@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { CreditCard, Calendar, AlertCircle, ArrowRight, ExternalLink } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -125,9 +126,9 @@ export default function SubscriptionManagementPage() {
             <CardDescription>Momentálne nemáte žiadne aktívne predplatné</CardDescription>
           </CardHeader>
           <CardFooter>
-            <a href="/ceny">
+            <Link href="/ceny">
               <Button>Pozrieť cenové plány</Button>
-            </a>
+            </Link>
           </CardFooter>
         </Card>
       </div>

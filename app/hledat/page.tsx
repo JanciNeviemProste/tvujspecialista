@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { SpecialistCard } from '@/components/shared/SpecialistCard';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
 import { SpecialistCategory, Specialist } from '@/types/specialist';
@@ -31,22 +32,22 @@ export default function SearchPage() {
       {/* Header */}
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
           <nav className="flex items-center gap-6">
-            <a href="/hledat" className="text-sm font-medium text-blue-600">
+            <Link href="/hledat" className="text-sm font-medium text-blue-600">
               Hledat
-            </a>
-            <a href="/ceny" className="text-sm font-medium hover:text-blue-600">
+            </Link>
+            <Link href="/ceny" className="text-sm font-medium hover:text-blue-600">
               Ceny
-            </a>
-            <a
+            </Link>
+            <Link
               href="/profi/registrace"
               className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
             >
               Pro specialisty
-            </a>
+            </Link>
           </nav>
         </div>
       </header>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { getErrorMessage } from '@/lib/utils/error';
@@ -38,16 +39,16 @@ export default function LoginPage() {
       {/* Header */}
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
           <nav className="flex items-center gap-4">
-            <a href="/hledat" className="text-sm font-medium hover:text-blue-600">
+            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
               Hledat
-            </a>
-            <a href="/profi/registrace" className="text-sm font-medium text-blue-600">
+            </Link>
+            <Link href="/profi/registrace" className="text-sm font-medium text-blue-600">
               Registrace
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
@@ -59,9 +60,9 @@ export default function LoginPage() {
             <h1 className="mb-2 text-2xl font-bold text-gray-900">Přihlášení pro specialisty</h1>
             <p className="mb-6 text-sm text-gray-600">
               Ještě nemáte účet?{' '}
-              <a href="/profi/registrace" className="font-medium text-blue-600 hover:underline">
+              <Link href="/profi/registrace" className="font-medium text-blue-600 hover:underline">
                 Zaregistrujte se zdarma
-              </a>
+              </Link>
             </p>
 
             {error && (
@@ -123,22 +124,22 @@ export default function LoginPage() {
             <div className="mt-6 border-t pt-6">
               <p className="text-center text-sm text-gray-600">
                 Přihlášením souhlasíte s{' '}
-                <a href="/pravidla" className="text-blue-600 hover:underline">
+                <Link href="/pravidla" className="text-blue-600 hover:underline">
                   obchodními podmínkami
-                </a>{' '}
+                </Link>{' '}
                 a{' '}
-                <a href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
+                <Link href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
                   ochranou údajů
-                </a>
+                </Link>
                 .
               </p>
             </div>
           </div>
 
           <div className="mt-6 text-center">
-            <a href="/" className="text-sm text-gray-600 hover:text-blue-600">
+            <Link href="/" className="text-sm text-gray-600 hover:text-blue-600">
               ← Zpět na hlavní stránku
-            </a>
+            </Link>
           </div>
         </div>
       </div>

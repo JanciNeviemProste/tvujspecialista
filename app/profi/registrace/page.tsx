@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { authApi } from '@/lib/api/auth';
 import type { SpecialistCategory } from '@/types/specialist';
@@ -78,16 +79,16 @@ export default function RegistrationPage() {
       {/* Header */}
       <header className="border-b bg-white">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
           <nav className="flex items-center gap-4">
-            <a href="/hledat" className="text-sm font-medium hover:text-blue-600">
+            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
               Hledat
-            </a>
-            <a href="/profi/prihlaseni" className="text-sm font-medium text-blue-600">
+            </Link>
+            <Link href="/profi/prihlaseni" className="text-sm font-medium text-blue-600">
               Přihlášení
-            </a>
+            </Link>
           </nav>
         </div>
       </header>
@@ -279,9 +280,9 @@ export default function RegistrationPage() {
                     />
                     <span className="ml-2 text-sm text-gray-700">
                       Souhlasím s{' '}
-                      <a href="/pravidla" className="text-blue-600 hover:underline">
+                      <Link href="/pravidla" className="text-blue-600 hover:underline">
                         obchodními podmínkami
-                      </a>{' '}
+                      </Link>{' '}
                       *
                     </span>
                   </label>
@@ -297,9 +298,9 @@ export default function RegistrationPage() {
                     />
                     <span className="ml-2 text-sm text-gray-700">
                       Souhlasím se{' '}
-                      <a href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
+                      <Link href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
                         zpracováním osobních údajů
-                      </a>{' '}
+                      </Link>{' '}
                       *
                     </span>
                   </label>
@@ -316,9 +317,9 @@ export default function RegistrationPage() {
 
               <p className="text-center text-sm text-gray-600">
                 Již máte účet?{' '}
-                <a href="/profi/prihlaseni" className="font-medium text-blue-600 hover:underline">
+                <Link href="/profi/prihlaseni" className="font-medium text-blue-600 hover:underline">
                   Přihlaste se
-                </a>
+                </Link>
               </p>
             </form>
           </div>

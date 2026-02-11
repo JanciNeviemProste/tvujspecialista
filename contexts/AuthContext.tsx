@@ -33,7 +33,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .getMe()
         .then((res) => setUser(res.data))
         .catch(() => {
-          localStorage.clear();
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
         })
         .finally(() => setIsLoading(false));
     } else {
@@ -60,7 +61,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       // Ignore logout errors
     } finally {
-      localStorage.clear();
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       setUser(null);
       toast.success('Odhlášení úspěšné');
     }

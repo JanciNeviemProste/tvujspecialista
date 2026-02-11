@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -15,9 +16,9 @@ export default function AboutPage() {
     <div className="min-h-screen bg-white dark:bg-background">
       <header className="border-b">
         <div className="container mx-auto flex h-16 items-center px-4">
-          <a href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600">
             tvujspecialista.cz
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -101,18 +102,18 @@ export default function AboutPage() {
               Ať už hledáte specialistu nebo chcete nabídnout své služby, jsme tu pro vás.
             </p>
             <div className="flex gap-4">
-              <a
+              <Link
                 href="/hledat"
                 className="rounded-md bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
                 Najít specialistu
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/profi/registrace"
                 className="rounded-md border border-blue-600 px-6 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50"
               >
                 Stát se specialistou
-              </a>
+              </Link>
             </div>
           </section>
         </div>
