@@ -72,6 +72,7 @@ const customJestConfig = {
     '/node_modules/',
     '/.next/',
     '/backend/',
+    '/e2e/',
   ],
 
   // Transform ignore patterns
