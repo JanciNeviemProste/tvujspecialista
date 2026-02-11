@@ -296,7 +296,7 @@ describe('CommissionsController', () => {
       ];
 
       methods.forEach((method) => {
-        const guards = Reflect.getMetadata('__guards__', controller[method]);
+        const guards = Reflect.getMetadata('__guards__', (controller as unknown as Record<string, Function>)[method]);
         expect(guards).toBeDefined();
         const guardNames = guards.map((guard: any) => guard.name);
         expect(guardNames).toContain('JwtAuthGuard');
@@ -312,13 +312,13 @@ describe('CommissionsController', () => {
       ];
 
       adminMethods.forEach((method) => {
-        const guards = Reflect.getMetadata('__guards__', controller[method]);
+        const guards = Reflect.getMetadata('__guards__', (controller as unknown as Record<string, Function>)[method]);
         const guardNames = guards.map((guard: any) => guard.name);
         expect(guardNames).toContain('AdminGuard');
       });
 
       nonAdminMethods.forEach((method) => {
-        const guards = Reflect.getMetadata('__guards__', controller[method]);
+        const guards = Reflect.getMetadata('__guards__', (controller as unknown as Record<string, Function>)[method]);
         const guardNames = guards.map((guard: any) => guard.name);
         expect(guardNames).not.toContain('AdminGuard');
       });

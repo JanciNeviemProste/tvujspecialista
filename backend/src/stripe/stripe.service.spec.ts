@@ -78,7 +78,7 @@ describe('StripeService', () => {
                 STRIPE_PREMIUM_PRICE_ID: 'price_premium_123',
                 FRONTEND_URL: 'http://localhost:3000',
               };
-              return config[key];
+              return config[key as keyof typeof config];
             }),
           },
         },
