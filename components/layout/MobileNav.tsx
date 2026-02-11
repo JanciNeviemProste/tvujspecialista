@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -10,18 +10,34 @@ import { cn } from '@/lib/utils/cn';
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated } = useAuth();
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
-  const toggleMenu = () => setIsOpen(!isOpen);
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu = useCallback(() => {
+    setIsOpen(false);
+    triggerRef.current?.focus();
+  }, []);
+
+  const toggleMenu = () => setIsOpen((prev) => !prev);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, closeMenu]);
 
   return (
     <div className="lg:hidden">
       {/* Hamburger Button */}
       <button
+        ref={triggerRef}
         onClick={toggleMenu}
         className="p-2 rounded-md hover:bg-muted transition-colors"
         aria-label={isOpen ? 'Zavrieť menu' : 'Otvoriť menu'}
         aria-expanded={isOpen}
+        aria-controls="mobile-nav-panel"
       >
         {isOpen ? (
           <X className="h-6 w-6" />
@@ -41,8 +57,8 @@ export function MobileNav() {
           />
 
           {/* Menu Panel */}
-          <div className="fixed top-16 left-0 right-0 bottom-0 bg-background border-t z-50 overflow-y-auto">
-            <nav className="container mx-auto px-4 py-6">
+          <div id="mobile-nav-panel" className="fixed top-16 left-0 right-0 bottom-0 bg-background border-t z-50 overflow-y-auto">
+            <nav className="container mx-auto px-4 py-6" role="navigation" aria-label="Hlavní navigace">
               <div className="space-y-1">
                 {/* Main Navigation */}
                 <Link

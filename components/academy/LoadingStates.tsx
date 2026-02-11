@@ -49,7 +49,8 @@ interface CoursesGridSkeletonProps {
 
 export function CoursesGridSkeleton({ count = 6 }: CoursesGridSkeletonProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="status" aria-label="Načítám kurzy" aria-busy="true">
+      <span className="sr-only">Načítám...</span>
       {Array.from({ length: count }).map((_, i) => (
         <CourseCardSkeleton key={i} />
       ))}
@@ -115,7 +116,8 @@ interface EnrollmentsGridSkeletonProps {
 
 export function EnrollmentsGridSkeleton({ count = 3 }: EnrollmentsGridSkeletonProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="status" aria-label="Načítám zápisy" aria-busy="true">
+      <span className="sr-only">Načítám...</span>
       {Array.from({ length: count }).map((_, i) => (
         <EnrollmentCardSkeleton key={i} />
       ))}

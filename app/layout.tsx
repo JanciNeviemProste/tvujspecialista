@@ -1,12 +1,19 @@
 import '@/styles/globals.css'
 import { Providers } from './providers'
 import { Metadata } from 'next'
+import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/seo/JsonLd'
+import { SkipLink } from '@/components/a11y/SkipLink'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://tvujspecialista.cz'),
   title: 'Najděte ověřeného specialistu | tvujspecialista.cz',
   description: 'Marketplace pro hledání ověřených specialistů v oblasti financí a nemovitostí v ČR a SK. Prémiová edu-komunitná platforma pre realitných agentov a finančných poradcov.',
   keywords: ['realitný makléř', 'finanční poradce', 'hypotéky', 'pojištění', 'nemovitosti', 'kurzy', 'Academy', 'Community'],
   authors: [{ name: 'TvujSpecialista.cz' }],
+  manifest: '/manifest.json',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     type: 'website',
     locale: 'cs_CZ',
@@ -43,6 +50,9 @@ export default function RootLayout({
   return (
     <html lang="cs" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <SkipLink />
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
         <Providers>
           {children}
         </Providers>

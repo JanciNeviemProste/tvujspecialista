@@ -1,6 +1,10 @@
 // Learn more: https://github.com/testing-library/jest-dom
 require('@testing-library/jest-dom')
 
+// Accessibility testing matchers
+const { toHaveNoViolations } = require('jest-axe')
+expect.extend(toHaveNoViolations)
+
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
   useRouter() {

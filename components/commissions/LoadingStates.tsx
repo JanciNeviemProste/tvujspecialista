@@ -2,7 +2,7 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export function CommissionCardSkeleton() {
   return (
-    <Card className="overflow-hidden animate-pulse">
+    <Card className="overflow-hidden animate-pulse" role="status" aria-label="Načítám provizi" aria-busy="true">
       <CardContent className="p-6 space-y-4">
         {/* Header */}
         <div className="flex items-start justify-between">

@@ -108,7 +108,7 @@ export default function RegistrationPage() {
 
           <div className="rounded-lg border bg-white p-8 shadow-sm">
             {error && (
-              <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-3">
+              <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-3" role="alert">
                 <p className="text-sm text-red-600">{error}</p>
               </div>
             )}
@@ -120,47 +120,56 @@ export default function RegistrationPage() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Jméno a příjmení *
+                      <label htmlFor="reg-name" className="mb-1 block text-sm font-medium text-gray-700">
+                        Jméno a příjmení <span aria-hidden="true">*</span>
                       </label>
                       <input
+                        id="reg-name"
                         type="text"
                         placeholder="Jan Novák"
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        aria-invalid={errors.name ? 'true' : undefined}
+                        aria-describedby={errors.name ? 'reg-name-error' : undefined}
                         {...register('name')}
                       />
                       {errors.name && (
-                        <p className="text-sm text-red-500">{errors.name.message}</p>
+                        <p id="reg-name-error" className="text-sm text-red-500" role="alert">{errors.name.message}</p>
                       )}
                     </div>
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Email *
+                      <label htmlFor="reg-email" className="mb-1 block text-sm font-medium text-gray-700">
+                        Email <span aria-hidden="true">*</span>
                       </label>
                       <input
+                        id="reg-email"
                         type="email"
                         placeholder="jan@example.cz"
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        aria-invalid={errors.email ? 'true' : undefined}
+                        aria-describedby={errors.email ? 'reg-email-error' : undefined}
                         {...register('email')}
                       />
                       {errors.email && (
-                        <p className="text-sm text-red-500">{errors.email.message}</p>
+                        <p id="reg-email-error" className="text-sm text-red-500" role="alert">{errors.email.message}</p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Telefon *
+                    <label htmlFor="reg-phone" className="mb-1 block text-sm font-medium text-gray-700">
+                      Telefon <span aria-hidden="true">*</span>
                     </label>
                     <input
+                      id="reg-phone"
                       type="tel"
                       placeholder="+420 777 123 456"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      aria-invalid={errors.phone ? 'true' : undefined}
+                      aria-describedby={errors.phone ? 'reg-phone-error' : undefined}
                       {...register('phone')}
                     />
                     {errors.phone && (
-                      <p className="text-sm text-red-500">{errors.phone.message}</p>
+                      <p id="reg-phone-error" className="text-sm text-red-500" role="alert">{errors.phone.message}</p>
                     )}
                   </div>
                 </div>
@@ -172,11 +181,14 @@ export default function RegistrationPage() {
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Kategorie *
+                      <label htmlFor="reg-category" className="mb-1 block text-sm font-medium text-gray-700">
+                        Kategorie <span aria-hidden="true">*</span>
                       </label>
                       <select
+                        id="reg-category"
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        aria-invalid={errors.category ? 'true' : undefined}
+                        aria-describedby={errors.category ? 'reg-category-error' : undefined}
                         {...register('category')}
                       >
                         <option value="">Vyberte kategorii</option>
@@ -184,15 +196,18 @@ export default function RegistrationPage() {
                         <option value="Realitní makléř">Realitní makléř</option>
                       </select>
                       {errors.category && (
-                        <p className="text-sm text-red-500">{errors.category.message}</p>
+                        <p id="reg-category-error" className="text-sm text-red-500" role="alert">{errors.category.message}</p>
                       )}
                     </div>
                     <div>
-                      <label className="mb-1 block text-sm font-medium text-gray-700">
-                        Lokalita *
+                      <label htmlFor="reg-location" className="mb-1 block text-sm font-medium text-gray-700">
+                        Lokalita <span aria-hidden="true">*</span>
                       </label>
                       <select
+                        id="reg-location"
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        aria-invalid={errors.location ? 'true' : undefined}
+                        aria-describedby={errors.location ? 'reg-location-error' : undefined}
                         {...register('location')}
                       >
                         <option value="">Vyberte lokalitu</option>
@@ -202,39 +217,45 @@ export default function RegistrationPage() {
                         <option value="Plzeň">Plzeň</option>
                       </select>
                       {errors.location && (
-                        <p className="text-sm text-red-500">{errors.location.message}</p>
+                        <p id="reg-location-error" className="text-sm text-red-500" role="alert">{errors.location.message}</p>
                       )}
                     </div>
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Roky praxe *
+                    <label htmlFor="reg-experience" className="mb-1 block text-sm font-medium text-gray-700">
+                      Roky praxe <span aria-hidden="true">*</span>
                     </label>
                     <input
+                      id="reg-experience"
                       type="number"
                       min="0"
                       placeholder="např. 5"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      aria-invalid={errors.yearsExperience ? 'true' : undefined}
+                      aria-describedby={errors.yearsExperience ? 'reg-experience-error' : undefined}
                       {...register('yearsExperience')}
                     />
                     {errors.yearsExperience && (
-                      <p className="text-sm text-red-500">{errors.yearsExperience.message}</p>
+                      <p id="reg-experience-error" className="text-sm text-red-500" role="alert">{errors.yearsExperience.message}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Krátký popis vašich služeb *
+                    <label htmlFor="reg-bio" className="mb-1 block text-sm font-medium text-gray-700">
+                      Krátký popis vašich služeb <span aria-hidden="true">*</span>
                     </label>
                     <textarea
+                      id="reg-bio"
                       rows={4}
                       placeholder="Popište, čím se zabýváte a jak můžete pomoci klientům..."
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      aria-invalid={errors.bio ? 'true' : undefined}
+                      aria-describedby={errors.bio ? 'reg-bio-error' : undefined}
                       {...register('bio')}
                     />
                     {errors.bio && (
-                      <p className="text-sm text-red-500">{errors.bio.message}</p>
+                      <p id="reg-bio-error" className="text-sm text-red-500" role="alert">{errors.bio.message}</p>
                     )}
                   </div>
                 </div>
@@ -245,31 +266,37 @@ export default function RegistrationPage() {
                 <h2 className="mb-4 text-lg font-semibold text-gray-900">Nastavení hesla</h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Heslo *
+                    <label htmlFor="reg-password" className="mb-1 block text-sm font-medium text-gray-700">
+                      Heslo <span aria-hidden="true">*</span>
                     </label>
                     <input
+                      id="reg-password"
                       type="password"
                       placeholder="Minimálně 8 znaků"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      aria-invalid={errors.password ? 'true' : undefined}
+                      aria-describedby={errors.password ? 'reg-password-error' : undefined}
                       {...register('password')}
                     />
                     {errors.password && (
-                      <p className="text-sm text-red-500">{errors.password.message}</p>
+                      <p id="reg-password-error" className="text-sm text-red-500" role="alert">{errors.password.message}</p>
                     )}
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Potvrzení hesla *
+                    <label htmlFor="reg-confirm-password" className="mb-1 block text-sm font-medium text-gray-700">
+                      Potvrzení hesla <span aria-hidden="true">*</span>
                     </label>
                     <input
+                      id="reg-confirm-password"
                       type="password"
                       placeholder="Zadejte heslo znovu"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      aria-invalid={errors.confirmPassword ? 'true' : undefined}
+                      aria-describedby={errors.confirmPassword ? 'reg-confirm-password-error' : undefined}
                       {...register('confirmPassword')}
                     />
                     {errors.confirmPassword && (
-                      <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+                      <p id="reg-confirm-password-error" className="text-sm text-red-500" role="alert">{errors.confirmPassword.message}</p>
                     )}
                   </div>
                 </div>

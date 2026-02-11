@@ -43,7 +43,7 @@ export function DealCardSkeleton() {
 
 export function KanbanSkeleton() {
   return (
-    <div className="flex gap-4 overflow-x-auto pb-4">
+    <div className="flex gap-4 overflow-x-auto pb-4" role="status" aria-label="Načítám obchody" aria-busy="true">
       {[1, 2, 3, 4, 5, 6].map((i) => (
         <div key={i} className="flex-shrink-0 w-80 rounded-lg bg-muted/50 p-4 space-y-4">
           {/* Column header */}
