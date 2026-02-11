@@ -17,6 +17,7 @@ import { CommissionsService } from '../services/commissions.service';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../../auth/guards/admin.guard';
 import { WaiveCommissionDto } from '../dto/waive-commission.dto';
+import { CommissionResponseDto } from '../dto/commission-response.dto';
 import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-request.interface';
 
 @ApiTags('commissions')
@@ -31,6 +32,7 @@ export class CommissionsController {
   @ApiResponse({
     status: 200,
     description: 'Returns all commissions for the authenticated specialist',
+    type: [CommissionResponseDto],
   })
   async getMyCommissions(@Request() req: AuthenticatedRequest) {
     const specialist = await this.commissionsService[
@@ -50,7 +52,7 @@ export class CommissionsController {
   @Get('my/stats')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get commission statistics' })
-  @ApiResponse({ status: 200, description: 'Returns commission statistics' })
+  @ApiResponse({ status: 200, description: 'Returns commission statistics', type: [CommissionResponseDto] })
   async getMyStats(@Request() req: AuthenticatedRequest) {
     const specialist = await this.commissionsService[
       'specialistRepository'
@@ -94,7 +96,7 @@ export class CommissionsController {
   @Get('pending')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all pending commissions (Admin only)' })
-  @ApiResponse({ status: 200, description: 'Returns all pending commissions' })
+  @ApiResponse({ status: 200, description: 'Returns all pending commissions', type: [CommissionResponseDto] })
   async getAllPending(@Request() _req: AuthenticatedRequest) {
     return this.commissionsService.getAllPending();
   }
@@ -103,7 +105,7 @@ export class CommissionsController {
   @Post(':id/waive')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Waive commission (Admin only)' })
-  @ApiResponse({ status: 200, description: 'Commission waived' })
+  @ApiResponse({ status: 200, description: 'Commission waived', type: CommissionResponseDto })
   async waiveCommission(
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,

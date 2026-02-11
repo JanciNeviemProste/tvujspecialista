@@ -4,6 +4,21 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { authApi, type LoginCredentials } from '@/lib/api/auth';
 import { toast } from 'sonner';
 
+const getStorageItem = (key: string): string | null => {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem(key);
+};
+
+const setStorageItem = (key: string, value: string): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.setItem(key, value);
+};
+
+const removeStorageItem = (key: string): void => {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(key);
+};
+
 interface User {
   id: string;
   email: string;
@@ -27,14 +42,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     // Check if user is already logged in
-    const token = localStorage.getItem('accessToken');
+    const token = getStorageItem('accessToken');
     if (token) {
       authApi
         .getMe()
         .then((res) => setUser(res.data))
         .catch(() => {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
+          removeStorageItem('accessToken');
+          removeStorageItem('refreshToken');
         })
         .finally(() => setIsLoading(false));
     } else {
@@ -45,8 +60,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (credentials: LoginCredentials) => {
     try {
       const { data } = await authApi.login(credentials);
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      setStorageItem('accessToken', data.accessToken);
+      setStorageItem('refreshToken', data.refreshToken);
       setUser(data.user);
       toast.success('Přihlášení úspěšné');
     } catch (error) {
@@ -61,8 +76,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       // Ignore logout errors
     } finally {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+      removeStorageItem('accessToken');
+      removeStorageItem('refreshToken');
       setUser(null);
       toast.success('Odhlášení úspěšné');
     }

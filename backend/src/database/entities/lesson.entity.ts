@@ -53,7 +53,7 @@ export class Lesson {
   type: LessonType;
 
   @Column({ type: 'jsonb', nullable: true })
-  content: any; // for non-video lessons
+  content: Record<string, unknown> | null; // for non-video lessons
 
   @Column({ default: false })
   published: boolean;

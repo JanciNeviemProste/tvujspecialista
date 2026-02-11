@@ -1,66 +1,66 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Module, LessonProgress, LessonType } from '@/types/academy'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Clock, ChevronUp, ChevronDown, Check, Play, CheckCircle, FileText } from 'lucide-react'
-import { cn } from '@/lib/utils/cn'
+import { memo, useState } from 'react';
+import { Module, LessonProgress, LessonType } from '@/types/academy';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Clock, ChevronUp, ChevronDown, Check, Play, CheckCircle, FileText } from 'lucide-react';
+import { cn } from '@/lib/utils/cn';
 
 interface CourseCurriculumProps {
-  modules: Module[]
-  enrollmentId?: string
-  lessonProgress?: LessonProgress[]
-  className?: string
+  modules: Module[];
+  enrollmentId?: string;
+  lessonProgress?: LessonProgress[];
+  className?: string;
 }
 
 function formatDuration(minutes: number): string {
   if (minutes < 60) {
-    return `${minutes}min`
+    return `${minutes}min`;
   }
-  const hours = Math.floor(minutes / 60)
-  const mins = minutes % 60
-  return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`;
 }
 
 function getLessonIcon(type: LessonType) {
   switch (type) {
     case 'video':
-      return Play
+      return Play;
     case 'quiz':
-      return CheckCircle
+      return CheckCircle;
     case 'reading':
-      return FileText
+      return FileText;
     default:
-      return FileText
+      return FileText;
   }
 }
 
-export function CourseCurriculum({
+function CourseCurriculumInner({
   modules,
   enrollmentId,
   lessonProgress = [],
-  className
+  className,
 }: CourseCurriculumProps) {
-  const [expandedModules, setExpandedModules] = useState<string[]>([])
+  const [expandedModules, setExpandedModules] = useState<string[]>([]);
 
   const toggleModule = (moduleId: string) => {
-    setExpandedModules(prev =>
+    setExpandedModules((prev) =>
       prev.includes(moduleId)
-        ? prev.filter(id => id !== moduleId)
-        : [...prev, moduleId]
-    )
-  }
+        ? prev.filter((id) => id !== moduleId)
+        : [...prev, moduleId],
+    );
+  };
 
   const isLessonCompleted = (lessonId: string): boolean => {
-    return lessonProgress.some(p => p.lessonId === lessonId && p.completed)
-  }
+    return lessonProgress.some((p) => p.lessonId === lessonId && p.completed);
+  };
 
   return (
     <div className={cn('space-y-4', className)}>
       {modules.map((module, moduleIndex) => {
-        const isExpanded = expandedModules.includes(module.id)
-        const ChevronIcon = isExpanded ? ChevronUp : ChevronDown
+        const isExpanded = expandedModules.includes(module.id);
+        const ChevronIcon = isExpanded ? ChevronUp : ChevronDown;
 
         return (
           <Card key={module.id}>
@@ -75,16 +75,19 @@ export function CourseCurriculum({
                       Modul {moduleIndex + 1}
                     </span>
                     <Badge variant="default" className="text-xs">
-                      {module.lessonCount} {module.lessonCount === 1 ? 'lekcia' : module.lessonCount < 5 ? 'lekcie' : 'lekcií'}
+                      {module.lessonCount}{' '}
+                      {module.lessonCount === 1
+                        ? 'lekcia'
+                        : module.lessonCount < 5
+                          ? 'lekcie'
+                          : 'lekcií'}
                     </Badge>
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Clock className="h-3 w-3" />
                       <span>{formatDuration(module.duration)}</span>
                     </div>
                   </div>
-                  <CardTitle className="text-lg font-semibold">
-                    {module.title}
-                  </CardTitle>
+                  <CardTitle className="text-lg font-semibold">{module.title}</CardTitle>
                   {module.description && (
                     <p className="text-sm text-muted-foreground mt-1">
                       {module.description}
@@ -99,8 +102,8 @@ export function CourseCurriculum({
               <CardContent className="pt-0">
                 <div className="space-y-2">
                   {module.lessons.map((lesson, lessonIndex) => {
-                    const LessonIcon = getLessonIcon(lesson.type)
-                    const completed = isLessonCompleted(lesson.id)
+                    const LessonIcon = getLessonIcon(lesson.type);
+                    const completed = isLessonCompleted(lesson.id);
 
                     return (
                       <div
@@ -126,9 +129,7 @@ export function CourseCurriculum({
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
                             <LessonIcon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-                            <h4 className="font-medium text-sm truncate">
-                              {lesson.title}
-                            </h4>
+                            <h4 className="font-medium text-sm truncate">{lesson.title}</h4>
                             {lesson.free && (
                               <Badge variant="success" className="text-xs">
                                 Zdarma
@@ -148,14 +149,16 @@ export function CourseCurriculum({
                           <span>{formatDuration(lesson.duration)}</span>
                         </div>
                       </div>
-                    )
+                    );
                   })}
                 </div>
               </CardContent>
             )}
           </Card>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
+
+export const CourseCurriculum = memo(CourseCurriculumInner);

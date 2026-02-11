@@ -21,6 +21,7 @@ import { UpdateCourseDto } from '../dto/update-course.dto';
 import { QueryCoursesDto } from '../dto/query-courses.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../../auth/guards/admin.guard';
+import { CourseResponseDto } from '../dto/course-response.dto';
 
 @ApiTags('Academy - Courses')
 @Controller('academy/courses')
@@ -29,7 +30,7 @@ export class CoursesController {
 
   @Get()
   @ApiOperation({ summary: 'List all published courses' })
-  @ApiResponse({ status: 200, description: 'Returns paginated course list' })
+  @ApiResponse({ status: 200, description: 'Returns paginated course list', type: [CourseResponseDto] })
   async findAll(@Query() filters: QueryCoursesDto) {
     return this.coursesService.findAll(filters);
   }
@@ -39,6 +40,7 @@ export class CoursesController {
   @ApiResponse({
     status: 200,
     description: 'Returns course with modules and lessons',
+    type: CourseResponseDto,
   })
   @ApiResponse({ status: 404, description: 'Course not found' })
   async findBySlug(@Param('slug') slug: string) {
@@ -49,7 +51,7 @@ export class CoursesController {
   @UseGuards(JwtAuthGuard, AdminGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Create new course (admin only)' })
-  @ApiResponse({ status: 201, description: 'Course created successfully' })
+  @ApiResponse({ status: 201, description: 'Course created successfully', type: CourseResponseDto })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async create(@Body() dto: CreateCourseDto) {
@@ -60,7 +62,7 @@ export class CoursesController {
   @UseGuards(JwtAuthGuard, AdminGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update course (admin only)' })
-  @ApiResponse({ status: 200, description: 'Course updated successfully' })
+  @ApiResponse({ status: 200, description: 'Course updated successfully', type: CourseResponseDto })
   @ApiResponse({ status: 404, description: 'Course not found' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async update(@Param('id') id: string, @Body() dto: UpdateCourseDto) {
@@ -87,7 +89,7 @@ export class CoursesController {
   @UseGuards(JwtAuthGuard, AdminGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Publish/unpublish course (admin only)' })
-  @ApiResponse({ status: 200, description: 'Course publish status updated' })
+  @ApiResponse({ status: 200, description: 'Course publish status updated', type: CourseResponseDto })
   @ApiResponse({ status: 404, description: 'Course not found' })
   @ApiResponse({ status: 400, description: 'Course not ready for publishing' })
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })

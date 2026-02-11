@@ -1,35 +1,43 @@
-import { Course } from '@/types/academy'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { RatingStars } from '@/components/shared/RatingStars'
-import { Clock, BookOpen } from 'lucide-react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { cn } from '@/lib/utils/cn'
+import { memo } from 'react';
+import { Course } from '@/types/academy';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { RatingStars } from '@/components/shared/RatingStars';
+import { Clock, BookOpen } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { cn } from '@/lib/utils/cn';
 
 interface CourseCardProps {
-  course: Course
-  enrolled?: boolean
-  progress?: number
-  className?: string
+  course: Course;
+  enrolled?: boolean;
+  progress?: number;
+  className?: string;
 }
 
 function formatDuration(minutes: number): string {
   if (minutes < 60) {
-    return `${minutes}min`
+    return `${minutes}min`;
   }
-  const hours = Math.floor(minutes / 60)
-  const mins = minutes % 60
-  return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`;
 }
 
-export function CourseCard({ course, enrolled = false, progress, className }: CourseCardProps) {
-  const href = enrolled ? `/academy/learn/${course.slug}` : `/academy/courses/${course.slug}`
-  const buttonText = enrolled ? 'Pokračovať' : 'Zobraziť kurz'
-  const buttonVariant = enrolled ? 'outline' : 'premium'
+function CourseCardInner({
+  course,
+  enrolled = false,
+  progress,
+  className,
+}: CourseCardProps) {
+  const href = enrolled
+    ? `/academy/learn/${course.slug}`
+    : `/academy/courses/${course.slug}`;
+  const buttonText = enrolled ? 'Pokračovať' : 'Zobraziť kurz';
+  const buttonVariant = enrolled ? 'outline' : 'premium';
 
   return (
     <Card
@@ -62,9 +70,7 @@ export function CourseCard({ course, enrolled = false, progress, className }: Co
 
       <CardContent className="flex-1 p-4 space-y-3">
         {/* Title */}
-        <h3 className="font-semibold text-lg line-clamp-2 min-h-[3.5rem]">
-          {course.title}
-        </h3>
+        <h3 className="font-semibold text-lg line-clamp-2 min-h-[3.5rem]">{course.title}</h3>
 
         {/* Stats row */}
         <div className="flex items-center gap-4 text-sm text-muted-foreground">
@@ -90,16 +96,18 @@ export function CourseCard({ course, enrolled = false, progress, className }: Co
           <Avatar className="h-8 w-8">
             <AvatarImage src={course.instructorPhoto} alt={course.instructorName} />
             <AvatarFallback>
-              {course.instructorName.split(' ').map(n => n[0]).join('').toUpperCase()}
+              {course.instructorName
+                .split(' ')
+                .map((n) => n[0])
+                .join('')
+                .toUpperCase()}
             </AvatarFallback>
           </Avatar>
           <span className="text-sm text-muted-foreground">{course.instructorName}</span>
         </div>
 
         {/* Description */}
-        <p className="text-sm text-muted-foreground line-clamp-2">
-          {course.description}
-        </p>
+        <p className="text-sm text-muted-foreground line-clamp-2">{course.description}</p>
 
         {/* Progress bar (if enrolled) */}
         {enrolled && progress !== undefined && (
@@ -115,7 +123,19 @@ export function CourseCard({ course, enrolled = false, progress, className }: Co
       <CardFooter className="p-4 pt-0">
         <Link href={href}>
           <Button
-            variant={buttonVariant as "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "premium" | "glass" | null | undefined}
+            variant={
+              buttonVariant as
+                | 'default'
+                | 'destructive'
+                | 'outline'
+                | 'secondary'
+                | 'ghost'
+                | 'link'
+                | 'premium'
+                | 'glass'
+                | null
+                | undefined
+            }
             className="w-full"
           >
             {buttonText}
@@ -123,5 +143,7 @@ export function CourseCard({ course, enrolled = false, progress, className }: Co
         </Link>
       </CardFooter>
     </Card>
-  )
+  );
 }
+
+export const CourseCard = memo(CourseCardInner);

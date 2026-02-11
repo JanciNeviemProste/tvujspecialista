@@ -1,6 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Deal, DealStatus } from '@/types/deals';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -9,60 +12,89 @@ import { Label } from '@/components/ui/label';
 import { X, CheckCircle, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
+const closeDealSchema = z
+  .object({
+    status: z.enum([DealStatus.CLOSED_WON, DealStatus.CLOSED_LOST]),
+    actualDealValue: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (data.status === DealStatus.CLOSED_WON) {
+        return data.actualDealValue && parseFloat(data.actualDealValue) > 0;
+      }
+      return true;
+    },
+    {
+      message: 'Zadajte skutočnú hodnotu dealu',
+      path: ['actualDealValue'],
+    },
+  );
+
+type CloseDealFormData = z.infer<typeof closeDealSchema>;
+
 interface CloseDealModalProps {
   deal: Deal | null;
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (dealId: string, data: { status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST; actualDealValue?: number }) => void;
+  onSubmit: (
+    dealId: string,
+    data: { status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST; actualDealValue?: number },
+  ) => void;
   isLoading?: boolean;
 }
 
-export function CloseDealModal({ deal, isOpen, onClose, onSubmit, isLoading }: CloseDealModalProps) {
-  const [status, setStatus] = useState<DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST>(DealStatus.CLOSED_WON);
-  const [actualDealValue, setActualDealValue] = useState(deal?.dealValue?.toString() || '');
-  const [errors, setErrors] = useState<{ actualDealValue?: string }>({});
+export function CloseDealModal({
+  deal,
+  isOpen,
+  onClose,
+  onSubmit,
+  isLoading,
+}: CloseDealModalProps) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<CloseDealFormData>({
+    resolver: zodResolver(closeDealSchema),
+    defaultValues: {
+      status: DealStatus.CLOSED_WON,
+      actualDealValue: deal?.dealValue?.toString() || '',
+    },
+  });
+
+  const status = watch('status');
+
+  useEffect(() => {
+    if (deal) {
+      setValue('actualDealValue', deal.dealValue?.toString() || '');
+    }
+  }, [deal, setValue]);
 
   if (!isOpen || !deal) return null;
 
-  const validate = () => {
-    const newErrors: typeof errors = {};
-
-    if (status === DealStatus.CLOSED_WON) {
-      if (!actualDealValue || parseFloat(actualDealValue) <= 0) {
-        newErrors.actualDealValue = 'Zadajte skutočnú hodnotu dealu';
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (validate()) {
-      onSubmit(deal.id, {
-        status,
-        actualDealValue: status === DealStatus.CLOSED_WON ? parseFloat(actualDealValue) : undefined,
-      });
-    }
+  const onFormSubmit = (data: CloseDealFormData) => {
+    onSubmit(deal.id, {
+      status: data.status,
+      actualDealValue:
+        data.status === DealStatus.CLOSED_WON && data.actualDealValue
+          ? parseFloat(data.actualDealValue)
+          : undefined,
+    });
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <CardTitle>Uzavrieť deal</CardTitle>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            disabled={isLoading}
-          >
+          <Button variant="ghost" size="sm" onClick={onClose} disabled={isLoading}>
             <X className="h-4 w-4" />
           </Button>
         </CardHeader>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onFormSubmit)}>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
               Deal: <strong>{deal.customerName}</strong>
@@ -76,12 +108,12 @@ export function CloseDealModal({ deal, isOpen, onClose, onSubmit, isLoading }: C
                   variant={status === DealStatus.CLOSED_WON ? 'default' : 'outline'}
                   className={cn(
                     'justify-start',
-                    status === DealStatus.CLOSED_WON && 'bg-success hover:bg-success/90'
+                    status === DealStatus.CLOSED_WON && 'bg-success hover:bg-success/90',
                   )}
-                  onClick={() => setStatus(DealStatus.CLOSED_WON)}
+                  onClick={() => setValue('status', DealStatus.CLOSED_WON)}
                   disabled={isLoading}
                 >
-                  <CheckCircle className="h-4 w-4 mr-2" />
+                  <CheckCircle className="mr-2 h-4 w-4" />
                   Získaný
                 </Button>
                 <Button
@@ -89,12 +121,12 @@ export function CloseDealModal({ deal, isOpen, onClose, onSubmit, isLoading }: C
                   variant={status === DealStatus.CLOSED_LOST ? 'default' : 'outline'}
                   className={cn(
                     'justify-start',
-                    status === DealStatus.CLOSED_LOST && 'bg-destructive hover:bg-destructive/90'
+                    status === DealStatus.CLOSED_LOST && 'bg-destructive hover:bg-destructive/90',
                   )}
-                  onClick={() => setStatus(DealStatus.CLOSED_LOST)}
+                  onClick={() => setValue('status', DealStatus.CLOSED_LOST)}
                   disabled={isLoading}
                 >
-                  <XCircle className="h-4 w-4 mr-2" />
+                  <XCircle className="mr-2 h-4 w-4" />
                   Stratený
                 </Button>
               </div>
@@ -108,14 +140,13 @@ export function CloseDealModal({ deal, isOpen, onClose, onSubmit, isLoading }: C
                   type="number"
                   step="0.01"
                   min="0"
-                  value={actualDealValue}
-                  onChange={(e) => setActualDealValue(e.target.value)}
                   placeholder="napr. 1500"
                   disabled={isLoading}
                   className={cn(errors.actualDealValue && 'border-destructive')}
+                  {...register('actualDealValue')}
                 />
                 {errors.actualDealValue && (
-                  <p className="text-sm text-destructive">{errors.actualDealValue}</p>
+                  <p className="text-sm text-destructive">{errors.actualDealValue.message}</p>
                 )}
                 <p className="text-xs text-muted-foreground">
                   Táto hodnota bude použitá na výpočet provízií
@@ -124,7 +155,7 @@ export function CloseDealModal({ deal, isOpen, onClose, onSubmit, isLoading }: C
             )}
 
             {status === DealStatus.CLOSED_LOST && (
-              <div className="p-4 rounded-lg bg-muted">
+              <div className="rounded-lg bg-muted p-4">
                 <p className="text-sm text-muted-foreground">
                   Deal bude označený ako stratený. Nebudú vytvorené žiadne provízne.
                 </p>
@@ -148,7 +179,7 @@ export function CloseDealModal({ deal, isOpen, onClose, onSubmit, isLoading }: C
               className={cn(
                 'flex-1',
                 status === DealStatus.CLOSED_WON && 'bg-success hover:bg-success/90',
-                status === DealStatus.CLOSED_LOST && 'bg-destructive hover:bg-destructive/90'
+                status === DealStatus.CLOSED_LOST && 'bg-destructive hover:bg-destructive/90',
               )}
             >
               {isLoading ? 'Ukladám...' : 'Uzavrieť deal'}

@@ -15,9 +15,9 @@ import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-reques
 describe('CommissionsController', () => {
   let controller: CommissionsController;
   let service: jest.Mocked<CommissionsService>;
-  let specialistRepository: any;
+  let specialistRepository: { findOne: jest.Mock };
 
-  const mockSpecialist = {
+  const mockSpecialist: Record<string, unknown> = {
     id: 'specialist-123',
     userId: 'user-123',
     name: 'John Specialist',
@@ -83,7 +83,7 @@ describe('CommissionsController', () => {
 
     controller = module.get<CommissionsController>(CommissionsController);
     service = module.get(CommissionsService);
-    specialistRepository = service['specialistRepository'];
+    specialistRepository = service['specialistRepository'] as unknown as { findOne: jest.Mock };
   });
 
   afterEach(() => {
@@ -210,7 +210,7 @@ describe('CommissionsController', () => {
         '__guards__',
         controller.getAllPending,
       );
-      const guardNames = guards.map((guard: any) => guard.name);
+      const guardNames = guards.map((guard: { name: string }) => guard.name);
       expect(guardNames).toContain('AdminGuard');
     });
 
@@ -241,7 +241,7 @@ describe('CommissionsController', () => {
         '__guards__',
         controller.waiveCommission,
       );
-      const guardNames = guards.map((guard: any) => guard.name);
+      const guardNames = guards.map((guard: { name: string }) => guard.name);
       expect(guardNames).toContain('AdminGuard');
     });
 
@@ -298,7 +298,7 @@ describe('CommissionsController', () => {
       methods.forEach((method) => {
         const guards = Reflect.getMetadata('__guards__', (controller as unknown as Record<string, Function>)[method]);
         expect(guards).toBeDefined();
-        const guardNames = guards.map((guard: any) => guard.name);
+        const guardNames = guards.map((guard: { name: string }) => guard.name);
         expect(guardNames).toContain('JwtAuthGuard');
       });
     });
@@ -313,13 +313,13 @@ describe('CommissionsController', () => {
 
       adminMethods.forEach((method) => {
         const guards = Reflect.getMetadata('__guards__', (controller as unknown as Record<string, Function>)[method]);
-        const guardNames = guards.map((guard: any) => guard.name);
+        const guardNames = guards.map((guard: { name: string }) => guard.name);
         expect(guardNames).toContain('AdminGuard');
       });
 
       nonAdminMethods.forEach((method) => {
         const guards = Reflect.getMetadata('__guards__', (controller as unknown as Record<string, Function>)[method]);
-        const guardNames = guards.map((guard: any) => guard.name);
+        const guardNames = guards.map((guard: { name: string }) => guard.name);
         expect(guardNames).not.toContain('AdminGuard');
       });
     });

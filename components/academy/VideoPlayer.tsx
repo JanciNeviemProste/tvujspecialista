@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Play, Pause, Volume2, VolumeX, Maximize, Loader2 } from 'lucide-react';
+import { Play, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils/cn';
-import { formatVideoTime } from '@/lib/utils/format';
 import { useVideoStreamUrl } from '@/lib/hooks/useAcademy';
+import { VideoControls } from '@/components/academy/VideoControls';
 import type { Video } from '@/types/academy';
 
 interface VideoPlayerProps {
@@ -161,13 +160,16 @@ export function VideoPlayer({
   // Video not ready
   if (video.status !== 'ready') {
     return (
-      <div className={cn('relative bg-black aspect-video flex items-center justify-center', className)}>
+      <div
+        className={cn(
+          'relative bg-black aspect-video flex items-center justify-center',
+          className,
+        )}
+      >
         <div className="text-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
           <p className="text-white text-lg">Video sa spracováva...</p>
-          <p className="text-muted-foreground text-sm">
-            Skúste to prosím neskôr
-          </p>
+          <p className="text-muted-foreground text-sm">Skúste to prosím neskôr</p>
         </div>
       </div>
     );
@@ -176,7 +178,12 @@ export function VideoPlayer({
   // Loading state
   if (isLoading) {
     return (
-      <div className={cn('relative bg-black aspect-video flex items-center justify-center', className)}>
+      <div
+        className={cn(
+          'relative bg-black aspect-video flex items-center justify-center',
+          className,
+        )}
+      >
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
       </div>
     );
@@ -185,7 +192,12 @@ export function VideoPlayer({
   // Error state
   if (error || !streamData) {
     return (
-      <div className={cn('relative bg-black aspect-video flex items-center justify-center', className)}>
+      <div
+        className={cn(
+          'relative bg-black aspect-video flex items-center justify-center',
+          className,
+        )}
+      >
         <div className="text-center space-y-2">
           <p className="text-white text-lg">Video nie je dostupné</p>
           <p className="text-muted-foreground text-sm">
@@ -204,17 +216,13 @@ export function VideoPlayer({
       onMouseMove={() => setShowControls(true)}
     >
       {/* Video element */}
-      <video
-        ref={videoRef}
-        className="w-full h-full"
-        onClick={togglePlay}
-      />
+      <video ref={videoRef} className="w-full h-full" onClick={togglePlay} />
 
       {/* Controls overlay */}
       <div
         className={cn(
           'absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-300',
-          showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
+          showControls || !isPlaying ? 'opacity-100' : 'opacity-0',
         )}
       >
         {/* Center play button (when paused) */}
@@ -232,82 +240,19 @@ export function VideoPlayer({
         )}
 
         {/* Bottom controls */}
-        <div
-          className={cn(
-            'absolute bottom-0 left-0 right-0 p-4 space-y-2 transition-opacity duration-300',
-            showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
-          )}
-        >
-          {/* Progress bar */}
-          <Slider
-            value={[currentTime]}
-            max={duration}
-            step={0.1}
-            onValueChange={handleSeek}
-            className="cursor-pointer"
-          />
-
-          {/* Control buttons */}
-          <div className="flex items-center justify-between gap-4">
-            {/* Left side */}
-            <div className="flex items-center gap-4">
-              {/* Play/Pause */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-white hover:text-white hover:bg-white/20"
-                onClick={togglePlay}
-              >
-                {isPlaying ? (
-                  <Pause className="h-5 w-5" />
-                ) : (
-                  <Play className="h-5 w-5" />
-                )}
-              </Button>
-
-              {/* Time */}
-              <div className="text-sm text-white font-medium">
-                {formatVideoTime(currentTime)} / {formatVideoTime(duration)}
-              </div>
-            </div>
-
-            {/* Right side */}
-            <div className="flex items-center gap-4">
-              {/* Volume */}
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 text-white hover:text-white hover:bg-white/20"
-                  onClick={toggleMute}
-                >
-                  {isMuted || volume === 0 ? (
-                    <VolumeX className="h-5 w-5" />
-                  ) : (
-                    <Volume2 className="h-5 w-5" />
-                  )}
-                </Button>
-                <Slider
-                  value={[volume]}
-                  max={1}
-                  step={0.1}
-                  onValueChange={handleVolumeChange}
-                  className="w-20"
-                />
-              </div>
-
-              {/* Fullscreen */}
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-8 w-8 text-white hover:text-white hover:bg-white/20"
-                onClick={toggleFullscreen}
-              >
-                <Maximize className="h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
+        <VideoControls
+          isPlaying={isPlaying}
+          currentTime={currentTime}
+          duration={duration}
+          volume={volume}
+          isMuted={isMuted}
+          showControls={showControls}
+          onTogglePlay={togglePlay}
+          onSeek={handleSeek}
+          onVolumeChange={handleVolumeChange}
+          onToggleMute={toggleMute}
+          onToggleFullscreen={toggleFullscreen}
+        />
       </div>
     </div>
   );

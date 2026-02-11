@@ -1,14 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Deal, DealStatus } from '@/types/deals';
-import { useAddDealNote, useReopenDeal, useDealEvents } from '@/lib/hooks/useDeals';
+import { useAddDealNote, useDealEvents } from '@/lib/hooks/useDeals';
 import { DealTimeline } from '@/components/deals/DealTimeline';
+import { DealInfo } from '@/components/deals/DealInfo';
+import { DealNotes } from '@/components/deals/DealNotes';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { X, Mail, Phone, Calendar, DollarSign, MessageSquare, Plus, RotateCcw } from 'lucide-react';
+import { X, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 interface DealDetailModalProps {
@@ -31,6 +32,23 @@ export function DealDetailModal({
   const [newNote, setNewNote] = useState('');
   const addNote = useAddDealNote();
   const { data: events, isLoading: eventsLoading } = useDealEvents(deal?.id || '');
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Escape key handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  // Auto-focus modal card
+  useEffect(() => {
+    if (isOpen && cardRef.current) {
+      cardRef.current.focus();
+    }
+  }, [isOpen]);
 
   if (!isOpen || !deal) return null;
 
@@ -83,7 +101,8 @@ export function DealDetailModal({
     }
   };
 
-  const isClosed = deal.status === DealStatus.CLOSED_WON || deal.status === DealStatus.CLOSED_LOST;
+  const isClosed =
+    deal.status === DealStatus.CLOSED_WON || deal.status === DealStatus.CLOSED_LOST;
 
   return (
     <div
@@ -94,6 +113,8 @@ export function DealDetailModal({
       aria-labelledby="deal-modal-title"
     >
       <Card
+        ref={cardRef}
+        tabIndex={-1}
         className="w-full max-w-2xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
         role="document"
@@ -105,129 +126,29 @@ export function DealDetailModal({
               {getStatusLabel(deal.status)}
             </Badge>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            aria-label="Close modal"
-          >
+          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close modal">
             <X className="h-4 w-4" aria-hidden="true" />
           </Button>
         </CardHeader>
 
         <CardContent className="space-y-6">
-          {/* Customer Information */}
-          <div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3">Informácie o zákazníkovi</h3>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="font-medium">{deal.customerName}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Mail className="h-4 w-4" />
-                <a href={`mailto:${deal.customerEmail}`} className="hover:underline">
-                  {deal.customerEmail}
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4" />
-                <a href={`tel:${deal.customerPhone}`} className="hover:underline">
-                  {deal.customerPhone}
-                </a>
-              </div>
-            </div>
-          </div>
+          <DealInfo deal={deal} />
 
-          {/* Initial Message */}
-          <div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-2">Pôvodná správa</h3>
-            <p className="text-sm bg-muted p-3 rounded-lg">{deal.message}</p>
-          </div>
-
-          {/* Deal Information */}
-          <div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3">Informácie o deale</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">Hodnota dealu</p>
-                <div className="flex items-center gap-2">
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">
-                    {deal.dealValue
-                      ? new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' }).format(deal.dealValue)
-                      : 'Nenastavené'}
-                  </span>
-                </div>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground mb-1">Predpokladané uzavretie</p>
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-muted-foreground" />
-                  <span className="font-medium">
-                    {deal.estimatedCloseDate
-                      ? new Date(deal.estimatedCloseDate).toLocaleDateString('sk-SK')
-                      : 'Nenastavené'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Notes Section */}
-          <div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3">Poznámky</h3>
-
-            {/* Existing Notes */}
-            {deal.notes && deal.notes.length > 0 ? (
-              <div className="space-y-2 mb-4">
-                {deal.notes.map((note, index) => (
-                  <div key={note.id || index} className="bg-muted p-3 rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <MessageSquare className="h-4 w-4 text-muted-foreground mt-0.5" />
-                      <div className="flex-1">
-                        <p className="text-sm">{note.content}</p>
-                        <p className="text-xs text-muted-foreground mt-1">
-                          {note.author.name} • {new Date(note.createdAt).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground mb-4">Zatiaľ žiadne poznámky</p>
-            )}
-
-            {/* Add Note Form */}
-            {!isClosed && (
-              <div className="space-y-2">
-                <Textarea
-                  placeholder="Pridať poznámku..."
-                  value={newNote}
-                  onChange={(e) => setNewNote(e.target.value)}
-                  className="min-h-[80px]"
-                  aria-label="New note"
-                />
-                <Button
-                  size="sm"
-                  onClick={handleAddNote}
-                  disabled={!newNote.trim() || addNote.isPending}
-                  aria-label="Add note to deal"
-                >
-                  <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
-                  {addNote.isPending ? 'Pridávam...' : 'Pridať poznámku'}
-                </Button>
-              </div>
-            )}
-          </div>
+          <DealNotes
+            deal={deal}
+            isClosed={isClosed}
+            newNote={newNote}
+            onNewNoteChange={setNewNote}
+            onAddNote={handleAddNote}
+            isAddingNote={addNote.isPending}
+          />
 
           {/* Timeline/Events */}
           <div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3">História udalostí</h3>
-            <DealTimeline
-              events={events || []}
-              isLoading={eventsLoading}
-            />
+            <h3 className="text-sm font-semibold text-muted-foreground mb-3">
+              História udalostí
+            </h3>
+            <DealTimeline events={events || []} isLoading={eventsLoading} />
           </div>
         </CardContent>
 

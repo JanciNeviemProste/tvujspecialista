@@ -32,5 +32,5 @@ export class CreateLessonDto {
   free?: boolean;
 
   @IsOptional()
-  content?: any; // for quiz/reading/assignment content
+  content?: Record<string, unknown>; // for quiz/reading/assignment content
 }

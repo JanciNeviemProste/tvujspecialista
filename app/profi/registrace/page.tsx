@@ -1,76 +1,81 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { authApi } from '@/lib/api/auth';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 
+const registrationSchema = z
+  .object({
+    name: z.string().min(1, 'Jméno je povinné'),
+    email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
+    phone: z.string().min(1, 'Telefon je povinný'),
+    password: z.string().min(8, 'Heslo musí mít alespoň 8 znaků'),
+    confirmPassword: z.string().min(1, 'Potvrzení hesla je povinné'),
+    category: z.string().min(1, 'Kategorie je povinná'),
+    location: z.string().min(1, 'Lokalita je povinná'),
+    yearsExperience: z.string().min(1, 'Roky praxe jsou povinné'),
+    bio: z.string().min(1, 'Popis služeb je povinný'),
+    termsAccepted: z.literal(true, {
+      message: 'Musíte souhlasit s obchodními podmínkami',
+    }),
+    gdprAccepted: z.literal(true, {
+      message: 'Musíte souhlasit se zpracováním osobních údajů',
+    }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: 'Hesla se neshodují',
+    path: ['confirmPassword'],
+  });
+
+type RegistrationFormData = z.infer<typeof registrationSchema>;
+
 export default function RegistrationPage() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    category: '',
-    location: '',
-    yearsExperience: '',
-    bio: '',
-    termsAccepted: false,
-    gdprAccepted: false,
-  });
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegistrationFormData>({
+    resolver: zodResolver(registrationSchema),
+    defaultValues: {
+      termsAccepted: false as unknown as true,
+      gdprAccepted: false as unknown as true,
+    },
+  });
+
+  const onSubmit = async (data: RegistrationFormData) => {
     setError('');
-
-    // Validations
-    if (formData.password !== formData.confirmPassword) {
-      setError('Hesla se neshodují');
-      setIsLoading(false);
-      return;
-    }
-
-    if (formData.password.length < 8) {
-      setError('Heslo musí mít alespoň 8 znaků');
-      setIsLoading(false);
-      return;
-    }
-
-    if (!formData.termsAccepted || !formData.gdprAccepted) {
-      setError('Musíte souhlasit s obchodními podmínkami a zpracováním osobních údajů');
-      setIsLoading(false);
-      return;
-    }
 
     try {
       const response = await authApi.register({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        password: formData.password,
-        category: formData.category as SpecialistCategory,
-        location: formData.location,
-        yearsExperience: parseInt(formData.yearsExperience),
-        bio: formData.bio,
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        password: data.password,
+        category: data.category as SpecialistCategory,
+        location: data.location,
+        yearsExperience: parseInt(data.yearsExperience),
+        bio: data.bio,
       });
 
       // Save tokens to localStorage
-      localStorage.setItem('accessToken', response.data.accessToken);
-      localStorage.setItem('refreshToken', response.data.refreshToken);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('accessToken', response.data.accessToken);
+        localStorage.setItem('refreshToken', response.data.refreshToken);
+      }
 
       // Redirect to dashboard
       router.push('/profi/dashboard');
     } catch (err: unknown) {
       setError(getErrorMessage(err));
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -108,7 +113,7 @@ export default function RegistrationPage() {
               </div>
             )}
 
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               {/* Personal Info */}
               <div>
                 <h2 className="mb-4 text-lg font-semibold text-gray-900">Osobní údaje</h2>
@@ -120,12 +125,13 @@ export default function RegistrationPage() {
                       </label>
                       <input
                         type="text"
-                        required
                         placeholder="Jan Novák"
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        {...register('name')}
                       />
+                      {errors.name && (
+                        <p className="text-sm text-red-500">{errors.name.message}</p>
+                      )}
                     </div>
                     <div>
                       <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -133,12 +139,13 @@ export default function RegistrationPage() {
                       </label>
                       <input
                         type="email"
-                        required
                         placeholder="jan@example.cz"
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        {...register('email')}
                       />
+                      {errors.email && (
+                        <p className="text-sm text-red-500">{errors.email.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -148,12 +155,13 @@ export default function RegistrationPage() {
                     </label>
                     <input
                       type="tel"
-                      required
                       placeholder="+420 777 123 456"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      {...register('phone')}
                     />
+                    {errors.phone && (
+                      <p className="text-sm text-red-500">{errors.phone.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -168,25 +176,24 @@ export default function RegistrationPage() {
                         Kategorie *
                       </label>
                       <select
-                        required
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        value={formData.category}
-                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        {...register('category')}
                       >
                         <option value="">Vyberte kategorii</option>
                         <option value="Finanční poradce">Finanční poradce</option>
                         <option value="Realitní makléř">Realitní makléř</option>
                       </select>
+                      {errors.category && (
+                        <p className="text-sm text-red-500">{errors.category.message}</p>
+                      )}
                     </div>
                     <div>
                       <label className="mb-1 block text-sm font-medium text-gray-700">
                         Lokalita *
                       </label>
                       <select
-                        required
                         className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        value={formData.location}
-                        onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                        {...register('location')}
                       >
                         <option value="">Vyberte lokalitu</option>
                         <option value="Praha">Praha</option>
@@ -194,6 +201,9 @@ export default function RegistrationPage() {
                         <option value="Ostrava">Ostrava</option>
                         <option value="Plzeň">Plzeň</option>
                       </select>
+                      {errors.location && (
+                        <p className="text-sm text-red-500">{errors.location.message}</p>
+                      )}
                     </div>
                   </div>
 
@@ -203,15 +213,14 @@ export default function RegistrationPage() {
                     </label>
                     <input
                       type="number"
-                      required
                       min="0"
                       placeholder="např. 5"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      value={formData.yearsExperience}
-                      onChange={(e) =>
-                        setFormData({ ...formData, yearsExperience: e.target.value })
-                      }
+                      {...register('yearsExperience')}
                     />
+                    {errors.yearsExperience && (
+                      <p className="text-sm text-red-500">{errors.yearsExperience.message}</p>
+                    )}
                   </div>
 
                   <div>
@@ -219,13 +228,14 @@ export default function RegistrationPage() {
                       Krátký popis vašich služeb *
                     </label>
                     <textarea
-                      required
                       rows={4}
                       placeholder="Popište, čím se zabýváte a jak můžete pomoci klientům..."
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      value={formData.bio}
-                      onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                      {...register('bio')}
                     />
+                    {errors.bio && (
+                      <p className="text-sm text-red-500">{errors.bio.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -240,12 +250,13 @@ export default function RegistrationPage() {
                     </label>
                     <input
                       type="password"
-                      required
                       placeholder="Minimálně 8 znaků"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      {...register('password')}
                     />
+                    {errors.password && (
+                      <p className="text-sm text-red-500">{errors.password.message}</p>
+                    )}
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
@@ -253,14 +264,13 @@ export default function RegistrationPage() {
                     </label>
                     <input
                       type="password"
-                      required
                       placeholder="Zadejte heslo znovu"
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      value={formData.confirmPassword}
-                      onChange={(e) =>
-                        setFormData({ ...formData, confirmPassword: e.target.value })
-                      }
+                      {...register('confirmPassword')}
                     />
+                    {errors.confirmPassword && (
+                      <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -271,12 +281,8 @@ export default function RegistrationPage() {
                   <label className="flex items-start">
                     <input
                       type="checkbox"
-                      required
                       className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600"
-                      checked={formData.termsAccepted}
-                      onChange={(e) =>
-                        setFormData({ ...formData, termsAccepted: e.target.checked })
-                      }
+                      {...register('termsAccepted')}
                     />
                     <span className="ml-2 text-sm text-gray-700">
                       Souhlasím s{' '}
@@ -286,33 +292,38 @@ export default function RegistrationPage() {
                       *
                     </span>
                   </label>
+                  {errors.termsAccepted && (
+                    <p className="text-sm text-red-500">{errors.termsAccepted.message}</p>
+                  )}
                   <label className="flex items-start">
                     <input
                       type="checkbox"
-                      required
                       className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600"
-                      checked={formData.gdprAccepted}
-                      onChange={(e) =>
-                        setFormData({ ...formData, gdprAccepted: e.target.checked })
-                      }
+                      {...register('gdprAccepted')}
                     />
                     <span className="ml-2 text-sm text-gray-700">
                       Souhlasím se{' '}
-                      <Link href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
+                      <Link
+                        href="/ochrana-osobnich-udaju"
+                        className="text-blue-600 hover:underline"
+                      >
                         zpracováním osobních údajů
                       </Link>{' '}
                       *
                     </span>
                   </label>
+                  {errors.gdprAccepted && (
+                    <p className="text-sm text-red-500">{errors.gdprAccepted.message}</p>
+                  )}
                 </div>
               </div>
 
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {isLoading ? 'Registruji...' : 'Zaregistrovat se zdarma'}
+                {isSubmitting ? 'Registruji...' : 'Zaregistrovat se zdarma'}
               </button>
 
               <p className="text-center text-sm text-gray-600">

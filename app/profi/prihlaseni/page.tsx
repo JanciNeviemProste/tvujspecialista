@@ -1,36 +1,45 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/contexts/AuthContext';
 import { getErrorMessage } from '@/lib/utils/error';
+
+const loginSchema = z.object({
+  email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
+  password: z.string().min(1, 'Heslo je povinné'),
+});
+
+type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormData) => {
     setError('');
 
     try {
       await login({
-        email: formData.email,
-        password: formData.password,
+        email: data.email,
+        password: data.password,
       });
       router.push('/profi/dashboard');
     } catch (err: unknown) {
       setError(getErrorMessage(err));
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -71,7 +80,7 @@ export default function LoginPage() {
               </div>
             )}
 
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700">
                   Email
@@ -79,12 +88,13 @@ export default function LoginPage() {
                 <input
                   type="email"
                   id="email"
-                  required
                   placeholder="vas@email.cz"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  {...register('email')}
                 />
+                {errors.email && (
+                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                )}
               </div>
 
               <div>
@@ -94,12 +104,13 @@ export default function LoginPage() {
                 <input
                   type="password"
                   id="password"
-                  required
                   placeholder="••••••••"
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  {...register('password')}
                 />
+                {errors.password && (
+                  <p className="text-sm text-red-500">{errors.password.message}</p>
+                )}
               </div>
 
               <div className="flex items-center justify-between">
@@ -114,10 +125,10 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                disabled={isLoading}
+                disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {isLoading ? 'Přihlašování...' : 'Přihlásit se'}
+                {isSubmitting ? 'Přihlašování...' : 'Přihlásit se'}
               </button>
             </form>
 

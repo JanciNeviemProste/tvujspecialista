@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { CommissionStats as CommissionStatsType } from '@/types/commissions';
 import { Card, CardContent } from '@/components/ui/card';
 import { DollarSign, Clock, CheckCircle, TrendingUp } from 'lucide-react';
@@ -17,7 +18,7 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
-export function CommissionStats({ stats, className }: CommissionStatsProps) {
+function CommissionStatsInner({ stats, className }: CommissionStatsProps) {
   const statCards = [
     {
       title: 'Čakajúce provízne',
@@ -50,7 +51,9 @@ export function CommissionStats({ stats, className }: CommissionStatsProps) {
   ];
 
   return (
-    <div className={cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4', className)}>
+    <div
+      className={cn('grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4', className)}
+    >
       {statCards.map((stat) => {
         const Icon = stat.icon;
         return (
@@ -58,17 +61,10 @@ export function CommissionStats({ stats, className }: CommissionStatsProps) {
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div className="space-y-2">
-                  <p className="text-sm font-medium text-muted-foreground">
-                    {stat.title}
-                  </p>
-                  <p className="text-2xl font-bold">
-                    {stat.value}
-                  </p>
+                  <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
+                  <p className="text-2xl font-bold">{stat.value}</p>
                 </div>
-                <div className={cn(
-                  'p-3 rounded-full',
-                  stat.bgColor
-                )}>
+                <div className={cn('p-3 rounded-full', stat.bgColor)}>
                   <Icon className={cn('h-6 w-6', stat.color)} />
                 </div>
               </div>
@@ -79,3 +75,5 @@ export function CommissionStats({ stats, className }: CommissionStatsProps) {
     </div>
   );
 }
+
+export const CommissionStats = memo(CommissionStatsInner);

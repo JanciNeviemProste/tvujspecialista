@@ -23,6 +23,7 @@ import { AddNoteDto } from './dto/add-note.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LeadLimitGuard } from '../leads/guards/lead-limit.guard';
 import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.interface';
+import { DealResponseDto } from './dto/deal-response.dto';
 
 @ApiTags('deals')
 @Controller('deals')
@@ -32,7 +33,7 @@ export class DealsController {
   @Post()
   @UseGuards(LeadLimitGuard)
   @ApiOperation({ summary: 'Create a new deal (public endpoint)' })
-  @ApiResponse({ status: 201, description: 'Deal created successfully' })
+  @ApiResponse({ status: 201, description: 'Deal created successfully', type: DealResponseDto })
   @ApiResponse({ status: 400, description: 'Bad request' })
   async create(@Body() createDealDto: CreateDealDto) {
     return this.dealsService.create(createDealDto);
@@ -45,6 +46,7 @@ export class DealsController {
   @ApiResponse({
     status: 200,
     description: 'Returns all deals for the authenticated specialist',
+    type: [DealResponseDto],
   })
   async getMyDeals(@Request() req: AuthenticatedRequest) {
     const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
@@ -55,7 +57,7 @@ export class DealsController {
   @Patch(':id/status')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update deal status' })
-  @ApiResponse({ status: 200, description: 'Deal status updated' })
+  @ApiResponse({ status: 200, description: 'Deal status updated', type: DealResponseDto })
   async updateStatus(
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,
@@ -68,7 +70,7 @@ export class DealsController {
   @Patch(':id/value')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Set deal value and estimated close date' })
-  @ApiResponse({ status: 200, description: 'Deal value updated' })
+  @ApiResponse({ status: 200, description: 'Deal value updated', type: DealResponseDto })
   async updateDealValue(
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,
@@ -88,7 +90,7 @@ export class DealsController {
   @Patch(':id/close')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Close deal (won/lost)' })
-  @ApiResponse({ status: 200, description: 'Deal closed' })
+  @ApiResponse({ status: 200, description: 'Deal closed', type: DealResponseDto })
   async closeDeal(
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,
@@ -108,7 +110,7 @@ export class DealsController {
   @Post(':id/reopen')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Reopen closed lost deal' })
-  @ApiResponse({ status: 200, description: 'Deal reopened' })
+  @ApiResponse({ status: 200, description: 'Deal reopened', type: DealResponseDto })
   async reopenDeal(
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,

@@ -17,7 +17,12 @@ describe('SubscriptionsService', () => {
   let subscriptionRepository: jest.Mocked<Repository<Subscription>>;
   let userRepository: jest.Mocked<Repository<User>>;
   let specialistRepository: jest.Mocked<Repository<Specialist>>;
-  let mockStripe: any;
+  let mockStripe: {
+    customers: { create: jest.Mock };
+    checkout: { sessions: { create: jest.Mock } };
+    subscriptions: { retrieve: jest.Mock; update: jest.Mock };
+    billingPortal: { sessions: { create: jest.Mock } };
+  };
 
   const mockUser = {
     id: 'user-123',
@@ -130,7 +135,7 @@ describe('SubscriptionsService', () => {
     specialistRepository = module.get(getRepositoryToken(Specialist));
 
     // Replace the stripe instance with our mock
-    service['stripe'] = mockStripe;
+    service['stripe'] = mockStripe as unknown as import('stripe').default;
   });
 
   afterEach(() => {
@@ -338,7 +343,7 @@ describe('SubscriptionsService', () => {
       subscriptionRepository.save.mockImplementation((entity) =>
         Promise.resolve(entity as Subscription),
       );
-      userRepository.update.mockResolvedValue({} as any);
+      userRepository.update.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       const result = await service.upgradeSubscription(
         'user-123',
@@ -362,12 +367,12 @@ describe('SubscriptionsService', () => {
       subscriptionRepository.save.mockImplementation((entity) =>
         Promise.resolve(entity as Subscription),
       );
-      userRepository.update.mockResolvedValue({} as any);
+      userRepository.update.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.upgradeSubscription('user-123', SubscriptionType.PREMIUM);
 
       expect(userRepository.update).toHaveBeenCalledWith('user-123', {
-        subscriptionType: SubscriptionType.PREMIUM as any,
+        subscriptionType: SubscriptionType.PREMIUM as unknown as string,
       });
     });
 

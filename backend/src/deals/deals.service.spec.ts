@@ -11,6 +11,7 @@ import {
 import { Specialist } from '../database/entities/specialist.entity';
 import { EmailService } from '../email/email.service';
 import { CommissionsService } from '../commissions/services/commissions.service';
+import { Commission } from '../database/entities/commission.entity';
 import { CreateDealDto } from './dto/create-deal.dto';
 
 describe('DealsService', () => {
@@ -42,8 +43,8 @@ describe('DealsService', () => {
     gdprConsent: true,
     dealValue: 100000,
     estimatedCloseDate: new Date('2026-06-01'),
-    actualCloseDate: null as any,
-    commissionId: null as any,
+    actualCloseDate: null,
+    commissionId: null,
     createdAt: new Date(),
     updatedAt: new Date(),
     specialist: mockSpecialist,
@@ -128,7 +129,7 @@ describe('DealsService', () => {
       dealRepository.create.mockReturnValue(mockDeal);
       dealRepository.save.mockResolvedValue(mockDeal);
       leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-      specialistRepository.update.mockResolvedValue({} as any);
+      specialistRepository.update.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       const result = await service.create(mockCreateDealDto);
 
@@ -145,7 +146,7 @@ describe('DealsService', () => {
       dealRepository.create.mockReturnValue(mockDeal);
       dealRepository.save.mockResolvedValue(mockDeal);
       leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-      specialistRepository.update.mockResolvedValue({} as any);
+      specialistRepository.update.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.create(mockCreateDealDto);
 
@@ -161,7 +162,7 @@ describe('DealsService', () => {
       dealRepository.create.mockReturnValue(mockDeal);
       dealRepository.save.mockResolvedValue(mockDeal);
       leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-      specialistRepository.update.mockResolvedValue({} as any);
+      specialistRepository.update.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.create(mockCreateDealDto);
 
@@ -176,7 +177,7 @@ describe('DealsService', () => {
       dealRepository.create.mockReturnValue(mockDeal);
       dealRepository.save.mockResolvedValue(mockDeal);
       leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-      specialistRepository.update.mockResolvedValue({} as any);
+      specialistRepository.update.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.create(mockCreateDealDto);
 
@@ -478,7 +479,7 @@ describe('DealsService', () => {
       leadEventRepository.save.mockResolvedValue({} as LeadEvent);
       commissionsService.createCommission.mockResolvedValue({
         id: 'commission-456',
-      } as any);
+      } as Commission);
 
       const result = await service.closeDeal(
         'deal-123',
@@ -647,7 +648,12 @@ describe('DealsService', () => {
   });
 
   describe('getAnalytics', () => {
-    function mockQueryBuilder(results: { getRawMany?: any[]; getRawOne?: any }[]) {
+    function mockQueryBuilder(
+      results: {
+        getRawMany?: Record<string, unknown>[];
+        getRawOne?: Record<string, unknown> | null;
+      }[],
+    ) {
       let callIndex = 0;
       const qb = {
         select: jest.fn().mockReturnThis(),
@@ -669,7 +675,9 @@ describe('DealsService', () => {
           return Promise.resolve(r?.getRawOne || null);
         }),
       };
-      dealRepository.createQueryBuilder.mockReturnValue(qb as any);
+      dealRepository.createQueryBuilder.mockReturnValue(
+        qb as unknown as ReturnType<Repository<Deal>['createQueryBuilder']>,
+      );
       return qb;
     }
 

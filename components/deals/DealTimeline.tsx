@@ -1,15 +1,9 @@
 'use client';
 
+import { memo } from 'react';
 import { DealEvent } from '@/types/deals';
 import { formatDateTime } from '@/lib/utils/format';
-import {
-  Circle,
-  ArrowRight,
-  DollarSign,
-  MessageSquare,
-  Mail,
-  Clock
-} from 'lucide-react';
+import { Circle, ArrowRight, DollarSign, MessageSquare, Mail, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 interface DealTimelineProps {
@@ -18,7 +12,7 @@ interface DealTimelineProps {
   className?: string;
 }
 
-export function DealTimeline({ events, isLoading, className }: DealTimelineProps) {
+function DealTimelineInner({ events, isLoading, className }: DealTimelineProps) {
   if (isLoading) {
     return (
       <div className={cn('space-y-4', className)}>
@@ -39,9 +33,7 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
     return (
       <div className={cn('text-center py-8', className)}>
         <Clock className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-        <p className="text-sm text-muted-foreground">
-          Zatiaľ žiadne udalosti
-        </p>
+        <p className="text-sm text-muted-foreground">Zatiaľ žiadne udalosti</p>
       </div>
     );
   }
@@ -77,14 +69,17 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
           <li key={event.id} className="relative flex gap-4">
             {/* Vertical line */}
             {!isLast && (
-              <div className="absolute left-4 top-10 bottom-0 w-px bg-border" aria-hidden="true" />
+              <div
+                className="absolute left-4 top-10 bottom-0 w-px bg-border"
+                aria-hidden="true"
+              />
             )}
 
             {/* Icon */}
             <div
               className={cn(
                 'relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
-                colorClass
+                colorClass,
               )}
               aria-hidden="true"
             >
@@ -93,9 +88,7 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
 
             {/* Content */}
             <div className="flex-1 space-y-1 pt-1">
-              <p className="text-sm font-medium leading-none">
-                {event.description}
-              </p>
+              <p className="text-sm font-medium leading-none">{event.description}</p>
               <p className="text-xs text-muted-foreground">
                 <time dateTime={event.createdAt}>
                   {formatDateTime(event.createdAt, 'sk')}
@@ -108,3 +101,5 @@ export function DealTimeline({ events, isLoading, className }: DealTimelineProps
     </ol>
   );
 }
+
+export const DealTimeline = memo(DealTimelineInner);

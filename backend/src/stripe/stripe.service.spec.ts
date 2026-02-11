@@ -23,7 +23,13 @@ describe('StripeService', () => {
   let subscriptionRepository: jest.Mocked<Repository<Subscription>>;
   let specialistRepository: jest.Mocked<Repository<Specialist>>;
   let commissionRepository: jest.Mocked<Repository<Commission>>;
-  let mockStripe: any;
+  let mockStripe: {
+    paymentIntents: { create: jest.Mock };
+    webhooks: { constructEvent: jest.Mock };
+    checkout: { sessions: { create: jest.Mock } };
+    customers: { create: jest.Mock };
+    subscriptions: { retrieve: jest.Mock };
+  };
 
   const mockCommission = {
     id: 'commission-123',
@@ -115,7 +121,7 @@ describe('StripeService', () => {
     commissionRepository = module.get(getRepositoryToken(Commission));
 
     // Replace the stripe instance with our mock
-    service['stripe'] = mockStripe;
+    service['stripe'] = mockStripe as unknown as import('stripe').default;
   });
 
   afterEach(() => {
@@ -260,7 +266,7 @@ describe('StripeService', () => {
       mockStripe.webhooks.constructEvent.mockReturnValue(mockEvent);
       commissionRepository.findOne.mockResolvedValue(mockCommission);
       commissionRepository.save.mockResolvedValue(mockCommission);
-      specialistRepository.increment.mockResolvedValue({} as any);
+      specialistRepository.increment.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.handleWebhook(mockSignature, mockBody);
 
@@ -295,7 +301,7 @@ describe('StripeService', () => {
       mockStripe.webhooks.constructEvent.mockReturnValue(mockEvent);
       commissionRepository.findOne.mockResolvedValue(mockCommission);
       commissionRepository.save.mockResolvedValue(mockCommission);
-      specialistRepository.increment.mockResolvedValue({} as any);
+      specialistRepository.increment.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       const result = await service.handleWebhook(mockSignature, mockBody);
 
@@ -337,7 +343,7 @@ describe('StripeService', () => {
         ...mockCommission,
         status: CommissionStatus.PAID,
       });
-      specialistRepository.increment.mockResolvedValue({} as any);
+      specialistRepository.increment.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.handleWebhook(mockSignature, mockBody);
 
@@ -363,7 +369,7 @@ describe('StripeService', () => {
       commissionRepository.save.mockImplementation((entity) =>
         Promise.resolve(entity as Commission),
       );
-      specialistRepository.increment.mockResolvedValue({} as any);
+      specialistRepository.increment.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.handleWebhook(mockSignature, mockBody);
 
@@ -389,7 +395,7 @@ describe('StripeService', () => {
       mockStripe.webhooks.constructEvent.mockReturnValue(mockEvent);
       commissionRepository.findOne.mockResolvedValue(mockCommission);
       commissionRepository.save.mockResolvedValue(mockCommission);
-      specialistRepository.increment.mockResolvedValue({} as any);
+      specialistRepository.increment.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.handleWebhook(mockSignature, mockBody);
 
@@ -526,7 +532,7 @@ describe('StripeService', () => {
 
       commissionRepository.findOne.mockResolvedValue(mockCommission);
       commissionRepository.save.mockResolvedValue(mockCommission);
-      specialistRepository.increment.mockResolvedValue({} as any);
+      specialistRepository.increment.mockResolvedValue({ affected: 1, raw: [], generatedMaps: [] });
 
       await service.handleCommissionWebhook(mockEvent as Stripe.Event);
 

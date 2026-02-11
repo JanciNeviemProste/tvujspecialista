@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Deal, DealStatus } from '@/types/deals';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,10 @@ interface DealCardProps {
   draggable?: boolean;
 }
 
-const statusConfig: Record<DealStatus, { label: string; variant: 'default' | 'secondary' | 'success' | 'warning' | 'destructive' }> = {
+const statusConfig: Record<
+  DealStatus,
+  { label: string; variant: 'default' | 'secondary' | 'success' | 'warning' | 'destructive' }
+> = {
   [DealStatus.NEW]: { label: 'Nový', variant: 'default' },
   [DealStatus.CONTACTED]: { label: 'Kontaktovaný', variant: 'secondary' },
   [DealStatus.QUALIFIED]: { label: 'Kvalifikovaný', variant: 'secondary' },
@@ -33,7 +37,13 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
-export function DealCard({ deal, onStatusChange, onViewDetails, className, draggable = false }: DealCardProps) {
+function DealCardInner({
+  deal,
+  onStatusChange,
+  onViewDetails,
+  className,
+  draggable = false,
+}: DealCardProps) {
   const statusInfo = statusConfig[deal.status];
 
   return (
@@ -45,12 +55,8 @@ export function DealCard({ deal, onStatusChange, onViewDetails, className, dragg
       <CardContent className="p-4 space-y-3">
         {/* Header with badge */}
         <div className="flex items-start justify-between">
-          <h3 className="font-semibold text-base line-clamp-1">
-            {deal.customerName}
-          </h3>
-          <Badge variant={statusInfo.variant}>
-            {statusInfo.label}
-          </Badge>
+          <h3 className="font-semibold text-base line-clamp-1">{deal.customerName}</h3>
+          <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>
         </div>
 
         {/* Contact info */}
@@ -66,9 +72,7 @@ export function DealCard({ deal, onStatusChange, onViewDetails, className, dragg
         </div>
 
         {/* Message preview */}
-        <p className="text-sm text-muted-foreground line-clamp-2">
-          {deal.message}
-        </p>
+        <p className="text-sm text-muted-foreground line-clamp-2">{deal.message}</p>
 
         {/* Deal value and close date */}
         {(deal.dealValue || deal.estimatedCloseDate) && (
@@ -95,7 +99,8 @@ export function DealCard({ deal, onStatusChange, onViewDetails, className, dragg
 
         {/* Created date */}
         <div className="text-xs text-muted-foreground">
-          Vytvorené: {format(new Date(deal.createdAt), 'd. MMM yyyy, HH:mm', { locale: sk })}
+          Vytvorené:{' '}
+          {format(new Date(deal.createdAt), 'd. MMM yyyy, HH:mm', { locale: sk })}
         </div>
       </CardContent>
 
@@ -110,17 +115,21 @@ export function DealCard({ deal, onStatusChange, onViewDetails, className, dragg
             Detail
           </Button>
         )}
-        {onStatusChange && deal.status !== DealStatus.CLOSED_WON && deal.status !== DealStatus.CLOSED_LOST && (
-          <Button
-            variant="default"
-            size="sm"
-            className="flex-1"
-            onClick={() => onStatusChange(deal)}
-          >
-            Zmeniť status
-          </Button>
-        )}
+        {onStatusChange &&
+          deal.status !== DealStatus.CLOSED_WON &&
+          deal.status !== DealStatus.CLOSED_LOST && (
+            <Button
+              variant="default"
+              size="sm"
+              className="flex-1"
+              onClick={() => onStatusChange(deal)}
+            >
+              Zmeniť status
+            </Button>
+          )}
       </CardFooter>
     </Card>
   );
 }
+
+export const DealCard = memo(DealCardInner);
