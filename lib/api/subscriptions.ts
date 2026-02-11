@@ -1,14 +1,23 @@
 import apiClient from './client';
 import { Subscription, SubscriptionType } from '@/types/subscriptions';
+import { subscriptionArraySchema, subscriptionSchema, validateResponse } from './schemas';
 
 export const subscriptionsApi = {
   // Get user's subscriptions
-  getMySubscriptions: () =>
-    apiClient.get<Subscription[]>('/subscriptions/my'),
+  getMySubscriptions: async () => {
+    const response = await apiClient.get<Subscription[]>('/subscriptions/my');
+    response.data = validateResponse(subscriptionArraySchema, response.data) as Subscription[];
+    return response;
+  },
 
   // Get active subscription
-  getMyActiveSubscription: () =>
-    apiClient.get<Subscription | null>('/subscriptions/my/active'),
+  getMyActiveSubscription: async () => {
+    const response = await apiClient.get<Subscription | null>('/subscriptions/my/active');
+    if (response.data) {
+      response.data = validateResponse(subscriptionSchema, response.data) as Subscription;
+    }
+    return response;
+  },
 
   // Create checkout sessions
   createEducationCheckout: () =>

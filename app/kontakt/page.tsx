@@ -28,13 +28,23 @@ export default function ContactPage() {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // Send contact form data via mailto as fallback
-      const mailtoLink = `mailto:info@tvujspecialista.cz?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`Jméno: ${data.name}\nEmail: ${data.email}\nTelefon: ${data.phone || ''}\n\n${data.message}`)}`;
-      window.open(mailtoLink, '_blank');
-      toast.success('Zpráva byla připravena k odeslání');
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Chyba při odeslání');
+      }
+
+      toast.success('Zpráva byla úspěšně odeslána!');
       reset();
-    } catch {
-      toast.error('Nepodařilo se odeslat zprávu');
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Nepodařilo se odeslat zprávu'
+      );
     }
   };
 

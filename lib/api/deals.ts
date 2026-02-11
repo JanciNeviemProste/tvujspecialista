@@ -1,9 +1,13 @@
 import apiClient from './client';
 import type { Deal, UpdateDealStatusDto, UpdateDealValueDto, CloseDealDto, DealEvent, DealAnalyticsData } from '@/types/deals';
+import { dealArraySchema, dealSchema, dealAnalyticsSchema, validateResponse } from './schemas';
 
 export const dealsApi = {
-  getMyDeals: () =>
-    apiClient.get<Deal[]>('/deals/my'),
+  getMyDeals: async () => {
+    const response = await apiClient.get<Deal[]>('/deals/my');
+    response.data = validateResponse(dealArraySchema, response.data) as Deal[];
+    return response;
+  },
 
   updateDealStatus: (id: string, data: UpdateDealStatusDto) =>
     apiClient.patch<Deal>(`/deals/${id}/status`, data),
@@ -23,6 +27,9 @@ export const dealsApi = {
   getMyEvents: (dealId: string) =>
     apiClient.get<DealEvent[]>(`/deals/my/events/${dealId}`),
 
-  getMyAnalytics: () =>
-    apiClient.get<DealAnalyticsData>('/deals/my/analytics'),
+  getMyAnalytics: async () => {
+    const response = await apiClient.get<DealAnalyticsData>('/deals/my/analytics');
+    response.data = validateResponse(dealAnalyticsSchema, response.data) as DealAnalyticsData;
+    return response;
+  },
 };

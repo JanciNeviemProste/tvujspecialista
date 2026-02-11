@@ -164,7 +164,8 @@ describe('AuthContext', () => {
     })
 
     expect(screen.getByTestId('user')).toHaveTextContent('none')
-    expect(localStorage.clear).toHaveBeenCalled()
+    expect(localStorage.removeItem).toHaveBeenCalledWith('accessToken')
+    expect(localStorage.removeItem).toHaveBeenCalledWith('refreshToken')
   })
 
   it('should throw error when useAuth is used outside AuthProvider', () => {

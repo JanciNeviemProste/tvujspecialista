@@ -1,4 +1,5 @@
 import apiClient from './client';
+import { authResponseSchema, userSchema, validateResponse } from './schemas';
 
 export interface LoginCredentials {
   email: string;
@@ -30,9 +31,17 @@ export interface ChangePasswordData {
 
 export const authApi = {
   register: (data: RegistrationData) => apiClient.post('/auth/register', data),
-  login: (credentials: LoginCredentials) => apiClient.post('/auth/login', credentials),
+  login: async (credentials: LoginCredentials) => {
+    const response = await apiClient.post('/auth/login', credentials);
+    response.data = validateResponse(authResponseSchema, response.data);
+    return response;
+  },
   logout: () => apiClient.post('/auth/logout'),
   refreshToken: (token: string) => apiClient.post('/auth/refresh', { refreshToken: token }),
-  getMe: () => apiClient.get('/auth/me'),
+  getMe: async () => {
+    const response = await apiClient.get('/auth/me');
+    response.data = validateResponse(userSchema, response.data);
+    return response;
+  },
   changePassword: (data: ChangePasswordData) => apiClient.post('/auth/change-password', data),
 };

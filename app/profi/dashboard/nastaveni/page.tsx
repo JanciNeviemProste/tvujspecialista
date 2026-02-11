@@ -36,7 +36,7 @@ export default function AccountSettingsPage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ChangePasswordFormValues>({
     resolver: zodResolver(changePasswordSchema),
     defaultValues: {
@@ -174,7 +174,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div className="flex items-center gap-4 pt-2">
-                <Button type="submit" loading={isSaving}>
+                <Button type="submit" disabled={isSubmitting || isSaving} loading={isSaving}>
                   {isSaving ? 'Ukladam...' : 'Zmenit heslo'}
                 </Button>
                 <Button

@@ -55,7 +55,7 @@ export function CloseDealModal({
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<CloseDealFormData>({
     resolver: zodResolver(closeDealSchema),
     defaultValues: {
@@ -175,7 +175,7 @@ export function CloseDealModal({
             </Button>
             <Button
               type="submit"
-              disabled={isLoading}
+              disabled={isSubmitting || isLoading}
               className={cn(
                 'flex-1',
                 status === DealStatus.CLOSED_WON && 'bg-success hover:bg-success/90',

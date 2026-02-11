@@ -43,7 +43,7 @@ export function DealValueModal({
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<DealValueFormData>({
     resolver: zodResolver(dealValueSchema),
     defaultValues: {
@@ -133,7 +133,7 @@ export function DealValueModal({
             >
               Zrušiť
             </Button>
-            <Button type="submit" disabled={isLoading} className="flex-1">
+            <Button type="submit" disabled={isSubmitting || isLoading} className="flex-1">
               {isLoading ? 'Ukladám...' : 'Uložiť'}
             </Button>
           </CardFooter>

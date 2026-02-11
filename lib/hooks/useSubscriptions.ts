@@ -1,18 +1,19 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { subscriptionsApi } from '@/lib/api/subscriptions';
 import { SubscriptionType } from '@/types/subscriptions';
+import { queryKeys } from '@/lib/queryKeys';
 import { toast } from 'sonner';
 
 export function useMySubscriptions() {
   return useQuery({
-    queryKey: ['mySubscriptions'],
+    queryKey: queryKeys.subscriptions.current,
     queryFn: () => subscriptionsApi.getMySubscriptions().then((res) => res.data),
   });
 }
 
 export function useMyActiveSubscription() {
   return useQuery({
-    queryKey: ['myActiveSubscription'],
+    queryKey: queryKeys.subscriptions.active,
     queryFn: () => subscriptionsApi.getMyActiveSubscription().then((res) => res.data),
   });
 }
@@ -55,8 +56,8 @@ export function useUpgradeSubscription() {
     mutationFn: ({ id, newType }: { id: string; newType: SubscriptionType }) =>
       subscriptionsApi.upgradeSubscription(id, newType).then((res) => res.data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['mySubscriptions'] });
-      queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
       toast.success('Predplatné úspešne upgradované!');
     },
     onError: (error: Error) => {
@@ -71,8 +72,8 @@ export function useDowngradeSubscription() {
     mutationFn: ({ id, newType }: { id: string; newType: SubscriptionType }) =>
       subscriptionsApi.downgradeSubscription(id, newType).then((res) => res.data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['mySubscriptions'] });
-      queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
       toast.success('Downgrade naplánovaný na koniec obdobia');
     },
     onError: (error: Error) => {
@@ -86,8 +87,8 @@ export function useCancelSubscription() {
   return useMutation({
     mutationFn: (id: string) => subscriptionsApi.cancelSubscription(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['mySubscriptions'] });
-      queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
       toast.success('Predplatné zrušené. Prístup máte do konca plateného obdobia.');
     },
     onError: (error: Error) => {
@@ -101,8 +102,8 @@ export function useResumeSubscription() {
   return useMutation({
     mutationFn: (id: string) => subscriptionsApi.resumeSubscription(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['mySubscriptions'] });
-      queryClient.invalidateQueries({ queryKey: ['myActiveSubscription'] });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
+      queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
       toast.success('Predplatné obnovené!');
     },
     onError: (error: Error) => {

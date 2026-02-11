@@ -43,7 +43,7 @@ export default function ProfileEditPage() {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ProfileFormValues>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
@@ -304,7 +304,7 @@ export default function ProfileEditPage() {
 
           {/* Tlacitka */}
           <div className="flex items-center gap-4">
-            <Button type="submit" loading={isSaving}>
+            <Button type="submit" disabled={isSubmitting || isSaving} loading={isSaving}>
               {isSaving ? 'Ukladam...' : 'Ulozit zmeny'}
             </Button>
             <Button
