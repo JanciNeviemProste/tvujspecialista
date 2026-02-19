@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Event, EventType, EventFormat } from '@/types/community'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -29,7 +30,7 @@ function getEventFormatLabel(format: EventFormat): string {
   return format === EventFormat.ONLINE ? 'Online' : 'Offline'
 }
 
-export function EventCard({ event, showRSVPButton = true, className }: EventCardProps) {
+export const EventCard = memo(function EventCard({ event, showRSVPButton = true, className }: EventCardProps) {
   const href = `/community/events/${event.slug}`
   const isFullyBooked = event.maxAttendees ? event.attendeeCount >= event.maxAttendees : false
   const isFree = event.price === 0
@@ -153,4 +154,4 @@ export function EventCard({ event, showRSVPButton = true, className }: EventCard
       </CardFooter>
     </Card>
   )
-}
+})

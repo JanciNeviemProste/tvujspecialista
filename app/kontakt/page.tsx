@@ -72,12 +72,15 @@ export default function ContactPage() {
                 </label>
                 <input
                   type="text"
+                  id="contact-name"
                   placeholder="Jan Novák"
+                  aria-invalid={!!errors.name}
+                  aria-describedby={errors.name ? 'name-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('name')}
                 />
                 {errors.name && (
-                  <p className="text-sm text-red-500">{errors.name.message}</p>
+                  <p id="name-error" role="alert" className="text-sm text-red-500">{errors.name.message}</p>
                 )}
               </div>
 
@@ -85,12 +88,15 @@ export default function ContactPage() {
                 <label className="mb-1 block text-sm font-medium text-gray-700">Email *</label>
                 <input
                   type="email"
+                  id="contact-email"
                   placeholder="jan@example.cz"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? 'email-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('email')}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p id="email-error" role="alert" className="text-sm text-red-500">{errors.email.message}</p>
                 )}
               </div>
 
@@ -109,6 +115,9 @@ export default function ContactPage() {
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Předmět *</label>
                 <select
+                  id="contact-subject"
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? 'subject-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('subject')}
                 >
@@ -120,20 +129,23 @@ export default function ContactPage() {
                   <option value="partnership">Spolupráce</option>
                 </select>
                 {errors.subject && (
-                  <p className="text-sm text-red-500">{errors.subject.message}</p>
+                  <p id="subject-error" role="alert" className="text-sm text-red-500">{errors.subject.message}</p>
                 )}
               </div>
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">Zpráva *</label>
                 <textarea
+                  id="contact-message"
                   rows={6}
                   placeholder="Popište svůj dotaz..."
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? 'message-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('message')}
                 />
                 {errors.message && (
-                  <p className="text-sm text-red-500">{errors.message.message}</p>
+                  <p id="message-error" role="alert" className="text-sm text-red-500">{errors.message.message}</p>
                 )}
               </div>
 

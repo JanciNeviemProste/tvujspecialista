@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import Image from 'next/image'
 import { RatingStars } from './RatingStars'
 
@@ -17,7 +18,7 @@ interface SpecialistCardProps {
   }
 }
 
-export function SpecialistCard({ specialist }: SpecialistCardProps) {
+export const SpecialistCard = memo(function SpecialistCard({ specialist }: SpecialistCardProps) {
   return (
     <a
       href={`/specialista/${specialist.slug}`}
@@ -72,4 +73,4 @@ export function SpecialistCard({ specialist }: SpecialistCardProps) {
       </div>
     </a>
   )
-}
+})

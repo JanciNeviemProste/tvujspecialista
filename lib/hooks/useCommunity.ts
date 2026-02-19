@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { communityApi } from '@/lib/api/community';
 import type { EventFilters, Event } from '@/types/community';
 import { queryKeys } from '@/lib/queryKeys';
+import { toast } from 'sonner';
 
 // Queries
 export function useEvents(filters: EventFilters = {}) {
@@ -48,6 +49,10 @@ export function useCreateEvent() {
     mutationFn: (data: Partial<Event>) => communityApi.createEvent(data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
+      toast.success('Udalosť bola vytvorená');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri vytváraní udalosti');
     },
   });
 }
@@ -60,6 +65,10 @@ export function useUpdateEvent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.event('') });
+      toast.success('Udalosť bola aktualizovaná');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri aktualizácii udalosti');
     },
   });
 }
@@ -70,6 +79,10 @@ export function useDeleteEvent() {
     mutationFn: (id: string) => communityApi.deleteEvent(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
+      toast.success('Udalosť bola zmazaná');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri mazaní udalosti');
     },
   });
 }
@@ -82,6 +95,10 @@ export function useRSVP() {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.myRSVPs });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.event('') });
+      toast.success('Registrácia potvrdená');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri registrácii na udalosť');
     },
   });
 }
@@ -94,6 +111,10 @@ export function useCancelRSVP() {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.myRSVPs });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.event('') });
+      toast.success('Registrácia zrušená');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri zrušení registrácie');
     },
   });
 }
@@ -105,6 +126,10 @@ export function useConfirmRSVP() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.myRSVPs });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
+      toast.success('Účasť potvrdená');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri potvrdení účasti');
     },
   });
 }

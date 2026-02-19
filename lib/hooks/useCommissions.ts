@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { commissionsApi } from '@/lib/api/commissions';
 import { queryKeys } from '@/lib/queryKeys';
+import { toast } from 'sonner';
 
 export function useMyCommissions() {
   return useQuery({
@@ -24,6 +25,10 @@ export function usePayCommission() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.commissions.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.commissions.stats });
+      toast.success('Provízia bola úspešne uhradená');
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || 'Chyba pri úhrade provízie');
     },
   });
 }
