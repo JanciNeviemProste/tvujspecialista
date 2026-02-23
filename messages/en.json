@@ -1,0 +1,71 @@
+{
+  "common": {
+    "nav": {
+      "home": "Home",
+      "search": "Search",
+      "searchSpecialist": "Find a specialist",
+      "pricing": "Pricing",
+      "login": "Sign in",
+      "register": "Register for free",
+      "academy": "Academy",
+      "community": "Community",
+      "forum": "Forum",
+      "dashboard": "Dashboard",
+      "myAccount": "My account",
+      "loggedAs": "Logged in as:",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu",
+      "mainNavigation": "Main navigation"
+    },
+    "footer": {
+      "description": "Marketplace for finding verified specialists",
+      "forCustomers": "For customers",
+      "forSpecialists": "For specialists",
+      "legalInfo": "Legal information",
+      "aboutUs": "About us",
+      "login": "Sign in",
+      "registration": "Registration",
+      "rules": "Terms of service",
+      "privacy": "Privacy policy",
+      "copyright": "© {year} tvujspecialista.cz. All rights reserved."
+    },
+    "locale": {
+      "cs": "Čeština",
+      "sk": "Slovenčina",
+      "pl": "Polski",
+      "en": "English",
+      "switchLanguage": "Change language"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Find a verified specialist in 2 minutes",
+      "subtitle": "Compare specialists, read reviews and contact the best ones"
+    },
+    "categories": {
+      "title": "Choose a specialist category",
+      "financialAdvisor": "Financial advisor",
+      "financialAdvisorDesc": "Comprehensive financial consulting - mortgages, insurance, investments and loans",
+      "realEstateAgent": "Real estate agent",
+      "realEstateAgentDesc": "Sale, rental and property management - apartments, houses and commercial spaces",
+      "showSpecialists": "Show specialists"
+    },
+    "stats": {
+      "specialists": "Verified specialists",
+      "specialistsCount": "2,500+",
+      "customers": "Satisfied customers",
+      "customersCount": "15,000+",
+      "successRate": "Mediation success rate",
+      "successRateValue": "98%"
+    },
+    "cta": {
+      "title": "Are you a specialist?",
+      "subtitle": "Get quality leads and grow your business",
+      "button": "Start free for 14 days"
+    },
+    "metadata": {
+      "title": "Find a verified specialist | tvujspecialista.cz",
+      "description": "Marketplace for finding verified specialists in finance and real estate. Compare, read reviews and contact the best ones."
+    }
+  }
+}

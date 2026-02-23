@@ -1,0 +1,71 @@
+{
+  "common": {
+    "nav": {
+      "home": "Strona główna",
+      "search": "Szukaj",
+      "searchSpecialist": "Szukaj specjalisty",
+      "pricing": "Cennik",
+      "login": "Zaloguj się",
+      "register": "Rejestracja za darmo",
+      "academy": "Akademia",
+      "community": "Społeczność",
+      "forum": "Forum",
+      "dashboard": "Panel",
+      "myAccount": "Moje konto",
+      "loggedAs": "Zalogowany jako:",
+      "openMenu": "Otwórz menu",
+      "closeMenu": "Zamknij menu",
+      "mainNavigation": "Główna nawigacja"
+    },
+    "footer": {
+      "description": "Marketplace do wyszukiwania zweryfikowanych specjalistów",
+      "forCustomers": "Dla klientów",
+      "forSpecialists": "Dla specjalistów",
+      "legalInfo": "Informacje prawne",
+      "aboutUs": "O nas",
+      "login": "Logowanie",
+      "registration": "Rejestracja",
+      "rules": "Regulamin",
+      "privacy": "Ochrona danych",
+      "copyright": "© {year} tvujspecialista.cz. Wszystkie prawa zastrzeżone."
+    },
+    "locale": {
+      "cs": "Čeština",
+      "sk": "Slovenčina",
+      "pl": "Polski",
+      "en": "English",
+      "switchLanguage": "Zmień język"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Znajdź zweryfikowanego specjalistę w 2 minuty",
+      "subtitle": "Porównaj specjalistów, przeczytaj opinie i skontaktuj się z najlepszymi"
+    },
+    "categories": {
+      "title": "Wybierz kategorię specjalisty",
+      "financialAdvisor": "Doradca finansowy",
+      "financialAdvisorDesc": "Kompleksowe doradztwo finansowe - kredyty hipoteczne, ubezpieczenia, inwestycje i pożyczki",
+      "realEstateAgent": "Agent nieruchomości",
+      "realEstateAgentDesc": "Sprzedaż, wynajem i zarządzanie nieruchomościami - mieszkania, domy i lokale komercyjne",
+      "showSpecialists": "Pokaż specjalistów"
+    },
+    "stats": {
+      "specialists": "Zweryfikowanych specjalistów",
+      "specialistsCount": "2 500+",
+      "customers": "Zadowolonych klientów",
+      "customersCount": "15 000+",
+      "successRate": "Skuteczność pośrednictwa",
+      "successRateValue": "98%"
+    },
+    "cta": {
+      "title": "Jesteś specjalistą?",
+      "subtitle": "Zdobądź wartościowe leady i rozwijaj swój biznes",
+      "button": "Zacznij za darmo na 14 dni"
+    },
+    "metadata": {
+      "title": "Znajdź zweryfikowanego specjalistę | tvujspecialista.cz",
+      "description": "Marketplace do wyszukiwania zweryfikowanych specjalistów w dziedzinie finansów i nieruchomości. Porównaj, przeczytaj opinie i skontaktuj się z najlepszymi."
+    }
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "common": {
+    "nav": {
+      "home": "Domov",
+      "search": "Hledat",
+      "searchSpecialist": "Hledat specialistu",
+      "pricing": "Ceny",
+      "login": "Přihlásit se",
+      "register": "Registrace zdarma",
+      "academy": "Akademie",
+      "community": "Komunita",
+      "forum": "Fórum",
+      "dashboard": "Dashboard",
+      "myAccount": "Můj účet",
+      "loggedAs": "Přihlášen jako:",
+      "openMenu": "Otevřít menu",
+      "closeMenu": "Zavřít menu",
+      "mainNavigation": "Hlavní navigace"
+    },
+    "footer": {
+      "description": "Marketplace pro hledání ověřených specialistů",
+      "forCustomers": "Pro zákazníky",
+      "forSpecialists": "Pro specialisty",
+      "legalInfo": "Právní informace",
+      "aboutUs": "O nás",
+      "login": "Přihlášení",
+      "registration": "Registrace",
+      "rules": "Pravidla",
+      "privacy": "Ochrana údajů",
+      "copyright": "© {year} tvujspecialista.cz. Všechna práva vyhrazena."
+    },
+    "locale": {
+      "cs": "Čeština",
+      "sk": "Slovenčina",
+      "pl": "Polski",
+      "en": "English",
+      "switchLanguage": "Změnit jazyk"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Najděte ověřeného specialistu za 2 minuty",
+      "subtitle": "Porovnejte specialisty, přečtěte si recenze a kontaktujte ty nejlepší"
+    },
+    "categories": {
+      "title": "Vyberte kategorii specialisty",
+      "financialAdvisor": "Finanční poradce",
+      "financialAdvisorDesc": "Komplexní finanční poradenství - hypotéky, pojištění, investice a úvěry",
+      "realEstateAgent": "Realitní makléř",
+      "realEstateAgentDesc": "Prodej, pronájem a správa nemovitostí - byty, domy a komerční prostory",
+      "showSpecialists": "Zobrazit specialisty"
+    },
+    "stats": {
+      "specialists": "Ověřených specialistů",
+      "specialistsCount": "2 500+",
+      "customers": "Spokojených zákazníků",
+      "customersCount": "15 000+",
+      "successRate": "Úspěšnost zprostředkování",
+      "successRateValue": "98%"
+    },
+    "cta": {
+      "title": "Jste specialista?",
+      "subtitle": "Získejte kvalitní leady a rozšiřte své podnikání",
+      "button": "Začít zdarma na 14 dní"
+    },
+    "metadata": {
+      "title": "Najděte ověřeného specialistu | tvujspecialista.cz",
+      "description": "Marketplace pro hledání ověřených specialistů v oblasti financí a nemovitostí v ČR a SK. Porovnejte, přečtěte si recenze a kontaktujte ty nejlepší."
+    }
+  }
+}

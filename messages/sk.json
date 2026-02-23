@@ -1,0 +1,71 @@
+{
+  "common": {
+    "nav": {
+      "home": "Domov",
+      "search": "Hľadať",
+      "searchSpecialist": "Hľadať špecialistu",
+      "pricing": "Ceny",
+      "login": "Prihlásiť sa",
+      "register": "Registrácia zdarma",
+      "academy": "Akadémia",
+      "community": "Komunita",
+      "forum": "Fórum",
+      "dashboard": "Dashboard",
+      "myAccount": "Môj účet",
+      "loggedAs": "Prihlásený ako:",
+      "openMenu": "Otvoriť menu",
+      "closeMenu": "Zavrieť menu",
+      "mainNavigation": "Hlavná navigácia"
+    },
+    "footer": {
+      "description": "Marketplace na hľadanie overených špecialistov",
+      "forCustomers": "Pre zákazníkov",
+      "forSpecialists": "Pre špecialistov",
+      "legalInfo": "Právne informácie",
+      "aboutUs": "O nás",
+      "login": "Prihlásenie",
+      "registration": "Registrácia",
+      "rules": "Pravidlá",
+      "privacy": "Ochrana údajov",
+      "copyright": "© {year} tvujspecialista.cz. Všetky práva vyhradené."
+    },
+    "locale": {
+      "cs": "Čeština",
+      "sk": "Slovenčina",
+      "pl": "Polski",
+      "en": "English",
+      "switchLanguage": "Zmeniť jazyk"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Nájdite overeného špecialistu za 2 minúty",
+      "subtitle": "Porovnajte špecialistov, prečítajte si recenzie a kontaktujte tých najlepších"
+    },
+    "categories": {
+      "title": "Vyberte kategóriu špecialistu",
+      "financialAdvisor": "Finančný poradca",
+      "financialAdvisorDesc": "Komplexné finančné poradenstvo - hypotéky, poistenie, investície a úvery",
+      "realEstateAgent": "Realitný maklér",
+      "realEstateAgentDesc": "Predaj, prenájom a správa nehnuteľností - byty, domy a komerčné priestory",
+      "showSpecialists": "Zobraziť špecialistov"
+    },
+    "stats": {
+      "specialists": "Overených špecialistov",
+      "specialistsCount": "2 500+",
+      "customers": "Spokojných zákazníkov",
+      "customersCount": "15 000+",
+      "successRate": "Úspešnosť sprostredkovania",
+      "successRateValue": "98%"
+    },
+    "cta": {
+      "title": "Ste špecialista?",
+      "subtitle": "Získajte kvalitné leady a rozšírte svoje podnikanie",
+      "button": "Začať zadarmo na 14 dní"
+    },
+    "metadata": {
+      "title": "Nájdite overeného špecialistu | tvujspecialista.cz",
+      "description": "Marketplace na hľadanie overených špecialistov v oblasti financií a nehnuteľností v ČR a SR. Porovnajte, prečítajte si recenzie a kontaktujte tých najlepších."
+    }
+  }
+}

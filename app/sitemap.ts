@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { locales, defaultLocale } from '@/i18n/config';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tvujspecialista.cz';
@@ -23,10 +24,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/profi/registrace', changeFrequency: 'monthly', priority: 0.7 },
   ];
 
-  return staticRoutes.map((route) => ({
-    url: `${baseUrl}${route.path}`,
-    lastModified: new Date(),
-    changeFrequency: route.changeFrequency,
-    priority: route.priority,
-  }));
+  // Generate URLs for all locales
+  return staticRoutes.flatMap((route) =>
+    locales.map((locale) => ({
+      url: `${baseUrl}/${locale}${route.path}`,
+      lastModified: new Date(),
+      changeFrequency: route.changeFrequency,
+      priority: locale === defaultLocale ? route.priority : route.priority * 0.9,
+    }))
+  );
 }

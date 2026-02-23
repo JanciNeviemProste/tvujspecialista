@@ -1,18 +1,23 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import createMiddleware from 'next-intl/middleware';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { routing } from './i18n/routing';
+
+const intlMiddleware = createMiddleware(routing);
 
 export function middleware(request: NextRequest) {
-  const response = NextResponse.next()
+  // Run next-intl middleware first (handles locale detection + routing)
+  const response = intlMiddleware(request);
 
   // Security headers
-  response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-Frame-Options', 'DENY')
-  response.headers.set('X-XSS-Protection', '1; mode=block')
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
   // Content Security Policy
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
   const cspDirectives = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com www.googletagmanager.com www.google-analytics.com *.sentry.io",
@@ -26,23 +31,23 @@ export function middleware(request: NextRequest) {
     "form-action 'self'",
     "frame-ancestors 'none'",
     "upgrade-insecure-requests",
-  ].join('; ')
-  response.headers.set('Content-Security-Policy-Report-Only', cspDirectives)
+  ].join('; ');
+  response.headers.set('Content-Security-Policy-Report-Only', cspDirectives);
 
   // HSTS only in production
   if (process.env.NODE_ENV === 'production') {
     response.headers.set(
       'Strict-Transport-Security',
       'max-age=31536000; includeSubDomains; preload'
-    )
+    );
   }
 
-  return response
+  return response;
 }
 
 export const config = {
   matcher: [
-    // Match all paths except static files and api
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    // Match all paths except static files, api routes, and Next.js internals
+    '/((?!_next/static|_next/image|favicon.ico|api|robots.txt|sitemap.xml|manifest.json|og-image.jpg|.*\\..*).*)',
   ],
-}
+};

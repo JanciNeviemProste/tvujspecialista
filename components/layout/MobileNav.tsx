@@ -1,16 +1,17 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const t = useTranslations('common.nav');
 
   const closeMenu = useCallback(() => {
     setIsOpen(false);
@@ -35,7 +36,7 @@ export function MobileNav() {
         ref={triggerRef}
         onClick={toggleMenu}
         className="p-2 rounded-md hover:bg-muted transition-colors"
-        aria-label={isOpen ? 'Zavrieť menu' : 'Otvoriť menu'}
+        aria-label={isOpen ? t('closeMenu') : t('openMenu')}
         aria-expanded={isOpen}
         aria-controls="mobile-nav-panel"
       >
@@ -58,7 +59,7 @@ export function MobileNav() {
 
           {/* Menu Panel */}
           <div id="mobile-nav-panel" className="fixed top-16 left-0 right-0 bottom-0 bg-background border-t z-50 overflow-y-auto">
-            <nav className="container mx-auto px-4 py-6" role="navigation" aria-label="Hlavní navigace">
+            <nav className="container mx-auto px-4 py-6" role="navigation" aria-label={t('mainNavigation')}>
               <div className="space-y-1">
                 {/* Main Navigation */}
                 <Link
@@ -67,7 +68,7 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                 >
                   <Home className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">Domov</span>
+                  <span className="font-medium">{t('home')}</span>
                 </Link>
 
                 <Link
@@ -76,7 +77,7 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                 >
                   <Search className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">Hľadať špecialistu</span>
+                  <span className="font-medium">{t('searchSpecialist')}</span>
                 </Link>
 
                 <Link
@@ -85,7 +86,7 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                 >
                   <DollarSign className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">Ceny</span>
+                  <span className="font-medium">{t('pricing')}</span>
                 </Link>
 
                 {isAuthenticated && (
@@ -99,7 +100,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <GraduationCap className="h-5 w-5 text-primary" />
-                      <span className="font-medium">Akadémia</span>
+                      <span className="font-medium">{t('academy')}</span>
                     </Link>
 
                     <Link
@@ -108,7 +109,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <Users className="h-5 w-5 text-accent-500" />
-                      <span className="font-medium">Komunita</span>
+                      <span className="font-medium">{t('community')}</span>
                     </Link>
 
                     <Link
@@ -117,7 +118,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <MessageSquare className="h-5 w-5 text-blue-500" />
-                      <span className="font-medium">Fórum</span>
+                      <span className="font-medium">{t('forum')}</span>
                     </Link>
 
                     <Link
@@ -126,7 +127,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <LayoutDashboard className="h-5 w-5 text-muted-foreground" />
-                      <span className="font-medium">Dashboard</span>
+                      <span className="font-medium">{t('dashboard')}</span>
                     </Link>
                   </>
                 )}
@@ -138,11 +139,11 @@ export function MobileNav() {
                   {isAuthenticated ? (
                     <>
                       <p className="text-sm text-muted-foreground">
-                        Prihlásený ako: <span className="font-medium text-foreground">{user?.email}</span>
+                        {t('loggedAs')} <span className="font-medium text-foreground">{user?.email}</span>
                       </p>
                       <Link href="/my-account" onClick={closeMenu} className="w-full">
                         <Button variant="outline" className="w-full" size="lg">
-                          Môj účet
+                          {t('myAccount')}
                         </Button>
                       </Link>
                     </>
@@ -150,12 +151,12 @@ export function MobileNav() {
                     <>
                       <Link href="/profi/prihlaseni" onClick={closeMenu} className="w-full">
                         <Button variant="outline" className="w-full" size="lg">
-                          Prihlásiť sa
+                          {t('login')}
                         </Button>
                       </Link>
                       <Link href="/profi/registrace" onClick={closeMenu} className="w-full">
                         <Button className="w-full" size="lg">
-                          Registrácia zdarma
+                          {t('register')}
                         </Button>
                       </Link>
                     </>
