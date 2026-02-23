@@ -507,14 +507,15 @@ async function seed() {
   const forumCategoryRepository = dataSource.getRepository(ForumCategory);
   const forumTopicRepository = dataSource.getRepository(ForumTopic);
   const forumPostRepository = dataSource.getRepository(ForumPost);
+  const existingTopics = await forumTopicRepository.count();
+
+  const adminUser = await userRepository.findOne({ where: { email: 'admin@tvujspecialista.cz' } });
+  const specialist1 = await userRepository.findOne({ where: { email: 'jan.novak@example.cz' } });
+  const specialist2 = await userRepository.findOne({ where: { email: 'petra.svobodova@example.cz' } });
+
+  // Create categories if they don't exist
   const existingCategories = await forumCategoryRepository.count();
-
   if (existingCategories === 0) {
-    const admin = await userRepository.findOne({ where: { email: 'admin@tvujspecialista.cz' } });
-    const specialist1 = await userRepository.findOne({ where: { email: 'jan.novak@example.cz' } });
-    const specialist2 = await userRepository.findOne({ where: { email: 'petra.svobodova@example.cz' } });
-
-    // Create categories
     const categories = [
       {
         name: 'Finanční poradenství',
@@ -543,11 +544,15 @@ async function seed() {
       const category = await forumCategoryRepository.save(catData);
       console.log(`Forum category created: ${category.name}`);
     }
+  } else {
+    console.log('Forum categories already exist, skipping...');
+  }
 
-    // Create topics
-    const financeCategory = await forumCategoryRepository.findOne({ where: { slug: 'financni-poradenstvi' } });
-    const realityCategory = await forumCategoryRepository.findOne({ where: { slug: 'reality-a-nemovitosti' } });
-    const generalCategory = await forumCategoryRepository.findOne({ where: { slug: 'obecna-diskuze' } });
+  // Create topics if they don't exist
+  if (existingTopics === 0) {
+    const financeCategory = await forumCategoryRepository.findOne({ where: { slug: 'financie' } });
+    const realityCategory = await forumCategoryRepository.findOne({ where: { slug: 'nehnutelnosti' } });
+    const generalCategory = await forumCategoryRepository.findOne({ where: { slug: 'vseobecne' } });
 
     const topics = [
       {
@@ -567,14 +572,14 @@ async function seed() {
       },
       {
         categoryId: realityCategory!.id,
-        authorId: admin!.id,
+        authorId: adminUser!.id,
         title: 'Trendy na pražském realitním trhu',
         slug: 'trendy-prazsky-realitni-trh',
         content: 'Jaké jsou vaše postřehy ohledně aktuálního stavu pražského realitního trhu? Ceny bytů, poptávka, jak se mění situace?',
       },
       {
         categoryId: generalCategory!.id,
-        authorId: admin!.id,
+        authorId: adminUser!.id,
         title: 'Vítejte na fóru tvujspecialista.cz!',
         slug: 'vitejte-na-foru',
         content: 'Vítejte na našem komunitním fóru! Toto je místo pro sdílení zkušeností, rad a diskuzí mezi finančními poradci a realitními makléři. Představte se a řekněte nám o sobě!',
@@ -595,7 +600,7 @@ async function seed() {
         });
         await forumPostRepository.save({
           topicId: topic.id,
-          authorId: admin!.id,
+          authorId: adminUser!.id,
           content: 'Souhlasím s Petrou. Také bych dodal, že je důležité počítat s celkovými náklady refinancování — poplatky za předčasné splacení, odhad nemovitosti atd.',
         });
         await forumTopicRepository.update(topic.id, { replyCount: 2 });
@@ -616,7 +621,7 @@ async function seed() {
     await forumCategoryRepository.update(realityCategory!.id, { topicCount: 1 });
     await forumCategoryRepository.update(generalCategory!.id, { topicCount: 1 });
   } else {
-    console.log('Forum categories already exist, skipping...');
+    console.log('Forum topics already exist, skipping...');
   }
 
   console.log('\n✅ Seeding completed successfully!');
