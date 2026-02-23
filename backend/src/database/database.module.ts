@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './entities/user.entity';
 import { Specialist } from './entities/specialist.entity';
@@ -32,22 +32,10 @@ import { ForumLike } from './entities/forum-like.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const databaseUrl = configService.get('DATABASE_URL');
+      useFactory: (configService: ConfigService): TypeOrmModuleOptions => {
+        const databaseUrl = configService.get<string>('DATABASE_URL');
 
-        return {
-          type: 'postgres' as const,
-          ...(databaseUrl
-            ? { url: databaseUrl }
-            : {
-                host: configService.get('DATABASE_HOST'),
-                port: configService.get('DATABASE_PORT'),
-                username: configService.get('DATABASE_USER'),
-                password: configService.get('DATABASE_PASSWORD'),
-                database: configService.get('DATABASE_NAME'),
-              }),
-          ssl: databaseUrl ? { rejectUnauthorized: false } : false,
-          entities: [
+        const entities = [
           User,
           Specialist,
           Lead,
@@ -73,7 +61,10 @@ import { ForumLike } from './entities/forum-like.entity';
           ForumTopic,
           ForumPost,
           ForumLike,
-        ],
+        ];
+
+        const shared = {
+          entities,
           synchronize: false,
           migrations: ['dist/database/migrations/*.js'],
           migrationsRun: true,
@@ -84,6 +75,26 @@ import { ForumLike } from './entities/forum-like.entity';
             idleTimeoutMillis: 30000,
             connectionTimeoutMillis: 5000,
           },
+        };
+
+        if (databaseUrl) {
+          return {
+            type: 'postgres',
+            url: databaseUrl,
+            ssl: { rejectUnauthorized: false },
+            ...shared,
+          };
+        }
+
+        return {
+          type: 'postgres',
+          host: configService.get('DATABASE_HOST'),
+          port: configService.get<number>('DATABASE_PORT'),
+          username: configService.get('DATABASE_USER'),
+          password: configService.get('DATABASE_PASSWORD'),
+          database: configService.get('DATABASE_NAME'),
+          ssl: false,
+          ...shared,
         };
       },
     }),
