@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Specialist } from '../database/entities/specialist.entity';
 import { Review } from '../database/entities/review.entity';
+import { User } from '../database/entities/user.entity';
 import { SpecialistFiltersDto } from './dto/specialist-filters.dto';
 import { UpdateSpecialistDto } from './dto/update-specialist.dto';
 
@@ -13,6 +14,8 @@ export class SpecialistsService {
     private specialistRepository: Repository<Specialist>,
     @InjectRepository(Review)
     private reviewRepository: Repository<Review>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async findAll(filters: SpecialistFiltersDto) {
@@ -116,6 +119,11 @@ export class SpecialistsService {
 
   async update(userId: string, updateDto: UpdateSpecialistDto) {
     const specialist = await this.findByUserId(userId);
+
+    // Sync name to User entity if changed
+    if (updateDto.name) {
+      await this.userRepository.update(userId, { name: updateDto.name });
+    }
 
     Object.assign(specialist, updateDto);
 

@@ -52,10 +52,11 @@ apiClient.interceptors.response.use(
 
             return axios(originalRequest);
           } catch (refreshError) {
-            // Refresh failed, remove auth keys and redirect
+            // Refresh failed, remove auth keys
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            if (typeof window !== 'undefined') {
+            // Only redirect if on a protected page
+            if (typeof window !== 'undefined' && window.location.pathname.startsWith('/profi/dashboard')) {
               window.location.href = '/profi/prihlaseni';
             }
           }

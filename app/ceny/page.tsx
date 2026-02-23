@@ -11,82 +11,67 @@ import { useAuth } from '@/contexts/AuthContext';
 
 const pricingPlans: PricingPlan[] = [
   {
-    type: SubscriptionType.EDUCATION,
-    name: 'Education',
-    description: 'Pre tých, čo chcú rozvíjať svoje znalosti',
-    monthlyPrice: 799,
-    features: [
-      'Prístup ku všetkým kurzom v Academy',
-      'Videolekcie s odborníkmi',
-      'Študijné materiály na stiahnutie',
-      'Certifikáty po absolvovaní',
-      'Komunitný prístup k diskusiám',
-      'Email podpora',
-    ],
-    cta: 'Začať sa vzdelávať',
-  },
-  {
     type: SubscriptionType.MARKETPLACE,
-    name: 'Marketplace',
-    description: 'Pre špecialistov, ktorí chcú rásť',
-    monthlyPrice: 1999,
+    name: 'Mesačné členstvo',
+    description: 'Plný prístup k platforme na 1 mesiac',
+    monthlyPrice: 1250,
     features: [
+      'Premium listing v marketplace',
       'Deals pipeline management',
       'Commission tracking systém',
-      'Premium listing v marketplace',
       'Lead management nástroje',
+      'Prístup ku všetkým kurzom v Academy',
+      'Komunitné diskusie a eventy',
       'Pokročilá analytika predajov',
-      'CRM integrácie',
       'Prioritná podpora',
     ],
-    cta: 'Začať predávať',
+    cta: 'Začať za 50 €/mesiac',
   },
   {
     type: SubscriptionType.PREMIUM,
-    name: 'Premium',
-    description: 'Kompletné riešenie pre profesionálov',
-    monthlyPrice: 2499,
+    name: 'Ročné členstvo',
+    description: 'Plný prístup za zvýhodnenú cenu — úspora 100 €/rok',
+    monthlyPrice: 12500,
     recommended: true,
     features: [
-      'Všetko z Education plánu',
-      'Všetko z Marketplace plánu',
+      'Všetko z mesačného plánu',
+      'Úspora 100 € oproti mesačnej platbe',
       'Exkluzívne webináre a events',
       'Osobný account manager',
+      'VIP podpora 24/7',
       'API prístup',
       'White-label možnosti',
-      'VIP podpora 24/7',
-      'Najlepšia hodnota (úspora 20%)',
+      'Najlepšia hodnota',
     ],
-    cta: 'Získať Premium',
+    cta: 'Získať za 500 €/rok',
   },
 ];
 
 const comparisonFeatures = [
   {
-    category: 'Academy',
+    category: 'Marketplace',
     features: [
-      { name: 'Prístup ku kurzom', education: true, marketplace: false, premium: true },
-      { name: 'Certifikáty', education: true, marketplace: false, premium: true },
-      { name: 'Študijné materiály', education: true, marketplace: false, premium: true },
-      { name: 'Komunitné diskusie', education: true, marketplace: false, premium: true },
+      { name: 'Premium listing v marketplace', monthly: true, yearly: true },
+      { name: 'Deals pipeline management', monthly: true, yearly: true },
+      { name: 'Commission tracking', monthly: true, yearly: true },
+      { name: 'Lead management nástroje', monthly: true, yearly: true },
+      { name: 'Pokročilá analytika', monthly: true, yearly: true },
     ],
   },
   {
-    category: 'Marketplace',
+    category: 'Vzdelávanie',
     features: [
-      { name: 'Deals management', education: false, marketplace: true, premium: true },
-      { name: 'Commission tracking', education: false, marketplace: true, premium: true },
-      { name: 'Premium listing', education: false, marketplace: true, premium: true },
-      { name: 'CRM integrácie', education: false, marketplace: true, premium: true },
+      { name: 'Prístup ku kurzom v Academy', monthly: true, yearly: true },
+      { name: 'Komunitné diskusie a eventy', monthly: true, yearly: true },
+      { name: 'Exkluzívne webináre', monthly: false, yearly: true },
     ],
   },
   {
     category: 'Podpora',
     features: [
-      { name: 'Email podpora', education: true, marketplace: true, premium: true },
-      { name: 'Prioritná podpora', education: false, marketplace: true, premium: true },
-      { name: 'VIP podpora 24/7', education: false, marketplace: false, premium: true },
-      { name: 'Account manager', education: false, marketplace: false, premium: true },
+      { name: 'Prioritná podpora', monthly: true, yearly: true },
+      { name: 'VIP podpora 24/7', monthly: false, yearly: true },
+      { name: 'Osobný account manager', monthly: false, yearly: true },
     ],
   },
 ];
@@ -108,9 +93,9 @@ const faqs = [
       'Áno, predplatné môžete zrušiť kedykoľvek bez viazanosti. Budete mať prístup do konca plateného obdobia.',
   },
   {
-    question: 'Aký je rozdiel medzi Marketplace a Premium plánom?',
+    question: 'Aký je rozdiel medzi mesačným a ročným plánom?',
     answer:
-      'Premium plán zahŕňa všetko z Marketplace PLUS plný prístup k Academy. Je to najlepšia hodnota, keďže ušetríte 20% oproti plateniu oboch plánov samostatne.',
+      'Ročný plán zahŕňa všetko z mesačného plánu plus exkluzívne bonusy (webináre, VIP podpora, account manager). Navyše ušetríte 100 € ročne oproti mesačnej platbe.',
   },
   {
     question: 'Je možné vyskúšať pred zakúpením?',
@@ -215,7 +200,7 @@ export default function PricingPage() {
       {/* Pricing Cards */}
       <section className="pb-12 sm:pb-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-3">
+          <div className="mx-auto max-w-4xl grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2">
             {pricingPlans.map((plan) => (
               <PricingCard
                 key={plan.type}
@@ -239,16 +224,15 @@ export default function PricingPage() {
               <thead>
                 <tr className="border-b dark:border-border">
                   <th className="py-4 text-left text-xs sm:text-sm font-semibold">Funkcia</th>
-                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">Education</th>
-                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">Marketplace</th>
-                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">Premium</th>
+                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">Mesačné (50 €)</th>
+                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">Ročné (500 €)</th>
                 </tr>
               </thead>
               <tbody className="divide-y dark:divide-border">
                 {comparisonFeatures.map((category) => (
                   <>
                     <tr key={category.category} className="bg-gray-50 dark:bg-muted/30">
-                      <td colSpan={4} className="py-3 text-xs sm:text-sm font-semibold text-gray-900 dark:text-foreground">
+                      <td colSpan={3} className="py-3 text-xs sm:text-sm font-semibold text-gray-900 dark:text-foreground">
                         {category.category}
                       </td>
                     </tr>
@@ -256,21 +240,14 @@ export default function PricingPage() {
                       <tr key={feature.name}>
                         <td className="py-4 text-xs sm:text-sm text-gray-700 dark:text-muted-foreground">{feature.name}</td>
                         <td className="py-4 text-center">
-                          {feature.education ? (
+                          {feature.monthly ? (
                             <Check className="mx-auto h-5 w-5 text-green-500" />
                           ) : (
                             <X className="mx-auto h-5 w-5 text-gray-300" />
                           )}
                         </td>
                         <td className="py-4 text-center">
-                          {feature.marketplace ? (
-                            <Check className="mx-auto h-5 w-5 text-green-500" />
-                          ) : (
-                            <X className="mx-auto h-5 w-5 text-gray-300" />
-                          )}
-                        </td>
-                        <td className="py-4 text-center">
-                          {feature.premium ? (
+                          {feature.yearly ? (
                             <Check className="mx-auto h-5 w-5 text-green-500" />
                           ) : (
                             <X className="mx-auto h-5 w-5 text-gray-300" />

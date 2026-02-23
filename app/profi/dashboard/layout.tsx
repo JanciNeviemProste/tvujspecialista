@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 
 export const metadata: Metadata = {
   title: 'Dashboard | tvujspecialista.cz',
@@ -12,5 +13,10 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <ProtectedRoute>{children}</ProtectedRoute>;
+  return (
+    <ProtectedRoute>
+      <DashboardHeader />
+      {children}
+    </ProtectedRoute>
+  );
 }

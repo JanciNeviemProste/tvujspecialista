@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authApi } from '@/lib/api/auth';
+import { toast } from 'sonner';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 
@@ -71,6 +72,8 @@ export default function RegistrationPage() {
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
       }
+
+      toast.success('Registrácia úspešná! Vitajte na tvujspecialista.cz');
 
       // Redirect to dashboard
       router.push('/profi/dashboard');

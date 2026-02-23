@@ -4,6 +4,7 @@ import { authResponseSchema, userSchema, validateResponse } from './schemas';
 export interface LoginCredentials {
   email: string;
   password: string;
+  remember?: boolean;
 }
 
 export interface RegistrationData {

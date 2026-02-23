@@ -5,9 +5,20 @@ import {
   Min,
   IsArray,
   IsUrl,
+  MinLength,
 } from 'class-validator';
 
 export class UpdateSpecialistDto {
+  @IsOptional()
+  @IsString()
+  @MinLength(2)
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(9)
+  phone?: string;
+
   @IsOptional()
   @IsString()
   bio?: string;

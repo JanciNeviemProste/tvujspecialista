@@ -15,7 +15,7 @@ import type { LeadStatus } from '@/lib/api/leads';
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { user, logout, isLoading: authLoading } = useAuth();
+  const { user, isLoading: authLoading } = useAuth();
   const { data: leadsData, isLoading: leadsLoading } = useMyLeads();
   const { data: subscription } = useQuery({
     queryKey: ['mySubscription'],
@@ -31,11 +31,6 @@ export default function DashboardPage() {
     enabled: user?.role === 'admin',
   });
 
-  const handleLogout = async () => {
-    await logout();
-    router.push('/profi/prihlaseni');
-  };
-
   const handleStatusChange = async (leadId: string, newStatus: string) => {
     try {
       await leadsApi.updateStatus(leadId, newStatus as LeadStatus);
@@ -48,13 +43,6 @@ export default function DashboardPage() {
   if (authLoading || leadsLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="border-b bg-white">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              tvujspecialista.cz
-            </Link>
-          </div>
-        </header>
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="mb-4 text-5xl">⏳</div>
@@ -94,38 +82,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="border-b bg-white">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            tvujspecialista.cz
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/profi/dashboard" className="text-sm font-medium text-blue-600">
-              Dashboard
-            </Link>
-            <Link href="/academy" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-              Akadémia
-            </Link>
-            <Link href="/forum" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-              Fórum
-            </Link>
-            <Link href="/community" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-              Komunita
-            </Link>
-            <Link href="/profi/dashboard/nastaveni" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
-              Profil
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="text-sm font-medium text-gray-600 hover:text-gray-900"
-            >
-              Odhlásit se
-            </button>
-          </nav>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-8">
         {/* Welcome */}
         <div className="mb-8">

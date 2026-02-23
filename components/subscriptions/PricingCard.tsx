@@ -42,13 +42,13 @@ export function PricingCard({
         <CardDescription className="text-sm">{plan.description}</CardDescription>
         <div className="mt-4">
           <span className="text-4xl font-bold">{plan.monthlyPrice} Kč</span>
-          <span className="text-muted-foreground ml-2">/mesiac</span>
+          <span className="text-muted-foreground ml-2">
+            {plan.recommended ? '/rok' : '/mesiac'}
+          </span>
         </div>
-        {plan.yearlyPrice && (
-          <p className="text-sm text-muted-foreground mt-1">
-            alebo {plan.yearlyPrice} Kč/rok (ušetríte {plan.monthlyPrice * 12 - plan.yearlyPrice} Kč)
-          </p>
-        )}
+        <p className="text-sm text-muted-foreground mt-1">
+          {plan.recommended ? '(500 €/rok)' : '(50 €/mesiac)'}
+        </p>
       </CardHeader>
 
       <CardContent className="flex-1">

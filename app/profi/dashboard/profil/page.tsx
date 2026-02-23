@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -38,6 +38,9 @@ export default function ProfileEditPage() {
   const { user, isLoading: authLoading } = useAuth();
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
     register,
@@ -65,6 +68,7 @@ export default function ProfileEditPage() {
       try {
         const { data } = await specialistsApi.getMyProfile();
         const specialist = data as Specialist;
+        if (specialist.photo) setPhotoUrl(specialist.photo);
         reset({
           name: specialist.name || '',
           phone: specialist.phone || '',
@@ -92,13 +96,6 @@ export default function ProfileEditPage() {
   if (authLoading || isLoadingProfile) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="border-b bg-white">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              tvujspecialista.cz
-            </Link>
-          </div>
-        </header>
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <p className="text-gray-600">Nacitani profilu...</p>
@@ -112,6 +109,31 @@ export default function ProfileEditPage() {
     router.push('/profi/prihlaseni');
     return null;
   }
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
+      toast.error('Povolene formaty: JPEG, PNG, WebP');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Maximalna velkost suboru je 5 MB');
+      return;
+    }
+
+    setIsUploadingPhoto(true);
+    try {
+      const { data } = await specialistsApi.uploadPhoto(file);
+      setPhotoUrl(data.url || data.photo);
+      toast.success('Fotka bola uspesne nahrana');
+    } catch {
+      toast.error('Nepodarilo sa nahrat fotku');
+    } finally {
+      setIsUploadingPhoto(false);
+    }
+  };
 
   const onSubmit = async (values: ProfileFormValues) => {
     setIsSaving(true);
@@ -139,24 +161,55 @@ export default function ProfileEditPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="border-b bg-white">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            tvujspecialista.cz
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/profi/dashboard" className="text-sm font-medium text-gray-600 hover:text-gray-900">
-              Dashboard
-            </Link>
-          </nav>
-        </div>
-      </header>
-
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="mb-2 text-3xl font-bold text-gray-900">Upravit profil</h1>
           <p className="text-gray-600">Aktualizujte sve osobni a profesni udaje</p>
         </div>
+
+        {/* Profilova fotka */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle className="text-xl">Profilova fotka</CardTitle>
+            <CardDescription>Tato fotka sa zobrazuje na vasom verejnom profile</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center gap-6">
+              <div className="relative h-24 w-24 overflow-hidden rounded-full bg-gray-200">
+                {photoUrl ? (
+                  <Image
+                    src={photoUrl}
+                    alt="Profilova fotka"
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-3xl text-gray-400">
+                    {user?.name?.charAt(0)?.toUpperCase() || '?'}
+                  </div>
+                )}
+              </div>
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handlePhotoUpload}
+                  className="hidden"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploadingPhoto}
+                >
+                  {isUploadingPhoto ? 'Nahravam...' : 'Nahrat fotku'}
+                </Button>
+                <p className="mt-2 text-xs text-gray-500">JPEG, PNG alebo WebP. Max 5 MB.</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* Osobni udaje */}

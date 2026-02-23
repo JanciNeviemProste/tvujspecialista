@@ -1,14 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { SpecialistCard } from '@/components/shared/SpecialistCard';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
 import { SpecialistCategory, Specialist } from '@/types/specialist';
 
 export default function SearchPage() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || '';
+
   const [filters, setFilters] = useState({
-    category: '',
+    category: initialCategory,
     location: '',
     minRating: undefined as number | undefined,
     maxPrice: undefined as number | undefined,

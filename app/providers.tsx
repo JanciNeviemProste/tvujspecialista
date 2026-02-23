@@ -22,7 +22,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>{children}</AuthProvider>
-      <Toaster position="top-right" />
+      <Toaster position="top-right" closeButton />
       <WebVitals />
     </QueryClientProvider>
   );

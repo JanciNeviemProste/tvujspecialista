@@ -6,17 +6,22 @@ import { toast } from 'sonner';
 
 const getStorageItem = (key: string): string | null => {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(key);
+  return localStorage.getItem(key) || sessionStorage.getItem(key);
 };
 
-const setStorageItem = (key: string, value: string): void => {
+const setStorageItem = (key: string, value: string, persistent = true): void => {
   if (typeof window === 'undefined') return;
-  localStorage.setItem(key, value);
+  if (persistent) {
+    localStorage.setItem(key, value);
+  } else {
+    sessionStorage.setItem(key, value);
+  }
 };
 
 const removeStorageItem = (key: string): void => {
   if (typeof window === 'undefined') return;
   localStorage.removeItem(key);
+  sessionStorage.removeItem(key);
 };
 
 interface User {
@@ -60,8 +65,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (credentials: LoginCredentials) => {
     try {
       const { data } = await authApi.login(credentials);
-      setStorageItem('accessToken', data.accessToken);
-      setStorageItem('refreshToken', data.refreshToken);
+      const persistent = credentials.remember !== false;
+      setStorageItem('accessToken', data.accessToken, persistent);
+      setStorageItem('refreshToken', data.refreshToken, persistent);
       setUser(data.user);
       toast.success('Přihlášení úspěšné');
     } catch (error) {

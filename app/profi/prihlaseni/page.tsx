@@ -20,6 +20,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { login } = useAuth();
   const [error, setError] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
 
   const {
     register,
@@ -36,6 +37,7 @@ export default function LoginPage() {
       await login({
         email: data.email,
         password: data.password,
+        remember: rememberMe,
       });
       router.push('/profi/dashboard');
     } catch (err: unknown) {
@@ -127,8 +129,13 @@ export default function LoginPage() {
               </div>
 
               <div className="flex items-center justify-between">
-                <label className="flex items-center">
-                  <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600" />
+                <label className="flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300 text-blue-600"
+                  />
                   <span className="ml-2 text-sm text-gray-700">Zapamatovat si mě</span>
                 </label>
                 <a href="#" className="text-sm font-medium text-blue-600 hover:underline">

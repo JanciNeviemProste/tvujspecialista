@@ -43,7 +43,7 @@ export default function HomePageClient() {
           <div className="container mx-auto px-4">
             <h2 className="mb-8 text-center text-2xl sm:text-3xl font-bold dark:text-foreground">Vyberte kategorii specialisty</h2>
             <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2">
-              <Link href="/hledat?category=financni-poradce" className="rounded-lg border bg-white dark:bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+              <Link href="/hledat?category=Finan%C4%8Dn%C3%AD%20poradce" className="rounded-lg border bg-white dark:bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
                 <div className="mb-4 text-4xl sm:text-5xl" aria-hidden="true">&#x1F4BC;</div>
                 <h3 className="mb-3 text-xl sm:text-2xl font-semibold dark:text-foreground">Finanční poradce</h3>
                 <p className="mb-4 text-sm sm:text-base text-gray-600 dark:text-muted-foreground">
@@ -51,7 +51,7 @@ export default function HomePageClient() {
                 </p>
                 <div className="text-sm font-medium text-blue-600 dark:text-primary">Zobrazit specialisty &rarr;</div>
               </Link>
-              <Link href="/hledat?category=realitni-makler" className="rounded-lg border bg-white dark:bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+              <Link href="/hledat?category=Realitn%C3%AD%20makl%C3%A9%C5%99" className="rounded-lg border bg-white dark:bg-card p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
                 <div className="mb-4 text-4xl sm:text-5xl" aria-hidden="true">&#x1F3E0;</div>
                 <h3 className="mb-3 text-xl sm:text-2xl font-semibold dark:text-foreground">Realitní makléř</h3>
                 <p className="mb-4 text-sm sm:text-base text-gray-600 dark:text-muted-foreground">
