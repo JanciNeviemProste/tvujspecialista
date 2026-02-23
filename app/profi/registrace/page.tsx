@@ -83,18 +83,18 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-background">
       {/* Header */}
-      <header className="border-b bg-white">
+      <header className="border-b bg-white dark:bg-card">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
+          <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-primary">
             tvujspecialista.cz
           </Link>
           <nav className="flex items-center gap-4">
-            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
+            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary">
               Hledat
             </Link>
-            <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 transition-colors">
+            <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary transition-colors">
               Přihlásit se
             </Link>
             <Link href="/profi/registrace" className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors">
@@ -108,45 +108,45 @@ export default function RegistrationPage() {
       <div className="px-4 py-12">
         <div className="mx-auto max-w-2xl">
           <div className="mb-8 text-center">
-            <h1 className="mb-2 text-3xl font-bold text-gray-900">Staňte se naším specialistou</h1>
-            <p className="text-gray-600">Získejte kvalitní leady a rozšiřte své podnikání</p>
+            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground">Staňte se naším specialistou</h1>
+            <p className="text-gray-600 dark:text-muted-foreground">Získejte kvalitní leady a rozšiřte své podnikání</p>
           </div>
 
-          <div className="rounded-lg border bg-white p-8 shadow-sm">
+          <div className="rounded-lg border dark:border-border bg-white dark:bg-card p-8 shadow-sm">
             {/* Tab Switcher */}
-            <div className="mb-6 flex rounded-lg bg-gray-100 p-1">
+            <div className="mb-6 flex rounded-lg bg-gray-100 dark:bg-muted p-1">
               <Link
                 href="/profi/prihlaseni"
-                className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 hover:text-gray-700 transition-all"
+                className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 dark:text-muted-foreground hover:text-gray-700 dark:hover:text-foreground transition-all"
               >
                 Přihlášení
               </Link>
-              <span className="flex-1 rounded-md bg-white py-2.5 text-center text-sm font-medium text-gray-900 shadow-sm">
+              <span className="flex-1 rounded-md bg-white dark:bg-card py-2.5 text-center text-sm font-medium text-gray-900 dark:text-foreground shadow-sm">
                 Registrace
               </span>
             </div>
 
             {error && (
-              <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-3" role="alert">
-                <p className="text-sm text-red-600">{error}</p>
+              <div className="mb-6 rounded-lg border border-red-200 bg-red-50 dark:bg-red-950/20 dark:border-red-800 p-3" role="alert">
+                <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
               </div>
             )}
 
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               {/* Personal Info */}
               <div>
-                <h2 className="mb-4 text-lg font-semibold text-gray-900">Osobní údaje</h2>
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">Osobní údaje</h2>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <label htmlFor="reg-name" className="mb-1 block text-sm font-medium text-gray-700">
+                      <label htmlFor="reg-name" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                         Jméno a příjmení <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-name"
                         type="text"
                         placeholder="Jan Novák"
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         aria-invalid={errors.name ? 'true' : undefined}
                         aria-describedby={errors.name ? 'reg-name-error' : undefined}
                         {...register('name')}
@@ -156,14 +156,14 @@ export default function RegistrationPage() {
                       )}
                     </div>
                     <div>
-                      <label htmlFor="reg-email" className="mb-1 block text-sm font-medium text-gray-700">
+                      <label htmlFor="reg-email" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                         Email <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-email"
                         type="email"
                         placeholder="jan@example.cz"
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         aria-invalid={errors.email ? 'true' : undefined}
                         aria-describedby={errors.email ? 'reg-email-error' : undefined}
                         {...register('email')}
@@ -175,14 +175,14 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="reg-phone" className="mb-1 block text-sm font-medium text-gray-700">
+                    <label htmlFor="reg-phone" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                       Telefon <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-phone"
                       type="tel"
                       placeholder="+420 777 123 456"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.phone ? 'true' : undefined}
                       aria-describedby={errors.phone ? 'reg-phone-error' : undefined}
                       {...register('phone')}
@@ -195,17 +195,17 @@ export default function RegistrationPage() {
               </div>
 
               {/* Professional Info */}
-              <div className="border-t pt-6">
-                <h2 className="mb-4 text-lg font-semibold text-gray-900">Profesní informace</h2>
+              <div className="border-t dark:border-border pt-6">
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">Profesní informace</h2>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <label htmlFor="reg-category" className="mb-1 block text-sm font-medium text-gray-700">
+                      <label htmlFor="reg-category" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                         Kategorie <span aria-hidden="true">*</span>
                       </label>
                       <select
                         id="reg-category"
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         aria-invalid={errors.category ? 'true' : undefined}
                         aria-describedby={errors.category ? 'reg-category-error' : undefined}
                         {...register('category')}
@@ -219,12 +219,12 @@ export default function RegistrationPage() {
                       )}
                     </div>
                     <div>
-                      <label htmlFor="reg-location" className="mb-1 block text-sm font-medium text-gray-700">
+                      <label htmlFor="reg-location" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                         Lokalita <span aria-hidden="true">*</span>
                       </label>
                       <select
                         id="reg-location"
-                        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         aria-invalid={errors.location ? 'true' : undefined}
                         aria-describedby={errors.location ? 'reg-location-error' : undefined}
                         {...register('location')}
@@ -242,7 +242,7 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="reg-experience" className="mb-1 block text-sm font-medium text-gray-700">
+                    <label htmlFor="reg-experience" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                       Roky praxe <span aria-hidden="true">*</span>
                     </label>
                     <input
@@ -250,7 +250,7 @@ export default function RegistrationPage() {
                       type="number"
                       min="0"
                       placeholder="např. 5"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.yearsExperience ? 'true' : undefined}
                       aria-describedby={errors.yearsExperience ? 'reg-experience-error' : undefined}
                       {...register('yearsExperience')}
@@ -261,14 +261,14 @@ export default function RegistrationPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="reg-bio" className="mb-1 block text-sm font-medium text-gray-700">
+                    <label htmlFor="reg-bio" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                       Krátký popis vašich služeb <span aria-hidden="true">*</span>
                     </label>
                     <textarea
                       id="reg-bio"
                       rows={4}
                       placeholder="Popište, čím se zabýváte a jak můžete pomoci klientům..."
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.bio ? 'true' : undefined}
                       aria-describedby={errors.bio ? 'reg-bio-error' : undefined}
                       {...register('bio')}
@@ -281,18 +281,18 @@ export default function RegistrationPage() {
               </div>
 
               {/* Password */}
-              <div className="border-t pt-6">
-                <h2 className="mb-4 text-lg font-semibold text-gray-900">Nastavení hesla</h2>
+              <div className="border-t dark:border-border pt-6">
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">Nastavení hesla</h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
-                    <label htmlFor="reg-password" className="mb-1 block text-sm font-medium text-gray-700">
+                    <label htmlFor="reg-password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                       Heslo <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-password"
                       type="password"
                       placeholder="Minimálně 8 znaků"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.password ? 'true' : undefined}
                       aria-describedby={errors.password ? 'reg-password-error' : undefined}
                       {...register('password')}
@@ -302,14 +302,14 @@ export default function RegistrationPage() {
                     )}
                   </div>
                   <div>
-                    <label htmlFor="reg-confirm-password" className="mb-1 block text-sm font-medium text-gray-700">
+                    <label htmlFor="reg-confirm-password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
                       Potvrzení hesla <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-confirm-password"
                       type="password"
                       placeholder="Zadejte heslo znovu"
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.confirmPassword ? 'true' : undefined}
                       aria-describedby={errors.confirmPassword ? 'reg-confirm-password-error' : undefined}
                       {...register('confirmPassword')}
@@ -322,7 +322,7 @@ export default function RegistrationPage() {
               </div>
 
               {/* Terms */}
-              <div className="border-t pt-6">
+              <div className="border-t dark:border-border pt-6">
                 <div className="space-y-3">
                   <label className="flex items-start">
                     <input
@@ -330,7 +330,7 @@ export default function RegistrationPage() {
                       className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600"
                       {...register('termsAccepted')}
                     />
-                    <span className="ml-2 text-sm text-gray-700">
+                    <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">
                       Souhlasím s{' '}
                       <Link href="/pravidla" className="text-blue-600 hover:underline">
                         obchodními podmínkami
@@ -347,7 +347,7 @@ export default function RegistrationPage() {
                       className="mt-1 h-4 w-4 rounded border-gray-300 text-blue-600"
                       {...register('gdprAccepted')}
                     />
-                    <span className="ml-2 text-sm text-gray-700">
+                    <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">
                       Souhlasím se{' '}
                       <Link
                         href="/ochrana-osobnich-udaju"
@@ -372,9 +372,9 @@ export default function RegistrationPage() {
                 {isSubmitting ? 'Registruji...' : 'Zaregistrovat se zdarma'}
               </button>
 
-              <p className="text-center text-sm text-gray-600">
+              <p className="text-center text-sm text-gray-600 dark:text-muted-foreground">
                 Již máte účet?{' '}
-                <Link href="/profi/prihlaseni" className="font-medium text-blue-600 hover:underline">
+                <Link href="/profi/prihlaseni" className="font-medium text-blue-600 dark:text-primary hover:underline">
                   Přihlaste se zde
                 </Link>
               </p>
@@ -383,20 +383,20 @@ export default function RegistrationPage() {
 
           {/* Benefits */}
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="rounded-lg bg-white p-4 text-center">
+            <div className="rounded-lg bg-white dark:bg-card p-4 text-center">
               <div className="mb-2 text-3xl">✓</div>
-              <h3 className="mb-1 font-semibold text-gray-900">Kvalitní leady</h3>
-              <p className="text-sm text-gray-600">Kontakty od skutečně zajímavých klientů</p>
+              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">Kvalitní leady</h3>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">Kontakty od skutečně zajímavých klientů</p>
             </div>
-            <div className="rounded-lg bg-white p-4 text-center">
+            <div className="rounded-lg bg-white dark:bg-card p-4 text-center">
               <div className="mb-2 text-3xl">⭐</div>
-              <h3 className="mb-1 font-semibold text-gray-900">Ověřený profil</h3>
-              <p className="text-sm text-gray-600">Zvyšte důvěryhodnost vašich služeb</p>
+              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">Ověřený profil</h3>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">Zvyšte důvěryhodnost vašich služeb</p>
             </div>
-            <div className="rounded-lg bg-white p-4 text-center">
+            <div className="rounded-lg bg-white dark:bg-card p-4 text-center">
               <div className="mb-2 text-3xl">📊</div>
-              <h3 className="mb-1 font-semibold text-gray-900">14 dní zdarma</h3>
-              <p className="text-sm text-gray-600">Vyzkoušejte bez závazků</p>
+              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">14 dní zdarma</h3>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">Vyzkoušejte bez závazků</p>
             </div>
           </div>
         </div>

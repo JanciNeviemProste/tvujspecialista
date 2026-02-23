@@ -147,6 +147,15 @@ body {
   }
 }
 
+/* Sonner toast close button — top right corner */
+[data-sonner-toast] [data-close-button] {
+  position: absolute !important;
+  top: 6px !important;
+  right: 6px !important;
+  left: auto !important;
+  transform: none !important;
+}
+
 /* Accessibility: enhanced focus-visible styles */
 :focus-visible {
   outline: 2px solid hsl(var(--ring));

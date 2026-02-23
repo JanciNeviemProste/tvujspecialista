@@ -270,8 +270,8 @@ export default function PricingPage() {
           <div className="mx-auto max-w-3xl space-y-8">
             {faqs.map((faq, index) => (
               <div key={index}>
-                <h3 className="mb-3 text-xl font-semibold text-gray-900">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-foreground">{faq.question}</h3>
+                <p className="text-gray-600 dark:text-muted-foreground">{faq.answer}</p>
               </div>
             ))}
           </div>

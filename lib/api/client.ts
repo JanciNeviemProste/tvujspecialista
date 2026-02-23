@@ -1,5 +1,29 @@
 import axios from 'axios';
 
+// Helper: read token from whichever storage it lives in
+function getToken(key: string): string | null {
+  if (typeof window === 'undefined') return null;
+  return localStorage.getItem(key) || sessionStorage.getItem(key);
+}
+
+// Helper: save token to the same storage where the current token lives
+function setToken(key: string, value: string): void {
+  if (typeof window === 'undefined') return;
+  // If existing token is in sessionStorage, keep using sessionStorage
+  if (sessionStorage.getItem(key)) {
+    sessionStorage.setItem(key, value);
+  } else {
+    localStorage.setItem(key, value);
+  }
+}
+
+// Helper: remove token from both storages
+function removeToken(key: string): void {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(key);
+  sessionStorage.removeItem(key);
+}
+
 const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
   withCredentials: true,
@@ -8,11 +32,9 @@ const apiClient = axios.create({
 
 // JWT Interceptor - add token to all requests
 apiClient.interceptors.request.use((config) => {
-  if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+  const token = getToken('accessToken');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
@@ -38,25 +60,25 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       if (typeof window !== 'undefined') {
-        const refreshToken = localStorage.getItem('refreshToken');
+        const refreshTokenValue = getToken('refreshToken');
 
-        if (refreshToken) {
+        if (refreshTokenValue) {
           try {
             const { data } = await axios.post(
               `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/auth/refresh`,
-              { refreshToken }
+              { refreshToken: refreshTokenValue }
             );
 
-            localStorage.setItem('accessToken', data.accessToken);
+            setToken('accessToken', data.accessToken);
             originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
 
             return axios(originalRequest);
           } catch (refreshError) {
-            // Refresh failed, remove auth keys
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('refreshToken');
+            // Refresh failed, remove auth keys from both storages
+            removeToken('accessToken');
+            removeToken('refreshToken');
             // Only redirect if on a protected page
-            if (typeof window !== 'undefined' && window.location.pathname.startsWith('/profi/dashboard')) {
+            if (window.location.pathname.startsWith('/profi/dashboard')) {
               window.location.href = '/profi/prihlaseni';
             }
           }

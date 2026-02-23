@@ -53,8 +53,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .getMe()
         .then((res) => setUser(res.data))
         .catch(() => {
-          removeStorageItem('accessToken');
-          removeStorageItem('refreshToken');
+          // Don't remove tokens here — the API client interceptor handles
+          // token refresh and cleanup. Just clear user state.
+          setUser(null);
         })
         .finally(() => setIsLoading(false));
     } else {
@@ -66,6 +67,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { data } = await authApi.login(credentials);
       const persistent = credentials.remember !== false;
+      // Clear tokens from BOTH storages first to prevent stale tokens
+      removeStorageItem('accessToken');
+      removeStorageItem('refreshToken');
+      // Then store in the chosen storage
       setStorageItem('accessToken', data.accessToken, persistent);
       setStorageItem('refreshToken', data.refreshToken, persistent);
       setUser(data.user);
