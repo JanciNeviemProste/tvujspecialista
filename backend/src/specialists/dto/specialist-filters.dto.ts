@@ -5,8 +5,9 @@ import {
   IsInt,
   Min,
   IsNumber,
+  IsBoolean,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 import { SpecialistCategory } from '../../database/entities/specialist.entity';
 
 export class SpecialistFiltersDto {
@@ -27,6 +28,15 @@ export class SpecialistFiltersDto {
   @IsNumber()
   @Type(() => Number)
   maxPrice?: number;
+
+  @IsOptional()
+  @IsBoolean()
+  @Transform(({ value }) => value === 'true' || value === true)
+  verified?: boolean;
+
+  @IsOptional()
+  @IsString()
+  sortBy?: string;
 
   @IsOptional()
   @IsInt()

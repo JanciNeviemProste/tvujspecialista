@@ -8,6 +8,10 @@ import {
   SubscriptionTier,
 } from '../entities/specialist.entity';
 import { Review } from '../entities/review.entity';
+import { Event, EventType, EventFormat, EventCategory, EventStatus } from '../entities/event.entity';
+import { ForumCategory } from '../entities/forum-category.entity';
+import { ForumTopic } from '../entities/forum-topic.entity';
+import { ForumPost } from '../entities/forum-post.entity';
 
 // Mock specialists data (imported from frontend mocks)
 const mockSpecialists = [
@@ -422,6 +426,197 @@ async function seed() {
       }
       console.log(`  Created ${reviewCount} sample reviews`);
     }
+  }
+
+  // 4. Create community events
+  console.log('\nCreating community events...');
+  const eventRepository = dataSource.getRepository(Event);
+  const existingEvents = await eventRepository.count();
+
+  if (existingEvents === 0) {
+    const admin = await userRepository.findOne({ where: { email: 'admin@tvujspecialista.cz' } });
+
+    const now = new Date();
+    const events = [
+      {
+        slug: 'networking-praha-financni-poradci',
+        title: 'Networking Praha — Finanční poradci',
+        description: 'Setkání finančních poradců v Praze. Sdílení zkušeností, best practices a navazování kontaktů. Přijďte se potkat s kolegy z oboru!',
+        type: EventType.NETWORKING,
+        format: EventFormat.OFFLINE,
+        category: EventCategory.FINANCIAL,
+        startDate: new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000),
+        endDate: new Date(now.getTime() + 14 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000),
+        location: 'Praha',
+        address: 'Kavárna Slavia, Smetanovo nábřeží 2, Praha 1',
+        organizerId: admin!.id,
+        maxAttendees: 30,
+        price: 0,
+        status: EventStatus.PUBLISHED,
+        published: true,
+        tags: ['networking', 'finance', 'praha'],
+      },
+      {
+        slug: 'workshop-hypoteky-2026',
+        title: 'Workshop: Hypotéky v roce 2026',
+        description: 'Online workshop zaměřený na aktuální trendy v hypotečním trhu. Dozvíte se o nových regulacích, úrokových sazbách a jak nejlépe poradit klientům.',
+        type: EventType.WORKSHOP,
+        format: EventFormat.ONLINE,
+        category: EventCategory.FINANCIAL,
+        startDate: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000),
+        endDate: new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000 + 2 * 60 * 60 * 1000),
+        meetingLink: 'https://meet.google.com/example',
+        organizerId: admin!.id,
+        maxAttendees: 100,
+        price: 0,
+        status: EventStatus.PUBLISHED,
+        published: true,
+        tags: ['workshop', 'hypotéky', 'online'],
+      },
+      {
+        slug: 'konference-realitni-trh-brno',
+        title: 'Konference: Realitní trh Moravy',
+        description: 'Celodenní konference o realitním trhu na Moravě. Přednášky od špičkových odborníků, panelové diskuze a prostor pro networking.',
+        type: EventType.CONFERENCE,
+        format: EventFormat.OFFLINE,
+        category: EventCategory.REAL_ESTATE,
+        startDate: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000),
+        endDate: new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000),
+        location: 'Brno',
+        address: 'Hotel International, Husova 16, Brno',
+        organizerId: admin!.id,
+        maxAttendees: 200,
+        price: 500,
+        status: EventStatus.PUBLISHED,
+        published: true,
+        featured: true,
+        tags: ['konference', 'reality', 'brno', 'morava'],
+      },
+    ];
+
+    for (const eventData of events) {
+      await eventRepository.save(eventData);
+      console.log(`Event created: ${eventData.title}`);
+    }
+  } else {
+    console.log('Events already exist, skipping...');
+  }
+
+  // 5. Create forum categories and topics
+  console.log('\nCreating forum categories and topics...');
+  const forumCategoryRepository = dataSource.getRepository(ForumCategory);
+  const forumTopicRepository = dataSource.getRepository(ForumTopic);
+  const forumPostRepository = dataSource.getRepository(ForumPost);
+  const existingCategories = await forumCategoryRepository.count();
+
+  if (existingCategories === 0) {
+    const admin = await userRepository.findOne({ where: { email: 'admin@tvujspecialista.cz' } });
+    const specialist1 = await userRepository.findOne({ where: { email: 'jan.novak@example.cz' } });
+    const specialist2 = await userRepository.findOne({ where: { email: 'petra.svobodova@example.cz' } });
+
+    // Create categories
+    const categories = [
+      {
+        name: 'Finanční poradenství',
+        slug: 'financni-poradenstvi',
+        description: 'Diskuze o finančním poradenství, hypotékách, pojištění a investicích',
+        icon: 'Wallet',
+        position: 1,
+      },
+      {
+        name: 'Reality a nemovitosti',
+        slug: 'reality-a-nemovitosti',
+        description: 'Diskuze o realitním trhu, prodeji a pronájmu nemovitostí',
+        icon: 'Home',
+        position: 2,
+      },
+      {
+        name: 'Obecná diskuze',
+        slug: 'obecna-diskuze',
+        description: 'Ostatní témata, tipy a triky, představování se',
+        icon: 'MessageSquare',
+        position: 3,
+      },
+    ];
+
+    for (const catData of categories) {
+      const category = await forumCategoryRepository.save(catData);
+      console.log(`Forum category created: ${category.name}`);
+    }
+
+    // Create topics
+    const financeCategory = await forumCategoryRepository.findOne({ where: { slug: 'financni-poradenstvi' } });
+    const realityCategory = await forumCategoryRepository.findOne({ where: { slug: 'reality-a-nemovitosti' } });
+    const generalCategory = await forumCategoryRepository.findOne({ where: { slug: 'obecna-diskuze' } });
+
+    const topics = [
+      {
+        categoryId: financeCategory!.id,
+        authorId: specialist1!.id,
+        title: 'Jaké jsou nejlepší strategie pro refinancování v roce 2026?',
+        slug: 'strategie-refinancovani-2026',
+        content: 'Ahoj všichni, chtěl bych se zeptat na vaše zkušenosti s refinancováním hypoték v letošním roce. Úrokové sazby se mění a klienti se ptají na nejlepší přístup. Jaké strategie používáte?',
+        isPinned: true,
+      },
+      {
+        categoryId: financeCategory!.id,
+        authorId: specialist2!.id,
+        title: 'Pojištění pro mladé rodiny — co doporučujete?',
+        slug: 'pojisteni-mlade-rodiny',
+        content: 'Mám stále více klientů z řad mladých rodin. Jaké produkty jim doporučujete? Životní pojištění, úrazové, nebo spíše investiční životní pojištění?',
+      },
+      {
+        categoryId: realityCategory!.id,
+        authorId: admin!.id,
+        title: 'Trendy na pražském realitním trhu',
+        slug: 'trendy-prazsky-realitni-trh',
+        content: 'Jaké jsou vaše postřehy ohledně aktuálního stavu pražského realitního trhu? Ceny bytů, poptávka, jak se mění situace?',
+      },
+      {
+        categoryId: generalCategory!.id,
+        authorId: admin!.id,
+        title: 'Vítejte na fóru tvujspecialista.cz!',
+        slug: 'vitejte-na-foru',
+        content: 'Vítejte na našem komunitním fóru! Toto je místo pro sdílení zkušeností, rad a diskuzí mezi finančními poradci a realitními makléři. Představte se a řekněte nám o sobě!',
+        isPinned: true,
+      },
+    ];
+
+    for (const topicData of topics) {
+      const topic = await forumTopicRepository.save(topicData);
+      console.log(`Forum topic created: ${topic.title}`);
+
+      // Add replies
+      if (topicData.slug === 'strategie-refinancovani-2026') {
+        await forumPostRepository.save({
+          topicId: topic.id,
+          authorId: specialist2!.id,
+          content: 'Skvělé téma! My doporučujeme klientům porovnat nabídky minimálně od 3 bank. Hodně záleží na LTV a fixaci. U klientů s LTV pod 60% se dá vyjednat výrazná sleva.',
+        });
+        await forumPostRepository.save({
+          topicId: topic.id,
+          authorId: admin!.id,
+          content: 'Souhlasím s Petrou. Také bych dodal, že je důležité počítat s celkovými náklady refinancování — poplatky za předčasné splacení, odhad nemovitosti atd.',
+        });
+        await forumTopicRepository.update(topic.id, { replyCount: 2 });
+      }
+
+      if (topicData.slug === 'vitejte-na-foru') {
+        await forumPostRepository.save({
+          topicId: topic.id,
+          authorId: specialist1!.id,
+          content: 'Ahoj, jsem Jan Novák, finanční poradce z Prahy. Rád se tu setkávám s kolegy z oboru. Těším se na zajímavé diskuze!',
+        });
+        await forumTopicRepository.update(topic.id, { replyCount: 1 });
+      }
+    }
+
+    // Update topic counts
+    await forumCategoryRepository.update(financeCategory!.id, { topicCount: 2 });
+    await forumCategoryRepository.update(realityCategory!.id, { topicCount: 1 });
+    await forumCategoryRepository.update(generalCategory!.id, { topicCount: 1 });
+  } else {
+    console.log('Forum categories already exist, skipping...');
   }
 
   console.log('\n✅ Seeding completed successfully!');

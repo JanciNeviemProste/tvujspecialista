@@ -9,6 +9,9 @@ import { CommissionStats } from '@/components/commissions/CommissionStats';
 import { CommissionCard } from '@/components/commissions/CommissionCard';
 import { CommissionStatsSkeleton, CommissionCardSkeleton } from '@/components/commissions/LoadingStates';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 import { toast } from 'sonner';
 
 export default function CommissionsPage() {
@@ -57,6 +60,12 @@ export default function CommissionsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
+          <Link href="/profi/dashboard">
+            <Button variant="ghost" size="sm" className="mb-4 gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              Dashboard
+            </Button>
+          </Link>
           <h1 className="text-3xl font-bold mb-2">Provízie</h1>
           <p className="text-muted-foreground">Prehľad vašich provízií z úspešných dealov</p>
         </div>

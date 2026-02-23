@@ -21,6 +21,8 @@ export class SpecialistsService {
       location,
       minRating,
       maxPrice,
+      verified,
+      sortBy,
       page = 1,
       limit = 12,
     } = filters;
@@ -45,9 +47,28 @@ export class SpecialistsService {
       query.andWhere('specialist.hourlyRate <= :maxPrice', { maxPrice });
     }
 
-    query.orderBy('specialist.topSpecialist', 'DESC');
-    query.addOrderBy('specialist.rating', 'DESC');
-    query.addOrderBy('specialist.reviewsCount', 'DESC');
+    if (verified !== undefined) {
+      query.andWhere('specialist.verified = :verified', { verified });
+    }
+
+    // Sorting
+    switch (sortBy) {
+      case 'price-asc':
+        query.orderBy('specialist.hourlyRate', 'ASC');
+        break;
+      case 'price-desc':
+        query.orderBy('specialist.hourlyRate', 'DESC');
+        break;
+      case 'newest':
+        query.orderBy('specialist.createdAt', 'DESC');
+        break;
+      case 'rating':
+      default:
+        query.orderBy('specialist.topSpecialist', 'DESC');
+        query.addOrderBy('specialist.rating', 'DESC');
+        query.addOrderBy('specialist.reviewsCount', 'DESC');
+        break;
+    }
 
     const skip = (page - 1) * limit;
     query.skip(skip).take(limit);
