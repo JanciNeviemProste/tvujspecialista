@@ -32,14 +32,22 @@ import { ForumLike } from './entities/forum-like.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: configService.get('DATABASE_HOST'),
-        port: configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USER'),
-        password: configService.get('DATABASE_PASSWORD'),
-        database: configService.get('DATABASE_NAME'),
-        entities: [
+      useFactory: (configService: ConfigService) => {
+        const databaseUrl = configService.get('DATABASE_URL');
+
+        return {
+          type: 'postgres' as const,
+          ...(databaseUrl
+            ? { url: databaseUrl }
+            : {
+                host: configService.get('DATABASE_HOST'),
+                port: configService.get('DATABASE_PORT'),
+                username: configService.get('DATABASE_USER'),
+                password: configService.get('DATABASE_PASSWORD'),
+                database: configService.get('DATABASE_NAME'),
+              }),
+          ssl: databaseUrl ? { rejectUnauthorized: false } : false,
+          entities: [
           User,
           Specialist,
           Lead,
@@ -66,17 +74,18 @@ import { ForumLike } from './entities/forum-like.entity';
           ForumPost,
           ForumLike,
         ],
-        synchronize: false,
-        migrations: ['dist/database/migrations/*.js'],
-        migrationsRun: true,
-        logging: configService.get('NODE_ENV') === 'development',
-        extra: {
-          max: 20,
-          min: 5,
-          idleTimeoutMillis: 30000,
-          connectionTimeoutMillis: 5000,
-        },
-      }),
+          synchronize: false,
+          migrations: ['dist/database/migrations/*.js'],
+          migrationsRun: true,
+          logging: configService.get('NODE_ENV') === 'development',
+          extra: {
+            max: 20,
+            min: 5,
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 5000,
+          },
+        };
+      },
     }),
   ],
 })
