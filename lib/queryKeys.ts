@@ -35,4 +35,9 @@ export const queryKeys = {
     events: (dealId: string) => ['dealEvents', dealId] as const,
     analytics: ['dealAnalytics'] as const,
   },
+  forum: {
+    categories: ['forumCategories'] as const,
+    topics: (categorySlug: string) => ['forumTopics', categorySlug] as const,
+    topic: (id: string) => ['forumTopic', id] as const,
+  },
 };

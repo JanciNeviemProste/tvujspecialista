@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { CourseCurriculum } from '@/components/academy/CourseCurriculum'
 import { CourseCardSkeleton, CurriculumSkeleton } from '@/components/academy/LoadingStates'
 import { useCourse, useEnroll, useMyEnrollments, useEnrollmentProgress } from '@/lib/hooks/useAcademy'
@@ -18,7 +18,7 @@ import { CourseLevel, CourseCategory } from '@/types/academy'
 import { getErrorMessage } from '@/lib/utils/error'
 
 interface CourseDetailPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }
 
 function formatDuration(minutes: number): string {
@@ -57,9 +57,10 @@ function getCategoryLabel(category: CourseCategory): string {
 }
 
 export default function CourseDetailPage({ params }: CourseDetailPageProps) {
+  const { slug } = use(params)
   const router = useRouter()
   const { user, isAuthenticated } = useAuth()
-  const { data: course, isLoading: courseLoading, error: courseError } = useCourse(params.slug)
+  const { data: course, isLoading: courseLoading, error: courseError } = useCourse(slug)
 
   // Get all user enrollments and find the one for this course
   const { data: enrollmentsData } = useMyEnrollments()
@@ -102,6 +103,13 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
       return () => clearTimeout(timer)
     }
   }, [toastMessage])
+
+  // Set page title — MUST be before early returns (Rules of Hooks)
+  useEffect(() => {
+    if (course) {
+      document.title = `${course.title} | Akadémia | tvujspecialista.cz`
+    }
+  }, [course])
 
   if (courseLoading) {
     return (
@@ -146,12 +154,6 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
   }
 
   const isEnrolled = !!enrollment
-
-  useEffect(() => {
-    if (course) {
-      document.title = `${course.title} | Akadémia | tvujspecialista.cz`
-    }
-  }, [course])
 
   return (
     <div className="min-h-screen bg-background">

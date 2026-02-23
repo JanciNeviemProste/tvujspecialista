@@ -55,8 +55,11 @@ export default function LoginPage() {
             <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
               Hledat
             </Link>
-            <Link href="/profi/registrace" className="text-sm font-medium text-blue-600">
-              Registrace
+            <Link href="/profi/prihlaseni" className="text-sm font-medium text-blue-600">
+              Přihlásit se
+            </Link>
+            <Link href="/profi/registrace" className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors">
+              Registrace zdarma
             </Link>
           </nav>
         </div>
@@ -66,12 +69,22 @@ export default function LoginPage() {
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           <div className="rounded-lg border bg-white p-8 shadow-sm">
+            {/* Tab Switcher */}
+            <div className="mb-6 flex rounded-lg bg-gray-100 p-1">
+              <span className="flex-1 rounded-md bg-white py-2.5 text-center text-sm font-medium text-gray-900 shadow-sm">
+                Přihlášení
+              </span>
+              <Link
+                href="/profi/registrace"
+                className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 hover:text-gray-700 transition-all"
+              >
+                Registrace
+              </Link>
+            </div>
+
             <h1 className="mb-2 text-2xl font-bold text-gray-900">Přihlášení pro specialisty</h1>
             <p className="mb-6 text-sm text-gray-600">
-              Ještě nemáte účet?{' '}
-              <Link href="/profi/registrace" className="font-medium text-blue-600 hover:underline">
-                Zaregistrujte se zdarma
-              </Link>
+              Zadejte své přihlašovací údaje
             </p>
 
             {error && (

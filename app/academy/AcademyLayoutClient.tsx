@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-import { BookOpen, Home, Library, User } from 'lucide-react';
+import { BookOpen, Home, Library, User, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 interface AcademyLayoutClientProps {
@@ -78,16 +78,25 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 <span className="hidden sm:inline">Kurzy</span>
               </Link>
               {isAuthenticated && (
-                <Link
-                  href="/academy/my-learning"
-                  className={cn(
-                    "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                    pathname === '/academy/my-learning' ? "text-primary" : "text-muted-foreground"
-                  )}
-                >
-                  <User className="h-4 w-4" />
-                  <span className="hidden sm:inline">Moje vzdelávanie</span>
-                </Link>
+                <>
+                  <Link
+                    href="/academy/my-learning"
+                    className={cn(
+                      "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
+                      pathname === '/academy/my-learning' ? "text-primary" : "text-muted-foreground"
+                    )}
+                  >
+                    <User className="h-4 w-4" />
+                    <span className="hidden sm:inline">Moje vzdelávanie</span>
+                  </Link>
+                  <Link
+                    href="/profi/dashboard"
+                    className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    <LayoutDashboard className="h-4 w-4" />
+                    <span className="hidden sm:inline">Dashboard</span>
+                  </Link>
+                </>
               )}
             </nav>
 

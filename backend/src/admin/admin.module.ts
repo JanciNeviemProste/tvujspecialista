@@ -5,9 +5,13 @@ import { AdminController } from './admin.controller';
 import { User } from '../database/entities/user.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { Lead } from '../database/entities/lead.entity';
+import { CommunityModule } from '../community/community.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Specialist, Lead])],
+  imports: [
+    TypeOrmModule.forFeature([User, Specialist, Lead]),
+    CommunityModule,
+  ],
   controllers: [AdminController],
   providers: [AdminService],
   exports: [AdminService],

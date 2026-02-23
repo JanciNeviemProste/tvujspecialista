@@ -21,6 +21,11 @@ import { LessonProgress } from './entities/lesson-progress.entity';
 // Community entities
 import { Event } from './entities/event.entity';
 import { RSVP } from './entities/rsvp.entity';
+// Forum entities
+import { ForumCategory } from './entities/forum-category.entity';
+import { ForumTopic } from './entities/forum-topic.entity';
+import { ForumPost } from './entities/forum-post.entity';
+import { ForumLike } from './entities/forum-like.entity';
 
 @Module({
   imports: [
@@ -55,6 +60,11 @@ import { RSVP } from './entities/rsvp.entity';
           // Community entities
           Event,
           RSVP,
+          // Forum entities
+          ForumCategory,
+          ForumTopic,
+          ForumPost,
+          ForumLike,
         ],
         synchronize: false,
         migrations: ['dist/database/migrations/*.js'],

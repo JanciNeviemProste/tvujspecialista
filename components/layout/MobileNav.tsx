@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 export function MobileNav() {
@@ -88,30 +88,38 @@ export function MobileNav() {
                   <span className="font-medium">Ceny</span>
                 </Link>
 
-                <div className="my-4 border-t" />
-
-                {/* Academy & Community */}
-                <Link
-                  href="/academy"
-                  onClick={closeMenu}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
-                >
-                  <GraduationCap className="h-5 w-5 text-primary" />
-                  <span className="font-medium">Akadémia</span>
-                </Link>
-
-                <Link
-                  href="/community"
-                  onClick={closeMenu}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
-                >
-                  <Users className="h-5 w-5 text-accent-500" />
-                  <span className="font-medium">Komunita</span>
-                </Link>
-
                 {isAuthenticated && (
                   <>
                     <div className="my-4 border-t" />
+
+                    {/* Academy & Community - only for authenticated */}
+                    <Link
+                      href="/academy"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <GraduationCap className="h-5 w-5 text-primary" />
+                      <span className="font-medium">Akadémia</span>
+                    </Link>
+
+                    <Link
+                      href="/community"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <Users className="h-5 w-5 text-accent-500" />
+                      <span className="font-medium">Komunita</span>
+                    </Link>
+
+                    <Link
+                      href="/forum"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <MessageSquare className="h-5 w-5 text-blue-500" />
+                      <span className="font-medium">Fórum</span>
+                    </Link>
+
                     <Link
                       href="/profi/dashboard"
                       onClick={closeMenu}

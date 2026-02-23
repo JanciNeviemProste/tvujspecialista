@@ -20,6 +20,7 @@ import { EmailModule } from './email/email.module';
 import { AdminModule } from './admin/admin.module';
 import { AcademyModule } from './academy/academy.module';
 import { CommunityModule } from './community/community.module';
+import { ForumModule } from './forum/forum.module';
 import { validate } from './config/env.validation';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
@@ -52,6 +53,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     AdminModule,
     AcademyModule,
     CommunityModule,
+    ForumModule,
   ],
   controllers: [AppController],
   providers: [

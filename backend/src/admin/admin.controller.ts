@@ -1,5 +1,7 @@
-import { Controller, Get, Patch, Param, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Patch, Param, Query, Body, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
+import { EventsService } from '../community/services/events.service';
+import { RSVPsService } from '../community/services/rsvps.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import {
@@ -15,7 +17,11 @@ import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 @Controller('admin')
 @UseGuards(JwtAuthGuard, AdminGuard)
 export class AdminController {
-  constructor(private readonly adminService: AdminService) {}
+  constructor(
+    private readonly adminService: AdminService,
+    private readonly eventsService: EventsService,
+    private readonly rsvpsService: RSVPsService,
+  ) {}
 
   @Get('users')
   @ApiOperation({ summary: 'Get all users (Admin only)' })
@@ -56,5 +62,25 @@ export class AdminController {
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async getStats() {
     return this.adminService.getStats();
+  }
+
+  @Get('events/:id/attendees')
+  @ApiOperation({ summary: 'Get event attendees (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Returns list of attendees' })
+  @ApiResponse({ status: 404, description: 'Event not found' })
+  async getEventAttendees(@Param('id') id: string) {
+    return this.eventsService.getAttendeesAdmin(id);
+  }
+
+  @Patch('rsvps/:id/status')
+  @ApiOperation({ summary: 'Update RSVP status (Admin only)' })
+  @ApiResponse({ status: 200, description: 'RSVP status updated' })
+  @ApiResponse({ status: 404, description: 'RSVP not found' })
+  @ApiResponse({ status: 400, description: 'Invalid status transition' })
+  async updateRSVPStatus(
+    @Param('id') id: string,
+    @Body('status') status: string,
+  ) {
+    return this.rsvpsService.updateStatusAdmin(id, status as any);
   }
 }

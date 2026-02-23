@@ -91,8 +91,11 @@ export default function RegistrationPage() {
             <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
               Hledat
             </Link>
-            <Link href="/profi/prihlaseni" className="text-sm font-medium text-blue-600">
-              Přihlášení
+            <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 transition-colors">
+              Přihlásit se
+            </Link>
+            <Link href="/profi/registrace" className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors">
+              Registrace zdarma
             </Link>
           </nav>
         </div>
@@ -107,6 +110,19 @@ export default function RegistrationPage() {
           </div>
 
           <div className="rounded-lg border bg-white p-8 shadow-sm">
+            {/* Tab Switcher */}
+            <div className="mb-6 flex rounded-lg bg-gray-100 p-1">
+              <Link
+                href="/profi/prihlaseni"
+                className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 hover:text-gray-700 transition-all"
+              >
+                Přihlášení
+              </Link>
+              <span className="flex-1 rounded-md bg-white py-2.5 text-center text-sm font-medium text-gray-900 shadow-sm">
+                Registrace
+              </span>
+            </div>
+
             {error && (
               <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-3" role="alert">
                 <p className="text-sm text-red-600">{error}</p>
@@ -356,7 +372,7 @@ export default function RegistrationPage() {
               <p className="text-center text-sm text-gray-600">
                 Již máte účet?{' '}
                 <Link href="/profi/prihlaseni" className="font-medium text-blue-600 hover:underline">
-                  Přihlaste se
+                  Přihlaste se zde
                 </Link>
               </p>
             </form>

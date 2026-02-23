@@ -41,6 +41,13 @@ export const academyApi = {
   getEnrollmentProgress: (enrollmentId: string) =>
     apiClient.get<LessonProgress[]>(`/academy/progress/enrollment/${enrollmentId}`),
 
+  // Admin
+  publishCourse: (courseId: string, published: boolean) =>
+    apiClient.patch(`/academy/courses/${courseId}/publish`, { published }),
+
+  deleteCourse: (courseId: string) =>
+    apiClient.delete(`/academy/courses/${courseId}`),
+
   // Video streaming
   getVideoStreamUrl: (videoId: string) =>
     apiClient.get<{ streamUrl: string; duration: number }>(`/academy/videos/${videoId}/stream`),

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { use, useState, FormEvent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
@@ -8,8 +8,9 @@ import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import type { Review } from '@/types/review';
 
-export default function SpecialistDetailPage({ params }: { params: { slug: string } }) {
-  const { data: specialist, isLoading, error } = useSpecialist(params.slug);
+export default function SpecialistDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = use(params);
+  const { data: specialist, isLoading, error } = useSpecialist(slug);
   const createLead = useCreateLead();
   const [formData, setFormData] = useState({
     customerName: '',

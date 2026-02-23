@@ -8,6 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
 import { leadsApi } from '@/lib/api/leads';
 import { specialistsApi } from '@/lib/api/specialists';
+import { adminApi } from '@/lib/api/admin';
+import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp } from 'lucide-react';
 import type { Lead } from '@/types/lead';
 import type { LeadStatus } from '@/lib/api/leads';
 
@@ -22,6 +24,11 @@ export default function DashboardPage() {
   const { data: specialistProfile } = useQuery({
     queryKey: ['mySpecialistProfile'],
     queryFn: () => specialistsApi.getMyProfile().then((res) => res.data),
+  });
+  const { data: adminStats } = useQuery({
+    queryKey: ['adminStats'],
+    queryFn: () => adminApi.getStats().then((res) => res.data),
+    enabled: user?.role === 'admin',
   });
 
   const handleLogout = async () => {
@@ -63,6 +70,8 @@ export default function DashboardPage() {
     return null;
   }
 
+  const isAdmin = user.role === 'admin';
+
   const stats = {
     newLeads: leadsData?.stats?.new || 0,
     totalLeads: leadsData?.total || 0,
@@ -95,6 +104,18 @@ export default function DashboardPage() {
             <Link href="/profi/dashboard" className="text-sm font-medium text-blue-600">
               Dashboard
             </Link>
+            <Link href="/academy" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+              Akadémia
+            </Link>
+            <Link href="/forum" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+              Fórum
+            </Link>
+            <Link href="/community" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+              Komunita
+            </Link>
+            <Link href="/profi/dashboard/nastaveni" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">
+              Profil
+            </Link>
             <button
               onClick={handleLogout}
               className="text-sm font-medium text-gray-600 hover:text-gray-900"
@@ -112,194 +133,257 @@ export default function DashboardPage() {
           <p className="text-gray-600">Zde je přehled vaší aktivity</p>
         </div>
 
-        {/* Stats Cards */}
-        <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-lg border bg-white p-6">
-            <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-600">Nové leady</span>
-              <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
-                Tento měsíc
-              </span>
-            </div>
-            <div className="text-3xl font-bold text-gray-900">{stats.newLeads}</div>
-            <p className="mt-2 text-sm text-gray-500">
-              {subscription && subscription.tier && (
-                <>
-                  Zbývá{' '}
-                  {subscription.tier === 'premium'
-                    ? '∞'
-                    : subscription.remainingLeads || 0}{' '}
-                  leadů
-                </>
-              )}
-            </p>
-          </div>
-
-          <div className="rounded-lg border bg-white p-6">
-            <div className="mb-2 text-sm font-medium text-gray-600">Celkem leadů</div>
-            <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
-            <p className="mt-2 text-sm text-gray-500">Od začátku spolupráce</p>
-          </div>
-
-          <div className="rounded-lg border bg-white p-6">
-            <div className="mb-2 text-sm font-medium text-gray-600">Průměrné hodnocení</div>
-            <div className="flex items-baseline gap-2">
-              <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
-              <div className="text-xl text-yellow-400">★</div>
-            </div>
-            <p className="mt-2 text-sm text-gray-500">Vaše hodnocení</p>
-          </div>
-
-          <div className="rounded-lg border bg-white p-6">
-            <div className="mb-2 text-sm font-medium text-gray-600">Úspěšnost</div>
-            <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
-            <p className="mt-2 text-sm text-gray-500">Úspěšně uzavřené leady</p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {/* Recent Leads */}
-          <div className="lg:col-span-2">
-            <div className="rounded-lg border bg-white">
-              <div className="border-b p-6">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-gray-900">Poslední leady</h2>
-                  <Link href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
-                    Zobrazit vše
-                  </Link>
-                </div>
+        {/* Stats Cards - only for specialists */}
+        {!isAdmin && (
+          <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-lg border bg-white p-6">
+              <div className="mb-2 flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">Nové leady</span>
+                <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
+                  Tento měsíc
+                </span>
               </div>
+              <div className="text-3xl font-bold text-gray-900">{stats.newLeads}</div>
+              <p className="mt-2 text-sm text-gray-500">
+                {subscription && subscription.tier && (
+                  <>
+                    Zbývá{' '}
+                    {subscription.tier === 'premium'
+                      ? '∞'
+                      : subscription.remainingLeads || 0}{' '}
+                    leadů
+                  </>
+                )}
+              </p>
+            </div>
 
-              {leadsData && leadsData.leads && leadsData.leads.length > 0 ? (
-                <div className="divide-y">
-                  {leadsData.leads.slice(0, 5).map((lead: Lead) => {
-                    const statusInfo = getStatusBadge(lead.status);
-                    return (
-                      <div key={lead.id} className="p-6">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h3 className="font-semibold text-gray-900">{lead.customerName}</h3>
-                            <p className="text-sm text-gray-500">
-                              {new Date(lead.createdAt).toLocaleDateString('cs-CZ')}
-                            </p>
-                            <p className="mt-1 text-sm text-gray-600">{lead.email}</p>
-                            <p className="text-sm text-gray-600">{lead.phone}</p>
-                            {lead.message && (
-                              <p className="mt-2 text-sm text-gray-700">
-                                "{lead.message.substring(0, 100)}
-                                {lead.message.length > 100 ? '...' : ''}"
+            <div className="rounded-lg border bg-white p-6">
+              <div className="mb-2 text-sm font-medium text-gray-600">Celkem leadů</div>
+              <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
+              <p className="mt-2 text-sm text-gray-500">Od začátku spolupráce</p>
+            </div>
+
+            <div className="rounded-lg border bg-white p-6">
+              <div className="mb-2 text-sm font-medium text-gray-600">Průměrné hodnocení</div>
+              <div className="flex items-baseline gap-2">
+                <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
+                <div className="text-xl text-yellow-400">★</div>
+              </div>
+              <p className="mt-2 text-sm text-gray-500">Vaše hodnocení</p>
+            </div>
+
+            <div className="rounded-lg border bg-white p-6">
+              <div className="mb-2 text-sm font-medium text-gray-600">Úspěšnost</div>
+              <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
+              <p className="mt-2 text-sm text-gray-500">Úspěšně uzavřené leady</p>
+            </div>
+          </div>
+        )}
+
+        {/* Admin Panel - inline */}
+        {isAdmin && (
+          <>
+            <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <div className="rounded-lg border bg-white p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Users className="h-5 w-5 text-blue-500" />
+                  <span className="text-sm font-medium text-gray-600">Užívatelia</span>
+                </div>
+                <div className="text-3xl font-bold">{adminStats?.usersCount ?? 0}</div>
+              </div>
+              <div className="rounded-lg border bg-white p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Shield className="h-5 w-5 text-green-500" />
+                  <span className="text-sm font-medium text-gray-600">Špecialisti</span>
+                </div>
+                <div className="text-3xl font-bold">{adminStats?.specialistsCount ?? 0}</div>
+              </div>
+              <div className="rounded-lg border bg-white p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <TrendingUp className="h-5 w-5 text-purple-500" />
+                  <span className="text-sm font-medium text-gray-600">Leady</span>
+                </div>
+                <div className="text-3xl font-bold">{adminStats?.leadsCount ?? 0}</div>
+              </div>
+              <div className="rounded-lg border bg-white p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <TrendingUp className="h-5 w-5 text-orange-500" />
+                  <span className="text-sm font-medium text-gray-600">Dealy</span>
+                </div>
+                <div className="text-3xl font-bold">{adminStats?.dealsCount ?? 0}</div>
+              </div>
+            </div>
+
+            <h2 className="text-xl font-semibold mb-4">Správa obsahu</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Link
+                href="/profi/dashboard/admin/kurzy"
+                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+              >
+                <BookOpen className="h-8 w-8 text-blue-600 mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="text-lg font-semibold mb-1">Akadémia</h3>
+                <p className="text-sm text-gray-600">Správa kurzov, modulov a lekcií</p>
+              </Link>
+              <Link
+                href="/profi/dashboard/admin/forum"
+                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+              >
+                <MessageSquare className="h-8 w-8 text-blue-500 mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="text-lg font-semibold mb-1">Fórum</h3>
+                <p className="text-sm text-gray-600">Moderovanie tém a príspevkov</p>
+              </Link>
+              <Link
+                href="/profi/dashboard/admin/komunita"
+                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+              >
+                <Calendar className="h-8 w-8 text-orange-500 mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="text-lg font-semibold mb-1">Komunita</h3>
+                <p className="text-sm text-gray-600">Správa eventov a stretnutí</p>
+              </Link>
+            </div>
+          </>
+        )}
+
+        {/* Specialist sections */}
+        {!isAdmin && (
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+            {/* Recent Leads */}
+            <div className="lg:col-span-2">
+              <div className="rounded-lg border bg-white">
+                <div className="border-b p-6">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-gray-900">Poslední leady</h2>
+                    <Link href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
+                      Zobrazit vše
+                    </Link>
+                  </div>
+                </div>
+
+                {leadsData && leadsData.leads && leadsData.leads.length > 0 ? (
+                  <div className="divide-y">
+                    {leadsData.leads.slice(0, 5).map((lead: Lead) => {
+                      const statusInfo = getStatusBadge(lead.status);
+                      return (
+                        <div key={lead.id} className="p-6">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h3 className="font-semibold text-gray-900">{lead.customerName}</h3>
+                              <p className="text-sm text-gray-500">
+                                {new Date(lead.createdAt).toLocaleDateString('cs-CZ')}
                               </p>
-                            )}
-                          </div>
-                          <div className="flex flex-col items-end gap-3">
-                            <span
-                              className={`rounded-full px-3 py-1 text-xs font-semibold ${statusInfo.className}`}
-                            >
-                              {statusInfo.label}
-                            </span>
-                            <select
-                              value={lead.status}
-                              onChange={(e) => handleStatusChange(lead.id, e.target.value)}
-                              className="rounded border border-gray-300 px-2 py-1 text-xs hover:bg-gray-50"
-                            >
-                              <option value="NEW">Nový</option>
-                              <option value="CONTACTED">Kontaktován</option>
-                              <option value="QUALIFIED">Kvalifikován</option>
-                              <option value="CLOSED_WON">Uzavřeno</option>
-                              <option value="CLOSED_LOST">Ztraceno</option>
-                            </select>
+                              <p className="mt-1 text-sm text-gray-600">{lead.email}</p>
+                              <p className="text-sm text-gray-600">{lead.phone}</p>
+                              {lead.message && (
+                                <p className="mt-2 text-sm text-gray-700">
+                                  &quot;{lead.message.substring(0, 100)}
+                                  {lead.message.length > 100 ? '...' : ''}&quot;
+                                </p>
+                              )}
+                            </div>
+                            <div className="flex flex-col items-end gap-3">
+                              <span
+                                className={`rounded-full px-3 py-1 text-xs font-semibold ${statusInfo.className}`}
+                              >
+                                {statusInfo.label}
+                              </span>
+                              <select
+                                value={lead.status}
+                                onChange={(e) => handleStatusChange(lead.id, e.target.value)}
+                                className="rounded border border-gray-300 px-2 py-1 text-xs hover:bg-gray-50"
+                              >
+                                <option value="NEW">Nový</option>
+                                <option value="CONTACTED">Kontaktován</option>
+                                <option value="QUALIFIED">Kvalifikován</option>
+                                <option value="CLOSED_WON">Uzavřeno</option>
+                                <option value="CLOSED_LOST">Ztraceno</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="p-12 text-center">
+                    <div className="mb-4 text-5xl">📭</div>
+                    <h3 className="mb-2 text-lg font-semibold text-gray-900">Zatím žádné leady</h3>
+                    <p className="text-gray-600">
+                      Jakmile dostanete první poptávku, zobrazí se zde.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="lg:col-span-1">
+              <div className="rounded-lg border bg-white p-6">
+                <h2 className="mb-4 text-lg font-semibold text-gray-900">Rychlé akce</h2>
+                <div className="space-y-3">
+                  <a
+                    href="/profi/dashboard/deals"
+                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                  >
+                    🤝 Deal Pipeline
+                  </a>
+                  <a
+                    href="/profi/dashboard/commissions"
+                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                  >
+                    💰 Provízie
+                  </a>
+                  <a
+                    href="/profi/dashboard/profil"
+                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                  >
+                    📝 Upravit profil
+                  </a>
+                  <a
+                    href="/profi/dashboard/recenze"
+                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                  >
+                    💬 Správa recenzí
+                  </a>
+                  <a
+                    href="/ceny"
+                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                  >
+                    💳 Upgrade plánu
+                  </a>
                 </div>
-              ) : (
-                <div className="p-12 text-center">
-                  <div className="mb-4 text-5xl">📭</div>
-                  <h3 className="mb-2 text-lg font-semibold text-gray-900">Zatím žádné leady</h3>
-                  <p className="text-gray-600">
-                    Jakmile dostanete první poptávku, zobrazí se zde.
+              </div>
+
+              {/* Subscription Status */}
+              {subscription && (
+                <div className="mt-6 rounded-lg border bg-blue-50 p-6">
+                  <h3 className="mb-2 font-semibold text-blue-900">
+                    Váš plán: {subscription.tier === 'basic' ? 'Basic' : subscription.tier === 'pro' ? 'Pro' : 'Premium'}
+                  </h3>
+                  <p className="mb-4 text-sm text-blue-700">
+                    {subscription.tier === 'premium' ? (
+                      'Neomezené leady'
+                    ) : (
+                      <>
+                        Zbývá {subscription.remainingLeads || 0} leadů do konce měsíce
+                      </>
+                    )}
                   </p>
+                  {subscription.tier !== 'premium' && (
+                    <button
+                      onClick={async () => {
+                        const { data } = await paymentsApi.createCheckout('premium');
+                        window.location.href = data.checkoutUrl;
+                      }}
+                      className="block w-full rounded-md bg-blue-600 py-2 text-center text-sm font-medium text-white hover:bg-blue-700"
+                    >
+                      Upgradovat na Premium
+                    </button>
+                  )}
                 </div>
               )}
             </div>
           </div>
-
-          {/* Quick Actions */}
-          <div className="lg:col-span-1">
-            <div className="rounded-lg border bg-white p-6">
-              <h2 className="mb-4 text-lg font-semibold text-gray-900">Rychlé akce</h2>
-              <div className="space-y-3">
-                <a
-                  href="/profi/dashboard/deals"
-                  className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                >
-                  🤝 Deal Pipeline
-                </a>
-                <a
-                  href="/profi/dashboard/commissions"
-                  className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                >
-                  💰 Provízie
-                </a>
-                <a
-                  href="/profi/dashboard/profil"
-                  className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                >
-                  📝 Upravit profil
-                </a>
-                <a
-                  href="/profi/dashboard/recenze"
-                  className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                >
-                  💬 Správa recenzí
-                </a>
-                <a
-                  href="/ceny"
-                  className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                >
-                  💳 Upgrade plánu
-                </a>
-                <a
-                  href="/profi/dashboard/deals"
-                  className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                >
-                  📊 Statistiky
-                </a>
-              </div>
-            </div>
-
-            {/* Subscription Status */}
-            {subscription && (
-              <div className="mt-6 rounded-lg border bg-blue-50 p-6">
-                <h3 className="mb-2 font-semibold text-blue-900">
-                  Váš plán: {subscription.tier === 'basic' ? 'Basic' : subscription.tier === 'pro' ? 'Pro' : 'Premium'}
-                </h3>
-                <p className="mb-4 text-sm text-blue-700">
-                  {subscription.tier === 'premium' ? (
-                    'Neomezené leady'
-                  ) : (
-                    <>
-                      Zbývá {subscription.remainingLeads || 0} leadů do konce měsíce
-                    </>
-                  )}
-                </p>
-                {subscription.tier !== 'premium' && (
-                  <button
-                    onClick={async () => {
-                      const { data } = await paymentsApi.createCheckout('premium');
-                      window.location.href = data.checkoutUrl;
-                    }}
-                    className="block w-full rounded-md bg-blue-600 py-2 text-center text-sm font-medium text-white hover:bg-blue-700"
-                  >
-                    Upgradovat na Premium
-                  </button>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

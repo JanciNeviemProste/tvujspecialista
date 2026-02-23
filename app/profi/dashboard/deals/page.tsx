@@ -79,32 +79,7 @@ export default function DealsPage() {
     }
   }, [deals]);
 
-  // Redirect if not authenticated
-  if (!authLoading && !user) {
-    router.push('/profi/prihlaseni');
-    return null;
-  }
-
-  // Loading state
-  if (authLoading || dealsLoading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
-          <div className="mb-8">
-            <div className="h-8 w-48 bg-muted rounded animate-pulse mb-2" />
-            <div className="h-4 w-64 bg-muted rounded animate-pulse" />
-          </div>
-          {viewMode === 'kanban' ? <KanbanSkeleton /> : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[1, 2, 3, 4, 5, 6].map((i) => <DealCardSkeleton key={i} />)}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
-
-  // Filter deals with memoization
+  // Filter deals with memoization — MUST be before early returns (Rules of Hooks)
   const filteredDeals = useMemo(() => {
     return deals?.filter((deal) => {
       // Search filter
@@ -150,7 +125,16 @@ export default function DealsPage() {
     }) || [];
   }, [deals, filters]);
 
-  // Handlers with useCallback
+  // Stats with memoization — MUST be before early returns (Rules of Hooks)
+  const stats = useMemo(() => ({
+    total: filteredDeals.length,
+    new: filteredDeals.filter((d) => d.status === DealStatus.NEW).length,
+    inProgress: filteredDeals.filter((d) => d.status === DealStatus.IN_PROGRESS).length,
+    won: filteredDeals.filter((d) => d.status === DealStatus.CLOSED_WON).length,
+    totalValue: filteredDeals.reduce((sum, d) => sum + (d.dealValue || 0), 0),
+  }), [filteredDeals]);
+
+  // Handlers with useCallback — MUST be before early returns (Rules of Hooks)
   const handleStatusChange = useCallback((deal: Deal) => {
     setSelectedDeal(deal);
     if (deal.status === DealStatus.IN_PROGRESS) {
@@ -202,14 +186,30 @@ export default function DealsPage() {
     toast.success(`Exportovaných ${filteredDeals.length} dealov`);
   }, [filteredDeals]);
 
-  // Stats with memoization
-  const stats = useMemo(() => ({
-    total: filteredDeals.length,
-    new: filteredDeals.filter((d) => d.status === DealStatus.NEW).length,
-    inProgress: filteredDeals.filter((d) => d.status === DealStatus.IN_PROGRESS).length,
-    won: filteredDeals.filter((d) => d.status === DealStatus.CLOSED_WON).length,
-    totalValue: filteredDeals.reduce((sum, d) => sum + (d.dealValue || 0), 0),
-  }), [filteredDeals]);
+  // Redirect if not authenticated
+  if (!authLoading && !user) {
+    router.push('/profi/prihlaseni');
+    return null;
+  }
+
+  // Loading state
+  if (authLoading || dealsLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
+          <div className="mb-8">
+            <div className="h-8 w-48 bg-muted rounded animate-pulse mb-2" />
+            <div className="h-4 w-64 bg-muted rounded animate-pulse" />
+          </div>
+          {viewMode === 'kanban' ? <KanbanSkeleton /> : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[1, 2, 3, 4, 5, 6].map((i) => <DealCardSkeleton key={i} />)}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

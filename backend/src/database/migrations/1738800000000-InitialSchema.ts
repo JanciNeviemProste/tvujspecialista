@@ -4,6 +4,9 @@ export class InitialSchema1738800000000 implements MigrationInterface {
   name = 'InitialSchema1738800000000';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    // Enable uuid-ossp extension for uuid_generate_v4()
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
+
     // =============================================
     // 1. CREATE ALL ENUM TYPES
     // =============================================
@@ -104,6 +107,12 @@ export class InitialSchema1738800000000 implements MigrationInterface {
         "verified" boolean NOT NULL DEFAULT false,
         "subscriptionType" "user_subscription_type_enum" NOT NULL DEFAULT 'none',
         "educationSubscriptionExpiresAt" TIMESTAMP,
+        "passwordResetToken" character varying,
+        "passwordResetExpires" TIMESTAMP,
+        "emailVerificationToken" character varying,
+        "emailVerificationExpires" TIMESTAMP,
+        "failedLoginAttempts" integer NOT NULL DEFAULT 0,
+        "lockedUntil" TIMESTAMP,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
         CONSTRAINT "PK_users" PRIMARY KEY ("id"),
@@ -115,7 +124,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "specialists" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "userId" character varying NOT NULL,
+        "userId" uuid NOT NULL,
         "slug" character varying NOT NULL,
         "name" character varying NOT NULL,
         "email" character varying NOT NULL,
@@ -157,8 +166,8 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "subscriptions" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "specialistId" character varying,
-        "userId" character varying,
+        "specialistId" uuid,
+        "userId" uuid,
         "stripeCustomerId" character varying NOT NULL,
         "stripeSubscriptionId" character varying,
         "stripeSubscriptionItemId" character varying,
@@ -210,7 +219,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "modules" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "courseId" character varying NOT NULL,
+        "courseId" uuid NOT NULL,
         "title" character varying NOT NULL,
         "description" text NOT NULL,
         "position" integer NOT NULL DEFAULT 0,
@@ -226,11 +235,11 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "lessons" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "moduleId" character varying NOT NULL,
+        "moduleId" uuid NOT NULL,
         "title" character varying NOT NULL,
         "description" text NOT NULL,
         "position" integer NOT NULL DEFAULT 0,
-        "videoId" character varying,
+        "videoId" uuid,
         "duration" integer NOT NULL DEFAULT 0,
         "type" "lesson_type_enum" NOT NULL DEFAULT 'video',
         "content" jsonb,
@@ -246,7 +255,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "videos" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "lessonId" character varying,
+        "lessonId" uuid,
         "title" character varying NOT NULL,
         "cloudinaryPublicId" character varying NOT NULL,
         "cloudinaryUrl" character varying NOT NULL,
@@ -267,8 +276,8 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "enrollments" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "userId" character varying NOT NULL,
-        "courseId" character varying NOT NULL,
+        "userId" uuid NOT NULL,
+        "courseId" uuid NOT NULL,
         "status" "enrollment_status_enum" NOT NULL DEFAULT 'active',
         "progress" numeric(5,2) NOT NULL DEFAULT 0,
         "startedAt" TIMESTAMP NOT NULL,
@@ -286,8 +295,8 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "lesson_progress" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "enrollmentId" character varying NOT NULL,
-        "lessonId" character varying NOT NULL,
+        "enrollmentId" uuid NOT NULL,
+        "lessonId" uuid NOT NULL,
         "completed" boolean NOT NULL DEFAULT false,
         "watchTimeSeconds" integer NOT NULL DEFAULT 0,
         "completedAt" TIMESTAMP,
@@ -303,7 +312,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "leads" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "specialistId" character varying NOT NULL,
+        "specialistId" uuid NOT NULL,
         "customerName" character varying NOT NULL,
         "customerEmail" character varying NOT NULL,
         "customerPhone" character varying NOT NULL,
@@ -314,7 +323,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
         "dealValue" numeric(12,2),
         "estimatedCloseDate" date,
         "actualCloseDate" date,
-        "commissionId" character varying,
+        "commissionId" uuid,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
         "updatedAt" TIMESTAMP NOT NULL DEFAULT now(),
         CONSTRAINT "PK_leads" PRIMARY KEY ("id")
@@ -325,7 +334,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "lead_events" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "leadId" character varying NOT NULL,
+        "leadId" uuid NOT NULL,
         "type" "lead_event_type_enum" NOT NULL,
         "data" jsonb,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
@@ -337,7 +346,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "reviews" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "specialistId" character varying NOT NULL,
+        "specialistId" uuid NOT NULL,
         "customerName" character varying NOT NULL,
         "customerEmail" character varying NOT NULL,
         "rating" integer NOT NULL,
@@ -356,8 +365,8 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "commissions" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "dealId" character varying NOT NULL,
-        "specialistId" character varying NOT NULL,
+        "dealId" uuid NOT NULL,
+        "specialistId" uuid NOT NULL,
         "dealValue" numeric(12,2) NOT NULL,
         "commissionRate" numeric(5,4) NOT NULL,
         "commissionAmount" numeric(12,2) NOT NULL,
@@ -395,7 +404,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
         "longitude" numeric(10,7),
         "meetingLink" character varying,
         "meetingPassword" character varying,
-        "organizerId" character varying NOT NULL,
+        "organizerId" uuid NOT NULL,
         "maxAttendees" integer,
         "attendeeCount" integer NOT NULL DEFAULT 0,
         "price" numeric(10,2) NOT NULL DEFAULT 0,
@@ -415,8 +424,8 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "rsvps" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "eventId" character varying NOT NULL,
-        "userId" character varying NOT NULL,
+        "eventId" uuid NOT NULL,
+        "userId" uuid NOT NULL,
         "status" "rsvp_status_enum" NOT NULL DEFAULT 'pending',
         "registeredAt" TIMESTAMP NOT NULL,
         "confirmedAt" TIMESTAMP,
@@ -435,7 +444,7 @@ export class InitialSchema1738800000000 implements MigrationInterface {
     await queryRunner.query(`
       CREATE TABLE "refresh_tokens" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-        "userId" character varying NOT NULL,
+        "userId" uuid NOT NULL,
         "token" character varying NOT NULL,
         "expiresAt" TIMESTAMP NOT NULL,
         "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
@@ -449,8 +458,8 @@ export class InitialSchema1738800000000 implements MigrationInterface {
       CREATE TABLE "review_tokens" (
         "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
         "token" character varying NOT NULL,
-        "specialistId" character varying NOT NULL,
-        "leadId" character varying NOT NULL,
+        "specialistId" uuid NOT NULL,
+        "leadId" uuid NOT NULL,
         "customerEmail" character varying NOT NULL,
         "used" boolean NOT NULL DEFAULT false,
         "expiresAt" TIMESTAMP NOT NULL,

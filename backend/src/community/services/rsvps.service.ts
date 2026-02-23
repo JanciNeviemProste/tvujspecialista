@@ -197,6 +197,50 @@ export class RSVPsService {
     }
   }
 
+  async updateStatusAdmin(rsvpId: string, status: RSVPStatus): Promise<RSVP> {
+    const rsvp = await this.rsvpRepository.findOne({
+      where: { id: rsvpId },
+      relations: ['event'],
+    });
+
+    if (!rsvp) {
+      throw new NotFoundException('RSVP not found');
+    }
+
+    const oldStatus = rsvp.status;
+
+    if (status === RSVPStatus.CONFIRMED) {
+      if (oldStatus === RSVPStatus.CANCELLED) {
+        throw new BadRequestException('Cannot confirm cancelled RSVP');
+      }
+      rsvp.status = RSVPStatus.CONFIRMED;
+      rsvp.confirmedAt = new Date();
+    } else if (status === RSVPStatus.CANCELLED) {
+      if (oldStatus === RSVPStatus.ATTENDED) {
+        throw new BadRequestException('Cannot cancel RSVP after attending event');
+      }
+      if (oldStatus !== RSVPStatus.CANCELLED) {
+        rsvp.status = RSVPStatus.CANCELLED;
+        rsvp.cancelledAt = new Date();
+        // Decrement attendeeCount
+        if (rsvp.event) {
+          rsvp.event.attendeeCount = Math.max(0, rsvp.event.attendeeCount - 1);
+          await this.eventRepository.save(rsvp.event);
+        }
+      }
+    } else if (status === RSVPStatus.ATTENDED) {
+      if (oldStatus === RSVPStatus.CANCELLED) {
+        throw new BadRequestException('Cannot check in cancelled RSVP');
+      }
+      rsvp.status = RSVPStatus.ATTENDED;
+      rsvp.attendedAt = new Date();
+    } else {
+      throw new BadRequestException(`Invalid status: ${status}`);
+    }
+
+    return this.rsvpRepository.save(rsvp);
+  }
+
   async checkIn(rsvpId: string, organizerId: string): Promise<RSVP> {
     const rsvp = await this.rsvpRepository.findOne({
       where: { id: rsvpId },

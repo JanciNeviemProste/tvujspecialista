@@ -349,6 +349,22 @@ export class EventsService {
     return rsvps;
   }
 
+  async getAttendeesAdmin(eventId: string): Promise<RSVP[]> {
+    const event = await this.eventRepository.findOne({
+      where: { id: eventId },
+    });
+
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+
+    return this.rsvpRepository.find({
+      where: { eventId },
+      relations: ['user'],
+      order: { registeredAt: 'DESC' },
+    });
+  }
+
   private generateSlug(title: string): string {
     return title
       .toLowerCase()

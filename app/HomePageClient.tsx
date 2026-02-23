@@ -14,6 +14,9 @@ export default function HomePageClient() {
           <nav className="hidden lg:flex items-center gap-6">
             <Link href="/hledat" className="text-sm font-medium hover:text-blue-600 dark:hover:text-primary transition-colors">Hledat</Link>
             <Link href="/ceny" className="text-sm font-medium hover:text-blue-600 dark:hover:text-primary transition-colors">Ceny</Link>
+            <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 dark:hover:text-primary transition-colors">
+              Přihlásit se
+            </Link>
             <Link href="/profi/registrace" className="rounded bg-blue-600 dark:bg-primary px-4 py-2 text-sm text-white hover:bg-blue-700 dark:hover:bg-primary/90 transition-colors">
               Registrace zdarma
             </Link>
@@ -108,6 +111,7 @@ export default function HomePageClient() {
               <h4 className="mb-4 font-semibold dark:text-foreground">Pro specialisty</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/ceny" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">Ceny</Link></li>
+                <li><Link href="/profi/prihlaseni" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">Přihlášení</Link></li>
                 <li><Link href="/profi/registrace" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">Registrace</Link></li>
               </ul>
             </div>
