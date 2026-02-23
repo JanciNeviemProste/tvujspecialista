@@ -33,7 +33,8 @@ export interface ChangePasswordData {
 export const authApi = {
   register: (data: RegistrationData) => apiClient.post('/auth/register', data),
   login: async (credentials: LoginCredentials) => {
-    const response = await apiClient.post('/auth/login', credentials);
+    const { remember, ...loginData } = credentials;
+    const response = await apiClient.post('/auth/login', loginData);
     response.data = validateResponse(authResponseSchema, response.data);
     return response;
   },
