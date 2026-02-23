@@ -72,7 +72,7 @@ apiClient.interceptors.response.use(
             setToken('accessToken', data.accessToken);
             originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
 
-            return axios(originalRequest);
+            return apiClient(originalRequest);
           } catch (refreshError) {
             // Refresh failed, remove auth keys from both storages
             removeToken('accessToken');

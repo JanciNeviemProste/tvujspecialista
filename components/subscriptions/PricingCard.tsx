@@ -67,7 +67,7 @@ export function PricingCard({
           onClick={onSelectPlan}
           disabled={currentPlan || isLoading}
           className="w-full"
-          variant={isRecommended ? 'default' : 'outline'}
+          variant="default"
           size="lg"
         >
           {currentPlan ? 'Aktuálny plán' : isLoading ? 'Načítavam...' : plan.cta}

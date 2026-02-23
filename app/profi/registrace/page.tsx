@@ -67,7 +67,7 @@ export default function RegistrationPage() {
         bio: data.bio,
       });
 
-      // Save tokens to localStorage
+      // Save tokens to localStorage (registration is always persistent)
       if (typeof window !== 'undefined') {
         localStorage.setItem('accessToken', response.data.accessToken);
         localStorage.setItem('refreshToken', response.data.refreshToken);
@@ -75,8 +75,8 @@ export default function RegistrationPage() {
 
       toast.success('Registrácia úspešná! Vitajte na tvujspecialista.cz');
 
-      // Redirect to dashboard
-      router.push('/profi/dashboard');
+      // Full page navigation to ensure AuthProvider re-initializes with new tokens
+      window.location.href = '/profi/dashboard';
     } catch (err: unknown) {
       setError(getErrorMessage(err));
     }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -18,9 +18,15 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, user, isLoading: authLoading } = useAuth();
   const [error, setError] = useState('');
   const [rememberMe, setRememberMe] = useState(true);
+
+  useEffect(() => {
+    if (!authLoading && user) {
+      router.replace('/profi/dashboard');
+    }
+  }, [user, authLoading, router]);
 
   const {
     register,
@@ -44,6 +50,14 @@ export default function LoginPage() {
       setError(getErrorMessage(err));
     }
   };
+
+  if (authLoading || user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-background">
