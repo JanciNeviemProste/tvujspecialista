@@ -4,11 +4,14 @@ import { memo, useState } from 'react';
 import { Module, LessonProgress, LessonType } from '@/types/academy';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Clock, ChevronUp, ChevronDown, Check, Play, CheckCircle, FileText } from 'lucide-react';
+import { Clock, ChevronUp, ChevronDown, Check, Play, CheckCircle, FileText, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { Link } from '@/i18n/routing';
 
 interface CourseCurriculumProps {
   modules: Module[];
+  courseSlug: string;
+  isEnrolled?: boolean;
   enrollmentId?: string;
   lessonProgress?: LessonProgress[];
   className?: string;
@@ -38,6 +41,8 @@ function getLessonIcon(type: LessonType) {
 
 function CourseCurriculumInner({
   modules,
+  courseSlug,
+  isEnrolled,
   enrollmentId,
   lessonProgress = [],
   className,
@@ -106,12 +111,10 @@ function CourseCurriculumInner({
                   {module.lessons.map((lesson, lessonIndex) => {
                     const LessonIcon = getLessonIcon(lesson.type);
                     const completed = isLessonCompleted(lesson.id);
+                    const canAccess = lesson.free || isEnrolled;
 
-                    return (
-                      <div
-                        key={lesson.id}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
-                      >
+                    const lessonContent = (
+                      <>
                         {/* Completion indicator */}
                         <div className="flex-shrink-0 mt-0.5">
                           {completed ? (
@@ -145,11 +148,38 @@ function CourseCurriculumInner({
                           )}
                         </div>
 
-                        {/* Duration */}
+                        {/* Duration / Lock */}
                         <div className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0">
-                          <Clock className="h-3 w-3" />
-                          <span>{formatDuration(lesson.duration)}</span>
+                          {canAccess ? (
+                            <>
+                              <Clock className="h-3 w-3" />
+                              <span>{formatDuration(lesson.duration)}</span>
+                            </>
+                          ) : (
+                            <Lock className="h-4 w-4 text-gray-400" />
+                          )}
                         </div>
+                      </>
+                    );
+
+                    if (canAccess) {
+                      return (
+                        <Link
+                          key={lesson.id}
+                          href={`/academy/learn/${courseSlug}?lessonId=${lesson.id}`}
+                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer"
+                        >
+                          {lessonContent}
+                        </Link>
+                      );
+                    }
+
+                    return (
+                      <div
+                        key={lesson.id}
+                        className="flex items-start gap-3 p-3 rounded-lg opacity-60"
+                      >
+                        {lessonContent}
                       </div>
                     );
                   })}

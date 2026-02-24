@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Clock, BookOpen, Star, Users, GraduationCap } from 'lucide-react'
+import { Clock, BookOpen, Star, Users, GraduationCap, Play } from 'lucide-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { useRouter } from '@/i18n/routing'
@@ -216,15 +216,22 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
               </div>
             </div>
 
-            {/* Thumbnail Image */}
-            <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-200">
-              <Image
-                src={course.thumbnailUrl}
-                alt={course.title}
-                fill
-                className="object-cover"
-              />
-            </div>
+            {/* Thumbnail with play overlay */}
+            <Link href={`/academy/learn/${course.slug}`}>
+              <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-200 group cursor-pointer">
+                <Image
+                  src={course.thumbnailUrl}
+                  alt={course.title}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 flex items-center justify-center transition-colors">
+                  <div className="h-16 w-16 rounded-full bg-blue-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <Play className="h-8 w-8 text-white fill-current ml-1" />
+                  </div>
+                </div>
+              </div>
+            </Link>
 
             {/* Instructor Card */}
             <Card>
@@ -256,6 +263,8 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 <h2 className="mb-4 text-2xl font-bold">{t('courseDetail.curriculum')}</h2>
                 <CourseCurriculum
                   modules={course.modules}
+                  courseSlug={course.slug}
+                  isEnrolled={isEnrolled}
                   enrollmentId={enrollment?.id}
                   lessonProgress={lessonProgress || []}
                 />
