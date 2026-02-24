@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { authApi, type LoginCredentials } from '@/lib/api/auth';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
 
 const getStorageItem = (key: string): string | null => {
   if (typeof window === 'undefined') return null;
@@ -44,6 +45,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const t = useTranslations('auth');
 
   useEffect(() => {
     // Check if user is already logged in
@@ -74,9 +76,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setStorageItem('accessToken', data.accessToken, persistent);
       setStorageItem('refreshToken', data.refreshToken, persistent);
       setUser(data.user);
-      toast.success('Přihlášení úspěšné');
+      toast.success(t('loginSuccess'));
     } catch (error) {
-      toast.error('Přihlášení se nezdařilo');
+      toast.error(t('loginError'));
       throw error;
     }
   };
@@ -90,7 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       removeStorageItem('accessToken');
       removeStorageItem('refreshToken');
       setUser(null);
-      toast.success('Odhlášení úspěšné');
+      toast.success(t('logoutSuccess'));
     }
   };
 

@@ -67,45 +67,45 @@ function CourseFormModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
       <div className="w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] border border-gray-200 dark:border-neutral-700 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-bold">{isEdit ? 'Upraviť kurz' : 'Nový kurz'}</h2>
-          <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{isEdit ? 'Upraviť kurz' : 'Nový kurz'}</h2>
+          <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-500 dark:text-gray-400">
             <X className="h-5 w-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Názov kurzu *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Názov kurzu *</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="napr. Základy hypotekárneho poradenstva"
               disabled={isLoading}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Popis *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Popis *</label>
             <textarea
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="Podrobný popis kurzu..."
               disabled={isLoading}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">URL náhľadového obrázku *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">URL náhľadového obrázku *</label>
             <input
               type="url"
               value={form.thumbnailUrl}
               onChange={(e) => handleChange('thumbnailUrl', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="https://example.com/image.jpg"
               disabled={isLoading}
             />
@@ -113,11 +113,11 @@ function CourseFormModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Úroveň</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Úroveň</label>
               <select
                 value={form.level}
                 onChange={(e) => handleChange('level', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="beginner">Začiatočník</option>
@@ -126,11 +126,11 @@ function CourseFormModal({
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Kategória</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kategória</label>
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="financial">Financie</option>
@@ -140,38 +140,38 @@ function CourseFormModal({
             </div>
           </div>
 
-          <div className="border-t pt-4 mt-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3">Inštruktor</h3>
+          <div className="border-t border-gray-200 dark:border-neutral-700 pt-4 mt-4">
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Inštruktor</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Meno inštruktora *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Meno inštruktora *</label>
                 <input
                   type="text"
                   value={form.instructorName}
                   onChange={(e) => handleChange('instructorName', e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="Ing. Ján Novák"
                   disabled={isLoading}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Bio inštruktora *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio inštruktora *</label>
                 <textarea
                   value={form.instructorBio}
                   onChange={(e) => handleChange('instructorBio', e.target.value)}
                   rows={2}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="Krátky popis inštruktora..."
                   disabled={isLoading}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL fotky inštruktora *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">URL fotky inštruktora *</label>
                 <input
                   type="url"
                   value={form.instructorPhoto}
                   onChange={(e) => handleChange('instructorPhoto', e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="https://example.com/photo.jpg"
                   disabled={isLoading}
                 />
@@ -184,7 +184,7 @@ function CourseFormModal({
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 rounded-lg border border-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors"
+              className="flex-1 rounded-lg border border-gray-300 dark:border-neutral-600 text-gray-700 dark:text-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
             >
               Zrušiť
             </button>
@@ -296,7 +296,7 @@ export default function AdminCoursesPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <Link href="/profi/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/profi/dashboard" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>
@@ -304,7 +304,7 @@ export default function AdminCoursesPage() {
               <BookOpen className="h-6 w-6 text-blue-600" />
               {t('title')}
             </h1>
-            <p className="text-muted-foreground mt-1">{courses.length} kurzov celkom</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">{courses.length} kurzov celkom</p>
           </div>
         </div>
         <button
@@ -318,9 +318,9 @@ export default function AdminCoursesPage() {
 
       {courses.length === 0 ? (
         <div className="text-center py-20">
-          <BookOpen className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <BookOpen className="h-12 w-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
           <h3 className="text-lg font-semibold mb-2">Žiadne kurzy</h3>
-          <p className="text-muted-foreground mb-4">Zatiaľ neboli vytvorené žiadne kurzy.</p>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">Zatiaľ neboli vytvorené žiadne kurzy.</p>
           <button
             onClick={() => setModalOpen(true)}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"

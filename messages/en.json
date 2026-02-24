@@ -601,7 +601,10 @@
         "title": "Reset password | tvujspecialista.cz",
         "description": "Set a new password for your account on the tvujspecialista.cz platform."
       }
-    }
+    },
+    "loginSuccess": "Login successful",
+    "loginError": "Login failed",
+    "logoutSuccess": "Logout successful"
   },
   "dashboard": {
     "main": {
@@ -641,8 +644,8 @@
       "admin": {
         "users": "Users",
         "specialists": "Specialists",
-        "leads": "Leads",
-        "deals": "Leads",
+        "leads": "Leads total",
+        "pastEvents": "Completed events",
         "contentManagement": "Content management",
         "academy": "Academy",
         "academyDesc": "Manage courses, modules and lessons",
@@ -1043,7 +1046,8 @@
     "hero": {
       "title": "Become part of our community",
       "subtitle": "Join networking events, workshops and meetups for real estate agents and financial advisors",
-      "exploreButton": "Explore events"
+      "exploreButton": "Explore events",
+      "manageButton": "Manage events"
     },
     "benefits": {
       "networking": {

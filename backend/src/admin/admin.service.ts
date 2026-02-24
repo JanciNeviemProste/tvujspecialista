@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { LessThan, Not, Repository } from 'typeorm';
 import { User } from '../database/entities/user.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { Lead, LeadStatus } from '../database/entities/lead.entity';
+import { Event, EventStatus } from '../database/entities/event.entity';
 
 @Injectable()
 export class AdminService {
@@ -14,6 +15,8 @@ export class AdminService {
     private readonly specialistRepository: Repository<Specialist>,
     @InjectRepository(Lead)
     private readonly leadRepository: Repository<Lead>,
+    @InjectRepository(Event)
+    private readonly eventRepository: Repository<Event>,
   ) {}
 
   /**
@@ -101,6 +104,8 @@ export class AdminService {
       newLeads,
       contactedLeads,
       closedLeads,
+      totalEvents,
+      pastEvents,
     ] = await Promise.all([
       this.userRepository.count(),
       this.specialistRepository.count(),
@@ -109,9 +114,21 @@ export class AdminService {
       this.leadRepository.count({ where: { status: LeadStatus.NEW } }),
       this.leadRepository.count({ where: { status: LeadStatus.CONTACTED } }),
       this.leadRepository.count({ where: { status: LeadStatus.CLOSED_WON } }),
+      this.eventRepository.count(),
+      this.eventRepository.count({
+        where: {
+          endDate: LessThan(new Date()),
+          status: Not(EventStatus.CANCELLED),
+        },
+      }),
     ]);
 
     return {
+      usersCount: totalUsers,
+      specialistsCount: totalSpecialists,
+      leadsCount: totalLeads,
+      eventsCount: totalEvents,
+      pastEventsCount: pastEvents,
       users: {
         total: totalUsers,
       },
@@ -125,6 +142,10 @@ export class AdminService {
         new: newLeads,
         contacted: contactedLeads,
         closed: closedLeads,
+      },
+      events: {
+        total: totalEvents,
+        past: pastEvents,
       },
     };
   }

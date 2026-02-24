@@ -18,10 +18,10 @@ function DealTimelineInner({ events, isLoading, className }: DealTimelineProps) 
       <div className={cn('space-y-4', className)}>
         {[1, 2, 3].map((i) => (
           <div key={i} className="flex gap-4 animate-pulse">
-            <div className="w-8 h-8 rounded-full bg-muted" />
+            <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-neutral-700" />
             <div className="flex-1 space-y-2">
-              <div className="h-4 bg-muted rounded w-3/4" />
-              <div className="h-3 bg-muted rounded w-1/2" />
+              <div className="h-4 bg-gray-200 dark:bg-neutral-700 rounded w-3/4" />
+              <div className="h-3 bg-gray-200 dark:bg-neutral-700 rounded w-1/2" />
             </div>
           </div>
         ))}
@@ -32,14 +32,13 @@ function DealTimelineInner({ events, isLoading, className }: DealTimelineProps) 
   if (!events || events.length === 0) {
     return (
       <div className={cn('text-center py-8', className)}>
-        <Clock className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-        <p className="text-sm text-muted-foreground">Zatiaľ žiadne udalosti</p>
+        <Clock className="h-12 w-12 mx-auto text-gray-400 dark:text-gray-500 mb-2" />
+        <p className="text-sm text-gray-500 dark:text-gray-400">Zatial ziadne udalosti</p>
       </div>
     );
   }
 
   const getEventIcon = (type: string) => {
-    // Map event types to icons
     if (type.includes('created')) return Circle;
     if (type.includes('status')) return ArrowRight;
     if (type.includes('value')) return DollarSign;
@@ -49,7 +48,6 @@ function DealTimelineInner({ events, isLoading, className }: DealTimelineProps) 
   };
 
   const getEventColor = (type: string) => {
-    // Map event types to colors
     if (type.includes('created')) return 'text-blue-500 bg-blue-500/10';
     if (type.includes('status')) return 'text-green-500 bg-green-500/10';
     if (type.includes('value')) return 'text-purple-500 bg-purple-500/10';
@@ -70,7 +68,7 @@ function DealTimelineInner({ events, isLoading, className }: DealTimelineProps) 
             {/* Vertical line */}
             {!isLast && (
               <div
-                className="absolute left-4 top-10 bottom-0 w-px bg-border"
+                className="absolute left-4 top-10 bottom-0 w-px bg-gray-200 dark:bg-neutral-700"
                 aria-hidden="true"
               />
             )}
@@ -88,8 +86,8 @@ function DealTimelineInner({ events, isLoading, className }: DealTimelineProps) 
 
             {/* Content */}
             <div className="flex-1 space-y-1 pt-1">
-              <p className="text-sm font-medium leading-none">{event.description}</p>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm font-medium leading-none text-gray-900 dark:text-white">{event.description}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 <time dateTime={event.createdAt}>
                   {formatDateTime(event.createdAt, 'sk')}
                 </time>

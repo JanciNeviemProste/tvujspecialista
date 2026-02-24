@@ -601,7 +601,10 @@
         "title": "Resetowanie hasła | tvujspecialista.cz",
         "description": "Ustaw nowe hasło do swojego konta na platformie tvujspecialista.cz."
       }
-    }
+    },
+    "loginSuccess": "Logowanie pomyślne",
+    "loginError": "Logowanie nie powiodło się",
+    "logoutSuccess": "Wylogowanie pomyślne"
   },
   "dashboard": {
     "main": {
@@ -641,8 +644,8 @@
       "admin": {
         "users": "Użytkownicy",
         "specialists": "Specjaliści",
-        "leads": "Lead'y",
-        "deals": "Leady",
+        "leads": "Leady łącznie",
+        "pastEvents": "Zrealizowane eventy",
         "contentManagement": "Zarządzanie treścią",
         "academy": "Akademia",
         "academyDesc": "Zarządzanie kursami, modułami i lekcjami",
@@ -1043,7 +1046,8 @@
     "hero": {
       "title": "Dołącz do naszej społeczności",
       "subtitle": "Bierz udział w networkingu, warsztatach i eventach dla agentów nieruchomości i doradców finansowych",
-      "exploreButton": "Przeglądaj eventy"
+      "exploreButton": "Przeglądaj eventy",
+      "manageButton": "Zarządzaj eventami"
     },
     "benefits": {
       "networking": {

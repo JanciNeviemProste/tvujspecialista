@@ -182,10 +182,10 @@ export default function DashboardPage() {
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <TrendingUp className="h-5 w-5 text-orange-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.deals')}</span>
+                  <Calendar className="h-5 w-5 text-orange-500" />
+                  <span className="text-sm font-medium text-gray-600">{t('admin.pastEvents')}</span>
                 </div>
-                <div className="text-3xl font-bold">{adminStats?.dealsCount ?? 0}</div>
+                <div className="text-3xl font-bold">{adminStats?.pastEventsCount ?? 0}</div>
               </div>
             </div>
 

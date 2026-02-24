@@ -601,7 +601,10 @@
         "title": "Obnovení hesla | tvujspecialista.cz",
         "description": "Nastavte si nové heslo k účtu na platformě tvujspecialista.cz."
       }
-    }
+    },
+    "loginSuccess": "Přihlášení úspěšné",
+    "loginError": "Přihlášení se nezdařilo",
+    "logoutSuccess": "Odhlášení úspěšné"
   },
   "dashboard": {
     "main": {
@@ -641,8 +644,8 @@
       "admin": {
         "users": "Uživatelé",
         "specialists": "Specialisté",
-        "leads": "Leady",
-        "deals": "Leady",
+        "leads": "Leady celkem",
+        "pastEvents": "Uskutečněné eventy",
         "contentManagement": "Správa obsahu",
         "academy": "Akademie",
         "academyDesc": "Správa kurzů, modulů a lekcí",
@@ -1043,7 +1046,8 @@
     "hero": {
       "title": "Staňte se součástí naší komunity",
       "subtitle": "Připojte se k networkingu, workshopům a eventům pro realitní agenty a finanční poradce",
-      "exploreButton": "Prozkoumat eventy"
+      "exploreButton": "Prozkoumat eventy",
+      "manageButton": "Spravovat eventy"
     },
     "benefits": {
       "networking": {
