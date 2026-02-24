@@ -158,6 +158,14 @@ export class EnrollmentsService {
     return enrollment;
   }
 
+  async findByCourseAdmin(courseId: string): Promise<Enrollment[]> {
+    return this.enrollmentRepository.find({
+      where: { courseId },
+      relations: ['user'],
+      order: { lastAccessedAt: 'DESC' },
+    });
+  }
+
   async drop(enrollmentId: string, userId: string): Promise<void> {
     const enrollment = await this.enrollmentRepository.findOne({
       where: { id: enrollmentId },

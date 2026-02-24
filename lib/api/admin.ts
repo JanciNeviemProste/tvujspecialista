@@ -7,6 +7,7 @@ export const adminApi = {
   getLeads: (page = 1, limit = 20) => apiClient.get('/admin/leads', { params: { page, limit } }),
   verifySpecialist: (id: string) => apiClient.patch(`/admin/specialists/${id}/verify`),
   getCourses: () => apiClient.get('/admin/courses'),
+  getCourseEnrollments: (courseId: string) => apiClient.get(`/admin/courses/${courseId}/enrollments`),
   publishCourse: (courseId: string, published: boolean) =>
     apiClient.patch(`/admin/courses/${courseId}/publish`, { published }),
   getEvents: () => apiClient.get('/admin/events'),

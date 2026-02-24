@@ -78,7 +78,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 <Library className="h-4 w-4" />
                 <span className="hidden sm:inline">{t('nav.courses')}</span>
               </Link>
-              {isAuthenticated && user?.role !== 'admin' && (
+              {isAuthenticated && (
                 <Link
                   href="/academy/my-learning"
                   className={cn(

@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { academyApi } from '@/lib/api/academy';
 import { adminApi } from '@/lib/api/admin';
-import { ArrowLeft, BookOpen, Eye, EyeOff, Trash2, Plus, Pencil, X } from 'lucide-react';
+import { ArrowLeft, BookOpen, Eye, EyeOff, Trash2, Plus, Pencil, X, ChevronDown, ChevronUp, Users, TrendingUp, Clock } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -211,6 +211,116 @@ function CourseFormModal({
   );
 }
 
+function CourseEnrollments({ courseId }: { courseId: string }) {
+  const { data, isLoading } = useQuery({
+    queryKey: ['adminCourseEnrollments', courseId],
+    queryFn: () => adminApi.getCourseEnrollments(courseId).then((res) => res.data),
+  });
+
+  if (isLoading) {
+    return (
+      <div className="p-4 border-t bg-gray-50">
+        <div className="animate-pulse space-y-2">
+          <div className="h-4 w-32 bg-gray-200 rounded" />
+          <div className="h-8 bg-gray-200 rounded" />
+          <div className="h-8 bg-gray-200 rounded" />
+        </div>
+      </div>
+    );
+  }
+
+  const enrollments = Array.isArray(data) ? data : [];
+
+  if (enrollments.length === 0) {
+    return (
+      <div className="p-4 border-t bg-gray-50 text-center">
+        <Users className="h-8 w-8 text-gray-300 mx-auto mb-2" />
+        <p className="text-sm text-gray-500">Zatiaľ žiadni prihlásení študenti</p>
+      </div>
+    );
+  }
+
+  const active = enrollments.filter((e: any) => e.status === 'active');
+  const completed = enrollments.filter((e: any) => e.status === 'completed');
+  const dropped = enrollments.filter((e: any) => e.status === 'dropped');
+  const avgProgress = enrollments.length > 0
+    ? Math.round(enrollments.reduce((sum: number, e: any) => sum + Number(e.progress || 0), 0) / enrollments.length)
+    : 0;
+
+  return (
+    <div className="border-t bg-gray-50">
+      {/* Stats */}
+      <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="bg-white rounded-lg p-3 border text-center">
+          <div className="text-lg font-bold text-blue-600">{enrollments.length}</div>
+          <div className="text-xs text-gray-500">Celkom</div>
+        </div>
+        <div className="bg-white rounded-lg p-3 border text-center">
+          <div className="text-lg font-bold text-green-600">{active.length}</div>
+          <div className="text-xs text-gray-500">Aktívnych</div>
+        </div>
+        <div className="bg-white rounded-lg p-3 border text-center">
+          <div className="text-lg font-bold text-purple-600">{completed.length}</div>
+          <div className="text-xs text-gray-500">Dokončených</div>
+        </div>
+        <div className="bg-white rounded-lg p-3 border text-center">
+          <div className="text-lg font-bold text-amber-600">{avgProgress}%</div>
+          <div className="text-xs text-gray-500">Priem. progres</div>
+        </div>
+      </div>
+
+      {/* Student table */}
+      <div className="px-4 pb-4">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b text-left text-gray-500">
+              <th className="pb-2 font-medium">Študent</th>
+              <th className="pb-2 font-medium">Email</th>
+              <th className="pb-2 font-medium">Stav</th>
+              <th className="pb-2 font-medium text-right">Progres</th>
+              <th className="pb-2 font-medium text-right">Posledný prístup</th>
+            </tr>
+          </thead>
+          <tbody>
+            {enrollments.map((enrollment: any) => (
+              <tr key={enrollment.id} className="border-b last:border-b-0">
+                <td className="py-2 font-medium">
+                  {enrollment.user?.firstName} {enrollment.user?.lastName}
+                </td>
+                <td className="py-2 text-gray-500">{enrollment.user?.email}</td>
+                <td className="py-2">
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    enrollment.status === 'active' ? 'bg-green-100 text-green-700' :
+                    enrollment.status === 'completed' ? 'bg-purple-100 text-purple-700' :
+                    'bg-gray-100 text-gray-600'
+                  }`}>
+                    {enrollment.status === 'active' ? 'Aktívny' :
+                     enrollment.status === 'completed' ? 'Dokončený' : 'Odhlásený'}
+                  </span>
+                </td>
+                <td className="py-2 text-right">
+                  <div className="flex items-center justify-end gap-2">
+                    <div className="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-blue-600 rounded-full"
+                        style={{ width: `${Math.min(Number(enrollment.progress || 0), 100)}%` }}
+                      />
+                    </div>
+                    <span className="text-gray-600 w-10 text-right">{Math.round(Number(enrollment.progress || 0))}%</span>
+                  </div>
+                </td>
+                <td className="py-2 text-right text-gray-500">
+                  {enrollment.lastAccessedAt ? new Date(enrollment.lastAccessedAt).toLocaleDateString('sk-SK') : '—'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminCoursesPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.courses');
@@ -226,6 +336,7 @@ export default function AdminCoursesPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<any>(null);
   const [formLoading, setFormLoading] = useState(false);
+  const [expandedCourse, setExpandedCourse] = useState<string | null>(null);
 
   if (!authLoading && (!user || user.role !== 'admin')) {
     router.push('/profi/dashboard');
@@ -346,56 +457,69 @@ export default function AdminCoursesPage() {
         </div>
       ) : (
         <div className="space-y-3">
-          {courses.map((course: any) => (
-            <div key={course.id} className="rounded-lg border bg-white p-4 flex items-center justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold">{course.title}</h3>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${course.published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
-                    {course.published ? 'Publikovaný' : 'Skrytý'}
-                  </span>
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
-                    {course.level}
-                  </span>
+          {courses.map((course: any) => {
+            const isExpanded = expandedCourse === course.id;
+            return (
+              <div key={course.id} className="rounded-lg border bg-white overflow-hidden">
+                <div className="p-4 flex items-center justify-between">
+                  <div className="flex-1 cursor-pointer" onClick={() => setExpandedCourse(isExpanded ? null : course.id)}>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold">{course.title}</h3>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${course.published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                        {course.published ? 'Publikovaný' : 'Skrytý'}
+                      </span>
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
+                        {course.level}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-1">
+                      {course.moduleCount ?? 0} modulov &middot; {course.lessonCount ?? 0} lekcií &middot; {course.enrollmentCount ?? 0} zapísaných
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setExpandedCourse(isExpanded ? null : course.id)}
+                      className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+                      title="Zobraziť študentov"
+                    >
+                      {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </button>
+                    <Link
+                      href={`/academy/admin/${course.id}`}
+                      className="px-3 py-1.5 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors text-blue-600 text-xs font-medium"
+                    >
+                      Obsah
+                    </Link>
+                    <button
+                      onClick={() => openEdit(course)}
+                      disabled={actionLoading === course.id}
+                      className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+                      title="Upraviť"
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => handlePublish(course.id, course.published)}
+                      disabled={actionLoading === course.id}
+                      className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+                      title={course.published ? 'Skryť' : 'Publikovať'}
+                    >
+                      {course.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                    <button
+                      onClick={() => handleDelete(course.id)}
+                      disabled={actionLoading === course.id}
+                      className="p-2 rounded-md hover:bg-red-50 transition-colors text-red-500"
+                      title="Zmazať"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-500 mt-1">
-                  {course.moduleCount ?? 0} modulov &middot; {course.lessonCount ?? 0} lekcií &middot; {course.enrollmentCount ?? 0} zapísaných
-                </p>
+                {isExpanded && <CourseEnrollments courseId={course.id} />}
               </div>
-              <div className="flex items-center gap-2">
-                <Link
-                  href={`/academy/admin/${course.id}`}
-                  className="px-3 py-1.5 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors text-blue-600 text-xs font-medium"
-                >
-                  Obsah
-                </Link>
-                <button
-                  onClick={() => openEdit(course)}
-                  disabled={actionLoading === course.id}
-                  className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
-                  title="Upraviť"
-                >
-                  <Pencil className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => handlePublish(course.id, course.published)}
-                  disabled={actionLoading === course.id}
-                  className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
-                  title={course.published ? 'Skryť' : 'Publikovať'}
-                >
-                  {course.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-                <button
-                  onClick={() => handleDelete(course.id)}
-                  disabled={actionLoading === course.id}
-                  className="p-2 rounded-md hover:bg-red-50 transition-colors text-red-500"
-                  title="Zmazať"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 

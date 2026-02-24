@@ -3,6 +3,7 @@ import { AdminService } from './admin.service';
 import { EventsService } from '../community/services/events.service';
 import { RSVPsService } from '../community/services/rsvps.service';
 import { CoursesService } from '../academy/services/courses.service';
+import { EnrollmentsService } from '../academy/services/enrollments.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import {
@@ -23,6 +24,7 @@ export class AdminController {
     private readonly eventsService: EventsService,
     private readonly rsvpsService: RSVPsService,
     private readonly coursesService: CoursesService,
+    private readonly enrollmentsService: EnrollmentsService,
   ) {}
 
   @Get('users')
@@ -84,6 +86,14 @@ export class AdminController {
     @Body('published') published: boolean,
   ) {
     return this.coursesService.publishAdmin(id, published);
+  }
+
+  @Get('courses/:id/enrollments')
+  @ApiOperation({ summary: 'Get course enrollments with user details (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Returns course enrollments' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
+  async getCourseEnrollments(@Param('id') id: string) {
+    return this.enrollmentsService.findByCourseAdmin(id);
   }
 
   @Get('events')
