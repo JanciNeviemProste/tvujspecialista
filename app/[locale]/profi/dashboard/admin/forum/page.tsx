@@ -14,6 +14,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 export default function AdminForumPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.forum');
+  const tAdmin = useTranslations('admin');
   const { user, isLoading: authLoading } = useAuth();
   const { data: categories, isLoading: categoriesLoading } = useForumCategories();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -34,20 +35,20 @@ export default function AdminForumPage() {
   const handlePin = async (topicId: string) => {
     try {
       await forumApi.pinTopic(topicId);
-      toast.success('Téma bola pripnutá/odopnutá');
+      toast.success(tAdmin('toasts.topicPinToggled'));
       queryClient.invalidateQueries({ queryKey: ['adminForumTopics'] });
     } catch {
-      toast.error('Akcia zlyhala');
+      toast.error(tAdmin('toasts.actionFailed'));
     }
   };
 
   const handleLock = async (topicId: string) => {
     try {
       await forumApi.lockTopic(topicId);
-      toast.success('Téma bola zamknutá/odomknutá');
+      toast.success(tAdmin('toasts.topicLockToggled'));
       queryClient.invalidateQueries({ queryKey: ['adminForumTopics'] });
     } catch {
-      toast.error('Akcia zlyhala');
+      toast.error(tAdmin('toasts.actionFailed'));
     }
   };
 

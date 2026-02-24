@@ -771,6 +771,85 @@
       "metadata": {
         "title": "Lead Pipeline | tvujspecialista.cz",
         "description": "Zarządzanie możliwościami biznesowymi."
+      },
+      "toasts": {
+        "statusUpdated": "Status leada zaktualizowany",
+        "statusUpdateError": "Błąd aktualizacji statusu",
+        "dealDeleted": "Lead został usunięty",
+        "dealDeleteError": "Błąd usuwania leada",
+        "noteAdded": "Notatka została dodana",
+        "noteAddError": "Błąd dodawania notatki",
+        "valueUpdated": "Wartość leada zaktualizowana",
+        "valueUpdateError": "Błąd aktualizacji wartości",
+        "dealClosed": "Lead został zamknięty",
+        "dealCloseError": "Błąd zamykania leada",
+        "dealReopened": "Lead został ponownie otwarty",
+        "dealReopenError": "Błąd ponownego otwierania leada"
+      },
+      "status": {
+        "new": "Nowy",
+        "contacted": "Skontaktowany",
+        "qualified": "Kwalifikowany",
+        "inProgress": "W toku",
+        "closedWon": "Wygrany",
+        "closedLost": "Przegrany"
+      },
+      "detail": {
+        "title": "Szczegóły leada",
+        "eventHistory": "Historia wydarzeń",
+        "noEvents": "Brak wydarzeń",
+        "eventsError": "Błąd ładowania historii",
+        "close": "Zamknij",
+        "changeStatus": "Zmień status",
+        "notes": "Notatki",
+        "noNotes": "Brak notatek",
+        "addNotePlaceholder": "Dodaj notatkę...",
+        "addNote": "Dodaj notatkę",
+        "addingNote": "Dodawanie..."
+      },
+      "closeDeal": {
+        "title": "Zamknij leada",
+        "result": "Wynik",
+        "won": "Wygrany",
+        "lost": "Przegrany",
+        "actualValue": "Rzeczywista wartość",
+        "actualValueRequired": "Wprowadź rzeczywistą wartość leada",
+        "actualValueMin": "Wartość musi być liczbą dodatnią",
+        "notes": "Notatki",
+        "notesPlaceholder": "Opcjonalne notatki zamknięcia...",
+        "cancel": "Anuluj",
+        "submit": "Zamknij leada",
+        "submitting": "Zamykanie..."
+      },
+      "valueModal": {
+        "title": "Ustaw wartość leada",
+        "value": "Wartość leada",
+        "valueRequired": "Wprowadź wartość leada",
+        "valueMin": "Wartość musi być liczbą dodatnią",
+        "valuePositive": "Wartość musi być większa niż zero",
+        "dateRequired": "Data zamknięcia jest wymagana",
+        "expectedClose": "Oczekiwana data zamknięcia",
+        "expectedCloseRequired": "Wybierz oczekiwaną datę zamknięcia",
+        "cancel": "Anuluj",
+        "submit": "Zapisz",
+        "submitting": "Zapisywanie..."
+      },
+      "filters": {
+        "searchPlaceholder": "Szukaj leadów...",
+        "allStatuses": "Wszystkie statusy",
+        "moreFilters": "Więcej filtrów",
+        "clearFilters": "Wyczyść filtry",
+        "valueRange": "Zakres wartości",
+        "minValue": "Min",
+        "maxValue": "Max",
+        "dateRange": "Zakres dat",
+        "dateFrom": "Od",
+        "dateTo": "Do"
+      },
+      "card": {
+        "detail": "Szczegóły",
+        "closeDeal": "Zamknij",
+        "created": "Utworzono"
       }
     },
     "commissions": {
@@ -812,6 +891,24 @@
         "loadingPayment": "Ładowanie danych płatności...",
         "successTitle": "Płatność zakończona sukcesem!",
         "successMessage": "Twoja płatność została pomyślnie przetworzona. Zostaniesz przekierowany do listy prowizji..."
+      },
+      "toasts": {
+        "paymentCreated": "Płatność została utworzona",
+        "paymentError": "Błąd tworzenia płatności"
+      },
+      "payment": {
+        "cardLabel": "Karta płatnicza",
+        "securedByStripe": "Wszystkie płatności zabezpieczone przez Stripe",
+        "processing": "Przetwarzanie...",
+        "payAmount": "Zapłać {amount}",
+        "paymentFailed": "Płatność nie powiodła się",
+        "unexpectedState": "Nieoczekiwany stan płatności",
+        "processingError": "Błąd przetwarzania płatności",
+        "cardNotFound": "Element karty nie znaleziony",
+        "testCards": "Karty testowe",
+        "testSuccess": "Płatność pomyślna",
+        "testDeclined": "Płatność odrzucona",
+        "testCvc": "CVC: Dowolne 3 cyfry | Data: Przyszłość"
       }
     },
     "admin": {
@@ -835,6 +932,41 @@
           "title": "Zarządzanie społecznością | Admin",
           "description": "Administracja eventami społeczności."
         }
+      },
+      "toasts": {
+        "unauthorized": "Nie masz uprawnień do tej akcji",
+        "loadError": "Błąd ładowania danych",
+        "courseCreated": "Kurs został utworzony",
+        "courseCreateError": "Błąd tworzenia kursu",
+        "courseUpdated": "Kurs został zaktualizowany",
+        "courseUpdateError": "Błąd aktualizacji kursu",
+        "courseDeleted": "Kurs został usunięty",
+        "courseDeleteError": "Błąd usuwania kursu",
+        "eventCreated": "Wydarzenie zostało utworzone",
+        "eventCreateError": "Błąd tworzenia wydarzenia",
+        "eventUpdated": "Wydarzenie zostało zaktualizowane",
+        "eventUpdateError": "Błąd aktualizacji wydarzenia",
+        "eventDeleted": "Wydarzenie zostało usunięte",
+        "eventDeleteError": "Błąd usuwania wydarzenia",
+        "topicDeleted": "Temat został usunięty",
+        "topicDeleteError": "Błąd usuwania tematu",
+        "confirmDeleteCourse": "Czy na pewno chcesz usunąć ten kurs?",
+        "confirmDeleteEvent": "Czy na pewno chcesz usunąć to wydarzenie?",
+        "confirmDeleteTopic": "Czy na pewno chcesz usunąć ten temat?",
+        "specialistVerified": "Specjalista został zweryfikowany",
+        "specialistVerifyError": "Błąd weryfikacji specjalisty",
+        "courseHidden": "Kurs został ukryty",
+        "coursePublished": "Kurs został opublikowany",
+        "actionFailed": "Akcja nie powiodła się",
+        "fillRequiredFields": "Wypełnij wszystkie wymagane pola",
+        "eventPublished": "Wydarzenie zostało opublikowane",
+        "confirmCancelEvent": "Czy na pewno chcesz anulować to wydarzenie?",
+        "eventCancelled": "Wydarzenie zostało anulowane",
+        "eventCancelError": "Błąd anulowania wydarzenia",
+        "attendeeStatusUpdated": "Status uczestnika został zaktualizowany",
+        "attendeeStatusError": "Błąd aktualizacji statusu uczestnika",
+        "topicPinToggled": "Przypięcie tematu zostało zmienione",
+        "topicLockToggled": "Blokada tematu została zmieniona"
       }
     },
     "header": {
@@ -1028,7 +1160,38 @@
         "description": "Kontynuuj naukę i ukończ swój pierwszy kurs"
       }
     },
-    "viewAllCourses": "Zobacz wszystkie kursy"
+    "viewAllCourses": "Zobacz wszystkie kursy",
+    "course": {
+      "beginner": "Początkujący",
+      "intermediate": "Średniozaawansowany",
+      "advanced": "Zaawansowany",
+      "lessons": "lekcji",
+      "completed": "ukończono",
+      "continue": "Kontynuuj",
+      "viewCourse": "Zobacz kurs"
+    },
+    "enrollment": {
+      "completed": "Ukończono",
+      "active": "Aktywny",
+      "percentComplete": "{percent}% ukończono",
+      "lastAccessed": "Ostatnio",
+      "repeat": "Powtórz",
+      "continue": "Kontynuuj",
+      "downloadCertificate": "Pobierz certyfikat",
+      "timeJustNow": "właśnie teraz",
+      "timeMinuteAgo": "1 minutę temu",
+      "timeMinutesAgo": "{count} minut temu",
+      "timeHourAgo": "1 godzinę temu",
+      "timeHoursAgo": "{count} godzin temu",
+      "timeYesterday": "wczoraj",
+      "timeDaysAgo": "{count} dni temu",
+      "timeWeekAgo": "1 tydzień temu",
+      "timeWeeksAgo": "{count} tygodni temu",
+      "timeMonthAgo": "1 miesiąc temu",
+      "timeMonthsAgo": "{count} miesięcy temu",
+      "timeYearAgo": "1 rok temu",
+      "timeYearsAgo": "{count} lat temu"
+    }
   },
   "community": {
     "nav": {
@@ -1149,7 +1312,45 @@
         "description": "Tutaj pojawią się eventy, w których uczestniczyłeś lub które anulowałeś."
       }
     },
-    "exploreEvents": "Przeglądaj wydarzenia"
+    "exploreEvents": "Przeglądaj wydarzenia",
+    "toasts": {
+      "rsvpSuccess": "RSVP zostało zaktualizowane",
+      "rsvpError": "Błąd RSVP",
+      "eventCreated": "Wydarzenie zostało utworzone",
+      "eventCreateError": "Błąd tworzenia wydarzenia",
+      "eventUpdated": "Wydarzenie zostało zaktualizowane",
+      "eventUpdateError": "Błąd aktualizacji wydarzenia",
+      "eventDeleted": "Wydarzenie zostało usunięte",
+      "eventDeleteError": "Błąd usuwania wydarzenia",
+      "rsvpCancelled": "Rejestracja została anulowana",
+      "rsvpCancelError": "Błąd anulowania rejestracji",
+      "rsvpConfirmed": "Rejestracja została potwierdzona",
+      "rsvpConfirmError": "Błąd potwierdzania rejestracji"
+    },
+    "event": {
+      "workshop": "Warsztaty",
+      "conference": "Konferencja",
+      "webinar": "Webinar",
+      "meetup": "Meetup",
+      "online": "Spotkanie online",
+      "full": "Brak miejsc",
+      "free": "Bezpłatne",
+      "register": "Zarejestruj się",
+      "viewDetail": "Zobacz szczegóły",
+      "spotsLeft": "{count} miejsc wolnych",
+      "onlineMeeting": "Spotkanie online"
+    },
+    "rsvp": {
+      "confirmed": "Potwierdzone",
+      "pending": "Oczekujące",
+      "cancelled": "Anulowane",
+      "declined": "Odrzucone",
+      "viewDetail": "Zobacz szczegóły",
+      "confirmAttendance": "Potwierdź obecność",
+      "cancelRegistration": "Anuluj rejestrację",
+      "join": "Dołącz",
+      "onlineMeeting": "Spotkanie online"
+    }
   },
   "forum": {
     "nav": {
@@ -1192,12 +1393,59 @@
       "deleteConfirm": "Czy na pewno chcesz usunąć ten wpis?",
       "replies": "Odpowiedzi ({count})",
       "locked": "Ten temat jest zablokowany. Nie można dodawać odpowiedzi."
+    },
+    "toasts": {
+      "topicCreated": "Temat został utworzony",
+      "topicCreateError": "Błąd tworzenia tematu",
+      "replyAdded": "Odpowiedź została dodana",
+      "replyAddError": "Błąd dodawania odpowiedzi",
+      "topicDeleted": "Temat został usunięty",
+      "topicDeleteError": "Błąd usuwania tematu",
+      "likeError": "Błąd oznaczania polubienia"
+    },
+    "newTopic": {
+      "title": "Nowy temat",
+      "category": "Kategoria",
+      "categoryPlaceholder": "Wybierz kategorię...",
+      "topicTitle": "Tytuł",
+      "topicTitlePlaceholder": "O czym chcesz dyskutować?",
+      "content": "Treść",
+      "contentPlaceholder": "Opisz swój temat szczegółowo...",
+      "submitting": "Tworzenie...",
+      "submit": "Utwórz temat"
+    },
+    "reply": {
+      "placeholder": "Napisz swoją odpowiedź...",
+      "submitting": "Wysyłanie...",
+      "submit": "Odpowiedz"
     }
   },
   "subscription": {
     "metadata": {
       "title": "Subskrypcja | tvujspecialista.cz",
       "description": "Zarządzanie Twoją subskrypcją."
+    },
+    "toasts": {
+      "paymentCreated": "Płatność została utworzona",
+      "paymentError": "Błąd tworzenia płatności",
+      "subscriptionCreated": "Subskrypcja została aktywowana",
+      "subscriptionError": "Błąd aktywacji subskrypcji",
+      "subscriptionCancelled": "Subskrypcja została anulowana",
+      "subscriptionCancelError": "Błąd anulowania subskrypcji",
+      "subscriptionUpdated": "Subskrypcja została zaktualizowana",
+      "subscriptionUpdateError": "Błąd aktualizacji subskrypcji",
+      "loadError": "Błąd ładowania subskrypcji",
+      "plansLoadError": "Błąd ładowania planów",
+      "subscriptionDowngraded": "Subskrypcja została obniżona",
+      "subscriptionDowngradeError": "Błąd obniżania subskrypcji",
+      "subscriptionResumed": "Subskrypcja została wznowiona",
+      "subscriptionResumeError": "Błąd wznawiania subskrypcji",
+      "portalError": "Błąd otwierania portalu klienta"
+    },
+    "pricing": {
+      "recommended": "Polecane",
+      "currentPlan": "Aktualny plan",
+      "loading": "Ładowanie..."
     }
   },
   "errors": {
@@ -1210,6 +1458,19 @@
       "title": "Wystąpił błąd",
       "description": "Przepraszamy, coś poszło nie tak.",
       "tryAgain": "Spróbuj ponownie"
+    },
+    "boundary": {
+      "title": "Coś poszło nie tak",
+      "description": "Wystąpił nieoczekiwany błąd. Spróbuj odświeżyć stronę lub wróć na stronę główną.",
+      "details": "Szczegóły błędu...",
+      "reload": "Odśwież stronę",
+      "home": "Strona główna"
+    }
+  },
+  "lead": {
+    "toasts": {
+      "created": "Lead został utworzony",
+      "createError": "Błąd tworzenia leada"
     }
   }
 }

@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { Enrollment } from '@/types/academy'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -13,7 +14,7 @@ interface EnrollmentCardProps {
   className?: string
 }
 
-function formatRelativeTime(date: string): string {
+function formatRelativeTime(date: string, t: ReturnType<typeof useTranslations>): string {
   const now = new Date()
   const past = new Date(date)
   const diffInMs = now.getTime() - past.getTime()
@@ -22,30 +23,31 @@ function formatRelativeTime(date: string): string {
   const diffInDays = Math.floor(diffInMs / 86400000)
 
   if (diffInMins < 1) {
-    return 'práve teraz'
+    return t('enrollment.timeJustNow')
   } else if (diffInMins < 60) {
-    return `pred ${diffInMins} ${diffInMins === 1 ? 'minútou' : diffInMins < 5 ? 'minútami' : 'minútami'}`
+    return t('enrollment.timeMinutesAgo', { count: diffInMins })
   } else if (diffInHours < 24) {
-    return `pred ${diffInHours} ${diffInHours === 1 ? 'hodinou' : diffInHours < 5 ? 'hodinami' : 'hodinami'}`
+    return t('enrollment.timeHoursAgo', { count: diffInHours })
   } else if (diffInDays === 1) {
-    return 'včera'
+    return t('enrollment.timeYesterday')
   } else if (diffInDays < 7) {
-    return `pred ${diffInDays} dňami`
+    return t('enrollment.timeDaysAgo', { count: diffInDays })
   } else if (diffInDays < 30) {
     const weeks = Math.floor(diffInDays / 7)
-    return `pred ${weeks} ${weeks === 1 ? 'týždňom' : 'týždňami'}`
+    return t('enrollment.timeWeeksAgo', { count: weeks })
   } else if (diffInDays < 365) {
     const months = Math.floor(diffInDays / 30)
-    return `pred ${months} ${months === 1 ? 'mesiacom' : 'mesiacmi'}`
+    return t('enrollment.timeMonthsAgo', { count: months })
   } else {
     const years = Math.floor(diffInDays / 365)
-    return `pred ${years} ${years === 1 ? 'rokom' : 'rokmi'}`
+    return t('enrollment.timeYearsAgo', { count: years })
   }
 }
 
 export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
+  const t = useTranslations('academy')
   const isCompleted = enrollment.status === 'completed'
-  const buttonText = isCompleted ? 'Opakovať' : 'Pokračovať'
+  const buttonText = isCompleted ? t('enrollment.repeat') : t('enrollment.continue')
   const buttonVariant = isCompleted ? 'outline' : 'premium'
 
   if (!enrollment.course) {
@@ -71,7 +73,7 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
           variant={isCompleted ? 'success' : 'default'}
           className="absolute top-2 right-2 shadow-sm"
         >
-          {isCompleted ? 'Dokončené' : 'Aktívny'}
+          {isCompleted ? t('enrollment.completed') : t('enrollment.active')}
         </Badge>
       </div>
 
@@ -85,13 +87,13 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
         <div className="space-y-1">
           <Progress value={enrollment.progress} className="h-2" />
           <p className="text-xs text-muted-foreground">
-            {Math.round(enrollment.progress)}% dokončené
+            {t('enrollment.percentComplete', { percent: Math.round(enrollment.progress) })}
           </p>
         </div>
 
         {/* Last accessed */}
         <p className="text-xs text-muted-foreground">
-          Naposledy: {formatRelativeTime(enrollment.lastAccessedAt)}
+          {t('enrollment.lastAccessed')} {formatRelativeTime(enrollment.lastAccessedAt, t)}
         </p>
 
         {/* Action buttons */}
@@ -112,7 +114,7 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
                 className="w-full"
               >
                 <Award className="h-4 w-4 mr-2" />
-                Stiahnuť certifikát
+                {t('enrollment.downloadCertificate')}
               </Button>
             </Link>
           )}

@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +23,8 @@ export function PricingCard({
   onSelectPlan,
   isLoading = false,
 }: PricingCardProps) {
+  const t = useTranslations('subscription');
+
   return (
     <Card
       className={cn(
@@ -32,7 +35,7 @@ export function PricingCard({
       {isRecommended && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
           <Badge variant="default" className="px-3 py-1">
-            Odporúčame
+            {t('pricing.recommended')}
           </Badge>
         </div>
       )}
@@ -70,7 +73,7 @@ export function PricingCard({
           variant="default"
           size="lg"
         >
-          {currentPlan ? 'Aktuálny plán' : isLoading ? 'Načítavam...' : plan.cta}
+          {currentPlan ? t('pricing.currentPlan') : isLoading ? t('pricing.loading') : plan.cta}
         </Button>
       </CardFooter>
     </Card>

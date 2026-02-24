@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { adminApi } from '@/lib/api/admin';
 import { toast } from 'sonner';
 
@@ -24,15 +25,16 @@ export function useAdminSpecialists(page = 1) {
 }
 
 export function useVerifySpecialist() {
+  const t = useTranslations('admin');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => adminApi.verifySpecialist(id).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['adminSpecialists'] });
-      toast.success('Špecialista bol overený');
+      toast.success(t('toasts.specialistVerified'));
     },
     onError: () => {
-      toast.error('Nepodarilo sa overiť špecialistu');
+      toast.error(t('toasts.specialistVerifyError'));
     },
   });
 }

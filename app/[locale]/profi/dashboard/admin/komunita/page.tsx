@@ -52,6 +52,7 @@ function EventFormModal({
   isLoading: boolean;
   isEdit: boolean;
 }) {
+  const tAdmin = useTranslations('admin');
   const [form, setForm] = useState<EventFormData>(initialData);
 
   if (!isOpen) return null;
@@ -63,7 +64,7 @@ function EventFormModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim() || !form.description.trim() || !form.startDate || !form.endDate) {
-      toast.error('Vyplňte názov, popis a dátumy');
+      toast.error(tAdmin('toasts.fillRequiredFields'));
       return;
     }
     onSubmit(form);
@@ -254,6 +255,7 @@ function AttendeeStatusBadge({ status }: { status: string }) {
 }
 
 function AttendeesPanel({ eventId }: { eventId: string }) {
+  const tAdmin = useTranslations('admin');
   const queryClient = useQueryClient();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
@@ -266,11 +268,11 @@ function AttendeesPanel({ eventId }: { eventId: string }) {
     setUpdatingId(rsvpId);
     try {
       await adminApi.updateRSVPStatus(rsvpId, status);
-      toast.success('Status účastníka bol aktualizovaný');
+      toast.success(tAdmin('toasts.attendeeStatusUpdated'));
       queryClient.invalidateQueries({ queryKey: ['adminEventAttendees', eventId] });
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
-      toast.error('Nepodarilo sa zmeniť status');
+      toast.error(tAdmin('toasts.attendeeStatusError'));
     } finally {
       setUpdatingId(null);
     }
@@ -374,6 +376,7 @@ function AttendeesPanel({ eventId }: { eventId: string }) {
 export default function AdminCommunityPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.community');
+  const tAdmin = useTranslations('admin');
   const { user, isLoading: authLoading } = useAuth();
   const queryClient = useQueryClient();
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -396,38 +399,38 @@ export default function AdminCommunityPage() {
     setActionLoading(eventId);
     try {
       await communityApi.publishEvent(eventId, true);
-      toast.success('Event bol publikovaný');
+      toast.success(tAdmin('toasts.eventPublished'));
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
-      toast.error('Akcia zlyhala');
+      toast.error(tAdmin('toasts.actionFailed'));
     } finally {
       setActionLoading(null);
     }
   };
 
   const handleCancel = async (eventId: string) => {
-    if (!window.confirm('Naozaj chcete zrušiť tento event?')) return;
+    if (!window.confirm(tAdmin('toasts.confirmCancelEvent'))) return;
     setActionLoading(eventId);
     try {
       await communityApi.cancelEvent(eventId);
-      toast.success('Event bol zrušený');
+      toast.success(tAdmin('toasts.eventCancelled'));
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
-      toast.error('Nepodarilo sa zrušiť event');
+      toast.error(tAdmin('toasts.eventCancelError'));
     } finally {
       setActionLoading(null);
     }
   };
 
   const handleDelete = async (eventId: string) => {
-    if (!window.confirm('Naozaj chcete zmazať tento event? Táto akcia je nevratná.')) return;
+    if (!window.confirm(tAdmin('toasts.confirmDeleteEvent'))) return;
     setActionLoading(eventId);
     try {
       await communityApi.deleteEvent(eventId);
-      toast.success('Event bol zmazaný');
+      toast.success(tAdmin('toasts.eventDeleted'));
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
-      toast.error('Nepodarilo sa zmazať event');
+      toast.error(tAdmin('toasts.eventDeleteError'));
     } finally {
       setActionLoading(null);
     }
@@ -448,11 +451,11 @@ export default function AdminCommunityPage() {
         maxAttendees: data.maxAttendees ? parseInt(data.maxAttendees, 10) : undefined,
         meetingLink: data.meetingLink || undefined,
       });
-      toast.success('Event bol vytvorený');
+      toast.success(tAdmin('toasts.eventCreated'));
       setModalOpen(false);
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
-      toast.error('Nepodarilo sa vytvoriť event');
+      toast.error(tAdmin('toasts.eventCreateError'));
     } finally {
       setFormLoading(false);
     }
@@ -474,11 +477,11 @@ export default function AdminCommunityPage() {
         maxAttendees: data.maxAttendees ? parseInt(data.maxAttendees, 10) : undefined,
         meetingLink: data.meetingLink || undefined,
       });
-      toast.success('Event bol aktualizovaný');
+      toast.success(tAdmin('toasts.eventUpdated'));
       setEditingEvent(null);
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
-      toast.error('Nepodarilo sa aktualizovať event');
+      toast.error(tAdmin('toasts.eventUpdateError'));
     } finally {
       setFormLoading(false);
     }

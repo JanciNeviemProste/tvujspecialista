@@ -47,6 +47,7 @@ function CourseFormModal({
   isLoading: boolean;
   isEdit: boolean;
 }) {
+  const tAdmin = useTranslations('admin');
   const [form, setForm] = useState<CourseFormData>(initialData);
 
   if (!isOpen) return null;
@@ -58,7 +59,7 @@ function CourseFormModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.title.trim() || !form.description.trim()) {
-      toast.error('Vyplňte názov a popis kurzu');
+      toast.error(tAdmin('toasts.fillRequiredFields'));
       return;
     }
     onSubmit(form);
@@ -205,6 +206,7 @@ function CourseFormModal({
 export default function AdminCoursesPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.courses');
+  const tAdmin = useTranslations('admin');
   const { user, isLoading: authLoading } = useAuth();
   const { data: coursesData, isLoading, refetch } = useCourses({});
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -221,24 +223,24 @@ export default function AdminCoursesPage() {
     setActionLoading(courseId);
     try {
       await academyApi.publishCourse(courseId, !published);
-      toast.success(published ? 'Kurz bol skrytý' : 'Kurz bol publikovaný');
+      toast.success(published ? tAdmin('toasts.courseHidden') : tAdmin('toasts.coursePublished'));
       refetch();
     } catch {
-      toast.error('Akcia zlyhala');
+      toast.error(tAdmin('toasts.actionFailed'));
     } finally {
       setActionLoading(null);
     }
   };
 
   const handleDelete = async (courseId: string) => {
-    if (!window.confirm('Naozaj chcete zmazať tento kurz?')) return;
+    if (!window.confirm(tAdmin('toasts.confirmDeleteCourse'))) return;
     setActionLoading(courseId);
     try {
       await academyApi.deleteCourse(courseId);
-      toast.success('Kurz bol zmazaný');
+      toast.success(tAdmin('toasts.courseDeleted'));
       refetch();
     } catch {
-      toast.error('Nepodarilo sa zmazať kurz');
+      toast.error(tAdmin('toasts.courseDeleteError'));
     } finally {
       setActionLoading(null);
     }
@@ -248,11 +250,11 @@ export default function AdminCoursesPage() {
     setFormLoading(true);
     try {
       await academyApi.createCourse(data);
-      toast.success('Kurz bol vytvorený');
+      toast.success(tAdmin('toasts.courseCreated'));
       setModalOpen(false);
       refetch();
     } catch {
-      toast.error('Nepodarilo sa vytvoriť kurz');
+      toast.error(tAdmin('toasts.courseCreateError'));
     } finally {
       setFormLoading(false);
     }
@@ -263,11 +265,11 @@ export default function AdminCoursesPage() {
     setFormLoading(true);
     try {
       await academyApi.updateCourse(editingCourse.id, data);
-      toast.success('Kurz bol aktualizovaný');
+      toast.success(tAdmin('toasts.courseUpdated'));
       setEditingCourse(null);
       refetch();
     } catch {
-      toast.error('Nepodarilo sa aktualizovať kurz');
+      toast.error(tAdmin('toasts.courseUpdateError'));
     } finally {
       setFormLoading(false);
     }

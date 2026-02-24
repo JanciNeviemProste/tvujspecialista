@@ -4,29 +4,10 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { X, CheckCircle, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-
-const closeDealSchema = z
-  .object({
-    status: z.enum([DealStatus.CLOSED_WON, DealStatus.CLOSED_LOST]),
-    actualDealValue: z.string().optional(),
-  })
-  .refine(
-    (data) => {
-      if (data.status === DealStatus.CLOSED_WON) {
-        return data.actualDealValue && parseFloat(data.actualDealValue) > 0;
-      }
-      return true;
-    },
-    {
-      message: 'Zadajte skutočnú hodnotu leadu',
-      path: ['actualDealValue'],
-    },
-  );
-
-type CloseDealFormData = z.infer<typeof closeDealSchema>;
 
 interface CloseDealModalProps {
   deal: Deal | null;
@@ -46,6 +27,28 @@ export function CloseDealModal({
   onSubmit,
   isLoading,
 }: CloseDealModalProps) {
+  const t = useTranslations('deals');
+
+  const closeDealSchema = z
+    .object({
+      status: z.enum([DealStatus.CLOSED_WON, DealStatus.CLOSED_LOST]),
+      actualDealValue: z.string().optional(),
+    })
+    .refine(
+      (data) => {
+        if (data.status === DealStatus.CLOSED_WON) {
+          return data.actualDealValue && parseFloat(data.actualDealValue) > 0;
+        }
+        return true;
+      },
+      {
+        message: t('closeDeal.actualValueRequired'),
+        path: ['actualDealValue'],
+      },
+    );
+
+  type CloseDealFormData = z.infer<typeof closeDealSchema>;
+
   const {
     register,
     handleSubmit,
@@ -92,7 +95,7 @@ export function CloseDealModal({
         {/* Header */}
         <div className="px-6 pt-6 pb-4 flex items-center justify-between border-b border-gray-100 dark:border-neutral-800">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            Uzavrieť lead
+            {t('closeDeal.title')}
           </h2>
           <button
             onClick={onClose}
@@ -116,7 +119,7 @@ export function CloseDealModal({
             {/* Won/Lost Toggle */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Výsledok
+                {t('closeDeal.result')}
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
@@ -131,7 +134,7 @@ export function CloseDealModal({
                   )}
                 >
                   <CheckCircle className="h-4 w-4" />
-                  Získaný
+                  {t('closeDeal.won')}
                 </button>
                 <button
                   type="button"
@@ -145,7 +148,7 @@ export function CloseDealModal({
                   )}
                 >
                   <XCircle className="h-4 w-4" />
-                  Stratený
+                  {t('closeDeal.lost')}
                 </button>
               </div>
             </div>
@@ -154,7 +157,7 @@ export function CloseDealModal({
             {status === DealStatus.CLOSED_WON && (
               <div>
                 <label htmlFor="actualDealValue" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  Skutočná hodnota leadu (EUR) *
+                  {t('closeDeal.actualValue')} (EUR) *
                 </label>
                 <input
                   id="actualDealValue"
@@ -198,7 +201,7 @@ export function CloseDealModal({
               disabled={isLoading}
               className="flex-1 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700 disabled:opacity-50"
             >
-              Zrušiť
+              {t('closeDeal.cancel')}
             </button>
             <button
               type="submit"
@@ -210,7 +213,7 @@ export function CloseDealModal({
                   : 'bg-red-500 hover:bg-red-600'
               )}
             >
-              {isLoading ? 'Ukladám...' : 'Uzavrieť lead'}
+              {isLoading ? t('closeDeal.submitting') : t('closeDeal.submit')}
             </button>
           </div>
         </form>

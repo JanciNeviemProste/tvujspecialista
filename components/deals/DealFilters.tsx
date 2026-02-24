@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Deal, DealStatus, DealFilters as DealFiltersType } from '@/types/deals';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -24,6 +25,7 @@ export function DealFilters({
   deals,
   className,
 }: DealFiltersProps) {
+  const t = useTranslations('deals');
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchValue, setSearchValue] = useState(filters.search);
 
@@ -75,7 +77,7 @@ export function DealFilters({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
           <Input
             type="text"
-            placeholder="Hľadať leady..."
+            placeholder={t('filters.searchPlaceholder')}
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             className="pl-10"
@@ -95,13 +97,13 @@ export function DealFilters({
           className="px-4 py-2 rounded-lg border bg-card text-sm min-w-[180px]"
           aria-label="Filter by lead status"
         >
-          <option value="all">Všetky statusy</option>
-          <option value={DealStatus.NEW}>Nový</option>
-          <option value={DealStatus.CONTACTED}>Kontaktovaný</option>
-          <option value={DealStatus.QUALIFIED}>Kvalifikovaný</option>
-          <option value={DealStatus.IN_PROGRESS}>V procese</option>
-          <option value={DealStatus.CLOSED_WON}>Získaný</option>
-          <option value={DealStatus.CLOSED_LOST}>Stratený</option>
+          <option value="all">{t('filters.allStatuses')}</option>
+          <option value={DealStatus.NEW}>{t('status.new')}</option>
+          <option value={DealStatus.CONTACTED}>{t('status.contacted')}</option>
+          <option value={DealStatus.QUALIFIED}>{t('status.qualified')}</option>
+          <option value={DealStatus.IN_PROGRESS}>{t('status.inProgress')}</option>
+          <option value={DealStatus.CLOSED_WON}>{t('status.closedWon')}</option>
+          <option value={DealStatus.CLOSED_LOST}>{t('status.closedLost')}</option>
         </select>
 
         {/* Advanced Filters Toggle */}
@@ -115,7 +117,7 @@ export function DealFilters({
           aria-label={isExpanded ? 'Hide advanced filters' : 'Show advanced filters'}
         >
           <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
-          {isExpanded ? 'Menej' : 'Viac filtrov'}
+          {isExpanded ? 'Menej' : t('filters.moreFilters')}
         </Button>
 
         {/* Clear Filters */}
@@ -128,7 +130,7 @@ export function DealFilters({
             aria-label="Clear all filters"
           >
             <X className="h-4 w-4" aria-hidden="true" />
-            Vymazať
+            {t('filters.clearFilters')}
           </Button>
         )}
       </div>
@@ -140,7 +142,7 @@ export function DealFilters({
             {/* Value Range Slider */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-sm font-medium" htmlFor="value-range-slider">Hodnota leadu</Label>
+                <Label className="text-sm font-medium" htmlFor="value-range-slider">{t('filters.valueRange')}</Label>
                 <span className="text-sm text-muted-foreground" aria-live="polite" aria-atomic="true">
                   {new Intl.NumberFormat('sk-SK', {
                     style: 'currency',
@@ -174,7 +176,7 @@ export function DealFilters({
 
             {/* Date Range Filter */}
             <div className="space-y-3">
-              <Label className="text-sm font-medium">Filtrovať podľa dátumu</Label>
+              <Label className="text-sm font-medium">{t('filters.dateRange')}</Label>
 
               {/* Date Type Selector */}
               <div className="flex gap-2">
@@ -185,7 +187,7 @@ export function DealFilters({
                     onFiltersChange({ ...filters, dateType: 'created' })
                   }
                 >
-                  Dátum vytvorenia
+                  {t('filters.dateFrom')}
                 </Button>
                 <Button
                   variant={
@@ -196,7 +198,7 @@ export function DealFilters({
                     onFiltersChange({ ...filters, dateType: 'estimatedClose' })
                   }
                 >
-                  Predpokladané uzavretie
+                  {t('filters.dateTo')}
                 </Button>
               </div>
 

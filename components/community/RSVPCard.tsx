@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl'
 import { RSVP, RSVPStatus } from '@/types/community'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -16,16 +17,6 @@ interface RSVPCardProps {
   className?: string
 }
 
-function getRSVPStatusLabel(status: RSVPStatus): string {
-  const labels: Record<RSVPStatus, string> = {
-    [RSVPStatus.PENDING]: 'Čaká na potvrdenie',
-    [RSVPStatus.CONFIRMED]: 'Potvrdené',
-    [RSVPStatus.ATTENDED]: 'Zúčastnený',
-    [RSVPStatus.CANCELLED]: 'Zrušené',
-  }
-  return labels[status]
-}
-
 function getRSVPStatusVariant(status: RSVPStatus): 'default' | 'success' | 'destructive' | 'outline' {
   const variants: Record<RSVPStatus, 'default' | 'success' | 'destructive' | 'outline'> = {
     [RSVPStatus.PENDING]: 'default',
@@ -37,6 +28,15 @@ function getRSVPStatusVariant(status: RSVPStatus): 'default' | 'success' | 'dest
 }
 
 export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps) {
+  const t = useTranslations('community')
+
+  const rsvpStatusLabels: Record<RSVPStatus, string> = {
+    [RSVPStatus.PENDING]: t('rsvp.pending'),
+    [RSVPStatus.CONFIRMED]: t('rsvp.confirmed'),
+    [RSVPStatus.ATTENDED]: t('rsvp.confirmed'),
+    [RSVPStatus.CANCELLED]: t('rsvp.cancelled'),
+  }
+
   if (!rsvp.event) {
     return null
   }
@@ -70,7 +70,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
           variant={getRSVPStatusVariant(rsvp.status)}
           className="absolute top-2 right-2 shadow-sm"
         >
-          {getRSVPStatusLabel(rsvp.status)}
+          {rsvpStatusLabels[rsvp.status]}
         </Badge>
       </div>
 
@@ -91,7 +91,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
           {event.format === EventFormat.ONLINE ? (
             <>
               <Video className="h-4 w-4" />
-              <span>Online stretnutie</span>
+              <span>{t('rsvp.onlineMeeting')}</span>
             </>
           ) : (
             <>
@@ -109,7 +109,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
               variant="outline"
               className="w-full"
             >
-              Zobraziť detail
+              {t('rsvp.viewDetail')}
             </Button>
           </Link>
 
@@ -120,7 +120,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
               className="w-full bg-accent-500 hover:bg-accent-600"
               onClick={() => onConfirm(rsvp.id)}
             >
-              Potvrdiť účasť
+              {t('rsvp.confirmAttendance')}
             </Button>
           )}
 
@@ -130,7 +130,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
               className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
               onClick={() => onCancel(rsvp.id)}
             >
-              Zrušiť registráciu
+              {t('rsvp.cancelRegistration')}
             </Button>
           )}
 
@@ -143,7 +143,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
             >
               <a href={event.meetingLink} target="_blank" rel="noopener noreferrer">
                 <Video className="h-4 w-4 mr-2" />
-                Pripojiť sa
+                {t('rsvp.join')}
               </a>
             </Button>
           )}

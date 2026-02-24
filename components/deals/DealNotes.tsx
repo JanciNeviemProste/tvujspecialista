@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { Deal } from '@/types/deals';
 import { MessageSquare, Plus } from 'lucide-react';
 
@@ -20,9 +21,11 @@ export function DealNotes({
   onAddNote,
   isAddingNote,
 }: DealNotesProps) {
+  const t = useTranslations('deals');
+
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">Poznamky</h3>
+      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">{t('detail.notes')}</h3>
 
       {/* Existing Notes */}
       {deal.notes && deal.notes.length > 0 ? (
@@ -42,14 +45,14 @@ export function DealNotes({
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Zatial ziadne poznamky</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t('detail.noNotes')}</p>
       )}
 
       {/* Add Note Form */}
       {!isClosed && (
         <div className="space-y-2">
           <textarea
-            placeholder="Pridat poznamku..."
+            placeholder={t('detail.addNotePlaceholder')}
             value={newNote}
             onChange={(e) => onNewNoteChange(e.target.value)}
             className="w-full min-h-[80px] rounded-xl border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-4 py-2.5 text-sm text-gray-900 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-colors resize-none"
@@ -62,7 +65,7 @@ export function DealNotes({
             aria-label="Add note to deal"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
-            {isAddingNote ? 'Pridavam...' : 'Pridat poznamku'}
+            {isAddingNote ? t('detail.addingNote') : t('detail.addNote')}
           </button>
         </div>
       )}

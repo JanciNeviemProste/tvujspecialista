@@ -771,6 +771,85 @@
       "metadata": {
         "title": "Lead Pipeline | tvujspecialista.cz",
         "description": "Správa leadov."
+      },
+      "toasts": {
+        "statusUpdated": "Status leadu aktualizovaný",
+        "statusUpdateError": "Chyba pri zmene statusu",
+        "dealDeleted": "Lead bol vymazaný",
+        "dealDeleteError": "Chyba pri mazaní leadu",
+        "noteAdded": "Poznámka bola pridaná",
+        "noteAddError": "Chyba pri pridávaní poznámky",
+        "valueUpdated": "Hodnota leadu aktualizovaná",
+        "valueUpdateError": "Chyba pri aktualizácii hodnoty",
+        "dealClosed": "Lead bol uzavretý",
+        "dealCloseError": "Chyba pri uzavieraní leadu",
+        "dealReopened": "Lead bol znovu otvorený",
+        "dealReopenError": "Chyba pri opätovnom otváraní leadu"
+      },
+      "status": {
+        "new": "Nový",
+        "contacted": "Kontaktovaný",
+        "qualified": "Kvalifikovaný",
+        "inProgress": "V procese",
+        "closedWon": "Získaný",
+        "closedLost": "Stratený"
+      },
+      "detail": {
+        "title": "Detail leadu",
+        "eventHistory": "História udalostí",
+        "noEvents": "Žiadne udalosti",
+        "eventsError": "Chyba pri načítaní histórie",
+        "close": "Zavrieť",
+        "changeStatus": "Zmeniť status",
+        "notes": "Poznámky",
+        "noNotes": "Zatiaľ žiadne poznámky",
+        "addNotePlaceholder": "Pridať poznámku...",
+        "addNote": "Pridať poznámku",
+        "addingNote": "Pridávam..."
+      },
+      "closeDeal": {
+        "title": "Uzavrieť lead",
+        "result": "Výsledok",
+        "won": "Získaný",
+        "lost": "Stratený",
+        "actualValue": "Skutočná hodnota",
+        "actualValueRequired": "Zadajte skutočnú hodnotu leadu",
+        "actualValueMin": "Hodnota musí byť kladné číslo",
+        "notes": "Poznámky",
+        "notesPlaceholder": "Voliteľné poznámky k uzavretiu...",
+        "cancel": "Zrušiť",
+        "submit": "Uzavrieť lead",
+        "submitting": "Uzatvárám..."
+      },
+      "valueModal": {
+        "title": "Nastaviť hodnotu leadu",
+        "value": "Hodnota leadu",
+        "valueRequired": "Zadajte hodnotu leadu",
+        "valueMin": "Hodnota musí byť kladné číslo",
+        "valuePositive": "Hodnota musí byť väčšia ako nula",
+        "dateRequired": "Dátum uzavretia je povinný",
+        "expectedClose": "Predpokladané uzavretie",
+        "expectedCloseRequired": "Vyberte predpokladaný dátum uzavretia",
+        "cancel": "Zrušiť",
+        "submit": "Uložiť",
+        "submitting": "Ukladám..."
+      },
+      "filters": {
+        "searchPlaceholder": "Hľadať leady...",
+        "allStatuses": "Všetky statusy",
+        "moreFilters": "Viac filtrov",
+        "clearFilters": "Vymazať filtre",
+        "valueRange": "Rozsah hodnoty",
+        "minValue": "Min",
+        "maxValue": "Max",
+        "dateRange": "Obdobie",
+        "dateFrom": "Od",
+        "dateTo": "Do"
+      },
+      "card": {
+        "detail": "Detail",
+        "closeDeal": "Uzavretie",
+        "created": "Vytvorené"
       }
     },
     "commissions": {
@@ -812,6 +891,24 @@
         "loadingPayment": "Načítavanie platobných údajov...",
         "successTitle": "Platba úspešná!",
         "successMessage": "Vaša platba bola úspešne spracovaná. Budete presmerovaní na zoznam provízií..."
+      },
+      "toasts": {
+        "paymentCreated": "Platba bola vytvorená",
+        "paymentError": "Chyba pri vytváraní platby"
+      },
+      "payment": {
+        "cardLabel": "Platobná karta",
+        "securedByStripe": "Všetky platby sú zabezpečené pomocou Stripe",
+        "processing": "Spracováva sa...",
+        "payAmount": "Zaplatiť {amount}",
+        "paymentFailed": "Platba zlyhala",
+        "unexpectedState": "Neočakávaný stav platby",
+        "processingError": "Chyba pri spracovaní platby",
+        "cardNotFound": "Prvok karty nebol nájdený",
+        "testCards": "Testovacie karty",
+        "testSuccess": "Úspešná platba",
+        "testDeclined": "Zamietnutá platba",
+        "testCvc": "CVC: Akékoľvek 3 čísla | Dátum: Budúcnosť"
       }
     },
     "admin": {
@@ -835,6 +932,41 @@
           "title": "Správa komunity | Admin",
           "description": "Administrácia komunitných eventov."
         }
+      },
+      "toasts": {
+        "unauthorized": "Nemáte oprávnenie na túto akciu",
+        "loadError": "Chyba pri načítaní dát",
+        "courseCreated": "Kurz bol vytvorený",
+        "courseCreateError": "Chyba pri vytváraní kurzu",
+        "courseUpdated": "Kurz bol aktualizovaný",
+        "courseUpdateError": "Chyba pri aktualizácii kurzu",
+        "courseDeleted": "Kurz bol vymazaný",
+        "courseDeleteError": "Chyba pri mazaní kurzu",
+        "eventCreated": "Udalosť bola vytvorená",
+        "eventCreateError": "Chyba pri vytváraní udalosti",
+        "eventUpdated": "Udalosť bola aktualizovaná",
+        "eventUpdateError": "Chyba pri aktualizácii udalosti",
+        "eventDeleted": "Udalosť bola vymazaná",
+        "eventDeleteError": "Chyba pri mazaní udalosti",
+        "topicDeleted": "Téma bola vymazaná",
+        "topicDeleteError": "Chyba pri mazaní témy",
+        "confirmDeleteCourse": "Naozaj chcete vymazať tento kurz?",
+        "confirmDeleteEvent": "Naozaj chcete vymazať túto udalosť?",
+        "confirmDeleteTopic": "Naozaj chcete vymazať túto tému?",
+        "specialistVerified": "Špecialista bol overený",
+        "specialistVerifyError": "Chyba pri overovaní špecialistu",
+        "courseHidden": "Kurz bol skrytý",
+        "coursePublished": "Kurz bol publikovaný",
+        "actionFailed": "Akcia zlyhala",
+        "fillRequiredFields": "Vyplňte všetky povinné polia",
+        "eventPublished": "Udalosť bola publikovaná",
+        "confirmCancelEvent": "Naozaj chcete zrušiť túto udalosť?",
+        "eventCancelled": "Udalosť bola zrušená",
+        "eventCancelError": "Chyba pri rušení udalosti",
+        "attendeeStatusUpdated": "Status účastníka bol aktualizovaný",
+        "attendeeStatusError": "Chyba pri zmene statusu účastníka",
+        "topicPinToggled": "Pripnutie témy bolo zmenené",
+        "topicLockToggled": "Zamknutie témy bolo zmenené"
       }
     },
     "header": {
@@ -1028,7 +1160,38 @@
         "description": "Pokračujte v štúdiu a dokončite svoj prvý kurz"
       }
     },
-    "viewAllCourses": "Zobraziť všetky kurzy"
+    "viewAllCourses": "Zobraziť všetky kurzy",
+    "course": {
+      "beginner": "Začiatočník",
+      "intermediate": "Stredný",
+      "advanced": "Pokročilý",
+      "lessons": "lekcií",
+      "completed": "dokončené",
+      "continue": "Pokračovať",
+      "viewCourse": "Zobraziť kurz"
+    },
+    "enrollment": {
+      "completed": "Dokončené",
+      "active": "Aktívny",
+      "percentComplete": "{percent}% dokončené",
+      "lastAccessed": "Naposledy",
+      "repeat": "Opakovať",
+      "continue": "Pokračovať",
+      "downloadCertificate": "Stiahnuť certifikát",
+      "timeJustNow": "práve teraz",
+      "timeMinuteAgo": "pred 1 minútou",
+      "timeMinutesAgo": "pred {count} minútami",
+      "timeHourAgo": "pred 1 hodinou",
+      "timeHoursAgo": "pred {count} hodinami",
+      "timeYesterday": "včera",
+      "timeDaysAgo": "pred {count} dňami",
+      "timeWeekAgo": "pred 1 týždňom",
+      "timeWeeksAgo": "pred {count} týždňami",
+      "timeMonthAgo": "pred 1 mesiacom",
+      "timeMonthsAgo": "pred {count} mesiacmi",
+      "timeYearAgo": "pred 1 rokom",
+      "timeYearsAgo": "pred {count} rokmi"
+    }
   },
   "community": {
     "nav": {
@@ -1149,7 +1312,45 @@
         "description": "Tu sa zobrazia eventy, ktorých ste sa zúčastnili alebo zrušili."
       }
     },
-    "exploreEvents": "Preskúmať eventy"
+    "exploreEvents": "Preskúmať eventy",
+    "toasts": {
+      "rsvpSuccess": "RSVP bolo aktualizované",
+      "rsvpError": "Chyba pri RSVP",
+      "eventCreated": "Udalosť bola vytvorená",
+      "eventCreateError": "Chyba pri vytváraní udalosti",
+      "eventUpdated": "Udalosť bola aktualizovaná",
+      "eventUpdateError": "Chyba pri aktualizácii udalosti",
+      "eventDeleted": "Udalosť bola vymazaná",
+      "eventDeleteError": "Chyba pri mazaní udalosti",
+      "rsvpCancelled": "Registrácia bola zrušená",
+      "rsvpCancelError": "Chyba pri rušení registrácie",
+      "rsvpConfirmed": "Registrácia bola potvrdená",
+      "rsvpConfirmError": "Chyba pri potvrdzovaní registrácie"
+    },
+    "event": {
+      "workshop": "Workshop",
+      "conference": "Konferencia",
+      "webinar": "Webinár",
+      "meetup": "Meetup",
+      "online": "Online stretnutie",
+      "full": "Obsadené",
+      "free": "Zadarmo",
+      "register": "Registrovať sa",
+      "viewDetail": "Zobraziť detail",
+      "spotsLeft": "{count} miest voľných",
+      "onlineMeeting": "Online stretnutie"
+    },
+    "rsvp": {
+      "confirmed": "Potvrdená",
+      "pending": "Čakajúca",
+      "cancelled": "Zrušená",
+      "declined": "Odmietnutá",
+      "viewDetail": "Zobraziť detail",
+      "confirmAttendance": "Potvrdiť účasť",
+      "cancelRegistration": "Zrušiť registráciu",
+      "join": "Pripojiť sa",
+      "onlineMeeting": "Online stretnutie"
+    }
   },
   "forum": {
     "nav": {
@@ -1192,12 +1393,59 @@
       "deleteConfirm": "Naozaj chcete vymazať tento príspevok?",
       "replies": "Odpovede ({count})",
       "locked": "Táto téma je uzamknutá. Nie je možné pridávať odpovede."
+    },
+    "toasts": {
+      "topicCreated": "Téma bola vytvorená",
+      "topicCreateError": "Chyba pri vytváraní témy",
+      "replyAdded": "Odpoveď bola pridaná",
+      "replyAddError": "Chyba pri pridávaní odpovede",
+      "topicDeleted": "Téma bola vymazaná",
+      "topicDeleteError": "Chyba pri mazaní témy",
+      "likeError": "Chyba pri označení páči sa mi"
+    },
+    "newTopic": {
+      "title": "Nová téma",
+      "category": "Kategória",
+      "categoryPlaceholder": "Vyberte kategóriu...",
+      "topicTitle": "Nadpis",
+      "topicTitlePlaceholder": "O čom chcete diskutovať?",
+      "content": "Obsah",
+      "contentPlaceholder": "Popíšte svoju tému podrobnejšie...",
+      "submitting": "Vytváram...",
+      "submit": "Vytvoriť tému"
+    },
+    "reply": {
+      "placeholder": "Napíšte svoju odpoveď...",
+      "submitting": "Odosielam...",
+      "submit": "Odpovedať"
     }
   },
   "subscription": {
     "metadata": {
       "title": "Predplatné | tvujspecialista.cz",
       "description": "Správa vášho predplatného."
+    },
+    "toasts": {
+      "paymentCreated": "Platba bola vytvorená",
+      "paymentError": "Chyba pri vytváraní platby",
+      "subscriptionCreated": "Predplatné bolo aktivované",
+      "subscriptionError": "Chyba pri aktivácii predplatného",
+      "subscriptionCancelled": "Predplatné bolo zrušené",
+      "subscriptionCancelError": "Chyba pri rušení predplatného",
+      "subscriptionUpdated": "Predplatné bolo aktualizované",
+      "subscriptionUpdateError": "Chyba pri aktualizácii predplatného",
+      "loadError": "Chyba pri načítaní predplatného",
+      "plansLoadError": "Chyba pri načítaní plánov",
+      "subscriptionDowngraded": "Predplatné bolo znížené",
+      "subscriptionDowngradeError": "Chyba pri znižovaní predplatného",
+      "subscriptionResumed": "Predplatné bolo obnovené",
+      "subscriptionResumeError": "Chyba pri obnovovaní predplatného",
+      "portalError": "Chyba pri otváraní zákazníckeho portálu"
+    },
+    "pricing": {
+      "recommended": "Odporúčame",
+      "currentPlan": "Aktuálny plán",
+      "loading": "Načítavam..."
     }
   },
   "errors": {
@@ -1210,6 +1458,19 @@
       "title": "Nastala chyba",
       "description": "Ospravedlňujeme sa, ale niečo sa pokazilo.",
       "tryAgain": "Skúsiť znovu"
+    },
+    "boundary": {
+      "title": "Niečo sa pokazilo",
+      "description": "Vyskytla sa neočakávaná chyba. Skúste obnoviť stránku alebo sa vráťte na domovskú stránku.",
+      "details": "Detaily chyby...",
+      "reload": "Obnoviť stránku",
+      "home": "Domovská stránka"
+    }
+  },
+  "lead": {
+    "toasts": {
+      "created": "Lead bol vytvorený",
+      "createError": "Chyba pri vytváraní leadu"
     }
   }
 }

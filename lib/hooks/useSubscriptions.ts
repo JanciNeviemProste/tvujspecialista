@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { subscriptionsApi } from '@/lib/api/subscriptions';
 import { SubscriptionType } from '@/types/subscriptions';
 import { queryKeys } from '@/lib/queryKeys';
@@ -19,6 +20,7 @@ export function useMyActiveSubscription() {
 }
 
 export function useCreateCheckout(type: SubscriptionType) {
+  const t = useTranslations('subscription');
   return useMutation({
     mutationFn: async () => {
       let response;
@@ -45,12 +47,13 @@ export function useCreateCheckout(type: SubscriptionType) {
       }
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri vytváraní platby');
+      toast.error(error.message || t('toasts.paymentError'));
     },
   });
 }
 
 export function useUpgradeSubscription() {
+  const t = useTranslations('subscription');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, newType }: { id: string; newType: SubscriptionType }) =>
@@ -58,15 +61,16 @@ export function useUpgradeSubscription() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
-      toast.success('Predplatné úspešne upgradované!');
+      toast.success(t('toasts.subscriptionUpdated'));
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri upgrade predplatného');
+      toast.error(error.message || t('toasts.subscriptionUpdateError'));
     },
   });
 }
 
 export function useDowngradeSubscription() {
+  const t = useTranslations('subscription');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, newType }: { id: string; newType: SubscriptionType }) =>
@@ -74,52 +78,55 @@ export function useDowngradeSubscription() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
-      toast.success('Downgrade naplánovaný na koniec obdobia');
+      toast.success(t('toasts.subscriptionDowngraded'));
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri downgrade predplatného');
+      toast.error(error.message || t('toasts.subscriptionDowngradeError'));
     },
   });
 }
 
 export function useCancelSubscription() {
+  const t = useTranslations('subscription');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => subscriptionsApi.cancelSubscription(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
-      toast.success('Predplatné zrušené. Prístup máte do konca plateného obdobia.');
+      toast.success(t('toasts.subscriptionCancelled'));
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri zrušení predplatného');
+      toast.error(error.message || t('toasts.subscriptionCancelError'));
     },
   });
 }
 
 export function useResumeSubscription() {
+  const t = useTranslations('subscription');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => subscriptionsApi.resumeSubscription(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.current });
       queryClient.invalidateQueries({ queryKey: queryKeys.subscriptions.active });
-      toast.success('Predplatné obnovené!');
+      toast.success(t('toasts.subscriptionResumed'));
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri obnovení predplatného');
+      toast.error(error.message || t('toasts.subscriptionResumeError'));
     },
   });
 }
 
 export function useCustomerPortal() {
+  const t = useTranslations('subscription');
   return useMutation({
     mutationFn: () => subscriptionsApi.getCustomerPortal().then((res) => res.data),
     onSuccess: (data) => {
       window.location.href = data.url;
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri otváraní portálu');
+      toast.error(error.message || t('toasts.portalError'));
     },
   });
 }

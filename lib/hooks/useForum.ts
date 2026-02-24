@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { forumApi } from '@/lib/api/forum';
 import { queryKeys } from '@/lib/queryKeys';
 import { toast } from 'sonner';
@@ -30,36 +31,39 @@ export function useForumTopic(id: string) {
 
 // Mutations
 export function useCreateTopic() {
+  const t = useTranslations('forum');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { categoryId: string; title: string; content: string }) =>
       forumApi.createTopic(data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.forum.categories });
-      toast.success('Téma bola úspešne vytvorená');
+      toast.success(t('toasts.topicCreated'));
     },
     onError: () => {
-      toast.error('Nepodarilo sa vytvoriť tému');
+      toast.error(t('toasts.topicCreateError'));
     },
   });
 }
 
 export function useCreatePost(topicId: string) {
+  const t = useTranslations('forum');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: { content: string }) =>
       forumApi.createPost(topicId, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.forum.topic(topicId) });
-      toast.success('Odpoveď bola pridaná');
+      toast.success(t('toasts.replyAdded'));
     },
     onError: () => {
-      toast.error('Nepodarilo sa pridať odpoveď');
+      toast.error(t('toasts.replyAddError'));
     },
   });
 }
 
 export function useToggleLike() {
+  const t = useTranslations('forum');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (postId: string) =>
@@ -69,22 +73,23 @@ export function useToggleLike() {
       queryClient.invalidateQueries({ queryKey: ['forumTopic'] });
     },
     onError: () => {
-      toast.error('Nepodarilo sa zmeniť like');
+      toast.error(t('toasts.likeError'));
     },
   });
 }
 
 export function useDeletePost(topicId: string) {
+  const t = useTranslations('forum');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (postId: string) =>
       forumApi.deletePost(postId).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.forum.topic(topicId) });
-      toast.success('Príspevok bol zmazaný');
+      toast.success(t('toasts.topicDeleted'));
     },
     onError: () => {
-      toast.error('Nepodarilo sa zmazať príspevok');
+      toast.error(t('toasts.topicDeleteError'));
     },
   });
 }

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,6 +17,7 @@ interface NewTopicFormProps {
 }
 
 export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoading }: NewTopicFormProps) {
+  const t = useTranslations('forum');
   const [categoryId, setCategoryId] = useState(defaultCategoryId || '');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -33,13 +35,13 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Nová téma</CardTitle>
+        <CardTitle>{t('newTopic.title')}</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Category select */}
           <div className="space-y-2">
-            <Label htmlFor="category">Kategória</Label>
+            <Label htmlFor="category">{t('newTopic.category')}</Label>
             <select
               id="category"
               value={categoryId}
@@ -47,7 +49,7 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
               className="w-full px-4 py-2 rounded-lg border bg-background text-sm"
               disabled={isLoading}
             >
-              <option value="">Vyberte kategóriu...</option>
+              <option value="">{t('newTopic.categoryPlaceholder')}</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -58,12 +60,12 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
 
           {/* Title */}
           <div className="space-y-2">
-            <Label htmlFor="title">Nadpis</Label>
+            <Label htmlFor="title">{t('newTopic.topicTitle')}</Label>
             <Input
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="O čom chcete diskutovať?"
+              placeholder={t('newTopic.topicTitlePlaceholder')}
               disabled={isLoading}
               minLength={5}
               maxLength={200}
@@ -73,12 +75,12 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
 
           {/* Content */}
           <div className="space-y-2">
-            <Label htmlFor="content">Obsah</Label>
+            <Label htmlFor="content">{t('newTopic.content')}</Label>
             <textarea
               id="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              placeholder="Popíšte svoju tému podrobnejšie..."
+              placeholder={t('newTopic.contentPlaceholder')}
               className="w-full min-h-[200px] p-3 rounded-lg border bg-background text-sm resize-y focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
               disabled={isLoading}
             />
@@ -92,7 +94,7 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
               className="gap-2"
             >
               <Send className="h-4 w-4" />
-              {isLoading ? 'Vytváram...' : 'Vytvoriť tému'}
+              {isLoading ? t('newTopic.submitting') : t('newTopic.submit')}
             </Button>
           </div>
         </form>

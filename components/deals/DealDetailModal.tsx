@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { useAddDealNote, useDealEvents } from '@/lib/hooks/useDeals';
 import { DealTimeline } from '@/components/deals/DealTimeline';
@@ -27,15 +28,6 @@ const statusColors: Record<DealStatus, { bar: string; badge: string; badgeText: 
   [DealStatus.CLOSED_LOST]: { bar: 'bg-rose-500', badge: 'bg-rose-100 dark:bg-rose-900', badgeText: 'text-rose-700 dark:text-rose-300' },
 };
 
-const statusLabels: Record<DealStatus, string> = {
-  [DealStatus.NEW]: 'Nový',
-  [DealStatus.CONTACTED]: 'Kontaktovaný',
-  [DealStatus.QUALIFIED]: 'Kvalifikovaný',
-  [DealStatus.IN_PROGRESS]: 'V procese',
-  [DealStatus.CLOSED_WON]: 'Získaný',
-  [DealStatus.CLOSED_LOST]: 'Stratený',
-};
-
 export function DealDetailModal({
   deal,
   isOpen,
@@ -44,10 +36,20 @@ export function DealDetailModal({
   onCloseDeal,
   onReopen,
 }: DealDetailModalProps) {
+  const t = useTranslations('deals');
   const [newNote, setNewNote] = useState('');
   const addNote = useAddDealNote();
   const { data: events, isLoading: eventsLoading, error: eventsError } = useDealEvents(deal?.id || '');
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const statusLabels: Record<DealStatus, string> = {
+    [DealStatus.NEW]: t('status.new'),
+    [DealStatus.CONTACTED]: t('status.contacted'),
+    [DealStatus.QUALIFIED]: t('status.qualified'),
+    [DealStatus.IN_PROGRESS]: t('status.inProgress'),
+    [DealStatus.CLOSED_WON]: t('status.closedWon'),
+    [DealStatus.CLOSED_LOST]: t('status.closedLost'),
+  };
 
   // Escape key handler
   useEffect(() => {
@@ -105,7 +107,7 @@ export function DealDetailModal({
         <div className="px-6 pt-5 pb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h2 id="deal-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">
-              Detail leadu
+              {t('detail.title')}
             </h2>
             <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', colors.badge, colors.badgeText)}>
               {statusLabels[deal.status] || deal.status}
@@ -114,7 +116,7 @@ export function DealDetailModal({
           <button
             onClick={onClose}
             className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-            aria-label="Zavrieť"
+            aria-label={t('detail.close')}
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -136,11 +138,11 @@ export function DealDetailModal({
           {/* Timeline/Events */}
           <div>
             <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">
-              História udalostí
+              {t('detail.eventHistory')}
             </h3>
             {eventsError ? (
               <p className="text-sm text-gray-400 dark:text-gray-500 italic">
-                Nepodarilo sa načítať históriu udalostí.
+                {t('detail.eventsError')}
               </p>
             ) : (
               <DealTimeline events={events || []} isLoading={eventsLoading} />
@@ -168,7 +170,7 @@ export function DealDetailModal({
                 }}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
               >
-                Uzavrieť lead
+                {t('detail.changeStatus')}
               </button>
             </>
           ) : (
@@ -187,7 +189,7 @@ export function DealDetailModal({
             onClick={onClose}
             className="ml-auto text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 px-4 py-2.5 rounded-xl text-sm transition-colors"
           >
-            Zavrieť
+            {t('detail.close')}
           </button>
         </div>
       </div>

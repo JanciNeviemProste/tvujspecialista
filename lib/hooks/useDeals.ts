@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { dealsApi } from '@/lib/api/deals';
 import type { UpdateDealStatusDto, UpdateDealValueDto, CloseDealDto, Deal } from '@/types/deals';
 import { toast } from 'sonner';
@@ -20,36 +21,39 @@ export function useMyDeals() {
 }
 
 export function useUpdateDealStatus() {
+  const t = useTranslations('deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateDealStatusDto }) =>
       dealsApi.updateDealStatus(id, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
-      toast.success('Status dealu aktualizován');
+      toast.success(t('toasts.statusUpdated'));
     },
     onError: () => {
-      toast.error('Chyba při aktualizaci statusu dealu');
+      toast.error(t('toasts.statusUpdateError'));
     },
   });
 }
 
 export function useUpdateDealValue() {
+  const t = useTranslations('deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateDealValueDto }) =>
       dealsApi.updateDealValue(id, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
-      toast.success('Hodnota dealu aktualizována');
+      toast.success(t('toasts.valueUpdated'));
     },
     onError: () => {
-      toast.error('Chyba při aktualizaci hodnoty dealu');
+      toast.error(t('toasts.valueUpdateError'));
     },
   });
 }
 
 export function useCloseDeal() {
+  const t = useTranslations('deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: CloseDealDto }) =>
@@ -58,30 +62,32 @@ export function useCloseDeal() {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
       queryClient.invalidateQueries({ queryKey: ['myCommissions'] });
       queryClient.invalidateQueries({ queryKey: ['commissionStats'] });
-      toast.success('Deal uzavřen');
+      toast.success(t('toasts.dealClosed'));
     },
     onError: () => {
-      toast.error('Chyba při uzavírání dealu');
+      toast.error(t('toasts.dealCloseError'));
     },
   });
 }
 
 export function useReopenDeal() {
+  const t = useTranslations('deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) =>
       dealsApi.reopenDeal(id).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
-      toast.success('Deal znovu otevřen');
+      toast.success(t('toasts.dealReopened'));
     },
     onError: () => {
-      toast.error('Chyba při znovuotevření dealu');
+      toast.error(t('toasts.dealReopenError'));
     },
   });
 }
 
 export function useAddDealNote() {
+  const t = useTranslations('deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, note }: { id: string; note: string }) =>
@@ -117,7 +123,7 @@ export function useAddDealNote() {
         });
       }
 
-      toast.success('Poznámka bola pridaná');
+      toast.success(t('toasts.noteAdded'));
       return { previousDeals };
     },
     onError: (err, variables, context) => {
@@ -125,7 +131,7 @@ export function useAddDealNote() {
       if (context?.previousDeals) {
         queryClient.setQueryData(['myDeals'], context.previousDeals);
       }
-      toast.error('Nepodarilo sa pridať poznámku');
+      toast.error(t('toasts.noteAddError'));
     },
     onSettled: () => {
       // Always refetch after error or success

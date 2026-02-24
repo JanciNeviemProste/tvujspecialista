@@ -1,4 +1,5 @@
 import { memo } from 'react'
+import { useTranslations } from 'next-intl'
 import { Event, EventType, EventFormat } from '@/types/community'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -15,22 +16,21 @@ interface EventCardProps {
   className?: string
 }
 
-function getEventTypeLabel(type: EventType): string {
-  const labels: Record<EventType, string> = {
-    [EventType.WORKSHOP]: 'Workshop',
-    [EventType.NETWORKING]: 'Networking',
-    [EventType.CONFERENCE]: 'Konferencia',
-    [EventType.WEBINAR]: 'Webinár',
-    [EventType.MEETUP]: 'Meetup',
-  }
-  return labels[type]
-}
-
 function getEventFormatLabel(format: EventFormat): string {
   return format === EventFormat.ONLINE ? 'Online' : 'Offline'
 }
 
 export const EventCard = memo(function EventCard({ event, showRSVPButton = true, className }: EventCardProps) {
+  const t = useTranslations('community')
+
+  const eventTypeLabels: Record<EventType, string> = {
+    [EventType.WORKSHOP]: t('event.workshop'),
+    [EventType.NETWORKING]: 'Networking',
+    [EventType.CONFERENCE]: t('event.conference'),
+    [EventType.WEBINAR]: t('event.webinar'),
+    [EventType.MEETUP]: t('event.meetup'),
+  }
+
   const href = `/community/events/${event.slug}`
   const isFullyBooked = event.maxAttendees ? event.attendeeCount >= event.maxAttendees : false
   const isFree = event.price === 0
@@ -38,6 +38,8 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
   // Format date
   const formattedDate = formatDate(event.startDate, 'd. MMM yyyy')
   const formattedTime = formatDate(event.startDate, 'HH:mm')
+
+  const spotsLeft = event.maxAttendees ? event.maxAttendees - event.attendeeCount : null
 
   return (
     <Card
@@ -74,7 +76,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
         {/* Type badge at bottom */}
         <div className="absolute bottom-2 left-2 flex gap-2">
           <Badge variant="default" className="shadow-lg">
-            {getEventTypeLabel(event.type)}
+            {eventTypeLabels[event.type]}
           </Badge>
           <Badge
             variant={event.format === EventFormat.ONLINE ? 'default' : 'outline'}
@@ -102,7 +104,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
           {event.format === EventFormat.ONLINE ? (
             <>
               <Video className="h-4 w-4" />
-              <span>Online stretnutie</span>
+              <span>{t('event.onlineMeeting')}</span>
             </>
           ) : (
             <>
@@ -123,7 +125,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
           </span>
           {isFullyBooked && (
             <Badge variant="destructive" className="text-xs">
-              Obsadené
+              {t('event.full')}
             </Badge>
           )}
         </div>
@@ -131,7 +133,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
         {/* Price */}
         <div className="flex items-center justify-between">
           <span className="text-lg font-bold text-accent-500">
-            {isFree ? 'Zadarmo' : `${event.price} ${event.currency}`}
+            {isFree ? t('event.free') : `${event.price} ${event.currency}`}
           </span>
         </div>
 
@@ -148,7 +150,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
             className="w-full bg-accent-500 hover:bg-accent-600"
             disabled={isFullyBooked}
           >
-            {isFullyBooked ? 'Obsadené' : showRSVPButton ? 'Registrovať sa' : 'Zobraziť detail'}
+            {isFullyBooked ? t('event.full') : showRSVPButton ? t('event.register') : t('event.viewDetail')}
           </Button>
         </Link>
       </CardFooter>

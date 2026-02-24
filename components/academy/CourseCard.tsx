@@ -1,4 +1,5 @@
 import { memo } from 'react';
+import { useTranslations } from 'next-intl';
 import { Course } from '@/types/academy';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -33,10 +34,18 @@ function CourseCardInner({
   progress,
   className,
 }: CourseCardProps) {
+  const t = useTranslations('academy');
+
+  const levelLabels: Record<string, string> = {
+    beginner: t('course.beginner'),
+    intermediate: t('course.intermediate'),
+    advanced: t('course.advanced'),
+  };
+
   const href = enrolled
     ? `/academy/learn/${course.slug}`
     : `/academy/courses/${course.slug}`;
-  const buttonText = enrolled ? 'Pokračovať' : 'Zobraziť kurz';
+  const buttonText = enrolled ? t('course.continue') : t('course.viewCourse');
   const buttonVariant = enrolled ? 'outline' : 'premium';
 
   return (
@@ -56,9 +65,7 @@ function CourseCardInner({
         {/* Badges overlay */}
         <div className="absolute top-2 left-2 right-2 flex justify-between items-start">
           <Badge variant="default" className="shadow-sm">
-            {course.level === 'beginner' && 'Začiatočník'}
-            {course.level === 'intermediate' && 'Stredný'}
-            {course.level === 'advanced' && 'Pokročilý'}
+            {levelLabels[course.level] || course.level}
           </Badge>
           {course.featured && (
             <Badge variant="gold" className="shadow-sm">
@@ -80,7 +87,7 @@ function CourseCardInner({
           </div>
           <div className="flex items-center gap-1">
             <BookOpen className="h-4 w-4" />
-            <span>{course.lessonCount} lekcií</span>
+            <span>{course.lessonCount} {t('course.lessons')}</span>
           </div>
         </div>
 
@@ -114,7 +121,7 @@ function CourseCardInner({
           <div className="space-y-1">
             <Progress value={progress} className="h-2" />
             <p className="text-xs text-muted-foreground text-right">
-              {Math.round(progress)}% dokončené
+              {Math.round(progress)}% {t('course.completed')}
             </p>
           </div>
         )}

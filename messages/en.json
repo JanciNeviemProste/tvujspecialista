@@ -771,6 +771,85 @@
       "metadata": {
         "title": "Lead Pipeline | tvujspecialista.cz",
         "description": "Manage your business opportunities."
+      },
+      "toasts": {
+        "statusUpdated": "Lead status updated",
+        "statusUpdateError": "Error updating status",
+        "dealDeleted": "Lead was deleted",
+        "dealDeleteError": "Error deleting lead",
+        "noteAdded": "Note was added",
+        "noteAddError": "Error adding note",
+        "valueUpdated": "Lead value updated",
+        "valueUpdateError": "Error updating value",
+        "dealClosed": "Lead was closed",
+        "dealCloseError": "Error closing lead",
+        "dealReopened": "Lead was reopened",
+        "dealReopenError": "Error reopening lead"
+      },
+      "status": {
+        "new": "New",
+        "contacted": "Contacted",
+        "qualified": "Qualified",
+        "inProgress": "In Progress",
+        "closedWon": "Won",
+        "closedLost": "Lost"
+      },
+      "detail": {
+        "title": "Lead detail",
+        "eventHistory": "Event history",
+        "noEvents": "No events",
+        "eventsError": "Error loading history",
+        "close": "Close",
+        "changeStatus": "Change status",
+        "notes": "Notes",
+        "noNotes": "No notes yet",
+        "addNotePlaceholder": "Add a note...",
+        "addNote": "Add note",
+        "addingNote": "Adding..."
+      },
+      "closeDeal": {
+        "title": "Close lead",
+        "result": "Result",
+        "won": "Won",
+        "lost": "Lost",
+        "actualValue": "Actual value",
+        "actualValueRequired": "Enter the actual lead value",
+        "actualValueMin": "Value must be a positive number",
+        "notes": "Notes",
+        "notesPlaceholder": "Optional closing notes...",
+        "cancel": "Cancel",
+        "submit": "Close lead",
+        "submitting": "Closing..."
+      },
+      "valueModal": {
+        "title": "Set lead value",
+        "value": "Lead value",
+        "valueRequired": "Enter lead value",
+        "valueMin": "Value must be a positive number",
+        "valuePositive": "Value must be greater than zero",
+        "dateRequired": "Close date is required",
+        "expectedClose": "Expected close date",
+        "expectedCloseRequired": "Select expected close date",
+        "cancel": "Cancel",
+        "submit": "Save",
+        "submitting": "Saving..."
+      },
+      "filters": {
+        "searchPlaceholder": "Search leads...",
+        "allStatuses": "All statuses",
+        "moreFilters": "More filters",
+        "clearFilters": "Clear filters",
+        "valueRange": "Value range",
+        "minValue": "Min",
+        "maxValue": "Max",
+        "dateRange": "Date range",
+        "dateFrom": "From",
+        "dateTo": "To"
+      },
+      "card": {
+        "detail": "Detail",
+        "closeDeal": "Close",
+        "created": "Created"
       }
     },
     "commissions": {
@@ -812,6 +891,24 @@
         "loadingPayment": "Loading payment details...",
         "successTitle": "Payment successful!",
         "successMessage": "Your payment has been processed successfully. You will be redirected to the commissions list..."
+      },
+      "toasts": {
+        "paymentCreated": "Payment was created",
+        "paymentError": "Error creating payment"
+      },
+      "payment": {
+        "cardLabel": "Payment card",
+        "securedByStripe": "All payments are secured by Stripe",
+        "processing": "Processing...",
+        "payAmount": "Pay {amount}",
+        "paymentFailed": "Payment failed",
+        "unexpectedState": "Unexpected payment state",
+        "processingError": "Error processing payment",
+        "cardNotFound": "Card element not found",
+        "testCards": "Test cards",
+        "testSuccess": "Successful payment",
+        "testDeclined": "Declined payment",
+        "testCvc": "CVC: Any 3 digits | Date: Future"
       }
     },
     "admin": {
@@ -835,6 +932,41 @@
           "title": "Community management | Admin",
           "description": "Administration of community events."
         }
+      },
+      "toasts": {
+        "unauthorized": "You are not authorized for this action",
+        "loadError": "Error loading data",
+        "courseCreated": "Course was created",
+        "courseCreateError": "Error creating course",
+        "courseUpdated": "Course was updated",
+        "courseUpdateError": "Error updating course",
+        "courseDeleted": "Course was deleted",
+        "courseDeleteError": "Error deleting course",
+        "eventCreated": "Event was created",
+        "eventCreateError": "Error creating event",
+        "eventUpdated": "Event was updated",
+        "eventUpdateError": "Error updating event",
+        "eventDeleted": "Event was deleted",
+        "eventDeleteError": "Error deleting event",
+        "topicDeleted": "Topic was deleted",
+        "topicDeleteError": "Error deleting topic",
+        "confirmDeleteCourse": "Are you sure you want to delete this course?",
+        "confirmDeleteEvent": "Are you sure you want to delete this event?",
+        "confirmDeleteTopic": "Are you sure you want to delete this topic?",
+        "specialistVerified": "Specialist was verified",
+        "specialistVerifyError": "Error verifying specialist",
+        "courseHidden": "Course was hidden",
+        "coursePublished": "Course was published",
+        "actionFailed": "Action failed",
+        "fillRequiredFields": "Please fill in all required fields",
+        "eventPublished": "Event was published",
+        "confirmCancelEvent": "Are you sure you want to cancel this event?",
+        "eventCancelled": "Event was cancelled",
+        "eventCancelError": "Error cancelling event",
+        "attendeeStatusUpdated": "Attendee status was updated",
+        "attendeeStatusError": "Error updating attendee status",
+        "topicPinToggled": "Topic pin status was toggled",
+        "topicLockToggled": "Topic lock status was toggled"
       }
     },
     "header": {
@@ -1028,7 +1160,38 @@
         "description": "Keep studying and finish your first course"
       }
     },
-    "viewAllCourses": "View all courses"
+    "viewAllCourses": "View all courses",
+    "course": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "lessons": "lessons",
+      "completed": "completed",
+      "continue": "Continue",
+      "viewCourse": "View course"
+    },
+    "enrollment": {
+      "completed": "Completed",
+      "active": "Active",
+      "percentComplete": "{percent}% completed",
+      "lastAccessed": "Last accessed",
+      "repeat": "Repeat",
+      "continue": "Continue",
+      "downloadCertificate": "Download certificate",
+      "timeJustNow": "just now",
+      "timeMinuteAgo": "1 minute ago",
+      "timeMinutesAgo": "{count} minutes ago",
+      "timeHourAgo": "1 hour ago",
+      "timeHoursAgo": "{count} hours ago",
+      "timeYesterday": "yesterday",
+      "timeDaysAgo": "{count} days ago",
+      "timeWeekAgo": "1 week ago",
+      "timeWeeksAgo": "{count} weeks ago",
+      "timeMonthAgo": "1 month ago",
+      "timeMonthsAgo": "{count} months ago",
+      "timeYearAgo": "1 year ago",
+      "timeYearsAgo": "{count} years ago"
+    }
   },
   "community": {
     "nav": {
@@ -1149,7 +1312,45 @@
         "description": "Events you have attended or cancelled will appear here."
       }
     },
-    "exploreEvents": "Explore events"
+    "exploreEvents": "Explore events",
+    "toasts": {
+      "rsvpSuccess": "RSVP was updated",
+      "rsvpError": "Error with RSVP",
+      "eventCreated": "Event was created",
+      "eventCreateError": "Error creating event",
+      "eventUpdated": "Event was updated",
+      "eventUpdateError": "Error updating event",
+      "eventDeleted": "Event was deleted",
+      "eventDeleteError": "Error deleting event",
+      "rsvpCancelled": "Registration was cancelled",
+      "rsvpCancelError": "Error cancelling registration",
+      "rsvpConfirmed": "Registration was confirmed",
+      "rsvpConfirmError": "Error confirming registration"
+    },
+    "event": {
+      "workshop": "Workshop",
+      "conference": "Conference",
+      "webinar": "Webinar",
+      "meetup": "Meetup",
+      "online": "Online meeting",
+      "full": "Full",
+      "free": "Free",
+      "register": "Register",
+      "viewDetail": "View detail",
+      "spotsLeft": "{count} spots left",
+      "onlineMeeting": "Online meeting"
+    },
+    "rsvp": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "declined": "Declined",
+      "viewDetail": "View detail",
+      "confirmAttendance": "Confirm attendance",
+      "cancelRegistration": "Cancel registration",
+      "join": "Join",
+      "onlineMeeting": "Online meeting"
+    }
   },
   "forum": {
     "nav": {
@@ -1192,12 +1393,59 @@
       "deleteConfirm": "Are you sure you want to delete this post?",
       "replies": "Replies ({count})",
       "locked": "This topic is locked. No further replies can be added."
+    },
+    "toasts": {
+      "topicCreated": "Topic was created",
+      "topicCreateError": "Error creating topic",
+      "replyAdded": "Reply was added",
+      "replyAddError": "Error adding reply",
+      "topicDeleted": "Topic was deleted",
+      "topicDeleteError": "Error deleting topic",
+      "likeError": "Error toggling like"
+    },
+    "newTopic": {
+      "title": "New topic",
+      "category": "Category",
+      "categoryPlaceholder": "Select category...",
+      "topicTitle": "Title",
+      "topicTitlePlaceholder": "What do you want to discuss?",
+      "content": "Content",
+      "contentPlaceholder": "Describe your topic in detail...",
+      "submitting": "Creating...",
+      "submit": "Create topic"
+    },
+    "reply": {
+      "placeholder": "Write your reply...",
+      "submitting": "Sending...",
+      "submit": "Reply"
     }
   },
   "subscription": {
     "metadata": {
       "title": "Subscription | tvujspecialista.cz",
       "description": "Manage your subscription."
+    },
+    "toasts": {
+      "paymentCreated": "Payment was created",
+      "paymentError": "Error creating payment",
+      "subscriptionCreated": "Subscription was activated",
+      "subscriptionError": "Error activating subscription",
+      "subscriptionCancelled": "Subscription was cancelled",
+      "subscriptionCancelError": "Error cancelling subscription",
+      "subscriptionUpdated": "Subscription was updated",
+      "subscriptionUpdateError": "Error updating subscription",
+      "loadError": "Error loading subscription",
+      "plansLoadError": "Error loading plans",
+      "subscriptionDowngraded": "Subscription was downgraded",
+      "subscriptionDowngradeError": "Error downgrading subscription",
+      "subscriptionResumed": "Subscription was resumed",
+      "subscriptionResumeError": "Error resuming subscription",
+      "portalError": "Error opening customer portal"
+    },
+    "pricing": {
+      "recommended": "Recommended",
+      "currentPlan": "Current plan",
+      "loading": "Loading..."
     }
   },
   "errors": {
@@ -1210,6 +1458,19 @@
       "title": "An error occurred",
       "description": "We are sorry, but something went wrong.",
       "tryAgain": "Try again"
+    },
+    "boundary": {
+      "title": "Something went wrong",
+      "description": "An unexpected error occurred. Try refreshing the page or return to the home page.",
+      "details": "Error details...",
+      "reload": "Refresh page",
+      "home": "Home page"
+    }
+  },
+  "lead": {
+    "toasts": {
+      "created": "Lead was created",
+      "createError": "Error creating lead"
     }
   }
 }

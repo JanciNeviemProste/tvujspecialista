@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslations } from 'next-intl';
 import { commissionsApi } from '@/lib/api/commissions';
 import { queryKeys } from '@/lib/queryKeys';
 import { toast } from 'sonner';
@@ -18,6 +19,7 @@ export function useCommissionStats() {
 }
 
 export function usePayCommission() {
+  const t = useTranslations('commissions');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (commissionId: string) =>
@@ -25,10 +27,10 @@ export function usePayCommission() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.commissions.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.commissions.stats });
-      toast.success('Provízia bola úspešne uhradená');
+      toast.success(t('toasts.paymentCreated'));
     },
     onError: (error: Error) => {
-      toast.error(error.message || 'Chyba pri úhrade provízie');
+      toast.error(error.message || t('toasts.paymentError'));
     },
   });
 }

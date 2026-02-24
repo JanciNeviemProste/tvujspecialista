@@ -1,6 +1,7 @@
 'use client';
 
 import { memo } from 'react';
+import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { Mail, Phone, Calendar, DollarSign, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
@@ -14,24 +15,21 @@ interface DealCardProps {
   className?: string;
 }
 
-const statusConfig: Record<
-  DealStatus,
-  { label: string; className: string }
-> = {
-  [DealStatus.NEW]: { label: 'Nový', className: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
-  [DealStatus.CONTACTED]: { label: 'Kontaktovaný', className: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' },
-  [DealStatus.QUALIFIED]: { label: 'Kvalifikovaný', className: 'bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300' },
-  [DealStatus.IN_PROGRESS]: { label: 'V procese', className: 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300' },
-  [DealStatus.CLOSED_WON]: { label: 'Získaný', className: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' },
-  [DealStatus.CLOSED_LOST]: { label: 'Stratený', className: 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' },
+const statusClassNames: Record<DealStatus, string> = {
+  [DealStatus.NEW]: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300',
+  [DealStatus.CONTACTED]: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
+  [DealStatus.QUALIFIED]: 'bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300',
+  [DealStatus.IN_PROGRESS]: 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300',
+  [DealStatus.CLOSED_WON]: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300',
+  [DealStatus.CLOSED_LOST]: 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300',
 };
 
-// Define the next status in the pipeline flow
-const nextStatusMap: Partial<Record<DealStatus, { status: DealStatus; label: string }>> = {
-  [DealStatus.NEW]: { status: DealStatus.CONTACTED, label: 'Kontaktovaný' },
-  [DealStatus.CONTACTED]: { status: DealStatus.QUALIFIED, label: 'Kvalifikovaný' },
-  [DealStatus.QUALIFIED]: { status: DealStatus.IN_PROGRESS, label: 'V procese' },
-  [DealStatus.IN_PROGRESS]: { status: DealStatus.CLOSED_WON, label: 'Uzavrieť' },
+// Define the next status in the pipeline flow (without labels)
+const nextStatusMap: Partial<Record<DealStatus, { status: DealStatus }>> = {
+  [DealStatus.NEW]: { status: DealStatus.CONTACTED },
+  [DealStatus.CONTACTED]: { status: DealStatus.QUALIFIED },
+  [DealStatus.QUALIFIED]: { status: DealStatus.IN_PROGRESS },
+  [DealStatus.IN_PROGRESS]: { status: DealStatus.CLOSED_WON },
 };
 
 function formatCurrency(value: number): string {
@@ -47,7 +45,25 @@ function DealCardInner({
   onViewDetails,
   className,
 }: DealCardProps) {
-  const statusInfo = statusConfig[deal.status];
+  const t = useTranslations('deals');
+
+  const statusLabels: Record<DealStatus, string> = {
+    [DealStatus.NEW]: t('status.new'),
+    [DealStatus.CONTACTED]: t('status.contacted'),
+    [DealStatus.QUALIFIED]: t('status.qualified'),
+    [DealStatus.IN_PROGRESS]: t('status.inProgress'),
+    [DealStatus.CLOSED_WON]: t('status.closedWon'),
+    [DealStatus.CLOSED_LOST]: t('status.closedLost'),
+  };
+
+  const nextStatusLabels: Partial<Record<DealStatus, string>> = {
+    [DealStatus.NEW]: t('status.contacted'),
+    [DealStatus.CONTACTED]: t('status.qualified'),
+    [DealStatus.QUALIFIED]: t('status.inProgress'),
+    [DealStatus.IN_PROGRESS]: t('card.closeDeal'),
+  };
+
+  const statusClassName = statusClassNames[deal.status];
   const nextStatus = nextStatusMap[deal.status];
 
   return (
@@ -61,8 +77,8 @@ function DealCardInner({
         {/* Header with badge */}
         <div className="flex items-start justify-between">
           <h3 className="font-semibold text-base text-gray-900 dark:text-white line-clamp-1">{deal.customerName}</h3>
-          <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shrink-0 ml-2', statusInfo.className)}>
-            {statusInfo.label}
+          <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium shrink-0 ml-2', statusClassName)}>
+            {statusLabels[deal.status]}
           </span>
         </div>
 
@@ -96,7 +112,7 @@ function DealCardInner({
               <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
                 <Calendar className="h-4 w-4" />
                 <span>
-                  Uzavretie:{' '}
+                  {t('card.closeDeal')}:{' '}
                   {format(new Date(deal.estimatedCloseDate), 'd. MMM yyyy', { locale: sk })}
                 </span>
               </div>
@@ -106,7 +122,7 @@ function DealCardInner({
 
         {/* Created date */}
         <div className="text-xs text-gray-400 dark:text-gray-500">
-          Vytvorené:{' '}
+          {t('card.created')}:{' '}
           {format(new Date(deal.createdAt), 'd. MMM yyyy, HH:mm', { locale: sk })}
         </div>
       </div>
@@ -118,7 +134,7 @@ function DealCardInner({
             className="flex-1 px-3 py-2 text-sm font-medium rounded-lg border border-gray-200 dark:border-neutral-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
             onClick={() => onViewDetails(deal)}
           >
-            Detail
+            {t('card.detail')}
           </button>
         )}
         {onStatusChange && nextStatus && (
@@ -127,7 +143,7 @@ function DealCardInner({
             onClick={() => onStatusChange(deal)}
           >
             <ArrowRight className="h-3.5 w-3.5" />
-            {nextStatus.label}
+            {nextStatusLabels[deal.status]}
           </button>
         )}
       </div>
