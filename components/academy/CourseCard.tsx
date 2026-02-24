@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Course } from '@/types/academy';
 import { Clock, BookOpen, Star } from 'lucide-react';
@@ -47,6 +47,7 @@ function CourseCardInner({
     ? `/academy/learn/${course.slug}`
     : `/academy/courses/${course.slug}`;
 
+  const [imgError, setImgError] = useState(false);
   const rating = Number(course.rating || 0);
   const reviewCount = Number(course.reviewCount || 0);
 
@@ -55,12 +56,13 @@ function CourseCardInner({
       <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         {/* Thumbnail */}
         <div className="relative h-48 overflow-hidden">
-          {course.thumbnailUrl ? (
+          {course.thumbnailUrl && !imgError ? (
             <Image
               src={course.thumbnailUrl}
               alt={course.title}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImgError(true)}
             />
           ) : (
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-600">

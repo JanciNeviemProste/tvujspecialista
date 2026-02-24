@@ -404,6 +404,7 @@ export default function AdminCoursesPage() {
 
       {/* Edit Modal */}
       <CourseFormModal
+        key={editingCourse?.id || 'new-course'}
         isOpen={!!editingCourse}
         onClose={() => setEditingCourse(null)}
         onSubmit={handleUpdateCourse}
