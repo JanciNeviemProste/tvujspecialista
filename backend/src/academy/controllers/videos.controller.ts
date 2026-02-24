@@ -51,7 +51,9 @@ export class VideosController {
 
   @Post('upload')
   @UseGuards(JwtAuthGuard, AdminGuard)
-  @UseInterceptors(FileInterceptor('video'))
+  @UseInterceptors(FileInterceptor('video', {
+    limits: { fileSize: 500 * 1024 * 1024 }, // 500MB
+  }))
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
   @ApiOperation({

@@ -12,15 +12,15 @@ import { AllExceptionsFilter } from './common/filters/http-exception.filter';
 import { SanitizePipe } from './common/pipes/sanitize.pipe';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bodyParser: false });
   const logger = new Logger('Bootstrap');
 
   // Security headers
   app.use(helmet());
 
-  // Payload size limits
-  app.use(json({ limit: '10mb' }));
-  app.use(urlencoded({ limit: '10mb', extended: true }));
+  // Payload size limits (higher for video uploads)
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ limit: '50mb', extended: true }));
 
   // CORS
   app.enableCors({
