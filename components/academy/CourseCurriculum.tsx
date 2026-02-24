@@ -84,7 +84,9 @@ function CourseCurriculumInner({
                     </Badge>
                     <div className="flex items-center gap-1 text-xs text-gray-500">
                       <Clock className="h-3 w-3" />
-                      <span>{formatDuration(module.duration)}</span>
+                      <span>{formatDuration(
+                        module.lessons?.reduce((sum, l) => sum + (l.duration || 0), 0) || module.duration
+                      )}</span>
                     </div>
                   </div>
                   <CardTitle className="text-lg font-semibold">{module.title}</CardTitle>

@@ -150,6 +150,16 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
   const isEnrolled = !!enrollment
 
+  // Compute real duration and lesson count from loaded modules/lessons
+  const totalDuration = course.modules?.reduce(
+    (sum, m) => sum + (m.lessons?.reduce((s, l) => s + (l.duration || 0), 0) || m.duration || 0),
+    0,
+  ) || course.duration;
+  const totalLessons = course.modules?.reduce(
+    (sum, m) => sum + (m.lessons?.length || 0),
+    0,
+  ) || course.lessonCount;
+
   return (
     <div className="min-h-screen bg-white">
       {/* Toast Notification */}
@@ -197,11 +207,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-gray-500" />
-                  <span>{formatDuration(course.duration)}</span>
+                  <span>{formatDuration(totalDuration)}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <BookOpen className="h-5 w-5 text-gray-500" />
-                  <span>{course.lessonCount} lekcií</span>
+                  <span>{totalLessons} lekcií</span>
                 </div>
               </div>
             </div>
@@ -312,11 +322,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-500">{t('courseDetail.duration')}</span>
-                    <span className="font-medium">{formatDuration(course.duration)}</span>
+                    <span className="font-medium">{formatDuration(totalDuration)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">{t('courseDetail.lessonCount')}</span>
-                    <span className="font-medium">{course.lessonCount}</span>
+                    <span className="font-medium">{totalLessons}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">{t('courseDetail.level')}</span>

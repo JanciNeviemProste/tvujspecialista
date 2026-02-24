@@ -10,6 +10,8 @@ import { Repository, In } from 'typeorm';
 import { Video, VideoStatus } from '../../database/entities/video.entity';
 import { Lesson } from '../../database/entities/lesson.entity';
 import { Enrollment } from '../../database/entities/enrollment.entity';
+import { Module as CourseModule } from '../../database/entities/module.entity';
+import { Course } from '../../database/entities/course.entity';
 import { CloudinaryService } from '../../cloudinary/cloudinary.service';
 
 interface UploadedVideoFile {
@@ -43,8 +45,40 @@ export class VideosService {
     private lessonRepository: Repository<Lesson>,
     @InjectRepository(Enrollment)
     private enrollmentRepository: Repository<Enrollment>,
+    @InjectRepository(CourseModule)
+    private moduleRepository: Repository<CourseModule>,
+    @InjectRepository(Course)
+    private courseRepository: Repository<Course>,
     private cloudinaryService: CloudinaryService,
   ) {}
+
+  /**
+   * Recalculate module.duration and course.duration from actual lesson durations.
+   */
+  private async recalculateDurations(
+    moduleId: string,
+    courseId: string,
+  ): Promise<void> {
+    // Recalculate module duration
+    const moduleLessons = await this.lessonRepository.find({
+      where: { moduleId },
+    });
+    const moduleDuration = moduleLessons.reduce(
+      (sum, l) => sum + (l.duration || 0),
+      0,
+    );
+    await this.moduleRepository.update(moduleId, { duration: moduleDuration });
+
+    // Recalculate course duration
+    const courseModules = await this.moduleRepository.find({
+      where: { courseId },
+    });
+    const courseDuration = courseModules.reduce(
+      (sum, m) => sum + (m.duration || 0),
+      0,
+    );
+    await this.courseRepository.update(courseId, { duration: courseDuration });
+  }
 
   async uploadVideo(
     file: UploadedVideoFile,
@@ -119,6 +153,12 @@ export class VideosService {
       lesson.videoId = savedVideo.id;
       lesson.duration = Math.ceil(uploadResult.duration / 60);
       await this.lessonRepository.save(lesson);
+
+      // 8. Recalculate module and course durations
+      await this.recalculateDurations(
+        lesson.moduleId,
+        lesson.module.course.id,
+      );
 
       return savedVideo;
     } catch (error) {
@@ -247,11 +287,20 @@ export class VideosService {
       // Continue with database deletion even if Cloudinary deletion fails
     }
 
-    // 3. Update lesson (set videoId = null, duration = 0)
+    // 3. Update lesson (set videoId = null, duration = 0) and recalculate durations
     if (video.lesson) {
+      const moduleId = video.lesson.moduleId;
       video.lesson.videoId = null!;
       video.lesson.duration = 0;
       await this.lessonRepository.save(video.lesson);
+
+      // Load module to get courseId for duration recalculation
+      const module = await this.moduleRepository.findOne({
+        where: { id: moduleId },
+      });
+      if (module) {
+        await this.recalculateDurations(moduleId, module.courseId);
+      }
     }
 
     // 4. Delete video record

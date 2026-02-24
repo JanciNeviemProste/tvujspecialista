@@ -150,7 +150,7 @@ export class CloudinaryService {
     const signedUrl = cloudinary.url(publicId, {
       resource_type: 'video',
       sign_url: true,
-      type: 'authenticated',
+      type: 'upload',
       expires_at: Math.floor(Date.now() / 1000) + expiresIn,
     });
 

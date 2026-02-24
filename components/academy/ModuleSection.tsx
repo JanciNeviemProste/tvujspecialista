@@ -58,7 +58,9 @@ export function ModuleSection({
               {completedLessons}/{totalLessons} dokončených
             </span>
             <span>&bull;</span>
-            <span>{formatDuration(module.duration)}</span>
+            <span>{formatDuration(
+              module.lessons?.reduce((sum, l) => sum + (l.duration || 0), 0) || module.duration
+            )}</span>
           </div>
         </div>
       </button>

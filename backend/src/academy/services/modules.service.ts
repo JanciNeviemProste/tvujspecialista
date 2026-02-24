@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Module as CourseModule } from '../../database/entities/module.entity';
@@ -8,8 +8,6 @@ import { UpdateModuleDto } from '../dto/update-module.dto';
 
 @Injectable()
 export class ModulesService {
-  private readonly logger = new Logger(ModulesService.name);
-
   constructor(
     @InjectRepository(CourseModule)
     private moduleRepository: Repository<CourseModule>,
@@ -26,15 +24,6 @@ export class ModulesService {
       .orderBy('module.position', 'ASC')
       .addOrderBy('lesson.position', 'ASC')
       .getMany();
-
-    // Debug: log video data to verify joins work
-    for (const m of modules) {
-      for (const l of m.lessons || []) {
-        if (l.video) {
-          this.logger.log(`Lesson "${l.title}" has video: ${l.video.id} (status: ${l.video.status})`);
-        }
-      }
-    }
 
     return modules;
   }
