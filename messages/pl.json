@@ -890,7 +890,8 @@
       "home": "Strona główna",
       "courses": "Kursy",
       "myLearning": "Moje szkolenia",
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "manageCourses": "Zarządzanie kursami"
     },
     "breadcrumbs": {
       "academy": "Akademia",

@@ -28,8 +28,7 @@ export default function AcademyLandingPage() {
             <Link href="/academy/courses">
               <Button
                 size="lg"
-                variant="glass"
-                className="shadow-lg"
+                className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg font-semibold"
               >
                 {t('hero.exploreButton')}
               </Button>
@@ -150,8 +149,7 @@ export default function AcademyLandingPage() {
               <Link href="/academy/courses">
                 <Button
                   size="lg"
-                  variant="glass"
-                  className="shadow-lg"
+                  className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg font-semibold"
                 >
                   {t('featured.ctaButton')}
                 </Button>

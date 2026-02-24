@@ -890,7 +890,8 @@
       "home": "Domov",
       "courses": "Kurzy",
       "myLearning": "Moje vzdelávanie",
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "manageCourses": "Správa kurzov"
     },
     "breadcrumbs": {
       "academy": "Akadémia",

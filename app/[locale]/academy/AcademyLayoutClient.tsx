@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
-import { BookOpen, Home, Library, User, LayoutDashboard } from 'lucide-react';
+import { BookOpen, Home, Library, User, LayoutDashboard, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 interface AcademyLayoutClientProps {
@@ -12,7 +12,7 @@ interface AcademyLayoutClientProps {
 
 export default function AcademyLayoutClient({ children }: AcademyLayoutClientProps) {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
   const t = useTranslations('academy');
 
   // Skip breadcrumbs for learn pages (they have their own layout)
@@ -97,6 +97,15 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                     <LayoutDashboard className="h-4 w-4" />
                     <span className="hidden sm:inline">{t('nav.dashboard')}</span>
                   </Link>
+                  {user?.role === 'admin' && (
+                    <Link
+                      href="/profi/dashboard/admin/kurzy"
+                      className="flex items-center gap-2 text-sm font-medium text-amber-600 dark:text-amber-400 transition-colors hover:text-amber-700 dark:hover:text-amber-300"
+                    >
+                      <Settings className="h-4 w-4" />
+                      <span className="hidden sm:inline">{t('nav.manageCourses')}</span>
+                    </Link>
+                  )}
                 </>
               )}
             </nav>
