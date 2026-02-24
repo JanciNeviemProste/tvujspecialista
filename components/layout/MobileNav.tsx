@@ -93,7 +93,15 @@ export function MobileNav() {
                   <>
                     <div className="my-4 border-t" />
 
-                    {/* Academy & Community - only for authenticated */}
+                    <Link
+                      href="/profi/dashboard"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <LayoutDashboard className="h-5 w-5 text-muted-foreground" />
+                      <span className="font-medium">{t('dashboard')}</span>
+                    </Link>
+
                     <Link
                       href="/academy"
                       onClick={closeMenu}
@@ -119,15 +127,6 @@ export function MobileNav() {
                     >
                       <MessageSquare className="h-5 w-5 text-blue-500" />
                       <span className="font-medium">{t('forum')}</span>
-                    </Link>
-
-                    <Link
-                      href="/profi/dashboard"
-                      onClick={closeMenu}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
-                    >
-                      <LayoutDashboard className="h-5 w-5 text-muted-foreground" />
-                      <span className="font-medium">{t('dashboard')}</span>
                     </Link>
                   </>
                 )}

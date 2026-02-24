@@ -148,35 +148,6 @@ export default function CommunityLandingPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="overflow-hidden rounded-2xl bg-gradient-to-br from-accent-500 to-primary-500 p-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-white">
-              {t('upcomingEvents.ctaTitle')}
-            </h2>
-            <p className="mb-8 text-lg text-white/90">
-              {t('upcomingEvents.ctaSubtitle')}
-            </p>
-            {isAdmin ? (
-              <Link
-                href="/profi/dashboard/admin/komunita"
-                className="inline-flex items-center gap-2 bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg text-base font-semibold shadow-lg transition-colors"
-              >
-                <Settings className="h-5 w-5" />
-                {t('hero.manageButton')}
-              </Link>
-            ) : (
-              <Link
-                href="/community/events"
-                className="inline-flex items-center bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg text-base font-semibold shadow-lg transition-colors"
-              >
-                {t('upcomingEvents.ctaButton')}
-              </Link>
-            )}
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

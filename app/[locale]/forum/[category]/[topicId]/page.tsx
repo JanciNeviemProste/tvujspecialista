@@ -126,6 +126,7 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
               key={post.id}
               post={post}
               currentUserId={user?.id}
+              isAdmin={user?.role === 'admin'}
               onLike={handleLike}
               onDelete={handleDelete}
               isLiking={toggleLike.isPending}

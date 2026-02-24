@@ -4,10 +4,8 @@ import { useTranslations } from 'next-intl'
 import { CourseCard } from '@/components/academy/CourseCard'
 import { CoursesGridSkeleton } from '@/components/academy/LoadingStates'
 import { useCourses } from '@/lib/hooks/useAcademy'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { GraduationCap, Clock, Award } from 'lucide-react'
-import { Link } from '@/i18n/routing'
 
 export default function AcademyLandingPage() {
   const t = useTranslations('academy')
@@ -22,17 +20,9 @@ export default function AcademyLandingPage() {
             <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-6xl">
               {t('hero.title')}
             </h1>
-            <p className="mb-8 text-xl lg:text-2xl opacity-90">
+            <p className="mb-4 text-xl lg:text-2xl opacity-90">
               {t('hero.subtitle')}
             </p>
-            <Link href="/academy/courses">
-              <Button
-                size="lg"
-                className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg font-semibold"
-              >
-                {t('hero.exploreButton')}
-              </Button>
-            </Link>
           </div>
         </div>
 
@@ -93,7 +83,7 @@ export default function AcademyLandingPage() {
       </section>
 
       {/* Featured Courses Section */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-16 bg-gray-50 dark:bg-neutral-900/50">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-4xl font-bold">{t('featured.title')}</h2>
@@ -135,29 +125,6 @@ export default function AcademyLandingPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <Card variant="premium" className="overflow-hidden bg-gradient-to-br from-primary-500 to-accent-500">
-            <CardContent className="p-12 text-center">
-              <h2 className="mb-4 text-3xl font-bold text-white">
-                {t('featured.ctaTitle')}
-              </h2>
-              <p className="mb-8 text-lg text-white/90">
-                {t('featured.ctaSubtitle')}
-              </p>
-              <Link href="/academy/courses">
-                <Button
-                  size="lg"
-                  className="bg-white text-blue-600 hover:bg-gray-100 shadow-lg font-semibold"
-                >
-                  {t('featured.ctaButton')}
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
     </div>
   )
 }

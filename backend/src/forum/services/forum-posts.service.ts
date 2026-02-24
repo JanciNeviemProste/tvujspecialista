@@ -52,7 +52,7 @@ export class ForumPostsService {
     return result!;
   }
 
-  async delete(id: string, userId: string): Promise<void> {
+  async delete(id: string, userId: string, userRole?: string): Promise<void> {
     const post = await this.postsRepository.findOne({
       where: { id },
       relations: ['topic'],
@@ -60,7 +60,7 @@ export class ForumPostsService {
     if (!post) {
       throw new NotFoundException('Post not found');
     }
-    if (post.authorId !== userId) {
+    if (userRole !== 'admin' && post.authorId !== userId) {
       throw new ForbiddenException('You can only delete your own posts');
     }
 

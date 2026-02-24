@@ -9,7 +9,7 @@
       "login": "Log in",
       "register": "Register for free",
       "academy": "Academy",
-      "community": "Community",
+      "community": "Events",
       "forum": "Forum",
       "dashboard": "Dashboard",
       "myAccount": "My account",
@@ -841,7 +841,7 @@
       "dashboard": "Dashboard",
       "academy": "Academy",
       "forum": "Forum",
-      "community": "Community",
+      "community": "Events",
       "account": "Account",
       "logout": "Log out"
     },

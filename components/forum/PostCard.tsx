@@ -12,12 +12,13 @@ import type { ForumPost } from '@/types/forum';
 interface PostCardProps {
   post: ForumPost;
   currentUserId?: string;
+  isAdmin?: boolean;
   onLike?: (postId: string) => void;
   onDelete?: (postId: string) => void;
   isLiking?: boolean;
 }
 
-export function PostCard({ post, currentUserId, onLike, onDelete, isLiking }: PostCardProps) {
+export function PostCard({ post, currentUserId, isAdmin, onLike, onDelete, isLiking }: PostCardProps) {
   const authorInitials = post.author.name
     .split(' ')
     .map((n) => n[0])
@@ -47,8 +48,8 @@ export function PostCard({ post, currentUserId, onLike, onDelete, isLiking }: Po
             </div>
           </div>
 
-          {/* Delete button (own posts only) */}
-          {isOwn && onDelete && (
+          {/* Delete button (own posts or admin) */}
+          {(isOwn || isAdmin) && onDelete && (
             <Button
               variant="ghost"
               size="sm"

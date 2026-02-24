@@ -19,8 +19,8 @@ export function DashboardHeader() {
   const navLinks = [
     { href: '/profi/dashboard', label: t('dashboard'), exact: true },
     { href: '/academy', label: t('academy'), exact: false },
-    { href: '/forum', label: t('forum'), exact: false },
     { href: '/community', label: t('community'), exact: false },
+    { href: '/forum', label: t('forum'), exact: false },
     { href: '/profi/dashboard/nastaveni', label: t('account'), exact: true },
   ];
 

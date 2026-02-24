@@ -42,7 +42,7 @@ export class ForumPostsController {
     @Request() req: AuthenticatedRequest,
     @Param('id') id: string,
   ) {
-    await this.postsService.delete(id, req.user.userId);
+    await this.postsService.delete(id, req.user.userId, req.user.role);
     return { message: 'Post deleted successfully' };
   }
 

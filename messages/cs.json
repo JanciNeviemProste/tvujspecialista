@@ -9,7 +9,7 @@
       "login": "Přihlásit se",
       "register": "Registrace zdarma",
       "academy": "Akademie",
-      "community": "Komunita",
+      "community": "Eventy",
       "forum": "Fórum",
       "dashboard": "Dashboard",
       "myAccount": "Můj účet",
@@ -841,7 +841,7 @@
       "dashboard": "Dashboard",
       "academy": "Akademie",
       "forum": "Fórum",
-      "community": "Komunita",
+      "community": "Eventy",
       "account": "Účet",
       "logout": "Odhlásit se"
     },
