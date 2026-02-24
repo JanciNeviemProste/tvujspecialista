@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 
 const resetPasswordSchema = z.object({
   password: z
@@ -77,13 +78,7 @@ export default function ResetPasswordPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-background">
-      <header className="border-b bg-white dark:bg-card">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-primary">
-            tvujspecialista.cz
-          </Link>
-        </div>
-      </header>
+      <PublicHeader />
 
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">

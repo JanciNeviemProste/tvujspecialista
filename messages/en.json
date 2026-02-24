@@ -3,8 +3,9 @@
     "nav": {
       "home": "Home",
       "search": "Search",
-      "searchSpecialist": "Find a specialist",
+      "searchSpecialist": "Find a Specialist",
       "pricing": "Pricing",
+      "membership": "Membership",
       "login": "Log in",
       "register": "Register for free",
       "academy": "Academy",

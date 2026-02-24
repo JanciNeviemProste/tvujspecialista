@@ -3,8 +3,9 @@
     "nav": {
       "home": "Domov",
       "search": "Hľadať",
-      "searchSpecialist": "Hľadať špecialistu",
+      "searchSpecialist": "Vyhľadať špecialistu",
       "pricing": "Ceny",
+      "membership": "Členstvo",
       "login": "Prihlásiť sa",
       "register": "Registrácia zdarma",
       "academy": "Akadémia",

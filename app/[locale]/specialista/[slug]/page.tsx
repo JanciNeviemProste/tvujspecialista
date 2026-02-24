@@ -3,6 +3,7 @@
 import { use, useState, FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
@@ -47,13 +48,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="border-b bg-white">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              tvujspecialista.cz
-            </Link>
-          </div>
-        </header>
+        <PublicHeader />
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="mb-4 text-5xl">⏳</div>
@@ -67,13 +62,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
   if (error || !specialist) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="border-b bg-white">
-          <div className="container mx-auto flex h-16 items-center justify-between px-4">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              tvujspecialista.cz
-            </Link>
-          </div>
-        </header>
+        <PublicHeader />
         <div className="container mx-auto px-4 py-20">
           <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">
             <h2 className="mb-2 text-xl font-semibold text-red-900">{t('notFound')}</h2>
@@ -94,22 +83,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="border-b bg-white">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            tvujspecialista.cz
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
-              {tCommon('nav.search')}
-            </Link>
-            <Link href="/ceny" className="text-sm font-medium hover:text-blue-600">
-              {tCommon('nav.pricing')}
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <PublicHeader />
 
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">

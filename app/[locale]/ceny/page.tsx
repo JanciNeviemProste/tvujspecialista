@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { PricingCard } from '@/components/subscriptions/PricingCard';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PricingPlan, SubscriptionType } from '@/types/subscriptions';
 import { useCreateCheckout, useMyActiveSubscription } from '@/lib/hooks/useSubscriptions';
 import { useAuth } from '@/contexts/AuthContext';
@@ -15,7 +16,6 @@ export default function PricingPage() {
   const { data: activeSubscription } = useMyActiveSubscription();
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionType | null>(null);
   const t = useTranslations('pricing');
-  const tCommon = useTranslations('common');
 
   const pricingPlans: PricingPlan[] = [
     {
@@ -127,46 +127,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white dark:from-background to-gray-50 dark:to-muted/30">
-      {/* Header */}
-      <header className="border-b bg-white dark:bg-card sticky top-0 z-30">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-xl sm:text-2xl font-bold text-primary">
-            tvujspecialista.cz
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-4 lg:gap-6">
-            <Link href="/hledat" className="text-sm font-medium hover:text-primary transition-colors">
-              {tCommon('nav.search')}
-            </Link>
-            <Link href="/ceny" className="text-sm font-medium text-primary">
-              {tCommon('nav.pricing')}
-            </Link>
-            {user ? (
-              <Link href="/profi/dashboard">
-                <Button size="sm">{tCommon('nav.dashboard')}</Button>
-              </Link>
-            ) : (
-              <Link href="/profi/registrace">
-                <Button size="sm">{tCommon('nav.register')}</Button>
-              </Link>
-            )}
-          </nav>
-
-          {/* Mobile Navigation */}
-          <div className="md:hidden">
-            {user ? (
-              <Link href="/profi/dashboard">
-                <Button size="sm">{tCommon('nav.dashboard')}</Button>
-              </Link>
-            ) : (
-              <Link href="/profi/registrace">
-                <Button size="sm">{tCommon('nav.register')}</Button>
-              </Link>
-            )}
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Hero */}
       <section className="py-12 sm:py-20">

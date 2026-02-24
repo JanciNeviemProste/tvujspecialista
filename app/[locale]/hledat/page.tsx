@@ -3,8 +3,8 @@
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/routing';
 import { SpecialistCard } from '@/components/shared/SpecialistCard';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
 import { SpecialistCategory, Specialist } from '@/types/specialist';
 
@@ -42,28 +42,7 @@ export default function SearchPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-background">
-      {/* Header */}
-      <header className="border-b bg-white dark:bg-card">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-primary">
-            tvujspecialista.cz
-          </Link>
-          <nav className="flex items-center gap-6">
-            <Link href="/hledat" className="text-sm font-medium text-blue-600 dark:text-primary">
-              {tCommon('nav.search')}
-            </Link>
-            <Link href="/ceny" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary">
-              {tCommon('nav.pricing')}
-            </Link>
-            <Link
-              href="/profi/registrace"
-              className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
-            >
-              {tCommon('nav.forSpecialists')}
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <PublicHeader />
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">

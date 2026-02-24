@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations } from 'next-intl';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 
 const registrationSchema = z
   .object({
@@ -39,7 +40,6 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 export default function RegistrationPage() {
   const t = useTranslations('auth.register');
-  const tNav = useTranslations('common.nav');
   const router = useRouter();
   const [error, setError] = useState('');
 
@@ -87,25 +87,7 @@ export default function RegistrationPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-background">
-      {/* Header */}
-      <header className="border-b bg-white dark:bg-card">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600 dark:text-primary">
-            tvujspecialista.cz
-          </Link>
-          <nav className="flex items-center gap-4">
-            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary">
-              {tNav('search')}
-            </Link>
-            <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary transition-colors">
-              {tNav('login')}
-            </Link>
-            <Link href="/profi/registrace" className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors">
-              {tNav('register')}
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <PublicHeader />
 
       {/* Registration Form */}
       <div className="px-4 py-12">

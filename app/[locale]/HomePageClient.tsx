@@ -2,8 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
-import { MobileNav } from '@/components/layout/MobileNav';
-import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 
 export default function HomePageClient() {
   const t = useTranslations('home');
@@ -12,30 +11,7 @@ export default function HomePageClient() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-background">
-      <header className="border-b bg-white dark:bg-card sticky top-0 z-30">
-        <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="text-2xl font-bold text-blue-600 dark:text-primary">tvujspecialista.cz</div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6">
-            <Link href="/hledat" className="text-sm font-medium hover:text-blue-600 dark:hover:text-primary transition-colors">{nav('search')}</Link>
-            <Link href="/ceny" className="text-sm font-medium hover:text-blue-600 dark:hover:text-primary transition-colors">{nav('pricing')}</Link>
-            <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 dark:hover:text-primary transition-colors">
-              {nav('login')}
-            </Link>
-            <Link href="/profi/registrace" className="rounded bg-blue-600 dark:bg-primary px-4 py-2 text-sm text-white hover:bg-blue-700 dark:hover:bg-primary/90 transition-colors">
-              {nav('register')}
-            </Link>
-            <LocaleSwitcher />
-          </nav>
-
-          {/* Mobile Navigation */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <LocaleSwitcher />
-            <MobileNav />
-          </div>
-        </div>
-      </header>
+      <PublicHeader />
 
       <main id="main-content">
         <section className="py-20">

@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { Link } from '@/i18n/routing';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -20,13 +21,7 @@ export default async function TermsPage({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b">
-        <div className="container mx-auto flex h-16 items-center px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            tvujspecialista.cz
-          </Link>
-        </div>
-      </header>
+      <PublicHeader />
 
       <div className="container mx-auto max-w-4xl px-4 py-12">
         <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>

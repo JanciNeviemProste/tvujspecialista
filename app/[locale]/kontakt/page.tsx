@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -60,13 +61,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="border-b bg-white">
-        <div className="container mx-auto flex h-16 items-center px-4">
-          <Link href="/" className="text-2xl font-bold text-blue-600">
-            tvujspecialista.cz
-          </Link>
-        </div>
-      </header>
+      <PublicHeader />
 
       <div className="container mx-auto max-w-5xl px-4 py-12">
         <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
