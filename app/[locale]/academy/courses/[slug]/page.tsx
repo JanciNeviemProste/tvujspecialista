@@ -74,6 +74,13 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
   const enrollMutation = useEnroll()
   const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
 
+  const translateEnrollError = (msg: string): string => {
+    if (msg.includes('Active subscription required')) return t('courseDetail.errorSubscriptionRequired')
+    if (msg.includes('Education or Premium subscription')) return t('courseDetail.errorEducationRequired')
+    if (msg.includes('subscription has expired')) return t('courseDetail.errorSubscriptionExpired')
+    return msg
+  }
+
   const handleEnroll = async () => {
     if (!isAuthenticated) {
       router.push('/profi/prihlaseni')
@@ -91,7 +98,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
     } catch (error: unknown) {
       setToastMessage({
         type: 'error',
-        message: getErrorMessage(error)
+        message: translateEnrollError(getErrorMessage(error))
       })
     }
   }
@@ -256,6 +263,27 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Mobile enrollment CTA — visible only on mobile before curriculum */}
+            {!isEnrolled && isAuthenticated && (
+              <div className="lg:hidden">
+                <Card>
+                  <CardContent className="p-4 flex items-center justify-between gap-4">
+                    <p className="text-sm text-gray-500 flex-1">
+                      {t('courseDetail.getAccess')}
+                    </p>
+                    <Button
+                      variant="premium"
+                      onClick={handleEnroll}
+                      loading={enrollMutation.isPending}
+                      disabled={enrollMutation.isPending}
+                    >
+                      {enrollMutation.isPending ? t('courseDetail.enrolling') : t('courseDetail.enroll')}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
 
             {/* Course Curriculum */}
             {course.modules && course.modules.length > 0 && (
