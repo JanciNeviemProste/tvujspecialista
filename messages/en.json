@@ -845,6 +845,11 @@
       "account": "Account",
       "logout": "Log out"
     },
+    "error": {
+      "title": "Something went wrong",
+      "description": "An error occurred while loading the dashboard. Please try again.",
+      "retry": "Try again"
+    },
     "metadata": {
       "title": "Dashboard | tvujspecialista.cz",
       "description": "Your panel for managing your profile and business opportunities."
@@ -1022,7 +1027,8 @@
         "heading": "You have not completed any course yet",
         "description": "Keep studying and finish your first course"
       }
-    }
+    },
+    "viewAllCourses": "View all courses"
   },
   "community": {
     "nav": {
@@ -1142,7 +1148,8 @@
         "title": "No past events",
         "description": "Events you have attended or cancelled will appear here."
       }
-    }
+    },
+    "exploreEvents": "Explore events"
   },
   "forum": {
     "nav": {

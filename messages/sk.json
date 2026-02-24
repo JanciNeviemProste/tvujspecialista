@@ -845,6 +845,11 @@
       "account": "Účet",
       "logout": "Odhlásiť sa"
     },
+    "error": {
+      "title": "Niečo sa pokazilo",
+      "description": "Pri načítaní dashboardu došlo k chybe. Skúste to prosím znovu.",
+      "retry": "Skúsiť znovu"
+    },
     "metadata": {
       "title": "Dashboard | tvujspecialista.cz",
       "description": "Váš panel na správu profilu a leadov."
@@ -1022,7 +1027,8 @@
         "heading": "Zatiaľ ste nedokončili žiadny kurz",
         "description": "Pokračujte v štúdiu a dokončite svoj prvý kurz"
       }
-    }
+    },
+    "viewAllCourses": "Zobraziť všetky kurzy"
   },
   "community": {
     "nav": {
@@ -1142,7 +1148,8 @@
         "title": "Žiadne minulé eventy",
         "description": "Tu sa zobrazia eventy, ktorých ste sa zúčastnili alebo zrušili."
       }
-    }
+    },
+    "exploreEvents": "Preskúmať eventy"
   },
   "forum": {
     "nav": {

@@ -845,6 +845,11 @@
       "account": "Konto",
       "logout": "Wyloguj się"
     },
+    "error": {
+      "title": "Coś poszło nie tak",
+      "description": "Wystąpił błąd podczas ładowania pulpitu. Spróbuj ponownie.",
+      "retry": "Spróbuj ponownie"
+    },
     "metadata": {
       "title": "Dashboard | tvujspecialista.cz",
       "description": "Twój panel do zarządzania profilem i możliwościami biznesowymi."
@@ -1022,7 +1027,8 @@
         "heading": "Nie ukończyłeś jeszcze żadnego kursu",
         "description": "Kontynuuj naukę i ukończ swój pierwszy kurs"
       }
-    }
+    },
+    "viewAllCourses": "Zobacz wszystkie kursy"
   },
   "community": {
     "nav": {
@@ -1142,7 +1148,8 @@
         "title": "Brak minionych eventów",
         "description": "Tutaj pojawią się eventy, w których uczestniczyłeś lub które anulowałeś."
       }
-    }
+    },
+    "exploreEvents": "Przeglądaj wydarzenia"
   },
   "forum": {
     "nav": {

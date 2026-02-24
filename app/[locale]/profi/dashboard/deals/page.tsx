@@ -14,7 +14,6 @@ import { CloseDealModal } from '@/components/deals/CloseDealModal';
 import { DealFilters } from '@/components/deals/DealFilters';
 import { KanbanSkeleton, DealCardSkeleton, DealAnalyticsSkeleton } from '@/components/deals/LoadingStates';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { LayoutGrid, List, Download, ChevronDown, ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { toast } from 'sonner';
@@ -197,11 +196,11 @@ export default function DealsPage() {
   // Loading state
   if (authLoading || dealsLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
-            <div className="h-8 w-48 bg-muted rounded animate-pulse mb-2" />
-            <div className="h-4 w-64 bg-muted rounded animate-pulse" />
+            <div className="h-8 w-48 bg-gray-200 dark:bg-neutral-700 rounded animate-pulse mb-2" />
+            <div className="h-4 w-64 bg-gray-200 dark:bg-neutral-700 rounded animate-pulse" />
           </div>
           {viewMode === 'kanban' ? <KanbanSkeleton /> : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -214,34 +213,34 @@ export default function DealsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-          <p className="text-muted-foreground">{t('subtitle')}</p>
+          <p className="text-gray-500 dark:text-gray-400">{t('subtitle')}</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">{t('stats.total')}</p>
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.total')}</p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
-          <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">{t('stats.new')}</p>
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.new')}</p>
             <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
           </div>
-          <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">{t('stats.inProgress')}</p>
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.inProgress')}</p>
             <p className="text-2xl font-bold text-orange-600">{stats.inProgress}</p>
           </div>
-          <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">{t('stats.won')}</p>
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.won')}</p>
             <p className="text-2xl font-bold text-green-600">{stats.won}</p>
           </div>
-          <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">{t('stats.value')}</p>
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+            <p className="text-sm text-gray-500 dark:text-gray-400">{t('stats.value')}</p>
             <p className="text-2xl font-bold">
               {new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' }).format(stats.totalValue)}
             </p>
@@ -309,11 +308,12 @@ export default function DealsPage() {
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="text-6xl mb-4">📭</div>
             <h3 className="text-xl font-semibold mb-2">{t('empty.title')}</h3>
-            <p className="text-muted-foreground">
+            <p className="text-gray-500 dark:text-gray-400">
               {filters.search || filters.status !== 'all' || filters.dateRange.from || filters.dateRange.to
                 ? t('empty.tryFilters')
                 : t('empty.noDeals')}
             </p>
+
           </div>
         ) : viewMode === 'kanban' ? (
           <DealKanban

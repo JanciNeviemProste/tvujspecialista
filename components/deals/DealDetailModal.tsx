@@ -46,17 +46,18 @@ export function DealDetailModal({
 }: DealDetailModalProps) {
   const [newNote, setNewNote] = useState('');
   const addNote = useAddDealNote();
-  const { data: events, isLoading: eventsLoading } = useDealEvents(deal?.id || '');
+  const { data: events, isLoading: eventsLoading, error: eventsError } = useDealEvents(deal?.id || '');
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Escape key handler
   useEffect(() => {
+    if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   // Auto-focus modal
   useEffect(() => {
@@ -73,7 +74,7 @@ export function DealDetailModal({
     try {
       await addNote.mutateAsync({ id: deal.id, note: newNote.trim() });
       setNewNote('');
-    } catch (error) {
+    } catch {
       // Error is handled by the hook
     }
   };
@@ -137,7 +138,13 @@ export function DealDetailModal({
             <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">
               História udalostí
             </h3>
-            <DealTimeline events={events || []} isLoading={eventsLoading} />
+            {eventsError ? (
+              <p className="text-sm text-gray-400 dark:text-gray-500 italic">
+                Nepodarilo sa načítať históriu udalostí.
+              </p>
+            ) : (
+              <DealTimeline events={events || []} isLoading={eventsLoading} />
+            )}
           </div>
         </div>
 

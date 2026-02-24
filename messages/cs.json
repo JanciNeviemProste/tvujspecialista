@@ -848,6 +848,11 @@
     "metadata": {
       "title": "Dashboard | tvujspecialista.cz",
       "description": "Váš panel pro správu profilu a obchodních příležitostí."
+    },
+    "error": {
+      "title": "Něco se pokazilo",
+      "description": "Při načítání dashboardu došlo k chybě. Zkuste to prosím znovu.",
+      "retry": "Zkusit znovu"
     }
   },
   "specialist": {
@@ -1022,7 +1027,8 @@
         "heading": "Zatím jste nedokončili žádný kurz",
         "description": "Pokračujte ve studiu a dokončete svůj první kurz"
       }
-    }
+    },
+    "viewAllCourses": "Zobrazit všechny kurzy"
   },
   "community": {
     "nav": {
@@ -1142,7 +1148,8 @@
         "title": "Žádné minulé eventy",
         "description": "Zde se zobrazí eventy, kterých jste se zúčastnili nebo zrušili."
       }
-    }
+    },
+    "exploreEvents": "Prozkoumat eventy"
   },
   "forum": {
     "nav": {

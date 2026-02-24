@@ -3,7 +3,6 @@
 import { Deal, DealStatus } from '@/types/deals';
 import { DealCard } from './DealCard';
 import { cn } from '@/lib/utils/cn';
-import { Badge } from '@/components/ui/badge';
 
 interface DealKanbanProps {
   deals: Deal[];
@@ -44,11 +43,13 @@ export function DealKanban({ deals, onStatusChange, onViewDetails, className }: 
             {/* Column header */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-lg">{column.label}</h3>
-                <Badge variant="outline">{columnDeals.length}</Badge>
+                <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{column.label}</h3>
+                <span className="inline-flex items-center rounded-full border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:text-gray-300">
+                  {columnDeals.length}
+                </span>
               </div>
               {totalValue > 0 && (
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   Hodnota:{' '}
                   {new Intl.NumberFormat('sk-SK', {
                     style: 'currency',
@@ -61,7 +62,7 @@ export function DealKanban({ deals, onStatusChange, onViewDetails, className }: 
             {/* Cards */}
             <div className="space-y-3 min-h-[200px]">
               {columnDeals.length === 0 ? (
-                <div className="flex items-center justify-center h-32 text-sm text-muted-foreground border-2 border-dashed rounded-lg">
+                <div className="flex items-center justify-center h-32 text-sm text-gray-400 dark:text-gray-500 border-2 border-dashed border-gray-300 dark:border-neutral-600 rounded-lg">
                   Žiadne leady
                 </div>
               ) : (
