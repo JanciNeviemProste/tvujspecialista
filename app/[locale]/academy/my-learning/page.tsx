@@ -97,8 +97,9 @@ export default function MyLearningPage() {
     const activeEnrollments = enrollments.filter(e => e.status === 'active');
     const completedEnrollments = enrollments.filter(e => e.status === 'completed');
 
-    const averageProgress = activeEnrollments.length > 0
-      ? activeEnrollments.reduce((sum, e) => sum + e.progress, 0) / activeEnrollments.length
+    const allRelevant = enrollments.filter(e => e.status === 'active' || e.status === 'completed');
+    const averageProgress = allRelevant.length > 0
+      ? allRelevant.reduce((sum, e) => sum + Number(e.progress), 0) / allRelevant.length
       : 0;
 
     const totalWatchTime = enrollments
