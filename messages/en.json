@@ -927,10 +927,10 @@
         }
       },
       "community": {
-        "title": "Community management",
+        "title": "Manage events",
         "metadata": {
-          "title": "Community management | Admin",
-          "description": "Administration of community events."
+          "title": "Manage events | Admin",
+          "description": "Manage events and meetups."
         }
       },
       "toasts": {

@@ -927,10 +927,10 @@
         }
       },
       "community": {
-        "title": "Zarządzanie społecznością",
+        "title": "Zarządzaj eventami",
         "metadata": {
-          "title": "Zarządzanie społecznością | Admin",
-          "description": "Administracja eventami społeczności."
+          "title": "Zarządzaj eventami | Admin",
+          "description": "Zarządzanie eventami i spotkaniami."
         }
       },
       "toasts": {

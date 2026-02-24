@@ -927,10 +927,10 @@
         }
       },
       "community": {
-        "title": "Správa komunity",
+        "title": "Spravovať eventy",
         "metadata": {
-          "title": "Správa komunity | Admin",
-          "description": "Administrácia komunitných eventov."
+          "title": "Spravovať eventy | Admin",
+          "description": "Správa eventov a stretnutí."
         }
       },
       "toasts": {

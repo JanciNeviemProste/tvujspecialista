@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
@@ -54,6 +54,12 @@ function EventFormModal({
 }) {
   const tAdmin = useTranslations('dashboard.admin');
   const [form, setForm] = useState<EventFormData>(initialData);
+
+  useEffect(() => {
+    if (isOpen) {
+      setForm(initialData);
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -513,20 +519,20 @@ export default function AdminCommunityPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <Link href="/profi/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
+          <Link href="/profi/dashboard" className="text-gray-400 hover:text-gray-900 transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-3">
-              <Calendar className="h-6 w-6 text-accent-500" />
+              <Calendar className="h-6 w-6 text-blue-500" />
               {t('title')}
             </h1>
-            <p className="text-muted-foreground mt-1">{Array.isArray(eventsList) ? eventsList.length : 0} eventov</p>
+            <p className="text-gray-500 mt-1">{Array.isArray(eventsList) ? eventsList.length : 0} eventov</p>
           </div>
         </div>
         <button
           onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 rounded-lg bg-primary text-white px-4 py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+          className="flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           <Plus className="h-4 w-4" />
           Nový event
@@ -535,12 +541,12 @@ export default function AdminCommunityPage() {
 
       {!Array.isArray(eventsList) || eventsList.length === 0 ? (
         <div className="text-center py-20">
-          <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+          <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-semibold mb-2">Žiadne eventy</h3>
-          <p className="text-muted-foreground mb-4">Zatiaľ neboli vytvorené žiadne eventy.</p>
+          <p className="text-gray-500 mb-4">Zatiaľ neboli vytvorené žiadne eventy.</p>
           <button
             onClick={() => setModalOpen(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary text-white px-4 py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
           >
             <Plus className="h-4 w-4" />
             Vytvoriť prvý event
