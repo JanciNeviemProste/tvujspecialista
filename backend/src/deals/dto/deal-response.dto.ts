@@ -23,8 +23,23 @@ export class DealResponseDto {
   @ApiProperty({ enum: DealStatus })
   status: DealStatus;
 
-  @ApiProperty({ type: [String], example: ['Initial contact made'] })
-  notes: string[];
+  @ApiProperty({
+    type: 'array',
+    items: {
+      type: 'object',
+      properties: {
+        id: { type: 'string' },
+        content: { type: 'string' },
+        createdAt: { type: 'string' },
+        author: {
+          type: 'object',
+          properties: { name: { type: 'string' } },
+        },
+      },
+    },
+    example: [{ id: 'uuid', content: 'Initial contact made', createdAt: '2026-01-01T00:00:00Z', author: { name: 'John' } }],
+  })
+  notes: Array<{ id: string; content: string; createdAt: string; author: { name: string } }>;
 
   @ApiProperty({ example: true })
   gdprConsent: boolean;

@@ -58,8 +58,13 @@ export class Deal {
   })
   status: DealStatus;
 
-  @Column('simple-array', { default: '' })
-  notes: string[];
+  @Column('jsonb', { default: [] })
+  notes: Array<{
+    id: string;
+    content: string;
+    createdAt: string;
+    author: { name: string };
+  }>;
 
   @Column({ default: true })
   gdprConsent: boolean;

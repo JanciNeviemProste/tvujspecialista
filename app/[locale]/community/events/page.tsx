@@ -43,8 +43,8 @@ export default function EventsCatalogPage() {
 
     const searchLower = debouncedSearch.toLowerCase()
     return data.events.filter(event =>
-      event.title.toLowerCase().includes(searchLower) ||
-      event.description.toLowerCase().includes(searchLower) ||
+      event.title?.toLowerCase().includes(searchLower) ||
+      event.description?.toLowerCase().includes(searchLower) ||
       event.location?.toLowerCase().includes(searchLower)
     )
   }, [data?.events, debouncedSearch])
@@ -62,12 +62,12 @@ export default function EventsCatalogPage() {
   const hasActiveFilters = filters.search || filters.type || filters.format || filters.category || filters.featured
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
           <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-gray-500">
             {isLoading ? (
               t('loading')
             ) : error ? (
@@ -93,7 +93,7 @@ export default function EventsCatalogPage() {
                         variant="ghost"
                         size="sm"
                         onClick={handleClearFilters}
-                        className="h-auto p-0 text-xs hover:text-destructive"
+                        className="h-auto p-0 text-xs hover:text-red-600"
                       >
                         {t('filters.clear')}
                       </Button>
@@ -107,7 +107,7 @@ export default function EventsCatalogPage() {
                       {t('filters.search')}
                     </label>
                     <div className="relative">
-                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                       <Input
                         type="text"
                         placeholder={t('filters.searchPlaceholder')}
@@ -118,7 +118,7 @@ export default function EventsCatalogPage() {
                       {filters.search && (
                         <button
                           onClick={() => setFilters({ ...filters, search: '' })}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-900"
                         >
                           <X className="h-4 w-4" />
                         </button>
@@ -132,7 +132,7 @@ export default function EventsCatalogPage() {
                       {t('filters.eventType')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.type}
                       onChange={(e) => setFilters({ ...filters, type: e.target.value as EventType | '' })}
                     >
@@ -151,7 +151,7 @@ export default function EventsCatalogPage() {
                       {t('filters.format')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.format}
                       onChange={(e) => setFilters({ ...filters, format: e.target.value as EventFormat | '' })}
                     >
@@ -167,7 +167,7 @@ export default function EventsCatalogPage() {
                       {t('filters.category')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as EventCategory | '' })}
                     >
@@ -183,7 +183,7 @@ export default function EventsCatalogPage() {
                     <label className="flex items-center space-x-2">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-input text-primary focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                        className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                         checked={filters.featured}
                         onChange={(e) => setFilters({ ...filters, featured: e.target.checked })}
                       />
@@ -204,8 +204,8 @@ export default function EventsCatalogPage() {
 
             {/* Error State */}
             {error && (
-              <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
-                <p className="text-destructive">
+              <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
+                <p className="text-red-600">
                   {t('loadErrorLong')}
                 </p>
               </div>
@@ -215,12 +215,12 @@ export default function EventsCatalogPage() {
             {!isLoading && !error && (
               <>
                 {filteredEvents.length === 0 ? (
-                  <div className="rounded-lg border bg-card p-12 text-center">
+                  <div className="rounded-lg border bg-white p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
                       {t('empty.title')}
                     </h3>
-                    <p className="text-muted-foreground mb-4">
+                    <p className="text-gray-500 mb-4">
                       {t('empty.description')}
                     </p>
                     {hasActiveFilters && (

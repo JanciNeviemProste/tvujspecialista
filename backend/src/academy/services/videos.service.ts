@@ -98,12 +98,14 @@ export class VideosService {
         title,
       );
 
-      // 6. Update Video record with Cloudinary data, status: PROCESSING
+      // 6. Update Video record with Cloudinary data, status: READY
+      // Cloudinary eager upload is synchronous — video is already processed
       savedVideo.cloudinaryPublicId = uploadResult.publicId;
       savedVideo.cloudinaryUrl = uploadResult.url;
       savedVideo.duration = uploadResult.duration;
       savedVideo.thumbnailUrl = uploadResult.thumbnailUrl;
-      savedVideo.status = VideoStatus.PROCESSING;
+      savedVideo.status = VideoStatus.READY;
+      savedVideo.processedAt = new Date();
 
       await this.videoRepository.save(savedVideo);
 

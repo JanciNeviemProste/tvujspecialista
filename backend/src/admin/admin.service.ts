@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LessThan, Not, Repository } from 'typeorm';
 import { User } from '../database/entities/user.entity';
@@ -62,7 +62,7 @@ export class AdminService {
     });
 
     if (!specialist) {
-      throw new Error('Specialist not found');
+      throw new NotFoundException('Specialist not found');
     }
 
     specialist.verified = true;

@@ -9,6 +9,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import * as crypto from 'crypto';
 import { Deal, DealStatus } from '../database/entities/deal.entity';
 import {
   LeadEvent,
@@ -79,11 +80,12 @@ export class DealsService {
   }
 
   async findBySpecialist(specialistId: string) {
-    return this.dealRepository.find({
+    const deals = await this.dealRepository.find({
       where: { specialistId },
       relations: ['commission'],
       order: { createdAt: 'DESC' },
     });
+    return deals.map((deal) => this.normalizeDealNotes(deal));
   }
 
   async findOne(dealId: string, specialistId: string): Promise<Deal> {
@@ -100,7 +102,7 @@ export class DealsService {
       throw new BadRequestException('Unauthorized');
     }
 
-    return deal;
+    return this.normalizeDealNotes(deal);
   }
 
   async findSpecialistByUserId(userId: string): Promise<Specialist> {
@@ -194,7 +196,13 @@ export class DealsService {
       throw new BadRequestException('Unauthorized');
     }
 
-    deal.notes = [...deal.notes, addNoteDto.note];
+    const noteObj = {
+      id: crypto.randomUUID(),
+      content: addNoteDto.note,
+      createdAt: new Date().toISOString(),
+      author: { name: specialist.name },
+    };
+    deal.notes = [...(Array.isArray(deal.notes) ? deal.notes : []), noteObj];
     await this.dealRepository.save(deal);
 
     await this.leadEventRepository.save({
@@ -203,7 +211,7 @@ export class DealsService {
       data: { note: addNoteDto.note },
     });
 
-    return deal;
+    return this.normalizeDealNotes(deal);
   }
 
   async updateDealValue(
@@ -550,5 +558,37 @@ export class DealsService {
       statusDistribution,
       monthlyTrend,
     };
+  }
+
+  /**
+   * Normalize deal notes: convert old string[] format to DealNote[] objects.
+   * Handles backward compatibility for deals created before the jsonb migration.
+   */
+  private normalizeDealNotes(deal: Deal): Deal {
+    if (!deal.notes || !Array.isArray(deal.notes)) {
+      deal.notes = [];
+      return deal;
+    }
+
+    deal.notes = deal.notes.map((note: unknown) => {
+      if (typeof note === 'string') {
+        return {
+          id: `legacy-${crypto.randomUUID()}`,
+          content: note,
+          createdAt: deal.createdAt
+            ? deal.createdAt.toISOString()
+            : new Date().toISOString(),
+          author: { name: 'System' },
+        };
+      }
+      return note as {
+        id: string;
+        content: string;
+        createdAt: string;
+        author: { name: string };
+      };
+    });
+
+    return deal;
   }
 }

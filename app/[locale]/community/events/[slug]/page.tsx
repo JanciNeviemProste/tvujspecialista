@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useRouter } from '@/i18n/routing'
 import { useEvent, useRSVP, useMyRSVPs } from '@/lib/hooks/useCommunity'
+import { getErrorMessage } from '@/lib/utils/error'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -27,6 +28,7 @@ export default function EventDetailPage() {
   const rsvpMutation = useRSVP()
 
   const [isRegistered, setIsRegistered] = useState(false)
+  const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
 
   useEffect(() => {
     if (event && myRSVPs) {
@@ -43,6 +45,13 @@ export default function EventDetailPage() {
     }
   }, [event])
 
+  useEffect(() => {
+    if (toastMessage) {
+      const timer = setTimeout(() => setToastMessage(null), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [toastMessage])
+
   const handleRSVP = async () => {
     if (!isAuthenticated) {
       router.push('/profi/prihlaseni')
@@ -56,17 +65,18 @@ export default function EventDetailPage() {
       setIsRegistered(true)
     } catch (error) {
       console.error('Failed to RSVP:', error)
+      setToastMessage({ type: 'error', message: getErrorMessage(error) })
     }
   }
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-6">
-            <div className="h-96 bg-muted rounded-lg" />
-            <div className="h-8 bg-muted rounded w-3/4" />
-            <div className="h-4 bg-muted rounded w-1/2" />
+            <div className="h-96 bg-gray-200 rounded-lg" />
+            <div className="h-8 bg-gray-200 rounded w-3/4" />
+            <div className="h-4 bg-gray-200 rounded w-1/2" />
           </div>
         </div>
       </div>
@@ -75,10 +85,10 @@ export default function EventDetailPage() {
 
   if (error || !event) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <div className="container mx-auto px-4 py-8">
-          <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
-            <p className="text-destructive">
+          <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
+            <p className="text-red-600">
               {t('notFound')}
             </p>
           </div>
@@ -96,9 +106,22 @@ export default function EventDetailPage() {
   const formattedEndTime = formatDate(event.endDate, 'HH:mm')
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
+          <div className={`rounded-lg border p-4 shadow-lg ${
+            toastMessage.type === 'success'
+              ? 'border-green-300 bg-green-50 text-green-600'
+              : 'border-red-300 bg-red-50 text-red-600'
+          }`}>
+            <p className="font-medium">{toastMessage.message}</p>
+          </div>
+        </div>
+      )}
+
       {/* Banner Image */}
-      <div className="relative h-96 w-full overflow-hidden bg-muted">
+      <div className="relative h-96 w-full overflow-hidden bg-gray-200">
         <Image
           src={event.bannerImage}
           alt={event.title}
@@ -144,7 +167,7 @@ export default function EventDetailPage() {
                 <CardTitle>{t('about')}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-muted-foreground whitespace-pre-wrap">
+                <p className="text-gray-500 whitespace-pre-wrap">
                   {event.description}
                 </p>
               </CardContent>
@@ -160,12 +183,12 @@ export default function EventDetailPage() {
                   <div className="flex items-center gap-4">
                     <Avatar className="h-12 w-12">
                       <AvatarFallback>
-                        {event.organizer.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                        {event.organizer?.name?.split(' ').map(n => n?.[0] ?? '').filter(Boolean).join('').toUpperCase() || '?'}
                       </AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="font-semibold">{event.organizer.name}</p>
-                      <p className="text-sm text-muted-foreground">{event.organizer.email}</p>
+                      <p className="text-sm text-gray-500">{event.organizer.email}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -205,10 +228,10 @@ export default function EventDetailPage() {
                 <CardContent className="space-y-4">
                   {/* Date & Time */}
                   <div className="flex items-start gap-3">
-                    <Calendar className="h-5 w-5 text-muted-foreground mt-0.5" />
+                    <Calendar className="h-5 w-5 text-gray-500 mt-0.5" />
                     <div>
                       <p className="font-medium">{formattedStartDate}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-500">
                         {formattedStartTime} - {formattedEndTime}
                       </p>
                     </div>
@@ -217,7 +240,7 @@ export default function EventDetailPage() {
                   {/* Location or Meeting Link */}
                   {event.format === EventFormat.ONLINE ? (
                     <div className="flex items-start gap-3">
-                      <Video className="h-5 w-5 text-muted-foreground mt-0.5" />
+                      <Video className="h-5 w-5 text-gray-500 mt-0.5" />
                       <div>
                         <p className="font-medium">{t('onlineMeeting')}</p>
                         {event.meetingLink && isRegistered && (
@@ -225,14 +248,14 @@ export default function EventDetailPage() {
                             href={event.meetingLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm text-primary hover:underline flex items-center gap-1"
+                            className="text-sm text-blue-600 hover:underline flex items-center gap-1"
                           >
                             {t('joinLink')}
                             <ExternalLink className="h-3 w-3" />
                           </a>
                         )}
                         {!isRegistered && (
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-gray-500">
                             {t('linkAfterRegistration')}
                           </p>
                         )}
@@ -240,11 +263,11 @@ export default function EventDetailPage() {
                     </div>
                   ) : (
                     <div className="flex items-start gap-3">
-                      <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
+                      <MapPin className="h-5 w-5 text-gray-500 mt-0.5" />
                       <div>
                         <p className="font-medium">{event.location || 'TBA'}</p>
                         {event.address && (
-                          <p className="text-sm text-muted-foreground">{event.address}</p>
+                          <p className="text-sm text-gray-500">{event.address}</p>
                         )}
                       </div>
                     </div>
@@ -252,7 +275,7 @@ export default function EventDetailPage() {
 
                   {/* Attendees */}
                   <div className="flex items-start gap-3">
-                    <Users className="h-5 w-5 text-muted-foreground mt-0.5" />
+                    <Users className="h-5 w-5 text-gray-500 mt-0.5" />
                     <div>
                       <p className="font-medium">
                         {event.attendeeCount}
@@ -268,10 +291,10 @@ export default function EventDetailPage() {
 
                   {/* Category */}
                   <div className="flex items-start gap-3">
-                    <Tag className="h-5 w-5 text-muted-foreground mt-0.5" />
+                    <Tag className="h-5 w-5 text-gray-500 mt-0.5" />
                     <div>
                       <p className="font-medium">{t('category')}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-500">
                         {{
                           [EventCategory.REAL_ESTATE]: tCatalog('filters.catRealEstate'),
                           [EventCategory.FINANCIAL]: tCatalog('filters.catFinancial'),
@@ -283,15 +306,15 @@ export default function EventDetailPage() {
 
                   {/* Price */}
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-muted-foreground mb-2">{t('price')}</p>
-                    <p className="text-2xl font-bold text-accent-500">
+                    <p className="text-sm text-gray-500 mb-2">{t('price')}</p>
+                    <p className="text-2xl font-bold text-blue-600">
                       {isFree ? t('free') : `${event.price} ${event.currency}`}
                     </p>
                   </div>
 
                   {/* RSVP Button */}
                   <Button
-                    className="w-full bg-accent-500 hover:bg-accent-600"
+                    className="w-full bg-blue-600 hover:bg-blue-700"
                     onClick={handleRSVP}
                     disabled={isFullyBooked || isRegistered || rsvpMutation.isPending}
                   >
@@ -305,7 +328,7 @@ export default function EventDetailPage() {
                   </Button>
 
                   {isRegistered && (
-                    <p className="text-sm text-center text-muted-foreground">
+                    <p className="text-sm text-center text-gray-500">
                       {t('confirmationEmailSent')}
                     </p>
                   )}

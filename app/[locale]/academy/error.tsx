@@ -21,11 +21,11 @@ export default function AcademyError({
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary-500/10 to-accent-500/10 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500/10 to-indigo-500/10 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-            <GraduationCap className="h-8 w-8 text-primary" />
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
+            <GraduationCap className="h-8 w-8 text-blue-600" />
           </div>
           <CardTitle className="text-2xl">{t('title')}</CardTitle>
           <CardDescription>
@@ -34,8 +34,8 @@ export default function AcademyError({
         </CardHeader>
         <CardContent>
           {error.message && (
-            <div className="rounded-lg bg-muted p-4 text-sm">
-              <p className="font-mono text-muted-foreground">{error.message}</p>
+            <div className="rounded-lg bg-gray-100 p-4 text-sm">
+              <p className="font-mono text-gray-500">{error.message}</p>
             </div>
           )}
         </CardContent>

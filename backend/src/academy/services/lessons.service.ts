@@ -45,7 +45,10 @@ export class LessonsService {
 
     // If lesson is not free and userId is provided, check enrollment
     if (!lesson.free && userId) {
-      const courseId = lesson.module.course.id;
+      const courseId = lesson.module?.course?.id;
+      if (!courseId) {
+        throw new NotFoundException('Course not found for this lesson');
+      }
       const enrollment = await this.enrollmentRepository.findOne({
         where: { userId, courseId },
       });
