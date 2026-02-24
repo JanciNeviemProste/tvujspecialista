@@ -1,10 +1,7 @@
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Event, EventType, EventFormat } from '@/types/community'
-import { Card, CardContent, CardFooter } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { MapPin, Video, Calendar, Users } from 'lucide-react'
+import { MapPin, Video, Calendar, Users, Clock } from 'lucide-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils/cn'
@@ -18,6 +15,14 @@ interface EventCardProps {
 
 function getEventFormatLabel(format: EventFormat): string {
   return format === EventFormat.ONLINE ? 'Online' : 'Offline'
+}
+
+const typeColorMap: Record<EventType, string> = {
+  [EventType.WORKSHOP]: 'bg-purple-100 text-purple-700',
+  [EventType.NETWORKING]: 'bg-blue-100 text-blue-700',
+  [EventType.CONFERENCE]: 'bg-orange-100 text-orange-700',
+  [EventType.WEBINAR]: 'bg-green-100 text-green-700',
+  [EventType.MEETUP]: 'bg-pink-100 text-pink-700',
 }
 
 export const EventCard = memo(function EventCard({ event, showRSVPButton = true, className }: EventCardProps) {
@@ -35,125 +40,128 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
   const isFullyBooked = event.maxAttendees ? event.attendeeCount >= event.maxAttendees : false
   const isFree = event.price === 0
 
-  // Format date
   const formattedDate = formatDate(event.startDate, 'd. MMM yyyy')
   const formattedTime = formatDate(event.startDate, 'HH:mm')
 
   const spotsLeft = event.maxAttendees ? event.maxAttendees - event.attendeeCount : null
 
   return (
-    <Card
-      variant="interactive"
-      className={cn('overflow-hidden h-full flex flex-col group', className)}
-    >
-      {/* Banner with overlay badges */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        <Image
-          src={event.bannerImage}
-          alt={event.title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-
-        {/* Gradient overlay for better readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-
-        {/* Date badge overlay */}
-        <div className="absolute top-2 left-2">
-          <Badge variant="gold" className="shadow-lg flex items-center gap-1">
-            <Calendar className="h-3 w-3" />
-            {formattedDate}
-          </Badge>
-        </div>
-
-        {/* Featured badge */}
-        {event.featured && (
-          <Badge variant="gold" className="absolute top-2 right-2 shadow-lg">
-            Featured
-          </Badge>
-        )}
-
-        {/* Type badge at bottom */}
-        <div className="absolute bottom-2 left-2 flex gap-2">
-          <Badge variant="default" className="shadow-lg">
-            {eventTypeLabels[event.type]}
-          </Badge>
-          <Badge
-            variant={event.format === EventFormat.ONLINE ? 'default' : 'outline'}
-            className="shadow-lg"
-          >
-            {getEventFormatLabel(event.format)}
-          </Badge>
-        </div>
-      </div>
-
-      <CardContent className="flex-1 p-4 space-y-3">
-        {/* Title */}
-        <h3 className="font-semibold text-lg line-clamp-2 min-h-[3.5rem]">
-          {event.title}
-        </h3>
-
-        {/* Time */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Calendar className="h-4 w-4" />
-          <span>{formattedTime}</span>
-        </div>
-
-        {/* Location or Meeting Link */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          {event.format === EventFormat.ONLINE ? (
-            <>
-              <Video className="h-4 w-4" />
-              <span>{t('event.onlineMeeting')}</span>
-            </>
+    <Link href={href} className={cn('block h-full', className)}>
+      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+        {/* Banner */}
+        <div className="relative aspect-[16/9] overflow-hidden">
+          {event.bannerImage ? (
+            <Image
+              src={event.bannerImage}
+              alt={event.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
           ) : (
-            <>
-              <MapPin className="h-4 w-4" />
-              <span className="line-clamp-1">{event.location || 'TBA'}</span>
-            </>
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Calendar className="h-12 w-12 text-white/30" />
+              </div>
+            </div>
           )}
+
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+          {/* Date badge */}
+          <div className="absolute top-3 left-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-gray-800 shadow-sm">
+              <Calendar className="h-3 w-3" />
+              {formattedDate}
+            </span>
+          </div>
+
+          {/* Featured badge */}
+          {event.featured && (
+            <span className="absolute top-3 right-3 inline-flex items-center rounded-full bg-amber-400/90 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-amber-900 shadow-sm">
+              Featured
+            </span>
+          )}
+
+          {/* Type & format badges at bottom of image */}
+          <div className="absolute bottom-3 left-3 flex gap-2">
+            <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-sm', typeColorMap[event.type])}>
+              {eventTypeLabels[event.type]}
+            </span>
+            <span className="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-gray-700 shadow-sm">
+              {event.format === EventFormat.ONLINE ? (
+                <><Video className="h-3 w-3 mr-1" />{getEventFormatLabel(event.format)}</>
+              ) : (
+                <><MapPin className="h-3 w-3 mr-1" />{getEventFormatLabel(event.format)}</>
+              )}
+            </span>
+          </div>
         </div>
 
-        {/* Attendees count */}
-        <div className="flex items-center gap-2 text-sm">
-          <Users className="h-4 w-4 text-muted-foreground" />
-          <span className="text-muted-foreground">
-            {event.attendeeCount}
-            {event.maxAttendees && (
-              <span> / {event.maxAttendees}</span>
-            )}
-          </span>
-          {isFullyBooked && (
-            <Badge variant="destructive" className="text-xs">
-              {t('event.full')}
-            </Badge>
-          )}
+        {/* Content */}
+        <div className="flex-1 p-5 space-y-3">
+          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 min-h-[3.5rem] group-hover:text-blue-600 transition-colors">
+            {event.title}
+          </h3>
+
+          <div className="space-y-2">
+            {/* Time */}
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <Clock className="h-4 w-4 shrink-0" />
+              <span>{formattedTime}</span>
+            </div>
+
+            {/* Location */}
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              {event.format === EventFormat.ONLINE ? (
+                <>
+                  <Video className="h-4 w-4 shrink-0" />
+                  <span>{t('event.onlineMeeting')}</span>
+                </>
+              ) : (
+                <>
+                  <MapPin className="h-4 w-4 shrink-0" />
+                  <span className="line-clamp-1">{event.location || 'TBA'}</span>
+                </>
+              )}
+            </div>
+
+            {/* Attendees */}
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <Users className="h-4 w-4 shrink-0" />
+              <span>
+                {event.attendeeCount}
+                {event.maxAttendees && <span> / {event.maxAttendees}</span>}
+              </span>
+              {isFullyBooked && (
+                <span className="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-medium">
+                  {t('event.full')}
+                </span>
+              )}
+              {!isFullyBooked && spotsLeft !== null && spotsLeft <= 10 && (
+                <span className="inline-flex items-center rounded-full bg-amber-100 text-amber-700 px-2 py-0.5 text-xs font-medium">
+                  {spotsLeft} {spotsLeft === 1 ? 'miesto' : spotsLeft < 5 ? 'miesta' : 'miest'}
+                </span>
+              )}
+            </div>
+          </div>
+
+          {/* Description */}
+          <p className="text-sm text-gray-500 line-clamp-2">
+            {event.description}
+          </p>
         </div>
 
-        {/* Price */}
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-accent-500">
+        {/* Footer */}
+        <div className="px-5 pb-5 pt-0 flex items-center justify-between">
+          <span className="text-lg font-bold text-blue-600">
             {isFree ? t('event.free') : `${event.price} ${event.currency}`}
           </span>
-        </div>
-
-        {/* Description preview */}
-        <p className="text-sm text-muted-foreground line-clamp-2">
-          {event.description}
-        </p>
-      </CardContent>
-
-      <CardFooter className="p-4 pt-0">
-        <Link href={href}>
-          <Button
-            variant="premium"
-            className="w-full bg-accent-500 hover:bg-accent-600"
-            disabled={isFullyBooked}
-          >
+          <span className="inline-flex items-center rounded-lg bg-blue-600 text-white px-4 py-2 text-sm font-medium group-hover:bg-blue-700 transition-colors">
             {isFullyBooked ? t('event.full') : showRSVPButton ? t('event.register') : t('event.viewDetail')}
-          </Button>
-        </Link>
-      </CardFooter>
-    </Card>
+          </span>
+        </div>
+      </div>
+    </Link>
   )
 })

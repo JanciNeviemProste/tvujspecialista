@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { communityApi } from '@/lib/api/community';
 import { adminApi } from '@/lib/api/admin';
-import { ArrowLeft, Calendar, Eye, XCircle, ChevronDown, ChevronUp, UserCheck, UserX, CheckCircle, Plus, Pencil, Trash2, X, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Calendar, Eye, XCircle, ChevronDown, ChevronUp, UserCheck, UserX, CheckCircle, Plus, Pencil, Trash2, X, RotateCcw, Upload, ImageIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -22,6 +22,7 @@ interface EventFormData {
   location: string;
   maxAttendees: string;
   meetingLink: string;
+  bannerImage: string;
 }
 
 const emptyEventForm: EventFormData = {
@@ -35,6 +36,7 @@ const emptyEventForm: EventFormData = {
   location: '',
   maxAttendees: '',
   meetingLink: '',
+  bannerImage: '',
 };
 
 function EventFormModal({
@@ -54,6 +56,9 @@ function EventFormModal({
 }) {
   const tAdmin = useTranslations('dashboard.admin');
   const [form, setForm] = useState<EventFormData>(initialData);
+  const [uploading, setUploading] = useState(false);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -65,6 +70,35 @@ function EventFormModal({
 
   const handleChange = (field: keyof EventFormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleImageUpload = async (file: File) => {
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error('Povolené formáty: JPEG, PNG, WebP');
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('Maximálna veľkosť: 5 MB');
+      return;
+    }
+    setUploading(true);
+    try {
+      const res = await adminApi.uploadEventBanner(file);
+      handleChange('bannerImage', res.data.bannerImage);
+      toast.success('Obrázok nahraný');
+    } catch {
+      toast.error('Nahrávanie obrázka zlyhalo');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files[0];
+    if (file) handleImageUpload(file);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -87,6 +121,62 @@ function EventFormModal({
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          {/* Banner Image Upload */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Banner obrázok</label>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleImageUpload(file);
+              }}
+            />
+            {form.bannerImage ? (
+              <div className="relative rounded-lg overflow-hidden border border-gray-200">
+                <img
+                  src={form.bannerImage}
+                  alt="Banner preview"
+                  className="w-full h-40 object-cover"
+                />
+                <div className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="px-3 py-1.5 bg-white rounded-lg text-sm font-medium shadow-lg"
+                  >
+                    Zmeniť obrázok
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div
+                onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+                onDragLeave={() => setDragOver(false)}
+                onDrop={handleDrop}
+                onClick={() => !uploading && fileInputRef.current?.click()}
+                className={`flex flex-col items-center justify-center rounded-lg border-2 border-dashed px-4 py-8 cursor-pointer transition-colors ${
+                  dragOver ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                } ${uploading ? 'opacity-50 pointer-events-none' : ''}`}
+              >
+                {uploading ? (
+                  <>
+                    <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-2" />
+                    <span className="text-sm text-gray-500">Nahrávam...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="h-8 w-8 text-gray-400 mb-2" />
+                    <span className="text-sm font-medium text-gray-600">Klikni alebo pretiahni obrázok</span>
+                    <span className="text-xs text-gray-400 mt-1">JPEG, PNG, WebP - max 5 MB</span>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Názov eventu *</label>
             <input
@@ -671,6 +761,7 @@ export default function AdminCommunityPage() {
           location: editingEvent.location || '',
           maxAttendees: editingEvent.maxAttendees?.toString() || '',
           meetingLink: editingEvent.meetingLink || '',
+          bannerImage: editingEvent.bannerImage || '',
         } : emptyEventForm}
         isLoading={formLoading}
         isEdit={true}

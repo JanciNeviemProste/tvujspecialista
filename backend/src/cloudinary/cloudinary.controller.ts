@@ -11,6 +11,7 @@ import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse, ApiConsumes } from '
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from './cloudinary.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AdminGuard } from '../auth/guards/admin.guard';
 import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.interface';
 
 interface UploadedFile {
@@ -55,5 +56,35 @@ export class CloudinaryController {
     }
 
     return this.cloudinaryService.updateProfilePhoto(req.user.userId, file);
+  }
+
+  @UseGuards(JwtAuthGuard, AdminGuard)
+  @Post('event-banner')
+  @UseInterceptors(FileInterceptor('banner'))
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Upload event banner image (Admin only)' })
+  @ApiConsumes('multipart/form-data')
+  @ApiResponse({ status: 201, description: 'Banner uploaded successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid file type or size' })
+  async uploadEventBanner(
+    @UploadedFile() file: UploadedFile,
+  ) {
+    if (!file) {
+      throw new BadRequestException('No file provided');
+    }
+
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!allowedTypes.includes(file.mimetype)) {
+      throw new BadRequestException(
+        'Invalid file type. Only JPEG, PNG, and WebP are allowed',
+      );
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      throw new BadRequestException('File size too large. Maximum 5MB allowed');
+    }
+
+    const bannerUrl = await this.cloudinaryService.uploadEventBanner(file, Date.now().toString());
+    return { bannerImage: bannerUrl };
   }
 }

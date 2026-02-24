@@ -228,7 +228,7 @@ export default function AdminCoursesPage() {
   const handlePublish = async (courseId: string, published: boolean) => {
     setActionLoading(courseId);
     try {
-      await academyApi.publishCourse(courseId, !published);
+      await adminApi.publishCourse(courseId, !published);
       toast.success(published ? tAdmin('toasts.courseHidden') : tAdmin('toasts.coursePublished'));
       refetch();
     } catch {
@@ -304,7 +304,7 @@ export default function AdminCoursesPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <Link href="/profi/dashboard" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+          <Link href="/academy" className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>

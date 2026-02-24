@@ -74,6 +74,18 @@ export class AdminController {
     return this.coursesService.findAllAdmin();
   }
 
+  @Patch('courses/:id/publish')
+  @ApiOperation({ summary: 'Publish/unpublish course (Admin only, no module validation)' })
+  @ApiResponse({ status: 200, description: 'Course publish status updated' })
+  @ApiResponse({ status: 404, description: 'Course not found' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
+  async publishCourse(
+    @Param('id') id: string,
+    @Body('published') published: boolean,
+  ) {
+    return this.coursesService.publishAdmin(id, published);
+  }
+
   @Get('events')
   @ApiOperation({ summary: 'Get all events including cancelled/unpublished (Admin only)' })
   @ApiResponse({ status: 200, description: 'Returns all events' })

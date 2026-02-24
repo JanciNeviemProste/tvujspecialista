@@ -74,6 +74,25 @@ export class CloudinaryService {
     return { photo: imageUrl };
   }
 
+  async uploadEventBanner(file: UploadedFile, eventId: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'tvujspecialista/events',
+          public_id: `event_${eventId}_${Date.now()}`,
+          transformation: [{ width: 1200, height: 630, crop: 'fill' }],
+        },
+        (error, result) => {
+          if (error) return reject(new Error(error.message));
+          if (!result) return reject(new Error('Upload failed: no result'));
+          resolve(result.secure_url);
+        },
+      );
+
+      uploadStream.end(file.buffer);
+    });
+  }
+
   async uploadVideo(
     file: UploadedFile,
     lessonId: string,

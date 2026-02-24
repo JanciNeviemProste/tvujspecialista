@@ -193,6 +193,15 @@ export class CoursesService {
     return this.courseRepository.save(course);
   }
 
+  async publishAdmin(id: string, published: boolean): Promise<Course> {
+    const course = await this.courseRepository.findOne({ where: { id } });
+    if (!course) {
+      throw new NotFoundException('Course not found');
+    }
+    course.published = published;
+    return this.courseRepository.save(course);
+  }
+
   async findAllAdmin(): Promise<{ courses: Course[]; total: number }> {
     const [courses, total] = await this.courseRepository.findAndCount({
       order: { createdAt: 'DESC' },
