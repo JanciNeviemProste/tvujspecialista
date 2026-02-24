@@ -45,7 +45,7 @@ function DealCardInner({
   onViewDetails,
   className,
 }: DealCardProps) {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
 
   const statusLabels: Record<DealStatus, string> = {
     [DealStatus.NEW]: t('status.new'),

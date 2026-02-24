@@ -36,7 +36,7 @@ export function DealDetailModal({
   onCloseDeal,
   onReopen,
 }: DealDetailModalProps) {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const [newNote, setNewNote] = useState('');
   const addNote = useAddDealNote();
   const { data: events, isLoading: eventsLoading, error: eventsError } = useDealEvents(deal?.id || '');

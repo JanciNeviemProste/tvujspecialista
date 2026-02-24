@@ -25,7 +25,7 @@ export function DealFilters({
   deals,
   className,
 }: DealFiltersProps) {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const [isExpanded, setIsExpanded] = useState(false);
   const [searchValue, setSearchValue] = useState(filters.search);
 
@@ -74,7 +74,7 @@ export function DealFilters({
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" aria-hidden="true" />
           <Input
             type="text"
             placeholder={t('filters.searchPlaceholder')}
@@ -94,7 +94,7 @@ export function DealFilters({
               status: e.target.value as typeof filters.status,
             })
           }
-          className="px-4 py-2 rounded-lg border bg-card text-sm min-w-[180px]"
+          className="px-4 py-2 rounded-lg border bg-white text-sm min-w-[180px]"
           aria-label="Filter by lead status"
         >
           <option value="all">{t('filters.allStatuses')}</option>
@@ -143,7 +143,7 @@ export function DealFilters({
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <Label className="text-sm font-medium" htmlFor="value-range-slider">{t('filters.valueRange')}</Label>
-                <span className="text-sm text-muted-foreground" aria-live="polite" aria-atomic="true">
+                <span className="text-sm text-gray-500" aria-live="polite" aria-atomic="true">
                   {new Intl.NumberFormat('sk-SK', {
                     style: 'currency',
                     currency: 'EUR',

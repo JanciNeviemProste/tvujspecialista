@@ -61,8 +61,8 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
               <Link
                 href="/academy"
                 className={cn(
-                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                  pathname === '/academy' ? "text-primary" : "text-muted-foreground"
+                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600",
+                  pathname === '/academy' ? "text-blue-600" : "text-gray-500"
                 )}
               >
                 <Home className="h-4 w-4" />
@@ -71,8 +71,8 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
               <Link
                 href="/academy/courses"
                 className={cn(
-                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                  pathname?.startsWith('/academy/courses') ? "text-primary" : "text-muted-foreground"
+                  "flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600",
+                  pathname?.startsWith('/academy/courses') ? "text-blue-600" : "text-gray-500"
                 )}
               >
                 <Library className="h-4 w-4" />
@@ -82,8 +82,8 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 <Link
                   href="/academy/my-learning"
                   className={cn(
-                    "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                    pathname === '/academy/my-learning' ? "text-primary" : "text-muted-foreground"
+                    "flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600",
+                    pathname === '/academy/my-learning' ? "text-blue-600" : "text-gray-500"
                   )}
                 >
                   <User className="h-4 w-4" />
@@ -93,7 +93,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
               {isAuthenticated && (
                 <Link
                   href="/profi/dashboard"
-                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
                 >
                   <LayoutDashboard className="h-4 w-4" />
                   <span className="hidden sm:inline">{t('nav.dashboard')}</span>
@@ -112,8 +112,8 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
 
             {/* Right side - Academy branding */}
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <BookOpen className="h-5 w-5 text-primary" />
-              <span className="hidden sm:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <BookOpen className="h-5 w-5 text-blue-600" />
+              <span className="hidden sm:inline bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {t('branding')}
               </span>
             </div>
@@ -124,13 +124,13 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
             <div className="flex items-center gap-2 text-sm pb-3 overflow-x-auto">
               {breadcrumbs.map((crumb, index) => (
                 <div key={crumb.href} className="flex items-center gap-2 flex-shrink-0">
-                  {index > 0 && <span className="text-muted-foreground">/</span>}
+                  {index > 0 && <span className="text-gray-500">/</span>}
                   {index === breadcrumbs.length - 1 ? (
-                    <span className="text-foreground font-medium">{crumb.label}</span>
+                    <span className="text-gray-900 font-medium">{crumb.label}</span>
                   ) : (
                     <Link
                       href={crumb.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-gray-500 hover:text-blue-600 transition-colors"
                     >
                       {crumb.label}
                     </Link>

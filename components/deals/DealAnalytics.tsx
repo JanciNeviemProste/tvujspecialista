@@ -27,7 +27,7 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
           {[1, 2, 3, 4].map((i) => (
             <Card key={i} className="animate-pulse">
               <CardContent className="p-6">
-                <div className="h-20 bg-muted rounded" />
+                <div className="h-20 bg-gray-200 rounded" />
               </CardContent>
             </Card>
           ))}
@@ -39,8 +39,8 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
   if (!analytics) {
     return (
       <div className={cn('text-center py-8', className)}>
-        <BarChart3 className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-        <p className="text-sm text-muted-foreground">
+        <BarChart3 className="h-12 w-12 mx-auto text-gray-500 mb-2" />
+        <p className="text-sm text-gray-500">
           Žiadne dáta pre analytiku
         </p>
       </div>
@@ -106,7 +106,7 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="space-y-2">
-                    <p className="text-sm font-medium text-muted-foreground" id={`stat-${stat.title.toLowerCase().replace(/\s+/g, '-')}-label`}>
+                    <p className="text-sm font-medium text-gray-500" id={`stat-${stat.title.toLowerCase().replace(/\s+/g, '-')}-label`}>
                       {stat.title}
                     </p>
                     <p
@@ -141,12 +141,12 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
                 <div key={item.status} className="space-y-1">
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-medium">{getStatusLabel(item.status)}</span>
-                    <span className="text-muted-foreground">
+                    <span className="text-gray-500">
                       {item.count} ({percentage.toFixed(0)}%)
                     </span>
                   </div>
                   <div
-                    className="h-2 rounded-full bg-muted overflow-hidden"
+                    className="h-2 rounded-full bg-gray-200 overflow-hidden"
                     role="progressbar"
                     aria-valuenow={percentage}
                     aria-valuemin={0}
@@ -154,7 +154,7 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
                     aria-label={`${getStatusLabel(item.status)}: ${percentage.toFixed(0)}%`}
                   >
                     <div
-                      className="h-full bg-primary rounded-full transition-all"
+                      className="h-full bg-blue-600 rounded-full transition-all"
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
@@ -179,7 +179,7 @@ export function DealAnalytics({ analytics, isLoading, className }: DealAnalytics
                   <div key={month.month} className="space-y-2">
                     <div className="flex items-center justify-between text-sm">
                       <span className="font-medium">{month.month}</span>
-                      <span className="text-muted-foreground">
+                      <span className="text-gray-500">
                         {month.won} získaných / {month.lost} stratených
                       </span>
                     </div>

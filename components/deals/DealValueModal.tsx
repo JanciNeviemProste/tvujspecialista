@@ -24,7 +24,7 @@ export function DealValueModal({
   onSubmit,
   isLoading,
 }: DealValueModalProps) {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
 
   const dealValueSchema = z.object({
     dealValue: z

@@ -21,7 +21,7 @@ export function DealNotes({
   onAddNote,
   isAddingNote,
 }: DealNotesProps) {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
 
   return (
     <div>

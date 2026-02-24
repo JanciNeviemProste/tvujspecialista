@@ -19,7 +19,7 @@ export function useCommissionStats() {
 }
 
 export function usePayCommission() {
-  const t = useTranslations('commissions');
+  const t = useTranslations('dashboard.commissions');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (commissionId: string) =>

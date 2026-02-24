@@ -14,7 +14,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 export default function AdminForumPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.forum');
-  const tAdmin = useTranslations('admin');
+  const tAdmin = useTranslations('dashboard.admin');
   const { user, isLoading: authLoading } = useAuth();
   const { data: categories, isLoading: categoriesLoading } = useForumCategories();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);

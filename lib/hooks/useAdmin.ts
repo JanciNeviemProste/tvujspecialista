@@ -25,7 +25,7 @@ export function useAdminSpecialists(page = 1) {
 }
 
 export function useVerifySpecialist() {
-  const t = useTranslations('admin');
+  const t = useTranslations('dashboard.admin');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => adminApi.verifySpecialist(id).then((res) => res.data),

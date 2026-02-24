@@ -23,7 +23,7 @@ export function PaymentForm({
   onSuccess,
   onError
 }: PaymentFormProps) {
-  const t = useTranslations('commissions');
+  const t = useTranslations('dashboard.commissions');
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);

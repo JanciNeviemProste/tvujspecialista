@@ -27,7 +27,7 @@ export function CloseDealModal({
   onSubmit,
   isLoading,
 }: CloseDealModalProps) {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
 
   const closeDealSchema = z
     .object({

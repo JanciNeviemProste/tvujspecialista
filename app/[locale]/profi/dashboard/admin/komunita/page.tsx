@@ -52,7 +52,7 @@ function EventFormModal({
   isLoading: boolean;
   isEdit: boolean;
 }) {
-  const tAdmin = useTranslations('admin');
+  const tAdmin = useTranslations('dashboard.admin');
   const [form, setForm] = useState<EventFormData>(initialData);
 
   if (!isOpen) return null;
@@ -255,7 +255,7 @@ function AttendeeStatusBadge({ status }: { status: string }) {
 }
 
 function AttendeesPanel({ eventId }: { eventId: string }) {
-  const tAdmin = useTranslations('admin');
+  const tAdmin = useTranslations('dashboard.admin');
   const queryClient = useQueryClient();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
@@ -376,7 +376,7 @@ function AttendeesPanel({ eventId }: { eventId: string }) {
 export default function AdminCommunityPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.community');
-  const tAdmin = useTranslations('admin');
+  const tAdmin = useTranslations('dashboard.admin');
   const { user, isLoading: authLoading } = useAuth();
   const queryClient = useQueryClient();
   const [actionLoading, setActionLoading] = useState<string | null>(null);

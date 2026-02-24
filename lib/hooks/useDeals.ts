@@ -21,7 +21,7 @@ export function useMyDeals() {
 }
 
 export function useUpdateDealStatus() {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateDealStatusDto }) =>
@@ -37,7 +37,7 @@ export function useUpdateDealStatus() {
 }
 
 export function useUpdateDealValue() {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateDealValueDto }) =>
@@ -53,7 +53,7 @@ export function useUpdateDealValue() {
 }
 
 export function useCloseDeal() {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: CloseDealDto }) =>
@@ -71,7 +71,7 @@ export function useCloseDeal() {
 }
 
 export function useReopenDeal() {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) =>
@@ -87,7 +87,7 @@ export function useReopenDeal() {
 }
 
 export function useAddDealNote() {
-  const t = useTranslations('deals');
+  const t = useTranslations('dashboard.deals');
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ id, note }: { id: string; note: string }) =>

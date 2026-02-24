@@ -45,7 +45,7 @@ export function KanbanSkeleton() {
   return (
     <div className="flex gap-4 overflow-x-auto pb-4" role="status" aria-label="Načítám obchody" aria-busy="true">
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div key={i} className="flex-shrink-0 w-80 rounded-lg bg-muted/50 p-4 space-y-4">
+        <div key={i} className="flex-shrink-0 w-80 rounded-lg bg-gray-100 p-4 space-y-4">
           {/* Column header */}
           <div className="flex items-center justify-between">
             <Shimmer className="h-6 w-24" />

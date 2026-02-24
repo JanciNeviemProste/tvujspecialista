@@ -47,7 +47,7 @@ function CourseFormModal({
   isLoading: boolean;
   isEdit: boolean;
 }) {
-  const tAdmin = useTranslations('admin');
+  const tAdmin = useTranslations('dashboard.admin');
   const [form, setForm] = useState<CourseFormData>(initialData);
 
   if (!isOpen) return null;
@@ -206,7 +206,7 @@ function CourseFormModal({
 export default function AdminCoursesPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.courses');
-  const tAdmin = useTranslations('admin');
+  const tAdmin = useTranslations('dashboard.admin');
   const { user, isLoading: authLoading } = useAuth();
   const { data: coursesData, isLoading, refetch } = useCourses({});
   const [actionLoading, setActionLoading] = useState<string | null>(null);
