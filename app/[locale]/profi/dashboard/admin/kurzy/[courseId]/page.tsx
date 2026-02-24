@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
@@ -88,6 +88,16 @@ function LessonModal({
   const [description, setDescription] = useState(initial?.description || '');
   const [type, setType] = useState(initial?.type || 'video');
   const [free, setFree] = useState(initial?.free || false);
+
+  // Reset form data whenever the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      setTitle(initial?.title || '');
+      setDescription(initial?.description || '');
+      setType(initial?.type || 'video');
+      setFree(initial?.free || false);
+    }
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!isOpen) return null;
 
@@ -206,9 +216,11 @@ function VideoUploadZone({
       setProgress(100);
       toast.success('Video nahrané');
       onUploadDone();
-    } catch {
+    } catch (error: any) {
       clearInterval(interval);
-      toast.error('Nahrávanie videa zlyhalo');
+      console.error('Video upload error:', error);
+      const detail = error?.response?.data?.message || error?.message || '';
+      toast.error(`Nahrávanie videa zlyhalo${detail ? ': ' + detail : ''}`);
     } finally {
       setUploading(false);
     }
@@ -559,6 +571,7 @@ function ModuleSection({
         isEdit={false}
       />
       <LessonModal
+        key={editingLesson?.id || 'new-lesson'}
         isOpen={!!editingLesson}
         onClose={() => setEditingLesson(null)}
         onSave={handleUpdateLesson}

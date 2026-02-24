@@ -116,7 +116,6 @@ export const academyApi = {
     formData.append('lessonId', lessonId);
     formData.append('title', title);
     return apiClient.post<Video>('/academy/videos/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
       timeout: 600000, // 10 min for large files
     });
   },
