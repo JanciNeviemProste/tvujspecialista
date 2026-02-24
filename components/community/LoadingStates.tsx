@@ -5,42 +5,42 @@ export function EventCardSkeleton() {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       {/* Banner skeleton */}
-      <div className="aspect-[4/3] bg-muted shimmer" />
+      <div className="aspect-[4/3] bg-gray-200 shimmer" />
 
       <CardContent className="flex-1 p-4 space-y-3">
         {/* Title skeleton */}
-        <div className="h-6 bg-muted shimmer rounded w-3/4" />
+        <div className="h-6 bg-gray-200 shimmer rounded w-3/4" />
 
         {/* Time skeleton */}
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 bg-muted shimmer rounded" />
-          <div className="h-4 bg-muted shimmer rounded w-20" />
+          <div className="h-4 w-4 bg-gray-200 shimmer rounded" />
+          <div className="h-4 bg-gray-200 shimmer rounded w-20" />
         </div>
 
         {/* Location skeleton */}
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 bg-muted shimmer rounded" />
-          <div className="h-4 bg-muted shimmer rounded w-32" />
+          <div className="h-4 w-4 bg-gray-200 shimmer rounded" />
+          <div className="h-4 bg-gray-200 shimmer rounded w-32" />
         </div>
 
         {/* Attendees skeleton */}
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 bg-muted shimmer rounded" />
-          <div className="h-4 bg-muted shimmer rounded w-16" />
+          <div className="h-4 w-4 bg-gray-200 shimmer rounded" />
+          <div className="h-4 bg-gray-200 shimmer rounded w-16" />
         </div>
 
         {/* Price skeleton */}
-        <div className="h-6 bg-muted shimmer rounded w-24" />
+        <div className="h-6 bg-gray-200 shimmer rounded w-24" />
 
         {/* Description skeleton */}
         <div className="space-y-2">
-          <div className="h-3 bg-muted shimmer rounded" />
-          <div className="h-3 bg-muted shimmer rounded w-5/6" />
+          <div className="h-3 bg-gray-200 shimmer rounded" />
+          <div className="h-3 bg-gray-200 shimmer rounded w-5/6" />
         </div>
       </CardContent>
 
       <CardFooter className="p-4 pt-0">
-        <div className="h-10 bg-muted shimmer rounded w-full" />
+        <div className="h-10 bg-gray-200 shimmer rounded w-full" />
       </CardFooter>
     </Card>
   )
@@ -65,28 +65,28 @@ export function RSVPCardSkeleton() {
   return (
     <Card className="overflow-hidden">
       {/* Thumbnail skeleton */}
-      <div className="h-32 bg-muted shimmer" />
+      <div className="h-32 bg-gray-200 shimmer" />
 
       <CardContent className="p-4 space-y-3">
         {/* Title skeleton */}
-        <div className="h-5 bg-muted shimmer rounded w-3/4" />
+        <div className="h-5 bg-gray-200 shimmer rounded w-3/4" />
 
         {/* Date skeleton */}
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 bg-muted shimmer rounded" />
-          <div className="h-4 bg-muted shimmer rounded w-40" />
+          <div className="h-4 w-4 bg-gray-200 shimmer rounded" />
+          <div className="h-4 bg-gray-200 shimmer rounded w-40" />
         </div>
 
         {/* Location skeleton */}
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 bg-muted shimmer rounded" />
-          <div className="h-4 bg-muted shimmer rounded w-32" />
+          <div className="h-4 w-4 bg-gray-200 shimmer rounded" />
+          <div className="h-4 bg-gray-200 shimmer rounded w-32" />
         </div>
 
         {/* Buttons skeleton */}
         <div className="space-y-2">
-          <div className="h-10 bg-muted shimmer rounded" />
-          <div className="h-10 bg-muted shimmer rounded" />
+          <div className="h-10 bg-gray-200 shimmer rounded" />
+          <div className="h-10 bg-gray-200 shimmer rounded" />
         </div>
       </CardContent>
     </Card>

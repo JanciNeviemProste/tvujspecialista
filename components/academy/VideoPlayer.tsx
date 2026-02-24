@@ -167,9 +167,9 @@ export function VideoPlayer({
         )}
       >
         <div className="text-center space-y-4">
-          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+          <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto" />
           <p className="text-white text-lg">Video sa spracováva...</p>
-          <p className="text-muted-foreground text-sm">Skúste to prosím neskôr</p>
+          <p className="text-gray-400 text-sm">Skúste to prosím neskôr</p>
         </div>
       </div>
     );
@@ -184,7 +184,7 @@ export function VideoPlayer({
           className,
         )}
       >
-        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+        <Loader2 className="h-12 w-12 animate-spin text-blue-500" />
       </div>
     );
   }
@@ -200,7 +200,7 @@ export function VideoPlayer({
       >
         <div className="text-center space-y-2">
           <p className="text-white text-lg">Video nie je dostupné</p>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-gray-400 text-sm">
             Skúste obnoviť stránku alebo kontaktujte podporu
           </p>
         </div>
@@ -231,7 +231,7 @@ export function VideoPlayer({
             <Button
               variant="ghost"
               size="icon"
-              className="h-20 w-20 rounded-full bg-primary/90 hover:bg-primary text-primary-foreground"
+              className="h-20 w-20 rounded-full bg-blue-600 hover:bg-blue-700 text-white"
               onClick={togglePlay}
             >
               <Play className="h-10 w-10 fill-current" />

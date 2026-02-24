@@ -62,7 +62,7 @@ export function LessonSidebar({
       <Button
         variant="ghost"
         size="icon"
-        className="lg:hidden fixed bottom-20 right-4 z-50 h-12 w-12 rounded-full bg-primary text-primary-foreground shadow-lg hover:bg-primary/90"
+        className="lg:hidden fixed bottom-20 right-4 z-50 h-12 w-12 rounded-full bg-blue-600 text-white shadow-lg hover:bg-blue-700"
         onClick={() => setIsMobileOpen(!isMobileOpen)}
       >
         {isMobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -79,7 +79,7 @@ export function LessonSidebar({
       {/* Sidebar */}
       <div
         className={cn(
-          'w-80 flex flex-col bg-card border-l',
+          'w-80 flex flex-col bg-gray-900 border-l border-white/10',
           // Mobile: fixed overlay that slides in from right
           'lg:relative lg:translate-x-0',
           'fixed right-0 top-0 bottom-0 z-40 transition-transform duration-300',

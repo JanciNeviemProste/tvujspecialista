@@ -41,19 +41,19 @@ export function ModuleSection({
       {/* Module header */}
       <button
         onClick={() => onToggle(module.id)}
-        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-muted/50 transition-colors"
+        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-white/5 transition-colors"
       >
         <div className="flex-shrink-0">
           {isExpanded ? (
-            <ChevronDown className="h-5 w-5 text-muted-foreground" />
+            <ChevronDown className="h-5 w-5 text-gray-400" />
           ) : (
-            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+            <ChevronRight className="h-5 w-5 text-gray-400" />
           )}
         </div>
 
         <div className="flex-1 text-left space-y-1">
           <h3 className="font-medium text-sm">{module.title}</h3>
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs text-gray-400">
             <span>
               {completedLessons}/{totalLessons} dokončených
             </span>
@@ -65,7 +65,7 @@ export function ModuleSection({
 
       {/* Lessons list */}
       {isExpanded && module.lessons && (
-        <div className="bg-muted/20">
+        <div className="bg-white/5">
           {module.lessons
             .sort((a, b) => a.position - b.position)
             .map((lesson) => {

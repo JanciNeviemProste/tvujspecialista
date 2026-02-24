@@ -54,12 +54,12 @@ function EmptyState({ icon: Icon, heading, description, buttonText, buttonHref }
   return (
     <div className="text-center py-12">
       <div className="flex justify-center mb-4">
-        <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
-          <Icon className="w-8 h-8 text-muted-foreground" />
+        <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+          <Icon className="w-8 h-8 text-gray-500" />
         </div>
       </div>
       <h3 className="text-lg font-semibold mb-2">{heading}</h3>
-      <p className="text-muted-foreground mb-4">{description}</p>
+      <p className="text-gray-500 mb-4">{description}</p>
       {buttonText && buttonHref && (
         <Link href={buttonHref}>
           <Button>{buttonText}</Button>
@@ -135,27 +135,27 @@ export default function MyLearningPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <div className="h-8 bg-muted shimmer rounded w-48 mb-2" />
-          <div className="h-4 bg-muted shimmer rounded w-64" />
+          <div className="h-8 bg-gray-200 shimmer rounded w-48 mb-2" />
+          <div className="h-4 bg-gray-200 shimmer rounded w-64" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {[...Array(4)].map((_, i) => (
             <Card key={i} className="h-32">
               <CardContent className="p-6">
-                <div className="h-full bg-muted shimmer rounded" />
+                <div className="h-full bg-gray-200 shimmer rounded" />
               </CardContent>
             </Card>
           ))}
         </div>
 
         <div className="mb-12">
-          <div className="h-6 bg-muted shimmer rounded w-40 mb-6" />
+          <div className="h-6 bg-gray-200 shimmer rounded w-40 mb-6" />
           <EnrollmentsGridSkeleton count={3} />
         </div>
 
         <div>
-          <div className="h-6 bg-muted shimmer rounded w-40 mb-6" />
+          <div className="h-6 bg-gray-200 shimmer rounded w-40 mb-6" />
           <EnrollmentsGridSkeleton count={3} />
         </div>
       </div>
@@ -172,7 +172,7 @@ export default function MyLearningPage() {
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{t('myLearning.title')}</h1>
-        <p className="text-muted-foreground">{t('myLearning.subtitle')}</p>
+        <p className="text-gray-500">{t('myLearning.subtitle')}</p>
       </div>
 
       {/* Stats Cards */}
@@ -181,15 +181,15 @@ export default function MyLearningPage() {
           icon={BookOpen}
           value={stats.activeCount}
           label={t('myLearning.stats.activeCourses')}
-          gradientFrom="from-primary-500"
-          gradientTo="to-primary-600"
+          gradientFrom="from-blue-500"
+          gradientTo="to-blue-600"
         />
         <StatCard
           icon={Trophy}
           value={stats.completedCount}
           label={t('myLearning.stats.completedCourses')}
-          gradientFrom="from-accent-500"
-          gradientTo="to-accent-600"
+          gradientFrom="from-amber-500"
+          gradientTo="to-amber-600"
         />
         <StatCard
           icon={TrendingUp}

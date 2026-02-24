@@ -65,13 +65,13 @@ function CourseCurriculumInner({
         return (
           <Card key={module.id}>
             <CardHeader
-              className="cursor-pointer hover:bg-muted/50 transition-colors"
+              className="cursor-pointer hover:bg-gray-50 transition-colors"
               onClick={() => toggleModule(module.id)}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-medium text-muted-foreground">
+                    <span className="text-sm font-medium text-gray-500">
                       Modul {moduleIndex + 1}
                     </span>
                     <Badge variant="default" className="text-xs">
@@ -82,19 +82,19 @@ function CourseCurriculumInner({
                           ? 'lekcie'
                           : 'lekcií'}
                     </Badge>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
                       <Clock className="h-3 w-3" />
                       <span>{formatDuration(module.duration)}</span>
                     </div>
                   </div>
                   <CardTitle className="text-lg font-semibold">{module.title}</CardTitle>
                   {module.description && (
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-sm text-gray-500 mt-1">
                       {module.description}
                     </p>
                   )}
                 </div>
-                <ChevronIcon className="h-5 w-5 text-muted-foreground flex-shrink-0 ml-4" />
+                <ChevronIcon className="h-5 w-5 text-gray-500 flex-shrink-0 ml-4" />
               </div>
             </CardHeader>
 
@@ -108,17 +108,17 @@ function CourseCurriculumInner({
                     return (
                       <div
                         key={lesson.id}
-                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
                       >
                         {/* Completion indicator */}
                         <div className="flex-shrink-0 mt-0.5">
                           {completed ? (
-                            <div className="h-6 w-6 rounded-full bg-verified flex items-center justify-center">
+                            <div className="h-6 w-6 rounded-full bg-green-500 flex items-center justify-center">
                               <Check className="h-4 w-4 text-white" />
                             </div>
                           ) : (
-                            <div className="h-6 w-6 rounded-full border-2 border-muted-foreground/30 flex items-center justify-center">
-                              <span className="text-xs text-muted-foreground font-medium">
+                            <div className="h-6 w-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                              <span className="text-xs text-gray-500 font-medium">
                                 {lessonIndex + 1}
                               </span>
                             </div>
@@ -128,7 +128,7 @@ function CourseCurriculumInner({
                         {/* Lesson info */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <LessonIcon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                            <LessonIcon className="h-4 w-4 text-gray-500 flex-shrink-0" />
                             <h4 className="font-medium text-sm truncate">{lesson.title}</h4>
                             {lesson.free && (
                               <Badge variant="success" className="text-xs">
@@ -137,14 +137,14 @@ function CourseCurriculumInner({
                             )}
                           </div>
                           {lesson.description && (
-                            <p className="text-xs text-muted-foreground line-clamp-2">
+                            <p className="text-xs text-gray-500 line-clamp-2">
                               {lesson.description}
                             </p>
                           )}
                         </div>
 
                         {/* Duration */}
-                        <div className="flex items-center gap-1 text-xs text-muted-foreground flex-shrink-0">
+                        <div className="flex items-center gap-1 text-xs text-gray-500 flex-shrink-0">
                           <Clock className="h-3 w-3" />
                           <span>{formatDuration(lesson.duration)}</span>
                         </div>

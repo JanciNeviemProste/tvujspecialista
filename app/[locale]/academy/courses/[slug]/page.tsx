@@ -108,7 +108,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
   if (courseLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-6">
@@ -128,13 +128,13 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
   if (courseError || !course) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-white">
         <div className="container mx-auto px-4 py-20">
-          <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-8 text-center">
-            <h2 className="mb-2 text-xl font-semibold text-destructive">
+          <div className="rounded-lg border border-red-300 bg-red-50 p-8 text-center">
+            <h2 className="mb-2 text-xl font-semibold text-red-600">
               {t('courseDetail.notFound')}
             </h2>
-            <p className="mb-4 text-muted-foreground">
+            <p className="mb-4 text-gray-500">
               {t('courseDetail.notFoundDesc')}
             </p>
             <Link href="/academy/courses">
@@ -151,14 +151,14 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
   const isEnrolled = !!enrollment
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
           <div className={`rounded-lg border p-4 shadow-lg ${
             toastMessage.type === 'success'
-              ? 'border-verified/50 bg-verified/10 text-verified'
-              : 'border-destructive/50 bg-destructive/10 text-destructive'
+              ? 'border-green-300 bg-green-50 text-green-600'
+              : 'border-red-300 bg-red-50 text-red-600'
           }`}>
             <p className="font-medium">{toastMessage.message}</p>
           </div>
@@ -180,7 +180,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
               <h1 className="mb-4 text-4xl font-bold">{course.title}</h1>
 
-              <p className="mb-6 text-lg text-muted-foreground">
+              <p className="mb-6 text-lg text-gray-500">
                 {course.description}
               </p>
 
@@ -188,26 +188,26 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
               <div className="flex flex-wrap items-center gap-4 lg:gap-6 text-xs lg:text-sm">
                 <div className="flex items-center gap-2">
                   <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
-                  <span className="font-semibold">{course.rating.toFixed(1)}</span>
-                  <span className="text-muted-foreground">({course.reviewCount} {t('courseDetail.ratings')})</span>
+                  <span className="font-semibold">{Number(course.rating ?? 0).toFixed(1)}</span>
+                  <span className="text-gray-500">({course.reviewCount} {t('courseDetail.ratings')})</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="h-5 w-5 text-muted-foreground" />
+                  <Users className="h-5 w-5 text-gray-500" />
                   <span>{course.enrollmentCount} {t('courseDetail.students')}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-muted-foreground" />
+                  <Clock className="h-5 w-5 text-gray-500" />
                   <span>{formatDuration(course.duration)}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-muted-foreground" />
+                  <BookOpen className="h-5 w-5 text-gray-500" />
                   <span>{course.lessonCount} lekcií</span>
                 </div>
               </div>
             </div>
 
             {/* Thumbnail Image */}
-            <div className="relative aspect-video overflow-hidden rounded-lg bg-muted">
+            <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-200">
               <Image
                 src={course.thumbnailUrl}
                 alt={course.title}
@@ -234,7 +234,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                   </Avatar>
                   <div className="flex-1">
                     <h3 className="mb-2 text-lg font-semibold">{course.instructorName}</h3>
-                    <p className="text-sm text-muted-foreground">{course.instructorBio}</p>
+                    <p className="text-sm text-gray-500">{course.instructorBio}</p>
                   </div>
                 </div>
               </CardContent>
@@ -261,7 +261,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 <CardContent className="p-6 space-y-4">
                   {!isAuthenticated ? (
                     <>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-500">
                         {t('courseDetail.loginRequired')}
                       </p>
                       <Link href="/profi/prihlaseni" className="w-full">
@@ -275,7 +275,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                       <div className="space-y-2">
                         <p className="text-sm font-medium">{t('courseDetail.yourProgress')}</p>
                         <Progress value={enrollment.progress} className="h-3" />
-                        <p className="text-xs text-muted-foreground text-right">
+                        <p className="text-xs text-gray-500 text-right">
                           {Math.round(enrollment.progress)}% {t('courseDetail.completed')}
                         </p>
                       </div>
@@ -287,7 +287,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                     </>
                   ) : (
                     <>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-gray-500">
                         {t('courseDetail.getAccess')}
                       </p>
                       <Button
@@ -311,19 +311,19 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('courseDetail.duration')}</span>
+                    <span className="text-gray-500">{t('courseDetail.duration')}</span>
                     <span className="font-medium">{formatDuration(course.duration)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('courseDetail.lessonCount')}</span>
+                    <span className="text-gray-500">{t('courseDetail.lessonCount')}</span>
                     <span className="font-medium">{course.lessonCount}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('courseDetail.level')}</span>
+                    <span className="text-gray-500">{t('courseDetail.level')}</span>
                     <span className="font-medium">{getLevelLabel(course.level, t)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">{t('courseDetail.category')}</span>
+                    <span className="text-gray-500">{t('courseDetail.category')}</span>
                     <span className="font-medium">{getCategoryLabel(course.category, t)}</span>
                   </div>
                 </CardContent>

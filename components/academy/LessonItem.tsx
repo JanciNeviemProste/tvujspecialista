@@ -47,15 +47,15 @@ function getLessonStatusIcon(
 
   if (isCurrent) {
     return (
-      <div className="flex-shrink-0 h-6 w-6 rounded-full bg-primary/20 flex items-center justify-center">
-        <Play className="h-4 w-4 text-primary fill-current" />
+      <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-500/20 flex items-center justify-center">
+        <Play className="h-4 w-4 text-blue-400 fill-current" />
       </div>
     );
   }
 
   return (
-    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-muted flex items-center justify-center">
-      <span className="text-xs text-muted-foreground font-medium">{position}</span>
+    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-gray-700 flex items-center justify-center">
+      <span className="text-xs text-gray-400 font-medium">{position}</span>
     </div>
   );
 }
@@ -71,8 +71,8 @@ export const LessonItem = forwardRef<HTMLDivElement, LessonItemProps>(function L
       <button
         onClick={() => onSelect(lessonId)}
         className={cn(
-          'w-full px-4 py-3 pl-12 flex items-center gap-3 hover:bg-muted/50 transition-colors',
-          isCurrent && 'bg-primary/10 border-l-2 border-primary',
+          'w-full px-4 py-3 pl-12 flex items-center gap-3 hover:bg-white/5 transition-colors',
+          isCurrent && 'bg-blue-500/10 border-l-2 border-blue-500',
         )}
       >
         {/* Status indicator */}
@@ -84,7 +84,7 @@ export const LessonItem = forwardRef<HTMLDivElement, LessonItemProps>(function L
             <h4
               className={cn(
                 'font-medium text-sm truncate',
-                isCurrent && 'text-primary',
+                isCurrent && 'text-blue-400',
               )}
             >
               {title}
@@ -96,13 +96,13 @@ export const LessonItem = forwardRef<HTMLDivElement, LessonItemProps>(function L
             )}
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs text-gray-400">
             <LessonIcon className="h-3 w-3" />
             <span>{formatDuration(duration)}</span>
             {progress && !progress.completed && progress.watchTimeSeconds > 0 && (
               <>
                 <span>&bull;</span>
-                <span className="text-primary">
+                <span className="text-blue-400">
                   {Math.floor((progress.watchTimeSeconds / (duration * 60)) * 100)}%
                 </span>
               </>

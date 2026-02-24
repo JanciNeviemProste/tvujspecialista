@@ -125,7 +125,7 @@ export default function LearnPage() {
   const handleVideoComplete = () => {
     if (!enrollment || !currentLessonId) return;
 
-    const currentSeconds = currentLesson?.duration ? currentLesson.duration * 60 : 0;
+    const currentSeconds = currentLesson?.duration != null ? currentLesson.duration * 60 : 0;
 
     updateProgress.mutate(
       {
@@ -150,7 +150,7 @@ export default function LearnPage() {
   const handleMarkComplete = () => {
     if (!enrollment || !currentLessonId || !currentLesson) return;
 
-    const currentSeconds = currentProgress?.watchTimeSeconds || currentLesson.duration * 60;
+    const currentSeconds = currentProgress?.watchTimeSeconds ?? (currentLesson.duration != null ? currentLesson.duration * 60 : 0);
 
     updateProgress.mutate(
       {
@@ -190,7 +190,7 @@ export default function LearnPage() {
     return (
       <div className="h-screen flex items-center justify-center bg-black">
         <div className="text-center space-y-4">
-          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+          <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto" />
           <p className="text-white text-lg">{t('learn.loading')}</p>
         </div>
       </div>
@@ -214,7 +214,7 @@ export default function LearnPage() {
           <h1 className="font-semibold text-sm lg:text-lg truncate px-2 lg:px-4">{course.title}</h1>
         </div>
 
-        <div className="text-xs lg:text-sm text-muted-foreground whitespace-nowrap">
+        <div className="text-xs lg:text-sm text-gray-400 whitespace-nowrap">
           {overallProgress}%
         </div>
       </div>
@@ -236,11 +236,11 @@ export default function LearnPage() {
           )}
 
           {/* Lesson content */}
-          <div className="flex-1 p-6 space-y-6 bg-background text-foreground">
+          <div className="flex-1 p-6 space-y-6 bg-white text-gray-900">
             <div>
               <h2 className="text-2xl font-bold mb-2">{currentLesson.title}</h2>
               {currentLesson.description && (
-                <p className="text-muted-foreground">{currentLesson.description}</p>
+                <p className="text-gray-500">{currentLesson.description}</p>
               )}
             </div>
 
@@ -265,12 +265,12 @@ export default function LearnPage() {
       </div>
 
       {/* Bottom bar */}
-      <div className="h-16 border-t border-white/10 flex items-center justify-between px-4 lg:px-6 flex-shrink-0 bg-card gap-2">
+      <div className="h-16 border-t border-white/10 flex items-center justify-between px-4 lg:px-6 flex-shrink-0 bg-gray-900 gap-2">
         <Button
           variant="ghost"
           disabled={currentLessonIndex === 0}
           onClick={goToPreviousLesson}
-          className="text-foreground hover:text-foreground text-xs lg:text-sm"
+          className="text-gray-300 hover:text-white text-xs lg:text-sm"
           size="sm"
         >
           <ChevronLeft className="h-4 w-4 lg:mr-2" />
@@ -307,7 +307,7 @@ export default function LearnPage() {
           variant="ghost"
           disabled={currentLessonIndex === allLessons.length - 1}
           onClick={goToNextLesson}
-          className="text-foreground hover:text-foreground text-xs lg:text-sm"
+          className="text-gray-300 hover:text-white text-xs lg:text-sm"
           size="sm"
         >
           <span className="hidden sm:inline">{t('learn.nextLesson')}</span>

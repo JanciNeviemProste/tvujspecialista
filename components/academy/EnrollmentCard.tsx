@@ -60,7 +60,7 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
       className={cn('overflow-hidden', className)}
     >
       {/* Course thumbnail */}
-      <div className="relative h-32 overflow-hidden bg-muted">
+      <div className="relative h-32 overflow-hidden bg-gray-200">
         <Image
           src={enrollment.course.thumbnailUrl}
           alt={enrollment.course.title}
@@ -86,13 +86,13 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
         {/* Progress */}
         <div className="space-y-1">
           <Progress value={enrollment.progress} className="h-2" />
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-gray-500">
             {t('enrollment.percentComplete', { percent: Math.round(enrollment.progress) })}
           </p>
         </div>
 
         {/* Last accessed */}
-        <p className="text-xs text-muted-foreground">
+        <p className="text-xs text-gray-500">
           {t('enrollment.lastAccessed')} {formatRelativeTime(enrollment.lastAccessedAt, t)}
         </p>
 

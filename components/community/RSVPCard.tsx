@@ -57,7 +57,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
       className={cn('overflow-hidden', className)}
     >
       {/* Event thumbnail */}
-      <div className="relative h-32 overflow-hidden bg-muted">
+      <div className="relative h-32 overflow-hidden bg-gray-200">
         <Image
           src={event.bannerImage}
           alt={event.title}
@@ -81,13 +81,13 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
         </h3>
 
         {/* Date & Time */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
           <Calendar className="h-4 w-4" />
           <span>{formattedDate} o {formattedTime}</span>
         </div>
 
         {/* Location or Meeting Link */}
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex items-center gap-2 text-sm text-gray-500">
           {event.format === EventFormat.ONLINE ? (
             <>
               <Video className="h-4 w-4" />
@@ -117,7 +117,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
           {isPending && onConfirm && (
             <Button
               variant="premium"
-              className="w-full bg-accent-500 hover:bg-accent-600"
+              className="w-full bg-amber-500 hover:bg-amber-600"
               onClick={() => onConfirm(rsvp.id)}
             >
               {t('rsvp.confirmAttendance')}
@@ -127,7 +127,7 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
           {(isPending || isConfirmed) && onCancel && !isCancelled && (
             <Button
               variant="ghost"
-              className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
+              className="w-full text-red-600 hover:text-red-600 hover:bg-red-50"
               onClick={() => onCancel(rsvp.id)}
             >
               {t('rsvp.cancelRegistration')}
