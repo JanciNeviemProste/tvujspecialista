@@ -226,6 +226,7 @@ export default function LearnPage() {
           {currentLesson.video && (
             <div className="w-full bg-black">
               <VideoPlayer
+                key={currentLessonId}
                 video={currentLesson.video}
                 lessonId={currentLessonId}
                 onProgressUpdate={handleProgressUpdate}

@@ -7,6 +7,17 @@ import { cn } from '@/lib/utils/cn';
 import { VideoControls } from '@/components/academy/VideoControls';
 import type { Video } from '@/types/academy';
 
+/**
+ * Pridá Cloudinary transformáciu pre browser-kompatibilný formát (MP4 + H.264 + AAC).
+ * Rieši MEDIA_ERR_DECODE keď originálny súbor má nekompatibilný kodek.
+ */
+function ensureBrowserCompatibleUrl(url: string): string {
+  if (!url || !url.includes('/video/upload/')) return url;
+  // Ak už obsahuje transformácie, nepridávaj duplicitne
+  if (url.includes('/f_mp4') || url.includes('/vc_h264')) return url;
+  return url.replace('/video/upload/', '/video/upload/f_mp4,vc_h264/');
+}
+
 interface VideoPlayerProps {
   video: Video;
   lessonId: string;
@@ -26,6 +37,7 @@ export function VideoPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
   const lastProgressUpdateRef = useRef<number>(0);
+  const currentTimeRef = useRef<number>(0);
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;
 
@@ -37,12 +49,12 @@ export function VideoPlayer({
   const [showControls, setShowControls] = useState(true);
   const [videoError, setVideoError] = useState<string | null>(null);
 
-  // Progress tracking with 30s debounce
+  // Progress tracking with 30s debounce — uses ref to avoid constant interval restart
   useEffect(() => {
     if (!isPlaying) return;
 
     progressTimerRef.current = setInterval(() => {
-      const currentSeconds = Math.floor(currentTime);
+      const currentSeconds = Math.floor(currentTimeRef.current);
       if (currentSeconds > lastProgressUpdateRef.current) {
         onProgressUpdate(currentSeconds);
         lastProgressUpdateRef.current = currentSeconds;
@@ -54,7 +66,7 @@ export function VideoPlayer({
         clearInterval(progressTimerRef.current);
       }
     };
-  }, [isPlaying, currentTime, onProgressUpdate]);
+  }, [isPlaying, onProgressUpdate]);
 
   // Auto-hide controls
   useEffect(() => {
@@ -165,9 +177,16 @@ export function VideoPlayer({
           className,
         )}
       >
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-3">
           <p className="text-white text-lg">Chyba prehrávania videa</p>
           <p className="text-gray-400 text-sm">{videoError}</p>
+          <Button
+            variant="ghost"
+            className="text-blue-400 hover:text-blue-300"
+            onClick={() => setVideoError(null)}
+          >
+            Skúsiť znova
+          </Button>
         </div>
       </div>
     );
@@ -183,7 +202,7 @@ export function VideoPlayer({
       {/* Video element — src priamo v JSX, React event handlery */}
       <video
         ref={videoRef}
-        src={video.cloudinaryUrl}
+        src={ensureBrowserCompatibleUrl(video.cloudinaryUrl)}
         className="w-full h-full"
         preload="metadata"
         playsInline
@@ -195,7 +214,9 @@ export function VideoPlayer({
         }}
         onTimeUpdate={() => {
           if (videoRef.current) {
-            setCurrentTime(videoRef.current.currentTime);
+            const t = videoRef.current.currentTime;
+            setCurrentTime(t);
+            currentTimeRef.current = t;
           }
         }}
         onPlay={() => setIsPlaying(true)}
