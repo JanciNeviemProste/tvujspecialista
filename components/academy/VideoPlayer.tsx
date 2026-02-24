@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Play, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
-import { useVideoStreamUrl } from '@/lib/hooks/useAcademy';
 import { VideoControls } from '@/components/academy/VideoControls';
 import type { Video } from '@/types/academy';
 
@@ -27,6 +26,8 @@ export function VideoPlayer({
   const containerRef = useRef<HTMLDivElement>(null);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
   const lastProgressUpdateRef = useRef<number>(0);
+  const onCompleteRef = useRef(onComplete);
+  onCompleteRef.current = onComplete;
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -34,20 +35,19 @@ export function VideoPlayer({
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [videoError, setVideoError] = useState<string | null>(null);
 
-  // Fetch video stream URL
-  const { data: streamData, isLoading, error } = useVideoStreamUrl(video.id);
-
-  // Setup video element
+  // Setup video element — use cloudinaryUrl directly (no API call needed)
   useEffect(() => {
     const videoElement = videoRef.current;
-    if (!videoElement || !streamData?.streamUrl) return;
+    if (!videoElement || !video.cloudinaryUrl) return;
 
-    videoElement.src = streamData.streamUrl;
+    videoElement.src = video.cloudinaryUrl;
     videoElement.volume = volume;
 
     const handleLoadedMetadata = () => {
       setDuration(videoElement.duration);
+      setVideoError(null);
     };
 
     const handleTimeUpdate = () => {
@@ -56,17 +56,25 @@ export function VideoPlayer({
 
     const handleEnded = () => {
       setIsPlaying(false);
-      onComplete();
+      onCompleteRef.current();
     };
 
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
+
+    const handleError = () => {
+      const err = videoElement.error;
+      setVideoError(
+        err ? `Chyba prehrávania (${err.code}): ${err.message}` : 'Neznáma chyba prehrávania',
+      );
+    };
 
     videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
     videoElement.addEventListener('timeupdate', handleTimeUpdate);
     videoElement.addEventListener('ended', handleEnded);
     videoElement.addEventListener('play', handlePlay);
     videoElement.addEventListener('pause', handlePause);
+    videoElement.addEventListener('error', handleError);
 
     return () => {
       videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
@@ -74,8 +82,9 @@ export function VideoPlayer({
       videoElement.removeEventListener('ended', handleEnded);
       videoElement.removeEventListener('play', handlePlay);
       videoElement.removeEventListener('pause', handlePause);
+      videoElement.removeEventListener('error', handleError);
     };
-  }, [streamData, volume, onComplete]);
+  }, [video.cloudinaryUrl, volume]);
 
   // Progress tracking with 30s debounce
   useEffect(() => {
@@ -175,22 +184,8 @@ export function VideoPlayer({
     );
   }
 
-  // Loading state
-  if (isLoading) {
-    return (
-      <div
-        className={cn(
-          'relative bg-black aspect-video flex items-center justify-center',
-          className,
-        )}
-      >
-        <Loader2 className="h-12 w-12 animate-spin text-blue-500" />
-      </div>
-    );
-  }
-
-  // Error state
-  if (error || !streamData) {
+  // No cloudinary URL available
+  if (!video.cloudinaryUrl) {
     return (
       <div
         className={cn(
@@ -208,6 +203,23 @@ export function VideoPlayer({
     );
   }
 
+  // Video playback error
+  if (videoError) {
+    return (
+      <div
+        className={cn(
+          'relative bg-black aspect-video flex items-center justify-center',
+          className,
+        )}
+      >
+        <div className="text-center space-y-2">
+          <p className="text-white text-lg">Chyba prehrávania videa</p>
+          <p className="text-gray-400 text-sm">{videoError}</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={containerRef}
@@ -216,7 +228,7 @@ export function VideoPlayer({
       onMouseMove={() => setShowControls(true)}
     >
       {/* Video element */}
-      <video ref={videoRef} className="w-full h-full" onClick={togglePlay} />
+      <video ref={videoRef} className="w-full h-full" crossOrigin="anonymous" playsInline onClick={togglePlay} />
 
       {/* Controls overlay */}
       <div
