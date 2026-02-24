@@ -519,7 +519,7 @@ export default function AdminCommunityPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <Link href="/profi/dashboard" className="text-gray-400 hover:text-gray-900 transition-colors">
+          <Link href="/community" className="text-gray-400 hover:text-gray-900 transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>
