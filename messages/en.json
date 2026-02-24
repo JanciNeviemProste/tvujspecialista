@@ -651,7 +651,7 @@
         "academyDesc": "Manage courses, modules and lessons",
         "forum": "Forum",
         "forumDesc": "Moderate topics and posts",
-        "community": "Community",
+        "community": "Events",
         "communityDesc": "Manage events and meetups"
       }
     },
@@ -1202,14 +1202,14 @@
       "manageCommunity": "Manage Events"
     },
     "breadcrumbs": {
-      "community": "Community",
+      "community": "Events",
       "catalog": "Event catalog",
       "eventDetail": "Event detail",
       "myEvents": "My events"
     },
     "branding": "Events",
     "metadata": {
-      "title": "Community | tvujspecialista.cz",
+      "title": "Events | tvujspecialista.cz",
       "description": "Community events and meetups for professionals."
     },
     "hero": {

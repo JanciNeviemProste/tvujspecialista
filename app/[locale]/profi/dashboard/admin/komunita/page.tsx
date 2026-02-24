@@ -87,7 +87,7 @@ function EventFormModal({
               type="text"
               value={form.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="napr. Workshop: Hypotéky v praxi"
               disabled={isLoading}
             />
@@ -99,7 +99,7 @@ function EventFormModal({
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="Podrobný popis eventu..."
               disabled={isLoading}
             />
@@ -111,7 +111,7 @@ function EventFormModal({
               <select
                 value={form.type}
                 onChange={(e) => handleChange('type', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="workshop">Workshop</option>
@@ -126,7 +126,7 @@ function EventFormModal({
               <select
                 value={form.format}
                 onChange={(e) => handleChange('format', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="online">Online</option>
@@ -138,7 +138,7 @@ function EventFormModal({
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="financial">Financie</option>
@@ -155,7 +155,7 @@ function EventFormModal({
                 type="datetime-local"
                 value={form.startDate}
                 onChange={(e) => handleChange('startDate', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               />
             </div>
@@ -165,7 +165,7 @@ function EventFormModal({
                 type="datetime-local"
                 value={form.endDate}
                 onChange={(e) => handleChange('endDate', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               />
             </div>
@@ -178,7 +178,7 @@ function EventFormModal({
                 type="text"
                 value={form.location}
                 onChange={(e) => handleChange('location', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 placeholder="napr. Bratislava, Hotel Devín"
                 disabled={isLoading}
               />
@@ -189,7 +189,7 @@ function EventFormModal({
                 type="number"
                 value={form.maxAttendees}
                 onChange={(e) => handleChange('maxAttendees', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 placeholder="napr. 50"
                 min="1"
                 disabled={isLoading}
@@ -204,7 +204,7 @@ function EventFormModal({
                 type="url"
                 value={form.meetingLink}
                 onChange={(e) => handleChange('meetingLink', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 placeholder="https://zoom.us/j/..."
                 disabled={isLoading}
               />
@@ -223,7 +223,7 @@ function EventFormModal({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 rounded-lg bg-primary text-white py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+              className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
             >
               {isLoading ? 'Ukladám...' : isEdit ? 'Uložiť zmeny' : 'Vytvoriť event'}
             </button>

@@ -651,7 +651,7 @@
         "academyDesc": "Správa kurzov, modulov a lekcií",
         "forum": "Fórum",
         "forumDesc": "Moderovanie tém a príspevkov",
-        "community": "Komunita",
+        "community": "Eventy",
         "communityDesc": "Správa eventov a stretnutí"
       }
     },
@@ -1202,14 +1202,14 @@
       "manageCommunity": "Spravovať eventy"
     },
     "breadcrumbs": {
-      "community": "Komunita",
+      "community": "Eventy",
       "catalog": "Katalóg eventov",
       "eventDetail": "Detail eventu",
       "myEvents": "Moje eventy"
     },
     "branding": "Eventy",
     "metadata": {
-      "title": "Komunita | tvujspecialista.cz",
+      "title": "Eventy | tvujspecialista.cz",
       "description": "Komunitné eventy a stretnutia pre profesionálov."
     },
     "hero": {
