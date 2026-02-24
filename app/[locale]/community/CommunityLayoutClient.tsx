@@ -105,8 +105,8 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
 
             {/* Right side - Community branding */}
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <Calendar className="h-5 w-5 text-green-600" />
-              <span className="hidden sm:inline bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+              <Calendar className="h-5 w-5 text-blue-600" />
+              <span className="hidden sm:inline text-blue-600 font-semibold">
                 {t('branding')}
               </span>
             </div>

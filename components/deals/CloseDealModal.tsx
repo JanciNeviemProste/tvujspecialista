@@ -18,6 +18,7 @@ interface CloseDealModalProps {
     data: { status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST; actualDealValue?: number },
   ) => void;
   isLoading?: boolean;
+  defaultStatus?: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST;
 }
 
 export function CloseDealModal({
@@ -26,6 +27,7 @@ export function CloseDealModal({
   onClose,
   onSubmit,
   isLoading,
+  defaultStatus = DealStatus.CLOSED_WON,
 }: CloseDealModalProps) {
   const t = useTranslations('dashboard.deals');
 
@@ -58,7 +60,7 @@ export function CloseDealModal({
   } = useForm<CloseDealFormData>({
     resolver: zodResolver(closeDealSchema),
     defaultValues: {
-      status: DealStatus.CLOSED_WON,
+      status: defaultStatus,
       actualDealValue: deal?.dealValue?.toString() || '',
     },
   });
@@ -68,8 +70,9 @@ export function CloseDealModal({
   useEffect(() => {
     if (deal) {
       setValue('actualDealValue', deal.dealValue?.toString() || '');
+      setValue('status', defaultStatus);
     }
-  }, [deal, setValue]);
+  }, [deal, defaultStatus, setValue]);
 
   if (!isOpen || !deal) return null;
 

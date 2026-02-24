@@ -65,6 +65,7 @@ export default function DealsPage() {
   const [closeModalOpen, setCloseModalOpen] = useState(false);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+  const [closeModalDefaultStatus, setCloseModalDefaultStatus] = useState<DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST>(DealStatus.CLOSED_WON);
 
   // Update max value after deals load
   React.useEffect(() => {
@@ -136,15 +137,15 @@ export default function DealsPage() {
   }), [filteredDeals]);
 
   // Handlers with useCallback — MUST be before early returns (Rules of Hooks)
-  const handleStatusChange = useCallback((deal: Deal) => {
-    setSelectedDeal(deal);
-    if (deal.status === DealStatus.IN_PROGRESS) {
+  const handleStatusChange = useCallback((deal: Deal, newStatus: DealStatus) => {
+    if (newStatus === DealStatus.CLOSED_WON || newStatus === DealStatus.CLOSED_LOST) {
+      setSelectedDeal(deal);
+      setCloseModalDefaultStatus(newStatus);
       setCloseModalOpen(true);
     } else {
-      // Show value modal for other statuses
-      setValueModalOpen(true);
+      updateStatus.mutate({ id: deal.id, data: { status: newStatus } });
     }
-  }, []);
+  }, [updateStatus]);
 
   const handleViewDetails = useCallback((deal: Deal) => {
     setSelectedDeal(deal);
@@ -356,6 +357,7 @@ export default function DealsPage() {
         }}
         onSubmit={handleCloseDeal}
         isLoading={closeDeal.isPending}
+        defaultStatus={closeModalDefaultStatus}
       />
 
       <DealDetailModal
@@ -376,6 +378,7 @@ export default function DealsPage() {
         onReopen={(deal) => {
           reopenDeal.mutate(deal.id);
         }}
+        onChangeStatus={handleStatusChange}
       />
     </div>
   );

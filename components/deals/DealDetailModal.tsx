@@ -17,6 +17,7 @@ interface DealDetailModalProps {
   onEditValue: (deal: Deal) => void;
   onCloseDeal: (deal: Deal) => void;
   onReopen: (deal: Deal) => void;
+  onChangeStatus?: (deal: Deal, newStatus: DealStatus) => void;
 }
 
 const statusColors: Record<DealStatus, { bar: string; badge: string; badgeText: string }> = {
@@ -35,6 +36,7 @@ export function DealDetailModal({
   onEditValue,
   onCloseDeal,
   onReopen,
+  onChangeStatus,
 }: DealDetailModalProps) {
   const t = useTranslations('dashboard.deals');
   const [newNote, setNewNote] = useState('');
@@ -151,46 +153,63 @@ export function DealDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 pb-6 pt-4 border-t border-gray-100 dark:border-neutral-800 flex items-center gap-3 flex-wrap">
-          {!isClosed ? (
-            <>
+        <div className="px-6 pb-6 pt-4 border-t border-gray-100 dark:border-neutral-800 space-y-3">
+          {/* Status change dropdown */}
+          {onChangeStatus && (
+            <div className="flex items-center gap-3">
+              <label className="text-sm font-medium text-gray-600 whitespace-nowrap">
+                {t('detail.changeStatus')}:
+              </label>
+              <select
+                value={deal.status}
+                onChange={(e) => {
+                  const newStatus = e.target.value as DealStatus;
+                  if (newStatus !== deal.status) {
+                    onChangeStatus(deal, newStatus);
+                    onClose();
+                  }
+                }}
+                className="flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500"
+              >
+                {Object.values(DealStatus).map((status) => (
+                  <option key={status} value={status}>
+                    {statusLabels[status]}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <div className="flex items-center gap-3 flex-wrap">
+            {!isClosed ? (
               <button
                 onClick={() => {
                   onEditValue(deal);
                   onClose();
                 }}
-                className="bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700"
+                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200"
               >
                 Upraviť hodnotu
               </button>
+            ) : (
               <button
                 onClick={() => {
-                  onCloseDeal(deal);
+                  onReopen(deal);
                   onClose();
                 }}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
+                className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200"
               >
-                {t('detail.changeStatus')}
+                <RotateCcw className="h-4 w-4" />
+                Znovu otvoriť
               </button>
-            </>
-          ) : (
+            )}
             <button
-              onClick={() => {
-                onReopen(deal);
-                onClose();
-              }}
-              className="flex items-center gap-2 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700"
+              onClick={onClose}
+              className="ml-auto text-gray-500 hover:text-gray-700 px-4 py-2.5 rounded-xl text-sm transition-colors"
             >
-              <RotateCcw className="h-4 w-4" />
-              Znovu otvoriť
+              {t('detail.close')}
             </button>
-          )}
-          <button
-            onClick={onClose}
-            className="ml-auto text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 px-4 py-2.5 rounded-xl text-sm transition-colors"
-          >
-            {t('detail.close')}
-          </button>
+          </div>
         </div>
       </div>
     </div>

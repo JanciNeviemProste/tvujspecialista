@@ -10,7 +10,7 @@ import { sk } from 'date-fns/locale';
 
 interface DealCardProps {
   deal: Deal;
-  onStatusChange?: (deal: Deal) => void;
+  onStatusChange?: (deal: Deal, nextStatus: DealStatus) => void;
   onViewDetails?: (deal: Deal) => void;
   className?: string;
 }
@@ -140,7 +140,7 @@ function DealCardInner({
         {onStatusChange && nextStatus && (
           <button
             className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition-colors"
-            onClick={() => onStatusChange(deal)}
+            onClick={() => onStatusChange(deal, nextStatus.status)}
           >
             <ArrowRight className="h-3.5 w-3.5" />
             {nextStatusLabels[deal.status]}
