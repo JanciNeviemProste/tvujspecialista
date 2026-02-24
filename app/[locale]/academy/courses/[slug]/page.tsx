@@ -66,7 +66,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
   // Get all user enrollments and find the one for this course
   const { data: enrollmentsData } = useMyEnrollments()
-  const enrollment = enrollmentsData?.enrollments.find(e => e.courseId === course?.id)
+  const enrollment = enrollmentsData?.enrollments?.find(e => e.courseId === course?.id)
 
   // Get progress if enrolled
   const { data: lessonProgress } = useEnrollmentProgress(enrollment?.id || '')
