@@ -18,7 +18,7 @@ export class ModulesService {
   async findByCourse(courseId: string): Promise<CourseModule[]> {
     return this.moduleRepository.find({
       where: { courseId },
-      relations: ['lessons'],
+      relations: ['lessons', 'lessons.video'],
       order: { position: 'ASC' },
     });
   }
