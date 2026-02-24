@@ -37,54 +37,6 @@ export function VideoPlayer({
   const [showControls, setShowControls] = useState(true);
   const [videoError, setVideoError] = useState<string | null>(null);
 
-  // Setup video element — use cloudinaryUrl directly (no API call needed)
-  useEffect(() => {
-    const videoElement = videoRef.current;
-    if (!videoElement || !video.cloudinaryUrl) return;
-
-    videoElement.src = video.cloudinaryUrl;
-
-    const handleLoadedMetadata = () => {
-      setDuration(videoElement.duration);
-      setVideoError(null);
-    };
-
-    const handleTimeUpdate = () => {
-      setCurrentTime(videoElement.currentTime);
-    };
-
-    const handleEnded = () => {
-      setIsPlaying(false);
-      onCompleteRef.current();
-    };
-
-    const handlePlay = () => setIsPlaying(true);
-    const handlePause = () => setIsPlaying(false);
-
-    const handleError = () => {
-      const err = videoElement.error;
-      setVideoError(
-        err ? `Chyba prehrávania (${err.code}): ${err.message}` : 'Neznáma chyba prehrávania',
-      );
-    };
-
-    videoElement.addEventListener('loadedmetadata', handleLoadedMetadata);
-    videoElement.addEventListener('timeupdate', handleTimeUpdate);
-    videoElement.addEventListener('ended', handleEnded);
-    videoElement.addEventListener('play', handlePlay);
-    videoElement.addEventListener('pause', handlePause);
-    videoElement.addEventListener('error', handleError);
-
-    return () => {
-      videoElement.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      videoElement.removeEventListener('timeupdate', handleTimeUpdate);
-      videoElement.removeEventListener('ended', handleEnded);
-      videoElement.removeEventListener('play', handlePlay);
-      videoElement.removeEventListener('pause', handlePause);
-      videoElement.removeEventListener('error', handleError);
-    };
-  }, [video.cloudinaryUrl]);
-
   // Progress tracking with 30s debounce
   useEffect(() => {
     if (!isPlaying) return;
@@ -95,7 +47,7 @@ export function VideoPlayer({
         onProgressUpdate(currentSeconds);
         lastProgressUpdateRef.current = currentSeconds;
       }
-    }, 30000); // 30 seconds
+    }, 30000);
 
     return () => {
       if (progressTimerRef.current) {
@@ -228,8 +180,40 @@ export function VideoPlayer({
       onMouseEnter={() => setShowControls(true)}
       onMouseMove={() => setShowControls(true)}
     >
-      {/* Video element */}
-      <video ref={videoRef} className="w-full h-full" preload="metadata" playsInline onClick={togglePlay} />
+      {/* Video element — src priamo v JSX, React event handlery */}
+      <video
+        ref={videoRef}
+        src={video.cloudinaryUrl}
+        className="w-full h-full"
+        preload="metadata"
+        playsInline
+        onLoadedMetadata={() => {
+          if (videoRef.current) {
+            setDuration(videoRef.current.duration);
+            setVideoError(null);
+          }
+        }}
+        onTimeUpdate={() => {
+          if (videoRef.current) {
+            setCurrentTime(videoRef.current.currentTime);
+          }
+        }}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onEnded={() => {
+          setIsPlaying(false);
+          onCompleteRef.current();
+        }}
+        onError={() => {
+          const err = videoRef.current?.error;
+          setVideoError(
+            err
+              ? `Chyba prehrávania (${err.code}): ${err.message}`
+              : 'Neznáma chyba prehrávania',
+          );
+        }}
+        onClick={togglePlay}
+      />
 
       {/* Controls overlay */}
       <div
@@ -256,19 +240,19 @@ export function VideoPlayer({
         {/* Bottom controls */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
         <div onClick={(e) => e.stopPropagation()}>
-        <VideoControls
-          isPlaying={isPlaying}
-          currentTime={currentTime}
-          duration={duration}
-          volume={volume}
-          isMuted={isMuted}
-          showControls={showControls}
-          onTogglePlay={togglePlay}
-          onSeek={handleSeek}
-          onVolumeChange={handleVolumeChange}
-          onToggleMute={toggleMute}
-          onToggleFullscreen={toggleFullscreen}
-        />
+          <VideoControls
+            isPlaying={isPlaying}
+            currentTime={currentTime}
+            duration={duration}
+            volume={volume}
+            isMuted={isMuted}
+            showControls={showControls}
+            onTogglePlay={togglePlay}
+            onSeek={handleSeek}
+            onVolumeChange={handleVolumeChange}
+            onToggleMute={toggleMute}
+            onToggleFullscreen={toggleFullscreen}
+          />
         </div>
       </div>
     </div>
