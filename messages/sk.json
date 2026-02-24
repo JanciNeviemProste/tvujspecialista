@@ -294,7 +294,7 @@
       "allLocations": "Všetky lokality",
       "minRating": "Hodnotenie minimálne",
       "stars": "{count}+ hviezdičiek",
-      "verifiedOnly": "Iba overení špecialistia",
+      "verifiedOnly": "Iba overení špecialisti",
       "maxPrice": "Maximálna cena (€/hod)",
       "pricePlaceholder": "napr. 50"
     },
@@ -307,7 +307,7 @@
       "newest": "Novo pridaní"
     },
     "empty": {
-      "title": "Žiadni špecialistia nenájdení",
+      "title": "Žiadni špecialisti nenájdení",
       "description": "Skúste zmeniť filtre alebo hľadajte v inej lokalite."
     },
     "metadata": {
@@ -444,7 +444,7 @@
     },
     "why": {
       "title": "Prečo sme vznikli",
-      "p1": "Všimli sme si, že hľadanie kvalitného špecialistu – či už pre hypotéku, poistenie alebo investície – je často zdĺhavý a stresujúci proces. Zákazníci nevedia, komu dôverovať, a špecialistia zase hľadajú efektívny spôsob, ako získať nových klientov.",
+      "p1": "Všimli sme si, že hľadanie kvalitného špecialistu – či už pre hypotéku, poistenie alebo investície – je často zdĺhavý a stresujúci proces. Zákazníci nevedia, komu dôverovať, a špecialisti zase hľadajú efektívny spôsob, ako získať nových klientov.",
       "p2": "Preto sme vytvorili platformu, ktorá tento proces zjednodušuje pre obe strany."
     },
     "offer": {
@@ -640,7 +640,7 @@
       },
       "admin": {
         "users": "Používatelia",
-        "specialists": "Špecialistia",
+        "specialists": "Špecialisti",
         "leads": "Leady",
         "deals": "Leady",
         "contentManagement": "Správa obsahu",

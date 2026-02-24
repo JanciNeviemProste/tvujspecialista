@@ -48,6 +48,28 @@ export const academyApi = {
   deleteCourse: (courseId: string) =>
     apiClient.delete(`/academy/courses/${courseId}`),
 
+  createCourse: (data: {
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    level: string;
+    category: string;
+    instructorName: string;
+    instructorBio: string;
+    instructorPhoto: string;
+  }) => apiClient.post('/academy/courses', data),
+
+  updateCourse: (courseId: string, data: Partial<{
+    title: string;
+    description: string;
+    thumbnailUrl: string;
+    level: string;
+    category: string;
+    instructorName: string;
+    instructorBio: string;
+    instructorPhoto: string;
+  }>) => apiClient.patch(`/academy/courses/${courseId}`, data),
+
   // Video streaming
   getVideoStreamUrl: (videoId: string) =>
     apiClient.get<{ streamUrl: string; duration: number }>(`/academy/videos/${videoId}/stream`),
