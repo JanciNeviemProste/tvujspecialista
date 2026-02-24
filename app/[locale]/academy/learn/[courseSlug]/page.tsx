@@ -26,7 +26,7 @@ export default function LearnPage() {
   const { data: course, isLoading: courseLoading } = useCourse(courseSlug);
 
   // Fetch user's enrollment for this course
-  const { data: enrollment } = useEnrollmentByCourse(course?.id || '');
+  const { data: enrollment, isLoading: enrollmentLoading } = useEnrollmentByCourse(course?.id || '');
 
   // Fetch progress
   const { data: progressData = [] } = useEnrollmentProgress(enrollment?.id || '');
@@ -175,15 +175,14 @@ export default function LearnPage() {
   // Check enrollment status
   useEffect(() => {
     if (!course || courseLoading) return;
+    if (!currentLesson) return;
+    if (currentLesson.free) return;
+    if (enrollmentLoading) return;
 
-    // Allow access to free lessons
-    if (currentLesson?.free) return;
-
-    // Check if enrolled with active status
     if (!enrollment || enrollment.status !== 'active') {
       router.push(`/academy/courses/${courseSlug}`);
     }
-  }, [enrollment, course, courseLoading, currentLesson, courseSlug, router]);
+  }, [enrollment, enrollmentLoading, course, courseLoading, currentLesson, courseSlug, router]);
 
   // Loading state
   if (courseLoading || !course || !currentLesson) {
