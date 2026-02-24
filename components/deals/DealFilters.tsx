@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Deal, DealStatus, DealFilters as DealFiltersType } from '@/types/deals';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -25,6 +25,22 @@ export function DealFilters({
   className,
 }: DealFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [searchValue, setSearchValue] = useState(filters.search);
+
+  // Debounce search input to prevent INP issues
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchValue !== filters.search) {
+        onFiltersChange({ ...filters, search: searchValue });
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchValue]);
+
+  // Sync external filter changes
+  useEffect(() => {
+    setSearchValue(filters.search);
+  }, [filters.search]);
 
   // Calculate max deal value for slider
   const maxDealValue = Math.max(
@@ -51,7 +67,7 @@ export function DealFilters({
     filters.dateRange.to;
 
   return (
-    <div className={cn('space-y-4', className)} role="search" aria-label="Deal filters">
+    <div className={cn('space-y-4', className)} role="search" aria-label="Lead filters">
       {/* Search and Status (Always Visible) */}
       <div className="flex flex-col sm:flex-row gap-4">
         {/* Search */}
@@ -59,13 +75,11 @@ export function DealFilters({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" aria-hidden="true" />
           <Input
             type="text"
-            placeholder="Hľadať dealy..."
-            value={filters.search}
-            onChange={(e) =>
-              onFiltersChange({ ...filters, search: e.target.value })
-            }
+            placeholder="Hľadať leady..."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
             className="pl-10"
-            aria-label="Search deals by name, email, or phone"
+            aria-label="Search leads by name, email, or phone"
           />
         </div>
 
@@ -79,7 +93,7 @@ export function DealFilters({
             })
           }
           className="px-4 py-2 rounded-lg border bg-card text-sm min-w-[180px]"
-          aria-label="Filter by deal status"
+          aria-label="Filter by lead status"
         >
           <option value="all">Všetky statusy</option>
           <option value={DealStatus.NEW}>Nový</option>
@@ -126,7 +140,7 @@ export function DealFilters({
             {/* Value Range Slider */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-sm font-medium" htmlFor="value-range-slider">Hodnota dealu</Label>
+                <Label className="text-sm font-medium" htmlFor="value-range-slider">Hodnota leadu</Label>
                 <span className="text-sm text-muted-foreground" aria-live="polite" aria-atomic="true">
                   {new Intl.NumberFormat('sk-SK', {
                     style: 'currency',
@@ -154,7 +168,7 @@ export function DealFilters({
                   })
                 }
                 className="py-4"
-                aria-label="Deal value range"
+                aria-label="Lead value range"
               />
             </div>
 

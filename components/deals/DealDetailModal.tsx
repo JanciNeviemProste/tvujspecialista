@@ -8,7 +8,6 @@ import { DealInfo } from '@/components/deals/DealInfo';
 import { DealNotes } from '@/components/deals/DealNotes';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { X, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -20,6 +19,24 @@ interface DealDetailModalProps {
   onCloseDeal: (deal: Deal) => void;
   onReopen: (deal: Deal) => void;
 }
+
+const statusColors: Record<DealStatus, { bar: string; badge: string; badgeText: string }> = {
+  [DealStatus.NEW]: { bar: 'bg-slate-400', badge: 'bg-slate-100 dark:bg-slate-800', badgeText: 'text-slate-700 dark:text-slate-300' },
+  [DealStatus.CONTACTED]: { bar: 'bg-blue-500', badge: 'bg-blue-100 dark:bg-blue-900', badgeText: 'text-blue-700 dark:text-blue-300' },
+  [DealStatus.QUALIFIED]: { bar: 'bg-violet-500', badge: 'bg-violet-100 dark:bg-violet-900', badgeText: 'text-violet-700 dark:text-violet-300' },
+  [DealStatus.IN_PROGRESS]: { bar: 'bg-amber-500', badge: 'bg-amber-100 dark:bg-amber-900', badgeText: 'text-amber-700 dark:text-amber-300' },
+  [DealStatus.CLOSED_WON]: { bar: 'bg-emerald-500', badge: 'bg-emerald-100 dark:bg-emerald-900', badgeText: 'text-emerald-700 dark:text-emerald-300' },
+  [DealStatus.CLOSED_LOST]: { bar: 'bg-rose-500', badge: 'bg-rose-100 dark:bg-rose-900', badgeText: 'text-rose-700 dark:text-rose-300' },
+};
+
+const statusLabels: Record<DealStatus, string> = {
+  [DealStatus.NEW]: 'Nový',
+  [DealStatus.CONTACTED]: 'Kontaktovaný',
+  [DealStatus.QUALIFIED]: 'Kvalifikovaný',
+  [DealStatus.IN_PROGRESS]: 'V procese',
+  [DealStatus.CLOSED_WON]: 'Získaný',
+  [DealStatus.CLOSED_LOST]: 'Stratený',
+};
 
 export function DealDetailModal({
   deal,
@@ -63,50 +80,13 @@ export function DealDetailModal({
     }
   };
 
-  const getStatusColor = (status: DealStatus) => {
-    switch (status) {
-      case DealStatus.NEW:
-        return 'bg-blue-500';
-      case DealStatus.CONTACTED:
-        return 'bg-cyan-500';
-      case DealStatus.QUALIFIED:
-        return 'bg-purple-500';
-      case DealStatus.IN_PROGRESS:
-        return 'bg-orange-500';
-      case DealStatus.CLOSED_WON:
-        return 'bg-green-500';
-      case DealStatus.CLOSED_LOST:
-        return 'bg-red-500';
-      default:
-        return 'bg-gray-500';
-    }
-  };
-
-  const getStatusLabel = (status: DealStatus) => {
-    switch (status) {
-      case DealStatus.NEW:
-        return 'Nový';
-      case DealStatus.CONTACTED:
-        return 'Kontaktovaný';
-      case DealStatus.QUALIFIED:
-        return 'Kvalifikovaný';
-      case DealStatus.IN_PROGRESS:
-        return 'V procese';
-      case DealStatus.CLOSED_WON:
-        return 'Získaný';
-      case DealStatus.CLOSED_LOST:
-        return 'Stratený';
-      default:
-        return status;
-    }
-  };
-
+  const colors = statusColors[deal.status] || statusColors[DealStatus.NEW];
   const isClosed =
     deal.status === DealStatus.CLOSED_WON || deal.status === DealStatus.CLOSED_LOST;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -115,16 +95,19 @@ export function DealDetailModal({
       <Card
         ref={cardRef}
         tabIndex={-1}
-        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border shadow-2xl"
         onClick={(e) => e.stopPropagation()}
         role="document"
       >
+        {/* Status color strip */}
+        <div className={cn('h-1.5 rounded-t-lg', colors.bar)} />
+
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <div className="flex items-center gap-3">
-            <CardTitle id="deal-modal-title">Detail dealu</CardTitle>
-            <Badge className={cn('text-white', getStatusColor(deal.status))}>
-              {getStatusLabel(deal.status)}
-            </Badge>
+            <CardTitle id="deal-modal-title">Detail leadu</CardTitle>
+            <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', colors.badge, colors.badgeText)}>
+              {statusLabels[deal.status] || deal.status}
+            </span>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close modal">
             <X className="h-4 w-4" aria-hidden="true" />
@@ -170,7 +153,7 @@ export function DealDetailModal({
                   onClose();
                 }}
               >
-                Uzavrieť deal
+                Uzavrieť lead
               </Button>
             </>
           ) : (

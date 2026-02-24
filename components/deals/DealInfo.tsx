@@ -42,10 +42,10 @@ export function DealInfo({ deal }: DealInfoProps) {
 
       {/* Deal Information */}
       <div>
-        <h3 className="text-sm font-semibold text-muted-foreground mb-3">Informácie o deale</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground mb-3">Informácie o leade</h3>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-muted-foreground mb-1">Hodnota dealu</p>
+            <p className="text-xs text-muted-foreground mb-1">Hodnota leadu</p>
             <div className="flex items-center gap-2">
               <DollarSign className="h-4 w-4 text-muted-foreground" />
               <span className="font-medium">

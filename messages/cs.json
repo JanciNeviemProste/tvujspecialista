@@ -626,7 +626,7 @@
       },
       "quickActions": {
         "title": "Rychlé akce",
-        "dealPipeline": "Deal Pipeline",
+        "dealPipeline": "Lead Pipeline",
         "commissions": "Provize",
         "editProfile": "Upravit profil",
         "manageReviews": "Správa recenzí",
@@ -642,7 +642,7 @@
         "users": "Uživatelé",
         "specialists": "Specialisté",
         "leads": "Leady",
-        "deals": "Dealy",
+        "deals": "Leady",
         "contentManagement": "Správa obsahu",
         "academy": "Akademie",
         "academyDesc": "Správa kurzů, modulů a lekcí",
@@ -744,8 +744,8 @@
       }
     },
     "deals": {
-      "title": "Deal Pipeline",
-      "subtitle": "Spravujte svoje obchodní příležitosti",
+      "title": "Lead Pipeline",
+      "subtitle": "Spravujte své příchozí leady",
       "stats": {
         "total": "Celkem",
         "new": "Nové",
@@ -756,23 +756,23 @@
       "showAnalytics": "Zobrazit analytiku",
       "hideAnalytics": "Skrýt analytiku",
       "exportCsv": "Exportovat CSV",
-      "exported": "Exportováno {count} dealů",
+      "exported": "Exportováno {count} leadů",
       "empty": {
-        "title": "Žádné dealy",
+        "title": "Žádné leady",
         "tryFilters": "Zkuste změnit filtry",
-        "noDeals": "Zatím nemáte žádné obchodní příležitosti"
+        "noDeals": "Zatím nemáte žádné leady"
       },
-      "valueSetSuccess": "Hodnota dealu byla úspěšně nastavena",
-      "closedWonSuccess": "Deal byl úspěšně uzavřen! Provize byla vytvořena.",
-      "closedLostSuccess": "Deal byl označen jako ztracený.",
+      "valueSetSuccess": "Hodnota leadu byla úspěšně nastavena",
+      "closedWonSuccess": "Lead byl úspěšně uzavřen! Provize byla vytvořena.",
+      "closedLostSuccess": "Lead byl označen jako ztracený.",
       "metadata": {
-        "title": "Deal Pipeline | tvujspecialista.cz",
-        "description": "Správa obchodních příležitostí."
+        "title": "Lead Pipeline | tvujspecialista.cz",
+        "description": "Správa příchozích leadů."
       }
     },
     "commissions": {
       "title": "Provize",
-      "subtitle": "Přehled vašich provizí z úspěšných dealů",
+      "subtitle": "Přehled vašich provizí z úspěšných leadů",
       "tabs": {
         "pending": "Čekající ({count})",
         "invoiced": "Vyfakturované ({count})",
@@ -780,7 +780,7 @@
       },
       "emptyPending": {
         "title": "Žádné čekající provize",
-        "description": "Všechny provize jsou zaplacené nebo nemáte žádné dealy"
+        "description": "Všechny provize jsou zaplacené nebo nemáte žádné leady"
       },
       "emptyInvoiced": {
         "title": "Žádné vyfakturované provize",
@@ -800,8 +800,8 @@
         "error": "Chyba",
         "notFound": "Provize nebyla nalezena",
         "summaryTitle": "Přehled provize",
-        "deal": "Deal",
-        "dealValue": "Hodnota dealu",
+        "deal": "Lead",
+        "dealValue": "Hodnota leadu",
         "commissionRate": "Sazba provize",
         "amountDue": "Částka k zaplacení",
         "dueDate": "Splatnost",

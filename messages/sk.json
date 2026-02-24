@@ -626,7 +626,7 @@
       },
       "quickActions": {
         "title": "Rýchle akcie",
-        "dealPipeline": "Deal Pipeline",
+        "dealPipeline": "Lead Pipeline",
         "commissions": "Provízie",
         "editProfile": "Upraviť profil",
         "manageReviews": "Správa recenzií",
@@ -642,7 +642,7 @@
         "users": "Používatelia",
         "specialists": "Špecialistia",
         "leads": "Leady",
-        "deals": "Dealy",
+        "deals": "Leady",
         "contentManagement": "Správa obsahu",
         "academy": "Akadémia",
         "academyDesc": "Správa kurzov, modulov a lekcií",
@@ -744,8 +744,8 @@
       }
     },
     "deals": {
-      "title": "Deal Pipeline",
-      "subtitle": "Spravujte svoje obchodné príležitosti",
+      "title": "Lead Pipeline",
+      "subtitle": "Spravujte svoje leady",
       "stats": {
         "total": "Celkom",
         "new": "Nové",
@@ -756,23 +756,23 @@
       "showAnalytics": "Zobraziť analytiku",
       "hideAnalytics": "Skryť analytiku",
       "exportCsv": "Exportovať CSV",
-      "exported": "Exportovaných {count} dealov",
+      "exported": "Exportovaných {count} leadov",
       "empty": {
-        "title": "Žiadne dealy",
+        "title": "Žiadne leady",
         "tryFilters": "Skúste zmeniť filtre",
-        "noDeals": "Zatiaľ nemáte žiadne obchodné príležitosti"
+        "noDeals": "Zatiaľ nemáte žiadne leady"
       },
-      "valueSetSuccess": "Hodnota dealu bola úspešne nastavená",
-      "closedWonSuccess": "Deal bol úspešne uzavretý! Provízia bola vytvorená.",
-      "closedLostSuccess": "Deal bol označený ako stratený.",
+      "valueSetSuccess": "Hodnota leadu bola úspešne nastavená",
+      "closedWonSuccess": "Lead bol úspešne uzavretý! Provízia bola vytvorená.",
+      "closedLostSuccess": "Lead bol označený ako stratený.",
       "metadata": {
-        "title": "Deal Pipeline | tvujspecialista.cz",
-        "description": "Správa obchodných príležitostí."
+        "title": "Lead Pipeline | tvujspecialista.cz",
+        "description": "Správa leadov."
       }
     },
     "commissions": {
       "title": "Provízie",
-      "subtitle": "Prehľad vašich provízií z úspešných dealov",
+      "subtitle": "Prehľad vašich provízií z úspešných leadov",
       "tabs": {
         "pending": "Čakajúce ({count})",
         "invoiced": "Vyfakturované ({count})",
@@ -780,7 +780,7 @@
       },
       "emptyPending": {
         "title": "Žiadne čakajúce provízie",
-        "description": "Všetky provízie sú zaplatené alebo nemáte žiadne dealy"
+        "description": "Všetky provízie sú zaplatené alebo nemáte žiadne leady"
       },
       "emptyInvoiced": {
         "title": "Žiadne vyfakturované provízie",
@@ -792,7 +792,7 @@
       },
       "metadata": {
         "title": "Provízie | tvujspecialista.cz",
-        "description": "Prehľad provízií z obchodných príležitostí."
+        "description": "Prehľad provízií z leadov."
       },
       "pay": {
         "loading": "Načítavanie...",
@@ -800,8 +800,8 @@
         "error": "Chyba",
         "notFound": "Provízia nebola nájdená",
         "summaryTitle": "Prehľad provízie",
-        "deal": "Deal",
-        "dealValue": "Hodnota dealu",
+        "deal": "Lead",
+        "dealValue": "Hodnota leadu",
         "commissionRate": "Sadzba provízie",
         "amountDue": "Suma na zaplatenie",
         "dueDate": "Splatnosť",
@@ -844,7 +844,7 @@
     },
     "metadata": {
       "title": "Dashboard | tvujspecialista.cz",
-      "description": "Váš panel na správu profilu a obchodných príležitostí."
+      "description": "Váš panel na správu profilu a leadov."
     }
   },
   "specialist": {

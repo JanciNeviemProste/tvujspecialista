@@ -4,7 +4,6 @@ import { memo } from 'react';
 import { Deal, DealStatus } from '@/types/deals';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Mail, Phone, Calendar, DollarSign } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { format } from 'date-fns';
@@ -20,14 +19,14 @@ interface DealCardProps {
 
 const statusConfig: Record<
   DealStatus,
-  { label: string; variant: 'default' | 'secondary' | 'success' | 'warning' | 'destructive' }
+  { label: string; className: string }
 > = {
-  [DealStatus.NEW]: { label: 'Nový', variant: 'default' },
-  [DealStatus.CONTACTED]: { label: 'Kontaktovaný', variant: 'secondary' },
-  [DealStatus.QUALIFIED]: { label: 'Kvalifikovaný', variant: 'secondary' },
-  [DealStatus.IN_PROGRESS]: { label: 'V procese', variant: 'warning' },
-  [DealStatus.CLOSED_WON]: { label: 'Uzavretý - Získaný', variant: 'success' },
-  [DealStatus.CLOSED_LOST]: { label: 'Uzavretý - Stratený', variant: 'destructive' },
+  [DealStatus.NEW]: { label: 'Nový', className: 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300' },
+  [DealStatus.CONTACTED]: { label: 'Kontaktovaný', className: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' },
+  [DealStatus.QUALIFIED]: { label: 'Kvalifikovaný', className: 'bg-violet-100 text-violet-700 dark:bg-violet-900 dark:text-violet-300' },
+  [DealStatus.IN_PROGRESS]: { label: 'V procese', className: 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300' },
+  [DealStatus.CLOSED_WON]: { label: 'Získaný', className: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900 dark:text-emerald-300' },
+  [DealStatus.CLOSED_LOST]: { label: 'Stratený', className: 'bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-300' },
 };
 
 function formatCurrency(value: number): string {
@@ -56,7 +55,9 @@ function DealCardInner({
         {/* Header with badge */}
         <div className="flex items-start justify-between">
           <h3 className="font-semibold text-base line-clamp-1">{deal.customerName}</h3>
-          <Badge variant={statusInfo.variant}>{statusInfo.label}</Badge>
+          <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', statusInfo.className)}>
+            {statusInfo.label}
+          </span>
         </div>
 
         {/* Contact info */}
@@ -79,8 +80,8 @@ function DealCardInner({
           <div className="space-y-2 pt-2 border-t">
             {deal.dealValue && (
               <div className="flex items-center gap-2 text-sm">
-                <DollarSign className="h-4 w-4 text-success" />
-                <span className="font-medium text-success">
+                <DollarSign className="h-4 w-4 text-emerald-500" />
+                <span className="font-medium text-emerald-600 dark:text-emerald-400">
                   {formatCurrency(deal.dealValue)}
                 </span>
               </div>

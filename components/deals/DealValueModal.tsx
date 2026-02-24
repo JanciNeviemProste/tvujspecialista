@@ -15,9 +15,9 @@ import { cn } from '@/lib/utils/cn';
 const dealValueSchema = z.object({
   dealValue: z
     .string()
-    .min(1, 'Zadajte platnú hodnotu dealu')
-    .refine((val) => parseFloat(val) > 0, {
-      message: 'Zadajte platnú hodnotu dealu',
+    .min(1, 'Hodnota je povinná')
+    .refine((val) => !isNaN(parseFloat(val)) && parseFloat(val) > 0, {
+      message: 'Zadajte kladnú číselnú hodnotu',
     }),
   estimatedCloseDate: z.string().min(1, 'Zadajte predpokladaný dátum uzavretia'),
 });
@@ -76,10 +76,10 @@ export function DealValueModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <Card className="w-full max-w-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <Card className="w-full max-w-md bg-card border shadow-2xl">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <CardTitle>Nastaviť hodnotu dealu</CardTitle>
+          <CardTitle>Nastaviť hodnotu leadu</CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose} disabled={isLoading}>
             <X className="h-4 w-4" />
           </Button>
@@ -87,22 +87,27 @@ export function DealValueModal({
 
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <CardContent className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Deal: <strong>{deal.customerName}</strong>
-            </p>
+            <div className="rounded-lg bg-muted/50 p-3">
+              <p className="text-sm text-muted-foreground">
+                Lead: <strong>{deal.customerName}</strong>
+              </p>
+            </div>
 
             <div className="space-y-2">
-              <Label htmlFor="dealValue">Hodnota dealu (EUR)</Label>
-              <Input
-                id="dealValue"
-                type="number"
-                step="0.01"
-                min="0"
-                placeholder="napr. 1500"
-                disabled={isLoading}
-                className={cn(errors.dealValue && 'border-destructive')}
-                {...register('dealValue')}
-              />
+              <Label htmlFor="dealValue">Hodnota leadu</Label>
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground font-medium">€</span>
+                <Input
+                  id="dealValue"
+                  type="number"
+                  step="0.01"
+                  min="0"
+                  placeholder="0.00"
+                  disabled={isLoading}
+                  className={cn('pl-8', errors.dealValue && 'border-destructive')}
+                  {...register('dealValue')}
+                />
+              </div>
               {errors.dealValue && (
                 <p className="text-sm text-destructive">{errors.dealValue.message}</p>
               )}

@@ -626,7 +626,7 @@
       },
       "quickActions": {
         "title": "Quick actions",
-        "dealPipeline": "Deal Pipeline",
+        "dealPipeline": "Lead Pipeline",
         "commissions": "Commissions",
         "editProfile": "Edit profile",
         "manageReviews": "Manage reviews",
@@ -642,7 +642,7 @@
         "users": "Users",
         "specialists": "Specialists",
         "leads": "Leads",
-        "deals": "Deals",
+        "deals": "Leads",
         "contentManagement": "Content management",
         "academy": "Academy",
         "academyDesc": "Manage courses, modules and lessons",
@@ -744,7 +744,7 @@
       }
     },
     "deals": {
-      "title": "Deal Pipeline",
+      "title": "Lead Pipeline",
       "subtitle": "Manage your business opportunities",
       "stats": {
         "total": "Total",
@@ -756,23 +756,23 @@
       "showAnalytics": "Show analytics",
       "hideAnalytics": "Hide analytics",
       "exportCsv": "Export CSV",
-      "exported": "Exported {count} deals",
+      "exported": "Exported {count} leads",
       "empty": {
-        "title": "No deals",
+        "title": "No leads",
         "tryFilters": "Try adjusting your filters",
         "noDeals": "You have no business opportunities yet"
       },
-      "valueSetSuccess": "Deal value has been set successfully",
-      "closedWonSuccess": "Deal closed successfully! Commission has been created.",
-      "closedLostSuccess": "Deal has been marked as lost.",
+      "valueSetSuccess": "Lead value has been set successfully",
+      "closedWonSuccess": "Lead closed successfully! Commission has been created.",
+      "closedLostSuccess": "Lead has been marked as lost.",
       "metadata": {
-        "title": "Deal Pipeline | tvujspecialista.cz",
+        "title": "Lead Pipeline | tvujspecialista.cz",
         "description": "Manage your business opportunities."
       }
     },
     "commissions": {
       "title": "Commissions",
-      "subtitle": "Overview of your commissions from successful deals",
+      "subtitle": "Overview of your commissions from successful leads",
       "tabs": {
         "pending": "Pending ({count})",
         "invoiced": "Invoiced ({count})",
@@ -780,7 +780,7 @@
       },
       "emptyPending": {
         "title": "No pending commissions",
-        "description": "All commissions are paid or you have no deals"
+        "description": "All commissions are paid or you have no leads"
       },
       "emptyInvoiced": {
         "title": "No invoiced commissions",
@@ -800,8 +800,8 @@
         "error": "Error",
         "notFound": "Commission not found",
         "summaryTitle": "Commission summary",
-        "deal": "Deal",
-        "dealValue": "Deal value",
+        "deal": "Lead",
+        "dealValue": "Lead value",
         "commissionRate": "Commission rate",
         "amountDue": "Amount due",
         "dueDate": "Due date",

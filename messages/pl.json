@@ -626,7 +626,7 @@
       },
       "quickActions": {
         "title": "Szybkie akcje",
-        "dealPipeline": "Deal Pipeline",
+        "dealPipeline": "Lead Pipeline",
         "commissions": "Prowizje",
         "editProfile": "Edytuj profil",
         "manageReviews": "Zarządzaj opiniami",
@@ -642,7 +642,7 @@
         "users": "Użytkownicy",
         "specialists": "Specjaliści",
         "leads": "Lead'y",
-        "deals": "Deale",
+        "deals": "Leady",
         "contentManagement": "Zarządzanie treścią",
         "academy": "Akademia",
         "academyDesc": "Zarządzanie kursami, modułami i lekcjami",
@@ -744,7 +744,7 @@
       }
     },
     "deals": {
-      "title": "Deal Pipeline",
+      "title": "Lead Pipeline",
       "subtitle": "Zarządzaj swoimi możliwościami biznesowymi",
       "stats": {
         "total": "Łącznie",
@@ -756,23 +756,23 @@
       "showAnalytics": "Pokaż analitykę",
       "hideAnalytics": "Ukryj analitykę",
       "exportCsv": "Eksportuj CSV",
-      "exported": "Wyeksportowano {count} dealów",
+      "exported": "Wyeksportowano {count} leadów",
       "empty": {
-        "title": "Brak dealów",
+        "title": "Brak leadów",
         "tryFilters": "Spróbuj zmienić filtry",
         "noDeals": "Nie masz jeszcze żadnych możliwości biznesowych"
       },
-      "valueSetSuccess": "Wartość dealu została pomyślnie ustawiona",
-      "closedWonSuccess": "Deal został pomyślnie zamknięty! Prowizja została utworzona.",
-      "closedLostSuccess": "Deal został oznaczony jako utracony.",
+      "valueSetSuccess": "Wartość leadu została pomyślnie ustawiona",
+      "closedWonSuccess": "Lead został pomyślnie zamknięty! Prowizja została utworzona.",
+      "closedLostSuccess": "Lead został oznaczony jako utracony.",
       "metadata": {
-        "title": "Deal Pipeline | tvujspecialista.cz",
+        "title": "Lead Pipeline | tvujspecialista.cz",
         "description": "Zarządzanie możliwościami biznesowymi."
       }
     },
     "commissions": {
       "title": "Prowizje",
-      "subtitle": "Przegląd Twoich prowizji z pomyślnie zamkniętych dealów",
+      "subtitle": "Przegląd Twoich prowizji z pomyślnie zamkniętych leadów",
       "tabs": {
         "pending": "Oczekujące ({count})",
         "invoiced": "Zafakturowane ({count})",
@@ -780,7 +780,7 @@
       },
       "emptyPending": {
         "title": "Brak oczekujących prowizji",
-        "description": "Wszystkie prowizje są zapłacone lub nie masz żadnych dealów"
+        "description": "Wszystkie prowizje są zapłacone lub nie masz żadnych leadów"
       },
       "emptyInvoiced": {
         "title": "Brak zafakturowanych prowizji",
@@ -800,8 +800,8 @@
         "error": "Błąd",
         "notFound": "Prowizja nie została znaleziona",
         "summaryTitle": "Podsumowanie prowizji",
-        "deal": "Deal",
-        "dealValue": "Wartość dealu",
+        "deal": "Lead",
+        "dealValue": "Wartość leadu",
         "commissionRate": "Stawka prowizji",
         "amountDue": "Kwota do zapłaty",
         "dueDate": "Termin płatności",

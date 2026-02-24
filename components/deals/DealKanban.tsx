@@ -12,13 +12,13 @@ interface DealKanbanProps {
   className?: string;
 }
 
-const columns: { status: DealStatus; label: string; color: string }[] = [
-  { status: DealStatus.NEW, label: 'Nový', color: 'bg-gray-100 dark:bg-gray-800' },
-  { status: DealStatus.CONTACTED, label: 'Kontaktovaný', color: 'bg-blue-50 dark:bg-blue-950' },
-  { status: DealStatus.QUALIFIED, label: 'Kvalifikovaný', color: 'bg-cyan-50 dark:bg-cyan-950' },
-  { status: DealStatus.IN_PROGRESS, label: 'V procese', color: 'bg-orange-50 dark:bg-orange-950' },
-  { status: DealStatus.CLOSED_WON, label: 'Získaný', color: 'bg-green-50 dark:bg-green-950' },
-  { status: DealStatus.CLOSED_LOST, label: 'Stratený', color: 'bg-red-50 dark:bg-red-950' },
+const columns: { status: DealStatus; label: string; bgColor: string; borderColor: string }[] = [
+  { status: DealStatus.NEW, label: 'Nový', bgColor: 'bg-slate-50 dark:bg-slate-900/50', borderColor: 'border-t-slate-400' },
+  { status: DealStatus.CONTACTED, label: 'Kontaktovaný', bgColor: 'bg-blue-50 dark:bg-blue-950/50', borderColor: 'border-t-blue-500' },
+  { status: DealStatus.QUALIFIED, label: 'Kvalifikovaný', bgColor: 'bg-violet-50 dark:bg-violet-950/50', borderColor: 'border-t-violet-500' },
+  { status: DealStatus.IN_PROGRESS, label: 'V procese', bgColor: 'bg-amber-50 dark:bg-amber-950/50', borderColor: 'border-t-amber-500' },
+  { status: DealStatus.CLOSED_WON, label: 'Získaný', bgColor: 'bg-emerald-50 dark:bg-emerald-950/50', borderColor: 'border-t-emerald-500' },
+  { status: DealStatus.CLOSED_LOST, label: 'Stratený', bgColor: 'bg-rose-50 dark:bg-rose-950/50', borderColor: 'border-t-rose-500' },
 ];
 
 export function DealKanban({ deals, onStatusChange, onViewDetails, className }: DealKanbanProps) {
@@ -36,8 +36,9 @@ export function DealKanban({ deals, onStatusChange, onViewDetails, className }: 
           <div
             key={column.status}
             className={cn(
-              'flex-shrink-0 w-80 rounded-lg p-4 space-y-4',
-              column.color
+              'flex-shrink-0 w-80 rounded-lg border-t-4 p-4 space-y-4',
+              column.bgColor,
+              column.borderColor
             )}
           >
             {/* Column header */}
@@ -61,7 +62,7 @@ export function DealKanban({ deals, onStatusChange, onViewDetails, className }: 
             <div className="space-y-3 min-h-[200px]">
               {columnDeals.length === 0 ? (
                 <div className="flex items-center justify-center h-32 text-sm text-muted-foreground border-2 border-dashed rounded-lg">
-                  Žiadne dealy
+                  Žiadne leady
                 </div>
               ) : (
                 columnDeals.map((deal) => (

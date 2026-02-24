@@ -25,7 +25,7 @@ const closeDealSchema = z
       return true;
     },
     {
-      message: 'Zadajte skutočnú hodnotu dealu',
+      message: 'Zadajte skutočnú hodnotu leadu',
       path: ['actualDealValue'],
     },
   );
@@ -85,10 +85,10 @@ export function CloseDealModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <Card className="w-full max-w-md">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+      <Card className="w-full max-w-md bg-card border shadow-2xl">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-          <CardTitle>Uzavrieť deal</CardTitle>
+          <CardTitle>Uzavrieť lead</CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose} disabled={isLoading}>
             <X className="h-4 w-4" />
           </Button>
@@ -97,7 +97,7 @@ export function CloseDealModal({
         <form onSubmit={handleSubmit(onFormSubmit)}>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Deal: <strong>{deal.customerName}</strong>
+              Lead: <strong>{deal.customerName}</strong>
             </p>
 
             <div className="space-y-2">
@@ -157,7 +157,7 @@ export function CloseDealModal({
             {status === DealStatus.CLOSED_LOST && (
               <div className="rounded-lg bg-muted p-4">
                 <p className="text-sm text-muted-foreground">
-                  Deal bude označený ako stratený. Nebudú vytvorené žiadne provízne.
+                  Lead bude označený ako stratený. Nebudú vytvorené žiadne provízie.
                 </p>
               </div>
             )}
@@ -182,7 +182,7 @@ export function CloseDealModal({
                 status === DealStatus.CLOSED_LOST && 'bg-destructive hover:bg-destructive/90',
               )}
             >
-              {isLoading ? 'Ukladám...' : 'Uzavrieť deal'}
+              {isLoading ? 'Ukladám...' : 'Uzavrieť lead'}
             </Button>
           </CardFooter>
         </form>
