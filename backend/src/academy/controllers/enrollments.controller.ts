@@ -52,7 +52,8 @@ export class EnrollmentsController {
     @Request() req: AuthenticatedRequest,
     @Query() filters: QueryEnrollmentsDto,
   ) {
-    return this.enrollmentsService.findMyEnrollments(req.user.userId, filters);
+    const enrollments = await this.enrollmentsService.findMyEnrollments(req.user.userId, filters);
+    return { enrollments };
   }
 
   @Get('course/:courseId')
