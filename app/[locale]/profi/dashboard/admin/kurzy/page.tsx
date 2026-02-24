@@ -249,7 +249,11 @@ export default function AdminCoursesPage() {
   const handleCreateCourse = async (data: CourseFormData) => {
     setFormLoading(true);
     try {
-      await academyApi.createCourse({ ...data, published: true });
+      const response = await academyApi.createCourse(data);
+      const newCourse = response.data;
+      if (newCourse?.id) {
+        await academyApi.publishCourse(newCourse.id, true);
+      }
       toast.success(tAdmin('toasts.courseCreated'));
       setModalOpen(false);
       refetch();

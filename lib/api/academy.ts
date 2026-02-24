@@ -57,7 +57,6 @@ export const academyApi = {
     instructorName: string;
     instructorBio: string;
     instructorPhoto: string;
-    published?: boolean;
   }) => apiClient.post('/academy/courses', data),
 
   updateCourse: (courseId: string, data: Partial<{
