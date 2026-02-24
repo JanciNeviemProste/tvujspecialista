@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { reviewsApi } from '@/lib/api/reviews';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import type { Review } from '@/types/review';
+import { useTranslations } from 'next-intl';
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -24,6 +25,8 @@ function StarRating({ rating }: { rating: number }) {
 }
 
 export default function ReviewsPage() {
+  const t = useTranslations('dashboard.reviews');
+  const tCommon = useTranslations('common.status');
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -35,7 +38,7 @@ export default function ReviewsPage() {
         const { data } = await reviewsApi.getMyReviews();
         setReviews(data as Review[]);
       } catch {
-        toast.error('Nepodarilo se nacist recenze');
+        toast.error(t('loadError'));
       } finally {
         setIsLoading(false);
       }
@@ -51,7 +54,7 @@ export default function ReviewsPage() {
       <div className="min-h-screen bg-gray-50">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600">Nacitani recenzi...</p>
+            <p className="text-gray-600">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -81,8 +84,8 @@ export default function ReviewsPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">Recenze</h1>
-          <p className="text-gray-600">Prehled vsech recenzi od vasich klientu</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
+          <p className="text-gray-600">{t('subtitle')}</p>
         </div>
 
         {/* Souhrn hodnoceni */}
@@ -96,7 +99,7 @@ export default function ReviewsPage() {
                 </div>
                 <StarRating rating={Math.round(averageRating)} />
                 <p className="mt-2 text-sm text-gray-500">
-                  {reviews.length} {reviews.length === 1 ? 'recenze' : reviews.length >= 2 && reviews.length <= 4 ? 'recenze' : 'recenzi'}
+                  {t('count', { count: reviews.length })}
                 </p>
               </div>
 
@@ -139,7 +142,7 @@ export default function ReviewsPage() {
                         </h3>
                         {review.verified && (
                           <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-                            Overeno
+                            {tCommon('verified')}
                           </span>
                         )}
                       </div>
@@ -148,7 +151,7 @@ export default function ReviewsPage() {
                       {review.response && (
                         <div className="mt-4 rounded-lg bg-gray-50 p-4">
                           <p className="mb-1 text-sm font-medium text-gray-600">
-                            Vase odpoved:
+                            {t('yourResponse')}
                           </p>
                           <p className="text-sm text-gray-700">{review.response.text}</p>
                         </div>
@@ -168,10 +171,10 @@ export default function ReviewsPage() {
           <Card>
             <CardContent className="p-12 text-center">
               <h3 className="mb-2 text-lg font-semibold text-gray-900">
-                Zatim zadne recenze
+                {t('empty.title')}
               </h3>
               <p className="text-gray-600">
-                Jakmile klienti zanechaji recenze, zobrazi se zde.
+                {t('empty.description')}
               </p>
             </CardContent>
           </Card>

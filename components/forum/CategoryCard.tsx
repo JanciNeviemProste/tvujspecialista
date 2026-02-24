@@ -1,6 +1,7 @@
 'use client';
 
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -25,6 +26,7 @@ interface CategoryCardProps {
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
+  const t = useTranslations('forum');
   const Icon = iconMap[category.icon] || MessageSquare;
 
   return (
@@ -41,7 +43,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
                 {category.description}
               </p>
               <Badge variant="outline">
-                {category.topicCount} {category.topicCount === 1 ? 'téma' : 'tém'}
+                {t('topicCount', { count: category.topicCount })}
               </Badge>
             </div>
           </div>

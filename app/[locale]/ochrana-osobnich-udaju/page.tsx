@@ -1,12 +1,23 @@
-import Link from 'next/link';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { Link } from '@/i18n/routing';
 
-export const metadata: Metadata = {
-  title: 'Ochrana osobních údajů | TvůjSpecialista.cz',
-  description: 'Informace o zpracování a ochraně osobních údajů (GDPR) na platformě TvůjSpecialista.cz. Vaše práva, účel zpracování a kontaktní údaje.',
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function PrivacyPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'privacy.metadata' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
+export default async function PrivacyPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('privacy');
+
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b">
@@ -18,7 +29,7 @@ export default function PrivacyPage() {
       </header>
 
       <div className="container mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">Ochrana osobních údajů (GDPR)</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
 
         <div className="prose prose-gray max-w-none">
           <section className="mb-8">

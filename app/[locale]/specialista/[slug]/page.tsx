@@ -1,7 +1,8 @@
 'use client';
 
 import { use, useState, FormEvent } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
@@ -12,6 +13,8 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
   const { slug } = use(params);
   const { data: specialist, isLoading, error } = useSpecialist(slug);
   const createLead = useCreateLead();
+  const t = useTranslations('specialist');
+  const tCommon = useTranslations('common');
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
@@ -54,7 +57,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="mb-4 text-5xl">⏳</div>
-            <p className="text-gray-600">Načítání specialisty...</p>
+            <p className="text-gray-600">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -73,15 +76,15 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
         </header>
         <div className="container mx-auto px-4 py-20">
           <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">
-            <h2 className="mb-2 text-xl font-semibold text-red-900">Specialista nenalezen</h2>
+            <h2 className="mb-2 text-xl font-semibold text-red-900">{t('notFound')}</h2>
             <p className="mb-4 text-red-600">
-              Omlouváme se, ale tento specialista neexistuje nebo byl odstraněn.
+              {t('notFoundDesc')}
             </p>
             <Link
               href="/hledat"
               className="inline-block rounded-md bg-blue-600 px-6 py-2 text-white hover:bg-blue-700"
             >
-              Zpět na vyhledávání
+              {tCommon('actions.backToSearch')}
             </Link>
           </div>
         </div>
@@ -99,10 +102,10 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
           </Link>
           <nav className="flex items-center gap-6">
             <Link href="/hledat" className="text-sm font-medium hover:text-blue-600">
-              Hledat
+              {tCommon('nav.search')}
             </Link>
             <Link href="/ceny" className="text-sm font-medium hover:text-blue-600">
-              Ceny
+              {tCommon('nav.pricing')}
             </Link>
           </nav>
         </div>
@@ -131,12 +134,12 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                     <h1 className="text-3xl font-bold text-gray-900">{specialist.name}</h1>
                     {specialist.verified && (
                       <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
-                        Ověřený
+                        {tCommon('status.verified')}
                       </span>
                     )}
                     {specialist.topSpecialist && (
                       <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
-                        Top
+                        {tCommon('status.top')}
                       </span>
                     )}
                   </div>
@@ -155,11 +158,11 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
                   <div className="flex items-center gap-6 text-sm text-gray-600">
                     <div>
-                      <span className="font-semibold">{specialist.yearsExperience}</span> let praxe
+                      {t('experience', { years: specialist.yearsExperience })}
                     </div>
                     {specialist.hourlyRate > 0 && (
                       <div>
-                        <span className="font-semibold">{specialist.hourlyRate} Kč</span>/hod
+                        {t('hourlyRate', { rate: specialist.hourlyRate })}
                       </div>
                     )}
                   </div>
@@ -169,14 +172,14 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* About */}
             <div className="rounded-lg border bg-white p-8">
-              <h2 className="mb-4 text-2xl font-bold text-gray-900">O mně</h2>
+              <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('aboutMe')}</h2>
               <p className="leading-relaxed text-gray-700">{specialist.bio}</p>
             </div>
 
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (
               <div className="rounded-lg border bg-white p-8">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">Služby</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('services')}</h2>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   {specialist.services.map((service: string, index: number) => (
                     <div key={index} className="flex items-center">
@@ -201,17 +204,17 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             {/* Credentials */}
             {(specialist.education || (specialist.certifications && specialist.certifications.length > 0)) && (
               <div className="rounded-lg border bg-white p-8">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">Vzdělání a certifikace</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('credentials')}</h2>
                 <div className="space-y-3">
                   {specialist.education && (
                     <div>
-                      <h3 className="font-semibold text-gray-900">Vzdělání</h3>
+                      <h3 className="font-semibold text-gray-900">{t('education')}</h3>
                       <p className="text-gray-700">{specialist.education}</p>
                     </div>
                   )}
                   {specialist.certifications && specialist.certifications.length > 0 && (
                     <div>
-                      <h3 className="font-semibold text-gray-900">Certifikace</h3>
+                      <h3 className="font-semibold text-gray-900">{t('certifications')}</h3>
                       <ul className="list-inside list-disc text-gray-700">
                         {specialist.certifications.map((cert: string, index: number) => (
                           <li key={index}>{cert}</li>
@@ -227,7 +230,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             {specialist.reviews && specialist.reviews.length > 0 && (
               <div className="rounded-lg border bg-white p-8">
                 <h2 className="mb-6 text-2xl font-bold text-gray-900">
-                  Recenze ({specialist.reviews.length})
+                  {t('reviews', { count: specialist.reviews.length })}
                 </h2>
                 <div className="space-y-6">
                   {specialist.reviews.map((review: Review) => (
@@ -237,7 +240,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                           <h3 className="font-semibold text-gray-900">{review.customerName}</h3>
                           {review.verified && (
                             <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
-                              Ověřená recenze
+                              {tCommon('status.verifiedReview')}
                             </span>
                           )}
                         </div>
@@ -251,7 +254,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                       <p className="text-gray-700">{review.text}</p>
                       {review.response && (
                         <div className="mt-3 rounded-lg bg-gray-50 p-3">
-                          <p className="text-sm font-semibold text-gray-900">Odpověď specialisty:</p>
+                          <p className="text-sm font-semibold text-gray-900">{t('specialistResponse')}</p>
                           <p className="text-sm text-gray-700">{review.response.text}</p>
                         </div>
                       )}
@@ -267,63 +270,63 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             <div className="sticky top-4 space-y-6">
               {/* Contact Card */}
               <div className="rounded-lg border bg-white p-6">
-                <h3 className="mb-4 text-lg font-bold text-gray-900">Kontaktovat specialistu</h3>
+                <h3 className="mb-4 text-lg font-bold text-gray-900">{t('contactSpecialist')}</h3>
 
                 {submitSuccess && (
                   <div className="mb-4 rounded-lg bg-green-50 p-4 text-center">
                     <div className="mb-2 text-3xl">✅</div>
-                    <p className="text-sm font-semibold text-green-900">Poptávka odeslána!</p>
-                    <p className="text-xs text-green-700">Specialista vás brzy kontaktuje.</p>
+                    <p className="text-sm font-semibold text-green-900">{t('contactForm.success')}</p>
+                    <p className="text-xs text-green-700">{t('contactForm.successDesc')}</p>
                   </div>
                 )}
 
                 <form className="space-y-4" onSubmit={handleSubmit}>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Vaše jméno *
+                      {t('contactForm.name')}
                     </label>
                     <input
                       type="text"
                       required
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="Jan Novák"
+                      placeholder={t('contactForm.namePlaceholder')}
                       value={formData.customerName}
                       onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">Email *</label>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">{t('contactForm.email')}</label>
                     <input
                       type="email"
                       required
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="jan@example.com"
+                      placeholder={t('contactForm.emailPlaceholder')}
                       value={formData.customerEmail}
                       onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
                     />
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Telefon *
+                      {t('contactForm.phone')}
                     </label>
                     <input
                       type="tel"
                       required
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="+420 777 123 456"
+                      placeholder={t('contactForm.phonePlaceholder')}
                       value={formData.customerPhone}
                       onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
                     />
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700">
-                      Zpráva *
+                      {t('contactForm.message')}
                     </label>
                     <textarea
                       required
                       rows={4}
                       className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="Popište, s čím potřebujete pomoci..."
+                      placeholder={t('contactForm.messagePlaceholder')}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
@@ -333,18 +336,18 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                     disabled={createLead.isPending}
                     className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {createLead.isPending ? 'Odesílání...' : 'Odeslat poptávku'}
+                    {createLead.isPending ? t('contactForm.submitting') : t('contactForm.submit')}
                   </button>
                 </form>
               </div>
 
               {/* Info Card */}
               <div className="rounded-lg border bg-gray-50 p-6">
-                <h3 className="mb-4 text-sm font-semibold text-gray-900">Další informace</h3>
+                <h3 className="mb-4 text-sm font-semibold text-gray-900">{t('moreInfo')}</h3>
                 <div className="space-y-3 text-sm">
                   {specialist.availability && specialist.availability.length > 0 && (
                     <div>
-                      <span className="text-gray-600">Dostupnost:</span>
+                      <span className="text-gray-600">{t('availability')}</span>
                       <p className="font-medium text-gray-900">
                         {specialist.availability.join(', ')}
                       </p>
@@ -352,7 +355,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                   )}
                   {specialist.website && (
                     <div>
-                      <span className="text-gray-600">Web:</span>
+                      <span className="text-gray-600">{t('web')}</span>
                       <a
                         href={specialist.website}
                         target="_blank"
@@ -372,7 +375,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                         rel="noopener noreferrer"
                         className="block font-medium text-blue-600 hover:underline"
                       >
-                        Profil na LinkedIn
+                        {t('linkedin')}
                       </a>
                     </div>
                   )}

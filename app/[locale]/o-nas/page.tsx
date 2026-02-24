@@ -1,17 +1,29 @@
-import Link from 'next/link';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { Link } from '@/i18n/routing';
 
-export const metadata: Metadata = {
-  title: 'O nás | TvujSpecialista.cz',
-  description: 'Sme prémiová edu-komunitná platforma spojujúca realitných agentov a finančných poradcov s kvalitným vzdelávaním a obchodnými príležitosťami.',
-  openGraph: {
-    title: 'O nás | TvujSpecialista.cz',
-    description: 'Sme prémiová edu-komunitná platforma spojujúca realitných agentov a finančných poradcov.',
-    images: ['/og-image.jpg'],
-  },
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function AboutPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'about.metadata' });
+  return {
+    title: t('title'),
+    description: t('description'),
+    openGraph: {
+      title: t('title'),
+      description: t('description'),
+      images: ['/og-image.jpg'],
+    },
+  };
+}
+
+export default async function AboutPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('about');
+  const tCommon = await getTranslations('common');
+
   return (
     <div className="min-h-screen bg-white dark:bg-background">
       <header className="border-b">
@@ -23,96 +35,92 @@ export default function AboutPage() {
       </header>
 
       <div className="container mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">O nás</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
 
         <div className="prose prose-gray max-w-none">
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">Naše mise</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('mission.title')}</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
-              tvujspecialista.cz je moderní platforma, která spojuje zákazníky s ověřenými
-              specialisty v oblasti financí a nemovitostí. Naším cílem je zjednodušit proces
-              hledání důvěryhodných odborníků a pomoci poskytovatelům služeb růst.
+              {t('mission.description')}
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">Proč jsme vznikli</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('why.title')}</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
-              Všimli jsme si, že hledání kvalitního specialistu - ať už pro hypotéku, pojištění
-              nebo investice - je často zdlouhavý a stresující proces. Zákazníci neví, komu
-              důvěřovat, a specialisté zase hledají efektivní způsob, jak získat nové klienty.
+              {t('why.p1')}
             </p>
             <p className="mb-4 text-gray-700 leading-relaxed">
-              Proto jsme vytvořili platformu, která tento proces zjednodušuje pro obě strany.
+              {t('why.p2')}
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">Co nabízíme</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('offer.title')}</h2>
             <div className="space-y-4">
               <div className="rounded-lg border bg-gray-50 p-4">
-                <h3 className="mb-2 font-semibold text-gray-900">Pro zákazníky</h3>
+                <h3 className="mb-2 font-semibold text-gray-900">{t('offer.forCustomers')}</h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-700">
-                  <li>Ověřené profily specialistů s reálnými recenzemi</li>
-                  <li>Snadné porovnání a kontaktování</li>
-                  <li>Bezplatné využívání platformy</li>
+                  <li>{t('offer.customerFeatures.profiles')}</li>
+                  <li>{t('offer.customerFeatures.compare')}</li>
+                  <li>{t('offer.customerFeatures.free')}</li>
                 </ul>
               </div>
               <div className="rounded-lg border bg-gray-50 p-4">
-                <h3 className="mb-2 font-semibold text-gray-900">Pro specialisty</h3>
+                <h3 className="mb-2 font-semibold text-gray-900">{t('offer.forSpecialists')}</h3>
                 <ul className="list-disc list-inside space-y-1 text-gray-700">
-                  <li>Kvalitní leady od zainteresovaných zákazníků</li>
-                  <li>Ověřený profil zvyšující důvěryhodnost</li>
-                  <li>Nástroje pro správu poptávek a recenzí</li>
+                  <li>{t('offer.specialistFeatures.leads')}</li>
+                  <li>{t('offer.specialistFeatures.profile')}</li>
+                  <li>{t('offer.specialistFeatures.tools')}</li>
                 </ul>
               </div>
             </div>
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">Naše hodnoty</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('values.title')}</h2>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <span className="mr-2 text-blue-600">✓</span>
                 <div>
-                  <strong className="text-gray-900">Transparentnost:</strong>
-                  <span className="text-gray-700"> Všechny recenze jsou ověřené a pravdivé</span>
+                  <strong className="text-gray-900">{t('values.transparency')}</strong>
+                  <span className="text-gray-700"> {t('values.transparencyDesc')}</span>
                 </div>
               </li>
               <li className="flex items-start">
                 <span className="mr-2 text-blue-600">✓</span>
                 <div>
-                  <strong className="text-gray-900">Kvalita:</strong>
-                  <span className="text-gray-700"> Pečlivě ověřujeme každého specialistu</span>
+                  <strong className="text-gray-900">{t('values.quality')}</strong>
+                  <span className="text-gray-700"> {t('values.qualityDesc')}</span>
                 </div>
               </li>
               <li className="flex items-start">
                 <span className="mr-2 text-blue-600">✓</span>
                 <div>
-                  <strong className="text-gray-900">Jednoduchost:</strong>
-                  <span className="text-gray-700"> Platformu zvládne používat každý</span>
+                  <strong className="text-gray-900">{t('values.simplicity')}</strong>
+                  <span className="text-gray-700"> {t('values.simplicityDesc')}</span>
                 </div>
               </li>
             </ul>
           </section>
 
           <section className="rounded-lg bg-blue-50 p-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">Připojte se k nám</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('joinUs.title')}</h2>
             <p className="mb-4 text-gray-700">
-              Ať už hledáte specialistu nebo chcete nabídnout své služby, jsme tu pro vás.
+              {t('joinUs.description')}
             </p>
             <div className="flex gap-4">
               <Link
                 href="/hledat"
                 className="rounded-md bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
-                Najít specialistu
+                {tCommon('actions.findSpecialist')}
               </Link>
               <Link
                 href="/profi/registrace"
                 className="rounded-md border border-blue-600 px-6 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50"
               >
-                Stát se specialistou
+                {tCommon('actions.becomeSpecialist')}
               </Link>
             </div>
           </section>

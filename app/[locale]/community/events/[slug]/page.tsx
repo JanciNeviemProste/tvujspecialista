@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/routing'
 import { useEvent, useRSVP, useMyRSVPs } from '@/lib/hooks/useCommunity'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -12,33 +14,10 @@ import Image from 'next/image'
 import { EventType, EventFormat, EventCategory } from '@/types/community'
 import { formatDate } from '@/lib/utils/dateFormat'
 import { useAuth } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
-
-function getEventTypeLabel(type: EventType): string {
-  const labels: Record<EventType, string> = {
-    [EventType.WORKSHOP]: 'Workshop',
-    [EventType.NETWORKING]: 'Networking',
-    [EventType.CONFERENCE]: 'Konferencia',
-    [EventType.WEBINAR]: 'Webinár',
-    [EventType.MEETUP]: 'Meetup',
-  }
-  return labels[type]
-}
-
-function getEventFormatLabel(format: EventFormat): string {
-  return format === EventFormat.ONLINE ? 'Online' : 'Offline'
-}
-
-function getCategoryLabel(category: EventCategory): string {
-  const labels: Record<EventCategory, string> = {
-    [EventCategory.REAL_ESTATE]: 'Reality',
-    [EventCategory.FINANCIAL]: 'Finance',
-    [EventCategory.BOTH]: 'Reality & Finance',
-  }
-  return labels[category]
-}
 
 export default function EventDetailPage() {
+  const t = useTranslations('community.eventDetail')
+  const tCatalog = useTranslations('community.eventsCatalog')
   const params = useParams()
   const slug = params?.slug as string
   const router = useRouter()
@@ -100,7 +79,7 @@ export default function EventDetailPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
             <p className="text-destructive">
-              Event nenájdený alebo došlo k chybe pri načítaní.
+              {t('notFound')}
             </p>
           </div>
         </div>
@@ -133,10 +112,16 @@ export default function EventDetailPage() {
           <div className="container mx-auto">
             <div className="flex gap-2 mb-4">
               <Badge variant="gold">
-                {getEventTypeLabel(event.type)}
+                {{
+                  [EventType.WORKSHOP]: tCatalog('filters.typeWorkshop'),
+                  [EventType.NETWORKING]: tCatalog('filters.typeNetworking'),
+                  [EventType.CONFERENCE]: tCatalog('filters.typeConference'),
+                  [EventType.WEBINAR]: tCatalog('filters.typeWebinar'),
+                  [EventType.MEETUP]: tCatalog('filters.typeMeetup'),
+                }[event.type]}
               </Badge>
               <Badge variant="default">
-                {getEventFormatLabel(event.format)}
+                {event.format === EventFormat.ONLINE ? tCatalog('filters.formatOnline') : tCatalog('filters.formatOffline')}
               </Badge>
               {event.featured && (
                 <Badge variant="gold">Featured</Badge>
@@ -156,7 +141,7 @@ export default function EventDetailPage() {
             {/* Description */}
             <Card>
               <CardHeader>
-                <CardTitle>O evente</CardTitle>
+                <CardTitle>{t('about')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground whitespace-pre-wrap">
@@ -169,7 +154,7 @@ export default function EventDetailPage() {
             {event.organizer && (
               <Card>
                 <CardHeader>
-                  <CardTitle>Organizátor</CardTitle>
+                  <CardTitle>{t('organizer')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-4">
@@ -193,7 +178,7 @@ export default function EventDetailPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Tag className="h-5 w-5" />
-                    Tagy
+                    {t('tags')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -215,7 +200,7 @@ export default function EventDetailPage() {
               {/* Event Info Card */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Informácie o evente</CardTitle>
+                  <CardTitle>{t('info')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Date & Time */}
@@ -234,7 +219,7 @@ export default function EventDetailPage() {
                     <div className="flex items-start gap-3">
                       <Video className="h-5 w-5 text-muted-foreground mt-0.5" />
                       <div>
-                        <p className="font-medium">Online stretnutie</p>
+                        <p className="font-medium">{t('onlineMeeting')}</p>
                         {event.meetingLink && isRegistered && (
                           <a
                             href={event.meetingLink}
@@ -242,13 +227,13 @@ export default function EventDetailPage() {
                             rel="noopener noreferrer"
                             className="text-sm text-primary hover:underline flex items-center gap-1"
                           >
-                            Pripojiť sa
+                            {t('joinLink')}
                             <ExternalLink className="h-3 w-3" />
                           </a>
                         )}
                         {!isRegistered && (
                           <p className="text-sm text-muted-foreground">
-                            Link dostupný po registrácii
+                            {t('linkAfterRegistration')}
                           </p>
                         )}
                       </div>
@@ -270,12 +255,12 @@ export default function EventDetailPage() {
                     <Users className="h-5 w-5 text-muted-foreground mt-0.5" />
                     <div>
                       <p className="font-medium">
-                        {event.attendeeCount} účastníkov
+                        {event.attendeeCount}
                         {event.maxAttendees && ` / ${event.maxAttendees}`}
                       </p>
                       {isFullyBooked && (
                         <Badge variant="destructive" className="mt-1">
-                          Obsadené
+                          {t('fullyBooked')}
                         </Badge>
                       )}
                     </div>
@@ -285,18 +270,22 @@ export default function EventDetailPage() {
                   <div className="flex items-start gap-3">
                     <Tag className="h-5 w-5 text-muted-foreground mt-0.5" />
                     <div>
-                      <p className="font-medium">Kategória</p>
+                      <p className="font-medium">{t('category')}</p>
                       <p className="text-sm text-muted-foreground">
-                        {getCategoryLabel(event.category)}
+                        {{
+                          [EventCategory.REAL_ESTATE]: tCatalog('filters.catRealEstate'),
+                          [EventCategory.FINANCIAL]: tCatalog('filters.catFinancial'),
+                          [EventCategory.BOTH]: tCatalog('filters.catBoth'),
+                        }[event.category]}
                       </p>
                     </div>
                   </div>
 
                   {/* Price */}
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-muted-foreground mb-2">Cena</p>
+                    <p className="text-sm text-muted-foreground mb-2">{t('price')}</p>
                     <p className="text-2xl font-bold text-accent-500">
-                      {isFree ? 'Zadarmo' : `${event.price} ${event.currency}`}
+                      {isFree ? t('free') : `${event.price} ${event.currency}`}
                     </p>
                   </div>
 
@@ -307,17 +296,17 @@ export default function EventDetailPage() {
                     disabled={isFullyBooked || isRegistered || rsvpMutation.isPending}
                   >
                     {isRegistered
-                      ? 'Už ste registrovaný'
+                      ? t('alreadyRegistered')
                       : isFullyBooked
-                      ? 'Obsadené'
+                      ? t('fullyBooked')
                       : rsvpMutation.isPending
-                      ? 'Registrujem...'
-                      : 'Registrovať sa'}
+                      ? t('registering')
+                      : t('register')}
                   </Button>
 
                   {isRegistered && (
                     <p className="text-sm text-center text-muted-foreground">
-                      Potvrdzujúci e-mail bol odoslaný
+                      {t('confirmationEmailSent')}
                     </p>
                   )}
                 </CardContent>

@@ -1,9 +1,16 @@
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Kontakt | tvujspecialista.cz',
-  description: 'Kontaktujte nás s dotazy ohledně platformy tvujspecialista.cz. Email, telefon a kontaktní formulář.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'contact.metadata' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

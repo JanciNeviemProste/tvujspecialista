@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/contexts/AuthContext';
@@ -34,6 +35,8 @@ const profileSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export default function ProfileEditPage() {
+  const t = useTranslations('dashboard.profile');
+  const tActions = useTranslations('common.actions');
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const [isLoadingProfile, setIsLoadingProfile] = useState(true);
@@ -82,7 +85,7 @@ export default function ProfileEditPage() {
           availability: (specialist.availability || []).join(', '),
         });
       } catch {
-        toast.error('Nepodařilo se načíst profil');
+        toast.error(t('loadError'));
       } finally {
         setIsLoadingProfile(false);
       }
@@ -98,7 +101,7 @@ export default function ProfileEditPage() {
       <div className="min-h-screen bg-gray-50">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600">Nacitani profilu...</p>
+            <p className="text-gray-600">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -115,11 +118,11 @@ export default function ProfileEditPage() {
     if (!file) return;
 
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-      toast.error('Povolene formaty: JPEG, PNG, WebP');
+      toast.error(t('photo.formatError'));
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      toast.error('Maximalna velkost suboru je 5 MB');
+      toast.error(t('photo.sizeError'));
       return;
     }
 
@@ -127,9 +130,9 @@ export default function ProfileEditPage() {
     try {
       const { data } = await specialistsApi.uploadPhoto(file);
       setPhotoUrl(data.url || data.photo);
-      toast.success('Fotka bola uspesne nahrana');
+      toast.success(t('photo.successToast'));
     } catch {
-      toast.error('Nepodarilo sa nahrat fotku');
+      toast.error(t('photo.errorToast'));
     } finally {
       setIsUploadingPhoto(false);
     }
@@ -151,9 +154,9 @@ export default function ProfileEditPage() {
         availability: values.availability.split(',').map((s) => s.trim()).filter(Boolean),
       };
       await specialistsApi.updateProfile(payload);
-      toast.success('Profil byl uspesne ulozen');
+      toast.success(t('saveSuccess'));
     } catch {
-      toast.error('Nepodařilo se ulozit profil');
+      toast.error(t('saveError'));
     } finally {
       setIsSaving(false);
     }
@@ -163,15 +166,15 @@ export default function ProfileEditPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">Upravit profil</h1>
-          <p className="text-gray-600">Aktualizujte sve osobni a profesni udaje</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
+          <p className="text-gray-600">{t('subtitle')}</p>
         </div>
 
         {/* Profilova fotka */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-xl">Profilova fotka</CardTitle>
-            <CardDescription>Tato fotka sa zobrazuje na vasom verejnom profile</CardDescription>
+            <CardTitle className="text-xl">{t('photo.title')}</CardTitle>
+            <CardDescription>{t('photo.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-6">
@@ -179,7 +182,7 @@ export default function ProfileEditPage() {
                 {photoUrl ? (
                   <Image
                     src={photoUrl}
-                    alt="Profilova fotka"
+                    alt={t('photo.alt')}
                     fill
                     className="object-cover"
                   />
@@ -203,9 +206,9 @@ export default function ProfileEditPage() {
                   onClick={() => fileInputRef.current?.click()}
                   disabled={isUploadingPhoto}
                 >
-                  {isUploadingPhoto ? 'Nahravam...' : 'Nahrat fotku'}
+                  {isUploadingPhoto ? t('photo.uploading') : t('photo.upload')}
                 </Button>
-                <p className="mt-2 text-xs text-gray-500">JPEG, PNG alebo WebP. Max 5 MB.</p>
+                <p className="mt-2 text-xs text-gray-500">{t('photo.hint')}</p>
               </div>
             </div>
           </CardContent>
@@ -215,13 +218,13 @@ export default function ProfileEditPage() {
           {/* Osobni udaje */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">Osobni udaje</CardTitle>
-              <CardDescription>Zakladni informace o vas</CardDescription>
+              <CardTitle className="text-xl">{t('personal.title')}</CardTitle>
+              <CardDescription>{t('personal.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="name">Jmeno a prijmeni *</Label>
+                  <Label htmlFor="name">{t('personal.name')}</Label>
                   <Input
                     id="name"
                     {...register('name')}
@@ -230,7 +233,7 @@ export default function ProfileEditPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="phone">Telefon *</Label>
+                  <Label htmlFor="phone">{t('personal.phone')}</Label>
                   <Input
                     id="phone"
                     type="tel"
@@ -242,7 +245,7 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="bio">O mne *</Label>
+                <Label htmlFor="bio">{t('personal.about')}</Label>
                 <Textarea
                   id="bio"
                   rows={5}
@@ -255,7 +258,7 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="education">Vzdelani</Label>
+                <Label htmlFor="education">{t('personal.education')}</Label>
                 <Input
                   id="education"
                   {...register('education')}
@@ -269,15 +272,15 @@ export default function ProfileEditPage() {
           {/* Profesni udaje */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">Profesni udaje</CardTitle>
-              <CardDescription>Vase sluzby, certifikace a dostupnost</CardDescription>
+              <CardTitle className="text-xl">{t('professional.title')}</CardTitle>
+              <CardDescription>{t('professional.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="services">Sluzby * (oddelene carkou)</Label>
+                <Label htmlFor="services">{t('professional.services')}</Label>
                 <Input
                   id="services"
-                  placeholder="napr. Financni poradenstvi, Investice, Pojisteni"
+                  placeholder={t('professional.servicesPlaceholder')}
                   {...register('services')}
                   error={errors.services?.message}
                   className="mt-1"
@@ -285,10 +288,10 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="certifications">Certifikace (oddelene carkou)</Label>
+                <Label htmlFor="certifications">{t('professional.certifications')}</Label>
                 <Input
                   id="certifications"
-                  placeholder="napr. EFA, CFP, ICI"
+                  placeholder={t('professional.certificationsPlaceholder')}
                   {...register('certifications')}
                   error={errors.certifications?.message}
                   className="mt-1"
@@ -297,7 +300,7 @@ export default function ProfileEditPage() {
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="hourlyRate">Hodinova sazba (Kc)</Label>
+                  <Label htmlFor="hourlyRate">{t('professional.hourlyRate')}</Label>
                   <Input
                     id="hourlyRate"
                     type="number"
@@ -308,10 +311,10 @@ export default function ProfileEditPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="availability">Dostupnost (oddelene carkou)</Label>
+                  <Label htmlFor="availability">{t('professional.availability')}</Label>
                   <Input
                     id="availability"
-                    placeholder="napr. Po-Pa 9:00-17:00, So 10:00-14:00"
+                    placeholder={t('professional.availabilityPlaceholder')}
                     {...register('availability')}
                     error={errors.availability?.message}
                     className="mt-1"
@@ -324,17 +327,17 @@ export default function ProfileEditPage() {
           {/* Online profily */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">Online profily</CardTitle>
-              <CardDescription>Odkazy na vase webove stranky a socialni site</CardDescription>
+              <CardTitle className="text-xl">{t('online.title')}</CardTitle>
+              <CardDescription>{t('online.description')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="website">Webova stranka</Label>
+                  <Label htmlFor="website">{t('online.website')}</Label>
                   <Input
                     id="website"
                     type="url"
-                    placeholder="https://www.example.cz"
+                    placeholder={t('online.websitePlaceholder')}
                     {...register('website')}
                     error={errors.website?.message}
                     className="mt-1"
@@ -345,7 +348,7 @@ export default function ProfileEditPage() {
                   <Input
                     id="linkedin"
                     type="url"
-                    placeholder="https://linkedin.com/in/vas-profil"
+                    placeholder={t('online.linkedinPlaceholder')}
                     {...register('linkedin')}
                     error={errors.linkedin?.message}
                     className="mt-1"
@@ -358,14 +361,14 @@ export default function ProfileEditPage() {
           {/* Tlacitka */}
           <div className="flex items-center gap-4">
             <Button type="submit" disabled={isSubmitting || isSaving} loading={isSaving}>
-              {isSaving ? 'Ukladam...' : 'Ulozit zmeny'}
+              {isSaving ? t('saving') : t('save')}
             </Button>
             <Button
               type="button"
               variant="outline"
               onClick={() => router.push('/profi/dashboard')}
             >
-              Zpet na dashboard
+              {tActions('backToDashboard')}
             </Button>
           </div>
         </form>

@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { MapPin, Video, Calendar, Users } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils/cn'
 import { formatDate } from '@/lib/utils/dateFormat'
 

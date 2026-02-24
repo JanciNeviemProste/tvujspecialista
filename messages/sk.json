@@ -14,11 +14,14 @@
       "myAccount": "Môj účet",
       "loggedAs": "Prihlásený ako:",
       "openMenu": "Otvoriť menu",
-      "closeMenu": "Zavrieť menu",
-      "mainNavigation": "Hlavná navigácia"
+      "closeMenu": "Zatvoriť menu",
+      "mainNavigation": "Hlavná navigácia",
+      "forSpecialists": "Pre špecialistov",
+      "logout": "Odhlásiť sa",
+      "account": "Účet"
     },
     "footer": {
-      "description": "Marketplace na hľadanie overených špecialistov",
+      "description": "Marketplace pre hľadanie overených špecialistov",
       "forCustomers": "Pre zákazníkov",
       "forSpecialists": "Pre špecialistov",
       "legalInfo": "Právne informácie",
@@ -27,7 +30,10 @@
       "registration": "Registrácia",
       "rules": "Pravidlá",
       "privacy": "Ochrana údajov",
-      "copyright": "© {year} tvujspecialista.cz. Všetky práva vyhradené."
+      "copyright": "© {year} tvujspecialista.cz. Všetky práva vyhradené.",
+      "pricelist": "Cenník",
+      "terms": "Obchodné podmienky",
+      "privacyPolicy": "Ochrana osobných údajov"
     },
     "locale": {
       "cs": "Čeština",
@@ -35,6 +41,84 @@
       "pl": "Polski",
       "en": "English",
       "switchLanguage": "Zmeniť jazyk"
+    },
+    "actions": {
+      "back": "Späť",
+      "backToHome": "← Späť na hlavnú stránku",
+      "backToLogin": "← Späť na prihlásenie",
+      "backToDashboard": "Späť na dashboard",
+      "backToSearch": "Späť na vyhľadávanie",
+      "submit": "Odoslať",
+      "save": "Uložiť",
+      "cancel": "Zrušiť",
+      "delete": "Vymazať",
+      "edit": "Upraviť",
+      "close": "Zatvoriť",
+      "contact": "Kontaktovať",
+      "showAll": "Zobraziť všetko",
+      "previous": "Predchádzajúci",
+      "next": "Ďalší",
+      "loading": "Načítavanie...",
+      "saving": "Ukladanie...",
+      "sending": "Odosielanie...",
+      "findSpecialist": "Nájsť špecialistu",
+      "becomeSpecialist": "Stať sa špecialistom"
+    },
+    "validation": {
+      "nameRequired": "Meno je povinné",
+      "emailRequired": "Email je povinný",
+      "emailInvalid": "Zadajte platný email",
+      "phoneRequired": "Telefón je povinný",
+      "phoneInvalid": "Zadajte platné telefónne číslo",
+      "passwordRequired": "Heslo je povinné",
+      "passwordMinLength": "Heslo musí mať aspoň 8 znakov",
+      "passwordUppercase": "Heslo musí obsahovať aspoň jedno veľké písmeno",
+      "passwordLowercase": "Heslo musí obsahovať aspoň jedno malé písmeno",
+      "passwordDigit": "Heslo musí obsahovať aspoň jednu číslicu",
+      "confirmPasswordRequired": "Potvrdenie hesla je povinné",
+      "passwordMismatch": "Heslá sa nezhodujú",
+      "categoryRequired": "Kategória je povinná",
+      "locationRequired": "Lokalita je povinná",
+      "experienceRequired": "Roky praxe sú povinné",
+      "bioRequired": "Popis služieb je povinný",
+      "bioMinLength": "Bio musí mať aspoň 10 znakov",
+      "bioMaxLength": "Bio môže mať maximálne 2000 znakov",
+      "termsRequired": "Musíte súhlasiť s obchodnými podmienkami",
+      "gdprRequired": "Musíte súhlasiť so spracovaním osobných údajov",
+      "subjectRequired": "Predmet je povinný",
+      "messageRequired": "Správa je povinná",
+      "nameMinLength": "Meno musí mať aspoň 2 znaky",
+      "servicesRequired": "Zadajte aspoň jednu službu",
+      "urlInvalid": "Zadajte platnú URL adresu",
+      "hourlyRateInvalid": "Hodinová sadzba musí byť kladné číslo",
+      "currentPasswordRequired": "Zadajte súčasné heslo",
+      "newPasswordRequired": "Potvrďte nové heslo"
+    },
+    "status": {
+      "new": "Nový",
+      "contacted": "Kontaktovaný",
+      "qualified": "Kvalifikovaný",
+      "closedWon": "Uzavreté",
+      "closedLost": "Stratené",
+      "verified": "Overený",
+      "verifiedReview": "Overená recenzia",
+      "top": "Top"
+    },
+    "errors": {
+      "generic": "Nastala chyba. Skúste to prosím znovu.",
+      "loadFailed": "Nepodarilo sa načítať dáta",
+      "saveFailed": "Nepodarilo sa uložiť dáta",
+      "sendFailed": "Nepodarilo sa odoslať"
+    },
+    "categories": {
+      "financialAdvisor": "Finančný poradca",
+      "realEstateAgent": "Realitný maklér"
+    },
+    "locations": {
+      "prague": "Praha",
+      "brno": "Brno",
+      "ostrava": "Ostrava",
+      "pilsen": "Plzeň"
     }
   },
   "home": {
@@ -45,9 +129,9 @@
     "categories": {
       "title": "Vyberte kategóriu špecialistu",
       "financialAdvisor": "Finančný poradca",
-      "financialAdvisorDesc": "Komplexné finančné poradenstvo - hypotéky, poistenie, investície a úvery",
+      "financialAdvisorDesc": "Komplexné finančné poradenstvo – hypotéky, poistenie, investície a úvery",
       "realEstateAgent": "Realitný maklér",
-      "realEstateAgentDesc": "Predaj, prenájom a správa nehnuteľností - byty, domy a komerčné priestory",
+      "realEstateAgentDesc": "Predaj, prenájom a správa nehnuteľností – byty, domy a komerčné priestory",
       "showSpecialists": "Zobraziť špecialistov"
     },
     "stats": {
@@ -59,13 +143,936 @@
       "successRateValue": "98%"
     },
     "cta": {
-      "title": "Ste špecialista?",
+      "title": "Ste špecialistom?",
       "subtitle": "Získajte kvalitné leady a rozšírte svoje podnikanie",
-      "button": "Začať zadarmo na 14 dní"
+      "button": "Začať zdarma na 14 dní"
     },
     "metadata": {
       "title": "Nájdite overeného špecialistu | tvujspecialista.cz",
-      "description": "Marketplace na hľadanie overených špecialistov v oblasti financií a nehnuteľností v ČR a SR. Porovnajte, prečítajte si recenzie a kontaktujte tých najlepších."
+      "description": "Marketplace pre hľadanie overených špecialistov v oblasti financií a nehnuteľností v ČR a SK. Porovnajte, prečítajte si recenzie a kontaktujte tých najlepších."
+    }
+  },
+  "search": {
+    "title": "Nájdite svojho špecialistu",
+    "found": "Nájdených",
+    "specialists": "špecialistov",
+    "loading": "Načítavanie...",
+    "loadError": "Chyba pri načítavaní špecialistov",
+    "loadErrorLong": "Chyba pri načítavaní špecialistov. Skúste to prosím znovu.",
+    "loadingSpecialists": "Načítavanie špecialistov...",
+    "filters": {
+      "title": "Filtre",
+      "category": "Kategória",
+      "selectCategory": "Vyberte kategóriu",
+      "allCategories": "Všetky kategórie",
+      "location": "Lokalita",
+      "selectLocation": "Vyberte lokalitu",
+      "allLocations": "Všetky lokality",
+      "minRating": "Hodnotenie minimálne",
+      "stars": "{count}+ hviezdičiek",
+      "verifiedOnly": "Iba overení špecialistia",
+      "maxPrice": "Maximálna cena (€/hod)",
+      "pricePlaceholder": "napr. 50"
+    },
+    "sort": {
+      "label": "Zoradiť podľa:",
+      "sortResults": "Zoradiť výsledky",
+      "bestRating": "Najlepšie hodnotenie",
+      "priceAsc": "Cena: od najnižšej",
+      "priceDesc": "Cena: od najvyššej",
+      "newest": "Novo pridaní"
+    },
+    "empty": {
+      "title": "Žiadni špecialistia nenájdení",
+      "description": "Skúste zmeniť filtre alebo hľadajte v inej lokalite."
+    },
+    "metadata": {
+      "title": "Hľadať špecialistu | tvujspecialista.cz",
+      "description": "Vyhľadajte overeného finančného poradcu alebo realitného makléra vo vašom okolí."
+    }
+  },
+  "pricing": {
+    "hero": {
+      "title": "Jednoduché a transparentné ceny",
+      "subtitle": "Vyberte si plán, ktorý najlepšie vyhovuje vašim potrebám. Začnite hneď, žiadne skryté poplatky."
+    },
+    "plans": {
+      "monthly": {
+        "name": "Mesačné členstvo",
+        "description": "Plný prístup k platforme na 1 mesiac",
+        "cta": "Začať za 50 €/mesiac",
+        "features": {
+          "profile": "Profil špecialistu v marketplace",
+          "catalog": "Zobrazenie v katalógu a vyhľadávaní",
+          "leads": "Príjem dopytov od klientov",
+          "reviews": "Správa recenzií a hodnotení",
+          "basicStats": "Základná štatistika profilu",
+          "emailSupport": "E-mailová podpora",
+          "forumAccess": "Prístup ku komunitnému fóru",
+          "academyCourses": "Kurzy v sekcii Academy"
+        }
+      },
+      "yearly": {
+        "name": "Ročné členstvo",
+        "description": "Plný prístup za zvýhodnenú cenu — úspora 100 €/rok",
+        "cta": "Získať za 500 €/rok",
+        "features": {
+          "allMonthly": "Všetko z mesačného plánu",
+          "savings": "Úspora 100 € oproti mesačnej platbe",
+          "highlighted": "Zvýraznený profil vo výsledkoch",
+          "analytics": "Rozšírená analytika a štatistiky",
+          "prioritySupport": "Prioritná podpora",
+          "webinars": "Prístup k exkluzívnym webinárom",
+          "events": "Komunitné eventy a networking"
+        }
+      }
+    },
+    "comparison": {
+      "title": "Porovnanie funkcií",
+      "feature": "Funkcia",
+      "monthlyLabel": "Mesačný (50 €)",
+      "yearlyLabel": "Ročný (500 €)",
+      "marketplace": "Marketplace",
+      "education": "Vzdelávanie a komunita",
+      "support": "Podpora",
+      "exclusiveWebinars": "Exkluzívne webináre",
+      "communityEvents": "Komunitné eventy a networking"
+    },
+    "faq": {
+      "title": "Často kladené otázky",
+      "q1": "Môžem zmeniť plán kedykoľvek?",
+      "a1": "Áno, plán môžete kedykoľvek upgradovať alebo downgradovať. Pri upgrade sa rozdiel prepočíta proporcionálne. Pri downgrade zmena nastane na konci aktuálneho fakturačného cyklu.",
+      "q2": "Ako funguje fakturácia?",
+      "a2": "Všetky plány sú fakturované mesačne. Platba prebieha automaticky cez Stripe na začiatku každého fakturačného obdobia.",
+      "q3": "Môžem zrušiť predplatné?",
+      "a3": "Áno, predplatné môžete zrušiť kedykoľvek bez záväzku. Budete mať prístup do konca zaplateného obdobia.",
+      "q4": "Aký je rozdiel medzi mesačným a ročným plánom?",
+      "a4": "Ročný plán zahŕňa všetko z mesačného plánu plus exkluzívne bonusy (webináre, VIP podpora, account manager). Navyše ušetríte 100 € ročne oproti mesačnej platbe.",
+      "q5": "Je možné vyskúšať pred zakúpením?",
+      "a5": "Momentálne neponúkame skúšobné obdobie, ale môžete si zakúpiť ľubovoľný plán a zrušiť ho kedykoľvek bez sankcií."
+    },
+    "cta": {
+      "title": "Pripravení začať?",
+      "subtitle": "Pridajte sa k stovkám profesionálov, ktorí už využívajú našu platformu",
+      "button": "Registrovať sa zdarma"
+    },
+    "metadata": {
+      "title": "Ceny | tvujspecialista.cz",
+      "description": "Jednoduché a transparentné ceny pre špecialistov. Mesačný alebo ročný plán."
+    }
+  },
+  "contact": {
+    "title": "Kontaktujte nás",
+    "form": {
+      "title": "Napíšte nám",
+      "name": "Meno a priezvisko *",
+      "namePlaceholder": "Ján Novák",
+      "email": "Email *",
+      "emailPlaceholder": "jan@example.sk",
+      "phone": "Telefón (voliteľné)",
+      "phonePlaceholder": "+421 900 123 456",
+      "subject": "Predmet *",
+      "selectSubject": "Vyberte predmet",
+      "subjectGeneral": "Všeobecný dotaz",
+      "subjectSpecialist": "Dotaz pre špecialistov",
+      "subjectCustomer": "Dotaz pre zákazníkov",
+      "subjectTechnical": "Technická podpora",
+      "subjectPartnership": "Spolupráca",
+      "message": "Správa *",
+      "messagePlaceholder": "Opíšte váš dotaz...",
+      "submit": "Odoslať správu",
+      "submitting": "Odosielanie...",
+      "submitSuccess": "Správa bola úspešne odoslaná!",
+      "submitError": "Nepodarilo sa odoslať správu"
+    },
+    "info": {
+      "title": "Kontaktné údaje",
+      "email": "Email",
+      "phone": "Telefón",
+      "phoneHours": "Po-Pi: 9:00 - 17:00",
+      "address": "Adresa"
+    },
+    "quickLinks": {
+      "title": "Rýchle odkazy",
+      "aboutUs": "O nás",
+      "pricing": "Cenník",
+      "terms": "Obchodné podmienky",
+      "privacy": "Ochrana osobných údajov"
+    },
+    "social": {
+      "title": "Sledujte nás"
+    },
+    "faq": {
+      "title": "Často kladené otázky",
+      "description": "Máte otázku? Možno ju nájdete v našom FAQ.",
+      "goToFaq": "Prejsť na FAQ"
+    },
+    "metadata": {
+      "title": "Kontakt | tvujspecialista.cz",
+      "description": "Kontaktujte nás pre otázky ohľadom platformy tvujspecialista.cz."
+    }
+  },
+  "about": {
+    "title": "O nás",
+    "mission": {
+      "title": "Naše poslanie",
+      "description": "tvujspecialista.cz je moderná platforma, ktorá spája zákazníkov s overenými špecialistami v oblasti financií a nehnuteľností. Naším cieľom je zjednodušiť proces hľadania dôveryhodných odborníkov a pomôcť poskytovateľom služieb rásť."
+    },
+    "why": {
+      "title": "Prečo sme vznikli",
+      "p1": "Všimli sme si, že hľadanie kvalitného špecialistu – či už pre hypotéku, poistenie alebo investície – je často zdĺhavý a stresujúci proces. Zákazníci nevedia, komu dôverovať, a špecialistia zase hľadajú efektívny spôsob, ako získať nových klientov.",
+      "p2": "Preto sme vytvorili platformu, ktorá tento proces zjednodušuje pre obe strany."
+    },
+    "offer": {
+      "title": "Čo ponúkame",
+      "forCustomers": "Pre zákazníkov",
+      "customerFeatures": {
+        "profiles": "Overené profily špecialistov s reálnymi recenziami",
+        "compare": "Jednoduché porovnanie a kontaktovanie",
+        "free": "Bezplatné využívanie platformy"
+      },
+      "forSpecialists": "Pre špecialistov",
+      "specialistFeatures": {
+        "leads": "Kvalitné leady od zainteresovaných zákazníkov",
+        "profile": "Overený profil zvyšujúci dôveryhodnosť",
+        "tools": "Nástroje na správu dopytov a recenzií"
+      }
+    },
+    "values": {
+      "title": "Naše hodnoty",
+      "transparency": "Transparentnosť:",
+      "transparencyDesc": "Všetky recenzie sú overené a pravdivé",
+      "quality": "Kvalita:",
+      "qualityDesc": "Starostlivo overujeme každého špecialistu",
+      "simplicity": "Jednoduchosť:",
+      "simplicityDesc": "Platformu zvládne používať každý"
+    },
+    "joinUs": {
+      "title": "Pridajte sa k nám",
+      "description": "Či už hľadáte špecialistu alebo chcete ponúknuť svoje služby, sme tu pre vás."
+    },
+    "metadata": {
+      "title": "O nás | tvujspecialista.cz",
+      "description": "Sme prémiová edu-komunitná platforma spájajúca realitných agentov a finančných poradcov s kvalitným vzdelávaním a obchodnými príležitosťami."
+    }
+  },
+  "terms": {
+    "title": "Obchodné podmienky",
+    "metadata": {
+      "title": "Obchodné podmienky | tvujspecialista.cz",
+      "description": "Obchodné podmienky platformy tvujspecialista.cz. Práva a povinnosti zákazníkov, poskytovateľov a prevádzkovateľa služby."
+    }
+  },
+  "privacy": {
+    "title": "Ochrana osobných údajov (GDPR)",
+    "metadata": {
+      "title": "Ochrana osobných údajov | tvujspecialista.cz",
+      "description": "Informácie o spracovaní a ochrane osobných údajov (GDPR) na platforme tvujspecialista.cz."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Prihlásenie pre špecialistov",
+      "subtitle": "Zadajte svoje prihlasovacie údaje",
+      "tabLogin": "Prihlásenie",
+      "tabRegister": "Registrácia",
+      "email": "Email",
+      "emailPlaceholder": "vas@email.sk",
+      "password": "Heslo",
+      "rememberMe": "Zapamätať si ma",
+      "forgotPassword": "Zabudnuté heslo?",
+      "submit": "Prihlásiť sa",
+      "submitting": "Prihlasovanie...",
+      "termsAgreement": "Prihlásením súhlasíte s",
+      "termsLink": "obchodnými podmienkami",
+      "and": "a",
+      "privacyLink": "ochranou údajov",
+      "metadata": {
+        "title": "Prihlásenie | tvujspecialista.cz",
+        "description": "Prihláste sa do svojho účtu špecialistu na platforme tvujspecialista.cz."
+      }
+    },
+    "register": {
+      "title": "Staňte sa naším špecialistom",
+      "subtitle": "Získajte kvalitné leady a rozšírte svoje podnikanie",
+      "tabLogin": "Prihlásenie",
+      "tabRegister": "Registrácia",
+      "personalInfo": "Osobné údaje",
+      "professionalInfo": "Profesionálne informácie",
+      "passwordSetup": "Nastavenie hesla",
+      "name": "Meno a priezvisko",
+      "namePlaceholder": "Ján Novák",
+      "email": "Email",
+      "emailPlaceholder": "jan@example.sk",
+      "phone": "Telefón",
+      "phonePlaceholder": "+421 900 123 456",
+      "category": "Kategória",
+      "selectCategory": "Vyberte kategóriu",
+      "location": "Lokalita",
+      "selectLocation": "Vyberte lokalitu",
+      "experience": "Roky praxe",
+      "experiencePlaceholder": "napr. 5",
+      "bio": "Krátky popis vašich služieb",
+      "bioPlaceholder": "Opíšte, čím sa zaoberáte a ako môžete pomôcť klientom...",
+      "password": "Heslo",
+      "passwordPlaceholder": "Minimálne 8 znakov",
+      "confirmPassword": "Potvrdenie hesla",
+      "confirmPasswordPlaceholder": "Zadajte heslo znovu",
+      "termsAgree": "Súhlasím s",
+      "termsLink": "obchodnými podmienkami",
+      "gdprAgree": "Súhlasím so",
+      "gdprLink": "spracovaním osobných údajov",
+      "submit": "Zaregistrovať sa zdarma",
+      "submitting": "Registrujem...",
+      "haveAccount": "Už máte účet?",
+      "loginHere": "Prihláste sa tu",
+      "successToast": "Registrácia úspešná! Vitajte na tvujspecialista.cz",
+      "benefits": {
+        "leads": "Kvalitné leady",
+        "leadsDesc": "Kontakty od skutočne zaujímavých klientov",
+        "profile": "Overený profil",
+        "profileDesc": "Zvýšte dôveryhodnosť svojich služieb",
+        "trial": "14 dní zdarma",
+        "trialDesc": "Vyskúšajte bez záväzkov"
+      },
+      "metadata": {
+        "title": "Registrácia | tvujspecialista.cz",
+        "description": "Zaregistrujte sa ako špecialistu na platforme tvujspecialista.cz."
+      }
+    },
+    "forgotPassword": {
+      "title": "Zabudnuté heslo",
+      "subtitle": "Zadajte svoj email a my vám pošleme odkaz na obnovu hesla.",
+      "email": "Email",
+      "emailPlaceholder": "vas@email.sk",
+      "submit": "Odoslať odkaz na obnovu",
+      "submitting": "Odosielanie...",
+      "successMessage": "Ak účet s týmto emailom existuje, odoslali sme vám email s pokynmi na obnovu hesla. Skontrolujte svoju schránku.",
+      "backToLogin": "Späť na prihlásenie",
+      "rememberPassword": "Spomenuli ste si na heslo?",
+      "successToast": "Pokyny na obnovu hesla boli odoslané na váš email",
+      "errorToast": "Nepodarilo sa odoslať email. Skúste to prosím znovu.",
+      "metadata": {
+        "title": "Zabudnuté heslo | tvujspecialista.cz",
+        "description": "Obnovte si heslo k účtu na platforme tvujspecialista.cz."
+      }
+    },
+    "resetPassword": {
+      "title": "Nové heslo",
+      "subtitle": "Zadajte svoje nové heslo.",
+      "newPassword": "Nové heslo",
+      "newPasswordPlaceholder": "Min. 8 znakov",
+      "confirmPassword": "Potvrdiť heslo",
+      "confirmPasswordPlaceholder": "Zadajte heslo znovu",
+      "submit": "Nastaviť nové heslo",
+      "submitting": "Ukladanie...",
+      "successMessage": "Heslo bolo úspešne zmenené. Budete presmerovaní na prihlásenie...",
+      "invalidLink": "Neplatný odkaz",
+      "invalidLinkDesc": "Odkaz na obnovu hesla je neplatný alebo chýba token.",
+      "requestNewLink": "Požiadať o nový odkaz",
+      "invalidTokenToast": "Neplatný odkaz na obnovu hesla",
+      "successToast": "Heslo bolo úspešne zmenené",
+      "errorToast": "Nepodarilo sa zmeniť heslo. Odkaz mohol vypršať.",
+      "metadata": {
+        "title": "Obnova hesla | tvujspecialista.cz",
+        "description": "Nastavte si nové heslo k účtu na platforme tvujspecialista.cz."
+      }
+    }
+  },
+  "dashboard": {
+    "main": {
+      "welcome": "Vitajte späť, {name}!",
+      "overview": "Tu je prehľad vašej aktivity",
+      "loading": "Načítavanie...",
+      "stats": {
+        "newLeads": "Nové leady",
+        "thisMonth": "Tento mesiac",
+        "remaining": "Zostáva {count} leadov",
+        "totalLeads": "Celkom leadov",
+        "sinceStart": "Od začiatku spolupráce",
+        "avgRating": "Priemerné hodnotenie",
+        "yourRating": "Vaše hodnotenie",
+        "successRate": "Úspešnosť",
+        "closedDeals": "Úspešne uzavreté leady"
+      },
+      "recentLeads": "Posledné leady",
+      "emptyLeads": {
+        "title": "Zatiaľ žiadne leady",
+        "description": "Hneď ako dostanete prvý dopyt, zobrazí sa tu."
+      },
+      "quickActions": {
+        "title": "Rýchle akcie",
+        "dealPipeline": "Deal Pipeline",
+        "commissions": "Provízie",
+        "editProfile": "Upraviť profil",
+        "manageReviews": "Správa recenzií",
+        "upgradePlan": "Upgrade plánu"
+      },
+      "subscription": {
+        "yourPlan": "Váš plán: {plan}",
+        "unlimitedLeads": "Neobmedzené leady",
+        "remainingLeads": "Zostáva {count} leadov do konca mesiaca",
+        "upgrade": "Upgradovať na Premium"
+      },
+      "admin": {
+        "users": "Používatelia",
+        "specialists": "Špecialistia",
+        "leads": "Leady",
+        "deals": "Dealy",
+        "contentManagement": "Správa obsahu",
+        "academy": "Akadémia",
+        "academyDesc": "Správa kurzov, modulov a lekcií",
+        "forum": "Fórum",
+        "forumDesc": "Moderovanie tém a príspevkov",
+        "community": "Komunita",
+        "communityDesc": "Správa eventov a stretnutí"
+      }
+    },
+    "settings": {
+      "title": "Nastavenia účtu",
+      "subtitle": "Spravujte svoje prihlasovacie údaje",
+      "accountInfo": "Informácie o účte",
+      "accountInfoDesc": "Základné údaje vášho účtu",
+      "name": "Meno",
+      "email": "Email",
+      "changePassword": "Zmena hesla",
+      "changePasswordDesc": "Na zmenu hesla zadajte súčasné heslo a potom nové heslo",
+      "currentPassword": "Súčasné heslo *",
+      "newPassword": "Nové heslo *",
+      "newPasswordHint": "Heslo musí mať aspoň 8 znakov",
+      "confirmNewPassword": "Potvrdenie nového hesla *",
+      "savePassword": "Zmeniť heslo",
+      "savingPassword": "Ukladám...",
+      "successToast": "Heslo bolo úspešne zmenené",
+      "errorToast": "Nepodarilo sa zmeniť heslo. Skontrolujte súčasné heslo.",
+      "metadata": {
+        "title": "Nastavenia účtu | tvujspecialista.cz",
+        "description": "Nastavenia účtu a zmena hesla."
+      }
+    },
+    "profile": {
+      "title": "Upraviť profil",
+      "subtitle": "Aktualizujte svoje osobné a profesionálne údaje",
+      "loading": "Načítavanie profilu...",
+      "photo": {
+        "title": "Profilová fotka",
+        "description": "Táto fotka sa zobrazuje na vašom verejnom profile",
+        "alt": "Profilová fotka",
+        "upload": "Nahrať fotku",
+        "uploading": "Nahrávam...",
+        "hint": "JPEG, PNG alebo WebP. Max 5 MB.",
+        "formatError": "Povolené formáty: JPEG, PNG, WebP",
+        "sizeError": "Maximálna veľkosť súboru je 5 MB",
+        "successToast": "Fotka bola úspešne nahraná",
+        "errorToast": "Nepodarilo sa nahrať fotku"
+      },
+      "personal": {
+        "title": "Osobné údaje",
+        "description": "Základné informácie o vás",
+        "name": "Meno a priezvisko *",
+        "phone": "Telefón *",
+        "about": "O mne *",
+        "education": "Vzdelanie"
+      },
+      "professional": {
+        "title": "Profesionálne údaje",
+        "description": "Vaše služby, certifikácie a dostupnosť",
+        "services": "Služby * (oddelené čiarkou)",
+        "servicesPlaceholder": "napr. Finančné poradenstvo, Investície, Poistenie",
+        "certifications": "Certifikácie (oddelené čiarkou)",
+        "certificationsPlaceholder": "napr. EFA, CFP, ICI",
+        "hourlyRate": "Hodinová sadzba (€)",
+        "availability": "Dostupnosť (oddelená čiarkou)",
+        "availabilityPlaceholder": "napr. Po-Pi 9:00-17:00, So 10:00-14:00"
+      },
+      "online": {
+        "title": "Online profily",
+        "description": "Odkazy na vaše webové stránky a sociálne siete",
+        "website": "Webová stránka",
+        "websitePlaceholder": "https://www.example.sk",
+        "linkedin": "LinkedIn",
+        "linkedinPlaceholder": "https://linkedin.com/in/vas-profil"
+      },
+      "save": "Uložiť zmeny",
+      "saving": "Ukladám...",
+      "loadError": "Nepodarilo sa načítať profil",
+      "saveSuccess": "Profil bol úspešne uložený",
+      "saveError": "Nepodarilo sa uložiť profil",
+      "metadata": {
+        "title": "Upraviť profil | tvujspecialista.cz",
+        "description": "Upravte svoj profil špecialistu."
+      }
+    },
+    "reviews": {
+      "title": "Recenzie",
+      "subtitle": "Prehľad všetkých recenzií od vašich klientov",
+      "loading": "Načítavanie recenzií...",
+      "loadError": "Nepodarilo sa načítať recenzie",
+      "count": "{count} recenzií",
+      "yourResponse": "Vaša odpoveď:",
+      "empty": {
+        "title": "Zatiaľ žiadne recenzie",
+        "description": "Hneď ako klienti zanechajú recenzie, zobrazia sa tu."
+      },
+      "metadata": {
+        "title": "Recenzie | tvujspecialista.cz",
+        "description": "Prehľad recenzií vašich klientov."
+      }
+    },
+    "deals": {
+      "title": "Deal Pipeline",
+      "subtitle": "Spravujte svoje obchodné príležitosti",
+      "stats": {
+        "total": "Celkom",
+        "new": "Nové",
+        "inProgress": "V procese",
+        "won": "Získané",
+        "value": "Hodnota"
+      },
+      "showAnalytics": "Zobraziť analytiku",
+      "hideAnalytics": "Skryť analytiku",
+      "exportCsv": "Exportovať CSV",
+      "exported": "Exportovaných {count} dealov",
+      "empty": {
+        "title": "Žiadne dealy",
+        "tryFilters": "Skúste zmeniť filtre",
+        "noDeals": "Zatiaľ nemáte žiadne obchodné príležitosti"
+      },
+      "valueSetSuccess": "Hodnota dealu bola úspešne nastavená",
+      "closedWonSuccess": "Deal bol úspešne uzavretý! Provízia bola vytvorená.",
+      "closedLostSuccess": "Deal bol označený ako stratený.",
+      "metadata": {
+        "title": "Deal Pipeline | tvujspecialista.cz",
+        "description": "Správa obchodných príležitostí."
+      }
+    },
+    "commissions": {
+      "title": "Provízie",
+      "subtitle": "Prehľad vašich provízií z úspešných dealov",
+      "tabs": {
+        "pending": "Čakajúce ({count})",
+        "invoiced": "Vyfakturované ({count})",
+        "paid": "Zaplatené ({count})"
+      },
+      "emptyPending": {
+        "title": "Žiadne čakajúce provízie",
+        "description": "Všetky provízie sú zaplatené alebo nemáte žiadne dealy"
+      },
+      "emptyInvoiced": {
+        "title": "Žiadne vyfakturované provízie",
+        "description": "Tu sa zobrazia provízie, ktoré boli vyfakturované"
+      },
+      "emptyPaid": {
+        "title": "Žiadne zaplatené provízie",
+        "description": "Tu sa zobrazia provízie, ktoré ste zaplatili"
+      },
+      "metadata": {
+        "title": "Provízie | tvujspecialista.cz",
+        "description": "Prehľad provízií z obchodných príležitostí."
+      },
+      "pay": {
+        "loading": "Načítavanie...",
+        "back": "Späť na provízie",
+        "error": "Chyba",
+        "notFound": "Provízia nebola nájdená",
+        "summaryTitle": "Prehľad provízie",
+        "deal": "Deal",
+        "dealValue": "Hodnota dealu",
+        "commissionRate": "Sadzba provízie",
+        "amountDue": "Suma na zaplatenie",
+        "dueDate": "Splatnosť",
+        "paymentTitle": "Platba kartou",
+        "loadingPayment": "Načítavanie platobných údajov...",
+        "successTitle": "Platba úspešná!",
+        "successMessage": "Vaša platba bola úspešne spracovaná. Budete presmerovaní na zoznam provízií..."
+      }
+    },
+    "admin": {
+      "courses": {
+        "title": "Správa kurzov",
+        "metadata": {
+          "title": "Správa kurzov | Admin",
+          "description": "Administrácia kurzov v sekcii Academy."
+        }
+      },
+      "forum": {
+        "title": "Správa fóra",
+        "metadata": {
+          "title": "Správa fóra | Admin",
+          "description": "Moderovanie fóra."
+        }
+      },
+      "community": {
+        "title": "Správa komunity",
+        "metadata": {
+          "title": "Správa komunity | Admin",
+          "description": "Administrácia komunitných eventov."
+        }
+      }
+    },
+    "header": {
+      "dashboard": "Dashboard",
+      "academy": "Akadémia",
+      "forum": "Fórum",
+      "community": "Komunita",
+      "account": "Účet",
+      "logout": "Odhlásiť sa"
+    },
+    "metadata": {
+      "title": "Dashboard | tvujspecialista.cz",
+      "description": "Váš panel na správu profilu a obchodných príležitostí."
+    }
+  },
+  "specialist": {
+    "loading": "Načítavanie špecialistu...",
+    "notFound": "Špecialistu nenájdený",
+    "notFoundDesc": "Ospravedlňujeme sa, ale tento špecialistu neexistuje alebo bol odstránený.",
+    "experience": "{years} rokov praxe",
+    "hourlyRate": "{rate} €/hod",
+    "aboutMe": "O mne",
+    "services": "Služby",
+    "credentials": "Vzdelanie a certifikácie",
+    "education": "Vzdelanie",
+    "certifications": "Certifikácie",
+    "reviews": "Recenzie ({count})",
+    "contactSpecialist": "Kontaktovať špecialistu",
+    "contactForm": {
+      "name": "Vaše meno *",
+      "namePlaceholder": "Ján Novák",
+      "email": "Email *",
+      "emailPlaceholder": "jan@example.com",
+      "phone": "Telefón *",
+      "phonePlaceholder": "+421 900 123 456",
+      "message": "Správa *",
+      "messagePlaceholder": "Opíšte, s čím potrebujete pomôcť...",
+      "submit": "Odoslať dopyt",
+      "submitting": "Odosielanie...",
+      "success": "Dopyt odoslaný!",
+      "successDesc": "Špecialistu vás čoskoro kontaktuje."
+    },
+    "moreInfo": "Ďalšie informácie",
+    "availability": "Dostupnosť:",
+    "web": "Web:",
+    "linkedin": "Profil na LinkedIn",
+    "specialistResponse": "Odpoveď špecialistu:",
+    "priceFrom": "Od {price} €/hod",
+    "metadata": {
+      "title": "{name} | tvujspecialista.cz",
+      "description": "Profil špecialistu {name} – {category} v {location}."
+    }
+  },
+  "academy": {
+    "nav": {
+      "home": "Domov",
+      "courses": "Kurzy",
+      "myLearning": "Moje vzdelávanie",
+      "dashboard": "Dashboard"
+    },
+    "breadcrumbs": {
+      "academy": "Akadémia",
+      "catalog": "Katalóg kurzov",
+      "courseDetail": "Detail kurzu",
+      "myLearning": "Moje vzdelávanie"
+    },
+    "branding": "Akadémia",
+    "metadata": {
+      "title": "Akadémia | tvujspecialista.cz",
+      "description": "Vzdelávacie kurzy pre finančných poradcov a realitných maklérov."
+    },
+    "hero": {
+      "title": "Rozvíjajte svoju kariéru s našou akadémiou",
+      "subtitle": "Prémiové online kurzy pre realitných agentov a finančných poradcov",
+      "exploreButton": "Preskúmať kurzy"
+    },
+    "benefits": {
+      "quality": {
+        "title": "Kvalitné vzdelávanie",
+        "description": "Kurzy vytvorené odbornými lektormi s dlhoročnou praxou"
+      },
+      "flexible": {
+        "title": "Flexibilné tempo",
+        "description": "Študujte kedykoľvek a kdekoľvek podľa vlastného tempa"
+      },
+      "certificates": {
+        "title": "Certifikáty",
+        "description": "Po úspešnom absolvovaní získate oficiálny certifikát"
+      }
+    },
+    "featured": {
+      "title": "Najobľúbenejšie kurzy",
+      "subtitle": "Vybrali sme pre vás tie najlepšie kurzy z našej ponuky",
+      "loadError": "Chyba pri načítavaní kurzov. Skúste to prosím znovu.",
+      "empty": "Zatiaľ nie sú k dispozícii žiadne featured kurzy.",
+      "ctaTitle": "Pripravení začať?",
+      "ctaSubtitle": "Prezrite si náš kompletný katalóg kurzov a nájdite ten správny pre vás",
+      "ctaButton": "Zobraziť všetky kurzy"
+    },
+    "courses": {
+      "title": "Katalóg kurzov",
+      "loading": "Načítavanie...",
+      "loadError": "Chyba pri načítavaní kurzov",
+      "loadErrorLong": "Chyba pri načítavaní kurzov. Skúste to prosím znovu.",
+      "filters": {
+        "title": "Filtre",
+        "clear": "Vymazať",
+        "search": "Hľadať",
+        "searchPlaceholder": "Názov, lektor...",
+        "category": "Kategória",
+        "allCategories": "Všetky kategórie",
+        "catRealEstate": "Reality",
+        "catFinancial": "Financie",
+        "catBoth": "Reality & Financie",
+        "level": "Úroveň",
+        "allLevels": "Všetky úrovne",
+        "levelBeginner": "Začiatočník",
+        "levelIntermediate": "Stredná",
+        "levelAdvanced": "Pokročilý",
+        "featuredOnly": "Iba featured kurzy"
+      },
+      "empty": {
+        "title": "Žiadne kurzy",
+        "description": "Skúste zmeniť filtre alebo hľadajte iné kľúčové slová.",
+        "clearFilters": "Vymazať filtre"
+      }
+    },
+    "courseDetail": {
+      "notFound": "Kurz nenájdený",
+      "notFoundDesc": "Ospravedlňujeme sa, ale tento kurz neexistuje alebo bol odstránený.",
+      "backToCatalog": "Späť na katalóg",
+      "ratings": "hodnotení",
+      "students": "študentov",
+      "instructor": "Lektor",
+      "curriculum": "Obsah kurzu",
+      "loginRequired": "Pre prístup ku kurzu sa musíte prihlásiť",
+      "login": "Prihlásiť sa",
+      "yourProgress": "Váš pokrok",
+      "completed": "dokončené",
+      "continueLearning": "Pokračovať v štúdiu",
+      "getAccess": "Získajte prístup k tomuto kurzu",
+      "enrolling": "Zapisujem...",
+      "enroll": "Zapísať sa do kurzu",
+      "enrollSuccess": "Úspešne ste sa zapísali do kurzu!",
+      "courseInfo": "Informácie o kurze",
+      "duration": "Trvanie:",
+      "lessonCount": "Počet lekcií:",
+      "level": "Úroveň:",
+      "category": "Kategória:",
+      "levelBeginner": "Začiatočník",
+      "levelIntermediate": "Stredná",
+      "levelAdvanced": "Pokročilý",
+      "catRealEstate": "Reality",
+      "catFinancial": "Financie",
+      "catBoth": "Reality & Financie"
+    },
+    "learn": {
+      "loading": "Načítavanie kurzu...",
+      "backToCourse": "Späť na kurz",
+      "prevLesson": "Predchádzajúca lekcia",
+      "markingComplete": "Označujem...",
+      "completed": "Dokončené",
+      "markComplete": "Označiť ako dokončené",
+      "complete": "Dokončiť",
+      "nextLesson": "Ďalšia lekcia"
+    },
+    "myLearning": {
+      "title": "Moje vzdelávanie",
+      "subtitle": "Prehľad vašich kurzov a pokroku",
+      "stats": {
+        "activeCourses": "Aktívnych kurzov",
+        "completedCourses": "Dokončených kurzov",
+        "avgProgress": "Priemerný pokrok",
+        "totalWatchTime": "Celkový čas sledovania"
+      },
+      "continueLearning": "Pokračovať v štúdiu",
+      "emptyActive": {
+        "heading": "Zatiaľ nemáte žiadne aktívne kurzy",
+        "description": "Začnite sa učiť preskúmaním našej ponuky kurzov",
+        "button": "Preskúmať kurzy"
+      },
+      "completedSection": "Dokončené kurzy",
+      "emptyCompleted": {
+        "heading": "Zatiaľ ste nedokončili žiadny kurz",
+        "description": "Pokračujte v štúdiu a dokončite svoj prvý kurz"
+      }
+    }
+  },
+  "community": {
+    "nav": {
+      "home": "Domov",
+      "events": "Eventy",
+      "myEvents": "Moje eventy",
+      "dashboard": "Dashboard"
+    },
+    "breadcrumbs": {
+      "community": "Komunita",
+      "catalog": "Katalóg eventov",
+      "eventDetail": "Detail eventu",
+      "myEvents": "Moje eventy"
+    },
+    "branding": "Komunita",
+    "metadata": {
+      "title": "Komunita | tvujspecialista.cz",
+      "description": "Komunitné eventy a stretnutia pre profesionálov."
+    },
+    "hero": {
+      "title": "Staňte sa súčasťou našej komunity",
+      "subtitle": "Pridajte sa k networkingu, workshopom a eventom pre realitných agentov a finančných poradcov",
+      "exploreButton": "Preskúmať eventy"
+    },
+    "benefits": {
+      "networking": {
+        "title": "Networking",
+        "description": "Stretávajte sa s profesionálmi z vášho odvetvia a rozširujte svoju sieť kontaktov"
+      },
+      "exclusiveEvents": {
+        "title": "Exkluzívne eventy",
+        "description": "Workshopy, webináre a konferencie špeciálne pre našu komunitu"
+      },
+      "careerGrowth": {
+        "title": "Rast kariéry",
+        "description": "Vzdelávajte sa, inšpirujte a rozvíjajte svoju profesionálnu kariéru"
+      }
+    },
+    "upcomingEvents": {
+      "title": "Nadchádzajúce eventy",
+      "subtitle": "Nenechajte si ujsť naše najbližšie akcie",
+      "loadError": "Chyba pri načítavaní eventov. Skúste to prosím znovu.",
+      "empty": "Zatiaľ nie sú naplánované žiadne eventy.",
+      "ctaTitle": "Pripravení zapojiť sa?",
+      "ctaSubtitle": "Prezrite si všetky plánované eventy a zaregistrujte sa na tie, ktoré vás zaujímajú",
+      "ctaButton": "Zobraziť všetky eventy"
+    },
+    "eventsCatalog": {
+      "title": "Katalóg eventov",
+      "loading": "Načítavanie...",
+      "loadError": "Chyba pri načítavaní eventov",
+      "loadErrorLong": "Chyba pri načítavaní eventov. Skúste to prosím znovu.",
+      "filters": {
+        "title": "Filtre",
+        "clear": "Vymazať",
+        "search": "Hľadať",
+        "searchPlaceholder": "Názov, miesto...",
+        "eventType": "Typ eventu",
+        "allTypes": "Všetky typy",
+        "typeWorkshop": "Workshop",
+        "typeNetworking": "Networking",
+        "typeConference": "Konferencia",
+        "typeWebinar": "Webinár",
+        "typeMeetup": "Meetup",
+        "format": "Formát",
+        "allFormats": "Všetky formáty",
+        "formatOnline": "Online",
+        "formatOffline": "Offline",
+        "category": "Kategória",
+        "allCategories": "Všetky kategórie",
+        "catRealEstate": "Reality",
+        "catFinancial": "Financie",
+        "catBoth": "Reality & Financie",
+        "featuredOnly": "Iba featured eventy"
+      },
+      "empty": {
+        "title": "Žiadne eventy",
+        "description": "Skúste zmeniť filtre alebo hľadajte iné kľúčové slová.",
+        "clearFilters": "Vymazať filtre"
+      }
+    },
+    "eventDetail": {
+      "about": "O evente",
+      "organizer": "Organizátor",
+      "tags": "Tagy",
+      "info": "Informácie o evente",
+      "onlineMeeting": "Online stretnutie",
+      "joinLink": "Pripojiť sa",
+      "linkAfterRegistration": "Link dostupný po registrácii",
+      "fullyBooked": "Obsadené",
+      "category": "Kategória",
+      "price": "Cena",
+      "free": "Zdarma",
+      "alreadyRegistered": "Už ste registrovaní",
+      "registering": "Registrujem...",
+      "register": "Registrovať sa",
+      "confirmationEmailSent": "Potvrdzovací e-mail bol odoslaný",
+      "notFound": "Event nenájdený alebo došlo k chybe pri načítavaní."
+    },
+    "myEvents": {
+      "title": "Moje eventy",
+      "subtitle": "Spravujte svoje registrácie na eventy",
+      "cancelConfirm": "Naozaj chcete zrušiť svoju registráciu?",
+      "tabs": {
+        "registered": "Prihlásené eventy ({count})",
+        "past": "Minulé eventy ({count})"
+      },
+      "loadError": "Chyba pri načítavaní registrácií. Skúste to prosím znovu.",
+      "emptyActive": {
+        "title": "Žiadne aktívne registrácie",
+        "description": "Zatiaľ ste sa nezaregistrovali na žiadny event.",
+        "exploreLink": "Preskúmať eventy"
+      },
+      "emptyPast": {
+        "title": "Žiadne minulé eventy",
+        "description": "Tu sa zobrazia eventy, ktorých ste sa zúčastnili alebo zrušili."
+      }
+    }
+  },
+  "forum": {
+    "nav": {
+      "categories": "Kategórie",
+      "newTopic": "Nová téma",
+      "dashboard": "Dashboard"
+    },
+    "breadcrumbs": {
+      "forum": "Fórum",
+      "newTopic": "Nová téma",
+      "category": "Kategória",
+      "topic": "Téma"
+    },
+    "branding": "Fórum",
+    "topicCount": "{count} tém",
+    "metadata": {
+      "title": "Fórum | tvujspecialista.cz",
+      "description": "Diskusné fórum pre špecialistov."
+    },
+    "title": "Diskusné fórum",
+    "subtitle": "Zdieľajte skúsenosti, rady a odborné znalosti s ostatnými špecialistami.",
+    "newTopicButton": "Nová téma",
+    "emptyCategories": {
+      "title": "Zatiaľ žiadne kategórie",
+      "description": "Fórum bude čoskoro k dispozícii."
+    },
+    "category": {
+      "searchPlaceholder": "Hľadať témy...",
+      "empty": {
+        "title": "Zatiaľ žiadne témy",
+        "searchHint": "Skúste zmeniť vyhľadávanie",
+        "noTopicsHint": "Buďte prvý, kto otvorí diskusiu!",
+        "createButton": "Vytvoriť tému"
+      },
+      "pagination": "Strana {page} z {total}"
+    },
+    "topic": {
+      "notFound": "Téma nenájdená",
+      "notFoundDesc": "Táto téma neexistuje alebo bola odstránená.",
+      "deleteConfirm": "Naozaj chcete vymazať tento príspevok?",
+      "replies": "Odpovede ({count})",
+      "locked": "Táto téma je uzamknutá. Nie je možné pridávať odpovede."
+    }
+  },
+  "subscription": {
+    "metadata": {
+      "title": "Predplatné | tvujspecialista.cz",
+      "description": "Správa vášho predplatného."
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "Stránka nenájdená",
+      "description": "Požadovaná stránka neexistuje.",
+      "backHome": "Späť na hlavnú stránku"
+    },
+    "generic": {
+      "title": "Nastala chyba",
+      "description": "Ospravedlňujeme sa, ale niečo sa pokazilo.",
+      "tryAgain": "Skúsiť znovu"
     }
   }
 }

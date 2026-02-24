@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useRouter } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { useCourses } from '@/lib/hooks/useAcademy';
 import { academyApi } from '@/lib/api/academy';
@@ -11,6 +12,7 @@ import { toast } from 'sonner';
 
 export default function AdminCoursesPage() {
   const router = useRouter();
+  const t = useTranslations('dashboard.admin.courses');
   const { user, isLoading: authLoading } = useAuth();
   const { data: coursesData, isLoading, refetch } = useCourses({});
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -71,7 +73,7 @@ export default function AdminCoursesPage() {
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <BookOpen className="h-6 w-6 text-primary" />
-            Správa kurzov
+            {t('title')}
           </h1>
           <p className="text-muted-foreground mt-1">{courses.length} kurzov celkom</p>
         </div>

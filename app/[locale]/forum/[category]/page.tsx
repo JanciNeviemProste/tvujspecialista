@@ -1,7 +1,9 @@
 'use client';
 
 import { use, useState, useMemo, useCallback, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForumTopics } from '@/lib/hooks/useForum';
 import { TopicRow } from '@/components/forum/TopicRow';
@@ -9,13 +11,14 @@ import { TopicsListSkeleton } from '@/components/forum/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PenSquare, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
 }
 
 export default function CategoryPage({ params }: CategoryPageProps) {
+  const t = useTranslations('forum.category');
+  const tForum = useTranslations('forum');
   const { category } = use(params);
   const router = useRouter();
   const { isAuthenticated, isLoading: authLoading } = useAuth();
@@ -59,7 +62,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         <Link href={`/forum/nova-tema?category=${category}`}>
           <Button className="gap-2">
             <PenSquare className="h-4 w-4" />
-            Nová téma
+            {tForum('newTopicButton')}
           </Button>
         </Link>
       </div>
@@ -69,7 +72,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
           type="text"
-          placeholder="Hľadať témy..."
+          placeholder={t('searchPlaceholder')}
           value={search}
           onChange={(e) => handleSearchChange(e.target.value)}
           className="pl-10"
@@ -91,14 +94,14 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <h3 className="text-xl font-semibold mb-2">Zatiaľ žiadne témy</h3>
+          <h3 className="text-xl font-semibold mb-2">{t('empty.title')}</h3>
           <p className="text-muted-foreground mb-4">
-            {search ? 'Skúste zmeniť vyhľadávanie' : 'Buďte prvý, kto otvorí diskusiu!'}
+            {search ? t('empty.searchHint') : t('empty.noTopicsHint')}
           </p>
           <Link href={`/forum/nova-tema?category=${category}`}>
             <Button variant="outline" className="gap-2">
               <PenSquare className="h-4 w-4" />
-              Vytvoriť tému
+              {t('empty.createButton')}
             </Button>
           </Link>
         </div>
@@ -116,7 +119,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <span className="text-sm text-muted-foreground">
-            Strana {page} z {totalPages}
+            {t('pagination', { page, total: totalPages })}
           </span>
           <Button
             variant="outline"

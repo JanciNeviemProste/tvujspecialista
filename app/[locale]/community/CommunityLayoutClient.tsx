@@ -1,7 +1,7 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { useTranslations } from 'next-intl'
+import { Link, usePathname } from '@/i18n/routing'
 import { useAuth } from '@/contexts/AuthContext'
 import { Calendar, Home, Library, User, LayoutDashboard } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
@@ -13,31 +13,32 @@ interface CommunityLayoutClientProps {
 export default function CommunityLayoutClient({ children }: CommunityLayoutClientProps) {
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
+  const t = useTranslations('community')
 
   const getBreadcrumbs = () => {
     if (pathname === '/community') {
-      return [{ label: 'Komunita', href: '/community' }]
+      return [{ label: t('breadcrumbs.community'), href: '/community' }]
     }
     if (pathname === '/community/events') {
       return [
-        { label: 'Komunita', href: '/community' },
-        { label: 'Katalóg eventov', href: '/community/events' },
+        { label: t('breadcrumbs.community'), href: '/community' },
+        { label: t('breadcrumbs.catalog'), href: '/community/events' },
       ]
     }
     if (pathname?.startsWith('/community/events/')) {
       return [
-        { label: 'Komunita', href: '/community' },
-        { label: 'Katalóg eventov', href: '/community/events' },
-        { label: 'Detail eventu', href: pathname },
+        { label: t('breadcrumbs.community'), href: '/community' },
+        { label: t('breadcrumbs.catalog'), href: '/community/events' },
+        { label: t('breadcrumbs.eventDetail'), href: pathname },
       ]
     }
     if (pathname === '/community/my-events') {
       return [
-        { label: 'Komunita', href: '/community' },
-        { label: 'Moje eventy', href: '/community/my-events' },
+        { label: t('breadcrumbs.community'), href: '/community' },
+        { label: t('breadcrumbs.myEvents'), href: '/community/my-events' },
       ]
     }
-    return [{ label: 'Komunita', href: '/community' }]
+    return [{ label: t('breadcrumbs.community'), href: '/community' }]
   }
 
   const breadcrumbs = getBreadcrumbs()
@@ -58,7 +59,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span className="hidden sm:inline">Domov</span>
+                <span className="hidden sm:inline">{t('nav.home')}</span>
               </Link>
               <Link
                 href="/community/events"
@@ -68,7 +69,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                 )}
               >
                 <Library className="h-4 w-4" />
-                <span className="hidden sm:inline">Eventy</span>
+                <span className="hidden sm:inline">{t('nav.events')}</span>
               </Link>
               {isAuthenticated && (
                 <>
@@ -80,14 +81,14 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                     )}
                   >
                     <User className="h-4 w-4" />
-                    <span className="hidden sm:inline">Moje eventy</span>
+                    <span className="hidden sm:inline">{t('nav.myEvents')}</span>
                   </Link>
                   <Link
                     href="/profi/dashboard"
                     className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">Dashboard</span>
+                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
                   </Link>
                 </>
               )}
@@ -97,7 +98,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
             <div className="flex items-center gap-2 text-sm font-semibold">
               <Calendar className="h-5 w-5 text-accent-500" />
               <span className="hidden sm:inline bg-gradient-to-r from-accent-500 to-primary bg-clip-text text-transparent">
-                Komunita
+                {t('branding')}
               </span>
             </div>
           </div>

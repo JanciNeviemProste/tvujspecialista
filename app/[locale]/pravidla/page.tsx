@@ -1,12 +1,23 @@
-import Link from 'next/link';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from 'next';
+import { Link } from '@/i18n/routing';
 
-export const metadata: Metadata = {
-  title: 'Obchodní podmínky | TvůjSpecialista.cz',
-  description: 'Obchodní podmínky platformy TvůjSpecialista.cz. Práva a povinnosti zákazníků, poskytovatelů a provozovatele služby.',
-};
+type Props = { params: Promise<{ locale: string }> };
 
-export default function TermsPage() {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'terms.metadata' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
+
+export default async function TermsPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations('terms');
+
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b">
@@ -18,7 +29,7 @@ export default function TermsPage() {
       </header>
 
       <div className="container mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">Obchodní podmínky</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
 
         <div className="prose prose-gray max-w-none">
           <section className="mb-8">

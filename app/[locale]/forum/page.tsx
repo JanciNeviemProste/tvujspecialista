@@ -1,15 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForumCategories } from '@/lib/hooks/useForum';
 import { CategoryCard } from '@/components/forum/CategoryCard';
 import { CategoriesGridSkeleton } from '@/components/forum/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, PenSquare } from 'lucide-react';
-import Link from 'next/link';
 
 export default function ForumPage() {
+  const t = useTranslations('forum');
   const router = useRouter();
   const { isAuthenticated, isLoading: authLoading } = useAuth();
   const { data: categories, isLoading: categoriesLoading } = useForumCategories();
@@ -26,15 +28,15 @@ export default function ForumPage() {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <MessageSquare className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold">Diskusné fórum</h1>
+          <h1 className="text-3xl font-bold">{t('title')}</h1>
         </div>
         <p className="text-muted-foreground mb-6">
-          Zdieľajte skúsenosti, rady a odborné znalosti s ostatnými špecialistami.
+          {t('subtitle')}
         </p>
         <Link href="/forum/nova-tema">
           <Button className="gap-2">
             <PenSquare className="h-4 w-4" />
-            Nová téma
+            {t('newTopicButton')}
           </Button>
         </Link>
       </div>
@@ -51,8 +53,8 @@ export default function ForumPage() {
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <MessageSquare className="h-16 w-16 text-muted-foreground mb-4" />
-          <h3 className="text-xl font-semibold mb-2">Zatiaľ žiadne kategórie</h3>
-          <p className="text-muted-foreground">Fórum bude čoskoro k dispozícii.</p>
+          <h3 className="text-xl font-semibold mb-2">{t('emptyCategories.title')}</h3>
+          <p className="text-muted-foreground">{t('emptyCategories.description')}</p>
         </div>
       )}
     </div>

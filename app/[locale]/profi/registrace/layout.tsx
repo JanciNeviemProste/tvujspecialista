@@ -1,9 +1,16 @@
+import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Registrace specialisty | TvůjSpecialista.cz',
-  description: 'Zaregistrujte se jako specialista na TvůjSpecialista.cz. Získejte kvalitní leady a rozšiřte své podnikání. 14 dní zdarma.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'auth.register.metadata' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default function RegistrationLayout({ children }: { children: React.ReactNode }) {
   return children;

@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/routing';
+import { useRouter } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +10,7 @@ import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
+import { useTranslations } from 'next-intl';
 
 const registrationSchema = z
   .object({
@@ -37,6 +38,8 @@ const registrationSchema = z
 type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 export default function RegistrationPage() {
+  const t = useTranslations('auth.register');
+  const tNav = useTranslations('common.nav');
   const router = useRouter();
   const [error, setError] = useState('');
 
@@ -73,7 +76,7 @@ export default function RegistrationPage() {
         localStorage.setItem('refreshToken', response.data.refreshToken);
       }
 
-      toast.success('Registrácia úspešná! Vitajte na tvujspecialista.cz');
+      toast.success(t('successToast'));
 
       // Full page navigation to ensure AuthProvider re-initializes with new tokens
       window.location.href = '/profi/dashboard';
@@ -92,13 +95,13 @@ export default function RegistrationPage() {
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/hledat" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary">
-              Hledat
+              {tNav('search')}
             </Link>
             <Link href="/profi/prihlaseni" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary transition-colors">
-              Přihlásit se
+              {tNav('login')}
             </Link>
             <Link href="/profi/registrace" className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors">
-              Registrace zdarma
+              {tNav('register')}
             </Link>
           </nav>
         </div>
@@ -108,8 +111,8 @@ export default function RegistrationPage() {
       <div className="px-4 py-12">
         <div className="mx-auto max-w-2xl">
           <div className="mb-8 text-center">
-            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground">Staňte se naším specialistou</h1>
-            <p className="text-gray-600 dark:text-muted-foreground">Získejte kvalitní leady a rozšiřte své podnikání</p>
+            <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
+            <p className="text-gray-600 dark:text-muted-foreground">{t('subtitle')}</p>
           </div>
 
           <div className="rounded-lg border dark:border-border bg-white dark:bg-card p-8 shadow-sm">
@@ -119,10 +122,10 @@ export default function RegistrationPage() {
                 href="/profi/prihlaseni"
                 className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 dark:text-muted-foreground hover:text-gray-700 dark:hover:text-foreground transition-all"
               >
-                Přihlášení
+                {t('tabLogin')}
               </Link>
               <span className="flex-1 rounded-md bg-white dark:bg-card py-2.5 text-center text-sm font-medium text-gray-900 dark:text-foreground shadow-sm">
-                Registrace
+                {t('tabRegister')}
               </span>
             </div>
 
@@ -135,17 +138,17 @@ export default function RegistrationPage() {
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               {/* Personal Info */}
               <div>
-                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">Osobní údaje</h2>
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">{t('personalInfo')}</h2>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <label htmlFor="reg-name" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                        Jméno a příjmení <span aria-hidden="true">*</span>
+                        {t('name')} <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-name"
                         type="text"
-                        placeholder="Jan Novák"
+                        placeholder={t('namePlaceholder')}
                         className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         aria-invalid={errors.name ? 'true' : undefined}
                         aria-describedby={errors.name ? 'reg-name-error' : undefined}
@@ -157,12 +160,12 @@ export default function RegistrationPage() {
                     </div>
                     <div>
                       <label htmlFor="reg-email" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                        Email <span aria-hidden="true">*</span>
+                        {t('email')} <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-email"
                         type="email"
-                        placeholder="jan@example.cz"
+                        placeholder={t('emailPlaceholder')}
                         className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         aria-invalid={errors.email ? 'true' : undefined}
                         aria-describedby={errors.email ? 'reg-email-error' : undefined}
@@ -176,12 +179,12 @@ export default function RegistrationPage() {
 
                   <div>
                     <label htmlFor="reg-phone" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                      Telefon <span aria-hidden="true">*</span>
+                      {t('phone')} <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-phone"
                       type="tel"
-                      placeholder="+420 777 123 456"
+                      placeholder={t('phonePlaceholder')}
                       className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.phone ? 'true' : undefined}
                       aria-describedby={errors.phone ? 'reg-phone-error' : undefined}
@@ -196,12 +199,12 @@ export default function RegistrationPage() {
 
               {/* Professional Info */}
               <div className="border-t dark:border-border pt-6">
-                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">Profesní informace</h2>
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">{t('professionalInfo')}</h2>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
                       <label htmlFor="reg-category" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                        Kategorie <span aria-hidden="true">*</span>
+                        {t('category')} <span aria-hidden="true">*</span>
                       </label>
                       <select
                         id="reg-category"
@@ -210,7 +213,7 @@ export default function RegistrationPage() {
                         aria-describedby={errors.category ? 'reg-category-error' : undefined}
                         {...register('category')}
                       >
-                        <option value="">Vyberte kategorii</option>
+                        <option value="">{t('selectCategory')}</option>
                         <option value="Finanční poradce">Finanční poradce</option>
                         <option value="Realitní makléř">Realitní makléř</option>
                       </select>
@@ -220,7 +223,7 @@ export default function RegistrationPage() {
                     </div>
                     <div>
                       <label htmlFor="reg-location" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                        Lokalita <span aria-hidden="true">*</span>
+                        {t('location')} <span aria-hidden="true">*</span>
                       </label>
                       <select
                         id="reg-location"
@@ -229,7 +232,7 @@ export default function RegistrationPage() {
                         aria-describedby={errors.location ? 'reg-location-error' : undefined}
                         {...register('location')}
                       >
-                        <option value="">Vyberte lokalitu</option>
+                        <option value="">{t('selectLocation')}</option>
                         <option value="Praha">Praha</option>
                         <option value="Brno">Brno</option>
                         <option value="Ostrava">Ostrava</option>
@@ -243,13 +246,13 @@ export default function RegistrationPage() {
 
                   <div>
                     <label htmlFor="reg-experience" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                      Roky praxe <span aria-hidden="true">*</span>
+                      {t('experience')} <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-experience"
                       type="number"
                       min="0"
-                      placeholder="např. 5"
+                      placeholder={t('experiencePlaceholder')}
                       className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.yearsExperience ? 'true' : undefined}
                       aria-describedby={errors.yearsExperience ? 'reg-experience-error' : undefined}
@@ -262,12 +265,12 @@ export default function RegistrationPage() {
 
                   <div>
                     <label htmlFor="reg-bio" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                      Krátký popis vašich služeb <span aria-hidden="true">*</span>
+                      {t('bio')} <span aria-hidden="true">*</span>
                     </label>
                     <textarea
                       id="reg-bio"
                       rows={4}
-                      placeholder="Popište, čím se zabýváte a jak můžete pomoci klientům..."
+                      placeholder={t('bioPlaceholder')}
                       className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.bio ? 'true' : undefined}
                       aria-describedby={errors.bio ? 'reg-bio-error' : undefined}
@@ -282,16 +285,16 @@ export default function RegistrationPage() {
 
               {/* Password */}
               <div className="border-t dark:border-border pt-6">
-                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">Nastavení hesla</h2>
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-foreground">{t('passwordSetup')}</h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div>
                     <label htmlFor="reg-password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                      Heslo <span aria-hidden="true">*</span>
+                      {t('password')} <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-password"
                       type="password"
-                      placeholder="Minimálně 8 znaků"
+                      placeholder={t('passwordPlaceholder')}
                       className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.password ? 'true' : undefined}
                       aria-describedby={errors.password ? 'reg-password-error' : undefined}
@@ -303,12 +306,12 @@ export default function RegistrationPage() {
                   </div>
                   <div>
                     <label htmlFor="reg-confirm-password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                      Potvrzení hesla <span aria-hidden="true">*</span>
+                      {t('confirmPassword')} <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-confirm-password"
                       type="password"
-                      placeholder="Zadejte heslo znovu"
+                      placeholder={t('confirmPasswordPlaceholder')}
                       className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       aria-invalid={errors.confirmPassword ? 'true' : undefined}
                       aria-describedby={errors.confirmPassword ? 'reg-confirm-password-error' : undefined}
@@ -331,9 +334,9 @@ export default function RegistrationPage() {
                       {...register('termsAccepted')}
                     />
                     <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">
-                      Souhlasím s{' '}
+                      {t('termsAgree')}{' '}
                       <Link href="/pravidla" className="text-blue-600 hover:underline">
-                        obchodními podmínkami
+                        {t('termsLink')}
                       </Link>{' '}
                       *
                     </span>
@@ -348,12 +351,12 @@ export default function RegistrationPage() {
                       {...register('gdprAccepted')}
                     />
                     <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">
-                      Souhlasím se{' '}
+                      {t('gdprAgree')}{' '}
                       <Link
                         href="/ochrana-osobnich-udaju"
                         className="text-blue-600 hover:underline"
                       >
-                        zpracováním osobních údajů
+                        {t('gdprLink')}
                       </Link>{' '}
                       *
                     </span>
@@ -369,13 +372,13 @@ export default function RegistrationPage() {
                 disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {isSubmitting ? 'Registruji...' : 'Zaregistrovat se zdarma'}
+                {isSubmitting ? t('submitting') : t('submit')}
               </button>
 
               <p className="text-center text-sm text-gray-600 dark:text-muted-foreground">
-                Již máte účet?{' '}
+                {t('haveAccount')}{' '}
                 <Link href="/profi/prihlaseni" className="font-medium text-blue-600 dark:text-primary hover:underline">
-                  Přihlaste se zde
+                  {t('loginHere')}
                 </Link>
               </p>
             </form>
@@ -385,18 +388,18 @@ export default function RegistrationPage() {
           <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
             <div className="rounded-lg bg-white dark:bg-card p-4 text-center">
               <div className="mb-2 text-3xl">✓</div>
-              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">Kvalitní leady</h3>
-              <p className="text-sm text-gray-600 dark:text-muted-foreground">Kontakty od skutečně zajímavých klientů</p>
+              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">{t('benefits.leads')}</h3>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">{t('benefits.leadsDesc')}</p>
             </div>
             <div className="rounded-lg bg-white dark:bg-card p-4 text-center">
               <div className="mb-2 text-3xl">⭐</div>
-              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">Ověřený profil</h3>
-              <p className="text-sm text-gray-600 dark:text-muted-foreground">Zvyšte důvěryhodnost vašich služeb</p>
+              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">{t('benefits.profile')}</h3>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">{t('benefits.profileDesc')}</p>
             </div>
             <div className="rounded-lg bg-white dark:bg-card p-4 text-center">
               <div className="mb-2 text-3xl">📊</div>
-              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">14 dní zdarma</h3>
-              <p className="text-sm text-gray-600 dark:text-muted-foreground">Vyzkoušejte bez závazků</p>
+              <h3 className="mb-1 font-semibold text-gray-900 dark:text-foreground">{t('benefits.trial')}</h3>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">{t('benefits.trialDesc')}</p>
             </div>
           </div>
         </div>

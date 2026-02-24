@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { EventCard } from '@/components/community/EventCard'
 import { EventsGridSkeleton } from '@/components/community/LoadingStates'
 import { useEvents } from '@/lib/hooks/useCommunity'
@@ -12,6 +13,7 @@ import { Search, X } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 
 export default function EventsCatalogPage() {
+  const t = useTranslations('community.eventsCatalog')
   const [filters, setFilters] = useState({
     search: '',
     type: '' as EventType | '',
@@ -59,21 +61,17 @@ export default function EventsCatalogPage() {
 
   const hasActiveFilters = filters.search || filters.type || filters.format || filters.category || filters.featured
 
-  useEffect(() => {
-    document.title = 'Katalóg eventov | Komunita | tvujspecialista.cz'
-  }, [])
-
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold">Katalóg eventov</h1>
+          <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
           <p className="text-lg text-muted-foreground">
             {isLoading ? (
-              'Načítavanie...'
+              t('loading')
             ) : error ? (
-              'Chyba pri načítaní eventov'
+              t('loadError')
             ) : (
               <>
                 Nájdených <span className="font-semibold">{filteredEvents.length}</span> {filteredEvents.length === 1 ? 'event' : filteredEvents.length < 5 ? 'eventy' : 'eventov'}
@@ -89,7 +87,7 @@ export default function EventsCatalogPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>Filtre</CardTitle>
+                    <CardTitle>{t('filters.title')}</CardTitle>
                     {hasActiveFilters && (
                       <Button
                         variant="ghost"
@@ -97,7 +95,7 @@ export default function EventsCatalogPage() {
                         onClick={handleClearFilters}
                         className="h-auto p-0 text-xs hover:text-destructive"
                       >
-                        Vymazať
+                        {t('filters.clear')}
                       </Button>
                     )}
                   </div>
@@ -106,13 +104,13 @@ export default function EventsCatalogPage() {
                   {/* Search */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Hľadať
+                      {t('filters.search')}
                     </label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       <Input
                         type="text"
-                        placeholder="Názov, miesto..."
+                        placeholder={t('filters.searchPlaceholder')}
                         value={filters.search}
                         onChange={(e) => setFilters({ ...filters, search: e.target.value })}
                         className="pl-9"
@@ -131,52 +129,52 @@ export default function EventsCatalogPage() {
                   {/* Type Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Typ eventu
+                      {t('filters.eventType')}
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       value={filters.type}
                       onChange={(e) => setFilters({ ...filters, type: e.target.value as EventType | '' })}
                     >
-                      <option value="">Všetky typy</option>
-                      <option value={EventType.WORKSHOP}>Workshop</option>
-                      <option value={EventType.NETWORKING}>Networking</option>
-                      <option value={EventType.CONFERENCE}>Konferencia</option>
-                      <option value={EventType.WEBINAR}>Webinár</option>
-                      <option value={EventType.MEETUP}>Meetup</option>
+                      <option value="">{t('filters.allTypes')}</option>
+                      <option value={EventType.WORKSHOP}>{t('filters.typeWorkshop')}</option>
+                      <option value={EventType.NETWORKING}>{t('filters.typeNetworking')}</option>
+                      <option value={EventType.CONFERENCE}>{t('filters.typeConference')}</option>
+                      <option value={EventType.WEBINAR}>{t('filters.typeWebinar')}</option>
+                      <option value={EventType.MEETUP}>{t('filters.typeMeetup')}</option>
                     </select>
                   </div>
 
                   {/* Format Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Formát
+                      {t('filters.format')}
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       value={filters.format}
                       onChange={(e) => setFilters({ ...filters, format: e.target.value as EventFormat | '' })}
                     >
-                      <option value="">Všetky formáty</option>
-                      <option value={EventFormat.ONLINE}>Online</option>
-                      <option value={EventFormat.OFFLINE}>Offline</option>
+                      <option value="">{t('filters.allFormats')}</option>
+                      <option value={EventFormat.ONLINE}>{t('filters.formatOnline')}</option>
+                      <option value={EventFormat.OFFLINE}>{t('filters.formatOffline')}</option>
                     </select>
                   </div>
 
                   {/* Category Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Kategória
+                      {t('filters.category')}
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as EventCategory | '' })}
                     >
-                      <option value="">Všetky kategórie</option>
-                      <option value={EventCategory.REAL_ESTATE}>Reality</option>
-                      <option value={EventCategory.FINANCIAL}>Finance</option>
-                      <option value={EventCategory.BOTH}>Reality & Finance</option>
+                      <option value="">{t('filters.allCategories')}</option>
+                      <option value={EventCategory.REAL_ESTATE}>{t('filters.catRealEstate')}</option>
+                      <option value={EventCategory.FINANCIAL}>{t('filters.catFinancial')}</option>
+                      <option value={EventCategory.BOTH}>{t('filters.catBoth')}</option>
                     </select>
                   </div>
 
@@ -190,7 +188,7 @@ export default function EventsCatalogPage() {
                         onChange={(e) => setFilters({ ...filters, featured: e.target.checked })}
                       />
                       <span className="text-sm font-medium">
-                        Iba featured eventy
+                        {t('filters.featuredOnly')}
                       </span>
                     </label>
                   </div>
@@ -208,7 +206,7 @@ export default function EventsCatalogPage() {
             {error && (
               <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
                 <p className="text-destructive">
-                  Chyba pri načítaní eventov. Skúste to prosím znova.
+                  {t('loadErrorLong')}
                 </p>
               </div>
             )}
@@ -220,14 +218,14 @@ export default function EventsCatalogPage() {
                   <div className="rounded-lg border bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
-                      Žiadne eventy
+                      {t('empty.title')}
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      Skúste zmeniť filtre alebo hľadajte iné kľúčové slová.
+                      {t('empty.description')}
                     </p>
                     {hasActiveFilters && (
                       <Button variant="outline" onClick={handleClearFilters}>
-                        Vymazať filtre
+                        {t('empty.clearFilters')}
                       </Button>
                     )}
                   </div>

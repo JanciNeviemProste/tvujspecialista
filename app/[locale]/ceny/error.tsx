@@ -1,10 +1,11 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
-import Link from 'next/link';
 
 export default function Error({
   error,
@@ -13,6 +14,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations('errors.generic');
+
   useEffect(() => {
     console.error('Ceny error:', error);
   }, [error]);
@@ -24,8 +27,8 @@ export default function Error({
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
             <AlertTriangle className="h-8 w-8 text-destructive" />
           </div>
-          <CardTitle className="text-2xl">Niečo sa pokazilo</CardTitle>
-          <CardDescription>Nepodarilo sa načítať cenník.</CardDescription>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent>
           {error.message && (
@@ -37,7 +40,7 @@ export default function Error({
         <CardFooter className="flex flex-col gap-3 sm:flex-row">
           <Button onClick={reset} className="w-full sm:flex-1">
             <RefreshCw className="mr-2 h-4 w-4" />
-            Skúsiť znova
+            {t('tryAgain')}
           </Button>
           <Link href="/" className="w-full sm:flex-1">
             <Button variant="outline" className="w-full">

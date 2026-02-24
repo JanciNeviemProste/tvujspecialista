@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState, useMemo } from 'react';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useParams, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { ArrowLeft, ChevronLeft, ChevronRight, CheckCircle, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { VideoPlayer } from '@/components/academy/VideoPlayer';
@@ -11,6 +13,7 @@ import { cn } from '@/lib/utils/cn';
 import type { Lesson } from '@/types/academy';
 
 export default function LearnPage() {
+  const t = useTranslations('academy');
   const params = useParams();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -188,7 +191,7 @@ export default function LearnPage() {
       <div className="h-screen flex items-center justify-center bg-black">
         <div className="text-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
-          <p className="text-white text-lg">Načítavam kurz...</p>
+          <p className="text-white text-lg">{t('learn.loading')}</p>
         </div>
       </div>
     );
@@ -204,7 +207,7 @@ export default function LearnPage() {
           onClick={() => router.push(`/academy/courses/${courseSlug}`)}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Späť na kurz
+          {t('learn.backToCourse')}
         </Button>
 
         <div className="flex-1 text-center overflow-hidden">
@@ -271,7 +274,7 @@ export default function LearnPage() {
           size="sm"
         >
           <ChevronLeft className="h-4 w-4 lg:mr-2" />
-          <span className="hidden sm:inline">Predchádzajúca lekcia</span>
+          <span className="hidden sm:inline">{t('learn.prevLesson')}</span>
         </Button>
 
         <Button
@@ -284,18 +287,18 @@ export default function LearnPage() {
           {updateProgress.isPending ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="hidden sm:inline">Označujem...</span>
+              <span className="hidden sm:inline">{t('learn.markingComplete')}</span>
             </>
           ) : currentProgress?.completed ? (
             <>
               <CheckCircle className="h-4 w-4" />
-              <span className="hidden sm:inline">Dokončené</span>
+              <span className="hidden sm:inline">{t('learn.completed')}</span>
             </>
           ) : (
             <>
               <CheckCircle className="h-4 w-4" />
-              <span className="hidden md:inline">Označiť ako dokončené</span>
-              <span className="md:hidden">Dokončiť</span>
+              <span className="hidden md:inline">{t('learn.markComplete')}</span>
+              <span className="md:hidden">{t('learn.complete')}</span>
             </>
           )}
         </Button>
@@ -307,7 +310,7 @@ export default function LearnPage() {
           className="text-foreground hover:text-foreground text-xs lg:text-sm"
           size="sm"
         >
-          <span className="hidden sm:inline">Ďalšia lekcia</span>
+          <span className="hidden sm:inline">{t('learn.nextLesson')}</span>
           <ChevronRight className="h-4 w-4 lg:ml-2" />
         </Button>
       </div>

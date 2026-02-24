@@ -1,16 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/routing'
+import { Link } from '@/i18n/routing'
 import { useMyRSVPs, useCancelRSVP, useConfirmRSVP } from '@/lib/hooks/useCommunity'
 import { RSVPCard } from '@/components/community/RSVPCard'
 import { RSVPsGridSkeleton } from '@/components/community/LoadingStates'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useAuth } from '@/contexts/AuthContext'
-import { useRouter } from 'next/navigation'
 import { RSVPStatus } from '@/types/community'
 
 export default function MyEventsPage() {
+  const t = useTranslations('community.myEvents')
   const router = useRouter()
   const { isAuthenticated, isLoading: authLoading } = useAuth()
   const { data: myRSVPs, isLoading, error } = useMyRSVPs()
@@ -20,8 +23,8 @@ export default function MyEventsPage() {
   const [activeTab, setActiveTab] = useState('registered')
 
   useEffect(() => {
-    document.title = 'Moje eventy | Komunita | tvujspecialista.cz'
-  }, [])
+    document.title = `${t('title')} | Komunita | tvujspecialista.cz`
+  }, [t])
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function MyEventsPage() {
   }
 
   const handleCancel = async (rsvpId: string) => {
-    if (!confirm('Naozaj chcete zrušiť svoju registráciu?')) {
+    if (!window.confirm(t('cancelConfirm'))) {
       return
     }
 
@@ -77,9 +80,9 @@ export default function MyEventsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold">Moje eventy</h1>
+          <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
           <p className="text-lg text-muted-foreground">
-            Spravujte svoje registrácie na eventy
+            {t('subtitle')}
           </p>
         </div>
 
@@ -87,10 +90,10 @@ export default function MyEventsPage() {
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
           <TabsList className="grid w-full max-w-md grid-cols-2">
             <TabsTrigger value="registered">
-              Prihlásené eventy ({activeRSVPs.length})
+              {t('tabs.registered', { count: activeRSVPs.length })}
             </TabsTrigger>
             <TabsTrigger value="past">
-              Minulé eventy ({pastRSVPs.length})
+              {t('tabs.past', { count: pastRSVPs.length })}
             </TabsTrigger>
           </TabsList>
 
@@ -101,7 +104,7 @@ export default function MyEventsPage() {
             {error && (
               <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
                 <p className="text-destructive">
-                  Chyba pri načítaní registrácií. Skúste to prosím znova.
+                  {t('loadError')}
                 </p>
               </div>
             )}
@@ -113,17 +116,17 @@ export default function MyEventsPage() {
                     <CardContent className="p-12 text-center">
                       <div className="mb-4 text-5xl">📅</div>
                       <h3 className="mb-2 text-xl font-semibold">
-                        Žiadne aktívne registrácie
+                        {t('emptyActive.title')}
                       </h3>
                       <p className="text-muted-foreground mb-4">
-                        Zatiaľ ste sa neregistrovali na žiadny event.
+                        {t('emptyActive.description')}
                       </p>
-                      <a
+                      <Link
                         href="/community/events"
                         className="text-primary hover:underline"
                       >
-                        Preskúmať eventy
-                      </a>
+                        {t('emptyActive.exploreLink')}
+                      </Link>
                     </CardContent>
                   </Card>
                 ) : (
@@ -149,7 +152,7 @@ export default function MyEventsPage() {
             {error && (
               <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
                 <p className="text-destructive">
-                  Chyba pri načítaní registrácií. Skúste to prosím znova.
+                  {t('loadError')}
                 </p>
               </div>
             )}
@@ -161,10 +164,10 @@ export default function MyEventsPage() {
                     <CardContent className="p-12 text-center">
                       <div className="mb-4 text-5xl">🕒</div>
                       <h3 className="mb-2 text-xl font-semibold">
-                        Žiadne minulé eventy
+                        {t('emptyPast.title')}
                       </h3>
                       <p className="text-muted-foreground">
-                        Tu sa zobrazia eventy, ktorých ste sa zúčastnili alebo zrušili.
+                        {t('emptyPast.description')}
                       </p>
                     </CardContent>
                   </Card>

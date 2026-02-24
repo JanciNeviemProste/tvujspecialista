@@ -1,15 +1,18 @@
+import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
+type Props = { params: Promise<{ locale: string; slug: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, slug } = await params;
   const name = slug
     .split('-')
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
-
+  const t = await getTranslations({ locale, namespace: 'specialist.metadata' });
   return {
-    title: `${name} | TvůjSpecialista.cz`,
-    description: `Profil specialisty ${name} na TvůjSpecialista.cz. Zobrazit recenze, služby a kontaktní informace.`,
+    title: t('title', { name }),
+    description: t('description', { name, category: '', location: '' }),
   };
 }
 

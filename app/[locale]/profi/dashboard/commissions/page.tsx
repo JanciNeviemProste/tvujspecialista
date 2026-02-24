@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslations } from 'next-intl';
 import { useMyCommissions, useCommissionStats } from '@/lib/hooks/useCommissions';
 import { Commission, CommissionStatus } from '@/types/commissions';
 import { CommissionStats } from '@/components/commissions/CommissionStats';
@@ -12,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 
 export default function CommissionsPage() {
+  const t = useTranslations('dashboard.commissions');
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const { data: commissions, isLoading: commissionsLoading } = useMyCommissions();
@@ -57,8 +59,8 @@ export default function CommissionsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Provízie</h1>
-          <p className="text-muted-foreground">Prehľad vašich provízií z úspešných dealov</p>
+          <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+          <p className="text-muted-foreground">{t('subtitle')}</p>
         </div>
 
         {/* Stats */}
@@ -72,13 +74,13 @@ export default function CommissionsPage() {
         <Tabs defaultValue="pending" className="space-y-6">
           <TabsList>
             <TabsTrigger value="pending">
-              Čakajúce ({pendingCommissions.length})
+              {t('tabs.pending', { count: pendingCommissions.length })}
             </TabsTrigger>
             <TabsTrigger value="invoiced">
-              Vyfakturované ({invoicedCommissions.length})
+              {t('tabs.invoiced', { count: invoicedCommissions.length })}
             </TabsTrigger>
             <TabsTrigger value="paid">
-              Zaplatené ({paidCommissions.length})
+              {t('tabs.paid', { count: paidCommissions.length })}
             </TabsTrigger>
           </TabsList>
 
@@ -87,9 +89,9 @@ export default function CommissionsPage() {
             {pendingCommissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="text-6xl mb-4">✅</div>
-                <h3 className="text-xl font-semibold mb-2">Žiadne čakajúce provízie</h3>
+                <h3 className="text-xl font-semibold mb-2">{t('emptyPending.title')}</h3>
                 <p className="text-muted-foreground">
-                  Všetky provízie sú zaplatené alebo nemáte žiadne dealy
+                  {t('emptyPending.description')}
                 </p>
               </div>
             ) : (
@@ -110,9 +112,9 @@ export default function CommissionsPage() {
             {invoicedCommissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="text-6xl mb-4">📄</div>
-                <h3 className="text-xl font-semibold mb-2">Žiadne vyfakturované provízie</h3>
+                <h3 className="text-xl font-semibold mb-2">{t('emptyInvoiced.title')}</h3>
                 <p className="text-muted-foreground">
-                  Tu sa zobrazia provízie, ktoré boli vyfakturované
+                  {t('emptyInvoiced.description')}
                 </p>
               </div>
             ) : (
@@ -133,9 +135,9 @@ export default function CommissionsPage() {
             {paidCommissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="text-6xl mb-4">💰</div>
-                <h3 className="text-xl font-semibold mb-2">Žiadne zaplatené provízie</h3>
+                <h3 className="text-xl font-semibold mb-2">{t('emptyPaid.title')}</h3>
                 <p className="text-muted-foreground">
-                  Tu sa zobrazia provízie, ktoré ste zaplatili
+                  {t('emptyPaid.description')}
                 </p>
               </div>
             ) : (

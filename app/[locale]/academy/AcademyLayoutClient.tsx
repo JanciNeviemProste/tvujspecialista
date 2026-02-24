@@ -1,7 +1,7 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { BookOpen, Home, Library, User, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
@@ -13,6 +13,7 @@ interface AcademyLayoutClientProps {
 export default function AcademyLayoutClient({ children }: AcademyLayoutClientProps) {
   const pathname = usePathname();
   const { isAuthenticated } = useAuth();
+  const t = useTranslations('academy');
 
   // Skip breadcrumbs for learn pages (they have their own layout)
   const isLearnPage = pathname?.startsWith('/academy/learn');
@@ -23,28 +24,28 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
 
   const getBreadcrumbs = () => {
     if (pathname === '/academy') {
-      return [{ label: 'Akadémia', href: '/academy' }];
+      return [{ label: t('breadcrumbs.academy'), href: '/academy' }];
     }
     if (pathname === '/academy/courses') {
       return [
-        { label: 'Akadémia', href: '/academy' },
-        { label: 'Katalóg kurzov', href: '/academy/courses' },
+        { label: t('breadcrumbs.academy'), href: '/academy' },
+        { label: t('breadcrumbs.catalog'), href: '/academy/courses' },
       ];
     }
     if (pathname?.startsWith('/academy/courses/')) {
       return [
-        { label: 'Akadémia', href: '/academy' },
-        { label: 'Katalóg kurzov', href: '/academy/courses' },
-        { label: 'Detail kurzu', href: pathname },
+        { label: t('breadcrumbs.academy'), href: '/academy' },
+        { label: t('breadcrumbs.catalog'), href: '/academy/courses' },
+        { label: t('breadcrumbs.courseDetail'), href: pathname },
       ];
     }
     if (pathname === '/academy/my-learning') {
       return [
-        { label: 'Akadémia', href: '/academy' },
-        { label: 'Moje vzdelávanie', href: '/academy/my-learning' },
+        { label: t('breadcrumbs.academy'), href: '/academy' },
+        { label: t('breadcrumbs.myLearning'), href: '/academy/my-learning' },
       ];
     }
-    return [{ label: 'Akadémia', href: '/academy' }];
+    return [{ label: t('breadcrumbs.academy'), href: '/academy' }];
   };
 
   const breadcrumbs = getBreadcrumbs();
@@ -65,7 +66,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span className="hidden sm:inline">Domov</span>
+                <span className="hidden sm:inline">{t('nav.home')}</span>
               </Link>
               <Link
                 href="/academy/courses"
@@ -75,7 +76,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 )}
               >
                 <Library className="h-4 w-4" />
-                <span className="hidden sm:inline">Kurzy</span>
+                <span className="hidden sm:inline">{t('nav.courses')}</span>
               </Link>
               {isAuthenticated && (
                 <>
@@ -87,14 +88,14 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                     )}
                   >
                     <User className="h-4 w-4" />
-                    <span className="hidden sm:inline">Moje vzdelávanie</span>
+                    <span className="hidden sm:inline">{t('nav.myLearning')}</span>
                   </Link>
                   <Link
                     href="/profi/dashboard"
                     className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">Dashboard</span>
+                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
                   </Link>
                 </>
               )}
@@ -104,7 +105,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
             <div className="flex items-center gap-2 text-sm font-semibold">
               <BookOpen className="h-5 w-5 text-primary" />
               <span className="hidden sm:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Akadémia
+                {t('branding')}
               </span>
             </div>
           </div>

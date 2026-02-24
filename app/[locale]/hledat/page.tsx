@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { SpecialistCard } from '@/components/shared/SpecialistCard';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
 import { SpecialistCategory, Specialist } from '@/types/specialist';
@@ -10,6 +11,8 @@ import { SpecialistCategory, Specialist } from '@/types/specialist';
 export default function SearchPage() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get('category') || '';
+  const t = useTranslations('search');
+  const tCommon = useTranslations('common');
 
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
@@ -47,16 +50,16 @@ export default function SearchPage() {
           </Link>
           <nav className="flex items-center gap-6">
             <Link href="/hledat" className="text-sm font-medium text-blue-600 dark:text-primary">
-              Hledat
+              {tCommon('nav.search')}
             </Link>
             <Link href="/ceny" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary">
-              Ceny
+              {tCommon('nav.pricing')}
             </Link>
             <Link
               href="/profi/registrace"
               className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700"
             >
-              Pro specialisty
+              {tCommon('nav.forSpecialists')}
             </Link>
           </nav>
         </div>
@@ -64,15 +67,15 @@ export default function SearchPage() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground">Najděte svého specialistu</h1>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
           <p className="text-gray-600 dark:text-muted-foreground">
             {isLoading ? (
-              'Načítání...'
+              t('loading')
             ) : error ? (
-              'Chyba při načítání specialistů'
+              t('loadError')
             ) : (
               <>
-                Nalezeno <span className="font-semibold">{data?.total || 0}</span> specialistů
+                {t('found')} <span className="font-semibold">{data?.total || 0}</span> {t('specialists')}
               </>
             )}
           </p>
@@ -82,18 +85,18 @@ export default function SearchPage() {
           {/* Filters Sidebar */}
           <aside className="lg:col-span-1">
             <div className="rounded-lg border dark:border-border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-lg font-semibold dark:text-foreground">Filtry</h2>
+              <h2 className="mb-4 text-lg font-semibold dark:text-foreground">{t('filters.title')}</h2>
 
               {/* Category Filter */}
               <div className="mb-6">
-                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">Kategorie</label>
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">{t('filters.category')}</label>
                 <select
-                  aria-label="Vyberte kategorii"
+                  aria-label={t('filters.selectCategory')}
                   className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.category}
                   onChange={(e) => updateFilters({ category: e.target.value })}
                 >
-                  <option value="">Všechny kategorie</option>
+                  <option value="">{t('filters.allCategories')}</option>
                   <option value="Finanční poradce">Finanční poradce</option>
                   <option value="Realitní makléř">Realitní makléř</option>
                 </select>
@@ -101,14 +104,14 @@ export default function SearchPage() {
 
               {/* Location Filter */}
               <div className="mb-6">
-                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">Lokalita</label>
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">{t('filters.location')}</label>
                 <select
-                  aria-label="Vyberte lokalitu"
+                  aria-label={t('filters.selectLocation')}
                   className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.location}
                   onChange={(e) => updateFilters({ location: e.target.value })}
                 >
-                  <option value="">Všechny lokality</option>
+                  <option value="">{t('filters.allLocations')}</option>
                   <option value="Praha">Praha</option>
                   <option value="Brno">Brno</option>
                   <option value="Ostrava">Ostrava</option>
@@ -119,7 +122,7 @@ export default function SearchPage() {
               {/* Rating Filter */}
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  Hodnocení minimálně
+                  {t('filters.minRating')}
                 </label>
                 <div className="space-y-2">
                   {[5, 4, 3].map((rating) => (
@@ -134,7 +137,7 @@ export default function SearchPage() {
                         }
                         className="h-4 w-4 text-blue-600"
                       />
-                      <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">{rating}+ hvězdiček</span>
+                      <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">{t('filters.stars', { count: rating })}</span>
                     </label>
                   ))}
                 </div>
@@ -149,18 +152,18 @@ export default function SearchPage() {
                     checked={filters.verified}
                     onChange={(e) => updateFilters({ verified: e.target.checked })}
                   />
-                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">Pouze ověření specialisté</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">{t('filters.verifiedOnly')}</span>
                 </label>
               </div>
 
               {/* Price Filter */}
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  Maximální cena (Kč/hod)
+                  {t('filters.maxPrice')}
                 </label>
                 <input
                   type="number"
-                  placeholder="např. 1000"
+                  placeholder={t('filters.pricePlaceholder')}
                   className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.maxPrice || ''}
                   onChange={(e) =>
@@ -178,9 +181,9 @@ export default function SearchPage() {
           <div className="lg:col-span-3">
             {/* Sort */}
             <div className="mb-4 flex items-center justify-between">
-              <p className="text-sm text-gray-600 dark:text-muted-foreground">Seřadit podle:</p>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground">{t('sort.label')}</p>
               <select
-                aria-label="Seřadit výsledky"
+                aria-label={t('sort.sortResults')}
                 className="rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                 value={filters.sortBy}
                 onChange={(e) =>
@@ -189,10 +192,10 @@ export default function SearchPage() {
                   })
                 }
               >
-                <option value="rating">Nejlepší hodnocení</option>
-                <option value="price-asc">Cena: od nejnižší</option>
-                <option value="price-desc">Cena: od nejvyšší</option>
-                <option value="newest">Nově přidaní</option>
+                <option value="rating">{t('sort.bestRating')}</option>
+                <option value="price-asc">{t('sort.priceAsc')}</option>
+                <option value="price-desc">{t('sort.priceDesc')}</option>
+                <option value="newest">{t('sort.newest')}</option>
               </select>
             </div>
 
@@ -201,7 +204,7 @@ export default function SearchPage() {
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
                   <div className="mb-4 text-4xl">⏳</div>
-                  <p className="text-gray-600 dark:text-muted-foreground">Načítání specialistů...</p>
+                  <p className="text-gray-600 dark:text-muted-foreground">{t('loadingSpecialists')}</p>
                 </div>
               </div>
             )}
@@ -210,7 +213,7 @@ export default function SearchPage() {
             {error && (
               <div className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-950/20 dark:border-red-800 p-6 text-center">
                 <p className="text-red-600 dark:text-red-400">
-                  Chyba při načítání specialistů. Zkuste to prosím znovu.
+                  {t('loadErrorLong')}
                 </p>
               </div>
             )}
@@ -222,10 +225,10 @@ export default function SearchPage() {
                   <div className="rounded-lg border dark:border-border bg-white dark:bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-foreground">
-                      Žádní specialisté nenalezeni
+                      {t('empty.title')}
                     </h3>
                     <p className="text-gray-600 dark:text-muted-foreground">
-                      Zkuste změnit filtry nebo hledejte v jiné lokalitě.
+                      {t('empty.description')}
                     </p>
                   </div>
                 ) : (
@@ -244,7 +247,7 @@ export default function SearchPage() {
                       disabled={page <= 1}
                       onClick={() => setPage(page - 1)}
                     >
-                      Předchozí
+                      {tCommon('actions.previous')}
                     </button>
                     {Array.from({ length: data.totalPages }, (_, i) => i + 1).map((p) => (
                       <button
@@ -264,7 +267,7 @@ export default function SearchPage() {
                       disabled={page >= data.totalPages}
                       onClick={() => setPage(page + 1)}
                     >
-                      Další
+                      {tCommon('actions.next')}
                     </button>
                   </div>
                 )}

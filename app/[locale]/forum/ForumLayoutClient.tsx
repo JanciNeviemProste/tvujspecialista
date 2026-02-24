@@ -1,7 +1,7 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageSquare, Home, PenSquare, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
@@ -13,31 +13,32 @@ interface ForumLayoutClientProps {
 export default function ForumLayoutClient({ children }: ForumLayoutClientProps) {
   const pathname = usePathname();
   const { isAuthenticated } = useAuth();
+  const t = useTranslations('forum');
 
   const getBreadcrumbs = () => {
     if (pathname === '/forum') {
-      return [{ label: 'Fórum', href: '/forum' }];
+      return [{ label: t('breadcrumbs.forum'), href: '/forum' }];
     }
     if (pathname === '/forum/nova-tema') {
       return [
-        { label: 'Fórum', href: '/forum' },
-        { label: 'Nová téma', href: '/forum/nova-tema' },
+        { label: t('breadcrumbs.forum'), href: '/forum' },
+        { label: t('breadcrumbs.newTopic'), href: '/forum/nova-tema' },
       ];
     }
     if (pathname?.match(/^\/forum\/[^/]+\/[^/]+$/)) {
       return [
-        { label: 'Fórum', href: '/forum' },
-        { label: 'Kategória', href: `/forum/${pathname.split('/')[2]}` },
-        { label: 'Téma', href: pathname },
+        { label: t('breadcrumbs.forum'), href: '/forum' },
+        { label: t('breadcrumbs.category'), href: `/forum/${pathname.split('/')[2]}` },
+        { label: t('breadcrumbs.topic'), href: pathname },
       ];
     }
     if (pathname?.match(/^\/forum\/[^/]+$/)) {
       return [
-        { label: 'Fórum', href: '/forum' },
-        { label: 'Kategória', href: pathname },
+        { label: t('breadcrumbs.forum'), href: '/forum' },
+        { label: t('breadcrumbs.category'), href: pathname },
       ];
     }
-    return [{ label: 'Fórum', href: '/forum' }];
+    return [{ label: t('breadcrumbs.forum'), href: '/forum' }];
   };
 
   const breadcrumbs = getBreadcrumbs();
@@ -58,7 +59,7 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span className="hidden sm:inline">Kategórie</span>
+                <span className="hidden sm:inline">{t('nav.categories')}</span>
               </Link>
               {isAuthenticated && (
                 <>
@@ -70,14 +71,14 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
                     )}
                   >
                     <PenSquare className="h-4 w-4" />
-                    <span className="hidden sm:inline">Nová téma</span>
+                    <span className="hidden sm:inline">{t('nav.newTopic')}</span>
                   </Link>
                   <Link
                     href="/profi/dashboard"
                     className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">Dashboard</span>
+                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
                   </Link>
                 </>
               )}
@@ -87,7 +88,7 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
             <div className="flex items-center gap-2 text-sm font-semibold">
               <MessageSquare className="h-5 w-5 text-primary" />
               <span className="hidden sm:inline bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Fórum
+                {t('branding')}
               </span>
             </div>
           </div>

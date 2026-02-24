@@ -2,8 +2,9 @@
 
 import React, { useState, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslations } from 'next-intl';
 import { useMyDeals, useUpdateDealStatus, useUpdateDealValue, useCloseDeal, useReopenDeal, useDealAnalytics } from '@/lib/hooks/useDeals';
 import { Deal, DealStatus, DealFilters as DealFiltersType } from '@/types/deals';
 import { DealKanban } from '@/components/deals/DealKanban';
@@ -40,6 +41,7 @@ const DealDetailModal = dynamic(
 type ViewMode = 'kanban' | 'list';
 
 export default function DealsPage() {
+  const t = useTranslations('dashboard.deals');
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const { data: deals, isLoading: dealsLoading } = useMyDeals();
@@ -153,7 +155,7 @@ export default function DealsPage() {
   const handleValueSubmit = useCallback(async (dealId: string, data: { dealValue: number; estimatedCloseDate: string }) => {
     try {
       await updateValue.mutateAsync({ id: dealId, data });
-      toast.success('Hodnota dealu bola úspešne nastavená');
+      toast.success(t('valueSetSuccess'));
       setValueModalOpen(false);
       setSelectedDeal(null);
     } catch (error: unknown) {
@@ -169,8 +171,8 @@ export default function DealsPage() {
       await closeDeal.mutateAsync({ id: dealId, data });
       toast.success(
         data.status === DealStatus.CLOSED_WON
-          ? 'Deal bol úspešne uzavretý! Provízia bola vytvorená.'
-          : 'Deal bol označený ako stratený.'
+          ? t('closedWonSuccess')
+          : t('closedLostSuccess')
       );
       setCloseModalOpen(false);
       setSelectedDeal(null);
@@ -183,7 +185,7 @@ export default function DealsPage() {
     await measureExportPerformance('CSV', () => {
       exportDealsToCSV(filteredDeals);
     }, { dealsCount: filteredDeals.length });
-    toast.success(`Exportovaných ${filteredDeals.length} dealov`);
+    toast.success(t('exported', { count: filteredDeals.length }));
   }, [filteredDeals]);
 
   // Redirect if not authenticated
@@ -216,30 +218,30 @@ export default function DealsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Deal Pipeline</h1>
-          <p className="text-muted-foreground">Spravujte svoje obchodné príležitosti</p>
+          <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
+          <p className="text-muted-foreground">{t('subtitle')}</p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
           <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">Celkom</p>
+            <p className="text-sm text-muted-foreground">{t('stats.total')}</p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
           <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">Nové</p>
+            <p className="text-sm text-muted-foreground">{t('stats.new')}</p>
             <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
           </div>
           <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">V procese</p>
+            <p className="text-sm text-muted-foreground">{t('stats.inProgress')}</p>
             <p className="text-2xl font-bold text-orange-600">{stats.inProgress}</p>
           </div>
           <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">Získané</p>
+            <p className="text-sm text-muted-foreground">{t('stats.won')}</p>
             <p className="text-2xl font-bold text-green-600">{stats.won}</p>
           </div>
           <div className="p-4 rounded-lg border bg-card">
-            <p className="text-sm text-muted-foreground">Hodnota</p>
+            <p className="text-sm text-muted-foreground">{t('stats.value')}</p>
             <p className="text-2xl font-bold">
               {new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' }).format(stats.totalValue)}
             </p>
@@ -261,7 +263,7 @@ export default function DealsPage() {
             className="gap-2"
           >
             {showAnalytics ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            {showAnalytics ? 'Skryť analytiku' : 'Zobraziť analytiku'}
+            {showAnalytics ? t('hideAnalytics') : t('showAnalytics')}
           </Button>
 
           <Button
@@ -271,7 +273,7 @@ export default function DealsPage() {
             className="gap-2"
           >
             <Download className="h-4 w-4" />
-            Exportovať CSV
+            {t('exportCsv')}
           </Button>
 
           {/* View toggle */}
@@ -306,11 +308,11 @@ export default function DealsPage() {
         {filteredDeals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="text-6xl mb-4">📭</div>
-            <h3 className="text-xl font-semibold mb-2">Žiadne dealy</h3>
+            <h3 className="text-xl font-semibold mb-2">{t('empty.title')}</h3>
             <p className="text-muted-foreground">
               {filters.search || filters.status !== 'all' || filters.dateRange.from || filters.dateRange.to
-                ? 'Skúste zmeniť filtre'
-                : 'Zatiaľ nemáte žiadne obchodné príležitosti'}
+                ? t('empty.tryFilters')
+                : t('empty.noDeals')}
             </p>
           </div>
         ) : viewMode === 'kanban' ? (

@@ -669,6 +669,22 @@
       "metadata": {
         "title": "Provize | tvujspecialista.cz",
         "description": "Přehled provizí z obchodních příležitostí."
+      },
+      "pay": {
+        "loading": "Načítání...",
+        "back": "Zpět na provize",
+        "error": "Chyba",
+        "notFound": "Provize nebyla nalezena",
+        "summaryTitle": "Přehled provize",
+        "deal": "Deal",
+        "dealValue": "Hodnota dealu",
+        "commissionRate": "Sazba provize",
+        "amountDue": "Částka k zaplacení",
+        "dueDate": "Splatnost",
+        "paymentTitle": "Platba kartou",
+        "loadingPayment": "Načítání platebních údajů...",
+        "successTitle": "Platba úspěšná!",
+        "successMessage": "Vaše platba byla úspěšně zpracována. Budete přesměrováni na seznam provizí..."
       }
     },
     "admin": {
@@ -762,6 +778,122 @@
     "metadata": {
       "title": "Akademie | tvujspecialista.cz",
       "description": "Vzdělávací kurzy pro finanční poradce a realitní makléře."
+    },
+    "hero": {
+      "title": "Rozviňte svou kariéru s naší akademií",
+      "subtitle": "Prémiové online kurzy pro realitní agenty a finanční poradce",
+      "exploreButton": "Prozkoumat kurzy"
+    },
+    "benefits": {
+      "quality": {
+        "title": "Kvalitní vzdělávání",
+        "description": "Kurzy vytvořené odbornými lektory s dlouholetou praxí"
+      },
+      "flexible": {
+        "title": "Flexibilní tempo",
+        "description": "Studujte kdykoli a kdekoli podle vlastního tempa"
+      },
+      "certificates": {
+        "title": "Certifikáty",
+        "description": "Po úspěšném absolvování získáte oficiální certifikát"
+      }
+    },
+    "featured": {
+      "title": "Nejoblíbenější kurzy",
+      "subtitle": "Vybrali jsme pro vás ty nejlepší kurzy z naší nabídky",
+      "loadError": "Chyba při načítání kurzů. Zkuste to prosím znovu.",
+      "empty": "Zatím nejsou k dispozici žádné featured kurzy.",
+      "ctaTitle": "Připraveni začít?",
+      "ctaSubtitle": "Prohlédněte si náš kompletní katalog kurzů a najděte ten správný pro vás",
+      "ctaButton": "Zobrazit všechny kurzy"
+    },
+    "courses": {
+      "title": "Katalog kurzů",
+      "loading": "Načítání...",
+      "loadError": "Chyba při načítání kurzů",
+      "loadErrorLong": "Chyba při načítání kurzů. Zkuste to prosím znovu.",
+      "filters": {
+        "title": "Filtry",
+        "clear": "Vymazat",
+        "search": "Hledat",
+        "searchPlaceholder": "Název, lektor...",
+        "category": "Kategorie",
+        "allCategories": "Všechny kategorie",
+        "catRealEstate": "Reality",
+        "catFinancial": "Finance",
+        "catBoth": "Reality & Finance",
+        "level": "Úroveň",
+        "allLevels": "Všechny úrovně",
+        "levelBeginner": "Začátečník",
+        "levelIntermediate": "Střední",
+        "levelAdvanced": "Pokročilý",
+        "featuredOnly": "Pouze featured kurzy"
+      },
+      "empty": {
+        "title": "Žádné kurzy",
+        "description": "Zkuste změnit filtry nebo hledejte jiná klíčová slova.",
+        "clearFilters": "Vymazat filtry"
+      }
+    },
+    "courseDetail": {
+      "notFound": "Kurz nenalezen",
+      "notFoundDesc": "Omlouváme se, ale tento kurz neexistuje nebo byl odstraněn.",
+      "backToCatalog": "Zpět na katalog",
+      "ratings": "hodnocení",
+      "students": "studentů",
+      "instructor": "Lektor",
+      "curriculum": "Obsah kurzu",
+      "loginRequired": "Pro přístup ke kurzu se musíte přihlásit",
+      "login": "Přihlásit se",
+      "yourProgress": "Váš pokrok",
+      "completed": "dokončeno",
+      "continueLearning": "Pokračovat ve studiu",
+      "getAccess": "Získejte přístup k tomuto kurzu",
+      "enrolling": "Zapisuji...",
+      "enroll": "Zapsat se do kurzu",
+      "enrollSuccess": "Úspěšně jste se zapsali do kurzu!",
+      "courseInfo": "Informace o kurzu",
+      "duration": "Trvání:",
+      "lessonCount": "Počet lekcí:",
+      "level": "Úroveň:",
+      "category": "Kategorie:",
+      "levelBeginner": "Začátečník",
+      "levelIntermediate": "Střední",
+      "levelAdvanced": "Pokročilý",
+      "catRealEstate": "Reality",
+      "catFinancial": "Finance",
+      "catBoth": "Reality & Finance"
+    },
+    "learn": {
+      "loading": "Načítání kurzu...",
+      "backToCourse": "Zpět na kurz",
+      "prevLesson": "Předchozí lekce",
+      "markingComplete": "Označuji...",
+      "completed": "Dokončeno",
+      "markComplete": "Označit jako dokončeno",
+      "complete": "Dokončit",
+      "nextLesson": "Další lekce"
+    },
+    "myLearning": {
+      "title": "Moje vzdělávání",
+      "subtitle": "Přehled vašich kurzů a pokroku",
+      "stats": {
+        "activeCourses": "Aktivních kurzů",
+        "completedCourses": "Dokončených kurzů",
+        "avgProgress": "Průměrný pokrok",
+        "totalWatchTime": "Celkový čas sledování"
+      },
+      "continueLearning": "Pokračovat ve studiu",
+      "emptyActive": {
+        "heading": "Zatím nemáte žádné aktivní kurzy",
+        "description": "Začněte se učit prozkoumáním naší nabídky kurzů",
+        "button": "Prozkoumat kurzy"
+      },
+      "completedSection": "Dokončené kurzy",
+      "emptyCompleted": {
+        "heading": "Zatím jste nedokončili žádný kurz",
+        "description": "Pokračujte ve studiu a dokončete svůj první kurz"
+      }
     }
   },
   "community": {
@@ -781,6 +913,105 @@
     "metadata": {
       "title": "Komunita | tvujspecialista.cz",
       "description": "Komunitní eventy a setkání pro profesionály."
+    },
+    "hero": {
+      "title": "Staňte se součástí naší komunity",
+      "subtitle": "Připojte se k networkingu, workshopům a eventům pro realitní agenty a finanční poradce",
+      "exploreButton": "Prozkoumat eventy"
+    },
+    "benefits": {
+      "networking": {
+        "title": "Networking",
+        "description": "Setkávejte se s profesionály z vašeho odvětví a rozšiřujte svou síť kontaktů"
+      },
+      "exclusiveEvents": {
+        "title": "Exkluzivní eventy",
+        "description": "Workshopy, webináře a konference speciálně pro naši komunitu"
+      },
+      "careerGrowth": {
+        "title": "Růst kariéry",
+        "description": "Vzdělávejte se, inspirujte a rozvíjejte svou profesní kariéru"
+      }
+    },
+    "upcomingEvents": {
+      "title": "Nadcházející eventy",
+      "subtitle": "Nenechte si ujít naše nejbližší akce",
+      "loadError": "Chyba při načítání eventů. Zkuste to prosím znovu.",
+      "empty": "Zatím nejsou naplánované žádné eventy.",
+      "ctaTitle": "Připraveni se zapojit?",
+      "ctaSubtitle": "Prohlédněte si všechny plánované eventy a zaregistrujte se na ty, které vás zajímají",
+      "ctaButton": "Zobrazit všechny eventy"
+    },
+    "eventsCatalog": {
+      "title": "Katalog eventů",
+      "loading": "Načítání...",
+      "loadError": "Chyba při načítání eventů",
+      "loadErrorLong": "Chyba při načítání eventů. Zkuste to prosím znovu.",
+      "filters": {
+        "title": "Filtry",
+        "clear": "Vymazat",
+        "search": "Hledat",
+        "searchPlaceholder": "Název, místo...",
+        "eventType": "Typ eventu",
+        "allTypes": "Všechny typy",
+        "typeWorkshop": "Workshop",
+        "typeNetworking": "Networking",
+        "typeConference": "Konference",
+        "typeWebinar": "Webinář",
+        "typeMeetup": "Meetup",
+        "format": "Formát",
+        "allFormats": "Všechny formáty",
+        "formatOnline": "Online",
+        "formatOffline": "Offline",
+        "category": "Kategorie",
+        "allCategories": "Všechny kategorie",
+        "catRealEstate": "Reality",
+        "catFinancial": "Finance",
+        "catBoth": "Reality & Finance",
+        "featuredOnly": "Pouze featured eventy"
+      },
+      "empty": {
+        "title": "Žádné eventy",
+        "description": "Zkuste změnit filtry nebo hledejte jiná klíčová slova.",
+        "clearFilters": "Vymazat filtry"
+      }
+    },
+    "eventDetail": {
+      "about": "O eventu",
+      "organizer": "Organizátor",
+      "tags": "Tagy",
+      "info": "Informace o eventu",
+      "onlineMeeting": "Online setkání",
+      "joinLink": "Připojit se",
+      "linkAfterRegistration": "Link dostupný po registraci",
+      "fullyBooked": "Obsazeno",
+      "category": "Kategorie",
+      "price": "Cena",
+      "free": "Zdarma",
+      "alreadyRegistered": "Již jste registrováni",
+      "registering": "Registruji...",
+      "register": "Registrovat se",
+      "confirmationEmailSent": "Potvrzující e-mail byl odeslán",
+      "notFound": "Event nenalezen nebo došlo k chybě při načítání."
+    },
+    "myEvents": {
+      "title": "Moje eventy",
+      "subtitle": "Spravujte své registrace na eventy",
+      "cancelConfirm": "Opravdu chcete zrušit svou registraci?",
+      "tabs": {
+        "registered": "Přihlášené eventy ({count})",
+        "past": "Minulé eventy ({count})"
+      },
+      "loadError": "Chyba při načítání registrací. Zkuste to prosím znovu.",
+      "emptyActive": {
+        "title": "Žádné aktivní registrace",
+        "description": "Zatím jste se nezaregistrovali na žádný event.",
+        "exploreLink": "Prozkoumat eventy"
+      },
+      "emptyPast": {
+        "title": "Žádné minulé eventy",
+        "description": "Zde se zobrazí eventy, kterých jste se zúčastnili nebo zrušili."
+      }
     }
   },
   "forum": {
@@ -800,6 +1031,30 @@
     "metadata": {
       "title": "Fórum | tvujspecialista.cz",
       "description": "Diskusní fórum pro specialisty."
+    },
+    "title": "Diskusní fórum",
+    "subtitle": "Sdílejte zkušenosti, rady a odborné znalosti s ostatními specialisty.",
+    "newTopicButton": "Nová téma",
+    "emptyCategories": {
+      "title": "Zatím žádné kategorie",
+      "description": "Fórum bude brzy k dispozici."
+    },
+    "category": {
+      "searchPlaceholder": "Hledat témata...",
+      "empty": {
+        "title": "Zatím žádná témata",
+        "searchHint": "Zkuste změnit vyhledávání",
+        "noTopicsHint": "Buďte první, kdo otevře diskusi!",
+        "createButton": "Vytvořit téma"
+      },
+      "pagination": "Strana {page} z {total}"
+    },
+    "topic": {
+      "notFound": "Téma nenalezena",
+      "notFoundDesc": "Toto téma neexistuje nebo bylo odstraněno.",
+      "deleteConfirm": "Opravdu chcete smazat tento příspěvek?",
+      "replies": "Odpovědi ({count})",
+      "locked": "Toto téma je uzamčeno. Nelze přidávat odpovědi."
     }
   },
   "subscription": {

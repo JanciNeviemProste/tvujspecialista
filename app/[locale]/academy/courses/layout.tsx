@@ -1,9 +1,13 @@
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Katalóg kurzov | Akademie | tvujspecialista.cz',
-  description: 'Prehliadajte naše kurzy pre realitných agentov a finančných poradcov. Filtrujte podľa kategórie a úrovne.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'academy' });
+  return { title: t('metadata.title'), description: t('metadata.description') };
+}
 
 export default function CoursesLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

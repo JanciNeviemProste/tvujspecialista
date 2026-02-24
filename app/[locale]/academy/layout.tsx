@@ -1,10 +1,14 @@
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 import AcademyLayoutClient from './AcademyLayoutClient';
 
-export const metadata: Metadata = {
-  title: 'Akademie | tvujspecialista.cz',
-  description: 'Prémiové online kurzy pro realitní agenty a finanční poradce. Rozvíjejte své dovednosti s experty z praxe.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'academy' });
+  return { title: t('metadata.title'), description: t('metadata.description') };
+}
 
 export default function AcademyLayout({ children }: { children: React.ReactNode }) {
   return <AcademyLayoutClient>{children}</AcademyLayoutClient>;

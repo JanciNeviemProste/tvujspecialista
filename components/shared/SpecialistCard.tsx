@@ -1,4 +1,7 @@
+'use client'
+
 import { memo } from 'react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { RatingStars } from './RatingStars'
 
@@ -19,6 +22,8 @@ interface SpecialistCardProps {
 }
 
 export const SpecialistCard = memo(function SpecialistCard({ specialist }: SpecialistCardProps) {
+  const tCommon = useTranslations('common')
+  const tSpecialist = useTranslations('specialist')
   return (
     <a
       href={`/specialista/${specialist.slug}`}
@@ -42,12 +47,12 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
             <h3 className="text-lg font-semibold text-gray-900">{specialist.name}</h3>
             {specialist.verified && (
               <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
-                Ověřený
+                {tCommon('status.verified')}
               </span>
             )}
             {specialist.topSpecialist && (
               <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">
-                Top
+                {tCommon('status.top')}
               </span>
             )}
           </div>
@@ -63,11 +68,11 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
           <p className="mb-3 line-clamp-2 text-sm text-gray-700">{specialist.bio}</p>
 
           {specialist.hourlyRate > 0 && (
-            <p className="text-sm font-medium text-gray-900">Od {specialist.hourlyRate} Kč/hod</p>
+            <p className="text-sm font-medium text-gray-900">{tSpecialist('priceFrom', { price: specialist.hourlyRate })}</p>
           )}
 
           <button className="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
-            Kontaktovat
+            {tCommon('actions.contact')}
           </button>
         </div>
       </div>

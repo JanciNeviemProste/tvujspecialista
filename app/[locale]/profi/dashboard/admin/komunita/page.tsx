@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useRouter } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { communityApi } from '@/lib/api/community';
 import { adminApi } from '@/lib/api/admin';
@@ -150,6 +151,7 @@ function AttendeesPanel({ eventId }: { eventId: string }) {
 
 export default function AdminCommunityPage() {
   const router = useRouter();
+  const t = useTranslations('dashboard.admin.community');
   const { user, isLoading: authLoading } = useAuth();
   const queryClient = useQueryClient();
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -216,7 +218,7 @@ export default function AdminCommunityPage() {
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <Calendar className="h-6 w-6 text-accent-500" />
-            Správa komunity
+            {t('title')}
           </h1>
           <p className="text-muted-foreground mt-1">{Array.isArray(eventsList) ? eventsList.length : 0} eventov</p>
         </div>

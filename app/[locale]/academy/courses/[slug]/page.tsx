@@ -1,6 +1,7 @@
 'use client'
 
 import { use, useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { CourseCurriculum } from '@/components/academy/CourseCurriculum'
 import { CourseCardSkeleton, CurriculumSkeleton } from '@/components/academy/LoadingStates'
 import { useCourse, useEnroll, useMyEnrollments, useEnrollmentProgress } from '@/lib/hooks/useAcademy'
@@ -12,8 +13,8 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Clock, BookOpen, Star, Users, GraduationCap } from 'lucide-react'
 import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { Link } from '@/i18n/routing'
+import { useRouter } from '@/i18n/routing'
 import { CourseLevel, CourseCategory } from '@/types/academy'
 import { getErrorMessage } from '@/lib/utils/error'
 
@@ -30,27 +31,27 @@ function formatDuration(minutes: number): string {
   return mins > 0 ? `${hours}h ${mins}min` : `${hours}h`
 }
 
-function getLevelLabel(level: CourseLevel): string {
+function getLevelLabel(level: CourseLevel, t: (key: string) => string): string {
   switch (level) {
     case CourseLevel.BEGINNER:
-      return 'Začiatočník'
+      return t('courseDetail.levelBeginner')
     case CourseLevel.INTERMEDIATE:
-      return 'Stredný'
+      return t('courseDetail.levelIntermediate')
     case CourseLevel.ADVANCED:
-      return 'Pokročilý'
+      return t('courseDetail.levelAdvanced')
     default:
       return level
   }
 }
 
-function getCategoryLabel(category: CourseCategory): string {
+function getCategoryLabel(category: CourseCategory, t: (key: string) => string): string {
   switch (category) {
     case CourseCategory.REAL_ESTATE:
-      return 'Reality'
+      return t('courseDetail.catRealEstate')
     case CourseCategory.FINANCIAL:
-      return 'Finance'
+      return t('courseDetail.catFinancial')
     case CourseCategory.BOTH:
-      return 'Reality & Finance'
+      return t('courseDetail.catBoth')
     default:
       return category
   }
@@ -60,6 +61,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
   const { slug } = use(params)
   const router = useRouter()
   const { user, isAuthenticated } = useAuth()
+  const t = useTranslations('academy')
   const { data: course, isLoading: courseLoading, error: courseError } = useCourse(slug)
 
   // Get all user enrollments and find the one for this course
@@ -84,7 +86,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
       await enrollMutation.mutateAsync(course.id)
       setToastMessage({
         type: 'success',
-        message: 'Úspešne ste sa zapísali do kurzu!'
+        message: t('courseDetail.enrollSuccess')
       })
     } catch (error: unknown) {
       setToastMessage({
@@ -103,13 +105,6 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
       return () => clearTimeout(timer)
     }
   }, [toastMessage])
-
-  // Set page title — MUST be before early returns (Rules of Hooks)
-  useEffect(() => {
-    if (course) {
-      document.title = `${course.title} | Akadémia | tvujspecialista.cz`
-    }
-  }, [course])
 
   if (courseLoading) {
     return (
@@ -137,14 +132,14 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
         <div className="container mx-auto px-4 py-20">
           <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-8 text-center">
             <h2 className="mb-2 text-xl font-semibold text-destructive">
-              Kurz nenájdený
+              {t('courseDetail.notFound')}
             </h2>
             <p className="mb-4 text-muted-foreground">
-              Ospravedlňujeme sa, ale tento kurz neexistuje alebo bol odstránený.
+              {t('courseDetail.notFoundDesc')}
             </p>
             <Link href="/academy/courses">
               <Button variant="outline">
-                Späť na katalóg
+                {t('courseDetail.backToCatalog')}
               </Button>
             </Link>
           </div>
@@ -177,7 +172,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
             {/* Course Header */}
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <Badge variant="default">{getLevelLabel(course.level)}</Badge>
+                <Badge variant="default">{getLevelLabel(course.level, t)}</Badge>
                 {course.featured && (
                   <Badge variant="gold">Featured</Badge>
                 )}
@@ -194,11 +189,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 <div className="flex items-center gap-2">
                   <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
                   <span className="font-semibold">{course.rating.toFixed(1)}</span>
-                  <span className="text-muted-foreground">({course.reviewCount} hodnotení)</span>
+                  <span className="text-muted-foreground">({course.reviewCount} {t('courseDetail.ratings')})</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-muted-foreground" />
-                  <span>{course.enrollmentCount} študentov</span>
+                  <span>{course.enrollmentCount} {t('courseDetail.students')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-muted-foreground" />
@@ -226,7 +221,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <GraduationCap className="h-5 w-5" />
-                  Lektor
+                  {t('courseDetail.instructor')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -248,7 +243,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
             {/* Course Curriculum */}
             {course.modules && course.modules.length > 0 && (
               <div>
-                <h2 className="mb-4 text-2xl font-bold">Obsah kurzu</h2>
+                <h2 className="mb-4 text-2xl font-bold">{t('courseDetail.curriculum')}</h2>
                 <CourseCurriculum
                   modules={course.modules}
                   enrollmentId={enrollment?.id}
@@ -267,33 +262,33 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                   {!isAuthenticated ? (
                     <>
                       <p className="text-sm text-muted-foreground">
-                        Pre prístup ku kurzu sa musíte prihlásiť
+                        {t('courseDetail.loginRequired')}
                       </p>
                       <Link href="/profi/prihlaseni" className="w-full">
                         <Button variant="default" className="w-full">
-                          Prihlásiť sa
+                          {t('courseDetail.login')}
                         </Button>
                       </Link>
                     </>
                   ) : isEnrolled ? (
                     <>
                       <div className="space-y-2">
-                        <p className="text-sm font-medium">Váš pokrok</p>
+                        <p className="text-sm font-medium">{t('courseDetail.yourProgress')}</p>
                         <Progress value={enrollment.progress} className="h-3" />
                         <p className="text-xs text-muted-foreground text-right">
-                          {Math.round(enrollment.progress)}% dokončené
+                          {Math.round(enrollment.progress)}% {t('courseDetail.completed')}
                         </p>
                       </div>
                       <Link href={`/academy/learn/${course.slug}`} className="w-full">
                         <Button variant="premium" className="w-full">
-                          Pokračovať v učení
+                          {t('courseDetail.continueLearning')}
                         </Button>
                       </Link>
                     </>
                   ) : (
                     <>
                       <p className="text-sm text-muted-foreground">
-                        Získajte prístup k tomuto kurzu
+                        {t('courseDetail.getAccess')}
                       </p>
                       <Button
                         variant="premium"
@@ -302,7 +297,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                         loading={enrollMutation.isPending}
                         disabled={enrollMutation.isPending}
                       >
-                        {enrollMutation.isPending ? 'Zapisujem...' : 'Zapísať sa do kurzu'}
+                        {enrollMutation.isPending ? t('courseDetail.enrolling') : t('courseDetail.enroll')}
                       </Button>
                     </>
                   )}
@@ -312,24 +307,24 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
               {/* Course Info Card */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Informácie o kurze</CardTitle>
+                  <CardTitle>{t('courseDetail.courseInfo')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Trvanie:</span>
+                    <span className="text-muted-foreground">{t('courseDetail.duration')}</span>
                     <span className="font-medium">{formatDuration(course.duration)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Počet lekcií:</span>
+                    <span className="text-muted-foreground">{t('courseDetail.lessonCount')}</span>
                     <span className="font-medium">{course.lessonCount}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Úroveň:</span>
-                    <span className="font-medium">{getLevelLabel(course.level)}</span>
+                    <span className="text-muted-foreground">{t('courseDetail.level')}</span>
+                    <span className="font-medium">{getLevelLabel(course.level, t)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Kategória:</span>
-                    <span className="font-medium">{getCategoryLabel(course.category)}</span>
+                    <span className="text-muted-foreground">{t('courseDetail.category')}</span>
+                    <span className="font-medium">{getCategoryLabel(course.category, t)}</span>
                   </div>
                 </CardContent>
               </Card>

@@ -5,7 +5,7 @@
       "search": "Search",
       "searchSpecialist": "Find a specialist",
       "pricing": "Pricing",
-      "login": "Sign in",
+      "login": "Log in",
       "register": "Register for free",
       "academy": "Academy",
       "community": "Community",
@@ -15,7 +15,10 @@
       "loggedAs": "Logged in as:",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
-      "mainNavigation": "Main navigation"
+      "mainNavigation": "Main navigation",
+      "forSpecialists": "For specialists",
+      "logout": "Log out",
+      "account": "Account"
     },
     "footer": {
       "description": "Marketplace for finding verified specialists",
@@ -23,11 +26,14 @@
       "forSpecialists": "For specialists",
       "legalInfo": "Legal information",
       "aboutUs": "About us",
-      "login": "Sign in",
+      "login": "Log in",
       "registration": "Registration",
-      "rules": "Terms of service",
-      "privacy": "Privacy policy",
-      "copyright": "© {year} tvujspecialista.cz. All rights reserved."
+      "rules": "Terms",
+      "privacy": "Privacy",
+      "copyright": "© {year} tvujspecialista.cz. All rights reserved.",
+      "pricelist": "Pricing",
+      "terms": "Terms of service",
+      "privacyPolicy": "Privacy policy"
     },
     "locale": {
       "cs": "Čeština",
@@ -35,6 +41,84 @@
       "pl": "Polski",
       "en": "English",
       "switchLanguage": "Change language"
+    },
+    "actions": {
+      "back": "Back",
+      "backToHome": "← Back to home",
+      "backToLogin": "← Back to log in",
+      "backToDashboard": "Back to Dashboard",
+      "backToSearch": "Back to search",
+      "submit": "Submit",
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "close": "Close",
+      "contact": "Contact",
+      "showAll": "Show all",
+      "previous": "Previous",
+      "next": "Next",
+      "loading": "Loading...",
+      "saving": "Saving...",
+      "sending": "Sending...",
+      "findSpecialist": "Find a specialist",
+      "becomeSpecialist": "Become a specialist"
+    },
+    "validation": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Please enter a valid phone number",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters",
+      "passwordUppercase": "Password must contain at least one uppercase letter",
+      "passwordLowercase": "Password must contain at least one lowercase letter",
+      "passwordDigit": "Password must contain at least one digit",
+      "confirmPasswordRequired": "Password confirmation is required",
+      "passwordMismatch": "Passwords do not match",
+      "categoryRequired": "Category is required",
+      "locationRequired": "Location is required",
+      "experienceRequired": "Years of experience is required",
+      "bioRequired": "Service description is required",
+      "bioMinLength": "Bio must be at least 10 characters",
+      "bioMaxLength": "Bio may not exceed 2000 characters",
+      "termsRequired": "You must agree to the terms of service",
+      "gdprRequired": "You must agree to the processing of personal data",
+      "subjectRequired": "Subject is required",
+      "messageRequired": "Message is required",
+      "nameMinLength": "Name must be at least 2 characters",
+      "servicesRequired": "Please enter at least one service",
+      "urlInvalid": "Please enter a valid URL",
+      "hourlyRateInvalid": "Hourly rate must be a positive number",
+      "currentPasswordRequired": "Please enter your current password",
+      "newPasswordRequired": "Please confirm your new password"
+    },
+    "status": {
+      "new": "New",
+      "contacted": "Contacted",
+      "qualified": "Qualified",
+      "closedWon": "Closed",
+      "closedLost": "Lost",
+      "verified": "Verified",
+      "verifiedReview": "Verified review",
+      "top": "Top"
+    },
+    "errors": {
+      "generic": "An error occurred. Please try again.",
+      "loadFailed": "Failed to load data",
+      "saveFailed": "Failed to save data",
+      "sendFailed": "Failed to send"
+    },
+    "categories": {
+      "financialAdvisor": "Financial advisor",
+      "realEstateAgent": "Real estate agent"
+    },
+    "locations": {
+      "prague": "Prague",
+      "brno": "Brno",
+      "ostrava": "Ostrava",
+      "pilsen": "Pilsen"
     }
   },
   "home": {
@@ -45,17 +129,17 @@
     "categories": {
       "title": "Choose a specialist category",
       "financialAdvisor": "Financial advisor",
-      "financialAdvisorDesc": "Comprehensive financial consulting - mortgages, insurance, investments and loans",
+      "financialAdvisorDesc": "Comprehensive financial advisory — mortgages, insurance, investments and loans",
       "realEstateAgent": "Real estate agent",
-      "realEstateAgentDesc": "Sale, rental and property management - apartments, houses and commercial spaces",
-      "showSpecialists": "Show specialists"
+      "realEstateAgentDesc": "Sale, rental and management of properties — apartments, houses and commercial spaces",
+      "showSpecialists": "Browse specialists"
     },
     "stats": {
       "specialists": "Verified specialists",
       "specialistsCount": "2,500+",
       "customers": "Satisfied customers",
       "customersCount": "15,000+",
-      "successRate": "Mediation success rate",
+      "successRate": "Placement success rate",
       "successRateValue": "98%"
     },
     "cta": {
@@ -65,7 +149,930 @@
     },
     "metadata": {
       "title": "Find a verified specialist | tvujspecialista.cz",
-      "description": "Marketplace for finding verified specialists in finance and real estate. Compare, read reviews and contact the best ones."
+      "description": "Marketplace for finding verified specialists in finance and real estate in Czech Republic and Slovakia. Compare, read reviews and contact the best."
+    }
+  },
+  "search": {
+    "title": "Find your specialist",
+    "found": "Found",
+    "specialists": "specialists",
+    "loading": "Loading...",
+    "loadError": "Error loading specialists",
+    "loadErrorLong": "Error loading specialists. Please try again.",
+    "loadingSpecialists": "Loading specialists...",
+    "filters": {
+      "title": "Filters",
+      "category": "Category",
+      "selectCategory": "Select category",
+      "allCategories": "All categories",
+      "location": "Location",
+      "selectLocation": "Select location",
+      "allLocations": "All locations",
+      "minRating": "Minimum rating",
+      "stars": "{count}+ stars",
+      "verifiedOnly": "Verified specialists only",
+      "maxPrice": "Maximum price (CZK/hr)",
+      "pricePlaceholder": "e.g. 1000"
+    },
+    "sort": {
+      "label": "Sort by:",
+      "sortResults": "Sort results",
+      "bestRating": "Best rating",
+      "priceAsc": "Price: lowest first",
+      "priceDesc": "Price: highest first",
+      "newest": "Newest"
+    },
+    "empty": {
+      "title": "No specialists found",
+      "description": "Try adjusting your filters or search in a different location."
+    },
+    "metadata": {
+      "title": "Find a specialist | tvujspecialista.cz",
+      "description": "Search for a verified financial advisor or real estate agent near you."
+    }
+  },
+  "pricing": {
+    "hero": {
+      "title": "Simple and transparent pricing",
+      "subtitle": "Choose the plan that best suits your needs. Get started right away — no hidden fees."
+    },
+    "plans": {
+      "monthly": {
+        "name": "Monthly membership",
+        "description": "Full platform access for 1 month",
+        "cta": "Get started for €50/month",
+        "features": {
+          "profile": "Specialist profile in the marketplace",
+          "catalog": "Listing in the catalog and search results",
+          "leads": "Receive inquiries from clients",
+          "reviews": "Reviews and ratings management",
+          "basicStats": "Basic profile statistics",
+          "emailSupport": "Email support",
+          "forumAccess": "Access to the community forum",
+          "academyCourses": "Courses in the Academy section"
+        }
+      },
+      "yearly": {
+        "name": "Annual membership",
+        "description": "Full access at a discounted rate — save €100/year",
+        "cta": "Get started for €500/year",
+        "features": {
+          "allMonthly": "Everything in the monthly plan",
+          "savings": "Save €100 compared to monthly billing",
+          "highlighted": "Highlighted profile in search results",
+          "analytics": "Advanced analytics and statistics",
+          "prioritySupport": "Priority support",
+          "webinars": "Access to exclusive webinars",
+          "events": "Community events and networking"
+        }
+      }
+    },
+    "comparison": {
+      "title": "Feature comparison",
+      "feature": "Feature",
+      "monthlyLabel": "Monthly (€50)",
+      "yearlyLabel": "Annual (€500)",
+      "marketplace": "Marketplace",
+      "education": "Education and community",
+      "support": "Support",
+      "exclusiveWebinars": "Exclusive webinars",
+      "communityEvents": "Community events and networking"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": "Can I change my plan at any time?",
+      "a1": "Yes, you can upgrade or downgrade your plan at any time. When upgrading, the difference is calculated on a pro-rata basis. When downgrading, the change takes effect at the end of the current billing cycle.",
+      "q2": "How does billing work?",
+      "a2": "All plans are billed monthly. Payment is processed automatically via Stripe at the start of each billing period.",
+      "q3": "Can I cancel my subscription?",
+      "a3": "Yes, you can cancel your subscription at any time with no commitment. You will retain access until the end of your paid period.",
+      "q4": "What is the difference between the monthly and annual plan?",
+      "a4": "The annual plan includes everything in the monthly plan plus exclusive bonuses (webinars, VIP support, account manager). You also save €100 per year compared to monthly billing.",
+      "q5": "Is it possible to try before purchasing?",
+      "a5": "We do not currently offer a trial period, but you can purchase any plan and cancel at any time without penalty."
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Join hundreds of professionals already using our platform",
+      "button": "Register for free"
+    },
+    "metadata": {
+      "title": "Pricing | tvujspecialista.cz",
+      "description": "Simple and transparent pricing for specialists. Monthly or annual plan."
+    }
+  },
+  "contact": {
+    "title": "Contact us",
+    "form": {
+      "title": "Send us a message",
+      "name": "Full name *",
+      "namePlaceholder": "John Smith",
+      "email": "Email *",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone (optional)",
+      "phonePlaceholder": "+1 555 123 456",
+      "subject": "Subject *",
+      "selectSubject": "Select subject",
+      "subjectGeneral": "General inquiry",
+      "subjectSpecialist": "Inquiry for specialists",
+      "subjectCustomer": "Inquiry for customers",
+      "subjectTechnical": "Technical support",
+      "subjectPartnership": "Partnership",
+      "message": "Message *",
+      "messagePlaceholder": "Describe your inquiry...",
+      "submit": "Send message",
+      "submitting": "Sending...",
+      "submitSuccess": "Your message has been sent successfully!",
+      "submitError": "Failed to send message"
+    },
+    "info": {
+      "title": "Contact details",
+      "email": "Email",
+      "phone": "Phone",
+      "phoneHours": "Mon–Fri: 9:00 – 17:00",
+      "address": "Address"
+    },
+    "quickLinks": {
+      "title": "Quick links",
+      "aboutUs": "About us",
+      "pricing": "Pricing",
+      "terms": "Terms of service",
+      "privacy": "Privacy policy"
+    },
+    "social": {
+      "title": "Follow us"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "description": "Have a question? You may find the answer in our FAQ.",
+      "goToFaq": "Go to FAQ"
+    },
+    "metadata": {
+      "title": "Contact | tvujspecialista.cz",
+      "description": "Contact us with questions about the tvujspecialista.cz platform."
+    }
+  },
+  "about": {
+    "title": "About us",
+    "mission": {
+      "title": "Our mission",
+      "description": "tvujspecialista.cz is a modern platform connecting customers with verified specialists in finance and real estate. Our goal is to simplify the process of finding trusted professionals and to help service providers grow."
+    },
+    "why": {
+      "title": "Why we were founded",
+      "p1": "We noticed that finding a quality specialist — whether for a mortgage, insurance or investments — is often a lengthy and stressful process. Customers do not know who to trust, and specialists struggle to find an effective way to acquire new clients.",
+      "p2": "That is why we created a platform that simplifies this process for both sides."
+    },
+    "offer": {
+      "title": "What we offer",
+      "forCustomers": "For customers",
+      "customerFeatures": {
+        "profiles": "Verified specialist profiles with genuine reviews",
+        "compare": "Easy comparison and direct contact",
+        "free": "Free use of the platform"
+      },
+      "forSpecialists": "For specialists",
+      "specialistFeatures": {
+        "leads": "Quality leads from interested clients",
+        "profile": "Verified profile that builds trust",
+        "tools": "Tools for managing inquiries and reviews"
+      }
+    },
+    "values": {
+      "title": "Our values",
+      "transparency": "Transparency:",
+      "transparencyDesc": "All reviews are verified and authentic",
+      "quality": "Quality:",
+      "qualityDesc": "We carefully verify every specialist",
+      "simplicity": "Simplicity:",
+      "simplicityDesc": "The platform is easy for everyone to use"
+    },
+    "joinUs": {
+      "title": "Join us",
+      "description": "Whether you are looking for a specialist or want to offer your services, we are here for you."
+    },
+    "metadata": {
+      "title": "About us | tvujspecialista.cz",
+      "description": "We are a premium edu-community platform connecting real estate agents and financial advisors with quality education and business opportunities."
+    }
+  },
+  "terms": {
+    "title": "Terms of service",
+    "metadata": {
+      "title": "Terms of service | tvujspecialista.cz",
+      "description": "Terms of service for the tvujspecialista.cz platform. Rights and obligations of customers, providers and the service operator."
+    }
+  },
+  "privacy": {
+    "title": "Privacy policy (GDPR)",
+    "metadata": {
+      "title": "Privacy policy | tvujspecialista.cz",
+      "description": "Information on the processing and protection of personal data (GDPR) on the tvujspecialista.cz platform."
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Log in for specialists",
+      "subtitle": "Enter your login credentials",
+      "tabLogin": "Log in",
+      "tabRegister": "Register",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "submit": "Log in",
+      "submitting": "Logging in...",
+      "termsAgreement": "By logging in you agree to the",
+      "termsLink": "terms of service",
+      "and": "and",
+      "privacyLink": "privacy policy",
+      "metadata": {
+        "title": "Log in | tvujspecialista.cz",
+        "description": "Log in to your specialist account on the tvujspecialista.cz platform."
+      }
+    },
+    "register": {
+      "title": "Become our specialist",
+      "subtitle": "Get quality leads and grow your business",
+      "tabLogin": "Log in",
+      "tabRegister": "Register",
+      "personalInfo": "Personal information",
+      "professionalInfo": "Professional information",
+      "passwordSetup": "Password setup",
+      "name": "Full name",
+      "namePlaceholder": "John Smith",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 555 123 456",
+      "category": "Category",
+      "selectCategory": "Select category",
+      "location": "Location",
+      "selectLocation": "Select location",
+      "experience": "Years of experience",
+      "experiencePlaceholder": "e.g. 5",
+      "bio": "Brief description of your services",
+      "bioPlaceholder": "Describe what you do and how you can help clients...",
+      "password": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Enter password again",
+      "termsAgree": "I agree to the",
+      "termsLink": "terms of service",
+      "gdprAgree": "I agree to the",
+      "gdprLink": "processing of personal data",
+      "submit": "Register for free",
+      "submitting": "Registering...",
+      "haveAccount": "Already have an account?",
+      "loginHere": "Log in here",
+      "successToast": "Registration successful! Welcome to tvujspecialista.cz",
+      "benefits": {
+        "leads": "Quality leads",
+        "leadsDesc": "Contacts from genuinely interested clients",
+        "profile": "Verified profile",
+        "profileDesc": "Boost the credibility of your services",
+        "trial": "14 days free",
+        "trialDesc": "Try it out with no commitment"
+      },
+      "metadata": {
+        "title": "Register | tvujspecialista.cz",
+        "description": "Register as a specialist on the tvujspecialista.cz platform."
+      }
+    },
+    "forgotPassword": {
+      "title": "Forgot password",
+      "subtitle": "Enter your email address and we will send you a link to reset your password.",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "submit": "Send reset link",
+      "submitting": "Sending...",
+      "successMessage": "If an account with this email exists, we have sent you an email with password reset instructions. Please check your inbox.",
+      "backToLogin": "Back to log in",
+      "rememberPassword": "Remembered your password?",
+      "successToast": "Password reset instructions have been sent to your email",
+      "errorToast": "Failed to send email. Please try again.",
+      "metadata": {
+        "title": "Forgot password | tvujspecialista.cz",
+        "description": "Reset the password for your account on the tvujspecialista.cz platform."
+      }
+    },
+    "resetPassword": {
+      "title": "New password",
+      "subtitle": "Enter your new password.",
+      "newPassword": "New password",
+      "newPasswordPlaceholder": "Min. 8 characters",
+      "confirmPassword": "Confirm password",
+      "confirmPasswordPlaceholder": "Enter password again",
+      "submit": "Set new password",
+      "submitting": "Saving...",
+      "successMessage": "Password has been changed successfully. You will be redirected to log in...",
+      "invalidLink": "Invalid link",
+      "invalidLinkDesc": "The password reset link is invalid or the token is missing.",
+      "requestNewLink": "Request a new link",
+      "invalidTokenToast": "Invalid password reset link",
+      "successToast": "Password has been changed successfully",
+      "errorToast": "Failed to change password. The link may have expired.",
+      "metadata": {
+        "title": "Reset password | tvujspecialista.cz",
+        "description": "Set a new password for your account on the tvujspecialista.cz platform."
+      }
+    }
+  },
+  "dashboard": {
+    "main": {
+      "welcome": "Welcome back, {name}!",
+      "overview": "Here is an overview of your activity",
+      "loading": "Loading...",
+      "stats": {
+        "newLeads": "New leads",
+        "thisMonth": "This month",
+        "remaining": "{count} leads remaining",
+        "totalLeads": "Total leads",
+        "sinceStart": "Since the start of cooperation",
+        "avgRating": "Average rating",
+        "yourRating": "Your rating",
+        "successRate": "Success rate",
+        "closedDeals": "Successfully closed leads"
+      },
+      "recentLeads": "Recent leads",
+      "emptyLeads": {
+        "title": "No leads yet",
+        "description": "Once you receive your first inquiry, it will appear here."
+      },
+      "quickActions": {
+        "title": "Quick actions",
+        "dealPipeline": "Deal Pipeline",
+        "commissions": "Commissions",
+        "editProfile": "Edit profile",
+        "manageReviews": "Manage reviews",
+        "upgradePlan": "Upgrade plan"
+      },
+      "subscription": {
+        "yourPlan": "Your plan: {plan}",
+        "unlimitedLeads": "Unlimited leads",
+        "remainingLeads": "{count} leads remaining this month",
+        "upgrade": "Upgrade to Premium"
+      },
+      "admin": {
+        "users": "Users",
+        "specialists": "Specialists",
+        "leads": "Leads",
+        "deals": "Deals",
+        "contentManagement": "Content management",
+        "academy": "Academy",
+        "academyDesc": "Manage courses, modules and lessons",
+        "forum": "Forum",
+        "forumDesc": "Moderate topics and posts",
+        "community": "Community",
+        "communityDesc": "Manage events and meetups"
+      }
+    },
+    "settings": {
+      "title": "Account settings",
+      "subtitle": "Manage your login credentials",
+      "accountInfo": "Account information",
+      "accountInfoDesc": "Basic details of your account",
+      "name": "Name",
+      "email": "Email",
+      "changePassword": "Change password",
+      "changePasswordDesc": "To change your password, enter your current password and then your new password",
+      "currentPassword": "Current password *",
+      "newPassword": "New password *",
+      "newPasswordHint": "Password must be at least 8 characters",
+      "confirmNewPassword": "Confirm new password *",
+      "savePassword": "Change password",
+      "savingPassword": "Saving...",
+      "successToast": "Password has been changed successfully",
+      "errorToast": "Failed to change password. Please check your current password.",
+      "metadata": {
+        "title": "Account settings | tvujspecialista.cz",
+        "description": "Account settings and password change."
+      }
+    },
+    "profile": {
+      "title": "Edit profile",
+      "subtitle": "Update your personal and professional details",
+      "loading": "Loading profile...",
+      "photo": {
+        "title": "Profile photo",
+        "description": "This photo is displayed on your public profile",
+        "alt": "Profile photo",
+        "upload": "Upload photo",
+        "uploading": "Uploading...",
+        "hint": "JPEG, PNG or WebP. Max 5 MB.",
+        "formatError": "Allowed formats: JPEG, PNG, WebP",
+        "sizeError": "Maximum file size is 5 MB",
+        "successToast": "Photo uploaded successfully",
+        "errorToast": "Failed to upload photo"
+      },
+      "personal": {
+        "title": "Personal information",
+        "description": "Basic information about you",
+        "name": "Full name *",
+        "phone": "Phone *",
+        "about": "About me *",
+        "education": "Education"
+      },
+      "professional": {
+        "title": "Professional information",
+        "description": "Your services, certifications and availability",
+        "services": "Services * (comma-separated)",
+        "servicesPlaceholder": "e.g. Financial advisory, Investments, Insurance",
+        "certifications": "Certifications (comma-separated)",
+        "certificationsPlaceholder": "e.g. EFA, CFP, ICI",
+        "hourlyRate": "Hourly rate (CZK)",
+        "availability": "Availability (comma-separated)",
+        "availabilityPlaceholder": "e.g. Mon–Fri 9:00–17:00, Sat 10:00–14:00"
+      },
+      "online": {
+        "title": "Online profiles",
+        "description": "Links to your website and social media",
+        "website": "Website",
+        "websitePlaceholder": "https://www.example.com",
+        "linkedin": "LinkedIn",
+        "linkedinPlaceholder": "https://linkedin.com/in/your-profile"
+      },
+      "save": "Save changes",
+      "saving": "Saving...",
+      "loadError": "Failed to load profile",
+      "saveSuccess": "Profile saved successfully",
+      "saveError": "Failed to save profile",
+      "metadata": {
+        "title": "Edit profile | tvujspecialista.cz",
+        "description": "Edit your specialist profile."
+      }
+    },
+    "reviews": {
+      "title": "Reviews",
+      "subtitle": "Overview of all reviews from your clients",
+      "loading": "Loading reviews...",
+      "loadError": "Failed to load reviews",
+      "count": "{count} reviews",
+      "yourResponse": "Your response:",
+      "empty": {
+        "title": "No reviews yet",
+        "description": "Once clients leave reviews, they will appear here."
+      },
+      "metadata": {
+        "title": "Reviews | tvujspecialista.cz",
+        "description": "Overview of your clients' reviews."
+      }
+    },
+    "deals": {
+      "title": "Deal Pipeline",
+      "subtitle": "Manage your business opportunities",
+      "stats": {
+        "total": "Total",
+        "new": "New",
+        "inProgress": "In progress",
+        "won": "Won",
+        "value": "Value"
+      },
+      "showAnalytics": "Show analytics",
+      "hideAnalytics": "Hide analytics",
+      "exportCsv": "Export CSV",
+      "exported": "Exported {count} deals",
+      "empty": {
+        "title": "No deals",
+        "tryFilters": "Try adjusting your filters",
+        "noDeals": "You have no business opportunities yet"
+      },
+      "valueSetSuccess": "Deal value has been set successfully",
+      "closedWonSuccess": "Deal closed successfully! Commission has been created.",
+      "closedLostSuccess": "Deal has been marked as lost.",
+      "metadata": {
+        "title": "Deal Pipeline | tvujspecialista.cz",
+        "description": "Manage your business opportunities."
+      }
+    },
+    "commissions": {
+      "title": "Commissions",
+      "subtitle": "Overview of your commissions from successful deals",
+      "tabs": {
+        "pending": "Pending ({count})",
+        "invoiced": "Invoiced ({count})",
+        "paid": "Paid ({count})"
+      },
+      "emptyPending": {
+        "title": "No pending commissions",
+        "description": "All commissions are paid or you have no deals"
+      },
+      "emptyInvoiced": {
+        "title": "No invoiced commissions",
+        "description": "Commissions that have been invoiced will appear here"
+      },
+      "emptyPaid": {
+        "title": "No paid commissions",
+        "description": "Commissions that you have paid will appear here"
+      },
+      "metadata": {
+        "title": "Commissions | tvujspecialista.cz",
+        "description": "Overview of commissions from business opportunities."
+      },
+      "pay": {
+        "loading": "Loading...",
+        "back": "Back to commissions",
+        "error": "Error",
+        "notFound": "Commission not found",
+        "summaryTitle": "Commission summary",
+        "deal": "Deal",
+        "dealValue": "Deal value",
+        "commissionRate": "Commission rate",
+        "amountDue": "Amount due",
+        "dueDate": "Due date",
+        "paymentTitle": "Pay by card",
+        "loadingPayment": "Loading payment details...",
+        "successTitle": "Payment successful!",
+        "successMessage": "Your payment has been processed successfully. You will be redirected to the commissions list..."
+      }
+    },
+    "admin": {
+      "courses": {
+        "title": "Course management",
+        "metadata": {
+          "title": "Course management | Admin",
+          "description": "Administration of courses in the Academy section."
+        }
+      },
+      "forum": {
+        "title": "Forum management",
+        "metadata": {
+          "title": "Forum management | Admin",
+          "description": "Forum moderation."
+        }
+      },
+      "community": {
+        "title": "Community management",
+        "metadata": {
+          "title": "Community management | Admin",
+          "description": "Administration of community events."
+        }
+      }
+    },
+    "header": {
+      "dashboard": "Dashboard",
+      "academy": "Academy",
+      "forum": "Forum",
+      "community": "Community",
+      "account": "Account",
+      "logout": "Log out"
+    },
+    "metadata": {
+      "title": "Dashboard | tvujspecialista.cz",
+      "description": "Your panel for managing your profile and business opportunities."
+    }
+  },
+  "specialist": {
+    "loading": "Loading specialist...",
+    "notFound": "Specialist not found",
+    "notFoundDesc": "We are sorry, but this specialist does not exist or has been removed.",
+    "experience": "{years} years of experience",
+    "hourlyRate": "{rate} CZK/hr",
+    "aboutMe": "About me",
+    "services": "Services",
+    "credentials": "Education and certifications",
+    "education": "Education",
+    "certifications": "Certifications",
+    "reviews": "Reviews ({count})",
+    "contactSpecialist": "Contact specialist",
+    "contactForm": {
+      "name": "Your name *",
+      "namePlaceholder": "John Smith",
+      "email": "Email *",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone *",
+      "phonePlaceholder": "+1 555 123 456",
+      "message": "Message *",
+      "messagePlaceholder": "Describe what you need help with...",
+      "submit": "Send inquiry",
+      "submitting": "Sending...",
+      "success": "Inquiry sent!",
+      "successDesc": "The specialist will contact you shortly."
+    },
+    "moreInfo": "More information",
+    "availability": "Availability:",
+    "web": "Website:",
+    "linkedin": "LinkedIn profile",
+    "specialistResponse": "Specialist's response:",
+    "priceFrom": "From {price} CZK/hr",
+    "metadata": {
+      "title": "{name} | tvujspecialista.cz",
+      "description": "Specialist profile {name} - {category} in {location}."
+    }
+  },
+  "academy": {
+    "nav": {
+      "home": "Home",
+      "courses": "Courses",
+      "myLearning": "My learning",
+      "dashboard": "Dashboard"
+    },
+    "breadcrumbs": {
+      "academy": "Academy",
+      "catalog": "Course catalog",
+      "courseDetail": "Course detail",
+      "myLearning": "My learning"
+    },
+    "branding": "Academy",
+    "metadata": {
+      "title": "Academy | tvujspecialista.cz",
+      "description": "Educational courses for financial advisors and real estate agents."
+    },
+    "hero": {
+      "title": "Advance your career with our Academy",
+      "subtitle": "Premium online courses for real estate agents and financial advisors",
+      "exploreButton": "Explore courses"
+    },
+    "benefits": {
+      "quality": {
+        "title": "Quality education",
+        "description": "Courses created by expert instructors with years of hands-on experience"
+      },
+      "flexible": {
+        "title": "Flexible pace",
+        "description": "Study anytime, anywhere, at your own pace"
+      },
+      "certificates": {
+        "title": "Certificates",
+        "description": "Upon successful completion you will receive an official certificate"
+      }
+    },
+    "featured": {
+      "title": "Most popular courses",
+      "subtitle": "We have selected the best courses from our catalog for you",
+      "loadError": "Error loading courses. Please try again.",
+      "empty": "No featured courses are available yet.",
+      "ctaTitle": "Ready to get started?",
+      "ctaSubtitle": "Browse our full course catalog and find the right one for you",
+      "ctaButton": "View all courses"
+    },
+    "courses": {
+      "title": "Course catalog",
+      "loading": "Loading...",
+      "loadError": "Error loading courses",
+      "loadErrorLong": "Error loading courses. Please try again.",
+      "filters": {
+        "title": "Filters",
+        "clear": "Clear",
+        "search": "Search",
+        "searchPlaceholder": "Title, instructor...",
+        "category": "Category",
+        "allCategories": "All categories",
+        "catRealEstate": "Real estate",
+        "catFinancial": "Finance",
+        "catBoth": "Real estate & Finance",
+        "level": "Level",
+        "allLevels": "All levels",
+        "levelBeginner": "Beginner",
+        "levelIntermediate": "Intermediate",
+        "levelAdvanced": "Advanced",
+        "featuredOnly": "Featured courses only"
+      },
+      "empty": {
+        "title": "No courses found",
+        "description": "Try adjusting your filters or search for different keywords.",
+        "clearFilters": "Clear filters"
+      }
+    },
+    "courseDetail": {
+      "notFound": "Course not found",
+      "notFoundDesc": "We are sorry, but this course does not exist or has been removed.",
+      "backToCatalog": "Back to catalog",
+      "ratings": "ratings",
+      "students": "students",
+      "instructor": "Instructor",
+      "curriculum": "Course curriculum",
+      "loginRequired": "You must be logged in to access this course",
+      "login": "Log in",
+      "yourProgress": "Your progress",
+      "completed": "completed",
+      "continueLearning": "Continue learning",
+      "getAccess": "Get access to this course",
+      "enrolling": "Enrolling...",
+      "enroll": "Enroll in course",
+      "enrollSuccess": "You have successfully enrolled in the course!",
+      "courseInfo": "Course information",
+      "duration": "Duration:",
+      "lessonCount": "Number of lessons:",
+      "level": "Level:",
+      "category": "Category:",
+      "levelBeginner": "Beginner",
+      "levelIntermediate": "Intermediate",
+      "levelAdvanced": "Advanced",
+      "catRealEstate": "Real estate",
+      "catFinancial": "Finance",
+      "catBoth": "Real estate & Finance"
+    },
+    "learn": {
+      "loading": "Loading course...",
+      "backToCourse": "Back to course",
+      "prevLesson": "Previous lesson",
+      "markingComplete": "Saving...",
+      "completed": "Completed",
+      "markComplete": "Mark as complete",
+      "complete": "Complete",
+      "nextLesson": "Next lesson"
+    },
+    "myLearning": {
+      "title": "My learning",
+      "subtitle": "Overview of your courses and progress",
+      "stats": {
+        "activeCourses": "Active courses",
+        "completedCourses": "Completed courses",
+        "avgProgress": "Average progress",
+        "totalWatchTime": "Total watch time"
+      },
+      "continueLearning": "Continue learning",
+      "emptyActive": {
+        "heading": "You have no active courses yet",
+        "description": "Start learning by exploring our course catalog",
+        "button": "Explore courses"
+      },
+      "completedSection": "Completed courses",
+      "emptyCompleted": {
+        "heading": "You have not completed any course yet",
+        "description": "Keep studying and finish your first course"
+      }
+    }
+  },
+  "community": {
+    "nav": {
+      "home": "Home",
+      "events": "Events",
+      "myEvents": "My events",
+      "dashboard": "Dashboard"
+    },
+    "breadcrumbs": {
+      "community": "Community",
+      "catalog": "Event catalog",
+      "eventDetail": "Event detail",
+      "myEvents": "My events"
+    },
+    "branding": "Community",
+    "metadata": {
+      "title": "Community | tvujspecialista.cz",
+      "description": "Community events and meetups for professionals."
+    },
+    "hero": {
+      "title": "Become part of our community",
+      "subtitle": "Join networking events, workshops and meetups for real estate agents and financial advisors",
+      "exploreButton": "Explore events"
+    },
+    "benefits": {
+      "networking": {
+        "title": "Networking",
+        "description": "Meet professionals from your industry and expand your contact network"
+      },
+      "exclusiveEvents": {
+        "title": "Exclusive events",
+        "description": "Workshops, webinars and conferences designed specifically for our community"
+      },
+      "careerGrowth": {
+        "title": "Career growth",
+        "description": "Learn, get inspired and develop your professional career"
+      }
+    },
+    "upcomingEvents": {
+      "title": "Upcoming events",
+      "subtitle": "Do not miss our nearest upcoming events",
+      "loadError": "Error loading events. Please try again.",
+      "empty": "No events are scheduled yet.",
+      "ctaTitle": "Ready to get involved?",
+      "ctaSubtitle": "Browse all planned events and register for those that interest you",
+      "ctaButton": "View all events"
+    },
+    "eventsCatalog": {
+      "title": "Event catalog",
+      "loading": "Loading...",
+      "loadError": "Error loading events",
+      "loadErrorLong": "Error loading events. Please try again.",
+      "filters": {
+        "title": "Filters",
+        "clear": "Clear",
+        "search": "Search",
+        "searchPlaceholder": "Name, location...",
+        "eventType": "Event type",
+        "allTypes": "All types",
+        "typeWorkshop": "Workshop",
+        "typeNetworking": "Networking",
+        "typeConference": "Conference",
+        "typeWebinar": "Webinar",
+        "typeMeetup": "Meetup",
+        "format": "Format",
+        "allFormats": "All formats",
+        "formatOnline": "Online",
+        "formatOffline": "In-person",
+        "category": "Category",
+        "allCategories": "All categories",
+        "catRealEstate": "Real estate",
+        "catFinancial": "Finance",
+        "catBoth": "Real estate & Finance",
+        "featuredOnly": "Featured events only"
+      },
+      "empty": {
+        "title": "No events found",
+        "description": "Try adjusting your filters or search for different keywords.",
+        "clearFilters": "Clear filters"
+      }
+    },
+    "eventDetail": {
+      "about": "About the event",
+      "organizer": "Organizer",
+      "tags": "Tags",
+      "info": "Event information",
+      "onlineMeeting": "Online meeting",
+      "joinLink": "Join",
+      "linkAfterRegistration": "Link available after registration",
+      "fullyBooked": "Fully booked",
+      "category": "Category",
+      "price": "Price",
+      "free": "Free",
+      "alreadyRegistered": "You are already registered",
+      "registering": "Registering...",
+      "register": "Register",
+      "confirmationEmailSent": "Confirmation email has been sent",
+      "notFound": "Event not found or an error occurred while loading."
+    },
+    "myEvents": {
+      "title": "My events",
+      "subtitle": "Manage your event registrations",
+      "cancelConfirm": "Are you sure you want to cancel your registration?",
+      "tabs": {
+        "registered": "Registered events ({count})",
+        "past": "Past events ({count})"
+      },
+      "loadError": "Error loading registrations. Please try again.",
+      "emptyActive": {
+        "title": "No active registrations",
+        "description": "You have not registered for any event yet.",
+        "exploreLink": "Explore events"
+      },
+      "emptyPast": {
+        "title": "No past events",
+        "description": "Events you have attended or cancelled will appear here."
+      }
+    }
+  },
+  "forum": {
+    "nav": {
+      "categories": "Categories",
+      "newTopic": "New topic",
+      "dashboard": "Dashboard"
+    },
+    "breadcrumbs": {
+      "forum": "Forum",
+      "newTopic": "New topic",
+      "category": "Category",
+      "topic": "Topic"
+    },
+    "branding": "Forum",
+    "topicCount": "{count} topics",
+    "metadata": {
+      "title": "Forum | tvujspecialista.cz",
+      "description": "Discussion forum for specialists."
+    },
+    "title": "Discussion forum",
+    "subtitle": "Share experiences, advice and expertise with other specialists.",
+    "newTopicButton": "New topic",
+    "emptyCategories": {
+      "title": "No categories yet",
+      "description": "The forum will be available soon."
+    },
+    "category": {
+      "searchPlaceholder": "Search topics...",
+      "empty": {
+        "title": "No topics yet",
+        "searchHint": "Try adjusting your search",
+        "noTopicsHint": "Be the first to start a discussion!",
+        "createButton": "Create topic"
+      },
+      "pagination": "Page {page} of {total}"
+    },
+    "topic": {
+      "notFound": "Topic not found",
+      "notFoundDesc": "This topic does not exist or has been removed.",
+      "deleteConfirm": "Are you sure you want to delete this post?",
+      "replies": "Replies ({count})",
+      "locked": "This topic is locked. No further replies can be added."
+    }
+  },
+  "subscription": {
+    "metadata": {
+      "title": "Subscription | tvujspecialista.cz",
+      "description": "Manage your subscription."
+    }
+  },
+  "errors": {
+    "notFound": {
+      "title": "Page not found",
+      "description": "The requested page does not exist.",
+      "backHome": "Back to home"
+    },
+    "generic": {
+      "title": "An error occurred",
+      "description": "We are sorry, but something went wrong.",
+      "tryAgain": "Try again"
     }
   }
 }

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useRouter } from '@/i18n/routing';
+import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForumCategories } from '@/lib/hooks/useForum';
 import { forumApi } from '@/lib/api/forum';
@@ -12,6 +13,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export default function AdminForumPage() {
   const router = useRouter();
+  const t = useTranslations('dashboard.admin.forum');
   const { user, isLoading: authLoading } = useAuth();
   const { data: categories, isLoading: categoriesLoading } = useForumCategories();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -71,7 +73,7 @@ export default function AdminForumPage() {
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <MessageSquare className="h-6 w-6 text-blue-500" />
-            Správa fóra
+            {t('title')}
           </h1>
           <p className="text-muted-foreground mt-1">{categories?.length ?? 0} kategórií</p>
         </div>

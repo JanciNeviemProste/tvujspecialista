@@ -1,10 +1,14 @@
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 import ForumLayoutClient from './ForumLayoutClient';
 
-export const metadata: Metadata = {
-  title: 'Fórum | tvujspecialista.cz',
-  description: 'Diskusné fórum pre realitných maklérov a finančných poradcov. Zdieľajte skúsenosti, rady a odborné znalosti.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'forum' });
+  return { title: t('metadata.title'), description: t('metadata.description') };
+}
 
 export default function ForumLayout({ children }: { children: React.ReactNode }) {
   return <ForumLayoutClient>{children}</ForumLayoutClient>;

@@ -1,9 +1,16 @@
-import { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
+import type { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Ceník | tvujspecialista.cz',
-  description: 'Přehled cenových plánů pro specialisty. Education, Marketplace a Bundle balíčky pro rozvoj vaší praxe.',
-};
+type Props = { params: Promise<{ locale: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'pricing.metadata' });
+  return {
+    title: t('title'),
+    description: t('description'),
+  };
+}
 
 export default function PricingLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;

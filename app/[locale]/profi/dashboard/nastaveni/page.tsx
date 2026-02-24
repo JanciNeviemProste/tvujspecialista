@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/contexts/AuthContext';
@@ -27,6 +28,8 @@ const changePasswordSchema = z
 type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 
 export default function AccountSettingsPage() {
+  const t = useTranslations('dashboard.settings');
+  const tActions = useTranslations('common.actions');
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const [isSaving, setIsSaving] = useState(false);
@@ -50,7 +53,7 @@ export default function AccountSettingsPage() {
       <div className="min-h-screen bg-gray-50">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600">Nacitani...</p>
+            <p className="text-gray-600">{tActions('loading')}</p>
           </div>
         </div>
       </div>
@@ -69,10 +72,10 @@ export default function AccountSettingsPage() {
         currentPassword: values.currentPassword,
         newPassword: values.newPassword,
       });
-      toast.success('Heslo bylo uspesne zmeneno');
+      toast.success(t('successToast'));
       reset();
     } catch {
-      toast.error('Nepodarilo se zmenit heslo. Zkontrolujte soucasne heslo.');
+      toast.error(t('errorToast'));
     } finally {
       setIsSaving(false);
     }
@@ -82,24 +85,24 @@ export default function AccountSettingsPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">Nastaveni uctu</h1>
-          <p className="text-gray-600">Spravujte sve prihlasovaci udaje</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
+          <p className="text-gray-600">{t('subtitle')}</p>
         </div>
 
         {/* Informace o uctu */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-xl">Informace o uctu</CardTitle>
-            <CardDescription>Zakladni udaje vaseho uctu</CardDescription>
+            <CardTitle className="text-xl">{t('accountInfo')}</CardTitle>
+            <CardDescription>{t('accountInfoDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <Label className="text-gray-500">Jmeno</Label>
+                <Label className="text-gray-500">{t('name')}</Label>
                 <p className="mt-1 font-medium text-gray-900">{user.name}</p>
               </div>
               <div>
-                <Label className="text-gray-500">Email</Label>
+                <Label className="text-gray-500">{t('email')}</Label>
                 <p className="mt-1 font-medium text-gray-900">{user.email}</p>
               </div>
             </div>
@@ -109,15 +112,15 @@ export default function AccountSettingsPage() {
         {/* Zmena hesla */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">Zmena hesla</CardTitle>
+            <CardTitle className="text-xl">{t('changePassword')}</CardTitle>
             <CardDescription>
-              Pro zmenu hesla zadejte soucasne heslo a potom nove heslo
+              {t('changePasswordDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="max-w-md space-y-4">
               <div>
-                <Label htmlFor="currentPassword">Soucasne heslo *</Label>
+                <Label htmlFor="currentPassword">{t('currentPassword')}</Label>
                 <Input
                   id="currentPassword"
                   type="password"
@@ -128,7 +131,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="newPassword">Nove heslo *</Label>
+                <Label htmlFor="newPassword">{t('newPassword')}</Label>
                 <Input
                   id="newPassword"
                   type="password"
@@ -137,12 +140,12 @@ export default function AccountSettingsPage() {
                   className="mt-1"
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  Heslo musi mit alespon 8 znaku
+                  {t('newPasswordHint')}
                 </p>
               </div>
 
               <div>
-                <Label htmlFor="confirmPassword">Potvrzeni noveho hesla *</Label>
+                <Label htmlFor="confirmPassword">{t('confirmNewPassword')}</Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -154,14 +157,14 @@ export default function AccountSettingsPage() {
 
               <div className="flex items-center gap-4 pt-2">
                 <Button type="submit" disabled={isSubmitting || isSaving} loading={isSaving}>
-                  {isSaving ? 'Ukladam...' : 'Zmenit heslo'}
+                  {isSaving ? t('savingPassword') : t('savePassword')}
                 </Button>
                 <Button
                   type="button"
                   variant="outline"
                   onClick={() => router.push('/profi/dashboard')}
                 >
-                  Zpet na dashboard
+                  {tActions('backToDashboard')}
                 </Button>
               </div>
             </form>

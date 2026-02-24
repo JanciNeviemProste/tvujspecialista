@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
+import { useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslations } from 'next-intl';
 import { useMyCommissions } from '@/lib/hooks/useCommissions';
 import { commissionsApi } from '@/lib/api/commissions';
 import { getErrorMessage } from '@/lib/utils/error';
@@ -24,6 +26,7 @@ if (!stripeKey) {
 const stripePromise = stripeKey ? loadStripe(stripeKey) : null;
 
 export default function CommissionPaymentPage() {
+  const t = useTranslations('dashboard.commissions.pay');
   const router = useRouter();
   const params = useParams();
   const commissionId = params.id as string;
@@ -48,7 +51,7 @@ export default function CommissionPaymentPage() {
   // Get commission if not found
   useEffect(() => {
     if (!commissionsLoading && !commission) {
-      setError('Provízia nebola nájdená');
+      setError(t('notFound'));
     }
   }, [commissionsLoading, commission]);
 
@@ -102,7 +105,7 @@ export default function CommissionPaymentPage() {
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="mb-4 text-5xl">⏳</div>
-              <p className="text-muted-foreground">Načítavam...</p>
+              <p className="text-muted-foreground">{t('loading')}</p>
             </div>
           </div>
         </div>
@@ -117,16 +120,16 @@ export default function CommissionPaymentPage() {
         <div className="container mx-auto px-4 py-8 max-w-2xl">
           <Button variant="ghost" onClick={handleBack} className="mb-6">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            Späť na provízie
+            {t('back')}
           </Button>
 
           <Card variant="elevated">
             <CardContent className="p-8 text-center">
               <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-              <h2 className="text-xl font-semibold mb-2">Chyba</h2>
-              <p className="text-muted-foreground mb-4">{error || 'Provízia nebola nájdená'}</p>
+              <h2 className="text-xl font-semibold mb-2">{t('error')}</h2>
+              <p className="text-muted-foreground mb-4">{error || t('notFound')}</p>
               <Button onClick={handleBack}>
-                Späť na provízie
+                {t('back')}
               </Button>
             </CardContent>
           </Card>
@@ -148,42 +151,42 @@ export default function CommissionPaymentPage() {
         {/* Back button */}
         <Button variant="ghost" onClick={handleBack} className="mb-6">
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Späť na provízie
+          {t('back')}
         </Button>
 
         {/* Commission summary */}
         <Card variant="elevated" className="mb-6">
           <CardHeader>
-            <CardTitle>Prehľad provízií</CardTitle>
+            <CardTitle>{t('summaryTitle')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {commission.deal && (
               <div>
-                <p className="text-sm text-muted-foreground">Deal</p>
+                <p className="text-sm text-muted-foreground">{t('deal')}</p>
                 <p className="font-medium">{commission.deal.customerName}</p>
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t">
               <div>
-                <p className="text-sm text-muted-foreground">Hodnota dealu</p>
+                <p className="text-sm text-muted-foreground">{t('dealValue')}</p>
                 <p className="font-medium">{formatCurrency(commission.dealValue)}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">Sazba provízií</p>
+                <p className="text-sm text-muted-foreground">{t('commissionRate')}</p>
                 <p className="font-medium">{commission.commissionRate}%</p>
               </div>
             </div>
 
             <div className="pt-4 border-t">
-              <p className="text-sm text-muted-foreground mb-1">Suma na zaplatenie</p>
+              <p className="text-sm text-muted-foreground mb-1">{t('amountDue')}</p>
               <p className="text-3xl font-bold text-success">
                 {formatCurrency(commission.commissionAmount)}
               </p>
             </div>
 
             <div className="pt-4 border-t">
-              <p className="text-sm text-muted-foreground">Splatnosť</p>
+              <p className="text-sm text-muted-foreground">{t('dueDate')}</p>
               <p className="font-medium">
                 {format(new Date(commission.dueDate), 'd. MMMM yyyy', { locale: sk })}
               </p>
@@ -196,9 +199,9 @@ export default function CommissionPaymentPage() {
           <Card variant="elevated">
             <CardContent className="p-8 text-center">
               <CheckCircle2 className="h-16 w-16 text-success mx-auto mb-4" />
-              <h2 className="text-2xl font-semibold mb-2">Platba úspešná!</h2>
+              <h2 className="text-2xl font-semibold mb-2">{t('successTitle')}</h2>
               <p className="text-muted-foreground mb-4">
-                Vaša platba bola úspešne spracovaná. Budete presmerovaní na zoznam provízií...
+                {t('successMessage')}
               </p>
               <div className="flex justify-center">
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
@@ -208,7 +211,7 @@ export default function CommissionPaymentPage() {
         ) : (
           <Card variant="elevated">
             <CardHeader>
-              <CardTitle>Platba kartou</CardTitle>
+              <CardTitle>{t('paymentTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               {clientSecret ? (
@@ -224,13 +227,13 @@ export default function CommissionPaymentPage() {
               ) : (
                 <div className="p-8 text-center">
                   <div className="mb-4 text-4xl">⏳</div>
-                  <p className="text-muted-foreground">Načítavam platobné údaje...</p>
+                  <p className="text-muted-foreground">{t('loadingPayment')}</p>
                 </div>
               )}
 
               <div className="mt-6 pt-6 border-t">
                 <Button variant="outline" onClick={handleBack} className="w-full">
-                  Späť na provízie
+                  {t('back')}
                 </Button>
               </div>
             </CardContent>

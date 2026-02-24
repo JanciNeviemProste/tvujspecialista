@@ -1,13 +1,14 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/routing';
+import { useRouter } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuth } from '@/contexts/AuthContext';
 import { getErrorMessage } from '@/lib/utils/error';
+import { useTranslations } from 'next-intl';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
@@ -17,6 +18,9 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
+  const t = useTranslations('auth.login');
+  const tNav = useTranslations('common.nav');
+  const tActions = useTranslations('common.actions');
   const router = useRouter();
   const { login, user, isLoading: authLoading } = useAuth();
   const [error, setError] = useState('');
@@ -69,13 +73,13 @@ export default function LoginPage() {
           </Link>
           <nav className="flex items-center gap-4">
             <Link href="/hledat" className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary">
-              Hledat
+              {tNav('search')}
             </Link>
             <Link href="/profi/prihlaseni" className="text-sm font-medium text-blue-600 dark:text-primary">
-              Přihlásit se
+              {tNav('login')}
             </Link>
             <Link href="/profi/registrace" className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors">
-              Registrace zdarma
+              {tNav('register')}
             </Link>
           </nav>
         </div>
@@ -88,19 +92,19 @@ export default function LoginPage() {
             {/* Tab Switcher */}
             <div className="mb-6 flex rounded-lg bg-gray-100 dark:bg-muted p-1">
               <span className="flex-1 rounded-md bg-white dark:bg-card py-2.5 text-center text-sm font-medium text-gray-900 dark:text-foreground shadow-sm">
-                Přihlášení
+                {t('tabLogin')}
               </span>
               <Link
                 href="/profi/registrace"
                 className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 dark:text-muted-foreground hover:text-gray-700 dark:hover:text-foreground transition-all"
               >
-                Registrace
+                {t('tabRegister')}
               </Link>
             </div>
 
-            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground">Přihlášení pro specialisty</h1>
+            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
             <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">
-              Zadejte své přihlašovací údaje
+              {t('subtitle')}
             </p>
 
             {error && (
@@ -112,12 +116,12 @@ export default function LoginPage() {
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  Email
+                  {t('email')}
                 </label>
                 <input
                   type="email"
                   id="email"
-                  placeholder="vas@email.cz"
+                  placeholder={t('emailPlaceholder')}
                   className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('email')}
                 />
@@ -128,7 +132,7 @@ export default function LoginPage() {
 
               <div>
                 <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  Heslo
+                  {t('password')}
                 </label>
                 <input
                   type="password"
@@ -150,10 +154,10 @@ export default function LoginPage() {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="h-4 w-4 rounded border-gray-300 text-blue-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">Zapamatovat si mě</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">{t('rememberMe')}</span>
                 </label>
                 <Link href="/profi/zapomenute-heslo" className="text-sm font-medium text-blue-600 dark:text-primary hover:underline">
-                  Zapomenuté heslo?
+                  {t('forgotPassword')}
                 </Link>
               </div>
 
@@ -162,19 +166,19 @@ export default function LoginPage() {
                 disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {isSubmitting ? 'Přihlašování...' : 'Přihlásit se'}
+                {isSubmitting ? t('submitting') : t('submit')}
               </button>
             </form>
 
             <div className="mt-6 border-t dark:border-border pt-6">
               <p className="text-center text-sm text-gray-600 dark:text-muted-foreground">
-                Přihlášením souhlasíte s{' '}
+                {t('termsAgreement')}{' '}
                 <Link href="/pravidla" className="text-blue-600 dark:text-primary hover:underline">
-                  obchodními podmínkami
+                  {t('termsLink')}
                 </Link>{' '}
-                a{' '}
+                {t('and')}{' '}
                 <Link href="/ochrana-osobnich-udaju" className="text-blue-600 dark:text-primary hover:underline">
-                  ochranou údajů
+                  {t('privacyLink')}
                 </Link>
                 .
               </p>
@@ -183,7 +187,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center">
             <Link href="/" className="text-sm text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary">
-              ← Zpět na hlavní stránku
+              {tActions('backToHome')}
             </Link>
           </div>
         </div>

@@ -1,10 +1,12 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter, usePathname } from 'next/navigation';
+import { Link } from '@/i18n/routing';
+import { useRouter, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslations } from 'next-intl';
 
 export function DashboardHeader() {
+  const t = useTranslations('dashboard.header');
   const router = useRouter();
   const pathname = usePathname();
   const { logout } = useAuth();
@@ -15,11 +17,11 @@ export function DashboardHeader() {
   };
 
   const navLinks = [
-    { href: '/profi/dashboard', label: 'Dashboard', exact: true },
-    { href: '/academy', label: 'Akadémia', exact: false },
-    { href: '/forum', label: 'Fórum', exact: false },
-    { href: '/community', label: 'Komunita', exact: false },
-    { href: '/profi/dashboard/nastaveni', label: 'Účet', exact: true },
+    { href: '/profi/dashboard', label: t('dashboard'), exact: true },
+    { href: '/academy', label: t('academy'), exact: false },
+    { href: '/forum', label: t('forum'), exact: false },
+    { href: '/community', label: t('community'), exact: false },
+    { href: '/profi/dashboard/nastaveni', label: t('account'), exact: true },
   ];
 
   return (
@@ -47,7 +49,7 @@ export function DashboardHeader() {
             onClick={handleLogout}
             className="text-sm font-medium text-gray-600 hover:text-gray-900"
           >
-            Odhlásit se
+            {t('logout')}
           </button>
         </nav>
       </div>

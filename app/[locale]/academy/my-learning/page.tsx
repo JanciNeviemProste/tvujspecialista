@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { useMyEnrollments } from '@/lib/hooks/useAcademy';
 import { useAuth } from '@/contexts/AuthContext';
 import { EnrollmentCard } from '@/components/academy/EnrollmentCard';
@@ -12,8 +13,8 @@ import {
   TrendingUp,
   Clock
 } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/routing';
+import { useRouter } from '@/i18n/routing';
 import { useEffect, useMemo } from 'react';
 
 interface StatCardProps {
@@ -69,6 +70,7 @@ function EmptyState({ icon: Icon, heading, description, buttonText, buttonHref }
 }
 
 export default function MyLearningPage() {
+  const t = useTranslations('academy');
   const router = useRouter();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
   const { data, isLoading: enrollmentsLoading } = useMyEnrollments();
@@ -169,8 +171,8 @@ export default function MyLearningPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Moje vzdelávanie</h1>
-        <p className="text-muted-foreground">Prehľad vašich kurzov a pokroku</p>
+        <h1 className="text-3xl font-bold mb-2">{t('myLearning.title')}</h1>
+        <p className="text-muted-foreground">{t('myLearning.subtitle')}</p>
       </div>
 
       {/* Stats Cards */}
@@ -178,28 +180,28 @@ export default function MyLearningPage() {
         <StatCard
           icon={BookOpen}
           value={stats.activeCount}
-          label="Aktívnych kurzov"
+          label={t('myLearning.stats.activeCourses')}
           gradientFrom="from-primary-500"
           gradientTo="to-primary-600"
         />
         <StatCard
           icon={Trophy}
           value={stats.completedCount}
-          label="Dokončených kurzov"
+          label={t('myLearning.stats.completedCourses')}
           gradientFrom="from-accent-500"
           gradientTo="to-accent-600"
         />
         <StatCard
           icon={TrendingUp}
           value={`${stats.averageProgress}%`}
-          label="Priemerný pokrok"
+          label={t('myLearning.stats.avgProgress')}
           gradientFrom="from-green-500"
           gradientTo="to-green-600"
         />
         <StatCard
           icon={Clock}
           value={`${stats.totalWatchTime}h`}
-          label="Celkový čas sledovania"
+          label={t('myLearning.stats.totalWatchTime')}
           gradientFrom="from-purple-500"
           gradientTo="to-purple-600"
         />
@@ -207,7 +209,7 @@ export default function MyLearningPage() {
 
       {/* Continue Learning Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Pokračovať v učení</h2>
+        <h2 className="text-2xl font-bold mb-6">{t('myLearning.continueLearning')}</h2>
 
         {activeEnrollments.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -218,9 +220,9 @@ export default function MyLearningPage() {
         ) : (
           <EmptyState
             icon={BookOpen}
-            heading="Zatiaľ nemáte žiadne aktívne kurzy"
-            description="Začnite sa učiť preskúmaním našej ponuky kurzov"
-            buttonText="Preskúmať kurzy"
+            heading={t('myLearning.emptyActive.heading')}
+            description={t('myLearning.emptyActive.description')}
+            buttonText={t('myLearning.emptyActive.button')}
             buttonHref="/academy/courses"
           />
         )}
@@ -228,7 +230,7 @@ export default function MyLearningPage() {
 
       {/* Completed Courses Section */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">Dokončené kurzy</h2>
+        <h2 className="text-2xl font-bold mb-6">{t('myLearning.completedSection')}</h2>
 
         {completedEnrollments.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -239,8 +241,8 @@ export default function MyLearningPage() {
         ) : (
           <EmptyState
             icon={Trophy}
-            heading="Zatiaľ ste nedokončili žiadny kurz"
-            description="Pokračujte v učení a dokončite svoj prvý kurz"
+            heading={t('myLearning.emptyCompleted.heading')}
+            description={t('myLearning.emptyCompleted.description')}
           />
         )}
       </section>

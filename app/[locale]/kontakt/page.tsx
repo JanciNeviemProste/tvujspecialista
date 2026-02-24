@@ -1,22 +1,32 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
-const contactSchema = z.object({
-  name: z.string().min(1, 'Jméno je povinné'),
-  email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
-  phone: z.string().optional(),
-  subject: z.string().min(1, 'Předmět je povinný'),
-  message: z.string().min(1, 'Zpráva je povinná'),
-});
-
-type ContactFormData = z.infer<typeof contactSchema>;
+type ContactFormData = {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+};
 
 export default function ContactPage() {
+  const t = useTranslations('contact');
+  const tValidation = useTranslations('common.validation');
+
+  const contactSchema = z.object({
+    name: z.string().min(1, tValidation('nameRequired')),
+    email: z.string().min(1, tValidation('emailRequired')).email(tValidation('emailInvalid')),
+    phone: z.string().optional(),
+    subject: z.string().min(1, tValidation('subjectRequired')),
+    message: z.string().min(1, tValidation('messageRequired')),
+  });
+
   const {
     register,
     handleSubmit,
@@ -36,14 +46,14 @@ export default function ContactPage() {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || 'Chyba při odeslání');
+        throw new Error(error.message || t('form.submitError'));
       }
 
-      toast.success('Zpráva byla úspěšně odeslána!');
+      toast.success(t('form.submitSuccess'));
       reset();
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : 'Nepodařilo se odeslat zprávu'
+        error instanceof Error ? error.message : t('form.submitError')
       );
     }
   };
@@ -59,21 +69,21 @@ export default function ContactPage() {
       </header>
 
       <div className="container mx-auto max-w-5xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">Kontaktujte nás</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Contact Form */}
           <div className="rounded-lg border bg-white p-8">
-            <h2 className="mb-6 text-2xl font-bold text-gray-900">Napište nám</h2>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('form.title')}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
-                  Jméno a příjmení *
+                  {t('form.name')}
                 </label>
                 <input
                   type="text"
                   id="contact-name"
-                  placeholder="Jan Novák"
+                  placeholder={t('form.namePlaceholder')}
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? 'name-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -85,11 +95,11 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">Email *</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700">{t('form.email')}</label>
                 <input
                   type="email"
                   id="contact-email"
-                  placeholder="jan@example.cz"
+                  placeholder={t('form.emailPlaceholder')}
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? 'email-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -102,18 +112,18 @@ export default function ContactPage() {
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700">
-                  Telefon (volitelné)
+                  {t('form.phone')}
                 </label>
                 <input
                   type="tel"
-                  placeholder="+420 777 123 456"
+                  placeholder={t('form.phonePlaceholder')}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('phone')}
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">Předmět *</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700">{t('form.subject')}</label>
                 <select
                   id="contact-subject"
                   aria-invalid={!!errors.subject}
@@ -121,12 +131,12 @@ export default function ContactPage() {
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('subject')}
                 >
-                  <option value="">Vyberte předmět</option>
-                  <option value="general">Obecný dotaz</option>
-                  <option value="specialist">Dotaz pro specialisty</option>
-                  <option value="customer">Dotaz pro zákazníky</option>
-                  <option value="technical">Technická podpora</option>
-                  <option value="partnership">Spolupráce</option>
+                  <option value="">{t('form.selectSubject')}</option>
+                  <option value="general">{t('form.subjectGeneral')}</option>
+                  <option value="specialist">{t('form.subjectSpecialist')}</option>
+                  <option value="customer">{t('form.subjectCustomer')}</option>
+                  <option value="technical">{t('form.subjectTechnical')}</option>
+                  <option value="partnership">{t('form.subjectPartnership')}</option>
                 </select>
                 {errors.subject && (
                   <p id="subject-error" role="alert" className="text-sm text-red-500">{errors.subject.message}</p>
@@ -134,11 +144,11 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">Zpráva *</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700">{t('form.message')}</label>
                 <textarea
                   id="contact-message"
                   rows={6}
-                  placeholder="Popište svůj dotaz..."
+                  placeholder={t('form.messagePlaceholder')}
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? 'message-error' : undefined}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -154,7 +164,7 @@ export default function ContactPage() {
                 disabled={isSubmitting}
                 className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
               >
-                {isSubmitting ? 'Odesílání...' : 'Odeslat zprávu'}
+                {isSubmitting ? t('form.submitting') : t('form.submit')}
               </button>
             </form>
           </div>
@@ -163,7 +173,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             {/* Company Info */}
             <div className="rounded-lg border bg-white p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">Kontaktní údaje</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900">{t('info.title')}</h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="text-blue-600">
@@ -182,7 +192,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Email</div>
+                    <div className="font-semibold text-gray-900">{t('info.email')}</div>
                     <a
                       href="mailto:info@tvujspecialista.cz"
                       className="text-blue-600 hover:underline"
@@ -209,11 +219,11 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Telefon</div>
+                    <div className="font-semibold text-gray-900">{t('info.phone')}</div>
                     <a href="tel:+420777123456" className="text-blue-600 hover:underline">
                       +420 777 123 456
                     </a>
-                    <p className="text-sm text-gray-600">Po-Pá: 9:00 - 17:00</p>
+                    <p className="text-sm text-gray-600">{t('info.phoneHours')}</p>
                   </div>
                 </div>
 
@@ -240,7 +250,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Adresa</div>
+                    <div className="font-semibold text-gray-900">{t('info.address')}</div>
                     <p className="text-gray-600">
                       tvujspecialista.cz s.r.o.
                       <br />
@@ -255,29 +265,29 @@ export default function ContactPage() {
 
             {/* Quick Links */}
             <div className="rounded-lg border bg-white p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">Rychlé odkazy</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900">{t('quickLinks.title')}</h2>
               <div className="space-y-2">
                 <Link href="/o-nas" className="block text-blue-600 hover:underline">
-                  O nás
+                  {t('quickLinks.aboutUs')}
                 </Link>
                 <Link href="/ceny" className="block text-blue-600 hover:underline">
-                  Ceník
+                  {t('quickLinks.pricing')}
                 </Link>
                 <Link href="/pravidla" className="block text-blue-600 hover:underline">
-                  Obchodní podmínky
+                  {t('quickLinks.terms')}
                 </Link>
                 <Link
                   href="/ochrana-osobnich-udaju"
                   className="block text-blue-600 hover:underline"
                 >
-                  Ochrana osobních údajů
+                  {t('quickLinks.privacy')}
                 </Link>
               </div>
             </div>
 
             {/* Social Media */}
             <div className="rounded-lg border bg-white p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">Sledujte nás</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900">{t('social.title')}</h2>
               <div className="flex gap-4">
                 <a
                   href="#"
@@ -311,15 +321,15 @@ export default function ContactPage() {
 
             {/* FAQ */}
             <div className="rounded-lg bg-blue-50 p-6">
-              <h3 className="mb-2 font-semibold text-blue-900">Často kladené otázky</h3>
+              <h3 className="mb-2 font-semibold text-blue-900">{t('faq.title')}</h3>
               <p className="mb-3 text-sm text-blue-700">
-                Máte otázku? Možná ji najdete v našem FAQ.
+                {t('faq.description')}
               </p>
               <a
                 href="#"
                 className="inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
-                Přejít na FAQ
+                {t('faq.goToFaq')}
               </a>
             </div>
           </div>

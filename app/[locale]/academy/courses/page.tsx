@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import { CourseCard } from '@/components/academy/CourseCard'
 import { CoursesGridSkeleton } from '@/components/academy/LoadingStates'
 import { useCourses } from '@/lib/hooks/useAcademy'
@@ -12,6 +13,7 @@ import { Search, X } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 
 export default function CourseCatalogPage() {
+  const t = useTranslations('academy')
   const [filters, setFilters] = useState({
     search: '',
     category: '' as CourseCategory | '',
@@ -56,21 +58,17 @@ export default function CourseCatalogPage() {
 
   const hasActiveFilters = filters.search || filters.category || filters.level || filters.featured
 
-  useEffect(() => {
-    document.title = 'Katalóg kurzov | Akadémia | tvujspecialista.cz'
-  }, [])
-
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold">Katalóg kurzov</h1>
+          <h1 className="mb-2 text-4xl font-bold">{t('courses.title')}</h1>
           <p className="text-lg text-muted-foreground">
             {isLoading ? (
-              'Načítavanie...'
+              t('courses.loading')
             ) : error ? (
-              'Chyba pri načítaní kurzov'
+              t('courses.loadError')
             ) : (
               <>
                 Nájdených <span className="font-semibold">{filteredCourses.length}</span> {filteredCourses.length === 1 ? 'kurz' : filteredCourses.length < 5 ? 'kurzy' : 'kurzov'}
@@ -86,7 +84,7 @@ export default function CourseCatalogPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>Filtre</CardTitle>
+                    <CardTitle>{t('courses.filters.title')}</CardTitle>
                     {hasActiveFilters && (
                       <Button
                         variant="ghost"
@@ -94,7 +92,7 @@ export default function CourseCatalogPage() {
                         onClick={handleClearFilters}
                         className="h-auto p-0 text-xs hover:text-destructive"
                       >
-                        Vymazať
+                        {t('courses.filters.clear')}
                       </Button>
                     )}
                   </div>
@@ -103,13 +101,13 @@ export default function CourseCatalogPage() {
                   {/* Search */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Hľadať
+                      {t('courses.filters.search')}
                     </label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       <Input
                         type="text"
-                        placeholder="Názov, lektor..."
+                        placeholder={t('courses.filters.searchPlaceholder')}
                         value={filters.search}
                         onChange={(e) => setFilters({ ...filters, search: e.target.value })}
                         className="pl-9"
@@ -128,34 +126,34 @@ export default function CourseCatalogPage() {
                   {/* Category Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Kategória
+                      {t('courses.filters.category')}
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as CourseCategory | '' })}
                     >
-                      <option value="">Všetky kategórie</option>
-                      <option value={CourseCategory.REAL_ESTATE}>Reality</option>
-                      <option value={CourseCategory.FINANCIAL}>Finance</option>
-                      <option value={CourseCategory.BOTH}>Reality & Finance</option>
+                      <option value="">{t('courses.filters.allCategories')}</option>
+                      <option value={CourseCategory.REAL_ESTATE}>{t('courses.filters.catRealEstate')}</option>
+                      <option value={CourseCategory.FINANCIAL}>{t('courses.filters.catFinancial')}</option>
+                      <option value={CourseCategory.BOTH}>{t('courses.filters.catBoth')}</option>
                     </select>
                   </div>
 
                   {/* Level Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      Úroveň
+                      {t('courses.filters.level')}
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       value={filters.level}
                       onChange={(e) => setFilters({ ...filters, level: e.target.value as CourseLevel | '' })}
                     >
-                      <option value="">Všetky úrovne</option>
-                      <option value={CourseLevel.BEGINNER}>Začiatočník</option>
-                      <option value={CourseLevel.INTERMEDIATE}>Stredný</option>
-                      <option value={CourseLevel.ADVANCED}>Pokročilý</option>
+                      <option value="">{t('courses.filters.allLevels')}</option>
+                      <option value={CourseLevel.BEGINNER}>{t('courses.filters.levelBeginner')}</option>
+                      <option value={CourseLevel.INTERMEDIATE}>{t('courses.filters.levelIntermediate')}</option>
+                      <option value={CourseLevel.ADVANCED}>{t('courses.filters.levelAdvanced')}</option>
                     </select>
                   </div>
 
@@ -169,7 +167,7 @@ export default function CourseCatalogPage() {
                         onChange={(e) => setFilters({ ...filters, featured: e.target.checked })}
                       />
                       <span className="text-sm font-medium">
-                        Iba featured kurzy
+                        {t('courses.filters.featuredOnly')}
                       </span>
                     </label>
                   </div>
@@ -187,7 +185,7 @@ export default function CourseCatalogPage() {
             {error && (
               <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-12 text-center">
                 <p className="text-destructive">
-                  Chyba pri načítaní kurzov. Skúste to prosím znova.
+                  {t('courses.loadErrorLong')}
                 </p>
               </div>
             )}
@@ -199,14 +197,14 @@ export default function CourseCatalogPage() {
                   <div className="rounded-lg border bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
-                      Žiadne kurzy
+                      {t('courses.empty.title')}
                     </h3>
                     <p className="text-muted-foreground mb-4">
-                      Skúste zmeniť filtre alebo hľadajte iné kľúčové slová.
+                      {t('courses.empty.description')}
                     </p>
                     {hasActiveFilters && (
                       <Button variant="outline" onClick={handleClearFilters}>
-                        Vymazať filtre
+                        {t('courses.empty.clearFilters')}
                       </Button>
                     )}
                   </div>

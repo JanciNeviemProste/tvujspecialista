@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link } from '@/i18n/routing';
+import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTranslations } from 'next-intl';
 import { useMyLeads } from '@/lib/hooks/useMyLeads';
 import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
@@ -14,6 +15,9 @@ import type { Lead } from '@/types/lead';
 import type { LeadStatus } from '@/lib/api/leads';
 
 export default function DashboardPage() {
+  const t = useTranslations('dashboard.main');
+  const tStatus = useTranslations('common.status');
+  const tActions = useTranslations('common.actions');
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const { data: leadsData, isLoading: leadsLoading } = useMyLeads();
@@ -46,7 +50,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="mb-4 text-5xl">⏳</div>
-            <p className="text-gray-600">Načítání...</p>
+            <p className="text-gray-600">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -71,11 +75,11 @@ export default function DashboardPage() {
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; className: string }> = {
-      NEW: { label: 'Nový', className: 'bg-blue-100 text-blue-700' },
-      CONTACTED: { label: 'Kontaktován', className: 'bg-yellow-100 text-yellow-700' },
-      QUALIFIED: { label: 'Kvalifikován', className: 'bg-purple-100 text-purple-700' },
-      CLOSED_WON: { label: 'Uzavřeno', className: 'bg-green-100 text-green-700' },
-      CLOSED_LOST: { label: 'Ztraceno', className: 'bg-red-100 text-red-700' },
+      NEW: { label: tStatus('new'), className: 'bg-blue-100 text-blue-700' },
+      CONTACTED: { label: tStatus('contacted'), className: 'bg-yellow-100 text-yellow-700' },
+      QUALIFIED: { label: tStatus('qualified'), className: 'bg-purple-100 text-purple-700' },
+      CLOSED_WON: { label: tStatus('closedWon'), className: 'bg-green-100 text-green-700' },
+      CLOSED_LOST: { label: tStatus('closedLost'), className: 'bg-red-100 text-red-700' },
     };
     return statusMap[status] || statusMap.NEW;
   };
@@ -85,8 +89,8 @@ export default function DashboardPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Welcome */}
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">Vítejte zpět, {user.name}!</h1>
-          <p className="text-gray-600">Zde je přehled vaší aktivity</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('welcome', { name: user.name })}</h1>
+          <p className="text-gray-600">{t('overview')}</p>
         </div>
 
         {/* Stats Cards - only for specialists */}
@@ -94,44 +98,38 @@ export default function DashboardPage() {
           <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-lg border bg-white p-6">
               <div className="mb-2 flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">Nové leady</span>
+                <span className="text-sm font-medium text-gray-600">{t('stats.newLeads')}</span>
                 <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
-                  Tento měsíc
+                  {t('stats.thisMonth')}
                 </span>
               </div>
               <div className="text-3xl font-bold text-gray-900">{stats.newLeads}</div>
               <p className="mt-2 text-sm text-gray-500">
                 {subscription && subscription.tier && (
-                  <>
-                    Zbývá{' '}
-                    {subscription.tier === 'premium'
-                      ? '∞'
-                      : subscription.remainingLeads || 0}{' '}
-                    leadů
-                  </>
+                  t('stats.remaining', { count: subscription.tier === 'premium' ? '∞' : String(subscription.remainingLeads || 0) })
                 )}
               </p>
             </div>
 
             <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 text-sm font-medium text-gray-600">Celkem leadů</div>
+              <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.totalLeads')}</div>
               <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
-              <p className="mt-2 text-sm text-gray-500">Od začátku spolupráce</p>
+              <p className="mt-2 text-sm text-gray-500">{t('stats.sinceStart')}</p>
             </div>
 
             <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 text-sm font-medium text-gray-600">Průměrné hodnocení</div>
+              <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.avgRating')}</div>
               <div className="flex items-baseline gap-2">
                 <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
                 <div className="text-xl text-yellow-400">★</div>
               </div>
-              <p className="mt-2 text-sm text-gray-500">Vaše hodnocení</p>
+              <p className="mt-2 text-sm text-gray-500">{t('stats.yourRating')}</p>
             </div>
 
             <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 text-sm font-medium text-gray-600">Úspěšnost</div>
+              <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.successRate')}</div>
               <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
-              <p className="mt-2 text-sm text-gray-500">Úspěšně uzavřené leady</p>
+              <p className="mt-2 text-sm text-gray-500">{t('stats.closedDeals')}</p>
             </div>
           </div>
         )}
@@ -143,58 +141,58 @@ export default function DashboardPage() {
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <Users className="h-5 w-5 text-blue-500" />
-                  <span className="text-sm font-medium text-gray-600">Užívatelia</span>
+                  <span className="text-sm font-medium text-gray-600">{t('admin.users')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.usersCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <Shield className="h-5 w-5 text-green-500" />
-                  <span className="text-sm font-medium text-gray-600">Špecialisti</span>
+                  <span className="text-sm font-medium text-gray-600">{t('admin.specialists')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.specialistsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="h-5 w-5 text-purple-500" />
-                  <span className="text-sm font-medium text-gray-600">Leady</span>
+                  <span className="text-sm font-medium text-gray-600">{t('admin.leads')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.leadsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="h-5 w-5 text-orange-500" />
-                  <span className="text-sm font-medium text-gray-600">Dealy</span>
+                  <span className="text-sm font-medium text-gray-600">{t('admin.deals')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.dealsCount ?? 0}</div>
               </div>
             </div>
 
-            <h2 className="text-xl font-semibold mb-4">Správa obsahu</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('admin.contentManagement')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Link
                 href="/profi/dashboard/admin/kurzy"
                 className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
               >
                 <BookOpen className="h-8 w-8 text-blue-600 mb-3 group-hover:scale-110 transition-transform" />
-                <h3 className="text-lg font-semibold mb-1">Akadémia</h3>
-                <p className="text-sm text-gray-600">Správa kurzov, modulov a lekcií</p>
+                <h3 className="text-lg font-semibold mb-1">{t('admin.academy')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.academyDesc')}</p>
               </Link>
               <Link
                 href="/profi/dashboard/admin/forum"
                 className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
               >
                 <MessageSquare className="h-8 w-8 text-blue-500 mb-3 group-hover:scale-110 transition-transform" />
-                <h3 className="text-lg font-semibold mb-1">Fórum</h3>
-                <p className="text-sm text-gray-600">Moderovanie tém a príspevkov</p>
+                <h3 className="text-lg font-semibold mb-1">{t('admin.forum')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.forumDesc')}</p>
               </Link>
               <Link
                 href="/profi/dashboard/admin/komunita"
                 className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
               >
                 <Calendar className="h-8 w-8 text-orange-500 mb-3 group-hover:scale-110 transition-transform" />
-                <h3 className="text-lg font-semibold mb-1">Komunita</h3>
-                <p className="text-sm text-gray-600">Správa eventov a stretnutí</p>
+                <h3 className="text-lg font-semibold mb-1">{t('admin.community')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.communityDesc')}</p>
               </Link>
             </div>
           </>
@@ -208,9 +206,9 @@ export default function DashboardPage() {
               <div className="rounded-lg border bg-white">
                 <div className="border-b p-6">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-gray-900">Poslední leady</h2>
+                    <h2 className="text-lg font-semibold text-gray-900">{t('recentLeads')}</h2>
                     <Link href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
-                      Zobrazit vše
+                      {tActions('showAll')}
                     </Link>
                   </div>
                 </div>
@@ -247,11 +245,11 @@ export default function DashboardPage() {
                                 onChange={(e) => handleStatusChange(lead.id, e.target.value)}
                                 className="rounded border border-gray-300 px-2 py-1 text-xs hover:bg-gray-50"
                               >
-                                <option value="NEW">Nový</option>
-                                <option value="CONTACTED">Kontaktován</option>
-                                <option value="QUALIFIED">Kvalifikován</option>
-                                <option value="CLOSED_WON">Uzavřeno</option>
-                                <option value="CLOSED_LOST">Ztraceno</option>
+                                <option value="NEW">{tStatus('new')}</option>
+                                <option value="CONTACTED">{tStatus('contacted')}</option>
+                                <option value="QUALIFIED">{tStatus('qualified')}</option>
+                                <option value="CLOSED_WON">{tStatus('closedWon')}</option>
+                                <option value="CLOSED_LOST">{tStatus('closedLost')}</option>
                               </select>
                             </div>
                           </div>
@@ -262,9 +260,9 @@ export default function DashboardPage() {
                 ) : (
                   <div className="p-12 text-center">
                     <div className="mb-4 text-5xl">📭</div>
-                    <h3 className="mb-2 text-lg font-semibold text-gray-900">Zatím žádné leady</h3>
+                    <h3 className="mb-2 text-lg font-semibold text-gray-900">{t('emptyLeads.title')}</h3>
                     <p className="text-gray-600">
-                      Jakmile dostanete první poptávku, zobrazí se zde.
+                      {t('emptyLeads.description')}
                     </p>
                   </div>
                 )}
@@ -274,37 +272,37 @@ export default function DashboardPage() {
             {/* Quick Actions */}
             <div className="lg:col-span-1">
               <div className="rounded-lg border bg-white p-6">
-                <h2 className="mb-4 text-lg font-semibold text-gray-900">Rychlé akce</h2>
+                <h2 className="mb-4 text-lg font-semibold text-gray-900">{t('quickActions.title')}</h2>
                 <div className="space-y-3">
                   <a
                     href="/profi/dashboard/deals"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
-                    🤝 Deal Pipeline
+                    🤝 {t('quickActions.dealPipeline')}
                   </a>
                   <a
                     href="/profi/dashboard/commissions"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
-                    💰 Provízie
+                    💰 {t('quickActions.commissions')}
                   </a>
                   <a
                     href="/profi/dashboard/profil"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
-                    📝 Upravit profil
+                    📝 {t('quickActions.editProfile')}
                   </a>
                   <a
                     href="/profi/dashboard/recenze"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
-                    💬 Správa recenzí
+                    💬 {t('quickActions.manageReviews')}
                   </a>
                   <a
                     href="/ceny"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
-                    💳 Upgrade plánu
+                    💳 {t('quickActions.upgradePlan')}
                   </a>
                 </div>
               </div>
@@ -313,15 +311,13 @@ export default function DashboardPage() {
               {subscription && (
                 <div className="mt-6 rounded-lg border bg-blue-50 p-6">
                   <h3 className="mb-2 font-semibold text-blue-900">
-                    Váš plán: {subscription.tier === 'basic' ? 'Basic' : subscription.tier === 'pro' ? 'Pro' : 'Premium'}
+                    {t('subscription.yourPlan', { plan: subscription.tier === 'basic' ? 'Basic' : subscription.tier === 'pro' ? 'Pro' : 'Premium' })}
                   </h3>
                   <p className="mb-4 text-sm text-blue-700">
                     {subscription.tier === 'premium' ? (
-                      'Neomezené leady'
+                      t('subscription.unlimitedLeads')
                     ) : (
-                      <>
-                        Zbývá {subscription.remainingLeads || 0} leadů do konce měsíce
-                      </>
+                      t('subscription.remainingLeads', { count: subscription.remainingLeads || 0 })
                     )}
                   </p>
                   {subscription.tier !== 'premium' && (
@@ -332,7 +328,7 @@ export default function DashboardPage() {
                       }}
                       className="block w-full rounded-md bg-blue-600 py-2 text-center text-sm font-medium text-white hover:bg-blue-700"
                     >
-                      Upgradovat na Premium
+                      {t('subscription.upgrade')}
                     </button>
                   )}
                 </div>

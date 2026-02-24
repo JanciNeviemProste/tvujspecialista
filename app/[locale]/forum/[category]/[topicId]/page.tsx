@@ -1,7 +1,8 @@
 'use client';
 
 import { use } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForumTopic, useCreatePost, useToggleLike, useDeletePost } from '@/lib/hooks/useForum';
 import { PostCard } from '@/components/forum/PostCard';
@@ -19,6 +20,7 @@ interface TopicDetailPageProps {
 }
 
 export default function TopicDetailPage({ params }: TopicDetailPageProps) {
+  const t = useTranslations('forum.topic');
   const { category, topicId } = use(params);
   const router = useRouter();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
@@ -44,8 +46,8 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
   if (!topic) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h2 className="text-xl font-semibold mb-2">Téma nenájdená</h2>
-        <p className="text-muted-foreground">Táto téma neexistuje alebo bola odstránená.</p>
+        <h2 className="text-xl font-semibold mb-2">{t('notFound')}</h2>
+        <p className="text-muted-foreground">{t('notFoundDesc')}</p>
       </div>
     );
   }
@@ -65,7 +67,7 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
   };
 
   const handleDelete = (postId: string) => {
-    if (window.confirm('Naozaj chcete zmazať tento príspevok?')) {
+    if (window.confirm(t('deleteConfirm'))) {
       deletePost.mutate(postId);
     }
   };
@@ -117,7 +119,7 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
       {topic.posts && topic.posts.length > 0 && (
         <div className="space-y-4 mb-6">
           <h2 className="text-lg font-semibold">
-            Odpovede ({topic.posts.length})
+            {t('replies', { count: topic.posts.length })}
           </h2>
           {topic.posts.map((post) => (
             <PostCard
@@ -137,7 +139,7 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
         <Card>
           <CardContent className="p-6 text-center text-muted-foreground">
             <Lock className="h-6 w-6 mx-auto mb-2" />
-            <p>Táto téma je uzamknutá. Nie je možné pridávať odpovede.</p>
+            <p>{t('locked')}</p>
           </CardContent>
         </Card>
       ) : (
