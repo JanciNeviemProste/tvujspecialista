@@ -247,7 +247,7 @@
       "subtitle": "Dołącz do platformy, na której czekają na Ciebie wartościowi klienci",
       "benefit1": "Wartościowe leady",
       "benefit2": "Zweryfikowany profil",
-      "benefit3": "Edukacja i społeczność",
+      "benefit3": "Edukacja i eventy",
       "button": "Wypróbuj 14 dni bezpłatnie"
     },
     "faq": {
@@ -332,7 +332,7 @@
           "reviews": "Zarządzanie opiniami i ocenami",
           "basicStats": "Podstawowe statystyki profilu",
           "emailSupport": "Wsparcie e-mailowe",
-          "forumAccess": "Dostęp do forum społeczności",
+          "forumAccess": "Dostęp do forum",
           "academyCourses": "Kursy w sekcji Akademii"
         }
       },
@@ -347,7 +347,7 @@
           "analytics": "Rozszerzona analityka i statystyki",
           "prioritySupport": "Wsparcie priorytetowe",
           "webinars": "Dostęp do ekskluzywnych webinarów",
-          "events": "Eventy społeczności i networking"
+          "events": "Eventy i networking"
         }
       }
     },
@@ -357,10 +357,10 @@
       "monthlyLabel": "Miesięczny (50 €)",
       "yearlyLabel": "Roczny (500 €)",
       "marketplace": "Marketplace",
-      "education": "Edukacja i społeczność",
+      "education": "Edukacja i eventy",
       "support": "Wsparcie",
       "exclusiveWebinars": "Ekskluzywne webinary",
-      "communityEvents": "Eventy społeczności i networking"
+      "communityEvents": "Eventy i networking"
     },
     "faq": {
       "title": "Często zadawane pytania",
@@ -477,7 +477,7 @@
     },
     "metadata": {
       "title": "O nas | tvujspecialista.cz",
-      "description": "Jesteśmy platformą edu-społecznościową premium łączącą agentów nieruchomości i doradców finansowych z wysokiej jakości edukacją i możliwościami biznesowymi."
+      "description": "Jesteśmy platformą edu-eventową premium łączącą agentów nieruchomości i doradców finansowych z wysokiej jakości edukacją i możliwościami biznesowymi."
     }
   },
   "terms": {
@@ -1210,10 +1210,10 @@
     "branding": "Eventy",
     "metadata": {
       "title": "Eventy | tvujspecialista.cz",
-      "description": "Eventy społeczności i spotkania dla profesjonalistów."
+      "description": "Eventy i spotkania dla profesjonalistów."
     },
     "hero": {
-      "title": "Dołącz do naszej społeczności",
+      "title": "Dołącz do naszych eventów",
       "subtitle": "Bierz udział w networkingu, warsztatach i eventach dla agentów nieruchomości i doradców finansowych",
       "exploreButton": "Przeglądaj eventy",
       "manageButton": "Zarządzaj eventami"
@@ -1225,7 +1225,7 @@
       },
       "exclusiveEvents": {
         "title": "Ekskluzywne eventy",
-        "description": "Warsztaty, webinary i konferencje stworzone specjalnie dla naszej społeczności"
+        "description": "Warsztaty, webinary i konferencje stworzone specjalnie dla profesjonalistów"
       },
       "careerGrowth": {
         "title": "Rozwój kariery",

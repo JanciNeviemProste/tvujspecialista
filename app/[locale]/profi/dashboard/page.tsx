@@ -54,7 +54,7 @@ export default function DashboardPage() {
     return leadsData;
   }, [leadsData]);
 
-  if (authLoading || leadsLoading) {
+  if (authLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="flex items-center justify-center py-20">
@@ -106,41 +106,55 @@ export default function DashboardPage() {
         {/* Stats Cards - only for specialists */}
         {!isAdmin && (
           <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">{t('stats.newLeads')}</span>
-                <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
-                  {t('stats.thisMonth')}
-                </span>
-              </div>
-              <div className="text-3xl font-bold text-gray-900">{stats.newLeads}</div>
-              <p className="mt-2 text-sm text-gray-500">
-                {subscription && subscription.tier && (
-                  t('stats.remaining', { count: subscription.tier === 'premium' ? '∞' : String(subscription.remainingLeads || 0) })
-                )}
-              </p>
-            </div>
+            {leadsLoading ? (
+              <>
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="rounded-lg border bg-white p-6 animate-pulse">
+                    <div className="h-4 w-24 bg-gray-200 rounded mb-4" />
+                    <div className="h-8 w-16 bg-gray-200 rounded mb-2" />
+                    <div className="h-3 w-32 bg-gray-100 rounded" />
+                  </div>
+                ))}
+              </>
+            ) : (
+              <>
+                <div className="rounded-lg border bg-white p-6">
+                  <div className="mb-2 flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-600">{t('stats.newLeads')}</span>
+                    <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
+                      {t('stats.thisMonth')}
+                    </span>
+                  </div>
+                  <div className="text-3xl font-bold text-gray-900">{stats.newLeads}</div>
+                  <p className="mt-2 text-sm text-gray-500">
+                    {subscription && subscription.tier && (
+                      t('stats.remaining', { count: subscription.tier === 'premium' ? '∞' : String(subscription.remainingLeads || 0) })
+                    )}
+                  </p>
+                </div>
 
-            <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.totalLeads')}</div>
-              <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
-              <p className="mt-2 text-sm text-gray-500">{t('stats.sinceStart')}</p>
-            </div>
+                <div className="rounded-lg border bg-white p-6">
+                  <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.totalLeads')}</div>
+                  <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
+                  <p className="mt-2 text-sm text-gray-500">{t('stats.sinceStart')}</p>
+                </div>
 
-            <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.avgRating')}</div>
-              <div className="flex items-baseline gap-2">
-                <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
-                <div className="text-xl text-yellow-400">★</div>
-              </div>
-              <p className="mt-2 text-sm text-gray-500">{t('stats.yourRating')}</p>
-            </div>
+                <div className="rounded-lg border bg-white p-6">
+                  <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.avgRating')}</div>
+                  <div className="flex items-baseline gap-2">
+                    <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
+                    <div className="text-xl text-yellow-400">★</div>
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500">{t('stats.yourRating')}</p>
+                </div>
 
-            <div className="rounded-lg border bg-white p-6">
-              <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.successRate')}</div>
-              <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
-              <p className="mt-2 text-sm text-gray-500">{t('stats.closedDeals')}</p>
-            </div>
+                <div className="rounded-lg border bg-white p-6">
+                  <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.successRate')}</div>
+                  <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
+                  <p className="mt-2 text-sm text-gray-500">{t('stats.closedDeals')}</p>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -223,7 +237,22 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                {normalizedLeads && normalizedLeads.leads && normalizedLeads.leads.length > 0 ? (
+                {leadsLoading ? (
+                  <div className="divide-y">
+                    {[1, 2, 3].map((i) => (
+                      <div key={i} className="p-6 animate-pulse">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1 space-y-3">
+                            <div className="h-4 w-32 bg-gray-200 rounded" />
+                            <div className="h-3 w-24 bg-gray-100 rounded" />
+                            <div className="h-3 w-40 bg-gray-100 rounded" />
+                          </div>
+                          <div className="h-6 w-16 bg-gray-200 rounded-full" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : normalizedLeads && normalizedLeads.leads && normalizedLeads.leads.length > 0 ? (
                   <div className="divide-y">
                     {normalizedLeads.leads.slice(0, 5).map((lead: Lead) => {
                       const statusInfo = getStatusBadge(lead.status);

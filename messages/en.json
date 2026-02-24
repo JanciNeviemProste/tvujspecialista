@@ -247,7 +247,7 @@
       "subtitle": "Join the platform where quality clients are waiting for you",
       "benefit1": "Quality leads",
       "benefit2": "Verified profile",
-      "benefit3": "Education and community",
+      "benefit3": "Education and events",
       "button": "Try 14 days for free"
     },
     "faq": {
@@ -332,7 +332,7 @@
           "reviews": "Reviews and ratings management",
           "basicStats": "Basic profile statistics",
           "emailSupport": "Email support",
-          "forumAccess": "Access to the community forum",
+          "forumAccess": "Access to the forum",
           "academyCourses": "Courses in the Academy section"
         }
       },
@@ -347,7 +347,7 @@
           "analytics": "Advanced analytics and statistics",
           "prioritySupport": "Priority support",
           "webinars": "Access to exclusive webinars",
-          "events": "Community events and networking"
+          "events": "Events and networking"
         }
       }
     },
@@ -357,10 +357,10 @@
       "monthlyLabel": "Monthly (€50)",
       "yearlyLabel": "Annual (€500)",
       "marketplace": "Marketplace",
-      "education": "Education and community",
+      "education": "Education and events",
       "support": "Support",
       "exclusiveWebinars": "Exclusive webinars",
-      "communityEvents": "Community events and networking"
+      "communityEvents": "Events and networking"
     },
     "faq": {
       "title": "Frequently asked questions",
@@ -477,7 +477,7 @@
     },
     "metadata": {
       "title": "About us | tvujspecialista.cz",
-      "description": "We are a premium edu-community platform connecting real estate agents and financial advisors with quality education and business opportunities."
+      "description": "We are a premium edu-events platform connecting real estate agents and financial advisors with quality education and business opportunities."
     }
   },
   "terms": {
@@ -1210,10 +1210,10 @@
     "branding": "Events",
     "metadata": {
       "title": "Events | tvujspecialista.cz",
-      "description": "Community events and meetups for professionals."
+      "description": "Events and meetups for professionals."
     },
     "hero": {
-      "title": "Become part of our community",
+      "title": "Become part of our events",
       "subtitle": "Join networking events, workshops and meetups for real estate agents and financial advisors",
       "exploreButton": "Explore events",
       "manageButton": "Manage events"
@@ -1225,7 +1225,7 @@
       },
       "exclusiveEvents": {
         "title": "Exclusive events",
-        "description": "Workshops, webinars and conferences designed specifically for our community"
+        "description": "Workshops, webinars and conferences designed specifically for professionals"
       },
       "careerGrowth": {
         "title": "Career growth",

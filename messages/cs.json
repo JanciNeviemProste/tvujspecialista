@@ -247,7 +247,7 @@
       "subtitle": "Připojte se k platformě, kde na vás čekají kvalitní klienti",
       "benefit1": "Kvalitní leady",
       "benefit2": "Ověřený profil",
-      "benefit3": "Vzdělávání a komunita",
+      "benefit3": "Vzdělávání a eventy",
       "button": "Vyzkoušejte 14 dní zdarma"
     },
     "faq": {
@@ -332,7 +332,7 @@
           "reviews": "Správa recenzí a hodnocení",
           "basicStats": "Základní statistika profilu",
           "emailSupport": "E-mailová podpora",
-          "forumAccess": "Přístup ke komunitnímu fóru",
+          "forumAccess": "Přístup k fóru",
           "academyCourses": "Kurzy v Academy sekci"
         }
       },
@@ -347,7 +347,7 @@
           "analytics": "Rozšířená analytika a statistiky",
           "prioritySupport": "Prioritní podpora",
           "webinars": "Přístup k exkluzivním webinářům",
-          "events": "Komunitní eventy a networking"
+          "events": "Eventy a networking"
         }
       }
     },
@@ -357,10 +357,10 @@
       "monthlyLabel": "Měsíční (50 €)",
       "yearlyLabel": "Roční (500 €)",
       "marketplace": "Marketplace",
-      "education": "Vzdělávání a komunita",
+      "education": "Vzdělávání a eventy",
       "support": "Podpora",
       "exclusiveWebinars": "Exkluzivní webináře",
-      "communityEvents": "Komunitní eventy a networking"
+      "communityEvents": "Eventy a networking"
     },
     "faq": {
       "title": "Často kladené otázky",
@@ -477,7 +477,7 @@
     },
     "metadata": {
       "title": "O nás | tvujspecialista.cz",
-      "description": "Jsme prémiová edu-komunitní platforma spojující realitní agenty a finanční poradce s kvalitním vzděláváním a obchodními příležitostmi."
+      "description": "Jsme prémiová edu-eventová platforma spojující realitní agenty a finanční poradce s kvalitním vzděláváním a obchodními příležitostmi."
     }
   },
   "terms": {
@@ -1210,10 +1210,10 @@
     "branding": "Eventy",
     "metadata": {
       "title": "Eventy | tvujspecialista.cz",
-      "description": "Komunitní eventy a setkání pro profesionály."
+      "description": "Eventy a setkání pro profesionály."
     },
     "hero": {
-      "title": "Staňte se součástí naší komunity",
+      "title": "Staňte se součástí našich eventů",
       "subtitle": "Připojte se k networkingu, workshopům a eventům pro realitní agenty a finanční poradce",
       "exploreButton": "Prozkoumat eventy",
       "manageButton": "Spravovat eventy"
@@ -1225,7 +1225,7 @@
       },
       "exclusiveEvents": {
         "title": "Exkluzivní eventy",
-        "description": "Workshopy, webináře a konference speciálně pro naši komunitu"
+        "description": "Workshopy, webináře a konference speciálně pro profesionály"
       },
       "careerGrowth": {
         "title": "Růst kariéry",
