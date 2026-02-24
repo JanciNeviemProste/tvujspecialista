@@ -1137,7 +1137,9 @@
       "completed": "Ukończono",
       "markComplete": "Oznacz jako ukończone",
       "complete": "Zakończ",
-      "nextLesson": "Następna lekcja"
+      "nextLesson": "Następna lekcja",
+      "enrollRequired": "Aby śledzić postępy, musisz zapisać się na kurs.",
+      "markCompleteError": "Nie udało się oznaczyć lekcji jako ukończonej. Spróbuj ponownie."
     },
     "myLearning": {
       "title": "Moje szkolenia",

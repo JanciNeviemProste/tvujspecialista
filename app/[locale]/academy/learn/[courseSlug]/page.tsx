@@ -49,10 +49,13 @@ export default function LearnPage() {
   // Current lesson state
   const [currentLessonId, setCurrentLessonId] = useState<string>('');
   const autoAdvanceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const initializedRef = useRef(false);
+  const [progressError, setProgressError] = useState<string | null>(null);
 
-  // Initialize current lesson
+  // Initialize current lesson — runs ONCE, then never overrides user navigation
   useEffect(() => {
     if (allLessons.length === 0) return;
+    if (initializedRef.current) return;
 
     if (lessonIdParam && allLessons.find(l => l.id === lessonIdParam)) {
       setCurrentLessonId(lessonIdParam);
@@ -62,12 +65,13 @@ export default function LearnPage() {
         .filter(p => !p.completed)
         .sort((a, b) => new Date(b.lastWatchedAt).getTime() - new Date(a.lastWatchedAt).getTime())[0];
 
-      if (lastProgress) {
+      if (lastProgress && allLessons.find(l => l.id === lastProgress.lessonId)) {
         setCurrentLessonId(lastProgress.lessonId);
       } else {
         setCurrentLessonId(allLessons[0].id);
       }
     }
+    initializedRef.current = true;
   }, [lessonIdParam, allLessons, progressData]);
 
   // Cancel pending auto-advance when lesson changes
@@ -159,16 +163,29 @@ export default function LearnPage() {
   };
 
   const handleMarkComplete = () => {
-    if (!enrollment || !currentLessonId || !currentLesson) return;
+    if (!currentLessonId || !currentLesson) return;
 
+    if (!enrollment) {
+      setProgressError(t('learn.enrollRequired'));
+      return;
+    }
+
+    setProgressError(null);
     const currentSeconds = currentProgress?.watchTimeSeconds ?? (currentLesson.duration != null ? currentLesson.duration * 60 : 0);
 
-    updateProgress.mutate({
-      enrollmentId: enrollment.id,
-      lessonId: currentLessonId,
-      watchTimeSeconds: currentSeconds,
-      completed: true,
-    });
+    updateProgress.mutate(
+      {
+        enrollmentId: enrollment.id,
+        lessonId: currentLessonId,
+        watchTimeSeconds: currentSeconds,
+        completed: true,
+      },
+      {
+        onError: () => {
+          setProgressError(t('learn.markCompleteError'));
+        },
+      }
+    );
   };
 
   // Check enrollment status
@@ -262,6 +279,13 @@ export default function LearnPage() {
           className="flex-shrink-0"
         />
       </div>
+
+      {/* Error feedback */}
+      {progressError && (
+        <div className="px-4 py-2 bg-red-900/80 text-red-200 text-sm text-center flex-shrink-0">
+          {progressError}
+        </div>
+      )}
 
       {/* Bottom bar */}
       <div className="h-16 border-t border-white/10 flex items-center justify-between px-4 lg:px-6 flex-shrink-0 bg-gray-900 gap-2">

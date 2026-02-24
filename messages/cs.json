@@ -1137,7 +1137,9 @@
       "completed": "Dokončeno",
       "markComplete": "Označit jako dokončeno",
       "complete": "Dokončit",
-      "nextLesson": "Další lekce"
+      "nextLesson": "Další lekce",
+      "enrollRequired": "Pro sledování pokroku se musíte zapsat do kurzu.",
+      "markCompleteError": "Nepodařilo se označit lekci jako dokončenou. Zkuste to znovu."
     },
     "myLearning": {
       "title": "Moje vzdělávání",

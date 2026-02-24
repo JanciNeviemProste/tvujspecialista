@@ -1137,7 +1137,9 @@
       "completed": "Completed",
       "markComplete": "Mark as complete",
       "complete": "Complete",
-      "nextLesson": "Next lesson"
+      "nextLesson": "Next lesson",
+      "enrollRequired": "You need to enroll in the course to track progress.",
+      "markCompleteError": "Failed to mark lesson as complete. Please try again."
     },
     "myLearning": {
       "title": "My learning",
