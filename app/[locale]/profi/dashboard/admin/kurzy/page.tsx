@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
@@ -50,6 +50,13 @@ function CourseFormModal({
 }) {
   const tAdmin = useTranslations('dashboard.admin');
   const [form, setForm] = useState<CourseFormData>(initialData);
+
+  // Reset form data whenever the modal opens — ensures correct values even if key prop misses
+  useEffect(() => {
+    if (isOpen) {
+      setForm(initialData);
+    }
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!isOpen) return null;
 
