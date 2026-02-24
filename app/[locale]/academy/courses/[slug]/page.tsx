@@ -78,6 +78,8 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
     if (msg.includes('Active subscription required')) return t('courseDetail.errorSubscriptionRequired')
     if (msg.includes('Education or Premium subscription')) return t('courseDetail.errorEducationRequired')
     if (msg.includes('subscription has expired')) return t('courseDetail.errorSubscriptionExpired')
+    if (msg.includes('Already enrolled')) return t('courseDetail.errorAlreadyEnrolled')
+    if (msg.includes('Already completed')) return t('courseDetail.errorAlreadyCompleted')
     return msg
   }
 

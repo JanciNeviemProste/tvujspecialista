@@ -1120,6 +1120,8 @@
       "errorSubscriptionRequired": "Active subscription required.",
       "errorEducationRequired": "Access requires an Education or Premium subscription.",
       "errorSubscriptionExpired": "Your subscription has expired. Please renew to continue.",
+      "errorAlreadyEnrolled": "You are already enrolled in this course.",
+      "errorAlreadyCompleted": "You have already completed this course.",
       "courseInfo": "Course information",
       "duration": "Duration:",
       "lessonCount": "Number of lessons:",

@@ -1120,6 +1120,8 @@
       "errorSubscriptionRequired": "Wymagana aktywna subskrypcja.",
       "errorEducationRequired": "Dostęp wymaga subskrypcji Education lub Premium.",
       "errorSubscriptionExpired": "Twoja subskrypcja wygasła. Odnów ją, aby kontynuować.",
+      "errorAlreadyEnrolled": "Już jesteś zapisany na ten kurs.",
+      "errorAlreadyCompleted": "Już ukończyłeś ten kurs.",
       "courseInfo": "Informacje o kursie",
       "duration": "Czas trwania:",
       "lessonCount": "Liczba lekcji:",

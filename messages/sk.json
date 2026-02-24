@@ -1120,6 +1120,8 @@
       "errorSubscriptionRequired": "Vyžaduje sa aktívne predplatné.",
       "errorEducationRequired": "Prístup vyžaduje Education alebo Premium predplatné.",
       "errorSubscriptionExpired": "Vaše predplatné vypršalo. Obnovte si ho pre pokračovanie.",
+      "errorAlreadyEnrolled": "Už ste prihlásený v tomto kurze.",
+      "errorAlreadyCompleted": "Tento kurz ste už dokončili.",
       "courseInfo": "Informácie o kurze",
       "duration": "Trvanie:",
       "lessonCount": "Počet lekcií:",

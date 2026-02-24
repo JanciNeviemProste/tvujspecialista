@@ -217,14 +217,12 @@ export class EnrollmentsService {
       throw new NotFoundException('Enrollment not found');
     }
 
-    // Count total published lessons in the course
+    // Count total lessons in the course
     let totalLessons = 0;
     if (enrollment.course.modules) {
       enrollment.course.modules.forEach((module) => {
         if (module.lessons) {
-          totalLessons += module.lessons.filter(
-            (lesson) => lesson.published,
-          ).length;
+          totalLessons += module.lessons.length;
         }
       });
     }
