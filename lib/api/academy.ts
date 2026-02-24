@@ -110,13 +110,18 @@ export const academyApi = {
     apiClient.patch(`/academy/lessons/${lessonId}/reorder`, { position }),
 
   // Videos (admin)
-  uploadVideo: (file: File, lessonId: string, title: string) => {
+  uploadVideo: (file: File, lessonId: string, title: string, onProgress?: (percent: number) => void) => {
     const formData = new FormData();
     formData.append('video', file);
     formData.append('lessonId', lessonId);
     formData.append('title', title);
     return apiClient.post<Video>('/academy/videos/upload', formData, {
       timeout: 600000, // 10 min for large files
+      onUploadProgress: (e) => {
+        if (onProgress && e.total) {
+          onProgress(Math.round((e.loaded / e.total) * 95));
+        }
+      },
     });
   },
 

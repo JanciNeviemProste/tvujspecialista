@@ -205,19 +205,14 @@ function VideoUploadZone({
     setUploading(true);
     setProgress(0);
 
-    // Simulate progress since axios doesn't give us real progress easily
-    const interval = setInterval(() => {
-      setProgress((p) => Math.min(p + 2, 90));
-    }, 1000);
-
     try {
-      await academyApi.uploadVideo(file, lesson.id, lesson.title);
-      clearInterval(interval);
+      await academyApi.uploadVideo(file, lesson.id, lesson.title, (percent) => {
+        setProgress(percent);
+      });
       setProgress(100);
       toast.success('Video nahrané');
       onUploadDone();
     } catch (error: any) {
-      clearInterval(interval);
       console.error('Video upload error:', error);
       const detail = error?.response?.data?.message || error?.message || '';
       toast.error(`Nahrávanie videa zlyhalo${detail ? ': ' + detail : ''}`);
