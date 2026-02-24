@@ -44,9 +44,9 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
   const breadcrumbs = getBreadcrumbs()
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-white">
       {/* Community Navigation Bar */}
-      <div className="border-b bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+      <div className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Left side - Navigation */}
@@ -54,8 +54,8 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
               <Link
                 href="/community"
                 className={cn(
-                  'flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary',
-                  pathname === '/community' ? 'text-primary' : 'text-muted-foreground'
+                  'flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600',
+                  pathname === '/community' ? 'text-blue-600' : 'text-gray-500'
                 )}
               >
                 <Home className="h-4 w-4" />
@@ -64,8 +64,8 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
               <Link
                 href="/community/events"
                 className={cn(
-                  'flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary',
-                  pathname?.startsWith('/community/events') ? 'text-primary' : 'text-muted-foreground'
+                  'flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600',
+                  pathname?.startsWith('/community/events') ? 'text-blue-600' : 'text-gray-500'
                 )}
               >
                 <Library className="h-4 w-4" />
@@ -76,8 +76,8 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                   <Link
                     href="/community/my-events"
                     className={cn(
-                      'flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary',
-                      pathname === '/community/my-events' ? 'text-primary' : 'text-muted-foreground'
+                      'flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600',
+                      pathname === '/community/my-events' ? 'text-blue-600' : 'text-gray-500'
                     )}
                   >
                     <User className="h-4 w-4" />
@@ -85,7 +85,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                   </Link>
                   <Link
                     href="/profi/dashboard"
-                    className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                    className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
                   >
                     <LayoutDashboard className="h-4 w-4" />
                     <span className="hidden sm:inline">{t('nav.dashboard')}</span>
@@ -105,8 +105,8 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
 
             {/* Right side - Community branding */}
             <div className="flex items-center gap-2 text-sm font-semibold">
-              <Calendar className="h-5 w-5 text-accent-500" />
-              <span className="hidden sm:inline bg-gradient-to-r from-accent-500 to-primary bg-clip-text text-transparent">
+              <Calendar className="h-5 w-5 text-green-600" />
+              <span className="hidden sm:inline bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                 {t('branding')}
               </span>
             </div>
@@ -117,13 +117,13 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
             <div className="flex items-center gap-2 text-sm pb-3 overflow-x-auto">
               {breadcrumbs.map((crumb, index) => (
                 <div key={crumb.href} className="flex items-center gap-2 flex-shrink-0">
-                  {index > 0 && <span className="text-muted-foreground">/</span>}
+                  {index > 0 && <span className="text-gray-500">/</span>}
                   {index === breadcrumbs.length - 1 ? (
-                    <span className="text-foreground font-medium">{crumb.label}</span>
+                    <span className="text-gray-900 font-medium">{crumb.label}</span>
                   ) : (
                     <Link
                       href={crumb.href}
-                      className="text-muted-foreground hover:text-primary transition-colors"
+                      className="text-gray-500 hover:text-blue-600 transition-colors"
                     >
                       {crumb.label}
                     </Link>

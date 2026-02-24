@@ -7,13 +7,11 @@ import { useTranslations } from 'next-intl';
 import { useMyLeads } from '@/lib/hooks/useMyLeads';
 import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
-import { leadsApi } from '@/lib/api/leads';
 import { specialistsApi } from '@/lib/api/specialists';
 import { adminApi } from '@/lib/api/admin';
 import React from 'react';
 import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp } from 'lucide-react';
 import type { Lead } from '@/types/lead';
-import type { LeadStatus } from '@/lib/api/leads';
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard.main');
@@ -55,15 +53,6 @@ export default function DashboardPage() {
     }
     return leadsData;
   }, [leadsData]);
-
-  const handleStatusChange = async (leadId: string, newStatus: string) => {
-    try {
-      await leadsApi.updateStatus(leadId, newStatus as LeadStatus);
-      // React Query will automatically refetch
-    } catch (error) {
-      console.error('Error updating lead status:', error);
-    }
-  };
 
   if (authLoading || leadsLoading) {
     return (
@@ -261,17 +250,6 @@ export default function DashboardPage() {
                               >
                                 {statusInfo.label}
                               </span>
-                              <select
-                                value={lead.status}
-                                onChange={(e) => handleStatusChange(lead.id, e.target.value)}
-                                className="rounded border border-gray-300 px-2 py-1 text-xs hover:bg-gray-50"
-                              >
-                                <option value="new">{tStatus('new')}</option>
-                                <option value="contacted">{tStatus('contacted')}</option>
-                                <option value="qualified">{tStatus('qualified')}</option>
-                                <option value="closed_won">{tStatus('closedWon')}</option>
-                                <option value="closed_lost">{tStatus('closedLost')}</option>
-                              </select>
                             </div>
                           </div>
                         </div>

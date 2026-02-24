@@ -14,10 +14,11 @@ export default function DashboardError({
   }, [error])
 
   return (
-    <div className="flex items-center justify-center min-h-[60vh]">
-      <div className="text-center max-w-md">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Niečo sa pokazilo</h2>
-        <p className="text-gray-500 dark:text-gray-400 mb-6">
+    <div className="flex items-center justify-center min-h-[60vh] bg-white">
+      <div className="text-center max-w-md p-8">
+        <div className="text-5xl mb-4">⚠️</div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Niečo sa pokazilo</h2>
+        <p className="text-gray-600 mb-6">
           Pri načítaní dashboardu došlo k chybe. Skúste to prosím znovu.
         </p>
         <button

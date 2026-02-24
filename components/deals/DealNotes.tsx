@@ -37,7 +37,7 @@ export function DealNotes({
                 <div className="flex-1">
                   <p className="text-sm text-gray-700 dark:text-gray-300">{note.content}</p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    {note.author.name} &bull; {new Date(note.createdAt).toLocaleDateString()}
+                    {note.author?.name || 'Neznámy'} &bull; {new Date(note.createdAt).toLocaleDateString()}
                   </p>
                 </div>
               </div>
