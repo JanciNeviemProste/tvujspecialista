@@ -406,7 +406,7 @@ function LessonRow({
           </button>
         </div>
       </div>
-      {showVideo && lesson.type === 'video' && (
+      {(showVideo || lesson.video?.status === 'error') && lesson.type === 'video' && (
         <div className="px-4 pb-3">
           <VideoUploadZone lesson={lesson} onUploadDone={onRefresh} />
         </div>
