@@ -254,6 +254,32 @@ function VideoUploadZone({
     );
   }
 
+  if (lesson.video && lesson.video.status === 'error') {
+    return (
+      <div className="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+        <X className="h-5 w-5 text-red-600" />
+        <div className="flex-1">
+          <p className="text-sm font-medium text-red-800">Upload zlyhal</p>
+          <p className="text-xs text-red-600">Kliknite na kôš pre zmazanie a nahrajte video znova</p>
+        </div>
+        <button
+          onClick={async () => {
+            try {
+              await academyApi.deleteVideo(lesson.video!.id);
+              toast.success('Chybný záznam zmazaný');
+              onUploadDone();
+            } catch {
+              toast.error('Mazanie zlyhalo');
+            }
+          }}
+          className="p-1.5 rounded-md hover:bg-red-100 text-red-600"
+        >
+          <Trash2 className="h-4 w-4" />
+        </button>
+      </div>
+    );
+  }
+
   if (lesson.video && (lesson.video.status === 'uploading' || lesson.video.status === 'processing')) {
     return (
       <div className="flex items-center gap-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">

@@ -6,7 +6,7 @@ import {
   Logger,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, In } from 'typeorm';
 import { Video, VideoStatus } from '../../database/entities/video.entity';
 import { Lesson } from '../../database/entities/lesson.entity';
 import { Enrollment } from '../../database/entities/enrollment.entity';
@@ -75,7 +75,13 @@ export class VideosService {
       );
     }
 
-    // 4. Create Video record with status: UPLOADING
+    // 4. Cleanup old failed/stuck videos for this lesson
+    await this.videoRepository.delete({
+      lessonId,
+      status: In([VideoStatus.ERROR, VideoStatus.UPLOADING]),
+    });
+
+    // 5. Create Video record with status: UPLOADING
     const video = this.videoRepository.create({
       lessonId,
       title,
