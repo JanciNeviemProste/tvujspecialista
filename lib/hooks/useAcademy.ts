@@ -88,6 +88,7 @@ export function useUpdateProgress() {
       queryClient.invalidateQueries({ queryKey: queryKeys.academy.enrollmentProgress(variables.enrollmentId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.academy.enrollment(variables.enrollmentId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.academy.enrollments });
+      queryClient.invalidateQueries({ queryKey: ['enrollmentByCourse'] });
     },
   });
 }

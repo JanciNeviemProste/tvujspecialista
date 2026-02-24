@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { useParams, useSearchParams } from 'next/navigation';
 import { useRouter } from '@/i18n/routing';
@@ -48,6 +48,7 @@ export default function LearnPage() {
 
   // Current lesson state
   const [currentLessonId, setCurrentLessonId] = useState<string>('');
+  const autoAdvanceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize current lesson
   useEffect(() => {
@@ -68,6 +69,16 @@ export default function LearnPage() {
       }
     }
   }, [lessonIdParam, allLessons, progressData]);
+
+  // Cancel pending auto-advance when lesson changes
+  useEffect(() => {
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearTimeout(autoAdvanceTimerRef.current);
+        autoAdvanceTimerRef.current = null;
+      }
+    };
+  }, [currentLessonId]);
 
   // Update URL when lesson changes
   useEffect(() => {
@@ -136,9 +147,9 @@ export default function LearnPage() {
       },
       {
         onSuccess: () => {
-          // Auto-advance to next lesson if available
+          // Auto-advance to next lesson if available (cancellable via ref)
           if (currentLessonIndex < allLessons.length - 1) {
-            setTimeout(() => {
+            autoAdvanceTimerRef.current = setTimeout(() => {
               goToNextLesson();
             }, 1000);
           }
@@ -152,24 +163,12 @@ export default function LearnPage() {
 
     const currentSeconds = currentProgress?.watchTimeSeconds ?? (currentLesson.duration != null ? currentLesson.duration * 60 : 0);
 
-    updateProgress.mutate(
-      {
-        enrollmentId: enrollment.id,
-        lessonId: currentLessonId,
-        watchTimeSeconds: currentSeconds,
-        completed: true,
-      },
-      {
-        onSuccess: () => {
-          // Auto-advance to next lesson
-          if (currentLessonIndex < allLessons.length - 1) {
-            setTimeout(() => {
-              goToNextLesson();
-            }, 1000);
-          }
-        },
-      }
-    );
+    updateProgress.mutate({
+      enrollmentId: enrollment.id,
+      lessonId: currentLessonId,
+      watchTimeSeconds: currentSeconds,
+      completed: true,
+    });
   };
 
   // Check enrollment status
