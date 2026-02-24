@@ -386,7 +386,9 @@ export class EventsService {
   private generateSlug(title: string): string {
     return title
       .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove diacritic combining characters (í→i, á→a, č→c...)
+      .replace(/[^a-z0-9\s-]/g, '') // Remove remaining special characters
       .replace(/\s+/g, '-') // Replace spaces with hyphens
       .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
       .trim();
