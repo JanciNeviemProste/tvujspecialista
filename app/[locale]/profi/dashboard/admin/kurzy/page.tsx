@@ -356,6 +356,12 @@ export default function AdminCoursesPage() {
                 </p>
               </div>
               <div className="flex items-center gap-2">
+                <Link
+                  href={`/profi/dashboard/admin/kurzy/${course.id}`}
+                  className="px-3 py-1.5 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors text-blue-600 text-xs font-medium"
+                >
+                  Obsah
+                </Link>
                 <button
                   onClick={() => openEdit(course)}
                   disabled={actionLoading === course.id}
