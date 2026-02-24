@@ -6,6 +6,9 @@ export const adminApi = {
   getSpecialists: (page = 1, limit = 20) => apiClient.get('/admin/specialists', { params: { page, limit } }),
   getLeads: (page = 1, limit = 20) => apiClient.get('/admin/leads', { params: { page, limit } }),
   verifySpecialist: (id: string) => apiClient.patch(`/admin/specialists/${id}/verify`),
+  getEvents: () => apiClient.get('/admin/events'),
+  publishEvent: (eventId: string, published: boolean) =>
+    apiClient.post(`/admin/events/${eventId}/publish`, { published }),
   getEventAttendees: (eventId: string) => apiClient.get(`/admin/events/${eventId}/attendees`),
   updateRSVPStatus: (rsvpId: string, status: string) => apiClient.patch(`/admin/rsvps/${rsvpId}/status`, { status }),
 };

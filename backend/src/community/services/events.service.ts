@@ -349,6 +349,24 @@ export class EventsService {
     return rsvps;
   }
 
+  async findAllAdmin(): Promise<{ events: Event[]; total: number }> {
+    const [events, total] = await this.eventRepository.findAndCount({
+      order: { createdAt: 'DESC' },
+      relations: ['organizer'],
+    });
+    return { events, total };
+  }
+
+  async publishAdmin(id: string, published: boolean): Promise<Event> {
+    const event = await this.eventRepository.findOne({ where: { id } });
+    if (!event) {
+      throw new NotFoundException('Event not found');
+    }
+    event.published = published;
+    event.status = published ? EventStatus.PUBLISHED : EventStatus.DRAFT;
+    return this.eventRepository.save(event);
+  }
+
   async getAttendeesAdmin(eventId: string): Promise<RSVP[]> {
     const event = await this.eventRepository.findOne({
       where: { id: eventId },

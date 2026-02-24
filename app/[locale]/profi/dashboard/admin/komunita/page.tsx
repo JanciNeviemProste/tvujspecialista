@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { communityApi } from '@/lib/api/community';
 import { adminApi } from '@/lib/api/admin';
-import { ArrowLeft, Calendar, Eye, XCircle, ChevronDown, ChevronUp, UserCheck, UserX, CheckCircle, Plus, Pencil, Trash2, X } from 'lucide-react';
+import { ArrowLeft, Calendar, Eye, XCircle, ChevronDown, ChevronUp, UserCheck, UserX, CheckCircle, Plus, Pencil, Trash2, X, RotateCcw } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -393,7 +393,7 @@ export default function AdminCommunityPage() {
 
   const { data: events, isLoading } = useQuery({
     queryKey: ['adminEvents'],
-    queryFn: () => communityApi.getEvents({}).then((res) => res.data),
+    queryFn: () => adminApi.getEvents().then((res) => res.data),
   });
 
   if (!authLoading && (!user || user.role !== 'admin')) {
@@ -404,7 +404,7 @@ export default function AdminCommunityPage() {
   const handlePublish = async (eventId: string) => {
     setActionLoading(eventId);
     try {
-      await communityApi.publishEvent(eventId, true);
+      await adminApi.publishEvent(eventId, true);
       toast.success(tAdmin('toasts.eventPublished'));
       queryClient.invalidateQueries({ queryKey: ['adminEvents'] });
     } catch {
@@ -598,6 +598,16 @@ export default function AdminCommunityPage() {
                       title="Publikovať"
                     >
                       <Eye className="h-4 w-4" />
+                    </button>
+                  )}
+                  {event.status === 'cancelled' && (
+                    <button
+                      onClick={() => handlePublish(event.id)}
+                      disabled={actionLoading === event.id}
+                      className="p-2 rounded-md hover:bg-green-50 transition-colors text-green-600"
+                      title="Obnoviť"
+                    >
+                      <RotateCcw className="h-4 w-4" />
                     </button>
                   )}
                   {event.status !== 'cancelled' && (

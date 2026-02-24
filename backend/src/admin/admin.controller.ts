@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Param, Query, Body, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Param, Query, Body, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { EventsService } from '../community/services/events.service';
 import { RSVPsService } from '../community/services/rsvps.service';
@@ -62,6 +62,26 @@ export class AdminController {
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async getStats() {
     return this.adminService.getStats();
+  }
+
+  @Get('events')
+  @ApiOperation({ summary: 'Get all events including cancelled/unpublished (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Returns all events' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
+  async getAllEvents() {
+    return this.eventsService.findAllAdmin();
+  }
+
+  @Post('events/:id/publish')
+  @ApiOperation({ summary: 'Publish/restore event (Admin only, no ownership check)' })
+  @ApiResponse({ status: 200, description: 'Event publish status updated' })
+  @ApiResponse({ status: 404, description: 'Event not found' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
+  async publishEvent(
+    @Param('id') id: string,
+    @Body('published') published: boolean,
+  ) {
+    return this.eventsService.publishAdmin(id, published);
   }
 
   @Get('events/:id/attendees')
