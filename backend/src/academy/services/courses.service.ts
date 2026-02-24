@@ -66,6 +66,7 @@ export class CoursesService {
       .createQueryBuilder('course')
       .leftJoinAndSelect('course.modules', 'module')
       .leftJoinAndSelect('module.lessons', 'lesson', 'lesson.published = :pub', { pub: true })
+      .leftJoinAndSelect('lesson.video', 'video')
       .where('course.slug = :slug', { slug })
       .andWhere('course.published = :published', { published: true })
       .orderBy('module.position', 'ASC')
