@@ -124,33 +124,156 @@
   },
   "home": {
     "hero": {
-      "title": "Find a verified specialist in 2 minutes",
-      "subtitle": "Compare specialists, read reviews and contact the best ones"
+      "title": "Find a verified specialist — risk-free, stress-free",
+      "subtitle": "Compare ratings, read verified reviews and contact the best financial advisors and real estate agents near you. Completely free of charge.",
+      "cta": "Find a specialist for free",
+      "ctaSpecialist": "I'm a specialist →",
+      "trustVerified": "2,500+ verified specialists",
+      "trustClients": "15,000+ satisfied clients",
+      "trustFree": "100% free for customers"
+    },
+    "problem": {
+      "title": "Finding a specialist shouldn't be a gamble",
+      "subtitle": "You know the feeling. You need an advisor, but don't know where to start.",
+      "trust": {
+        "title": "You don't know who to trust",
+        "description": "Everyone on the internet claims to be an expert. But who really is? How do you tell a professional from an amateur?"
+      },
+      "time": {
+        "title": "You waste time on meetings",
+        "description": "You meet with an advisor, and only after an hour you realize it's not the right fit. How much time have you already wasted like this?"
+      },
+      "fees": {
+        "title": "You're afraid of hidden fees",
+        "description": "How much will it really cost? Will there be hidden commissions? And who's responsible if things go wrong?"
+      }
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "subtitle": "3 simple steps to a verified specialist",
+      "step1": {
+        "title": "Choose a category",
+        "description": "Financial advisor or real estate agent? Enter your location and use our filters."
+      },
+      "step2": {
+        "title": "Compare specialists",
+        "description": "Browse verified profiles, reviews from real clients and ratings."
+      },
+      "step3": {
+        "title": "Contact the best one",
+        "description": "Send a non-binding inquiry. No fees, no obligations, no risk."
+      },
+      "cta": "Try it now"
     },
     "categories": {
-      "title": "Choose a specialist category",
+      "title": "Who you can find",
+      "subtitle": "Verified specialists in the two most important areas of your life",
       "financialAdvisor": "Financial advisor",
-      "financialAdvisorDesc": "Comprehensive financial advisory — mortgages, insurance, investments and loans",
+      "financialAdvisorDesc": "Comprehensive financial advice for your future",
+      "financialAdvisorFeatures": {
+        "mortgages": "Mortgages and refinancing",
+        "insurance": "Life and property insurance",
+        "investments": "Investments and savings",
+        "loans": "Loans and debt consolidation"
+      },
       "realEstateAgent": "Real estate agent",
-      "realEstateAgentDesc": "Sale, rental and management of properties — apartments, houses and commercial spaces",
-      "showSpecialists": "Browse specialists"
+      "realEstateAgentDesc": "Professional services for selling, buying and renting",
+      "realEstateAgentFeatures": {
+        "sale": "Selling apartments and houses",
+        "purchase": "Help with buying property",
+        "rental": "Renting and property management",
+        "commercial": "Commercial premises"
+      },
+      "showSpecialists": "Browse specialists →"
+    },
+    "testimonials": {
+      "title": "What our clients say",
+      "subtitle": "Real stories from people who found their specialist",
+      "verifiedClient": "Verified client",
+      "items": {
+        "t1": {
+          "quote": "Thanks to tvujspecialista.cz, I found an advisor in one day who saved me CZK 180,000 on my mortgage. Without this platform, I would have never found him.",
+          "name": "Martin K.",
+          "location": "Prague",
+          "rating": "5.0"
+        },
+        "t2": {
+          "quote": "I could finally compare agents objectively. We sold our apartment for CZK 400,000 more than the first agent offered.",
+          "name": "Jana V.",
+          "location": "Brno",
+          "rating": "5.0"
+        },
+        "t3": {
+          "quote": "I had a bad experience with an advisor before. Here I chose a verified one and I'm finally satisfied. I recommend it to everyone.",
+          "name": "Tomáš R.",
+          "location": "Ostrava",
+          "rating": "4.9"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Why people choose tvujspecialista.cz",
+      "subtitle": "We built a platform you can trust",
+      "verified": {
+        "title": "Verified specialists",
+        "description": "Every profile is manually verified by our team. No anonymous advisors — only vetted professionals."
+      },
+      "reviews": {
+        "title": "Real reviews",
+        "description": "Ratings from real clients that cannot be faked. Transparent feedback you can rely on."
+      },
+      "free": {
+        "title": "100% free for customers",
+        "description": "Searching, comparing and contacting specialists is completely free for customers. No hidden fees."
+      },
+      "noStrings": {
+        "title": "No obligations",
+        "description": "Send an inquiry with no strings attached. You can say no at any time — nobody's forcing you into anything."
+      }
     },
     "stats": {
+      "title": "Trusted by thousands of people",
       "specialists": "Verified specialists",
       "specialistsCount": "2,500+",
       "customers": "Satisfied customers",
       "customersCount": "15,000+",
       "successRate": "Placement success rate",
-      "successRateValue": "98%"
+      "successRateValue": "98%",
+      "avgRating": "Average rating",
+      "avgRatingValue": "4.8/5.0"
     },
-    "cta": {
-      "title": "Are you a specialist?",
-      "subtitle": "Get quality leads and grow your business",
-      "button": "Start free for 14 days"
+    "ctaSpecialist": {
+      "title": "Are you a financial advisor or real estate agent?",
+      "subtitle": "Join the platform where quality clients are waiting for you",
+      "benefit1": "Quality leads",
+      "benefit2": "Verified profile",
+      "benefit3": "Education and community",
+      "button": "Try 14 days for free"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know before you start",
+      "q1": "Is finding a specialist really free?",
+      "a1": "Yes, the platform is 100% free for customers. We charge no fees for searching, comparing or contacting specialists.",
+      "q2": "How do you verify specialists?",
+      "a2": "Every specialist goes through verification — we check professional qualifications, experience and references. Nobody who doesn't meet our standards gets on the platform.",
+      "q3": "What if I'm not happy with a specialist?",
+      "a3": "You have no obligation. The inquiry is non-binding and you can contact another specialist at any time. You can also write to us and we'll help you find a better solution.",
+      "q4": "Can I contact multiple specialists at once?",
+      "a4": "Of course. We recommend reaching out to 2-3 specialists and comparing their approach, prices and references. That's how you find the best one for your situation.",
+      "q5": "How are you different from Google search?",
+      "a5": "On Google you'll find thousands of results with no quality guarantee. With us, all specialists are verified, have real client reviews and you can easily compare them in one place.",
+      "q6": "Do I need to register to search?",
+      "a6": "No, searching and browsing profiles is available without registration. You only need to register to send an inquiry."
+    },
+    "finalCta": {
+      "title": "Stop searching blindly",
+      "subtitle": "Find a verified specialist today — it's free and takes 2 minutes.",
+      "button": "Start searching for free"
     },
     "metadata": {
       "title": "Find a verified specialist | tvujspecialista.cz",
-      "description": "Marketplace for finding verified specialists in finance and real estate in Czech Republic and Slovakia. Compare, read reviews and contact the best."
+      "description": "Marketplace for finding verified financial advisors and real estate agents. Compare profiles, read reviews and contact the best. 100% free."
     }
   },
   "search": {

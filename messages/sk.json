@@ -124,33 +124,156 @@
   },
   "home": {
     "hero": {
-      "title": "Nájdite overeného špecialistu za 2 minúty",
-      "subtitle": "Porovnajte špecialistov, prečítajte si recenzie a kontaktujte tých najlepších"
+      "title": "Nájdite overeného špecialistu — bez rizika, bez stresu",
+      "subtitle": "Porovnajte hodnotenia, prečítajte si overené recenzie a kontaktujte tých najlepších finančných poradcov a realitných maklérov vo vašom okolí. Úplne bezplatne.",
+      "cta": "Nájsť špecialistu zadarmo",
+      "ctaSpecialist": "Som špecialista →",
+      "trustVerified": "2 500+ overených špecialistov",
+      "trustClients": "15 000+ spokojných klientov",
+      "trustFree": "100% zadarmo pre zákazníkov"
+    },
+    "problem": {
+      "title": "Hľadanie špecialistu by nemalo byť lotéria",
+      "subtitle": "Poznáte to. Potrebujete poradcu, ale neviete, kde začať.",
+      "trust": {
+        "title": "Neviete, komu veriť",
+        "description": "Na internete si každý napíše, že je expert. Ale kto naozaj je? Ako rozlíšite profesionála od amatéra?"
+      },
+      "time": {
+        "title": "Strácate čas stretnutiami",
+        "description": "Stretnete sa s poradcom a až po hodine zistíte, že to nie je ono. Koľko času ste už takto stratili?"
+      },
+      "fees": {
+        "title": "Bojíte sa skrytých poplatkov",
+        "description": "Koľko vás to naozaj bude stáť? Budú nejaké skryté provízie? A kto za to ručí, keď to nevyjde?"
+      }
+    },
+    "howItWorks": {
+      "title": "Ako to funguje",
+      "subtitle": "3 jednoduché kroky k overenému špecialistovi",
+      "step1": {
+        "title": "Vyberte kategóriu",
+        "description": "Finančný poradca alebo realitný maklér? Zadajte lokalitu a využite naše filtre."
+      },
+      "step2": {
+        "title": "Porovnajte špecialistov",
+        "description": "Prezrite si overené profily, recenzie od skutočných klientov a hodnotenia."
+      },
+      "step3": {
+        "title": "Kontaktujte toho najlepšieho",
+        "description": "Pošlite nezáväzný dopyt. Bez poplatkov, bez záväzkov, bez rizika."
+      },
+      "cta": "Vyskúšať hneď"
     },
     "categories": {
-      "title": "Vyberte kategóriu špecialistu",
+      "title": "Koho u nás nájdete",
+      "subtitle": "Overení špecialisti v dvoch najdôležitejších oblastiach vášho života",
       "financialAdvisor": "Finančný poradca",
-      "financialAdvisorDesc": "Komplexné finančné poradenstvo – hypotéky, poistenie, investície a úvery",
+      "financialAdvisorDesc": "Komplexné finančné poradenstvo pre vašu budúcnosť",
+      "financialAdvisorFeatures": {
+        "mortgages": "Hypotéky a refinancovanie",
+        "insurance": "Životné a majetkové poistenie",
+        "investments": "Investície a sporenie",
+        "loans": "Úvery a konsolidácia dlhov"
+      },
       "realEstateAgent": "Realitný maklér",
-      "realEstateAgentDesc": "Predaj, prenájom a správa nehnuteľností – byty, domy a komerčné priestory",
-      "showSpecialists": "Zobraziť špecialistov"
+      "realEstateAgentDesc": "Profesionálne služby pre predaj, nákup aj prenájom",
+      "realEstateAgentFeatures": {
+        "sale": "Predaj bytov a domov",
+        "purchase": "Pomoc s nákupom nehnuteľnosti",
+        "rental": "Prenájom a správa nehnuteľností",
+        "commercial": "Komerčné priestory"
+      },
+      "showSpecialists": "Zobraziť špecialistov →"
+    },
+    "testimonials": {
+      "title": "Čo hovoria naši klienti",
+      "subtitle": "Skutočné príbehy ľudí, ktorí našli svojho špecialistu",
+      "verifiedClient": "Overený klient",
+      "items": {
+        "t1": {
+          "quote": "Vďaka tvujspecialista.cz som za deň našiel poradcu, ktorý mi ušetril 180 000 Kč na hypotéke. Bez tejto platformy by som ho nikdy nenašiel.",
+          "name": "Martin K.",
+          "location": "Praha",
+          "rating": "5.0"
+        },
+        "t2": {
+          "quote": "Konečne som mohla porovnať maklérov objektívne. Predali sme byt o 400 000 Kč drahšie, než ponúkal prvý maklér.",
+          "name": "Jana V.",
+          "location": "Brno",
+          "rating": "5.0"
+        },
+        "t3": {
+          "quote": "Mal som zlú skúsenosť s poradcom. Tu som si vybral overeného a som konečne spokojný. Odporúčam každému.",
+          "name": "Tomáš R.",
+          "location": "Ostrava",
+          "rating": "4.9"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Prečo si ľudia vyberajú tvujspecialista.cz",
+      "subtitle": "Postavili sme platformu, ktorej môžete dôverovať",
+      "verified": {
+        "title": "Overení špecialisti",
+        "description": "Každý profil je ručne overený naším tímom. Žiadni anonymní poradcovia — len preverení profesionáli."
+      },
+      "reviews": {
+        "title": "Skutočné recenzie",
+        "description": "Hodnotenia od reálnych klientov, ktoré nemožno sfalšovať. Transparentná spätná väzba, na ktorú sa môžete spoľahnúť."
+      },
+      "free": {
+        "title": "100% zadarmo pre zákazníkov",
+        "description": "Hľadanie, porovnávanie aj kontaktovanie špecialistov je pre zákazníkov úplne bezplatné. Žiadne skryté poplatky."
+      },
+      "noStrings": {
+        "title": "Bez záväzkov",
+        "description": "Pošlite dopyt nezáväzne. Môžete kedykoľvek povedať nie — nikto vás do ničoho nenúti."
+      }
     },
     "stats": {
+      "title": "Platforme dôverujú tisíce ľudí",
       "specialists": "Overených špecialistov",
       "specialistsCount": "2 500+",
       "customers": "Spokojných zákazníkov",
       "customersCount": "15 000+",
       "successRate": "Úspešnosť sprostredkovania",
-      "successRateValue": "98%"
+      "successRateValue": "98%",
+      "avgRating": "Priemerné hodnotenie",
+      "avgRatingValue": "4.8/5.0"
     },
-    "cta": {
-      "title": "Ste špecialistom?",
-      "subtitle": "Získajte kvalitné leady a rozšírte svoje podnikanie",
-      "button": "Začať zdarma na 14 dní"
+    "ctaSpecialist": {
+      "title": "Ste finančný poradca alebo realitný maklér?",
+      "subtitle": "Pridajte sa k platforme, kde na vás čakajú kvalitní klienti",
+      "benefit1": "Kvalitné leady",
+      "benefit2": "Overený profil",
+      "benefit3": "Vzdelávanie a komunita",
+      "button": "Vyskúšajte 14 dní zadarmo"
+    },
+    "faq": {
+      "title": "Často kladené otázky",
+      "subtitle": "Všetko, čo potrebujete vedieť, než začnete",
+      "q1": "Je hľadanie špecialistu naozaj zadarmo?",
+      "a1": "Áno, pre zákazníkov je platforma 100% bezplatná. Neúčtujeme žiadne poplatky za vyhľadávanie, porovnávanie ani kontaktovanie špecialistov.",
+      "q2": "Ako overujete špecialistov?",
+      "a2": "Každý špecialista prechádza verifikáciou — overujeme profesijnú kvalifikáciu, prax a referencie. Na platformu sa nedostane nikto, kto nesplní naše štandardy.",
+      "q3": "Čo keď nebudem spokojný so špecialistom?",
+      "a3": "Nemáte žiadny záväzok. Dopyt je nezáväzný a môžete kedykoľvek osloviť iného špecialistu. Navyše nám môžete napísať a pomôžeme vám nájsť lepšie riešenie.",
+      "q4": "Môžem kontaktovať viacerých špecialistov naraz?",
+      "a4": "Samozrejme. Odporúčame osloviť 2-3 špecialistov a porovnať si ich prístup, ceny a referencie. Tak nájdete toho najlepšieho pre vašu situáciu.",
+      "q5": "Ako sa líšite od vyhľadávania cez Google?",
+      "a5": "Na Googli nájdete tisíce výsledkov bez záruky kvality. U nás sú všetci špecialisti overení, majú reálne recenzie od klientov a môžete ich jednoducho porovnať na jednom mieste.",
+      "q6": "Musím sa registrovať, aby som mohol hľadať?",
+      "a6": "Nie, hľadanie a prezeranie profilov je dostupné bez registrácie. Registráciu potrebujete iba na odoslanie dopytu."
+    },
+    "finalCta": {
+      "title": "Prestaňte hľadať naslepo",
+      "subtitle": "Nájdite overeného špecialistu ešte dnes — je to zadarmo a trvá to 2 minúty.",
+      "button": "Začať hľadať zadarmo"
     },
     "metadata": {
       "title": "Nájdite overeného špecialistu | tvujspecialista.cz",
-      "description": "Marketplace pre hľadanie overených špecialistov v oblasti financií a nehnuteľností v ČR a SK. Porovnajte, prečítajte si recenzie a kontaktujte tých najlepších."
+      "description": "Marketplace pre hľadanie overených finančných poradcov a realitných maklérov. Porovnajte profily, prečítajte si recenzie a kontaktujte tých najlepších. 100% zadarmo."
     }
   },
   "search": {

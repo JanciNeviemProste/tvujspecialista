@@ -124,33 +124,156 @@
   },
   "home": {
     "hero": {
-      "title": "Znajdź zweryfikowanego specjalistę w 2 minuty",
-      "subtitle": "Porównaj specjalistów, przeczytaj opinie i skontaktuj się z najlepszymi"
+      "title": "Znajdź zweryfikowanego specjalistę — bez ryzyka, bez stresu",
+      "subtitle": "Porównaj oceny, przeczytaj zweryfikowane opinie i skontaktuj się z najlepszymi doradcami finansowymi oraz pośrednikami nieruchomości w Twojej okolicy. Całkowicie bezpłatnie.",
+      "cta": "Znajdź specjalistę za darmo",
+      "ctaSpecialist": "Jestem specjalistą →",
+      "trustVerified": "2 500+ zweryfikowanych specjalistów",
+      "trustClients": "15 000+ zadowolonych klientów",
+      "trustFree": "100% bezpłatnie dla klientów"
+    },
+    "problem": {
+      "title": "Szukanie specjalisty nie powinno być loterią",
+      "subtitle": "Znasz to. Potrzebujesz doradcy, ale nie wiesz, od czego zacząć.",
+      "trust": {
+        "title": "Nie wiesz, komu zaufać",
+        "description": "W internecie każdy pisze, że jest ekspertem. Ale kto naprawdę nim jest? Jak odróżnisz profesjonalistę od amatora?"
+      },
+      "time": {
+        "title": "Tracisz czas na spotkania",
+        "description": "Spotykasz się z doradcą i dopiero po godzinie dowiadujesz się, że to nie ten. Ile czasu już tak straciłeś?"
+      },
+      "fees": {
+        "title": "Boisz się ukrytych opłat",
+        "description": "Ile to naprawdę będzie kosztować? Czy będą jakieś ukryte prowizje? A kto ponosi odpowiedzialność, gdy coś pójdzie nie tak?"
+      }
+    },
+    "howItWorks": {
+      "title": "Jak to działa",
+      "subtitle": "3 proste kroki do zweryfikowanego specjalisty",
+      "step1": {
+        "title": "Wybierz kategorię",
+        "description": "Doradca finansowy czy pośrednik nieruchomości? Podaj lokalizację i skorzystaj z naszych filtrów."
+      },
+      "step2": {
+        "title": "Porównaj specjalistów",
+        "description": "Przeglądaj zweryfikowane profile, opinie od prawdziwych klientów i oceny."
+      },
+      "step3": {
+        "title": "Skontaktuj się z najlepszym",
+        "description": "Wyślij niezobowiązujące zapytanie. Bez opłat, bez zobowiązań, bez ryzyka."
+      },
+      "cta": "Wypróbuj teraz"
     },
     "categories": {
-      "title": "Wybierz kategorię specjalisty",
+      "title": "Kogo u nas znajdziesz",
+      "subtitle": "Zweryfikowani specjaliści w dwóch najważniejszych dziedzinach Twojego życia",
       "financialAdvisor": "Doradca finansowy",
-      "financialAdvisorDesc": "Kompleksowe doradztwo finansowe — kredyty hipoteczne, ubezpieczenia, inwestycje i pożyczki",
+      "financialAdvisorDesc": "Kompleksowe doradztwo finansowe dla Twojej przyszłości",
+      "financialAdvisorFeatures": {
+        "mortgages": "Kredyty hipoteczne i refinansowanie",
+        "insurance": "Ubezpieczenia na życie i majątkowe",
+        "investments": "Inwestycje i oszczędności",
+        "loans": "Pożyczki i konsolidacja zadłużenia"
+      },
       "realEstateAgent": "Pośrednik nieruchomości",
-      "realEstateAgentDesc": "Sprzedaż, wynajem i zarządzanie nieruchomościami — mieszkania, domy i lokale komercyjne",
-      "showSpecialists": "Pokaż specjalistów"
+      "realEstateAgentDesc": "Profesjonalne usługi sprzedaży, zakupu i wynajmu",
+      "realEstateAgentFeatures": {
+        "sale": "Sprzedaż mieszkań i domów",
+        "purchase": "Pomoc przy zakupie nieruchomości",
+        "rental": "Wynajem i zarządzanie nieruchomościami",
+        "commercial": "Lokale komercyjne"
+      },
+      "showSpecialists": "Pokaż specjalistów →"
+    },
+    "testimonials": {
+      "title": "Co mówią nasi klienci",
+      "subtitle": "Prawdziwe historie osób, które znalazły swojego specjalistę",
+      "verifiedClient": "Zweryfikowany klient",
+      "items": {
+        "t1": {
+          "quote": "Dzięki tvujspecialista.cz w jeden dzień znalazłem doradcę, który zaoszczędził mi 180 000 Kč na kredycie hipotecznym. Bez tej platformy nigdy bym go nie znalazł.",
+          "name": "Martin K.",
+          "location": "Praga (Czechy)",
+          "rating": "5.0"
+        },
+        "t2": {
+          "quote": "Wreszcie mogłam porównać pośredników obiektywnie. Sprzedaliśmy mieszkanie o 400 000 Kč drożej niż proponował pierwszy pośrednik.",
+          "name": "Jana V.",
+          "location": "Brno (Czechy)",
+          "rating": "5.0"
+        },
+        "t3": {
+          "quote": "Miałem złe doświadczenie z doradcą. Tutaj wybrałem zweryfikowanego i jestem wreszcie zadowolony. Polecam każdemu.",
+          "name": "Tomáš R.",
+          "location": "Ostrawa (Czechy)",
+          "rating": "4.9"
+        }
+      }
+    },
+    "benefits": {
+      "title": "Dlaczego ludzie wybierają tvujspecialista.cz",
+      "subtitle": "Zbudowaliśmy platformę, której możesz zaufać",
+      "verified": {
+        "title": "Zweryfikowani specjaliści",
+        "description": "Każdy profil jest ręcznie weryfikowany przez nasz zespół. Żadnych anonimowych doradców — tylko sprawdzeni profesjonaliści."
+      },
+      "reviews": {
+        "title": "Prawdziwe opinie",
+        "description": "Oceny od prawdziwych klientów, których nie da się sfałszować. Transparentna informacja zwrotna, na której możesz polegać."
+      },
+      "free": {
+        "title": "100% bezpłatnie dla klientów",
+        "description": "Wyszukiwanie, porównywanie i kontaktowanie specjalistów jest dla klientów całkowicie bezpłatne. Żadnych ukrytych opłat."
+      },
+      "noStrings": {
+        "title": "Bez zobowiązań",
+        "description": "Wyślij zapytanie niezobowiązująco. Możesz w każdej chwili powiedzieć nie — nikt Cię do niczego nie zmusza."
+      }
     },
     "stats": {
+      "title": "Platformie zaufały tysiące osób",
       "specialists": "Zweryfikowanych specjalistów",
       "specialistsCount": "2 500+",
       "customers": "Zadowolonych klientów",
       "customersCount": "15 000+",
       "successRate": "Skuteczność pośrednictwa",
-      "successRateValue": "98%"
+      "successRateValue": "98%",
+      "avgRating": "Średnia ocena",
+      "avgRatingValue": "4.8/5.0"
     },
-    "cta": {
-      "title": "Jesteś specjalistą?",
-      "subtitle": "Pozyskuj wartościowe Lead'y i rozwijaj swój biznes",
-      "button": "Zacznij bezpłatnie na 14 dni"
+    "ctaSpecialist": {
+      "title": "Jesteś doradcą finansowym lub pośrednikiem nieruchomości?",
+      "subtitle": "Dołącz do platformy, na której czekają na Ciebie wartościowi klienci",
+      "benefit1": "Wartościowe leady",
+      "benefit2": "Zweryfikowany profil",
+      "benefit3": "Edukacja i społeczność",
+      "button": "Wypróbuj 14 dni bezpłatnie"
+    },
+    "faq": {
+      "title": "Często zadawane pytania",
+      "subtitle": "Wszystko, co musisz wiedzieć, zanim zaczniesz",
+      "q1": "Czy wyszukiwanie specjalisty jest naprawdę bezpłatne?",
+      "a1": "Tak, dla klientów platforma jest w 100% bezpłatna. Nie pobieramy żadnych opłat za wyszukiwanie, porównywanie ani kontaktowanie specjalistów.",
+      "q2": "Jak weryfikujecie specjalistów?",
+      "a2": "Każdy specjalista przechodzi proces weryfikacji — sprawdzamy kwalifikacje zawodowe, doświadczenie i referencje. Na platformę nie dostanie się nikt, kto nie spełnia naszych standardów.",
+      "q3": "Co jeśli nie będę zadowolony ze specjalisty?",
+      "a3": "Nie masz żadnego zobowiązania. Zapytanie jest niezobowiązujące i możesz w każdej chwili skontaktować się z innym specjalistą. Ponadto możesz napisać do nas, a pomożemy Ci znaleźć lepsze rozwiązanie.",
+      "q4": "Czy mogę skontaktować się z kilkoma specjalistami jednocześnie?",
+      "a4": "Oczywiście. Zalecamy skontaktowanie się z 2-3 specjalistami i porównanie ich podejścia, cen i referencji. W ten sposób znajdziesz najlepszego dla Twojej sytuacji.",
+      "q5": "Czym różnicie się od wyszukiwania w Google?",
+      "a5": "W Google znajdziesz tysiące wyników bez gwarancji jakości. U nas wszyscy specjaliści są zweryfikowani, mają prawdziwe opinie od klientów i można ich łatwo porównać w jednym miejscu.",
+      "q6": "Czy muszę się zarejestrować, żeby szukać?",
+      "a6": "Nie, wyszukiwanie i przeglądanie profili jest dostępne bez rejestracji. Rejestracja jest wymagana jedynie do wysłania zapytania."
+    },
+    "finalCta": {
+      "title": "Przestań szukać na oślep",
+      "subtitle": "Znajdź zweryfikowanego specjalistę już dziś — to bezpłatne i zajmuje 2 minuty.",
+      "button": "Zacznij szukać za darmo"
     },
     "metadata": {
       "title": "Znajdź zweryfikowanego specjalistę | tvujspecialista.cz",
-      "description": "Marketplace do wyszukiwania zweryfikowanych specjalistów w dziedzinie finansów i nieruchomości. Porównaj, przeczytaj opinie i skontaktuj się z najlepszymi."
+      "description": "Marketplace do wyszukiwania zweryfikowanych doradców finansowych i pośredników nieruchomości. Porównaj profile, przeczytaj opinie i skontaktuj się z najlepszymi. 100% bezpłatnie."
     }
   },
   "search": {
