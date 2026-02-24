@@ -12,6 +12,7 @@ import { Event, EventType, EventFormat, EventCategory, EventStatus } from '../en
 import { ForumCategory } from '../entities/forum-category.entity';
 import { ForumTopic } from '../entities/forum-topic.entity';
 import { ForumPost } from '../entities/forum-post.entity';
+import { Subscription, SubscriptionStatus, SubscriptionType } from '../entities/subscription.entity';
 
 // Mock specialists data (imported from frontend mocks)
 const mockSpecialists = [
@@ -622,6 +623,37 @@ async function seed() {
     await forumCategoryRepository.update(generalCategory!.id, { topicCount: 1 });
   } else {
     console.log('Forum topics already exist, skipping...');
+  }
+
+  // Create PREMIUM subscription for admin (1 year)
+  console.log('\nCreating admin subscription...');
+  const subscriptionRepository = dataSource.getRepository(Subscription);
+  const adminForSub = await userRepository.findOne({ where: { email: 'admin@tvujspecialista.cz' } });
+
+  if (adminForSub) {
+    const existingSub = await subscriptionRepository.findOne({
+      where: { userId: adminForSub.id, status: SubscriptionStatus.ACTIVE },
+    });
+
+    if (!existingSub) {
+      const now = new Date();
+      const oneYearLater = new Date(now);
+      oneYearLater.setFullYear(oneYearLater.getFullYear() + 1);
+
+      await subscriptionRepository.save(
+        subscriptionRepository.create({
+          userId: adminForSub.id,
+          stripeCustomerId: `cus_admin_${Date.now()}`,
+          subscriptionType: SubscriptionType.PREMIUM,
+          status: SubscriptionStatus.ACTIVE,
+          currentPeriodStart: now,
+          currentPeriodEnd: oneYearLater,
+        }),
+      );
+      console.log('Admin PREMIUM subscription created (1 year)');
+    } else {
+      console.log('Admin already has active subscription');
+    }
   }
 
   console.log('\n✅ Seeding completed successfully!');
