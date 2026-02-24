@@ -193,6 +193,13 @@ export class CoursesService {
     return this.courseRepository.save(course);
   }
 
+  async findAllAdmin(): Promise<{ courses: Course[]; total: number }> {
+    const [courses, total] = await this.courseRepository.findAndCount({
+      order: { createdAt: 'DESC' },
+    });
+    return { courses, total };
+  }
+
   private generateSlug(title: string): string {
     return title
       .toLowerCase()

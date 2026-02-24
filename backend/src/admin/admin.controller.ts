@@ -2,6 +2,7 @@ import { Controller, Get, Post, Patch, Param, Query, Body, UseGuards } from '@ne
 import { AdminService } from './admin.service';
 import { EventsService } from '../community/services/events.service';
 import { RSVPsService } from '../community/services/rsvps.service';
+import { CoursesService } from '../academy/services/courses.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdminGuard } from '../auth/guards/admin.guard';
 import {
@@ -21,6 +22,7 @@ export class AdminController {
     private readonly adminService: AdminService,
     private readonly eventsService: EventsService,
     private readonly rsvpsService: RSVPsService,
+    private readonly coursesService: CoursesService,
   ) {}
 
   @Get('users')
@@ -62,6 +64,14 @@ export class AdminController {
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async getStats() {
     return this.adminService.getStats();
+  }
+
+  @Get('courses')
+  @ApiOperation({ summary: 'Get all courses including unpublished (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Returns all courses' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
+  async getAllCourses() {
+    return this.coursesService.findAllAdmin();
   }
 
   @Get('events')

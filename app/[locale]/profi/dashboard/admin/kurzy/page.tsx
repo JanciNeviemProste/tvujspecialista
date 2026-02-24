@@ -5,10 +5,11 @@ import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
-import { useCourses } from '@/lib/hooks/useAcademy';
 import { academyApi } from '@/lib/api/academy';
+import { adminApi } from '@/lib/api/admin';
 import { ArrowLeft, BookOpen, Eye, EyeOff, Trash2, Plus, Pencil, X } from 'lucide-react';
 import { toast } from 'sonner';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface CourseFormData {
   title: string;
@@ -208,7 +209,12 @@ export default function AdminCoursesPage() {
   const t = useTranslations('dashboard.admin.courses');
   const tAdmin = useTranslations('dashboard.admin');
   const { user, isLoading: authLoading } = useAuth();
-  const { data: coursesData, isLoading, refetch } = useCourses({});
+  const queryClient = useQueryClient();
+  const { data: coursesData, isLoading } = useQuery({
+    queryKey: ['adminCourses'],
+    queryFn: () => adminApi.getCourses().then((res) => res.data),
+  });
+  const refetch = () => queryClient.invalidateQueries({ queryKey: ['adminCourses'] });
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<any>(null);
@@ -249,11 +255,7 @@ export default function AdminCoursesPage() {
   const handleCreateCourse = async (data: CourseFormData) => {
     setFormLoading(true);
     try {
-      const response = await academyApi.createCourse(data);
-      const newCourse = response.data;
-      if (newCourse?.id) {
-        await academyApi.publishCourse(newCourse.id, true);
-      }
+      await academyApi.createCourse(data);
       toast.success(tAdmin('toasts.courseCreated'));
       setModalOpen(false);
       refetch();
