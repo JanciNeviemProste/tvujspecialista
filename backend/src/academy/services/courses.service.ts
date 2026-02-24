@@ -65,7 +65,7 @@ export class CoursesService {
     const course = await this.courseRepository
       .createQueryBuilder('course')
       .leftJoinAndSelect('course.modules', 'module')
-      .leftJoinAndSelect('module.lessons', 'lesson', 'lesson.published = :pub', { pub: true })
+      .leftJoinAndSelect('module.lessons', 'lesson')
       .leftJoinAndSelect('lesson.video', 'video')
       .where('course.slug = :slug', { slug })
       .andWhere('course.published = :published', { published: true })
