@@ -92,7 +92,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
               )}
               {user?.role === 'admin' && (
                 <Link
-                  href="/profi/dashboard/admin/kurzy"
+                  href="/academy/admin"
                   className="flex items-center gap-2 text-sm font-medium text-amber-600 transition-colors hover:text-amber-700"
                 >
                   <Settings className="h-4 w-4" />

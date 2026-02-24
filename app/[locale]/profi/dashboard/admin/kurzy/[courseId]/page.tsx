@@ -643,7 +643,7 @@ export default function CourseBuilderPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-4">
-          <Link href="/profi/dashboard/admin/kurzy" className="text-gray-400 hover:text-gray-900 transition-colors">
+          <Link href="/academy/admin" className="text-gray-400 hover:text-gray-900 transition-colors">
             <ArrowLeft className="h-5 w-5" />
           </Link>
           <div>

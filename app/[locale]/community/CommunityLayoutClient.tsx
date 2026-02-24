@@ -85,7 +85,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
               )}
               {user?.role === 'admin' && (
                 <Link
-                  href="/profi/dashboard/admin/komunita"
+                  href="/community/admin"
                   className="flex items-center gap-2 text-sm font-medium text-amber-600 transition-colors hover:text-amber-700"
                 >
                   <Settings className="h-4 w-4" />
