@@ -86,7 +86,7 @@ export function DealDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -95,7 +95,7 @@ export function DealDetailModal({
       <Card
         ref={cardRef}
         tabIndex={-1}
-        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border shadow-2xl"
+        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border shadow-2xl ring-1 ring-black/5 dark:ring-white/10"
         onClick={(e) => e.stopPropagation()}
         role="document"
       >

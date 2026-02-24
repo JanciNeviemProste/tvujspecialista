@@ -10,6 +10,7 @@ import { paymentsApi } from '@/lib/api/payments';
 import { leadsApi } from '@/lib/api/leads';
 import { specialistsApi } from '@/lib/api/specialists';
 import { adminApi } from '@/lib/api/admin';
+import React from 'react';
 import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp } from 'lucide-react';
 import type { Lead } from '@/types/lead';
 import type { LeadStatus } from '@/lib/api/leads';
@@ -34,6 +35,26 @@ export default function DashboardPage() {
     queryFn: () => adminApi.getStats().then((res) => res.data),
     enabled: user?.role === 'admin',
   });
+
+  // Normalize leads response — handles both raw array and structured object
+  const normalizedLeads = React.useMemo(() => {
+    if (!leadsData) return null;
+    if (Array.isArray(leadsData)) {
+      const leads = leadsData as Lead[];
+      return {
+        leads,
+        total: leads.length,
+        stats: {
+          new: leads.filter(l => l.status === 'new').length,
+          contacted: leads.filter(l => l.status === 'contacted').length,
+          qualified: leads.filter(l => l.status === 'qualified').length,
+          closedWon: leads.filter(l => l.status === 'closed_won').length,
+          closedLost: leads.filter(l => l.status === 'closed_lost').length,
+        },
+      };
+    }
+    return leadsData;
+  }, [leadsData]);
 
   const handleStatusChange = async (leadId: string, newStatus: string) => {
     try {
@@ -65,23 +86,23 @@ export default function DashboardPage() {
   const isAdmin = user.role === 'admin';
 
   const stats = {
-    newLeads: leadsData?.stats?.new || 0,
-    totalLeads: leadsData?.total || 0,
+    newLeads: normalizedLeads?.stats?.new || 0,
+    totalLeads: normalizedLeads?.total || 0,
     rating: specialistProfile?.rating ?? 0,
-    successRate: leadsData?.total
-      ? Math.round(((leadsData?.stats?.closedWon || 0) / leadsData.total) * 100)
+    successRate: normalizedLeads?.total
+      ? Math.round(((normalizedLeads?.stats?.closedWon || 0) / normalizedLeads.total) * 100)
       : 0,
   };
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { label: string; className: string }> = {
-      NEW: { label: tStatus('new'), className: 'bg-blue-100 text-blue-700' },
-      CONTACTED: { label: tStatus('contacted'), className: 'bg-yellow-100 text-yellow-700' },
-      QUALIFIED: { label: tStatus('qualified'), className: 'bg-purple-100 text-purple-700' },
-      CLOSED_WON: { label: tStatus('closedWon'), className: 'bg-green-100 text-green-700' },
-      CLOSED_LOST: { label: tStatus('closedLost'), className: 'bg-red-100 text-red-700' },
+      new: { label: tStatus('new'), className: 'bg-blue-100 text-blue-700' },
+      contacted: { label: tStatus('contacted'), className: 'bg-yellow-100 text-yellow-700' },
+      qualified: { label: tStatus('qualified'), className: 'bg-purple-100 text-purple-700' },
+      closed_won: { label: tStatus('closedWon'), className: 'bg-green-100 text-green-700' },
+      closed_lost: { label: tStatus('closedLost'), className: 'bg-red-100 text-red-700' },
     };
-    return statusMap[status] || statusMap.NEW;
+    return statusMap[status] || statusMap.new;
   };
 
   return (
@@ -213,9 +234,9 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                {leadsData && leadsData.leads && leadsData.leads.length > 0 ? (
+                {normalizedLeads && normalizedLeads.leads && normalizedLeads.leads.length > 0 ? (
                   <div className="divide-y">
-                    {leadsData.leads.slice(0, 5).map((lead: Lead) => {
+                    {normalizedLeads.leads.slice(0, 5).map((lead: Lead) => {
                       const statusInfo = getStatusBadge(lead.status);
                       return (
                         <div key={lead.id} className="p-6">
@@ -225,8 +246,8 @@ export default function DashboardPage() {
                               <p className="text-sm text-gray-500">
                                 {new Date(lead.createdAt).toLocaleDateString('cs-CZ')}
                               </p>
-                              <p className="mt-1 text-sm text-gray-600">{lead.email}</p>
-                              <p className="text-sm text-gray-600">{lead.phone}</p>
+                              <p className="mt-1 text-sm text-gray-600">{lead.customerEmail}</p>
+                              <p className="text-sm text-gray-600">{lead.customerPhone}</p>
                               {lead.message && (
                                 <p className="mt-2 text-sm text-gray-700">
                                   &quot;{lead.message.substring(0, 100)}
@@ -245,11 +266,11 @@ export default function DashboardPage() {
                                 onChange={(e) => handleStatusChange(lead.id, e.target.value)}
                                 className="rounded border border-gray-300 px-2 py-1 text-xs hover:bg-gray-50"
                               >
-                                <option value="NEW">{tStatus('new')}</option>
-                                <option value="CONTACTED">{tStatus('contacted')}</option>
-                                <option value="QUALIFIED">{tStatus('qualified')}</option>
-                                <option value="CLOSED_WON">{tStatus('closedWon')}</option>
-                                <option value="CLOSED_LOST">{tStatus('closedLost')}</option>
+                                <option value="new">{tStatus('new')}</option>
+                                <option value="contacted">{tStatus('contacted')}</option>
+                                <option value="qualified">{tStatus('qualified')}</option>
+                                <option value="closed_won">{tStatus('closedWon')}</option>
+                                <option value="closed_lost">{tStatus('closedLost')}</option>
                               </select>
                             </div>
                           </div>

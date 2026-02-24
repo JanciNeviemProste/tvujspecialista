@@ -76,8 +76,8 @@ export function DealValueModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <Card className="w-full max-w-md bg-card border shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+      <Card className="w-full max-w-md bg-card border shadow-2xl ring-1 ring-black/5 dark:ring-white/10">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <CardTitle>Nastaviť hodnotu leadu</CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose} disabled={isLoading}>

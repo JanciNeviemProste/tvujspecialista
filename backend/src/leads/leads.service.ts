@@ -2,7 +2,7 @@ import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { Lead } from '../database/entities/lead.entity';
+import { Lead, LeadStatus } from '../database/entities/lead.entity';
 import {
   LeadEvent,
   LeadEventType,
@@ -69,10 +69,34 @@ export class LeadsService {
   }
 
   async findBySpecialist(specialistId: string) {
-    return this.leadRepository.find({
+    const leads = await this.leadRepository.find({
       where: { specialistId },
       order: { createdAt: 'DESC' },
     });
+
+    const stats = {
+      new: 0,
+      contacted: 0,
+      qualified: 0,
+      closedWon: 0,
+      closedLost: 0,
+    };
+
+    for (const lead of leads) {
+      switch (lead.status) {
+        case LeadStatus.NEW: stats.new++; break;
+        case LeadStatus.CONTACTED: stats.contacted++; break;
+        case LeadStatus.QUALIFIED: stats.qualified++; break;
+        case LeadStatus.CLOSED_WON: stats.closedWon++; break;
+        case LeadStatus.CLOSED_LOST: stats.closedLost++; break;
+      }
+    }
+
+    return {
+      leads,
+      total: leads.length,
+      stats,
+    };
   }
 
   async findSpecialistByUserId(userId: string): Promise<Specialist> {

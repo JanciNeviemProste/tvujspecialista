@@ -85,8 +85,8 @@ export function CloseDealModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <Card className="w-full max-w-md bg-card border shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+      <Card className="w-full max-w-md bg-card border shadow-2xl ring-1 ring-black/5 dark:ring-white/10">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
           <CardTitle>Uzavrieť lead</CardTitle>
           <Button variant="ghost" size="sm" onClick={onClose} disabled={isLoading}>
@@ -134,7 +134,7 @@ export function CloseDealModal({
 
             {status === DealStatus.CLOSED_WON && (
               <div className="space-y-2">
-                <Label htmlFor="actualDealValue">Skutočná hodnota dealu (EUR) *</Label>
+                <Label htmlFor="actualDealValue">Skutočná hodnota leadu (EUR) *</Label>
                 <Input
                   id="actualDealValue"
                   type="number"

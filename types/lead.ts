@@ -1,18 +1,18 @@
-export type LeadStatus = 'new' | 'contacted' | 'scheduled' | 'closed' | 'cancelled'
+export type LeadStatus = 'new' | 'contacted' | 'qualified' | 'closed_won' | 'closed_lost'
 
 export interface Lead {
   id: string
   specialistId: string
   customerName: string
-  email: string
-  phone: string
+  customerEmail: string
+  customerPhone: string
   message: string
-  preferredDate?: Date
   status: LeadStatus
+  notes: string[]
+  gdprConsent: boolean
   createdAt: Date
   updatedAt: Date
-  events: LeadEvent[]
-  notes?: string
+  events?: LeadEvent[]
 }
 
 export interface LeadEvent {
@@ -28,10 +28,9 @@ export interface LeadEvent {
 export interface LeadFormData {
   specialistId: string
   customerName: string
-  email: string
-  phone: string
+  customerEmail: string
+  customerPhone: string
   message: string
-  preferredDate?: Date
   gdprConsent: boolean
 }
 
@@ -47,12 +46,11 @@ export interface LeadFilters {
 export interface LeadListResponse {
   leads: Lead[]
   total: number
-  page: number
-  limit: number
   stats: {
     new: number
     contacted: number
-    scheduled: number
-    closed: number
+    qualified: number
+    closedWon: number
+    closedLost: number
   }
 }
