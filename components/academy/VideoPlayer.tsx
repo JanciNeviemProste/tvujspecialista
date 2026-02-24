@@ -43,7 +43,6 @@ export function VideoPlayer({
     if (!videoElement || !video.cloudinaryUrl) return;
 
     videoElement.src = video.cloudinaryUrl;
-    videoElement.volume = volume;
 
     const handleLoadedMetadata = () => {
       setDuration(videoElement.duration);
@@ -84,7 +83,7 @@ export function VideoPlayer({
       videoElement.removeEventListener('pause', handlePause);
       videoElement.removeEventListener('error', handleError);
     };
-  }, [video.cloudinaryUrl, volume]);
+  }, [video.cloudinaryUrl]);
 
   // Progress tracking with 30s debounce
   useEffect(() => {
@@ -124,7 +123,9 @@ export function VideoPlayer({
     if (isPlaying) {
       videoRef.current.pause();
     } else {
-      videoRef.current.play();
+      videoRef.current.play().catch(() => {
+        setVideoError('Video sa nepodarilo prehrať. Skúste obnoviť stránku.');
+      });
     }
   };
 
@@ -228,7 +229,7 @@ export function VideoPlayer({
       onMouseMove={() => setShowControls(true)}
     >
       {/* Video element */}
-      <video ref={videoRef} className="w-full h-full" crossOrigin="anonymous" playsInline onClick={togglePlay} />
+      <video ref={videoRef} className="w-full h-full" preload="metadata" playsInline onClick={togglePlay} />
 
       {/* Controls overlay */}
       <div
@@ -236,6 +237,7 @@ export function VideoPlayer({
           'absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-300',
           showControls || !isPlaying ? 'opacity-100' : 'opacity-0',
         )}
+        onClick={togglePlay}
       >
         {/* Center play button (when paused) */}
         {!isPlaying && (
@@ -244,7 +246,7 @@ export function VideoPlayer({
               variant="ghost"
               size="icon"
               className="h-20 w-20 rounded-full bg-blue-600 hover:bg-blue-700 text-white"
-              onClick={togglePlay}
+              onClick={(e) => { e.stopPropagation(); togglePlay(); }}
             >
               <Play className="h-10 w-10 fill-current" />
             </Button>
@@ -252,6 +254,8 @@ export function VideoPlayer({
         )}
 
         {/* Bottom controls */}
+        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+        <div onClick={(e) => e.stopPropagation()}>
         <VideoControls
           isPlaying={isPlaying}
           currentTime={currentTime}
@@ -265,6 +269,7 @@ export function VideoPlayer({
           onToggleMute={toggleMute}
           onToggleFullscreen={toggleFullscreen}
         />
+        </div>
       </div>
     </div>
   );
