@@ -4,36 +4,18 @@ import { useTranslations } from 'next-intl'
 import { EventCard } from '@/components/community/EventCard'
 import { EventsGridSkeleton } from '@/components/community/LoadingStates'
 import { useUpcomingEvents } from '@/lib/hooks/useCommunity'
-import { Users, Calendar, TrendingUp, Settings } from 'lucide-react'
+import { Users, Calendar, TrendingUp } from 'lucide-react'
 import { Link } from '@/i18n/routing'
-import { useAuth } from '@/contexts/AuthContext'
 
 export default function CommunityLandingPage() {
   const t = useTranslations('community')
   const { data: featuredEvents, isLoading, error } = useUpcomingEvents()
-  const { user } = useAuth()
-  const isAdmin = user?.role === 'admin'
 
   // Take only first 3 events
   const displayEvents = featuredEvents?.slice(0, 3) || []
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-neutral-950">
-      {/* Admin manage button */}
-      {isAdmin && (
-        <div className="bg-white dark:bg-neutral-900 border-b border-gray-200 dark:border-neutral-700 py-3">
-          <div className="container mx-auto px-4">
-            <Link
-              href="/profi/dashboard/admin/komunita"
-              className="inline-flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              <Settings className="h-4 w-4" />
-              {t('hero.manageButton')}
-            </Link>
-          </div>
-        </div>
-      )}
-
       {/* Upcoming Events Section — FIRST */}
       <section className="py-16 bg-white dark:bg-neutral-900">
         <div className="container mx-auto px-4">

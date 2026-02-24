@@ -72,33 +72,33 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                 <span className="hidden sm:inline">{t('nav.events')}</span>
               </Link>
               {isAuthenticated && (
-                <>
-                  <Link
-                    href="/community/my-events"
-                    className={cn(
-                      'flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600',
-                      pathname === '/community/my-events' ? 'text-blue-600' : 'text-gray-500'
-                    )}
-                  >
-                    <User className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t('nav.myEvents')}</span>
-                  </Link>
-                  <Link
-                    href="/profi/dashboard"
-                    className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
-                  >
-                    <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
-                  </Link>
-                </>
+                <Link
+                  href="/community/my-events"
+                  className={cn(
+                    'flex items-center gap-2 text-sm font-medium transition-colors hover:text-blue-600',
+                    pathname === '/community/my-events' ? 'text-blue-600' : 'text-gray-500'
+                  )}
+                >
+                  <User className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav.myEvents')}</span>
+                </Link>
               )}
               {user?.role === 'admin' && (
                 <Link
                   href="/profi/dashboard/admin/komunita"
-                  className="flex items-center gap-2 text-sm font-medium text-amber-600 dark:text-amber-400 transition-colors hover:text-amber-700 dark:hover:text-amber-300"
+                  className="flex items-center gap-2 text-sm font-medium text-amber-600 transition-colors hover:text-amber-700"
                 >
                   <Settings className="h-4 w-4" />
                   <span className="hidden sm:inline">{t('nav.manageCommunity')}</span>
+                </Link>
+              )}
+              {isAuthenticated && (
+                <Link
+                  href="/profi/dashboard"
+                  className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
+                >
+                  <LayoutDashboard className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav.dashboard')}</span>
                 </Link>
               )}
             </nav>
