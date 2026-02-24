@@ -78,35 +78,35 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 <Library className="h-4 w-4" />
                 <span className="hidden sm:inline">{t('nav.courses')}</span>
               </Link>
-              {isAuthenticated && (
-                <>
-                  <Link
-                    href="/academy/my-learning"
-                    className={cn(
-                      "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
-                      pathname === '/academy/my-learning' ? "text-primary" : "text-muted-foreground"
-                    )}
-                  >
-                    <User className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t('nav.myLearning')}</span>
-                  </Link>
-                  <Link
-                    href="/profi/dashboard"
-                    className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                  >
-                    <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
-                  </Link>
-                  {user?.role === 'admin' && (
-                    <Link
-                      href="/profi/dashboard/admin/kurzy"
-                      className="flex items-center gap-2 text-sm font-medium text-amber-600 dark:text-amber-400 transition-colors hover:text-amber-700 dark:hover:text-amber-300"
-                    >
-                      <Settings className="h-4 w-4" />
-                      <span className="hidden sm:inline">{t('nav.manageCourses')}</span>
-                    </Link>
+              {isAuthenticated && user?.role !== 'admin' && (
+                <Link
+                  href="/academy/my-learning"
+                  className={cn(
+                    "flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary",
+                    pathname === '/academy/my-learning' ? "text-primary" : "text-muted-foreground"
                   )}
-                </>
+                >
+                  <User className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav.myLearning')}</span>
+                </Link>
+              )}
+              {isAuthenticated && (
+                <Link
+                  href="/profi/dashboard"
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <LayoutDashboard className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav.dashboard')}</span>
+                </Link>
+              )}
+              {user?.role === 'admin' && (
+                <Link
+                  href="/profi/dashboard/admin/kurzy"
+                  className="flex items-center gap-2 text-sm font-medium text-amber-600 dark:text-amber-400 transition-colors hover:text-amber-700 dark:hover:text-amber-300"
+                >
+                  <Settings className="h-4 w-4" />
+                  <span className="hidden sm:inline">{t('nav.manageCourses')}</span>
+                </Link>
               )}
             </nav>
 

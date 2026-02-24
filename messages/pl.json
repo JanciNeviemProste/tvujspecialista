@@ -1026,7 +1026,8 @@
       "home": "Strona główna",
       "events": "Eventy",
       "myEvents": "Moje eventy",
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "manageCommunity": "Zarządzanie społecznością"
     },
     "breadcrumbs": {
       "community": "Społeczność",

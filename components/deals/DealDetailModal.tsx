@@ -6,8 +6,6 @@ import { useAddDealNote, useDealEvents } from '@/lib/hooks/useDeals';
 import { DealTimeline } from '@/components/deals/DealTimeline';
 import { DealInfo } from '@/components/deals/DealInfo';
 import { DealNotes } from '@/components/deals/DealNotes';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { X, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -49,7 +47,7 @@ export function DealDetailModal({
   const [newNote, setNewNote] = useState('');
   const addNote = useAddDealNote();
   const { data: events, isLoading: eventsLoading } = useDealEvents(deal?.id || '');
-  const cardRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   // Escape key handler
   useEffect(() => {
@@ -60,10 +58,10 @@ export function DealDetailModal({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
 
-  // Auto-focus modal card
+  // Auto-focus modal
   useEffect(() => {
-    if (isOpen && cardRef.current) {
-      cardRef.current.focus();
+    if (isOpen && modalRef.current) {
+      modalRef.current.focus();
     }
   }, [isOpen]);
 
@@ -86,35 +84,43 @@ export function DealDetailModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="deal-modal-title"
     >
-      <Card
-        ref={cardRef}
+      <div
+        ref={modalRef}
         tabIndex={-1}
-        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-card border shadow-2xl ring-1 ring-black/5 dark:ring-white/10"
+        className="w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] border border-gray-200 dark:border-neutral-700 outline-none"
         onClick={(e) => e.stopPropagation()}
         role="document"
       >
         {/* Status color strip */}
-        <div className={cn('h-1.5 rounded-t-lg', colors.bar)} />
+        <div className={cn('h-1.5 rounded-t-2xl', colors.bar)} />
 
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+        {/* Header */}
+        <div className="px-6 pt-5 pb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <CardTitle id="deal-modal-title">Detail leadu</CardTitle>
+            <h2 id="deal-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">
+              Detail leadu
+            </h2>
             <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', colors.badge, colors.badgeText)}>
               {statusLabels[deal.status] || deal.status}
             </span>
           </div>
-          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close modal">
-            <X className="h-4 w-4" aria-hidden="true" />
-          </Button>
-        </CardHeader>
+          <button
+            onClick={onClose}
+            className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            aria-label="Zavrieť"
+          >
+            <X className="h-5 w-5" aria-hidden="true" />
+          </button>
+        </div>
 
-        <CardContent className="space-y-6">
+        {/* Content */}
+        <div className="px-6 py-5 space-y-6 border-t border-gray-100 dark:border-neutral-800">
           <DealInfo deal={deal} />
 
           <DealNotes
@@ -128,51 +134,56 @@ export function DealDetailModal({
 
           {/* Timeline/Events */}
           <div>
-            <h3 className="text-sm font-semibold text-muted-foreground mb-3">
+            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">
               História udalostí
             </h3>
             <DealTimeline events={events || []} isLoading={eventsLoading} />
           </div>
-        </CardContent>
+        </div>
 
-        <CardFooter className="gap-2 flex-wrap">
+        {/* Footer */}
+        <div className="px-6 pb-6 pt-4 border-t border-gray-100 dark:border-neutral-800 flex items-center gap-3 flex-wrap">
           {!isClosed ? (
             <>
-              <Button
-                variant="outline"
+              <button
                 onClick={() => {
                   onEditValue(deal);
                   onClose();
                 }}
+                className="bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700"
               >
                 Upraviť hodnotu
-              </Button>
-              <Button
+              </button>
+              <button
                 onClick={() => {
                   onCloseDeal(deal);
                   onClose();
                 }}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
               >
                 Uzavrieť lead
-              </Button>
+              </button>
             </>
           ) : (
-            <Button
-              variant="outline"
+            <button
               onClick={() => {
                 onReopen(deal);
                 onClose();
               }}
+              className="flex items-center gap-2 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700"
             >
-              <RotateCcw className="h-4 w-4 mr-2" />
+              <RotateCcw className="h-4 w-4" />
               Znovu otvoriť
-            </Button>
+            </button>
           )}
-          <Button variant="ghost" onClick={onClose} className="ml-auto">
+          <button
+            onClick={onClose}
+            className="ml-auto text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 px-4 py-2.5 rounded-xl text-sm transition-colors"
+          >
             Zavrieť
-          </Button>
-        </CardFooter>
-      </Card>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

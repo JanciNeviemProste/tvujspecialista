@@ -1026,7 +1026,8 @@
       "home": "Domov",
       "events": "Eventy",
       "myEvents": "Moje eventy",
-      "dashboard": "Dashboard"
+      "dashboard": "Dashboard",
+      "manageCommunity": "Správa komunity"
     },
     "breadcrumbs": {
       "community": "Komunita",

@@ -65,8 +65,8 @@ function CourseFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl ring-1 ring-black/5 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
+      <div className="w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] border border-gray-200 dark:border-neutral-700 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b">
           <h2 className="text-xl font-bold">{isEdit ? 'Upraviť kurz' : 'Nový kurz'}</h2>
           <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100">
@@ -81,7 +81,7 @@ function CourseFormModal({
               type="text"
               value={form.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="napr. Základy hypotekárneho poradenstva"
               disabled={isLoading}
             />
@@ -93,7 +93,7 @@ function CourseFormModal({
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="Podrobný popis kurzu..."
               disabled={isLoading}
             />
@@ -105,7 +105,7 @@ function CourseFormModal({
               type="url"
               value={form.thumbnailUrl}
               onChange={(e) => handleChange('thumbnailUrl', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
               placeholder="https://example.com/image.jpg"
               disabled={isLoading}
             />
@@ -117,7 +117,7 @@ function CourseFormModal({
               <select
                 value={form.level}
                 onChange={(e) => handleChange('level', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="beginner">Začiatočník</option>
@@ -130,7 +130,7 @@ function CourseFormModal({
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
                 <option value="financial">Financie</option>
@@ -149,7 +149,7 @@ function CourseFormModal({
                   type="text"
                   value={form.instructorName}
                   onChange={(e) => handleChange('instructorName', e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="Ing. Ján Novák"
                   disabled={isLoading}
                 />
@@ -160,7 +160,7 @@ function CourseFormModal({
                   value={form.instructorBio}
                   onChange={(e) => handleChange('instructorBio', e.target.value)}
                   rows={2}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="Krátky popis inštruktora..."
                   disabled={isLoading}
                 />
@@ -171,7 +171,7 @@ function CourseFormModal({
                   type="url"
                   value={form.instructorPhoto}
                   onChange={(e) => handleChange('instructorPhoto', e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                   placeholder="https://example.com/photo.jpg"
                   disabled={isLoading}
                 />
@@ -191,7 +191,7 @@ function CourseFormModal({
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 rounded-lg bg-primary text-white py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+              className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
             >
               {isLoading ? 'Ukladám...' : isEdit ? 'Uložiť zmeny' : 'Vytvoriť kurz'}
             </button>
@@ -301,7 +301,7 @@ export default function AdminCoursesPage() {
           </Link>
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-3">
-              <BookOpen className="h-6 w-6 text-primary" />
+              <BookOpen className="h-6 w-6 text-blue-600" />
               {t('title')}
             </h1>
             <p className="text-muted-foreground mt-1">{courses.length} kurzov celkom</p>
@@ -309,7 +309,7 @@ export default function AdminCoursesPage() {
         </div>
         <button
           onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 rounded-lg bg-primary text-white px-4 py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+          className="flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           <Plus className="h-4 w-4" />
           Nový kurz
@@ -323,7 +323,7 @@ export default function AdminCoursesPage() {
           <p className="text-muted-foreground mb-4">Zatiaľ neboli vytvorené žiadne kurzy.</p>
           <button
             onClick={() => setModalOpen(true)}
-            className="inline-flex items-center gap-2 rounded-lg bg-primary text-white px-4 py-2.5 text-sm font-medium hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
           >
             <Plus className="h-4 w-4" />
             Vytvoriť prvý kurz
