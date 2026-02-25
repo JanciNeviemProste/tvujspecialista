@@ -44,7 +44,7 @@ export class Review {
   @Column({ type: 'timestamp', nullable: true })
   respondedAt: Date;
 
-  @ManyToOne(() => Specialist, (specialist) => specialist.reviews)
+  @ManyToOne(() => Specialist, (specialist) => specialist.reviews, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'specialistId' })
   specialist: Specialist;
 

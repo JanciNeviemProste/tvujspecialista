@@ -17,7 +17,7 @@ export default function CommunityError({
   const t = useTranslations('errors.generic');
 
   useEffect(() => {
-    console.error('Community error:', error);
+    // Error is automatically reported via Sentry
   }, [error]);
 
   return (
@@ -47,7 +47,7 @@ export default function CommunityError({
           <Button asChild variant="outline" className="w-full sm:flex-1">
             <Link href="/community">
               <Home className="mr-2 h-4 w-4" />
-              Späť na Komunitu
+              {t('backToCommunity')}
             </Link>
           </Button>
         </CardFooter>

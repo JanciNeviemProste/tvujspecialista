@@ -79,7 +79,7 @@ function CourseCardInner({
             </span>
             {course.featured && (
               <span className="inline-flex items-center rounded-full bg-amber-400/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-amber-900 shadow-sm">
-                Featured
+                {t('course.featured')}
               </span>
             )}
           </div>
@@ -115,9 +115,11 @@ function CourseCardInner({
           {/* Instructor */}
           <div className="flex items-center gap-2">
             {course.instructorPhoto ? (
-              <img
+              <Image
                 src={course.instructorPhoto}
                 alt={course.instructorName}
+                width={28}
+                height={28}
                 className="h-7 w-7 rounded-full object-cover"
               />
             ) : (

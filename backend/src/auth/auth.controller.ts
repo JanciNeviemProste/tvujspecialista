@@ -41,6 +41,7 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @Post('refresh')
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({ status: 200, description: 'Returns new tokens' })

@@ -67,7 +67,7 @@ export class Commission {
   @Column('text', { nullable: true })
   notes: string;
 
-  @ManyToOne(() => Deal, (deal) => deal.commission)
+  @ManyToOne(() => Deal, (deal) => deal.commission, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'dealId' })
   deal: Deal;
 

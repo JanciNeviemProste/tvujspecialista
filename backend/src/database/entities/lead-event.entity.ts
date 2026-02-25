@@ -37,7 +37,7 @@ export class LeadEvent {
   @Column('jsonb', { nullable: true })
   data: Record<string, any>;
 
-  @ManyToOne(() => Lead, (lead) => lead.events)
+  @ManyToOne(() => Lead, (lead) => lead.events, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'leadId' })
   lead: Lead;
 

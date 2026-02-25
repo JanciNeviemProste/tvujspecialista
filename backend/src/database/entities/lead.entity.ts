@@ -55,7 +55,7 @@ export class Lead {
   @Column({ default: true })
   gdprConsent: boolean;
 
-  @ManyToOne(() => Specialist, (specialist) => specialist.leads)
+  @ManyToOne(() => Specialist, (specialist) => specialist.leads, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'specialistId' })
   specialist: Specialist;
 

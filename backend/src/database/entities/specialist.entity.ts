@@ -51,6 +51,7 @@ export class Specialist {
   @Column({ nullable: true })
   photo: string;
 
+  @Index()
   @Column({ default: false })
   verified: boolean;
 

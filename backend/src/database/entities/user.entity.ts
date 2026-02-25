@@ -39,6 +39,7 @@ export class User {
   @Column({ nullable: true })
   phone: string;
 
+  @Index()
   @Column({
     type: 'enum',
     enum: UserRole,

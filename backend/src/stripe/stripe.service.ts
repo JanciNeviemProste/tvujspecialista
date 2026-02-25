@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -47,7 +47,7 @@ export class StripeService {
       where: { userId },
     });
     if (!specialist) {
-      throw new Error('Specialist not found');
+      throw new NotFoundException('Specialist not found');
     }
 
     const subscription = await this.subscriptionRepository.findOne({
@@ -111,7 +111,7 @@ export class StripeService {
         webhookSecret,
       );
     } catch (err) {
-      throw new Error(
+      throw new BadRequestException(
         `Webhook signature verification failed: ${err instanceof Error ? err.message : 'Unknown error'}`,
       );
     }

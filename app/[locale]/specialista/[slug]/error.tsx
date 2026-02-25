@@ -1,5 +1,11 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/routing';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
+
 export default function Error({
   error,
   reset,
@@ -7,18 +13,38 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const t = useTranslations('errors.generic');
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] p-8">
-      <h2 className="text-2xl font-bold mb-4">Něco se pokazilo</h2>
-      <p className="text-gray-600 mb-6">
-        {error.message || 'Profil specialisty se nepodařilo načíst.'}
-      </p>
-      <button
-        onClick={() => reset()}
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-      >
-        Zkusit znovu
-      </button>
+    <div className="flex min-h-[50vh] items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader className="text-center">
+          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
+            <AlertTriangle className="h-8 w-8 text-destructive" />
+          </div>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {error.message && (
+            <div className="rounded-lg bg-muted p-4 text-sm">
+              <p className="font-mono text-muted-foreground">{error.message}</p>
+            </div>
+          )}
+        </CardContent>
+        <CardFooter className="flex flex-col gap-3 sm:flex-row">
+          <Button onClick={reset} className="w-full sm:flex-1">
+            <RefreshCw className="mr-2 h-4 w-4" />
+            {t('tryAgain')}
+          </Button>
+          <Button asChild variant="outline" className="w-full sm:flex-1">
+            <Link href="/">
+              <Home className="mr-2 h-4 w-4" />
+              {t('backHome')}
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }

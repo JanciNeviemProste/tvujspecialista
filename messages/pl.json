@@ -1030,6 +1030,17 @@
     }
   },
   "academy": {
+    "video": {
+      "playError": "Nie udało się odtworzyć wideo. Spróbuj odświeżyć stronę.",
+      "processing": "Wideo jest przetwarzane...",
+      "tryLater": "Spróbuj ponownie później",
+      "notAvailable": "Wideo nie jest dostępne",
+      "refreshOrContact": "Spróbuj odświeżyć stronę lub skontaktuj się z pomocą",
+      "playbackError": "Błąd odtwarzania wideo",
+      "tryAgain": "Spróbuj ponownie",
+      "errorCode": "Błąd odtwarzania ({code}): {message}",
+      "unknownError": "Nieznany błąd odtwarzania"
+    },
     "nav": {
       "home": "Strona główna",
       "courses": "Kursy",
@@ -1179,7 +1190,8 @@
       "lessons": "lekcji",
       "completed": "ukończono",
       "continue": "Kontynuuj",
-      "viewCourse": "Zobacz kurs"
+      "viewCourse": "Zobacz kurs",
+      "featured": "Polecane"
     },
     "enrollment": {
       "completed": "Ukończono",
@@ -1463,12 +1475,21 @@
     "notFound": {
       "title": "Strona nie została znaleziona",
       "description": "Żądana strona nie istnieje.",
-      "backHome": "Wróć na stronę główną"
+      "backHome": "Wróć na stronę główną",
+      "suggestion": "Spróbuj wyszukać lub wróć na stronę główną.",
+      "search": "Szukaj",
+      "back": "Wstecz"
     },
     "generic": {
       "title": "Wystąpił błąd",
       "description": "Przepraszamy, coś poszło nie tak.",
-      "tryAgain": "Spróbuj ponownie"
+      "tryAgain": "Spróbuj ponownie",
+      "backHome": "Strona główna",
+      "backToCommunity": "Powrót do Społeczności",
+      "backToAcademy": "Powrót do Akademii",
+      "backToDashboard": "Powrót do Panelu",
+      "backToCourses": "Powrót do kursów",
+      "backToEvents": "Powrót do wydarzeń"
     },
     "boundary": {
       "title": "Coś poszło nie tak",

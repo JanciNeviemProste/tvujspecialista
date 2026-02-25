@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { Play, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
@@ -33,6 +34,7 @@ export function VideoPlayer({
   onComplete,
   className,
 }: VideoPlayerProps) {
+  const t = useTranslations('academy.video');
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressTimerRef = useRef<NodeJS.Timeout | null>(null);
@@ -88,7 +90,7 @@ export function VideoPlayer({
       videoRef.current.pause();
     } else {
       videoRef.current.play().catch(() => {
-        setVideoError('Video sa nepodarilo prehrať. Skúste obnoviť stránku.');
+        setVideoError(t('playError'));
       });
     }
   };
@@ -142,8 +144,8 @@ export function VideoPlayer({
       >
         <div className="text-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto" />
-          <p className="text-white text-lg">Video sa spracováva...</p>
-          <p className="text-gray-400 text-sm">Skúste to prosím neskôr</p>
+          <p className="text-white text-lg">{t('processing')}</p>
+          <p className="text-gray-400 text-sm">{t('tryLater')}</p>
         </div>
       </div>
     );
@@ -159,9 +161,9 @@ export function VideoPlayer({
         )}
       >
         <div className="text-center space-y-2">
-          <p className="text-white text-lg">Video nie je dostupné</p>
+          <p className="text-white text-lg">{t('notAvailable')}</p>
           <p className="text-gray-400 text-sm">
-            Skúste obnoviť stránku alebo kontaktujte podporu
+            {t('refreshOrContact')}
           </p>
         </div>
       </div>
@@ -178,14 +180,14 @@ export function VideoPlayer({
         )}
       >
         <div className="text-center space-y-3">
-          <p className="text-white text-lg">Chyba prehrávania videa</p>
+          <p className="text-white text-lg">{t('playbackError')}</p>
           <p className="text-gray-400 text-sm">{videoError}</p>
           <Button
             variant="ghost"
             className="text-blue-400 hover:text-blue-300"
             onClick={() => setVideoError(null)}
           >
-            Skúsiť znova
+            {t('tryAgain')}
           </Button>
         </div>
       </div>
@@ -229,8 +231,8 @@ export function VideoPlayer({
           const err = videoRef.current?.error;
           setVideoError(
             err
-              ? `Chyba prehrávania (${err.code}): ${err.message}`
-              : 'Neznáma chyba prehrávania',
+              ? t('errorCode', { code: err.code, message: err.message })
+              : t('unknownError'),
           );
         }}
         onClick={togglePlay}

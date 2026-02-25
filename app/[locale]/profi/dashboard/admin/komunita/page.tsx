@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
@@ -136,9 +137,11 @@ function EventFormModal({
             />
             {form.bannerImage ? (
               <div className="relative rounded-lg overflow-hidden border border-gray-200">
-                <img
+                <Image
                   src={form.bannerImage}
                   alt="Banner preview"
+                  width={1200}
+                  height={160}
                   className="w-full h-40 object-cover"
                 />
                 <div className="absolute inset-0 bg-black/0 hover:bg-black/40 transition-colors flex items-center justify-center opacity-0 hover:opacity-100">

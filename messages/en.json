@@ -1030,6 +1030,17 @@
     }
   },
   "academy": {
+    "video": {
+      "playError": "Failed to play video. Try refreshing the page.",
+      "processing": "Video is being processed...",
+      "tryLater": "Please try again later",
+      "notAvailable": "Video is not available",
+      "refreshOrContact": "Try refreshing the page or contact support",
+      "playbackError": "Video playback error",
+      "tryAgain": "Try again",
+      "errorCode": "Playback error ({code}): {message}",
+      "unknownError": "Unknown playback error"
+    },
     "nav": {
       "home": "Home",
       "courses": "Courses",
@@ -1179,7 +1190,8 @@
       "lessons": "lessons",
       "completed": "completed",
       "continue": "Continue",
-      "viewCourse": "View course"
+      "viewCourse": "View course",
+      "featured": "Featured"
     },
     "enrollment": {
       "completed": "Completed",
@@ -1463,12 +1475,21 @@
     "notFound": {
       "title": "Page not found",
       "description": "The requested page does not exist.",
-      "backHome": "Back to home"
+      "backHome": "Back to home",
+      "suggestion": "Try searching or go back to the home page.",
+      "search": "Search",
+      "back": "Back"
     },
     "generic": {
       "title": "An error occurred",
       "description": "We are sorry, but something went wrong.",
-      "tryAgain": "Try again"
+      "tryAgain": "Try again",
+      "backHome": "Home",
+      "backToCommunity": "Back to Community",
+      "backToAcademy": "Back to Academy",
+      "backToDashboard": "Back to Dashboard",
+      "backToCourses": "Back to courses",
+      "backToEvents": "Back to events"
     },
     "boundary": {
       "title": "Something went wrong",

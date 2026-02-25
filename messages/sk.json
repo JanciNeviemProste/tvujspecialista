@@ -1030,6 +1030,17 @@
     }
   },
   "academy": {
+    "video": {
+      "playError": "Video sa nepodarilo prehrať. Skúste obnoviť stránku.",
+      "processing": "Video sa spracováva...",
+      "tryLater": "Skúste to prosím neskôr",
+      "notAvailable": "Video nie je dostupné",
+      "refreshOrContact": "Skúste obnoviť stránku alebo kontaktujte podporu",
+      "playbackError": "Chyba prehrávania videa",
+      "tryAgain": "Skúsiť znova",
+      "errorCode": "Chyba prehrávania ({code}): {message}",
+      "unknownError": "Neznáma chyba prehrávania"
+    },
     "nav": {
       "home": "Domov",
       "courses": "Kurzy",
@@ -1179,7 +1190,8 @@
       "lessons": "lekcií",
       "completed": "dokončené",
       "continue": "Pokračovať",
-      "viewCourse": "Zobraziť kurz"
+      "viewCourse": "Zobraziť kurz",
+      "featured": "Odporúčané"
     },
     "enrollment": {
       "completed": "Dokončené",
@@ -1463,12 +1475,21 @@
     "notFound": {
       "title": "Stránka nenájdená",
       "description": "Požadovaná stránka neexistuje.",
-      "backHome": "Späť na hlavnú stránku"
+      "backHome": "Späť na hlavnú stránku",
+      "suggestion": "Skúste vyhľadávanie alebo sa vráťte na domovskú stránku.",
+      "search": "Hľadať",
+      "back": "Späť"
     },
     "generic": {
       "title": "Nastala chyba",
       "description": "Ospravedlňujeme sa, ale niečo sa pokazilo.",
-      "tryAgain": "Skúsiť znovu"
+      "tryAgain": "Skúsiť znovu",
+      "backHome": "Domov",
+      "backToCommunity": "Späť na Komunitu",
+      "backToAcademy": "Späť na Akadémiu",
+      "backToDashboard": "Späť na Dashboard",
+      "backToCourses": "Späť na kurzy",
+      "backToEvents": "Späť na udalosti"
     },
     "boundary": {
       "title": "Niečo sa pokazilo",

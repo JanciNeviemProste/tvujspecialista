@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   OneToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { Lesson } from './lesson.entity';
 
@@ -53,6 +54,7 @@ export class Video {
   @Column({ type: 'timestamp', nullable: true })
   processedAt: Date;
 
+  @Index()
   @Column({
     type: 'enum',
     enum: VideoStatus,

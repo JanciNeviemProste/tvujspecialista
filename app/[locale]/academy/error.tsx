@@ -17,7 +17,7 @@ export default function AcademyError({
   const t = useTranslations('errors.generic');
 
   useEffect(() => {
-    console.error('Academy error:', error);
+    // Error is automatically reported via Sentry
   }, [error]);
 
   return (
@@ -47,7 +47,7 @@ export default function AcademyError({
           <Button asChild variant="outline" className="w-full sm:flex-1">
             <Link href="/academy">
               <Home className="mr-2 h-4 w-4" />
-              Späť na Akadémiu
+              {t('backToAcademy')}
             </Link>
           </Button>
         </CardFooter>

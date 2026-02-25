@@ -6,6 +6,7 @@ import {
   UseGuards,
   Request,
   Body,
+  NotFoundException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -42,7 +43,7 @@ export class CommissionsController {
     });
 
     if (!specialist) {
-      throw new Error('Specialist not found');
+      throw new NotFoundException('Specialist not found');
     }
 
     return this.commissionsService.getMyCommissions(specialist.id);
@@ -61,7 +62,7 @@ export class CommissionsController {
     });
 
     if (!specialist) {
-      throw new Error('Specialist not found');
+      throw new NotFoundException('Specialist not found');
     }
 
     return this.commissionsService.getCommissionStats(specialist.id);
@@ -86,7 +87,7 @@ export class CommissionsController {
     });
 
     if (!specialist) {
-      throw new Error('Specialist not found');
+      throw new NotFoundException('Specialist not found');
     }
 
     return this.commissionsService.payCommission(id, specialist.id);

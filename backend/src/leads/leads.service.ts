@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cron, CronExpression } from '@nestjs/schedule';
@@ -29,7 +29,7 @@ export class LeadsService {
 
   async create(createLeadDto: CreateLeadDto) {
     if (!createLeadDto.gdprConsent) {
-      throw new Error('GDPR consent is required');
+      throw new BadRequestException('GDPR consent is required');
     }
 
     const specialist = await this.specialistRepository.findOne({

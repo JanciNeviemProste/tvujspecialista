@@ -17,7 +17,7 @@ export default function ProfiError({
   const t = useTranslations('errors.generic');
 
   useEffect(() => {
-    console.error('Profi dashboard error:', error);
+    // Error is automatically reported via Sentry
   }, [error]);
 
   return (
@@ -47,7 +47,7 @@ export default function ProfiError({
           <Button asChild variant="outline" className="w-full sm:flex-1">
             <Link href="/profi/dashboard">
               <Home className="mr-2 h-4 w-4" />
-              Späť na Dashboard
+              {t('backToDashboard')}
             </Link>
           </Button>
         </CardFooter>

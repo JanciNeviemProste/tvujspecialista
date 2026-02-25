@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { v2 as cloudinary } from 'cloudinary';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -63,7 +63,7 @@ export class CloudinaryService {
       where: { userId },
     });
     if (!specialist) {
-      throw new Error('Specialist not found');
+      throw new NotFoundException('Specialist not found');
     }
 
     const imageUrl = await this.uploadImage(file, userId);

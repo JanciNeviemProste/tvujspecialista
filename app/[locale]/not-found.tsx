@@ -22,27 +22,27 @@ export default function NotFound() {
         <CardContent>
           <div className="text-6xl mb-4">🔍</div>
           <p className="text-sm text-muted-foreground">
-            Možno by ste mali skúsiť vyhľadávanie alebo sa vrátiť na domovskú stránku.
+            {t('suggestion')}
           </p>
         </CardContent>
         <CardFooter className="flex flex-col gap-3 sm:flex-row">
-          <Link href="/" className="w-full sm:flex-1">
-            <Button variant="default" className="w-full">
+          <Button asChild variant="default" className="w-full sm:flex-1">
+            <Link href="/">
               <Home className="mr-2 h-4 w-4" />
               {t('backHome')}
-            </Button>
-          </Link>
-          <Link href="/hledat" className="w-full sm:flex-1">
-            <Button variant="outline" className="w-full">
+            </Link>
+          </Button>
+          <Button asChild variant="outline" className="w-full sm:flex-1">
+            <Link href="/hledat">
               <Search className="mr-2 h-4 w-4" />
-              Hľadať
-            </Button>
-          </Link>
+              {t('search')}
+            </Link>
+          </Button>
         </CardFooter>
         <div className="pb-6">
           <Button variant="ghost" size="sm" onClick={() => window.history.back()}>
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Späť
+            {t('back')}
           </Button>
         </div>
       </Card>

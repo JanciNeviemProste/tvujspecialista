@@ -17,7 +17,7 @@ export default function Error({
   const t = useTranslations('errors.generic');
 
   useEffect(() => {
-    console.error('Ceny error:', error);
+    // Error is automatically reported via Sentry
   }, [error]);
 
   return (
@@ -45,7 +45,7 @@ export default function Error({
           <Button asChild variant="outline" className="w-full sm:flex-1">
             <Link href="/">
               <Home className="mr-2 h-4 w-4" />
-              Domov
+              {t('backHome')}
             </Link>
           </Button>
         </CardFooter>

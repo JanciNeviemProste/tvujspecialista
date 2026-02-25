@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
@@ -13,9 +13,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-  useEffect(() => {
-    console.error('Subscription error:', error);
-  }, [error]);
+  const t = useTranslations('errors.generic');
 
   return (
     <div className="flex min-h-[50vh] items-center justify-center p-4">
@@ -24,8 +22,8 @@ export default function Error({
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
             <AlertTriangle className="h-8 w-8 text-destructive" />
           </div>
-          <CardTitle className="text-2xl">Niečo sa pokazilo</CardTitle>
-          <CardDescription>Nepodarilo sa načítať predplatné.</CardDescription>
+          <CardTitle className="text-2xl">{t('title')}</CardTitle>
+          <CardDescription>{t('description')}</CardDescription>
         </CardHeader>
         <CardContent>
           {error.message && (
@@ -37,12 +35,12 @@ export default function Error({
         <CardFooter className="flex flex-col gap-3 sm:flex-row">
           <Button onClick={reset} className="w-full sm:flex-1">
             <RefreshCw className="mr-2 h-4 w-4" />
-            Skúsiť znova
+            {t('tryAgain')}
           </Button>
           <Button asChild variant="outline" className="w-full sm:flex-1">
             <Link href="/">
               <Home className="mr-2 h-4 w-4" />
-              Domov
+              {t('backHome')}
             </Link>
           </Button>
         </CardFooter>
