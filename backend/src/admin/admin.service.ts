@@ -5,6 +5,7 @@ import { User } from '../database/entities/user.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { Lead, LeadStatus } from '../database/entities/lead.entity';
 import { Event, EventStatus } from '../database/entities/event.entity';
+import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
 
 @Injectable()
 export class AdminService {
@@ -17,6 +18,8 @@ export class AdminService {
     private readonly leadRepository: Repository<Lead>,
     @InjectRepository(Event)
     private readonly eventRepository: Repository<Event>,
+    @InjectRepository(Subscription)
+    private readonly subscriptionRepository: Repository<Subscription>,
   ) {}
 
   /**
@@ -123,12 +126,29 @@ export class AdminService {
       }),
     ]);
 
+    // Subscription stats
+    const activeSubscriptions = await this.subscriptionRepository.find({
+      where: { status: SubscriptionStatus.ACTIVE },
+    });
+
+    let monthlySubscriptions = 0;
+    let yearlySubscriptions = 0;
+    for (const sub of activeSubscriptions) {
+      if (sub.currentPeriodStart && sub.currentPeriodEnd) {
+        const diffDays = (new Date(sub.currentPeriodEnd).getTime() - new Date(sub.currentPeriodStart).getTime()) / (1000 * 60 * 60 * 24);
+        if (diffDays > 60) yearlySubscriptions++;
+        else monthlySubscriptions++;
+      }
+    }
+
     return {
       usersCount: totalUsers,
       specialistsCount: totalSpecialists,
       leadsCount: totalLeads,
       eventsCount: totalEvents,
       pastEventsCount: pastEvents,
+      monthlySubscriptions,
+      yearlySubscriptions,
       users: {
         total: totalUsers,
       },

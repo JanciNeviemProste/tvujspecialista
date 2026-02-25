@@ -652,7 +652,9 @@
         "forum": "Fórum",
         "forumDesc": "Moderování témat a příspěvků",
         "community": "Eventy",
-        "communityDesc": "Správa eventů a setkání"
+        "communityDesc": "Správa eventů a setkání",
+        "monthlySubscriptions": "Měsíční předplatné",
+        "yearlySubscriptions": "Roční předplatné"
       }
     },
     "settings": {
@@ -1321,7 +1323,7 @@
     },
     "exploreEvents": "Prozkoumat eventy",
     "toasts": {
-      "rsvpSuccess": "RSVP bylo aktualizováno",
+      "rsvpSuccess": "Úspěšně jste se registrovali na akci!",
       "rsvpError": "Chyba při RSVP",
       "eventCreated": "Událost byla vytvořena",
       "eventCreateError": "Chyba při vytváření události",

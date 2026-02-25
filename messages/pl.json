@@ -652,7 +652,9 @@
         "forum": "Forum",
         "forumDesc": "Moderowanie tematów i wpisów",
         "community": "Eventy",
-        "communityDesc": "Zarządzanie eventami i spotkaniami"
+        "communityDesc": "Zarządzanie eventami i spotkaniami",
+        "monthlySubscriptions": "Subskrypcje miesięczne",
+        "yearlySubscriptions": "Subskrypcje roczne"
       }
     },
     "settings": {
@@ -1321,7 +1323,7 @@
     },
     "exploreEvents": "Przeglądaj wydarzenia",
     "toasts": {
-      "rsvpSuccess": "RSVP zostało zaktualizowane",
+      "rsvpSuccess": "Pomyślnie zarejestrowałeś się na wydarzenie!",
       "rsvpError": "Błąd RSVP",
       "eventCreated": "Wydarzenie zostało utworzone",
       "eventCreateError": "Błąd tworzenia wydarzenia",

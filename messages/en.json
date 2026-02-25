@@ -652,7 +652,9 @@
         "forum": "Forum",
         "forumDesc": "Moderate topics and posts",
         "community": "Events",
-        "communityDesc": "Manage events and meetups"
+        "communityDesc": "Manage events and meetups",
+        "monthlySubscriptions": "Monthly subscriptions",
+        "yearlySubscriptions": "Yearly subscriptions"
       }
     },
     "settings": {
@@ -1321,7 +1323,7 @@
     },
     "exploreEvents": "Explore events",
     "toasts": {
-      "rsvpSuccess": "RSVP was updated",
+      "rsvpSuccess": "Successfully registered for the event!",
       "rsvpError": "Error with RSVP",
       "eventCreated": "Event was created",
       "eventCreateError": "Error creating event",

@@ -6,12 +6,13 @@ import { User } from '../database/entities/user.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { Lead } from '../database/entities/lead.entity';
 import { Event } from '../database/entities/event.entity';
+import { Subscription } from '../database/entities/subscription.entity';
 import { CommunityModule } from '../community/community.module';
 import { AcademyModule } from '../academy/academy.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Specialist, Lead, Event]),
+    TypeOrmModule.forFeature([User, Specialist, Lead, Event, Subscription]),
     CommunityModule,
     AcademyModule,
   ],
