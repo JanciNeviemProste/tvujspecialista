@@ -10,7 +10,7 @@ import { paymentsApi } from '@/lib/api/payments';
 import { specialistsApi } from '@/lib/api/specialists';
 import { adminApi } from '@/lib/api/admin';
 import React from 'react';
-import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown, Home, Landmark } from 'lucide-react';
+import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown, Home, Landmark, GraduationCap } from 'lucide-react';
 import type { Lead } from '@/types/lead';
 
 export default function DashboardPage() {
@@ -189,6 +189,13 @@ export default function DashboardPage() {
                   <span className="text-sm font-medium text-gray-600">{t('admin.leads')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.leadsCount ?? 0}</div>
+              </div>
+              <div className="rounded-lg border bg-white p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <GraduationCap className="h-5 w-5 text-indigo-500" />
+                  <span className="text-sm font-medium text-gray-600">{t('admin.academyGraduates')}</span>
+                </div>
+                <div className="text-3xl font-bold">{adminStats?.academyGraduatesCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">

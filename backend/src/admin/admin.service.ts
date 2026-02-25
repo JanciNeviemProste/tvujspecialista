@@ -6,6 +6,7 @@ import { Specialist, SpecialistCategory } from '../database/entities/specialist.
 import { Lead, LeadStatus } from '../database/entities/lead.entity';
 import { Event, EventStatus } from '../database/entities/event.entity';
 import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
+import { Enrollment, EnrollmentStatus } from '../database/entities/enrollment.entity';
 
 @Injectable()
 export class AdminService {
@@ -20,6 +21,8 @@ export class AdminService {
     private readonly eventRepository: Repository<Event>,
     @InjectRepository(Subscription)
     private readonly subscriptionRepository: Repository<Subscription>,
+    @InjectRepository(Enrollment)
+    private readonly enrollmentRepository: Repository<Enrollment>,
   ) {}
 
   /**
@@ -112,6 +115,7 @@ export class AdminService {
       totalCustomers,
       realEstateAgents,
       financialAdvisors,
+      academyGraduates,
     ] = await Promise.all([
       this.userRepository.count(),
       this.specialistRepository.count(),
@@ -130,6 +134,11 @@ export class AdminService {
       this.userRepository.count({ where: { role: UserRole.CUSTOMER } }),
       this.specialistRepository.count({ where: { category: SpecialistCategory.REAL_ESTATE_AGENT } }),
       this.specialistRepository.count({ where: { category: SpecialistCategory.FINANCIAL_ADVISOR } }),
+      this.enrollmentRepository.createQueryBuilder('e')
+        .select('COUNT(DISTINCT e.userId)', 'count')
+        .where('e.status = :status', { status: EnrollmentStatus.COMPLETED })
+        .getRawOne()
+        .then((r) => parseInt(r?.count || '0', 10)),
     ]);
 
     // Subscription stats
@@ -153,6 +162,7 @@ export class AdminService {
       customersCount: totalCustomers,
       realEstateAgentsCount: realEstateAgents,
       financialAdvisorsCount: financialAdvisors,
+      academyGraduatesCount: academyGraduates,
       leadsCount: totalLeads,
       eventsCount: totalEvents,
       pastEventsCount: pastEvents,
