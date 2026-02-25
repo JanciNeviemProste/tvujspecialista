@@ -44,12 +44,12 @@ export default function AcademyError({
             <RefreshCw className="mr-2 h-4 w-4" />
             {t('tryAgain')}
           </Button>
-          <Link href="/academy" className="w-full sm:flex-1">
-            <Button variant="outline" className="w-full">
+          <Button asChild variant="outline" className="w-full sm:flex-1">
+            <Link href="/academy">
               <Home className="mr-2 h-4 w-4" />
               Späť na Akadémiu
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>

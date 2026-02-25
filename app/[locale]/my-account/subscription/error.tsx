@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertTriangle, Home, RefreshCw } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 
 export default function Error({
   error,
@@ -39,12 +39,12 @@ export default function Error({
             <RefreshCw className="mr-2 h-4 w-4" />
             Skúsiť znova
           </Button>
-          <Link href="/" className="w-full sm:flex-1">
-            <Button variant="outline" className="w-full">
+          <Button asChild variant="outline" className="w-full sm:flex-1">
+            <Link href="/">
               <Home className="mr-2 h-4 w-4" />
               Domov
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>

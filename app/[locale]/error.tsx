@@ -45,12 +45,12 @@ export default function Error({
             <RefreshCw className="mr-2 h-4 w-4" />
             {t('tryAgain')}
           </Button>
-          <Link href="/" className="w-full sm:flex-1">
-            <Button variant="outline" className="w-full">
+          <Button asChild variant="outline" className="w-full sm:flex-1">
+            <Link href="/">
               <Home className="mr-2 h-4 w-4" />
               Domov
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>

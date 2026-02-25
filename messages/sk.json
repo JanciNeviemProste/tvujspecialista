@@ -642,8 +642,9 @@
         "upgrade": "Upgradovať na Premium"
       },
       "admin": {
-        "users": "Používatelia",
-        "specialists": "Špecialisti",
+        "customers": "Zákazníci",
+        "realEstateAgents": "Realitní makléri",
+        "financialAdvisors": "Finanční poradcovia",
         "leads": "Leady celkovo",
         "pastEvents": "Uskutočnené eventy",
         "contentManagement": "Správa obsahu",

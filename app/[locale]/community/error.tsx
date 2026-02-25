@@ -44,12 +44,12 @@ export default function CommunityError({
             <RefreshCw className="mr-2 h-4 w-4" />
             {t('tryAgain')}
           </Button>
-          <Link href="/community" className="w-full sm:flex-1">
-            <Button variant="outline" className="w-full">
+          <Button asChild variant="outline" className="w-full sm:flex-1">
+            <Link href="/community">
               <Home className="mr-2 h-4 w-4" />
               Späť na Komunitu
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </CardFooter>
       </Card>
     </div>

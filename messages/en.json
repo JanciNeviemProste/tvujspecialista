@@ -642,8 +642,9 @@
         "upgrade": "Upgrade to Premium"
       },
       "admin": {
-        "users": "Users",
-        "specialists": "Specialists",
+        "customers": "Customers",
+        "realEstateAgents": "Real estate agents",
+        "financialAdvisors": "Financial advisors",
         "leads": "Leads total",
         "pastEvents": "Completed events",
         "contentManagement": "Content management",

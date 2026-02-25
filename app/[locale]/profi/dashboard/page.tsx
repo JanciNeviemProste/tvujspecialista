@@ -10,7 +10,7 @@ import { paymentsApi } from '@/lib/api/payments';
 import { specialistsApi } from '@/lib/api/specialists';
 import { adminApi } from '@/lib/api/admin';
 import React from 'react';
-import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown } from 'lucide-react';
+import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown, Home, Landmark } from 'lucide-react';
 import type { Lead } from '@/types/lead';
 
 export default function DashboardPage() {
@@ -165,16 +165,23 @@ export default function DashboardPage() {
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
                   <Users className="h-5 w-5 text-blue-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.users')}</span>
+                  <span className="text-sm font-medium text-gray-600">{t('admin.customers')}</span>
                 </div>
-                <div className="text-3xl font-bold">{adminStats?.usersCount ?? 0}</div>
+                <div className="text-3xl font-bold">{adminStats?.customersCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">
-                  <Shield className="h-5 w-5 text-green-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.specialists')}</span>
+                  <Home className="h-5 w-5 text-green-500" />
+                  <span className="text-sm font-medium text-gray-600">{t('admin.realEstateAgents')}</span>
                 </div>
-                <div className="text-3xl font-bold">{adminStats?.specialistsCount ?? 0}</div>
+                <div className="text-3xl font-bold">{adminStats?.realEstateAgentsCount ?? 0}</div>
+              </div>
+              <div className="rounded-lg border bg-white p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Landmark className="h-5 w-5 text-emerald-500" />
+                  <span className="text-sm font-medium text-gray-600">{t('admin.financialAdvisors')}</span>
+                </div>
+                <div className="text-3xl font-bold">{adminStats?.financialAdvisorsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white p-6">
                 <div className="flex items-center gap-3 mb-2">

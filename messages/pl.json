@@ -642,8 +642,9 @@
         "upgrade": "Zmień na plan Premium"
       },
       "admin": {
-        "users": "Użytkownicy",
-        "specialists": "Specjaliści",
+        "customers": "Klienci",
+        "realEstateAgents": "Agenci nieruchomości",
+        "financialAdvisors": "Doradcy finansowi",
         "leads": "Leady łącznie",
         "pastEvents": "Zrealizowane eventy",
         "contentManagement": "Zarządzanie treścią",

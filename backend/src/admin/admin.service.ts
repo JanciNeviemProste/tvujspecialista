@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LessThan, Not, Repository } from 'typeorm';
-import { User } from '../database/entities/user.entity';
-import { Specialist } from '../database/entities/specialist.entity';
+import { User, UserRole } from '../database/entities/user.entity';
+import { Specialist, SpecialistCategory } from '../database/entities/specialist.entity';
 import { Lead, LeadStatus } from '../database/entities/lead.entity';
 import { Event, EventStatus } from '../database/entities/event.entity';
 import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
@@ -109,6 +109,9 @@ export class AdminService {
       closedLeads,
       totalEvents,
       pastEvents,
+      totalCustomers,
+      realEstateAgents,
+      financialAdvisors,
     ] = await Promise.all([
       this.userRepository.count(),
       this.specialistRepository.count(),
@@ -124,6 +127,9 @@ export class AdminService {
           status: Not(EventStatus.CANCELLED),
         },
       }),
+      this.userRepository.count({ where: { role: UserRole.CUSTOMER } }),
+      this.specialistRepository.count({ where: { category: SpecialistCategory.REAL_ESTATE_AGENT } }),
+      this.specialistRepository.count({ where: { category: SpecialistCategory.FINANCIAL_ADVISOR } }),
     ]);
 
     // Subscription stats
@@ -144,6 +150,9 @@ export class AdminService {
     return {
       usersCount: totalUsers,
       specialistsCount: totalSpecialists,
+      customersCount: totalCustomers,
+      realEstateAgentsCount: realEstateAgents,
+      financialAdvisorsCount: financialAdvisors,
       leadsCount: totalLeads,
       eventsCount: totalEvents,
       pastEventsCount: pastEvents,
