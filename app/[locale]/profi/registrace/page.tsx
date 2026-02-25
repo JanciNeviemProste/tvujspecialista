@@ -10,7 +10,7 @@ import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 
 const registrationSchema = z
@@ -40,6 +40,7 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 export default function RegistrationPage() {
   const t = useTranslations('auth.register');
+  const locale = useLocale();
   const router = useRouter();
   const [error, setError] = useState('');
 
@@ -68,6 +69,7 @@ export default function RegistrationPage() {
         location: data.location,
         yearsExperience: parseInt(data.yearsExperience),
         bio: data.bio,
+        locale,
       });
 
       // Save tokens to localStorage (registration is always persistent)

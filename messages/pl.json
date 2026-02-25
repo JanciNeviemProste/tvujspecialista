@@ -576,6 +576,10 @@
       "rememberPassword": "Przypomniałeś sobie hasło?",
       "successToast": "Instrukcje resetowania hasła zostały wysłane na Twój adres email",
       "errorToast": "Nie udało się wysłać wiadomości. Spróbuj ponownie.",
+      "validation": {
+        "emailRequired": "Email jest wymagany",
+        "emailInvalid": "Podaj prawidłowy adres email"
+      },
       "metadata": {
         "title": "Zapomniałem hasła | tvujspecialista.cz",
         "description": "Zresetuj hasło do swojego konta na platformie tvujspecialista.cz."
@@ -597,10 +601,31 @@
       "invalidTokenToast": "Nieprawidłowy link do resetowania hasła",
       "successToast": "Hasło zostało pomyślnie zmienione",
       "errorToast": "Nie udało się zmienić hasła. Link mógł wygasnąć.",
+      "validation": {
+        "minLength": "Hasło musi mieć co najmniej 8 znaków",
+        "uppercase": "Hasło musi zawierać co najmniej jedną wielką literę",
+        "lowercase": "Hasło musi zawierać co najmniej jedną małą literę",
+        "digit": "Hasło musi zawierać co najmniej jedną cyfrę",
+        "confirmRequired": "Potwierdzenie hasła jest wymagane",
+        "mismatch": "Hasła nie są identyczne"
+      },
       "metadata": {
         "title": "Resetowanie hasła | tvujspecialista.cz",
         "description": "Ustaw nowe hasło do swojego konta na platformie tvujspecialista.cz."
       }
+    },
+    "verifyEmail": {
+      "verifying": "Weryfikacja emaila...",
+      "pleaseWait": "Proszę czekać.",
+      "successTitle": "Email zweryfikowany!",
+      "successDesc": "Twój email został pomyślnie zweryfikowany. Możesz się teraz zalogować.",
+      "errorTitle": "Weryfikacja nie powiodła się",
+      "errorDesc": "Token jest nieprawidłowy. Spróbuj zarejestrować się ponownie lub skontaktuj się z pomocą.",
+      "expiredTitle": "Token wygasł",
+      "expiredDesc": "Link weryfikacyjny wygasł. Zaloguj się i poproś o nowy.",
+      "invalidLink": "Nieprawidłowy link",
+      "invalidLinkDesc": "Link weryfikacyjny jest nieprawidłowy lub brakuje tokena.",
+      "backToLogin": "Powrót do logowania"
     },
     "loginSuccess": "Logowanie pomyślne",
     "loginError": "Logowanie nie powiodło się",
@@ -655,6 +680,8 @@
         "forumDesc": "Moderowanie tematów i wpisów",
         "community": "Eventy",
         "communityDesc": "Zarządzanie eventami i spotkaniami",
+        "users": "Użytkownicy",
+        "usersDesc": "Zarządzanie użytkownikami i resetowanie haseł",
         "monthlySubscriptions": "Subskrypcje miesięczne",
         "yearlySubscriptions": "Subskrypcje roczne"
       }
@@ -936,6 +963,27 @@
           "title": "Zarządzaj eventami | Admin",
           "description": "Zarządzanie eventami i spotkaniami."
         }
+      },
+      "users": {
+        "title": "Zarządzanie użytkownikami",
+        "backToDashboard": "Powrót do dashboardu",
+        "totalUsers": "{count} użytkowników łącznie",
+        "searchPlaceholder": "Szukaj użytkowników...",
+        "name": "Imię",
+        "email": "Email",
+        "role": "Rola",
+        "verified": "Zweryfikowany",
+        "registered": "Rejestracja",
+        "actions": "Akcje",
+        "resetPassword": "Resetuj hasło",
+        "confirmReset": "Na pewno?",
+        "yes": "Tak",
+        "no": "Nie",
+        "resetSuccess": "Email z resetem hasła został wysłany",
+        "resetError": "Nie udało się wysłać emaila",
+        "prev": "Poprzedni",
+        "next": "Następny",
+        "pageOf": "Strona {page} z {total}"
       },
       "toasts": {
         "unauthorized": "Nie masz uprawnień do tej akcji",

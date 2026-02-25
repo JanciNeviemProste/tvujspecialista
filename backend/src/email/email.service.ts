@@ -17,6 +17,112 @@ interface DealData {
   estimatedCloseDate: string | Date;
 }
 
+type Locale = 'cs' | 'sk' | 'en' | 'pl';
+
+const emailTranslations: Record<
+  string,
+  Record<Locale, Record<string, string>>
+> = {
+  passwordReset: {
+    cs: {
+      subject: 'Obnovení hesla - tvujspecialista.cz',
+      title: 'Obnovení hesla',
+      greeting: 'Dobrý den',
+      body: 'Obdrželi jsme žádost o obnovení vašeho hesla.',
+      button: 'Obnovit heslo',
+      expiry: 'Odkaz je platný 1 hodinu.',
+      ignore:
+        'Pokud jste o obnovení hesla nežádali, tento email můžete ignorovat.',
+    },
+    sk: {
+      subject: 'Obnovenie hesla - tvujspecialista.cz',
+      title: 'Obnovenie hesla',
+      greeting: 'Dobrý deň',
+      body: 'Dostali sme žiadosť o obnovenie vášho hesla.',
+      button: 'Obnoviť heslo',
+      expiry: 'Odkaz je platný 1 hodinu.',
+      ignore:
+        'Ak ste o obnovenie hesla nežiadali, tento email môžete ignorovať.',
+    },
+    en: {
+      subject: 'Password Reset - tvujspecialista.cz',
+      title: 'Password Reset',
+      greeting: 'Hello',
+      body: 'We received a request to reset your password.',
+      button: 'Reset Password',
+      expiry: 'This link is valid for 1 hour.',
+      ignore:
+        'If you did not request a password reset, you can ignore this email.',
+    },
+    pl: {
+      subject: 'Resetowanie hasła - tvujspecialista.cz',
+      title: 'Resetowanie hasła',
+      greeting: 'Dzień dobry',
+      body: 'Otrzymaliśmy prośbę o zresetowanie Twojego hasła.',
+      button: 'Zresetuj hasło',
+      expiry: 'Link jest ważny przez 1 godzinę.',
+      ignore:
+        'Jeśli nie prosiłeś o zresetowanie hasła, możesz zignorować ten email.',
+    },
+  },
+  emailVerification: {
+    cs: {
+      subject: 'Ověření emailu - tvujspecialista.cz',
+      title: 'Ověření emailu',
+      greeting: 'Dobrý den',
+      body: 'Děkujeme za registraci. Prosím ověřte svůj email kliknutím na tlačítko níže.',
+      button: 'Ověřit email',
+    },
+    sk: {
+      subject: 'Overenie emailu - tvujspecialista.cz',
+      title: 'Overenie emailu',
+      greeting: 'Dobrý deň',
+      body: 'Ďakujeme za registráciu. Prosím overte si email kliknutím na tlačidlo nižšie.',
+      button: 'Overiť email',
+    },
+    en: {
+      subject: 'Email Verification - tvujspecialista.cz',
+      title: 'Email Verification',
+      greeting: 'Hello',
+      body: 'Thank you for registering. Please verify your email by clicking the button below.',
+      button: 'Verify Email',
+    },
+    pl: {
+      subject: 'Weryfikacja email - tvujspecialista.cz',
+      title: 'Weryfikacja email',
+      greeting: 'Dzień dobry',
+      body: 'Dziękujemy za rejestrację. Proszę zweryfikuj swój email klikając przycisk poniżej.',
+      button: 'Zweryfikuj email',
+    },
+  },
+  welcome: {
+    cs: {
+      subject: 'Vítejte na tvujspecialista.cz',
+      title: 'Vítejte!',
+      greeting: 'Dobrý den',
+      body: 'Děkujeme za registraci na tvujspecialista.cz.',
+    },
+    sk: {
+      subject: 'Vitajte na tvujspecialista.cz',
+      title: 'Vitajte!',
+      greeting: 'Dobrý deň',
+      body: 'Ďakujeme za registráciu na tvujspecialista.cz.',
+    },
+    en: {
+      subject: 'Welcome to tvujspecialista.cz',
+      title: 'Welcome!',
+      greeting: 'Hello',
+      body: 'Thank you for registering on tvujspecialista.cz.',
+    },
+    pl: {
+      subject: 'Witamy na tvujspecialista.cz',
+      title: 'Witamy!',
+      greeting: 'Dzień dobry',
+      body: 'Dziękujemy za rejestrację na tvujspecialista.cz.',
+    },
+  },
+};
+
 @Injectable()
 export class EmailService {
   private readonly logger = new Logger(EmailService.name);
@@ -122,7 +228,9 @@ export class EmailService {
     }
   }
 
-  async sendWelcomeEmail(email: string, name: string) {
+  async sendWelcomeEmail(email: string, name: string, locale?: string) {
+    const loc = this.getLocale(locale);
+    const t = emailTranslations.welcome[loc];
     const template = this.loadTemplate('welcome');
     const html = this.replaceVariables(template, {
       name,
@@ -136,13 +244,13 @@ export class EmailService {
           email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
           name: this.configService.get<string>('SENDGRID_FROM_NAME'),
         },
-        subject: 'Vítejte na tvujspecialista.cz',
+        subject: t.subject,
         html:
           html ||
           `
-          <h1>Vítejte!</h1>
-          <p>Dobrý den ${name},</p>
-          <p>Děkujeme za registraci na tvujspecialista.cz.</p>
+          <h1>${t.title}</h1>
+          <p>${t.greeting} ${name},</p>
+          <p>${t.body}</p>
         `,
       });
     } catch (error) {
@@ -480,12 +588,25 @@ export class EmailService {
     }
   }
 
+  private getLocale(locale?: string): Locale {
+    const supported: Locale[] = ['cs', 'sk', 'en', 'pl'];
+    return supported.includes(locale as Locale) ? (locale as Locale) : 'cs';
+  }
+
+  private getLocalePrefix(locale: Locale): string {
+    return locale === 'cs' ? '' : `/${locale}`;
+  }
+
   async sendPasswordReset(
     email: string,
     name: string,
     token: string,
+    locale?: string,
   ): Promise<void> {
-    const resetUrl = `${this.configService.get<string>('FRONTEND_URL')}/profi/reset-password?token=${token}`;
+    const loc = this.getLocale(locale);
+    const t = emailTranslations.passwordReset[loc];
+    const prefix = this.getLocalePrefix(loc);
+    const resetUrl = `${this.configService.get<string>('FRONTEND_URL')}${prefix}/profi/reset-hesla?token=${token}`;
 
     try {
       await sgMail.send({
@@ -494,14 +615,14 @@ export class EmailService {
           email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
           name: this.configService.get<string>('SENDGRID_FROM_NAME'),
         },
-        subject: 'Obnovení hesla - tvujspecialista.cz',
+        subject: t.subject,
         html: `
-          <h1>Obnovení hesla</h1>
-          <p>Dobrý den ${name},</p>
-          <p>Obdrželi jsme žádost o obnovení vašeho hesla.</p>
-          <p><a href="${resetUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">Obnovit heslo</a></p>
-          <p>Odkaz je platný 1 hodinu.</p>
-          <p>Pokud jste o obnovení hesla nežádali, tento email můžete ignorovat.</p>
+          <h1>${t.title}</h1>
+          <p>${t.greeting} ${name},</p>
+          <p>${t.body}</p>
+          <p><a href="${resetUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
+          <p>${t.expiry}</p>
+          <p>${t.ignore}</p>
         `,
       });
     } catch (error) {
@@ -513,8 +634,12 @@ export class EmailService {
     email: string,
     name: string,
     token: string,
+    locale?: string,
   ): Promise<void> {
-    const verifyUrl = `${this.configService.get<string>('FRONTEND_URL')}/profi/verify-email?token=${token}`;
+    const loc = this.getLocale(locale);
+    const t = emailTranslations.emailVerification[loc];
+    const prefix = this.getLocalePrefix(loc);
+    const verifyUrl = `${this.configService.get<string>('FRONTEND_URL')}${prefix}/profi/overenie-emailu?token=${token}`;
 
     try {
       await sgMail.send({
@@ -523,12 +648,12 @@ export class EmailService {
           email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
           name: this.configService.get<string>('SENDGRID_FROM_NAME'),
         },
-        subject: 'Ověření emailu - tvujspecialista.cz',
+        subject: t.subject,
         html: `
-          <h1>Ověření emailu</h1>
-          <p>Dobrý den ${name},</p>
-          <p>Děkujeme za registraci. Prosím ověřte svůj email kliknutím na tlačítko níže.</p>
-          <p><a href="${verifyUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">Ověřit email</a></p>
+          <h1>${t.title}</h1>
+          <p>${t.greeting} ${name},</p>
+          <p>${t.body}</p>
+          <p><a href="${verifyUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
         `,
       });
     } catch (error) {

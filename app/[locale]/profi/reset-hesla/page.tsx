@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from '@/i18n/routing';
 import { useRouter } from '@/i18n/routing';
 import { useSearchParams } from 'next/navigation';
@@ -12,21 +12,6 @@ import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 
-const resetPasswordSchema = z.object({
-  password: z
-    .string()
-    .min(8, 'Heslo musí mít alespoň 8 znaků')
-    .regex(/[A-Z]/, 'Heslo musí obsahovat alespoň jedno velké písmeno')
-    .regex(/[a-z]/, 'Heslo musí obsahovat alespoň jedno malé písmeno')
-    .regex(/\d/, 'Heslo musí obsahovat alespoň jednu číslici'),
-  confirmPassword: z.string().min(1, 'Potvrzení hesla je povinné'),
-}).refine((data) => data.password === data.confirmPassword, {
-  message: 'Hesla se neshodují',
-  path: ['confirmPassword'],
-});
-
-type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
-
 export default function ResetPasswordPage() {
   const t = useTranslations('auth.resetPassword');
   const tActions = useTranslations('common.actions');
@@ -34,6 +19,21 @@ export default function ResetPasswordPage() {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
   const [success, setSuccess] = useState(false);
+
+  const resetPasswordSchema = useMemo(() => z.object({
+    password: z
+      .string()
+      .min(8, t('validation.minLength'))
+      .regex(/[A-Z]/, t('validation.uppercase'))
+      .regex(/[a-z]/, t('validation.lowercase'))
+      .regex(/\d/, t('validation.digit')),
+    confirmPassword: z.string().min(1, t('validation.confirmRequired')),
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: t('validation.mismatch'),
+    path: ['confirmPassword'],
+  }), [t]);
+
+  type ResetPasswordFormData = z.infer<typeof resetPasswordSchema>;
 
   const {
     register,

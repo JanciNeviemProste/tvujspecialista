@@ -576,6 +576,10 @@
       "rememberPassword": "Remembered your password?",
       "successToast": "Password reset instructions have been sent to your email",
       "errorToast": "Failed to send email. Please try again.",
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Enter a valid email"
+      },
       "metadata": {
         "title": "Forgot password | tvujspecialista.cz",
         "description": "Reset the password for your account on the tvujspecialista.cz platform."
@@ -597,10 +601,31 @@
       "invalidTokenToast": "Invalid password reset link",
       "successToast": "Password has been changed successfully",
       "errorToast": "Failed to change password. The link may have expired.",
+      "validation": {
+        "minLength": "Password must be at least 8 characters",
+        "uppercase": "Password must contain at least one uppercase letter",
+        "lowercase": "Password must contain at least one lowercase letter",
+        "digit": "Password must contain at least one digit",
+        "confirmRequired": "Password confirmation is required",
+        "mismatch": "Passwords do not match"
+      },
       "metadata": {
         "title": "Reset password | tvujspecialista.cz",
         "description": "Set a new password for your account on the tvujspecialista.cz platform."
       }
+    },
+    "verifyEmail": {
+      "verifying": "Verifying your email...",
+      "pleaseWait": "Please wait.",
+      "successTitle": "Email verified!",
+      "successDesc": "Your email has been successfully verified. You can now log in.",
+      "errorTitle": "Verification failed",
+      "errorDesc": "The token is invalid. Please try registering again or contact support.",
+      "expiredTitle": "Token expired",
+      "expiredDesc": "The verification link has expired. Log in and request a new one.",
+      "invalidLink": "Invalid link",
+      "invalidLinkDesc": "The email verification link is invalid or the token is missing.",
+      "backToLogin": "Back to login"
     },
     "loginSuccess": "Login successful",
     "loginError": "Login failed",
@@ -655,6 +680,8 @@
         "forumDesc": "Moderate topics and posts",
         "community": "Events",
         "communityDesc": "Manage events and meetups",
+        "users": "Users",
+        "usersDesc": "Manage users and reset passwords",
         "monthlySubscriptions": "Monthly subscriptions",
         "yearlySubscriptions": "Yearly subscriptions"
       }
@@ -936,6 +963,27 @@
           "title": "Manage events | Admin",
           "description": "Manage events and meetups."
         }
+      },
+      "users": {
+        "title": "User management",
+        "backToDashboard": "Back to dashboard",
+        "totalUsers": "{count} users total",
+        "searchPlaceholder": "Search users...",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "verified": "Verified",
+        "registered": "Registered",
+        "actions": "Actions",
+        "resetPassword": "Reset password",
+        "confirmReset": "Are you sure?",
+        "yes": "Yes",
+        "no": "No",
+        "resetSuccess": "Password reset email has been sent",
+        "resetError": "Failed to send email",
+        "prev": "Previous",
+        "next": "Next",
+        "pageOf": "Page {page} of {total}"
       },
       "toasts": {
         "unauthorized": "You are not authorized for this action",

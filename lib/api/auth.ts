@@ -23,6 +23,7 @@ export interface RegistrationData {
   website?: string;
   linkedin?: string;
   availability?: string[];
+  locale?: string;
 }
 
 export interface ChangePasswordData {
@@ -48,4 +49,5 @@ export const authApi = {
   changePassword: (data: ChangePasswordData) => apiClient.post('/auth/change-password', data),
   forgotPassword: (email: string) => apiClient.post('/auth/forgot-password', { email }),
   resetPassword: (token: string, password: string) => apiClient.post('/auth/reset-password', { token, password }),
+  verifyEmail: (token: string) => apiClient.post('/auth/verify-email', { token }),
 };

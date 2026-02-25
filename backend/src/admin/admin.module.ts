@@ -10,12 +10,14 @@ import { Subscription } from '../database/entities/subscription.entity';
 import { Enrollment } from '../database/entities/enrollment.entity';
 import { CommunityModule } from '../community/community.module';
 import { AcademyModule } from '../academy/academy.module';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Specialist, Lead, Event, Subscription, Enrollment]),
     CommunityModule,
     AcademyModule,
+    EmailModule,
   ],
   controllers: [AdminController],
   providers: [AdminService],

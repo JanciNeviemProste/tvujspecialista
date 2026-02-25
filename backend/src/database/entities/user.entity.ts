@@ -73,6 +73,9 @@ export class User {
   @Column({ type: 'timestamp', nullable: true })
   emailVerificationExpires: Date;
 
+  @Column({ default: 'cs' })
+  locale: string;
+
   @Column({ default: 0 })
   failedLoginAttempts: number;
 

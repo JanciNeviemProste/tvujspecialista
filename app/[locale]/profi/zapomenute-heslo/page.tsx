@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -10,17 +10,17 @@ import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 
-const forgotPasswordSchema = z.object({
-  email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
-});
-
-type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
-
 export default function ForgotPasswordPage() {
   const t = useTranslations('auth.forgotPassword');
   const tNav = useTranslations('common.nav');
   const tActions = useTranslations('common.actions');
   const [submitted, setSubmitted] = useState(false);
+
+  const forgotPasswordSchema = useMemo(() => z.object({
+    email: z.string().min(1, t('validation.emailRequired')).email(t('validation.emailInvalid')),
+  }), [t]);
+
+  type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
   const {
     register,

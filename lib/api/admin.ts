@@ -22,4 +22,5 @@ export const adminApi = {
   },
   getEventAttendees: (eventId: string) => apiClient.get(`/admin/events/${eventId}/attendees`),
   updateRSVPStatus: (rsvpId: string, status: string) => apiClient.patch(`/admin/rsvps/${rsvpId}/status`, { status }),
+  resetUserPassword: (userId: string) => apiClient.post(`/admin/users/${userId}/reset-password`),
 };

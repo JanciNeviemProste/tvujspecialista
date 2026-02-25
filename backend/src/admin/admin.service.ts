@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { LessThan, Not, Repository } from 'typeorm';
+import * as crypto from 'crypto';
 import { User, UserRole } from '../database/entities/user.entity';
 import { Specialist, SpecialistCategory } from '../database/entities/specialist.entity';
 import { Lead, LeadStatus } from '../database/entities/lead.entity';
 import { Event, EventStatus } from '../database/entities/event.entity';
 import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
 import { Enrollment, EnrollmentStatus } from '../database/entities/enrollment.entity';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class AdminService {
@@ -23,6 +25,7 @@ export class AdminService {
     private readonly subscriptionRepository: Repository<Subscription>,
     @InjectRepository(Enrollment)
     private readonly enrollmentRepository: Repository<Enrollment>,
+    private readonly emailService: EmailService,
   ) {}
 
   /**
@@ -187,5 +190,24 @@ export class AdminService {
         past: pastEvents,
       },
     };
+  }
+
+  /**
+   * Admin resets a user's password by sending them a reset email
+   */
+  async adminResetPassword(userId: string): Promise<void> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const token = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    user.passwordResetToken = hashedToken;
+    user.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+    await this.userRepository.save(user);
+
+    await this.emailService.sendPasswordReset(user.email, user.name, token, user.locale);
   }
 }

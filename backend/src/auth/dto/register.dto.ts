@@ -11,6 +11,7 @@ import {
   IsOptional,
   IsArray,
   IsUrl,
+  IsIn,
 } from 'class-validator';
 import { SpecialistCategory } from '../../database/entities/specialist.entity';
 
@@ -88,4 +89,8 @@ export class RegisterDto {
   @IsArray()
   @IsString({ each: true })
   availability?: string[];
+
+  @IsOptional()
+  @IsIn(['cs', 'sk', 'en', 'pl'])
+  locale?: string;
 }

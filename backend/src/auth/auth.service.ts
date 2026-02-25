@@ -49,6 +49,7 @@ export class AuthService {
       name: registerDto.name,
       phone: registerDto.phone,
       role: UserRole.SPECIALIST,
+      locale: registerDto.locale || 'cs',
     });
     const savedUser = await this.userRepository.save(user);
 
@@ -63,6 +64,7 @@ export class AuthService {
       savedUser.email,
       savedUser.name,
       verificationToken,
+      savedUser.locale,
     );
 
     const slug = generateSlug(
@@ -187,7 +189,7 @@ export class AuthService {
     user.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     await this.userRepository.save(user);
 
-    await this.emailService.sendPasswordReset(user.email, user.name, token);
+    await this.emailService.sendPasswordReset(user.email, user.name, token, user.locale);
   }
 
   async resetPassword(token: string, newPassword: string): Promise<void> {
@@ -269,6 +271,7 @@ export class AuthService {
       user.email,
       user.name,
       verificationToken,
+      user.locale,
     );
   }
 

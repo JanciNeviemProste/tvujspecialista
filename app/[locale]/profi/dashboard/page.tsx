@@ -246,6 +246,14 @@ export default function DashboardPage() {
                 <h3 className="text-lg font-semibold mb-1">{t('admin.community')}</h3>
                 <p className="text-sm text-gray-600">{t('admin.communityDesc')}</p>
               </Link>
+              <Link
+                href="/profi/dashboard/admin/pouzivatelia"
+                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+              >
+                <Users className="h-8 w-8 text-purple-600 mb-3 group-hover:scale-110 transition-transform" />
+                <h3 className="text-lg font-semibold mb-1">{t('admin.users')}</h3>
+                <p className="text-sm text-gray-600">{t('admin.usersDesc')}</p>
+              </Link>
             </div>
           </>
         )}

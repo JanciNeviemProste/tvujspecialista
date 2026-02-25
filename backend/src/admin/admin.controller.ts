@@ -135,4 +135,14 @@ export class AdminController {
   ) {
     return this.rsvpsService.updateStatusAdmin(id, status as any);
   }
+
+  @Post('users/:id/reset-password')
+  @ApiOperation({ summary: 'Send password reset email to a user (Admin only)' })
+  @ApiResponse({ status: 201, description: 'Password reset email sent' })
+  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
+  async adminResetPassword(@Param('id') id: string) {
+    await this.adminService.adminResetPassword(id);
+    return { message: 'Password reset email sent' };
+  }
 }

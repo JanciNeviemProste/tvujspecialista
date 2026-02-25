@@ -576,6 +576,10 @@
       "rememberPassword": "Vzpomněli jste si na heslo?",
       "successToast": "Pokyny k obnovení hesla byly odeslány na váš email",
       "errorToast": "Nepodařilo se odeslat email. Zkuste to prosím znovu.",
+      "validation": {
+        "emailRequired": "Email je povinný",
+        "emailInvalid": "Zadejte platný email"
+      },
       "metadata": {
         "title": "Zapomenuté heslo | tvujspecialista.cz",
         "description": "Obnovte si heslo k účtu na platformě tvujspecialista.cz."
@@ -597,10 +601,31 @@
       "invalidTokenToast": "Neplatný odkaz pro obnovení hesla",
       "successToast": "Heslo bylo úspěšně změněno",
       "errorToast": "Nepodařilo se změnit heslo. Odkaz mohl vypršet.",
+      "validation": {
+        "minLength": "Heslo musí mít alespoň 8 znaků",
+        "uppercase": "Heslo musí obsahovat alespoň jedno velké písmeno",
+        "lowercase": "Heslo musí obsahovat alespoň jedno malé písmeno",
+        "digit": "Heslo musí obsahovat alespoň jednu číslici",
+        "confirmRequired": "Potvrzení hesla je povinné",
+        "mismatch": "Hesla se neshodují"
+      },
       "metadata": {
         "title": "Obnovení hesla | tvujspecialista.cz",
         "description": "Nastavte si nové heslo k účtu na platformě tvujspecialista.cz."
       }
+    },
+    "verifyEmail": {
+      "verifying": "Ověřujeme váš email...",
+      "pleaseWait": "Prosím čekejte.",
+      "successTitle": "Email ověřen!",
+      "successDesc": "Váš email byl úspěšně ověřen. Nyní se můžete přihlásit.",
+      "errorTitle": "Ověření se nezdařilo",
+      "errorDesc": "Token je neplatný. Zkuste se znovu zaregistrovat nebo kontaktujte podporu.",
+      "expiredTitle": "Token vypršel",
+      "expiredDesc": "Odkaz pro ověření emailu vypršel. Přihlaste se a vyžádejte si nový.",
+      "invalidLink": "Neplatný odkaz",
+      "invalidLinkDesc": "Odkaz pro ověření emailu je neplatný nebo chybí token.",
+      "backToLogin": "Zpět na přihlášení"
     },
     "loginSuccess": "Přihlášení úspěšné",
     "loginError": "Přihlášení se nezdařilo",
@@ -655,6 +680,8 @@
         "forumDesc": "Moderování témat a příspěvků",
         "community": "Eventy",
         "communityDesc": "Správa eventů a setkání",
+        "users": "Uživatelé",
+        "usersDesc": "Správa uživatelů a reset hesel",
         "monthlySubscriptions": "Měsíční předplatné",
         "yearlySubscriptions": "Roční předplatné"
       }
@@ -936,6 +963,27 @@
           "title": "Spravovat eventy | Admin",
           "description": "Správa eventů a setkání."
         }
+      },
+      "users": {
+        "title": "Správa uživatelů",
+        "backToDashboard": "Zpět na dashboard",
+        "totalUsers": "{count} uživatelů celkem",
+        "searchPlaceholder": "Hledat uživatele...",
+        "name": "Jméno",
+        "email": "Email",
+        "role": "Role",
+        "verified": "Ověřen",
+        "registered": "Registrace",
+        "actions": "Akce",
+        "resetPassword": "Reset hesla",
+        "confirmReset": "Opravdu?",
+        "yes": "Ano",
+        "no": "Ne",
+        "resetSuccess": "Email s resetem hesla byl odeslán",
+        "resetError": "Nepodařilo se odeslat email",
+        "prev": "Předchozí",
+        "next": "Další",
+        "pageOf": "Stránka {page} z {total}"
       },
       "toasts": {
         "unauthorized": "Nemáte oprávnění k této akci",

@@ -576,6 +576,10 @@
       "rememberPassword": "Spomenuli ste si na heslo?",
       "successToast": "Pokyny na obnovu hesla boli odoslané na váš email",
       "errorToast": "Nepodarilo sa odoslať email. Skúste to prosím znovu.",
+      "validation": {
+        "emailRequired": "Email je povinný",
+        "emailInvalid": "Zadajte platný email"
+      },
       "metadata": {
         "title": "Zabudnuté heslo | tvujspecialista.cz",
         "description": "Obnovte si heslo k účtu na platforme tvujspecialista.cz."
@@ -597,10 +601,31 @@
       "invalidTokenToast": "Neplatný odkaz na obnovu hesla",
       "successToast": "Heslo bolo úspešne zmenené",
       "errorToast": "Nepodarilo sa zmeniť heslo. Odkaz mohol vypršať.",
+      "validation": {
+        "minLength": "Heslo musí mať aspoň 8 znakov",
+        "uppercase": "Heslo musí obsahovať aspoň jedno veľké písmeno",
+        "lowercase": "Heslo musí obsahovať aspoň jedno malé písmeno",
+        "digit": "Heslo musí obsahovať aspoň jednu číslicu",
+        "confirmRequired": "Potvrdenie hesla je povinné",
+        "mismatch": "Heslá sa nezhodujú"
+      },
       "metadata": {
         "title": "Obnova hesla | tvujspecialista.cz",
         "description": "Nastavte si nové heslo k účtu na platforme tvujspecialista.cz."
       }
+    },
+    "verifyEmail": {
+      "verifying": "Overujeme váš email...",
+      "pleaseWait": "Prosím čakajte.",
+      "successTitle": "Email overený!",
+      "successDesc": "Váš email bol úspešne overený. Teraz sa môžete prihlásiť.",
+      "errorTitle": "Overenie zlyhalo",
+      "errorDesc": "Token je neplatný. Skúste sa znova zaregistrovať alebo kontaktujte podporu.",
+      "expiredTitle": "Token vypršal",
+      "expiredDesc": "Odkaz na overenie emailu vypršal. Prihláste sa a vyžiadajte si nový.",
+      "invalidLink": "Neplatný odkaz",
+      "invalidLinkDesc": "Odkaz na overenie emailu je neplatný alebo chýba token.",
+      "backToLogin": "Späť na prihlásenie"
     },
     "loginSuccess": "Prihlásenie úspešné",
     "loginError": "Prihlásenie zlyhalo",
@@ -655,6 +680,8 @@
         "forumDesc": "Moderovanie tém a príspevkov",
         "community": "Eventy",
         "communityDesc": "Správa eventov a stretnutí",
+        "users": "Používatelia",
+        "usersDesc": "Správa používateľov a reset hesiel",
         "monthlySubscriptions": "Mesačné predplatné",
         "yearlySubscriptions": "Ročné predplatné"
       }
@@ -936,6 +963,27 @@
           "title": "Spravovať eventy | Admin",
           "description": "Správa eventov a stretnutí."
         }
+      },
+      "users": {
+        "title": "Správa používateľov",
+        "backToDashboard": "Späť na dashboard",
+        "totalUsers": "{count} používateľov celkovo",
+        "searchPlaceholder": "Hľadať používateľov...",
+        "name": "Meno",
+        "email": "Email",
+        "role": "Rola",
+        "verified": "Overený",
+        "registered": "Registrácia",
+        "actions": "Akcie",
+        "resetPassword": "Reset hesla",
+        "confirmReset": "Naozaj?",
+        "yes": "Áno",
+        "no": "Nie",
+        "resetSuccess": "Email s resetom hesla bol odoslaný",
+        "resetError": "Nepodarilo sa odoslať email",
+        "prev": "Predchádzajúci",
+        "next": "Ďalší",
+        "pageOf": "Stránka {page} z {total}"
       },
       "toasts": {
         "unauthorized": "Nemáte oprávnenie na túto akciu",
