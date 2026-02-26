@@ -67,18 +67,18 @@ class EnvironmentVariables {
   @IsString()
   FRONTEND_URL: string = 'http://localhost:3000';
 
-  // SendGrid - optional
+  // Resend - optional
   @IsString()
   @IsOptional()
-  SENDGRID_API_KEY?: string;
+  RESEND_API_KEY?: string;
 
   @IsString()
   @IsOptional()
-  SENDGRID_FROM_EMAIL?: string;
+  RESEND_FROM_EMAIL?: string;
 
   @IsString()
   @IsOptional()
-  SENDGRID_FROM_NAME?: string;
+  RESEND_FROM_NAME?: string;
 
   // Stripe - optional
   @IsString()

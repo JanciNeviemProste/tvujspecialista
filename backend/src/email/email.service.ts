@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import * as sgMail from '@sendgrid/mail';
+import { Resend } from 'resend';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -126,11 +126,36 @@ const emailTranslations: Record<
 @Injectable()
 export class EmailService {
   private readonly logger = new Logger(EmailService.name);
+  private resend: Resend | null = null;
 
   constructor(private configService: ConfigService) {
-    const apiKey = this.configService.get<string>('SENDGRID_API_KEY');
-    if (apiKey && apiKey !== 'SG.xxxxxxxxxxxxx') {
-      sgMail.setApiKey(apiKey);
+    const apiKey = this.configService.get<string>('RESEND_API_KEY');
+    if (apiKey && apiKey !== 're_xxxxxxxxxxxxx') {
+      this.resend = new Resend(apiKey);
+    }
+  }
+
+  private getFrom(): string {
+    const email = this.configService.get<string>('RESEND_FROM_EMAIL') || 'noreply@tvujspecialista.cz';
+    const name = this.configService.get<string>('RESEND_FROM_NAME') || 'tvujspecialista.cz';
+    return `${name} <${email}>`;
+  }
+
+  private async sendEmail(to: string, subject: string, html: string): Promise<void> {
+    if (!this.resend) {
+      this.logger.warn('Resend not configured, skipping email send');
+      return;
+    }
+
+    try {
+      await this.resend.emails.send({
+        from: this.getFrom(),
+        to: [to],
+        subject,
+        html,
+      });
+    } catch (error) {
+      this.logger.error('Error sending email:', error);
     }
   }
 
@@ -172,28 +197,19 @@ export class EmailService {
       dashboardUrl: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard`,
     });
 
-    try {
-      await sgMail.send({
-        to: specialistEmail,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Nová poptávka od ${leadData.customerName}`,
-        html:
-          html ||
-          `
-          <h1>Nová poptávka</h1>
-          <p>Dobrý den ${specialistName},</p>
-          <p>Máte novou poptávku od ${leadData.customerName}.</p>
-          <p><strong>Email:</strong> ${leadData.customerEmail}</p>
-          <p><strong>Telefon:</strong> ${leadData.customerPhone}</p>
-          <p><strong>Zpráva:</strong> ${leadData.message}</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending email:', error);
-    }
+    await this.sendEmail(
+      specialistEmail,
+      `Nová poptávka od ${leadData.customerName}`,
+      html ||
+        `
+        <h1>Nová poptávka</h1>
+        <p>Dobrý den ${specialistName},</p>
+        <p>Máte novou poptávku od ${leadData.customerName}.</p>
+        <p><strong>Email:</strong> ${leadData.customerEmail}</p>
+        <p><strong>Telefon:</strong> ${leadData.customerPhone}</p>
+        <p><strong>Zpráva:</strong> ${leadData.message}</p>
+      `,
+    );
   }
 
   async sendLeadConfirmation(
@@ -207,25 +223,16 @@ export class EmailService {
       specialistName,
     });
 
-    try {
-      await sgMail.send({
-        to: customerEmail,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Potvrzení poptávky - ${specialistName}`,
-        html:
-          html ||
-          `
-          <h1>Potvrzení poptávky</h1>
-          <p>Dobrý den ${customerName},</p>
-          <p>Děkujeme za vaši poptávku. ${specialistName} vás bude brzy kontaktovat.</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending email:', error);
-    }
+    await this.sendEmail(
+      customerEmail,
+      `Potvrzení poptávky - ${specialistName}`,
+      html ||
+        `
+        <h1>Potvrzení poptávky</h1>
+        <p>Dobrý den ${customerName},</p>
+        <p>Děkujeme za vaši poptávku. ${specialistName} vás bude brzy kontaktovat.</p>
+      `,
+    );
   }
 
   async sendWelcomeEmail(email: string, name: string, locale?: string) {
@@ -237,25 +244,16 @@ export class EmailService {
       dashboardUrl: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard`,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: t.subject,
-        html:
-          html ||
-          `
-          <h1>${t.title}</h1>
-          <p>${t.greeting} ${name},</p>
-          <p>${t.body}</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending email:', error);
-    }
+    await this.sendEmail(
+      email,
+      t.subject,
+      html ||
+        `
+        <h1>${t.title}</h1>
+        <p>${t.greeting} ${name},</p>
+        <p>${t.body}</p>
+      `,
+    );
   }
 
   async sendEnrollmentConfirmation(
@@ -275,26 +273,17 @@ export class EmailService {
       dashboardUrl,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Potvrzení zápisu: ${courseTitle}`,
-        html:
-          html ||
-          `
-          <h1>Gratulujeme k zápisu do kurzu!</h1>
-          <p>Dobrý den ${userName},</p>
-          <p>Byl/a jste úspěšně zapsán/a do kurzu: <strong>${courseTitle}</strong></p>
-          <p><a href="${courseUrl}">Začít se učit</a></p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending enrollment confirmation email:', error);
-    }
+    await this.sendEmail(
+      email,
+      `Potvrzení zápisu: ${courseTitle}`,
+      html ||
+        `
+        <h1>Gratulujeme k zápisu do kurzu!</h1>
+        <p>Dobrý den ${userName},</p>
+        <p>Byl/a jste úspěšně zapsán/a do kurzu: <strong>${courseTitle}</strong></p>
+        <p><a href="${courseUrl}">Začít se učit</a></p>
+      `,
+    );
   }
 
   async sendRSVPConfirmation(
@@ -314,27 +303,18 @@ export class EmailService {
       myEventsUrl,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Potvrzení registrace: ${eventTitle}`,
-        html:
-          html ||
-          `
-          <h1>Potvrzení registrace na akci</h1>
-          <p>Dobrý den ${userName},</p>
-          <p>Byl/a jste úspěšně registrován/a na akci: <strong>${eventTitle}</strong></p>
-          <p><a href="${eventUrl}">Zobrazit detail akce</a></p>
-          <p><a href="${myEventsUrl}">Moje akce</a></p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending RSVP confirmation email:', error);
-    }
+    await this.sendEmail(
+      email,
+      `Potvrzení registrace: ${eventTitle}`,
+      html ||
+        `
+        <h1>Potvrzení registrace na akci</h1>
+        <p>Dobrý den ${userName},</p>
+        <p>Byl/a jste úspěšně registrován/a na akci: <strong>${eventTitle}</strong></p>
+        <p><a href="${eventUrl}">Zobrazit detail akce</a></p>
+        <p><a href="${myEventsUrl}">Moje akce</a></p>
+      `,
+    );
   }
 
   async sendEventCancellation(
@@ -351,27 +331,18 @@ export class EmailService {
       eventsUrl,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Zrušení akce: ${eventTitle}`,
-        html:
-          html ||
-          `
-          <h1>Akce byla zrušena</h1>
-          <p>Dobrý den ${userName},</p>
-          <p>Omlouváme se, ale akce <strong>${eventTitle}</strong> byla zrušena.</p>
-          <p>Pokud jste zaplatili vstupné, bude vám vráceno.</p>
-          <p><a href="${eventsUrl}">Zobrazit další akce</a></p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending event cancellation email:', error);
-    }
+    await this.sendEmail(
+      email,
+      `Zrušení akce: ${eventTitle}`,
+      html ||
+        `
+        <h1>Akce byla zrušena</h1>
+        <p>Dobrý den ${userName},</p>
+        <p>Omlouváme se, ale akce <strong>${eventTitle}</strong> byla zrušena.</p>
+        <p>Pokud jste zaplatili vstupné, bude vám vráceno.</p>
+        <p><a href="${eventsUrl}">Zobrazit další akce</a></p>
+      `,
+    );
   }
 
   async sendCommissionNotification(
@@ -392,28 +363,19 @@ export class EmailService {
       commissionsUrl,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Nová provize: ${commissionAmount.toLocaleString('cs-CZ')} Kč`,
-        html:
-          html ||
-          `
-          <h1>Gratulujeme k uzavření obchodu!</h1>
-          <p>Dobrý den ${specialistName},</p>
-          <p>Váš obchod v hodnotě <strong>${dealValue.toLocaleString('cs-CZ')} Kč</strong> byl úspěšně uzavřen.</p>
-          <p>Vaše provize činí: <strong>${commissionAmount.toLocaleString('cs-CZ')} Kč</strong></p>
-          <p>Provizi můžete uhradit na platformě do 30 dnů.</p>
-          <p><a href="${commissionsUrl}">Zobrazit provize</a></p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending commission notification email:', error);
-    }
+    await this.sendEmail(
+      email,
+      `Nová provize: ${commissionAmount.toLocaleString('cs-CZ')} Kč`,
+      html ||
+        `
+        <h1>Gratulujeme k uzavření obchodu!</h1>
+        <p>Dobrý den ${specialistName},</p>
+        <p>Váš obchod v hodnotě <strong>${dealValue.toLocaleString('cs-CZ')} Kč</strong> byl úspěšně uzavřen.</p>
+        <p>Vaše provize činí: <strong>${commissionAmount.toLocaleString('cs-CZ')} Kč</strong></p>
+        <p>Provizi můžete uhradit na platformě do 30 dnů.</p>
+        <p><a href="${commissionsUrl}">Zobrazit provize</a></p>
+      `,
+    );
   }
 
   async sendCommissionReceipt(
@@ -433,29 +395,20 @@ export class EmailService {
       date: new Date().toLocaleDateString('cs-CZ'),
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: `Potvrzení platby provize - ${commissionAmount.toLocaleString('cs-CZ')} Kč`,
-        html:
-          html ||
-          `
-          <h1>Potvrzení platby provize</h1>
-          <p>Dobrý den ${specialistName},</p>
-          <p>Vaše platba provize ve výši <strong>${commissionAmount.toLocaleString('cs-CZ')} Kč</strong> byla úspěšně zpracována.</p>
-          <p><strong>ID platby:</strong> ${commissionId}</p>
-          <p><strong>Datum:</strong> ${new Date().toLocaleDateString('cs-CZ')}</p>
-          <p>Děkujeme za vaši důvěru!</p>
-          <p><a href="${dashboardUrl}">Přejít na dashboard</a></p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending commission receipt email:', error);
-    }
+    await this.sendEmail(
+      email,
+      `Potvrzení platby provize - ${commissionAmount.toLocaleString('cs-CZ')} Kč`,
+      html ||
+        `
+        <h1>Potvrzení platby provize</h1>
+        <p>Dobrý den ${specialistName},</p>
+        <p>Vaše platba provize ve výši <strong>${commissionAmount.toLocaleString('cs-CZ')} Kč</strong> byla úspěšně zpracována.</p>
+        <p><strong>ID platby:</strong> ${commissionId}</p>
+        <p><strong>Datum:</strong> ${new Date().toLocaleDateString('cs-CZ')}</p>
+        <p>Děkujeme za vaši důvěru!</p>
+        <p><a href="${dashboardUrl}">Přejít na dashboard</a></p>
+      `,
+    );
   }
 
   async sendDealStatusChange(
@@ -475,25 +428,16 @@ export class EmailService {
       dealsUrl: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard/deals`,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: 'Zmena statusu dealu',
-        html:
-          html ||
-          `
-          <h1>Zmena statusu dealu</h1>
-          <p>Dobrý deň ${specialistName},</p>
-          <p>Status vášho dealu pre ${deal.customerName} bol zmenený z ${this.getStatusLabel(oldStatus)} na ${this.getStatusLabel(newStatus)}.</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending deal status change email:', error);
-    }
+    await this.sendEmail(
+      email,
+      'Zmena statusu dealu',
+      html ||
+        `
+        <h1>Zmena statusu dealu</h1>
+        <p>Dobrý deň ${specialistName},</p>
+        <p>Status vášho dealu pre ${deal.customerName} bol zmenený z ${this.getStatusLabel(oldStatus)} na ${this.getStatusLabel(newStatus)}.</p>
+      `,
+    );
   }
 
   async sendDealValueSet(
@@ -520,26 +464,17 @@ export class EmailService {
       dealsUrl: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard/deals`,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: 'Hodnota dealu nastavená',
-        html:
-          html ||
-          `
-          <h1>Hodnota dealu nastavená</h1>
-          <p>Dobrý deň ${specialistName},</p>
-          <p>Hodnota vášho dealu pre ${deal.customerName} bola nastavená na ${formattedValue} €.</p>
-          <p>Predpokladané uzavretie: ${formattedDate}</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending deal value set email:', error);
-    }
+    await this.sendEmail(
+      email,
+      'Hodnota dealu nastavená',
+      html ||
+        `
+        <h1>Hodnota dealu nastavená</h1>
+        <p>Dobrý deň ${specialistName},</p>
+        <p>Hodnota vášho dealu pre ${deal.customerName} bola nastavená na ${formattedValue} €.</p>
+        <p>Predpokladané uzavretie: ${formattedDate}</p>
+      `,
+    );
   }
 
   async sendDealDeadlineReminder(
@@ -566,26 +501,17 @@ export class EmailService {
       dealsUrl: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard/deals`,
     });
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: 'Pripomienka uzavretia dealu',
-        html:
-          html ||
-          `
-          <h1>Pripomienka uzavretia</h1>
-          <p>Dobrý deň ${specialistName},</p>
-          <p>Váš deal pre ${deal.customerName} sa blíži k predpokladanému dátumu uzavretia: ${formattedDate}</p>
-          <p>Hodnota dealu: ${formattedValue} €</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending deal deadline reminder email:', error);
-    }
+    await this.sendEmail(
+      email,
+      'Pripomienka uzavretia dealu',
+      html ||
+        `
+        <h1>Pripomienka uzavretia</h1>
+        <p>Dobrý deň ${specialistName},</p>
+        <p>Váš deal pre ${deal.customerName} sa blíži k predpokladanému dátumu uzavretia: ${formattedDate}</p>
+        <p>Hodnota dealu: ${formattedValue} €</p>
+      `,
+    );
   }
 
   private getLocale(locale?: string): Locale {
@@ -608,26 +534,18 @@ export class EmailService {
     const prefix = this.getLocalePrefix(loc);
     const resetUrl = `${this.configService.get<string>('FRONTEND_URL')}${prefix}/profi/reset-hesla?token=${token}`;
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: t.subject,
-        html: `
-          <h1>${t.title}</h1>
-          <p>${t.greeting} ${name},</p>
-          <p>${t.body}</p>
-          <p><a href="${resetUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
-          <p>${t.expiry}</p>
-          <p>${t.ignore}</p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending password reset email:', error);
-    }
+    await this.sendEmail(
+      email,
+      t.subject,
+      `
+        <h1>${t.title}</h1>
+        <p>${t.greeting} ${name},</p>
+        <p>${t.body}</p>
+        <p><a href="${resetUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
+        <p>${t.expiry}</p>
+        <p>${t.ignore}</p>
+      `,
+    );
   }
 
   async sendEmailVerification(
@@ -641,24 +559,16 @@ export class EmailService {
     const prefix = this.getLocalePrefix(loc);
     const verifyUrl = `${this.configService.get<string>('FRONTEND_URL')}${prefix}/profi/overenie-emailu?token=${token}`;
 
-    try {
-      await sgMail.send({
-        to: email,
-        from: {
-          email: this.configService.get<string>('SENDGRID_FROM_EMAIL')!,
-          name: this.configService.get<string>('SENDGRID_FROM_NAME'),
-        },
-        subject: t.subject,
-        html: `
-          <h1>${t.title}</h1>
-          <p>${t.greeting} ${name},</p>
-          <p>${t.body}</p>
-          <p><a href="${verifyUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
-        `,
-      });
-    } catch (error) {
-      this.logger.error('Error sending email verification:', error);
-    }
+    await this.sendEmail(
+      email,
+      t.subject,
+      `
+        <h1>${t.title}</h1>
+        <p>${t.greeting} ${name},</p>
+        <p>${t.body}</p>
+        <p><a href="${verifyUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
+      `,
+    );
   }
 
   private getStatusLabel(status: string): string {
