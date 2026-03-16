@@ -293,6 +293,19 @@ export class DealsService {
         deal.customerPhone.slice(-2);
     }
 
+    if (deal.customerName) {
+      const parts = deal.customerName.split(' ');
+      if (parts.length > 1) {
+        deal.customerName =
+          parts[0] +
+          ' ' +
+          parts
+            .slice(1)
+            .map((p) => (p.length > 0 ? p[0] + '***' : ''))
+            .join(' ');
+      }
+    }
+
     return deal;
   }
 
