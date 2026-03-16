@@ -134,7 +134,7 @@ export class Specialist {
   })
   crmProvider: CrmProvider;
 
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   crmTipsterAccount: string | null;
 
   // Commission tracking (NEW)
