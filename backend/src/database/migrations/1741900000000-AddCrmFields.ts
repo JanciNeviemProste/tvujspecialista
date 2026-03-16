@@ -1,9 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddCrmFields1741900000000 implements MigrationInterface {
-  // ALTER TYPE ADD VALUE cannot run inside a transaction in PostgreSQL
-  public readonly transaction = false;
-
   public async up(queryRunner: QueryRunner): Promise<void> {
     // 1. Create CRM provider enum type
     await queryRunner.query(`
