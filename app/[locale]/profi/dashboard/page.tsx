@@ -345,12 +345,6 @@ export default function DashboardPage() {
                     🤝 {t('quickActions.dealPipeline')}
                   </a>
                   <a
-                    href="/profi/dashboard/commissions"
-                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
-                  >
-                    💰 {t('quickActions.commissions')}
-                  </a>
-                  <a
                     href="/profi/dashboard/profil"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >

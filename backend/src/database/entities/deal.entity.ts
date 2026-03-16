@@ -82,6 +82,16 @@ export class Deal {
   @Column({ nullable: true })
   commissionId: string;
 
+  // CRM integration tracking
+  @Column({ nullable: true })
+  crmExternalId: string | null;
+
+  @Column({ type: 'timestamp', nullable: true })
+  crmPushedAt: Date | null;
+
+  @Column({ nullable: true })
+  crmPushError: string | null;
+
   @ManyToOne(() => Specialist, (specialist) => specialist.leads)
   @JoinColumn({ name: 'specialistId' })
   specialist: Specialist;

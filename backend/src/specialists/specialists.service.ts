@@ -23,7 +23,6 @@ export class SpecialistsService {
       category,
       location,
       minRating,
-      maxPrice,
       verified,
       sortBy,
       page = 1,
@@ -46,22 +45,12 @@ export class SpecialistsService {
       query.andWhere('specialist.rating >= :minRating', { minRating });
     }
 
-    if (maxPrice !== undefined) {
-      query.andWhere('specialist.hourlyRate <= :maxPrice', { maxPrice });
-    }
-
     if (verified !== undefined) {
       query.andWhere('specialist.verified = :verified', { verified });
     }
 
     // Sorting
     switch (sortBy) {
-      case 'price-asc':
-        query.orderBy('specialist.hourlyRate', 'ASC');
-        break;
-      case 'price-desc':
-        query.orderBy('specialist.hourlyRate', 'DESC');
-        break;
       case 'newest':
         query.orderBy('specialist.createdAt', 'DESC');
         break;

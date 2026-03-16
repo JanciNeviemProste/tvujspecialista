@@ -17,8 +17,6 @@ import {
 import { DealsService } from './deals.service';
 import { CreateDealDto } from './dto/create-deal.dto';
 import { UpdateDealStatusDto } from './dto/update-deal-status.dto';
-import { UpdateDealValueDto } from './dto/update-deal-value.dto';
-import { CloseDealDto } from './dto/close-deal.dto';
 import { AddNoteDto } from './dto/add-note.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { LeadLimitGuard } from '../leads/guards/lead-limit.guard';
@@ -67,60 +65,6 @@ export class DealsController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Patch(':id/value')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Set deal value and estimated close date' })
-  @ApiResponse({ status: 200, description: 'Deal value updated', type: DealResponseDto })
-  async updateDealValue(
-    @Param('id') id: string,
-    @Request() req: AuthenticatedRequest,
-    @Body() dto: UpdateDealValueDto,
-  ) {
-    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
-
-    return this.dealsService.updateDealValue(
-      id,
-      specialist.id,
-      dto.dealValue,
-      dto.estimatedCloseDate,
-    );
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Patch(':id/close')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Close deal (won/lost)' })
-  @ApiResponse({ status: 200, description: 'Deal closed', type: DealResponseDto })
-  async closeDeal(
-    @Param('id') id: string,
-    @Request() req: AuthenticatedRequest,
-    @Body() dto: CloseDealDto,
-  ) {
-    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
-
-    return this.dealsService.closeDeal(
-      id,
-      specialist.id,
-      dto.status,
-      dto.actualDealValue,
-    );
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post(':id/reopen')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Reopen closed lost deal' })
-  @ApiResponse({ status: 200, description: 'Deal reopened', type: DealResponseDto })
-  async reopenDeal(
-    @Param('id') id: string,
-    @Request() req: AuthenticatedRequest,
-  ) {
-    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
-
-    return this.dealsService.reopenDeal(id, specialist.id);
-  }
-
-  @UseGuards(JwtAuthGuard)
   @Post(':id/notes')
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Add note to deal' })
@@ -147,14 +91,4 @@ export class DealsController {
     return this.dealsService.getEventsByDeal(dealId, specialist.id);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Get('my/analytics')
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get deal analytics' })
-  @ApiResponse({ status: 200, description: 'Returns analytics data' })
-  async getDealAnalytics(@Request() req: AuthenticatedRequest) {
-    const specialist = await this.dealsService.findSpecialistByUserId(req.user.userId);
-
-    return this.dealsService.getAnalytics(specialist.id);
-  }
 }

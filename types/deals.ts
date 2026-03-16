@@ -1,5 +1,3 @@
-import type { Commission } from './commissions';
-
 export interface DealNote {
   id: string;
   content: string;
@@ -20,10 +18,11 @@ export interface Deal {
   dealValue?: number;
   estimatedCloseDate?: string;
   actualCloseDate?: string;
-  commissionId?: string;
-  commission?: Commission;
   events?: DealEvent[];
   notes?: DealNote[];
+  crmExternalId?: string;
+  crmPushedAt?: string;
+  crmPushError?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -50,32 +49,7 @@ export interface UpdateDealStatusDto {
   status: DealStatus;
 }
 
-export interface UpdateDealValueDto {
-  dealValue: number;
-  estimatedCloseDate: string;
-}
-
-export interface CloseDealDto {
-  status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST;
-  actualDealValue?: number;
-}
-
 export interface DealFilters {
   search: string;
   status: DealStatus | 'all';
-  valueRange: [number, number];
-  dateRange: {
-    from: string | null;
-    to: string | null;
-  };
-  dateType: 'created' | 'estimatedClose';
-}
-
-export interface DealAnalyticsData {
-  conversionRate: number;
-  averageDealValue: number;
-  averageTimeToClose: number; // in days
-  winRate: number;
-  statusDistribution: { status: DealStatus; count: number }[];
-  monthlyTrend: { month: string; won: number; lost: number }[];
 }

@@ -29,7 +29,6 @@ const mockSpecialists = [
     location: 'Praha',
     bio: 'Komplexní finanční poradenství přes 10 let. Pomohl jsem stovkám klientů s hypotékami, pojištěním a investicemi. Specializuji se na refinancování, životní pojištění a budování investičního portfolia.',
     yearsExperience: 10,
-    hourlyRate: 800,
     rating: 4.9,
     reviewsCount: 47,
     services: [
@@ -62,7 +61,6 @@ const mockSpecialists = [
     location: 'Brno',
     bio: 'Finanční poradkyně s 8 lety praxe. Pomohu vám s komplexním finančním plánováním - od pojištění přes hypotéky až po penzijní připojištění. Individuální přístup ke každému klientovi.',
     yearsExperience: 8,
-    hourlyRate: 600,
     rating: 4.8,
     reviewsCount: 32,
     services: [
@@ -93,7 +91,7 @@ const mockSpecialists = [
     location: 'Praha',
     bio: 'Finanční poradce s mezinárodními zkušenostmi. Komplexní finanční řešení včetně investic, pojištění a hypotéčního poradenství. Specializuji se na tvorbu investičních portfolií a dlouhodobé finanční plánování.',
     yearsExperience: 12,
-    hourlyRate: 1200,
+
     rating: 4.9,
     reviewsCount: 63,
     services: [
@@ -126,7 +124,7 @@ const mockSpecialists = [
     location: 'Ostrava',
     bio: 'Realitní makléřka se specializací na prodej bytů a rodinných domů. Za svou kariéru jsem úspěšně zprostředkovala přes 150 transakcí. Znám ostravský trh důkladně.',
     yearsExperience: 6,
-    hourlyRate: 0,
+
     rating: 4.7,
     reviewsCount: 28,
     services: [
@@ -155,7 +153,7 @@ const mockSpecialists = [
     location: 'Brno',
     bio: 'Finanční poradkyně zaměřená na mladé rodiny. Pomohu vám s první hypotékou, pojištěním rodiny a nastavením rodinného rozpočtu. Ráda vám pomůžu zorientovat se ve finančním plánování.',
     yearsExperience: 4,
-    hourlyRate: 500,
+
     rating: 4.6,
     reviewsCount: 15,
     services: [
@@ -182,7 +180,7 @@ const mockSpecialists = [
     location: 'Praha',
     bio: 'Komplexní finanční služby pro firmy i jednotlivce. Specializuji se na finanční plánování pro podnikatele, pojištění a optimalizaci finančních nákladů. Více než 20 let zkušeností v oboru.',
     yearsExperience: 20,
-    hourlyRate: 900,
+
     rating: 4.8,
     reviewsCount: 56,
     services: [
@@ -215,7 +213,7 @@ const mockSpecialists = [
     location: 'Praha',
     bio: 'Luxusní nemovitosti v Praze jsou mou specializací. Pomohu vám najít váš vysněný domov nebo prodat nemovitost za nejlepší cenu. Individuální přístup ke každému klientovi.',
     yearsExperience: 7,
-    hourlyRate: 0,
+
     rating: 4.9,
     reviewsCount: 39,
     services: [
@@ -247,7 +245,7 @@ const mockSpecialists = [
     location: 'Brno',
     bio: 'Finanční poradce pro začínající investory a mladé rodiny. Pomohu vám udělat první kroky k finanční nezávislosti - investice, pojištění i hypotéky. Jednoduché vysvětlení složitých věcí.',
     yearsExperience: 5,
-    hourlyRate: 600,
+
     rating: 4.7,
     reviewsCount: 22,
     services: [
@@ -370,7 +368,6 @@ async function seed() {
       location: mock.location,
       bio: mock.bio,
       yearsExperience: mock.yearsExperience,
-      hourlyRate: mock.hourlyRate,
       rating: mock.rating,
       reviewsCount: mock.reviewsCount,
       services: mock.services,

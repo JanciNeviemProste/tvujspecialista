@@ -91,7 +91,6 @@
       "nameMinLength": "Meno musí mať aspoň 2 znaky",
       "servicesRequired": "Zadajte aspoň jednu službu",
       "urlInvalid": "Zadajte platnú URL adresu",
-      "hourlyRateInvalid": "Hodinová sadzba musí byť kladné číslo",
       "currentPasswordRequired": "Zadajte súčasné heslo",
       "newPasswordRequired": "Potvrďte nové heslo"
     },
@@ -248,7 +247,7 @@
       "benefit1": "Kvalitné leady",
       "benefit2": "Overený profil",
       "benefit3": "Vzdelávanie a eventy",
-      "button": "Vyskúšajte 14 dní zadarmo"
+      "button": "Zaregistrujte sa"
     },
     "faq": {
       "title": "Často kladené otázky",
@@ -294,16 +293,12 @@
       "allLocations": "Všetky lokality",
       "minRating": "Hodnotenie minimálne",
       "stars": "{count}+ hviezdičiek",
-      "verifiedOnly": "Iba overení špecialisti",
-      "maxPrice": "Maximálna cena (€/hod)",
-      "pricePlaceholder": "napr. 50"
+      "verifiedOnly": "Iba overení špecialisti"
     },
     "sort": {
       "label": "Zoradiť podľa:",
       "sortResults": "Zoradiť výsledky",
       "bestRating": "Najlepšie hodnotenie",
-      "priceAsc": "Cena: od najnižšej",
-      "priceDesc": "Cena: od najvyššej",
       "newest": "Novo pridaní"
     },
     "empty": {
@@ -556,8 +551,8 @@
         "leadsDesc": "Kontakty od skutočne zaujímavých klientov",
         "profile": "Overený profil",
         "profileDesc": "Zvýšte dôveryhodnosť svojich služieb",
-        "trial": "14 dní zdarma",
-        "trialDesc": "Vyskúšajte bez záväzkov"
+        "trial": "Rýchly štart",
+        "trialDesc": "Začnite prijímať klientov ešte dnes"
       },
       "metadata": {
         "title": "Registrácia | tvujspecialista.cz",
@@ -739,7 +734,6 @@
         "servicesPlaceholder": "napr. Finančné poradenstvo, Investície, Poistenie",
         "certifications": "Certifikácie (oddelené čiarkou)",
         "certificationsPlaceholder": "napr. EFA, CFP, ICI",
-        "hourlyRate": "Hodinová sadzba (€)",
         "availability": "Dostupnosť (oddelená čiarkou)",
         "availabilityPlaceholder": "napr. Po-Pi 9:00-17:00, So 10:00-14:00"
       },
@@ -819,7 +813,7 @@
       },
       "status": {
         "new": "Nový",
-        "contacted": "Kontaktovaný",
+        "contacted": "V CRM",
         "qualified": "Kvalifikovaný",
         "inProgress": "V procese",
         "closedWon": "Získaný",
@@ -832,6 +826,9 @@
         "eventsError": "Chyba pri načítaní histórie",
         "close": "Zavrieť",
         "changeStatus": "Zmeniť status",
+        "contactHiddenNotice": "Kontaktné údaje budú viditeľné po akceptovaní leadu",
+        "contactHiddenNoticeCrm": "Kontaktné údaje budú viditeľné po presunutí do CRM",
+        "crmPushSuccess": "Lead bol úspešne presunutý do CRM",
         "notes": "Poznámky",
         "noNotes": "Zatiaľ žiadne poznámky",
         "addNotePlaceholder": "Pridať poznámku...",
@@ -880,7 +877,20 @@
       "card": {
         "detail": "Detail",
         "closeDeal": "Uzavretie",
-        "created": "Vytvorené"
+        "created": "Vytvorené",
+        "contactHidden": "Kontakt je skrytý",
+        "accept": "Akceptovať",
+        "moveToCrm": "Presunúť do CRM",
+        "crmError": "Chyba CRM"
+      },
+      "stats": {
+        "total": "Celkom",
+        "new": "Nové",
+        "accepted": "V CRM"
+      },
+      "kanban": {
+        "columnNew": "Nový lead",
+        "columnCrm": "Presunuté do CRM"
       }
     },
     "commissions": {
@@ -1044,7 +1054,6 @@
     "notFound": "Špecialistu nenájdený",
     "notFoundDesc": "Ospravedlňujeme sa, ale tento špecialistu neexistuje alebo bol odstránený.",
     "experience": "{years} rokov praxe",
-    "hourlyRate": "{rate} €/hod",
     "aboutMe": "O mne",
     "services": "Služby",
     "credentials": "Vzdelanie a certifikácie",
@@ -1071,7 +1080,6 @@
     "web": "Web:",
     "linkedin": "Profil na LinkedIn",
     "specialistResponse": "Odpoveď špecialistu:",
-    "priceFrom": "Od {price} €/hod",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil špecialistu {name} – {category} v {location}."

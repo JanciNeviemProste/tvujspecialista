@@ -44,9 +44,6 @@ export class SpecialistResponseDto {
   @ApiProperty({ example: 10 })
   yearsExperience: number;
 
-  @ApiProperty({ example: 500 })
-  hourlyRate: number;
-
   @ApiProperty({ example: 4.5 })
   rating: number;
 

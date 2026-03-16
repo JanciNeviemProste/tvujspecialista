@@ -155,14 +155,6 @@ describe('SpecialistsService', () => {
       );
     });
 
-    it('should apply maxPrice filter', async () => {
-      await service.findAll({ maxPrice: 2000, page: 1, limit: 12 });
-
-      expect(mockQueryBuilder.andWhere).toHaveBeenCalledWith(
-        'specialist.hourlyRate <= :maxPrice',
-        { maxPrice: 2000 },
-      );
-    });
   });
 
   describe('findBySlug', () => {
@@ -221,7 +213,7 @@ describe('SpecialistsService', () => {
 
   describe('update', () => {
     it('should update specialist profile', async () => {
-      const updateDto = { bio: 'Updated bio', hourlyRate: 2000 };
+      const updateDto = { bio: 'Updated bio' };
       const updatedSpecialist = { ...mockSpecialist, ...updateDto };
 
       specialistRepository.findOne.mockResolvedValue(mockSpecialist);
@@ -233,7 +225,6 @@ describe('SpecialistsService', () => {
 
       expect(specialistRepository.save).toHaveBeenCalled();
       expect(result.bio).toBe('Updated bio');
-      expect(result.hourlyRate).toBe(2000);
     });
   });
 

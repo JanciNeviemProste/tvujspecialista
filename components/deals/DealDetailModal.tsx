@@ -7,35 +7,20 @@ import { useAddDealNote, useDealEvents } from '@/lib/hooks/useDeals';
 import { DealTimeline } from '@/components/deals/DealTimeline';
 import { DealInfo } from '@/components/deals/DealInfo';
 import { DealNotes } from '@/components/deals/DealNotes';
-import { X, RotateCcw } from 'lucide-react';
+import { X, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 interface DealDetailModalProps {
   deal: Deal | null;
   isOpen: boolean;
   onClose: () => void;
-  onEditValue: (deal: Deal) => void;
-  onCloseDeal: (deal: Deal) => void;
-  onReopen: (deal: Deal) => void;
   onChangeStatus?: (deal: Deal, newStatus: DealStatus) => void;
 }
-
-const statusColors: Record<DealStatus, { bar: string; badge: string; badgeText: string }> = {
-  [DealStatus.NEW]: { bar: 'bg-slate-400', badge: 'bg-slate-100 dark:bg-slate-800', badgeText: 'text-slate-700 dark:text-slate-300' },
-  [DealStatus.CONTACTED]: { bar: 'bg-blue-500', badge: 'bg-blue-100 dark:bg-blue-900', badgeText: 'text-blue-700 dark:text-blue-300' },
-  [DealStatus.QUALIFIED]: { bar: 'bg-violet-500', badge: 'bg-violet-100 dark:bg-violet-900', badgeText: 'text-violet-700 dark:text-violet-300' },
-  [DealStatus.IN_PROGRESS]: { bar: 'bg-amber-500', badge: 'bg-amber-100 dark:bg-amber-900', badgeText: 'text-amber-700 dark:text-amber-300' },
-  [DealStatus.CLOSED_WON]: { bar: 'bg-emerald-500', badge: 'bg-emerald-100 dark:bg-emerald-900', badgeText: 'text-emerald-700 dark:text-emerald-300' },
-  [DealStatus.CLOSED_LOST]: { bar: 'bg-rose-500', badge: 'bg-rose-100 dark:bg-rose-900', badgeText: 'text-rose-700 dark:text-rose-300' },
-};
 
 export function DealDetailModal({
   deal,
   isOpen,
   onClose,
-  onEditValue,
-  onCloseDeal,
-  onReopen,
   onChangeStatus,
 }: DealDetailModalProps) {
   const t = useTranslations('dashboard.deals');
@@ -44,14 +29,7 @@ export function DealDetailModal({
   const { data: events, isLoading: eventsLoading, error: eventsError } = useDealEvents(deal?.id || '');
   const modalRef = useRef<HTMLDivElement>(null);
 
-  const statusLabels: Record<DealStatus, string> = {
-    [DealStatus.NEW]: t('status.new'),
-    [DealStatus.CONTACTED]: t('status.contacted'),
-    [DealStatus.QUALIFIED]: t('status.qualified'),
-    [DealStatus.IN_PROGRESS]: t('status.inProgress'),
-    [DealStatus.CLOSED_WON]: t('status.closedWon'),
-    [DealStatus.CLOSED_LOST]: t('status.closedLost'),
-  };
+  const isNew = deal?.status === DealStatus.NEW;
 
   // Escape key handler
   useEffect(() => {
@@ -74,7 +52,6 @@ export function DealDetailModal({
 
   const handleAddNote = async () => {
     if (!newNote.trim()) return;
-
     try {
       await addNote.mutateAsync({ id: deal.id, note: newNote.trim() });
       setNewNote('');
@@ -82,10 +59,6 @@ export function DealDetailModal({
       // Error is handled by the hook
     }
   };
-
-  const colors = statusColors[deal.status] || statusColors[DealStatus.NEW];
-  const isClosed =
-    deal.status === DealStatus.CLOSED_WON || deal.status === DealStatus.CLOSED_LOST;
 
   return (
     <div
@@ -103,7 +76,7 @@ export function DealDetailModal({
         role="document"
       >
         {/* Status color strip */}
-        <div className={cn('h-1.5 rounded-t-2xl', colors.bar)} />
+        <div className={cn('h-1.5 rounded-t-2xl', isNew ? 'bg-slate-400' : 'bg-blue-500')} />
 
         {/* Header */}
         <div className="px-6 pt-5 pb-4 flex items-center justify-between">
@@ -111,8 +84,13 @@ export function DealDetailModal({
             <h2 id="deal-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">
               {t('detail.title')}
             </h2>
-            <span className={cn('inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium', colors.badge, colors.badgeText)}>
-              {statusLabels[deal.status] || deal.status}
+            <span className={cn(
+              'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+              isNew
+                ? 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
+                : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+            )}>
+              {isNew ? t('status.new') : t('status.contacted')}
             </span>
           </div>
           <button
@@ -126,11 +104,25 @@ export function DealDetailModal({
 
         {/* Content */}
         <div className="px-6 py-5 space-y-6 border-t border-gray-100 dark:border-neutral-800">
+          {/* Contact info blur notice for NEW */}
+          {isNew && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-sm">
+              <Lock className="h-4 w-4 shrink-0" />
+              <span>{t('detail.contactHiddenNoticeCrm')}</span>
+            </div>
+          )}
+
+          {deal.crmPushedAt && (
+            <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200 text-green-800 text-sm">
+              <span>{t('detail.crmPushSuccess')}</span>
+            </div>
+          )}
+
           <DealInfo deal={deal} />
 
           <DealNotes
             deal={deal}
-            isClosed={isClosed}
+            isClosed={false}
             newNote={newNote}
             onNewNoteChange={setNewNote}
             onAddNote={handleAddNote}
@@ -153,54 +145,17 @@ export function DealDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="px-6 pb-6 pt-4 border-t border-gray-100 dark:border-neutral-800 space-y-3">
-          {/* Status change dropdown */}
-          {onChangeStatus && (
-            <div className="flex items-center gap-3">
-              <label className="text-sm font-medium text-gray-600 whitespace-nowrap">
-                {t('detail.changeStatus')}:
-              </label>
-              <select
-                value={deal.status}
-                onChange={(e) => {
-                  const newStatus = e.target.value as DealStatus;
-                  if (newStatus !== deal.status) {
-                    onChangeStatus(deal, newStatus);
-                    onClose();
-                  }
-                }}
-                className="flex-1 rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500"
-              >
-                {Object.values(DealStatus).map((status) => (
-                  <option key={status} value={status}>
-                    {statusLabels[status]}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
+        <div className="px-6 pb-6 pt-4 border-t border-gray-100 dark:border-neutral-800">
           <div className="flex items-center gap-3 flex-wrap">
-            {!isClosed ? (
+            {isNew && onChangeStatus && (
               <button
                 onClick={() => {
-                  onEditValue(deal);
+                  onChangeStatus(deal, DealStatus.CONTACTED);
                   onClose();
                 }}
-                className="bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
               >
-                Upraviť hodnotu
-              </button>
-            ) : (
-              <button
-                onClick={() => {
-                  onReopen(deal);
-                  onClose();
-                }}
-                className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200"
-              >
-                <RotateCcw className="h-4 w-4" />
-                Znovu otvoriť
+                {t('card.moveToCrm')}
               </button>
             )}
             <button

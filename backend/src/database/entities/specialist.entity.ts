@@ -26,6 +26,13 @@ export enum SubscriptionTier {
   PREMIUM = 'premium',
 }
 
+export enum CrmProvider {
+  NONE = 'none',
+  OVB = 'ovb',
+  PARTNER_GROUP = 'partner_group',
+  FOUR_FIN = 'four_fin',
+}
+
 @Entity('specialists')
 @Index(['category', 'location'])
 @Index(['rating'])
@@ -73,9 +80,6 @@ export class Specialist {
   @Column('int')
   yearsExperience: number;
 
-  @Column('int', { default: 0 })
-  hourlyRate: number;
-
   @Column('decimal', { precision: 3, scale: 2, default: 0 })
   rating: number;
 
@@ -121,6 +125,17 @@ export class Specialist {
 
   @Column({ type: 'timestamp', nullable: true })
   subscriptionExpiresAt: Date;
+
+  // CRM integration
+  @Column({
+    type: 'enum',
+    enum: CrmProvider,
+    default: CrmProvider.NONE,
+  })
+  crmProvider: CrmProvider;
+
+  @Column({ nullable: true })
+  crmTipsterAccount: string | null;
 
   // Commission tracking (NEW)
   @Exclude()

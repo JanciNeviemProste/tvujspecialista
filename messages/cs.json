@@ -91,7 +91,6 @@
       "nameMinLength": "Jméno musí mít alespoň 2 znaky",
       "servicesRequired": "Zadejte alespoň jednu službu",
       "urlInvalid": "Zadejte platnou URL adresu",
-      "hourlyRateInvalid": "Hodinová sazba musí být kladné číslo",
       "currentPasswordRequired": "Zadejte současné heslo",
       "newPasswordRequired": "Potvrďte nové heslo"
     },
@@ -248,7 +247,7 @@
       "benefit1": "Kvalitní leady",
       "benefit2": "Ověřený profil",
       "benefit3": "Vzdělávání a eventy",
-      "button": "Vyzkoušejte 14 dní zdarma"
+      "button": "Zaregistrujte se"
     },
     "faq": {
       "title": "Často kladené otázky",
@@ -294,16 +293,12 @@
       "allLocations": "Všechny lokality",
       "minRating": "Hodnocení minimálně",
       "stars": "{count}+ hvězdiček",
-      "verifiedOnly": "Pouze ověření specialisté",
-      "maxPrice": "Maximální cena (Kč/hod)",
-      "pricePlaceholder": "např. 1000"
+      "verifiedOnly": "Pouze ověření specialisté"
     },
     "sort": {
       "label": "Seřadit podle:",
       "sortResults": "Seřadit výsledky",
       "bestRating": "Nejlepší hodnocení",
-      "priceAsc": "Cena: od nejnižší",
-      "priceDesc": "Cena: od nejvyšší",
       "newest": "Nově přidaní"
     },
     "empty": {
@@ -556,8 +551,8 @@
         "leadsDesc": "Kontakty od skutečně zajímavých klientů",
         "profile": "Ověřený profil",
         "profileDesc": "Zvyšte důvěryhodnost vašich služeb",
-        "trial": "14 dní zdarma",
-        "trialDesc": "Vyzkoušejte bez závazků"
+        "trial": "Rychlý start",
+        "trialDesc": "Začněte přijímat klienty ještě dnes"
       },
       "metadata": {
         "title": "Registrace | tvujspecialista.cz",
@@ -739,7 +734,6 @@
         "servicesPlaceholder": "např. Finanční poradenství, Investice, Pojištění",
         "certifications": "Certifikace (oddělené čárkou)",
         "certificationsPlaceholder": "např. EFA, CFP, ICI",
-        "hourlyRate": "Hodinová sazba (Kč)",
         "availability": "Dostupnost (oddělená čárkou)",
         "availabilityPlaceholder": "např. Po-Pá 9:00-17:00, So 10:00-14:00"
       },
@@ -819,7 +813,7 @@
       },
       "status": {
         "new": "Nový",
-        "contacted": "Kontaktovaný",
+        "contacted": "V CRM",
         "qualified": "Kvalifikovaný",
         "inProgress": "V procesu",
         "closedWon": "Získaný",
@@ -832,6 +826,9 @@
         "eventsError": "Chyba při načítání historie",
         "close": "Zavřít",
         "changeStatus": "Změnit status",
+        "contactHiddenNotice": "Kontaktní údaje budou viditelné po přesunutí do CRM",
+        "contactHiddenNoticeCrm": "Kontaktní údaje budou viditelné po přesunutí do CRM",
+        "crmPushSuccess": "Lead byl úspěšně přesunut do CRM",
         "notes": "Poznámky",
         "noNotes": "Zatím žádné poznámky",
         "addNotePlaceholder": "Přidat poznámku...",
@@ -880,7 +877,20 @@
       "card": {
         "detail": "Detail",
         "closeDeal": "Uzavření",
-        "created": "Vytvořeno"
+        "created": "Vytvořeno",
+        "contactHidden": "Kontakt je skrytý",
+        "accept": "Akceptovat",
+        "moveToCrm": "Přesunout do CRM",
+        "crmError": "Chyba CRM"
+      },
+      "stats": {
+        "total": "Celkem",
+        "new": "Nové",
+        "accepted": "V CRM"
+      },
+      "kanban": {
+        "columnNew": "Nový lead",
+        "columnCrm": "Přesunuté do CRM"
       }
     },
     "commissions": {
@@ -1044,7 +1054,6 @@
     "notFound": "Specialista nenalezen",
     "notFoundDesc": "Omlouváme se, ale tento specialista neexistuje nebo byl odstraněn.",
     "experience": "{years} let praxe",
-    "hourlyRate": "{rate} Kč/hod",
     "aboutMe": "O mně",
     "services": "Služby",
     "credentials": "Vzdělání a certifikace",
@@ -1071,7 +1080,6 @@
     "web": "Web:",
     "linkedin": "Profil na LinkedIn",
     "specialistResponse": "Odpověď specialisty:",
-    "priceFrom": "Od {price} Kč/hod",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil specialisty {name} - {category} v {location}."

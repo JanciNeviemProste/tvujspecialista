@@ -1,8 +1,6 @@
 import {
   IsOptional,
   IsString,
-  IsInt,
-  Min,
   IsArray,
   IsUrl,
   MinLength,
@@ -22,11 +20,6 @@ export class UpdateSpecialistDto {
   @IsOptional()
   @IsString()
   bio?: string;
-
-  @IsOptional()
-  @IsInt()
-  @Min(0)
-  hourlyRate?: number;
 
   @IsOptional()
   @IsArray()

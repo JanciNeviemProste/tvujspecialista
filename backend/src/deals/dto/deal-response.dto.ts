@@ -56,6 +56,15 @@ export class DealResponseDto {
   @ApiProperty({ example: null, nullable: true })
   commissionId: string;
 
+  @ApiProperty({ example: null, nullable: true })
+  crmExternalId: string;
+
+  @ApiProperty({ example: null, nullable: true })
+  crmPushedAt: Date;
+
+  @ApiProperty({ example: null, nullable: true })
+  crmPushError: string;
+
   @ApiProperty()
   createdAt: Date;
 

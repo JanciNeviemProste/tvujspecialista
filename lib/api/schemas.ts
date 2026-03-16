@@ -58,28 +58,16 @@ export const dealSchema = z.object({
   dealValue: z.number().optional(),
   estimatedCloseDate: z.string().optional(),
   actualCloseDate: z.string().optional(),
-  commissionId: z.string().optional(),
-  commission: z.any().optional(),
   events: z.array(dealEventSchema).optional(),
   notes: z.array(dealNoteSchema).optional(),
+  crmExternalId: z.string().nullable().optional(),
+  crmPushedAt: z.string().nullable().optional(),
+  crmPushError: z.string().nullable().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
 
 export const dealArraySchema = z.array(dealSchema);
-
-export const dealAnalyticsSchema = z.object({
-  conversionRate: z.number(),
-  averageDealValue: z.number(),
-  averageTimeToClose: z.number(),
-  winRate: z.number(),
-  statusDistribution: z.array(
-    z.object({ status: dealStatusSchema, count: z.number() })
-  ),
-  monthlyTrend: z.array(
-    z.object({ month: z.string(), won: z.number(), lost: z.number() })
-  ),
-});
 
 // ============ Subscription Schemas ============
 

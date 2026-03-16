@@ -26,9 +26,6 @@ const profileSchema = z.object({
   education: z.string(),
   website: z.string().url('Zadejte platnou URL adresu').or(z.literal('')).optional(),
   linkedin: z.string().url('Zadejte platnou URL adresu').or(z.literal('')).optional(),
-  hourlyRate: z.string().refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
-    message: 'Hodinova sazba musi byt kladne cislo',
-  }),
   availability: z.string(),
 });
 
@@ -61,7 +58,6 @@ export default function ProfileEditPage() {
       education: '',
       website: '',
       linkedin: '',
-      hourlyRate: '0',
       availability: '',
     },
   });
@@ -81,7 +77,6 @@ export default function ProfileEditPage() {
           education: specialist.education || '',
           website: specialist.website || '',
           linkedin: specialist.linkedin || '',
-          hourlyRate: String(specialist.hourlyRate || 0),
           availability: (specialist.availability || []).join(', '),
         });
       } catch {
@@ -150,7 +145,6 @@ export default function ProfileEditPage() {
         education: values.education,
         website: values.website || undefined,
         linkedin: values.linkedin || undefined,
-        hourlyRate: Number(values.hourlyRate) || 0,
         availability: values.availability.split(',').map((s) => s.trim()).filter(Boolean),
       };
       await specialistsApi.updateProfile(payload);
@@ -298,28 +292,15 @@ export default function ProfileEditPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div>
-                  <Label htmlFor="hourlyRate">{t('professional.hourlyRate')}</Label>
-                  <Input
-                    id="hourlyRate"
-                    type="number"
-                    min={0}
-                    {...register('hourlyRate')}
-                    error={errors.hourlyRate?.message}
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="availability">{t('professional.availability')}</Label>
-                  <Input
-                    id="availability"
-                    placeholder={t('professional.availabilityPlaceholder')}
-                    {...register('availability')}
-                    error={errors.availability?.message}
-                    className="mt-1"
-                  />
-                </div>
+              <div>
+                <Label htmlFor="availability">{t('professional.availability')}</Label>
+                <Input
+                  id="availability"
+                  placeholder={t('professional.availabilityPlaceholder')}
+                  {...register('availability')}
+                  error={errors.availability?.message}
+                  className="mt-1"
+                />
               </div>
             </CardContent>
           </Card>

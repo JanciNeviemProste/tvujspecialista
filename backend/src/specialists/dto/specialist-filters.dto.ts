@@ -2,9 +2,9 @@ import {
   IsOptional,
   IsEnum,
   IsString,
+  IsNumber,
   IsInt,
   Min,
-  IsNumber,
   IsBoolean,
 } from 'class-validator';
 import { Type, Transform } from 'class-transformer';
@@ -23,11 +23,6 @@ export class SpecialistFiltersDto {
   @IsNumber()
   @Type(() => Number)
   minRating?: number;
-
-  @IsOptional()
-  @IsNumber()
-  @Type(() => Number)
-  maxPrice?: number;
 
   @IsOptional()
   @IsBoolean()

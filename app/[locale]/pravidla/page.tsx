@@ -78,7 +78,7 @@ export default async function TermsPage({ params }: Props) {
             <h2 className="mb-4 text-2xl font-bold text-gray-900">5. Platební podmínky</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Poskytovatelé platí měsíční poplatek podle zvoleného tarifu. Platba je splatná
-              předem. Zkušební doba je 14 dní zdarma.
+              předem.
             </p>
           </section>
 

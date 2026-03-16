@@ -91,7 +91,6 @@
       "nameMinLength": "Name must be at least 2 characters",
       "servicesRequired": "Please enter at least one service",
       "urlInvalid": "Please enter a valid URL",
-      "hourlyRateInvalid": "Hourly rate must be a positive number",
       "currentPasswordRequired": "Please enter your current password",
       "newPasswordRequired": "Please confirm your new password"
     },
@@ -248,7 +247,7 @@
       "benefit1": "Quality leads",
       "benefit2": "Verified profile",
       "benefit3": "Education and events",
-      "button": "Try 14 days for free"
+      "button": "Register now"
     },
     "faq": {
       "title": "Frequently asked questions",
@@ -294,16 +293,12 @@
       "allLocations": "All locations",
       "minRating": "Minimum rating",
       "stars": "{count}+ stars",
-      "verifiedOnly": "Verified specialists only",
-      "maxPrice": "Maximum price (CZK/hr)",
-      "pricePlaceholder": "e.g. 1000"
+      "verifiedOnly": "Verified specialists only"
     },
     "sort": {
       "label": "Sort by:",
       "sortResults": "Sort results",
       "bestRating": "Best rating",
-      "priceAsc": "Price: lowest first",
-      "priceDesc": "Price: highest first",
       "newest": "Newest"
     },
     "empty": {
@@ -556,8 +551,8 @@
         "leadsDesc": "Contacts from genuinely interested clients",
         "profile": "Verified profile",
         "profileDesc": "Boost the credibility of your services",
-        "trial": "14 days free",
-        "trialDesc": "Try it out with no commitment"
+        "trial": "Quick start",
+        "trialDesc": "Start receiving clients today"
       },
       "metadata": {
         "title": "Register | tvujspecialista.cz",
@@ -739,7 +734,6 @@
         "servicesPlaceholder": "e.g. Financial advisory, Investments, Insurance",
         "certifications": "Certifications (comma-separated)",
         "certificationsPlaceholder": "e.g. EFA, CFP, ICI",
-        "hourlyRate": "Hourly rate (CZK)",
         "availability": "Availability (comma-separated)",
         "availabilityPlaceholder": "e.g. Mon–Fri 9:00–17:00, Sat 10:00–14:00"
       },
@@ -819,7 +813,7 @@
       },
       "status": {
         "new": "New",
-        "contacted": "Contacted",
+        "contacted": "In CRM",
         "qualified": "Qualified",
         "inProgress": "In Progress",
         "closedWon": "Won",
@@ -832,6 +826,9 @@
         "eventsError": "Error loading history",
         "close": "Close",
         "changeStatus": "Change status",
+        "contactHiddenNotice": "Contact details will be visible after accepting the lead",
+        "contactHiddenNoticeCrm": "Contact details will be visible after moving to CRM",
+        "crmPushSuccess": "Lead was successfully moved to CRM",
         "notes": "Notes",
         "noNotes": "No notes yet",
         "addNotePlaceholder": "Add a note...",
@@ -880,7 +877,20 @@
       "card": {
         "detail": "Detail",
         "closeDeal": "Close",
-        "created": "Created"
+        "created": "Created",
+        "contactHidden": "Contact is hidden",
+        "accept": "Accept",
+        "moveToCrm": "Move to CRM",
+        "crmError": "CRM Error"
+      },
+      "stats": {
+        "total": "Total",
+        "new": "New",
+        "accepted": "In CRM"
+      },
+      "kanban": {
+        "columnNew": "New Lead",
+        "columnCrm": "Moved to CRM"
       }
     },
     "commissions": {
@@ -1044,7 +1054,6 @@
     "notFound": "Specialist not found",
     "notFoundDesc": "We are sorry, but this specialist does not exist or has been removed.",
     "experience": "{years} years of experience",
-    "hourlyRate": "{rate} CZK/hr",
     "aboutMe": "About me",
     "services": "Services",
     "credentials": "Education and certifications",
@@ -1071,7 +1080,6 @@
     "web": "Website:",
     "linkedin": "LinkedIn profile",
     "specialistResponse": "Specialist's response:",
-    "priceFrom": "From {price} CZK/hr",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Specialist profile {name} - {category} in {location}."

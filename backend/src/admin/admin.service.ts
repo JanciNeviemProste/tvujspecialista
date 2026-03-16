@@ -3,7 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LessThan, Not, Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { User, UserRole } from '../database/entities/user.entity';
-import { Specialist, SpecialistCategory } from '../database/entities/specialist.entity';
+import { Specialist, SpecialistCategory, CrmProvider } from '../database/entities/specialist.entity';
+import { UpdateSpecialistCrmDto } from './dto/update-specialist-crm.dto';
 import { Lead, LeadStatus } from '../database/entities/lead.entity';
 import { Event, EventStatus } from '../database/entities/event.entity';
 import { Subscription, SubscriptionStatus } from '../database/entities/subscription.entity';
@@ -190,6 +191,27 @@ export class AdminService {
         past: pastEvents,
       },
     };
+  }
+
+  /**
+   * Set CRM configuration for a specialist
+   */
+  async updateCrmConfig(
+    specialistId: string,
+    dto: UpdateSpecialistCrmDto,
+  ): Promise<Specialist> {
+    const specialist = await this.specialistRepository.findOne({
+      where: { id: specialistId },
+    });
+
+    if (!specialist) {
+      throw new NotFoundException('Specialist not found');
+    }
+
+    specialist.crmProvider = dto.crmProvider;
+    specialist.crmTipsterAccount = dto.crmTipsterAccount || null;
+
+    return this.specialistRepository.save(specialist);
   }
 
   /**

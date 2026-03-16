@@ -16,14 +16,12 @@ interface SpecialistCardProps {
     location: string
     rating: number
     reviewsCount: number
-    hourlyRate: number
     bio: string
   }
 }
 
 export const SpecialistCard = memo(function SpecialistCard({ specialist }: SpecialistCardProps) {
   const tCommon = useTranslations('common')
-  const tSpecialist = useTranslations('specialist')
   return (
     <a
       href={`/specialista/${specialist.slug}`}
@@ -66,10 +64,6 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
           </div>
 
           <p className="mb-3 line-clamp-2 text-sm text-gray-700">{specialist.bio}</p>
-
-          {specialist.hourlyRate > 0 && (
-            <p className="text-sm font-medium text-gray-900">{tSpecialist('priceFrom', { price: specialist.hourlyRate })}</p>
-          )}
 
           <button className="mt-4 w-full rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
             {tCommon('actions.contact')}

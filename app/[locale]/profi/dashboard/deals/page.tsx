@@ -1,40 +1,22 @@
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslations } from 'next-intl';
-import { useMyDeals, useUpdateDealStatus, useUpdateDealValue, useCloseDeal, useReopenDeal, useDealAnalytics } from '@/lib/hooks/useDeals';
+import { useMyDeals, useUpdateDealStatus } from '@/lib/hooks/useDeals';
 import { Deal, DealStatus, DealFilters as DealFiltersType } from '@/types/deals';
 import { DealKanban } from '@/components/deals/DealKanban';
 import { DealCard } from '@/components/deals/DealCard';
-import { DealValueModal } from '@/components/deals/DealValueModal';
-import { CloseDealModal } from '@/components/deals/CloseDealModal';
 import { DealFilters } from '@/components/deals/DealFilters';
-import { KanbanSkeleton, DealCardSkeleton, DealAnalyticsSkeleton } from '@/components/deals/LoadingStates';
+import { KanbanSkeleton, DealCardSkeleton } from '@/components/deals/LoadingStates';
 import { Button } from '@/components/ui/button';
-import { LayoutGrid, List, Download, ChevronDown, ChevronUp } from 'lucide-react';
-import { cn } from '@/lib/utils/cn';
-import { toast } from 'sonner';
-import { exportDealsToCSV } from '@/lib/utils/exportDeals';
-import { getErrorMessage } from '@/lib/utils/error';
-import { measureExportPerformance } from '@/lib/utils/performance';
-
-// Dynamic imports for code splitting
-const DealAnalytics = dynamic(
-  () => import('@/components/deals/DealAnalytics').then(mod => mod.DealAnalytics),
-  {
-    loading: () => <DealAnalyticsSkeleton />,
-    ssr: false,
-  }
-);
+import { LayoutGrid, List } from 'lucide-react';
 
 const DealDetailModal = dynamic(
   () => import('@/components/deals/DealDetailModal').then(mod => mod.DealDetailModal),
-  {
-    ssr: false,
-  }
+  { ssr: false }
 );
 
 type ViewMode = 'kanban' | 'list';
@@ -44,149 +26,48 @@ export default function DealsPage() {
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const { data: deals, isLoading: dealsLoading } = useMyDeals();
-  const { data: analytics, isLoading: analyticsLoading } = useDealAnalytics();
   const updateStatus = useUpdateDealStatus();
-  const updateValue = useUpdateDealValue();
-  const closeDeal = useCloseDeal();
-  const reopenDeal = useReopenDeal();
 
   const [viewMode, setViewMode] = useState<ViewMode>('kanban');
   const [filters, setFilters] = useState<DealFiltersType>({
     search: '',
     status: 'all',
-    valueRange: [0, 100000],
-    dateRange: { from: null, to: null },
-    dateType: 'created',
   });
-  const [showAnalytics, setShowAnalytics] = useState(false);
 
   // Modal states
-  const [valueModalOpen, setValueModalOpen] = useState(false);
-  const [closeModalOpen, setCloseModalOpen] = useState(false);
   const [detailModalOpen, setDetailModalOpen] = useState(false);
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
-  const [closeModalDefaultStatus, setCloseModalDefaultStatus] = useState<DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST>(DealStatus.CLOSED_WON);
 
-  // Update max value after deals load
-  React.useEffect(() => {
-    if (deals && deals.length > 0) {
-      const maxValue = Math.max(
-        ...deals.filter((d) => d.dealValue).map((d) => d.dealValue!),
-        10000
-      );
-      setFilters((prev) => ({
-        ...prev,
-        valueRange: [0, maxValue],
-      }));
-    }
-  }, [deals]);
-
-  // Filter deals with memoization — MUST be before early returns (Rules of Hooks)
+  // Filter deals
   const filteredDeals = useMemo(() => {
     return deals?.filter((deal) => {
-      // Search filter
       const matchesSearch =
         deal.customerName.toLowerCase().includes(filters.search.toLowerCase()) ||
         deal.customerEmail.toLowerCase().includes(filters.search.toLowerCase()) ||
         deal.customerPhone.includes(filters.search);
 
-      // Status filter
       const matchesStatus = filters.status === 'all' || deal.status === filters.status;
 
-      // Value range filter
-      const dealValue = deal.dealValue || 0;
-      const matchesValue =
-        dealValue >= filters.valueRange[0] && dealValue <= filters.valueRange[1];
-
-      // Date range filter
-      let matchesDate = true;
-      if (filters.dateRange.from || filters.dateRange.to) {
-        const dateToCheck =
-          filters.dateType === 'created'
-            ? new Date(deal.createdAt)
-            : deal.estimatedCloseDate
-            ? new Date(deal.estimatedCloseDate)
-            : null;
-
-        if (dateToCheck) {
-          if (filters.dateRange.from) {
-            const fromDate = new Date(filters.dateRange.from);
-            matchesDate = matchesDate && dateToCheck >= fromDate;
-          }
-          if (filters.dateRange.to) {
-            const toDate = new Date(filters.dateRange.to);
-            toDate.setHours(23, 59, 59, 999); // End of day
-            matchesDate = matchesDate && dateToCheck <= toDate;
-          }
-        } else if (filters.dateType === 'estimatedClose') {
-          matchesDate = false; // No estimated close date
-        }
-      }
-
-      return matchesSearch && matchesStatus && matchesValue && matchesDate;
+      return matchesSearch && matchesStatus;
     }) || [];
   }, [deals, filters]);
 
-  // Stats with memoization — MUST be before early returns (Rules of Hooks)
+  // Stats
   const stats = useMemo(() => ({
     total: filteredDeals.length,
     new: filteredDeals.filter((d) => d.status === DealStatus.NEW).length,
-    inProgress: filteredDeals.filter((d) => d.status === DealStatus.IN_PROGRESS).length,
-    won: filteredDeals.filter((d) => d.status === DealStatus.CLOSED_WON).length,
-    totalValue: filteredDeals.reduce((sum, d) => sum + (d.dealValue || 0), 0),
+    accepted: filteredDeals.filter((d) => d.status !== DealStatus.NEW).length,
   }), [filteredDeals]);
 
-  // Handlers with useCallback — MUST be before early returns (Rules of Hooks)
+  // Handlers
   const handleStatusChange = useCallback((deal: Deal, newStatus: DealStatus) => {
-    if (newStatus === DealStatus.CLOSED_WON || newStatus === DealStatus.CLOSED_LOST) {
-      setSelectedDeal(deal);
-      setCloseModalDefaultStatus(newStatus);
-      setCloseModalOpen(true);
-    } else {
-      updateStatus.mutate({ id: deal.id, data: { status: newStatus } });
-    }
+    updateStatus.mutate({ id: deal.id, data: { status: newStatus } });
   }, [updateStatus]);
 
   const handleViewDetails = useCallback((deal: Deal) => {
     setSelectedDeal(deal);
     setDetailModalOpen(true);
   }, []);
-
-  const handleValueSubmit = useCallback(async (dealId: string, data: { dealValue: number; estimatedCloseDate: string }) => {
-    try {
-      await updateValue.mutateAsync({ id: dealId, data });
-      toast.success(t('valueSetSuccess'));
-      setValueModalOpen(false);
-      setSelectedDeal(null);
-    } catch (error: unknown) {
-      toast.error(getErrorMessage(error));
-    }
-  }, [updateValue]);
-
-  const handleCloseDeal = useCallback(async (
-    dealId: string,
-    data: { status: DealStatus.CLOSED_WON | DealStatus.CLOSED_LOST; actualDealValue?: number }
-  ) => {
-    try {
-      await closeDeal.mutateAsync({ id: dealId, data });
-      toast.success(
-        data.status === DealStatus.CLOSED_WON
-          ? t('closedWonSuccess')
-          : t('closedLostSuccess')
-      );
-      setCloseModalOpen(false);
-      setSelectedDeal(null);
-    } catch (error: unknown) {
-      toast.error(getErrorMessage(error));
-    }
-  }, [closeDeal]);
-
-  const handleExport = useCallback(async () => {
-    await measureExportPerformance('CSV', () => {
-      exportDealsToCSV(filteredDeals);
-    }, { dealsCount: filteredDeals.length });
-    toast.success(t('exported', { count: filteredDeals.length }));
-  }, [filteredDeals]);
 
   // Redirect if not authenticated
   if (!authLoading && !user) {
@@ -223,61 +104,32 @@ export default function DealsPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
-          <div className="p-4 rounded-lg border border-gray-200 border-gray-200 bg-white">
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="p-4 rounded-lg border border-gray-200 bg-white">
             <p className="text-sm text-gray-500">{t('stats.total')}</p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
-          <div className="p-4 rounded-lg border border-gray-200 border-gray-200 bg-white">
+          <div className="p-4 rounded-lg border border-gray-200 bg-white">
             <p className="text-sm text-gray-500">{t('stats.new')}</p>
             <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
           </div>
-          <div className="p-4 rounded-lg border border-gray-200 border-gray-200 bg-white">
-            <p className="text-sm text-gray-500">{t('stats.inProgress')}</p>
-            <p className="text-2xl font-bold text-orange-600">{stats.inProgress}</p>
-          </div>
-          <div className="p-4 rounded-lg border border-gray-200 border-gray-200 bg-white">
-            <p className="text-sm text-gray-500">{t('stats.won')}</p>
-            <p className="text-2xl font-bold text-green-600">{stats.won}</p>
-          </div>
-          <div className="p-4 rounded-lg border border-gray-200 border-gray-200 bg-white">
-            <p className="text-sm text-gray-500">{t('stats.value')}</p>
-            <p className="text-2xl font-bold">
-              {new Intl.NumberFormat('sk-SK', { style: 'currency', currency: 'EUR' }).format(stats.totalValue)}
-            </p>
+          <div className="p-4 rounded-lg border border-gray-200 bg-white">
+            <p className="text-sm text-gray-500">{t('stats.accepted')}</p>
+            <p className="text-2xl font-bold text-emerald-600">{stats.accepted}</p>
           </div>
         </div>
 
-        {/* Filters */}
-        <DealFilters
-          filters={filters}
-          onFiltersChange={setFilters}
-          deals={deals || []}
-        />
+        {/* Filters & View toggle */}
+        <div className="flex flex-wrap items-end gap-4 mb-6">
+          <div className="flex-1">
+            <DealFilters
+              filters={filters}
+              onFiltersChange={setFilters}
+              deals={deals || []}
+            />
+          </div>
 
-        {/* Analytics Toggle & Export */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          <Button
-            variant="outline"
-            onClick={() => setShowAnalytics(!showAnalytics)}
-            className="gap-2"
-          >
-            {showAnalytics ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
-            {showAnalytics ? t('hideAnalytics') : t('showAnalytics')}
-          </Button>
-
-          <Button
-            variant="outline"
-            onClick={handleExport}
-            disabled={filteredDeals.length === 0}
-            className="gap-2"
-          >
-            <Download className="h-4 w-4" />
-            {t('exportCsv')}
-          </Button>
-
-          {/* View toggle */}
-          <div className="flex gap-2 ml-auto">
+          <div className="flex gap-2">
             <Button
               variant={viewMode === 'kanban' ? 'default' : 'outline'}
               size="sm"
@@ -295,26 +147,16 @@ export default function DealsPage() {
           </div>
         </div>
 
-        {/* Analytics Section */}
-        {showAnalytics && (
-          <DealAnalytics
-            analytics={analytics || null}
-            isLoading={analyticsLoading}
-            className="mb-6"
-          />
-        )}
-
         {/* Content */}
         {filteredDeals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="text-6xl mb-4">📭</div>
             <h3 className="text-xl font-semibold mb-2">{t('empty.title')}</h3>
             <p className="text-gray-500">
-              {filters.search || filters.status !== 'all' || filters.dateRange.from || filters.dateRange.to
+              {filters.search || filters.status !== 'all'
                 ? t('empty.tryFilters')
                 : t('empty.noDeals')}
             </p>
-
           </div>
         ) : viewMode === 'kanban' ? (
           <DealKanban
@@ -336,47 +178,13 @@ export default function DealsPage() {
         )}
       </div>
 
-      {/* Modals */}
-      <DealValueModal
-        deal={selectedDeal}
-        isOpen={valueModalOpen}
-        onClose={() => {
-          setValueModalOpen(false);
-          setSelectedDeal(null);
-        }}
-        onSubmit={handleValueSubmit}
-        isLoading={updateValue.isPending}
-      />
-
-      <CloseDealModal
-        deal={selectedDeal}
-        isOpen={closeModalOpen}
-        onClose={() => {
-          setCloseModalOpen(false);
-          setSelectedDeal(null);
-        }}
-        onSubmit={handleCloseDeal}
-        isLoading={closeDeal.isPending}
-        defaultStatus={closeModalDefaultStatus}
-      />
-
+      {/* Detail Modal */}
       <DealDetailModal
         deal={selectedDeal}
         isOpen={detailModalOpen}
         onClose={() => {
           setDetailModalOpen(false);
           setSelectedDeal(null);
-        }}
-        onEditValue={(deal) => {
-          setSelectedDeal(deal);
-          setValueModalOpen(true);
-        }}
-        onCloseDeal={(deal) => {
-          setSelectedDeal(deal);
-          setCloseModalOpen(true);
-        }}
-        onReopen={(deal) => {
-          reopenDeal.mutate(deal.id);
         }}
         onChangeStatus={handleStatusChange}
       />

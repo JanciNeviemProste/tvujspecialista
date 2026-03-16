@@ -10,8 +10,8 @@ import {
 } from '../database/entities/lead-event.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { EmailService } from '../email/email.service';
-import { CommissionsService } from '../commissions/services/commissions.service';
-import { Commission } from '../database/entities/commission.entity';
+import { CrmService } from '../crm/crm.service';
+import { CrmProvider } from '../database/entities/specialist.entity';
 import { CreateDealDto } from './dto/create-deal.dto';
 
 describe('DealsService', () => {
@@ -20,7 +20,7 @@ describe('DealsService', () => {
   let leadEventRepository: jest.Mocked<Repository<LeadEvent>>;
   let specialistRepository: jest.Mocked<Repository<Specialist>>;
   let emailService: jest.Mocked<EmailService>;
-  let commissionsService: jest.Mocked<CommissionsService>;
+  let crmService: jest.Mocked<CrmService>;
 
   const mockSpecialist = {
     id: 'specialist-123',
@@ -99,9 +99,13 @@ describe('DealsService', () => {
           },
         },
         {
-          provide: CommissionsService,
+          provide: CrmService,
           useValue: {
-            createCommission: jest.fn(),
+            pushLeadToCrm: jest.fn().mockResolvedValue({
+              success: true,
+              provider: CrmProvider.NONE,
+              externalId: 'mock-123',
+            }),
           },
         },
       ],
@@ -112,7 +116,7 @@ describe('DealsService', () => {
     leadEventRepository = module.get(getRepositoryToken(LeadEvent));
     specialistRepository = module.get(getRepositoryToken(Specialist));
     emailService = module.get(EmailService);
-    commissionsService = module.get(CommissionsService);
+    crmService = module.get(CrmService);
   });
 
   afterEach(() => {
@@ -387,230 +391,6 @@ describe('DealsService', () => {
     });
   });
 
-  describe('updateDealValue', () => {
-    it('should update deal value and estimated close date', async () => {
-      const dealWithRelations = {
-        ...mockDeal,
-        specialist: {
-          ...mockSpecialist,
-          user: { email: 'john@example.com', name: 'John' },
-        },
-      } as unknown as Deal;
-      dealRepository.findOne.mockResolvedValue(dealWithRelations);
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-
-      const newCloseDate = new Date('2026-07-01');
-      const result = await service.updateDealValue(
-        'deal-123',
-        'specialist-123',
-        200000,
-        newCloseDate,
-      );
-
-      expect(result.dealValue).toBe(200000);
-      expect(result.estimatedCloseDate).toEqual(newCloseDate);
-    });
-
-    it('should create a lead event for value update', async () => {
-      const dealWithRelations = {
-        ...mockDeal,
-        specialist: {
-          ...mockSpecialist,
-          user: { email: 'john@example.com', name: 'John' },
-        },
-      } as unknown as Deal;
-      dealRepository.findOne.mockResolvedValue(dealWithRelations);
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-
-      const newCloseDate = new Date('2026-07-01');
-      await service.updateDealValue(
-        'deal-123',
-        'specialist-123',
-        200000,
-        newCloseDate,
-      );
-
-      expect(leadEventRepository.save).toHaveBeenCalledWith({
-        leadId: 'deal-123',
-        type: LeadEventType.STATUS_CHANGED,
-        data: {
-          action: 'value_updated',
-          dealValue: 200000,
-          estimatedCloseDate: newCloseDate,
-        },
-      });
-    });
-
-    it('should throw NotFoundException if deal not found', async () => {
-      dealRepository.findOne.mockResolvedValue(null);
-
-      await expect(
-        service.updateDealValue(
-          'invalid-id',
-          'specialist-123',
-          200000,
-          new Date(),
-        ),
-      ).rejects.toThrow(NotFoundException);
-    });
-  });
-
-  describe('closeDeal', () => {
-    const freshDeal = () =>
-      ({
-        ...mockDeal,
-        status: DealStatus.NEW,
-        notes: [],
-        actualCloseDate: null,
-        commissionId: null,
-      }) as unknown as Deal;
-
-    it('should close a deal as won with value', async () => {
-      dealRepository.findOne.mockResolvedValue(freshDeal());
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-      commissionsService.createCommission.mockResolvedValue({
-        id: 'commission-456',
-      } as Commission);
-
-      const result = await service.closeDeal(
-        'deal-123',
-        'specialist-123',
-        DealStatus.CLOSED_WON,
-        150000,
-      );
-
-      expect(result.status).toBe(DealStatus.CLOSED_WON);
-      expect(result.dealValue).toBe(150000);
-      expect(result.actualCloseDate).toBeInstanceOf(Date);
-      expect(commissionsService.createCommission).toHaveBeenCalledWith(
-        'deal-123',
-        'specialist-123',
-        150000,
-      );
-    });
-
-    it('should close a deal as lost', async () => {
-      dealRepository.findOne.mockResolvedValue(freshDeal());
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-
-      const result = await service.closeDeal(
-        'deal-123',
-        'specialist-123',
-        DealStatus.CLOSED_LOST,
-      );
-
-      expect(result.status).toBe(DealStatus.CLOSED_LOST);
-      expect(result.actualCloseDate).toBeInstanceOf(Date);
-      expect(commissionsService.createCommission).not.toHaveBeenCalled();
-    });
-
-    it('should throw BadRequestException if won without deal value', async () => {
-      dealRepository.findOne.mockResolvedValue(freshDeal());
-
-      await expect(
-        service.closeDeal('deal-123', 'specialist-123', DealStatus.CLOSED_WON),
-      ).rejects.toThrow(BadRequestException);
-      dealRepository.findOne.mockResolvedValue(freshDeal());
-      await expect(
-        service.closeDeal('deal-123', 'specialist-123', DealStatus.CLOSED_WON),
-      ).rejects.toThrow('Deal value required for closed won deals');
-    });
-
-    it('should create lead event on close', async () => {
-      dealRepository.findOne.mockResolvedValue(freshDeal());
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-
-      await service.closeDeal(
-        'deal-123',
-        'specialist-123',
-        DealStatus.CLOSED_LOST,
-      );
-
-      expect(leadEventRepository.save).toHaveBeenCalledWith({
-        leadId: 'deal-123',
-        type: LeadEventType.STATUS_CHANGED,
-        data: {
-          oldStatus: DealStatus.NEW,
-          newStatus: DealStatus.CLOSED_LOST,
-          actualDealValue: undefined,
-        },
-      });
-    });
-  });
-
-  describe('reopenDeal', () => {
-    it('should reopen a closed lost deal', async () => {
-      const closedDeal = {
-        ...mockDeal,
-        status: DealStatus.CLOSED_LOST,
-        actualCloseDate: new Date(),
-      } as unknown as Deal;
-      dealRepository.findOne.mockResolvedValue(closedDeal);
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-
-      const result = await service.reopenDeal('deal-123', 'specialist-123');
-
-      expect(result.status).toBe(DealStatus.IN_PROGRESS);
-    });
-
-    it('should throw BadRequestException if deal is not closed lost', async () => {
-      const wonDeal = {
-        ...mockDeal,
-        status: DealStatus.CLOSED_WON,
-      } as unknown as Deal;
-      dealRepository.findOne.mockResolvedValue(wonDeal);
-
-      await expect(
-        service.reopenDeal('deal-123', 'specialist-123'),
-      ).rejects.toThrow(BadRequestException);
-      await expect(
-        service.reopenDeal('deal-123', 'specialist-123'),
-      ).rejects.toThrow('Can only reopen closed lost deals');
-    });
-
-    it('should create a lead event for reopening', async () => {
-      const closedDeal = {
-        ...mockDeal,
-        status: DealStatus.CLOSED_LOST,
-      } as unknown as Deal;
-      dealRepository.findOne.mockResolvedValue(closedDeal);
-      dealRepository.save.mockImplementation((entity) =>
-        Promise.resolve(entity as Deal),
-      );
-      leadEventRepository.save.mockResolvedValue({} as LeadEvent);
-
-      await service.reopenDeal('deal-123', 'specialist-123');
-
-      expect(leadEventRepository.save).toHaveBeenCalledWith({
-        leadId: 'deal-123',
-        type: LeadEventType.STATUS_CHANGED,
-        data: {
-          oldStatus: DealStatus.CLOSED_LOST,
-          newStatus: DealStatus.IN_PROGRESS,
-          action: 'reopened',
-        },
-      });
-    });
-  });
-
   describe('getEventsByDeal', () => {
     it('should return events for a deal', async () => {
       const mockEvents = [
@@ -647,83 +427,4 @@ describe('DealsService', () => {
     });
   });
 
-  describe('getAnalytics', () => {
-    function mockQueryBuilder(
-      results: {
-        getRawMany?: Record<string, unknown>[];
-        getRawOne?: Record<string, unknown> | null;
-      }[],
-    ) {
-      let callIndex = 0;
-      const qb = {
-        select: jest.fn().mockReturnThis(),
-        addSelect: jest.fn().mockReturnThis(),
-        where: jest.fn().mockReturnThis(),
-        andWhere: jest.fn().mockReturnThis(),
-        groupBy: jest.fn().mockReturnThis(),
-        addGroupBy: jest.fn().mockReturnThis(),
-        setParameter: jest.fn().mockReturnThis(),
-        setParameters: jest.fn().mockReturnThis(),
-        getRawMany: jest.fn().mockImplementation(() => {
-          const r = results[callIndex];
-          callIndex++;
-          return Promise.resolve(r?.getRawMany || []);
-        }),
-        getRawOne: jest.fn().mockImplementation(() => {
-          const r = results[callIndex];
-          callIndex++;
-          return Promise.resolve(r?.getRawOne || null);
-        }),
-      };
-      dealRepository.createQueryBuilder.mockReturnValue(
-        qb as unknown as ReturnType<Repository<Deal>['createQueryBuilder']>,
-      );
-      return qb;
-    }
-
-    it('should return analytics for a specialist', async () => {
-      mockQueryBuilder([
-        // 1st call: status distribution (getRawMany)
-        {
-          getRawMany: [
-            { status: DealStatus.CLOSED_WON, count: '1' },
-            { status: DealStatus.CLOSED_LOST, count: '1' },
-            { status: DealStatus.NEW, count: '1' },
-          ],
-        },
-        // 2nd call: aggregates (getRawOne)
-        {
-          getRawOne: { avgValue: '75000', avgDaysToClose: '10' },
-        },
-        // 3rd call: monthly trend (getRawMany)
-        { getRawMany: [] },
-      ]);
-
-      const result = await service.getAnalytics('specialist-123');
-
-      expect(result).toHaveProperty('conversionRate');
-      expect(result).toHaveProperty('averageDealValue');
-      expect(result).toHaveProperty('averageTimeToClose');
-      expect(result).toHaveProperty('winRate');
-      expect(result).toHaveProperty('statusDistribution');
-      expect(result).toHaveProperty('monthlyTrend');
-      expect(result.conversionRate).toBe(50);
-      expect(result.winRate).toBe(50);
-    });
-
-    it('should handle zero deals gracefully', async () => {
-      mockQueryBuilder([
-        { getRawMany: [] },
-        { getRawOne: null },
-        { getRawMany: [] },
-      ]);
-
-      const result = await service.getAnalytics('specialist-123');
-
-      expect(result.conversionRate).toBe(0);
-      expect(result.averageDealValue).toBe(0);
-      expect(result.averageTimeToClose).toBe(0);
-      expect(result.winRate).toBe(0);
-    });
-  });
 });

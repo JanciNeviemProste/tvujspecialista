@@ -14,6 +14,8 @@ export enum LeadEventType {
   STATUS_CHANGED = 'status_changed',
   NOTE_ADDED = 'note_added',
   EMAIL_SENT = 'email_sent',
+  CRM_PUSHED = 'crm_pushed',
+  CRM_PUSH_FAILED = 'crm_push_failed',
 }
 
 @Entity('lead_events')

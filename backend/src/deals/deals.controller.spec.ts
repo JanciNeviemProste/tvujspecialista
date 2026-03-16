@@ -171,94 +171,6 @@ describe('DealsController', () => {
     });
   });
 
-  describe('updateDealValue', () => {
-    it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata(
-        '__guards__',
-        controller.updateDealValue,
-      );
-      expect(guards).toBeDefined();
-    });
-
-    it('should update deal value', async () => {
-      const closeDate = new Date('2026-06-01');
-      const updatedDeal = {
-        ...mockDeal,
-        dealValue: 200000,
-        estimatedCloseDate: closeDate,
-      } as Deal;
-      service.findSpecialistByUserId.mockResolvedValue(mockSpecialist);
-      service.updateDealValue.mockResolvedValue(updatedDeal);
-
-      const result = await controller.updateDealValue('deal-123', mockRequest, {
-        dealValue: 200000,
-        estimatedCloseDate: closeDate,
-      });
-
-      expect(result).toEqual(updatedDeal);
-      expect(service.updateDealValue).toHaveBeenCalledWith(
-        'deal-123',
-        'specialist-123',
-        200000,
-        closeDate,
-      );
-    });
-  });
-
-  describe('closeDeal', () => {
-    it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.closeDeal);
-      expect(guards).toBeDefined();
-    });
-
-    it('should close deal', async () => {
-      const closedDeal = {
-        ...mockDeal,
-        status: DealStatus.CLOSED_WON,
-        actualCloseDate: new Date(),
-      } as Deal;
-      service.findSpecialistByUserId.mockResolvedValue(mockSpecialist);
-      service.closeDeal.mockResolvedValue(closedDeal);
-
-      const result = await controller.closeDeal('deal-123', mockRequest, {
-        status: DealStatus.CLOSED_WON,
-        actualDealValue: 150000,
-      });
-
-      expect(result).toEqual(closedDeal);
-      expect(service.closeDeal).toHaveBeenCalledWith(
-        'deal-123',
-        'specialist-123',
-        DealStatus.CLOSED_WON,
-        150000,
-      );
-    });
-  });
-
-  describe('reopenDeal', () => {
-    it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata('__guards__', controller.reopenDeal);
-      expect(guards).toBeDefined();
-    });
-
-    it('should reopen a closed deal', async () => {
-      const reopenedDeal = {
-        ...mockDeal,
-        status: DealStatus.IN_PROGRESS,
-      } as Deal;
-      service.findSpecialistByUserId.mockResolvedValue(mockSpecialist);
-      service.reopenDeal.mockResolvedValue(reopenedDeal);
-
-      const result = await controller.reopenDeal('deal-123', mockRequest);
-
-      expect(result).toEqual(reopenedDeal);
-      expect(service.reopenDeal).toHaveBeenCalledWith(
-        'deal-123',
-        'specialist-123',
-      );
-    });
-  });
-
   describe('addNote', () => {
     it('should require JWT authentication', () => {
       const guards = Reflect.getMetadata('__guards__', controller.addNote);
@@ -307,45 +219,13 @@ describe('DealsController', () => {
     });
   });
 
-  describe('getDealAnalytics', () => {
-    it('should require JWT authentication', () => {
-      const guards = Reflect.getMetadata(
-        '__guards__',
-        controller.getDealAnalytics,
-      );
-      expect(guards).toBeDefined();
-    });
-
-    it('should return analytics for specialist', async () => {
-      const analytics = {
-        conversionRate: 50,
-        averageDealValue: 100000,
-        averageTimeToClose: 10,
-        winRate: 50,
-        statusDistribution: [],
-        monthlyTrend: [],
-      };
-      service.findSpecialistByUserId.mockResolvedValue(mockSpecialist);
-      service.getAnalytics.mockResolvedValue(analytics);
-
-      const result = await controller.getDealAnalytics(mockRequest);
-
-      expect(result).toEqual(analytics);
-      expect(service.getAnalytics).toHaveBeenCalledWith('specialist-123');
-    });
-  });
-
   describe('Guard Integration', () => {
     it('should apply JwtAuthGuard to authenticated endpoints', () => {
       const authMethods = [
         'getMyDeals',
         'updateStatus',
-        'updateDealValue',
-        'closeDeal',
-        'reopenDeal',
         'addNote',
         'getDealEvents',
-        'getDealAnalytics',
       ];
 
       authMethods.forEach((method) => {

@@ -91,7 +91,6 @@
       "nameMinLength": "Imię musi zawierać co najmniej 2 znaki",
       "servicesRequired": "Podaj co najmniej jedną usługę",
       "urlInvalid": "Podaj prawidłowy adres URL",
-      "hourlyRateInvalid": "Stawka godzinowa musi być liczbą dodatnią",
       "currentPasswordRequired": "Podaj aktualne hasło",
       "newPasswordRequired": "Potwierdź nowe hasło"
     },
@@ -248,7 +247,7 @@
       "benefit1": "Wartościowe leady",
       "benefit2": "Zweryfikowany profil",
       "benefit3": "Edukacja i eventy",
-      "button": "Wypróbuj 14 dni bezpłatnie"
+      "button": "Zarejestruj się"
     },
     "faq": {
       "title": "Często zadawane pytania",
@@ -294,16 +293,12 @@
       "allLocations": "Wszystkie lokalizacje",
       "minRating": "Ocena minimalna",
       "stars": "{count}+ gwiazdek",
-      "verifiedOnly": "Tylko zweryfikowani specjaliści",
-      "maxPrice": "Cena maksymalna (PLN/godz.)",
-      "pricePlaceholder": "np. 200"
+      "verifiedOnly": "Tylko zweryfikowani specjaliści"
     },
     "sort": {
       "label": "Sortuj według:",
       "sortResults": "Sortuj wyniki",
       "bestRating": "Najlepsza ocena",
-      "priceAsc": "Cena: od najniższej",
-      "priceDesc": "Cena: od najwyższej",
       "newest": "Nowo dodani"
     },
     "empty": {
@@ -556,8 +551,8 @@
         "leadsDesc": "Kontakty od naprawdę zainteresowanych klientów",
         "profile": "Zweryfikowany profil",
         "profileDesc": "Zwiększ wiarygodność swoich usług",
-        "trial": "14 dni bezpłatnie",
-        "trialDesc": "Wypróbuj bez zobowiązań"
+        "trial": "Szybki start",
+        "trialDesc": "Zacznij pozyskiwać klientów już dziś"
       },
       "metadata": {
         "title": "Rejestracja | tvujspecialista.cz",
@@ -739,7 +734,6 @@
         "servicesPlaceholder": "np. Doradztwo finansowe, Inwestycje, Ubezpieczenia",
         "certifications": "Certyfikaty (oddzielone przecinkiem)",
         "certificationsPlaceholder": "np. EFA, CFP, ICI",
-        "hourlyRate": "Stawka godzinowa (PLN)",
         "availability": "Dostępność (oddzielona przecinkiem)",
         "availabilityPlaceholder": "np. Pon-Pt 9:00-17:00, Sob 10:00-14:00"
       },
@@ -819,7 +813,7 @@
       },
       "status": {
         "new": "Nowy",
-        "contacted": "Skontaktowany",
+        "contacted": "W CRM",
         "qualified": "Kwalifikowany",
         "inProgress": "W toku",
         "closedWon": "Wygrany",
@@ -832,6 +826,9 @@
         "eventsError": "Błąd ładowania historii",
         "close": "Zamknij",
         "changeStatus": "Zmień status",
+        "contactHiddenNotice": "Dane kontaktowe będą widoczne po zaakceptowaniu leada",
+        "contactHiddenNoticeCrm": "Dane kontaktowe będą widoczne po przeniesieniu do CRM",
+        "crmPushSuccess": "Lead został pomyślnie przeniesiony do CRM",
         "notes": "Notatki",
         "noNotes": "Brak notatek",
         "addNotePlaceholder": "Dodaj notatkę...",
@@ -880,7 +877,20 @@
       "card": {
         "detail": "Szczegóły",
         "closeDeal": "Zamknij",
-        "created": "Utworzono"
+        "created": "Utworzono",
+        "contactHidden": "Kontakt jest ukryty",
+        "accept": "Akceptuj",
+        "moveToCrm": "Przenieś do CRM",
+        "crmError": "Błąd CRM"
+      },
+      "stats": {
+        "total": "Łącznie",
+        "new": "Nowe",
+        "accepted": "W CRM"
+      },
+      "kanban": {
+        "columnNew": "Nowy lead",
+        "columnCrm": "Przeniesione do CRM"
       }
     },
     "commissions": {
@@ -1044,7 +1054,6 @@
     "notFound": "Nie znaleziono specjalisty",
     "notFoundDesc": "Przepraszamy, ale ten specjalista nie istnieje lub został usunięty.",
     "experience": "{years} lat doświadczenia",
-    "hourlyRate": "{rate} PLN/godz.",
     "aboutMe": "O mnie",
     "services": "Usługi",
     "credentials": "Wykształcenie i certyfikaty",
@@ -1071,7 +1080,6 @@
     "web": "Strona:",
     "linkedin": "Profil na LinkedIn",
     "specialistResponse": "Odpowiedź specjalisty:",
-    "priceFrom": "Od {price} PLN/godz.",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil specjalisty {name} — {category} w {location}."

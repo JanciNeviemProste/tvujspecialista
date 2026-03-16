@@ -19,9 +19,8 @@ export default function SearchPage() {
     category: initialCategory,
     location: '',
     minRating: undefined as number | undefined,
-    maxPrice: undefined as number | undefined,
     verified: false,
-    sortBy: 'rating' as 'rating' | 'price-asc' | 'price-desc' | 'newest',
+    sortBy: 'rating' as 'rating' | 'newest',
   });
 
   const updateFilters = (newFilters: Partial<typeof filters>) => {
@@ -33,7 +32,6 @@ export default function SearchPage() {
     category: (filters.category || undefined) as SpecialistCategory | undefined,
     location: filters.location || undefined,
     minRating: filters.minRating,
-    maxPrice: filters.maxPrice,
     verified: filters.verified || undefined,
     sortBy: filters.sortBy,
     page,
@@ -135,24 +133,6 @@ export default function SearchPage() {
                 </label>
               </div>
 
-              {/* Price Filter */}
-              <div className="mb-6">
-                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  {t('filters.maxPrice')}
-                </label>
-                <input
-                  type="number"
-                  placeholder={t('filters.pricePlaceholder')}
-                  className="w-full rounded-md border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  value={filters.maxPrice || ''}
-                  onChange={(e) =>
-                    updateFilters({
-                      maxPrice: e.target.value ? parseInt(e.target.value) : undefined,
-                    })
-                  }
-                />
-              </div>
-
             </div>
           </aside>
 
@@ -167,13 +147,11 @@ export default function SearchPage() {
                 value={filters.sortBy}
                 onChange={(e) =>
                   updateFilters({
-                    sortBy: e.target.value as 'rating' | 'price-asc' | 'price-desc' | 'newest',
+                    sortBy: e.target.value as 'rating' | 'newest',
                   })
                 }
               >
                 <option value="rating">{t('sort.bestRating')}</option>
-                <option value="price-asc">{t('sort.priceAsc')}</option>
-                <option value="price-desc">{t('sort.priceDesc')}</option>
                 <option value="newest">{t('sort.newest')}</option>
               </select>
             </div>

@@ -58,11 +58,6 @@ export class RegisterDto {
   bio?: string;
 
   @IsOptional()
-  @IsInt()
-  @Min(0)
-  hourlyRate?: number;
-
-  @IsOptional()
   @IsArray()
   @IsString({ each: true })
   services?: string[];

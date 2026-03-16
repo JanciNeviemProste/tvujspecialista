@@ -83,7 +83,6 @@ export class AuthService {
       location: registerDto.location,
       bio: registerDto.bio || '',
       yearsExperience: registerDto.yearsExperience,
-      hourlyRate: registerDto.hourlyRate || 0,
       services: registerDto.services || [],
       certifications: registerDto.certifications || [],
       education: registerDto.education || '',

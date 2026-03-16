@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient, type QueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { dealsApi } from '@/lib/api/deals';
-import type { UpdateDealStatusDto, UpdateDealValueDto, CloseDealDto, Deal } from '@/types/deals';
+import type { UpdateDealStatusDto, Deal } from '@/types/deals';
 import { toast } from 'sonner';
 
 // Retry configuration
@@ -15,8 +15,8 @@ export function useMyDeals() {
     queryKey: ['myDeals'],
     queryFn: () => dealsApi.getMyDeals().then((res) => res.data),
     ...RETRY_CONFIG,
-    staleTime: 30 * 1000, // 30 seconds
-    gcTime: 5 * 60 * 1000, // 5 minutes (previously cacheTime)
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 }
 
@@ -30,58 +30,11 @@ export function useUpdateDealStatus() {
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
       toast.success(t('toasts.statusUpdated'));
     },
-    onError: () => {
-      toast.error(t('toasts.statusUpdateError'));
-    },
-  });
-}
-
-export function useUpdateDealValue() {
-  const t = useTranslations('dashboard.deals');
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateDealValueDto }) =>
-      dealsApi.updateDealValue(id, data).then((res) => res.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
-      toast.success(t('toasts.valueUpdated'));
-    },
-    onError: () => {
-      toast.error(t('toasts.valueUpdateError'));
-    },
-  });
-}
-
-export function useCloseDeal() {
-  const t = useTranslations('dashboard.deals');
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: CloseDealDto }) =>
-      dealsApi.closeDeal(id, data).then((res) => res.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
-      queryClient.invalidateQueries({ queryKey: ['myCommissions'] });
-      queryClient.invalidateQueries({ queryKey: ['commissionStats'] });
-      toast.success(t('toasts.dealClosed'));
-    },
-    onError: () => {
-      toast.error(t('toasts.dealCloseError'));
-    },
-  });
-}
-
-export function useReopenDeal() {
-  const t = useTranslations('dashboard.deals');
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (id: string) =>
-      dealsApi.reopenDeal(id).then((res) => res.data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
-      toast.success(t('toasts.dealReopened'));
-    },
-    onError: () => {
-      toast.error(t('toasts.dealReopenError'));
+    onError: (error: unknown) => {
+      const apiError = error as { response?: { data?: { message?: string } } };
+      const message =
+        apiError?.response?.data?.message || t('toasts.statusUpdateError');
+      toast.error(message);
     },
   });
 }
@@ -92,15 +45,10 @@ export function useAddDealNote() {
   return useMutation({
     mutationFn: ({ id, note }: { id: string; note: string }) =>
       dealsApi.addNote(id, note).then((res) => res.data),
-    // Optimistic update
     onMutate: async ({ id, note }) => {
-      // Cancel outgoing refetches
       await queryClient.cancelQueries({ queryKey: ['myDeals'] });
-
-      // Snapshot previous value
       const previousDeals = queryClient.getQueryData<Deal[]>(['myDeals']);
 
-      // Optimistically update
       if (previousDeals) {
         queryClient.setQueryData<Deal[]>(['myDeals'], (old) => {
           if (!old) return old;
@@ -127,14 +75,12 @@ export function useAddDealNote() {
       return { previousDeals };
     },
     onError: (err, variables, context) => {
-      // Rollback on error
       if (context?.previousDeals) {
         queryClient.setQueryData(['myDeals'], context.previousDeals);
       }
       toast.error(t('toasts.noteAddError'));
     },
     onSettled: () => {
-      // Always refetch after error or success
       queryClient.invalidateQueries({ queryKey: ['myDeals'] });
     },
   });
@@ -144,36 +90,13 @@ export function useDealEvents(dealId: string) {
   return useQuery({
     queryKey: ['dealEvents', dealId],
     queryFn: () => dealsApi.getMyEvents(dealId).then((res) => res.data),
-    enabled: !!dealId, // Only run if dealId is provided
-    staleTime: 30 * 1000, // 30 seconds
-  });
-}
-
-export function useDealAnalytics() {
-  return useQuery({
-    queryKey: ['dealAnalytics'],
-    queryFn: () => dealsApi.getMyAnalytics().then((res) => res.data),
-    staleTime: 60 * 1000, // 1 minute - analytics don't change frequently
-    gcTime: 10 * 60 * 1000, // 10 minutes
-    ...RETRY_CONFIG,
-  });
-}
-
-/**
- * Prefetch analytics data
- * Call this before user navigates to analytics view
- */
-export function prefetchDealAnalytics(queryClient: QueryClient) {
-  return queryClient.prefetchQuery({
-    queryKey: ['dealAnalytics'],
-    queryFn: () => dealsApi.getMyAnalytics().then((res) => res.data),
-    staleTime: 60 * 1000,
+    enabled: !!dealId,
+    staleTime: 30 * 1000,
   });
 }
 
 /**
  * Prefetch deal events
- * Call this when user hovers over deal card
  */
 export function prefetchDealEvents(queryClient: QueryClient, dealId: string) {
   return queryClient.prefetchQuery({

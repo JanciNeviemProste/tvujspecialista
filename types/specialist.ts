@@ -15,7 +15,6 @@ export interface Specialist {
   location: string
   bio: string
   yearsExperience: number
-  hourlyRate: number
   rating: number
   reviewsCount: number
   services: string[]
@@ -36,12 +35,11 @@ export interface SpecialistFilters {
   category?: string
   location?: string
   minRating?: number
-  maxPrice?: number
   verified?: boolean
   search?: string
   page?: number
   limit?: number
-  sortBy?: 'rating' | 'price' | 'reviews' | 'newest'
+  sortBy?: 'rating' | 'reviews' | 'newest'
 }
 
 export interface SpecialistListResponse {

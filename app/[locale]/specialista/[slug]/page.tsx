@@ -134,11 +134,6 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                     <div>
                       {t('experience', { years: specialist.yearsExperience })}
                     </div>
-                    {specialist.hourlyRate > 0 && (
-                      <div>
-                        {t('hourlyRate', { rate: specialist.hourlyRate })}
-                      </div>
-                    )}
                   </div>
                 </div>
               </div>

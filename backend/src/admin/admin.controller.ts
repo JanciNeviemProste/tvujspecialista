@@ -13,6 +13,7 @@ import {
   ApiResponse,
 } from '@nestjs/swagger';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
+import { UpdateSpecialistCrmDto } from './dto/update-specialist-crm.dto';
 
 @ApiTags('Admin')
 @ApiBearerAuth()
@@ -50,6 +51,17 @@ export class AdminController {
   @ApiResponse({ status: 404, description: 'Specialist not found' })
   async verifySpecialist(@Param('id') id: string) {
     return this.adminService.verifySpecialist(id);
+  }
+
+  @Patch('specialists/:id/crm')
+  @ApiOperation({ summary: 'Set CRM configuration for a specialist (Admin only)' })
+  @ApiResponse({ status: 200, description: 'CRM configuration updated' })
+  @ApiResponse({ status: 404, description: 'Specialist not found' })
+  async setCrmConfig(
+    @Param('id') id: string,
+    @Body() body: UpdateSpecialistCrmDto,
+  ) {
+    return this.adminService.updateCrmConfig(id, body);
   }
 
   @Get('leads')

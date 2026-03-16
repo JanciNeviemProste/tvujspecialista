@@ -5,9 +5,8 @@ export interface SpecialistFilters {
   category?: SpecialistCategory;
   location?: string;
   minRating?: number;
-  maxPrice?: number;
   verified?: boolean;
-  sortBy?: 'rating' | 'price-asc' | 'price-desc' | 'newest';
+  sortBy?: 'rating' | 'newest';
   page?: number;
   limit?: number;
 }
@@ -22,7 +21,7 @@ export const specialistsApi = {
   getMyProfile: () =>
     apiClient.get('/specialists/me/profile'),
 
-  updateProfile: (data: Partial<SpecialistFilters & { name: string; bio: string; phone: string; hourlyRate: number }>) =>
+  updateProfile: (data: Partial<SpecialistFilters & { name: string; bio: string; phone: string }>) =>
     apiClient.patch('/specialists/me', data),
 
   uploadPhoto: (file: File) => {
