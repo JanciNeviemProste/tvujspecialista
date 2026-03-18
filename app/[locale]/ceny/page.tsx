@@ -144,14 +144,14 @@ export default function PricingPage() {
       {/* For Clients — Free */}
       <section className="pb-8">
         <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl rounded-xl border-2 border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-800 p-6 text-center">
-            <div className="mb-2 flex items-center justify-center gap-2">
-              <Gift className="h-6 w-6 text-green-600" />
-              <h2 className="text-xl font-bold text-green-800 dark:text-green-300">
+          <div className="mx-auto max-w-4xl rounded-xl bg-green-600 dark:bg-green-700 p-8 text-center shadow-lg">
+            <div className="mb-3 flex items-center justify-center gap-3">
+              <Gift className="h-8 w-8 text-white" />
+              <h2 className="text-2xl font-bold text-white">
                 {t('forClients.title')}
               </h2>
             </div>
-            <p className="text-green-700 dark:text-green-400">
+            <p className="text-lg text-green-50">
               {t('forClients.description')}
             </p>
           </div>

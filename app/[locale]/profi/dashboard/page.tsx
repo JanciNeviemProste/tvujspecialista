@@ -297,7 +297,7 @@ export default function DashboardPage() {
                         <div key={lead.id} className="p-6 transition-colors hover:bg-gray-50 dark:hover:bg-muted/30">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h3 className="font-semibold text-gray-900 dark:text-foreground">{lead.customerName}</h3>
+                              <h3 className={`font-semibold text-gray-900 dark:text-foreground ${isNew ? 'blur-sm select-none' : ''}`}>{lead.customerName}</h3>
                               <p className="text-sm text-gray-500">
                                 {new Date(lead.createdAt).toLocaleDateString('cs-CZ')}
                               </p>
