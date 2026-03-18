@@ -294,7 +294,12 @@ export class DealsService {
     }
 
     if (deal.customerName) {
-      const parts = deal.customerName.split(' ');
+      const name = deal.customerName.trim();
+      let parts = name.split(/\s+/);
+      if (parts.length === 1 && name.length > 1) {
+        const camelSplit = name.split(/(?<=[a-záčďéěíňóřšťúůýž])(?=[A-ZÁČĎÉĚÍŇÓŘŠŤÚŮÝŽ])/);
+        if (camelSplit.length > 1) parts = camelSplit;
+      }
       if (parts.length > 1) {
         deal.customerName =
           parts[0] +
@@ -303,6 +308,8 @@ export class DealsService {
             .slice(1)
             .map((p) => (p.length > 0 ? p[0] + '***' : ''))
             .join(' ');
+      } else {
+        deal.customerName = name.slice(0, 2) + '***';
       }
     }
 

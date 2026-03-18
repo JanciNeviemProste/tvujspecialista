@@ -189,7 +189,7 @@ export default function SearchPage() {
                     </p>
                   </div>
                 ) : (
-                  <div className="space-y-4">
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
                     {data.specialists.map((specialist: Specialist) => (
                       <SpecialistCard key={specialist.id} specialist={specialist} />
                     ))}
