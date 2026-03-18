@@ -5,6 +5,7 @@ import { Link, useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 import { MobileNav } from '@/components/layout/MobileNav';
+import { NotificationBell } from '@/components/shared/NotificationBell';
 
 export function PublicHeader() {
   const nav = useTranslations('common.nav');
@@ -46,6 +47,7 @@ export function PublicHeader() {
               >
                 {nav('dashboard')}
               </Link>
+              <NotificationBell />
               <button
                 onClick={handleLogout}
                 className="rounded bg-blue-600 dark:bg-primary px-4 py-2 text-sm text-white hover:bg-blue-700 dark:hover:bg-primary/90 transition-colors"

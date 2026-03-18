@@ -1590,5 +1590,42 @@
       "created": "Lead byl vytvořen",
       "createError": "Chyba při vytváření leadu"
     }
+  },
+  "onboarding": {
+    "photo": {
+      "title": "Přidejte profilovou fotku",
+      "description": "Profesionální fotka zvyšuje důvěru klientů o 70%.",
+      "skip": "Můžete přidat později z nastavení profilu."
+    },
+    "bio": {
+      "title": "Představte se klientům",
+      "description": "Napište krátké bio a uveďte své služby.",
+      "bioLabel": "O mně",
+      "bioPlaceholder": "Napište něco o sobě, svých zkušenostech...",
+      "servicesLabel": "Služby (oddělené čárkou)",
+      "servicesPlaceholder": "Hypotéky, Pojištění, Investice..."
+    },
+    "credentials": {
+      "title": "Vzdělání a certifikace",
+      "description": "Zvyšte svou důvěryhodnost uvedením kvalifikací.",
+      "educationLabel": "Vzdělání",
+      "educationPlaceholder": "VŠE Praha, Ekonomická fakulta",
+      "certificationsLabel": "Certifikace (oddělené čárkou)",
+      "certificationsPlaceholder": "EFA, CFP, ICI..."
+    },
+    "regions": {
+      "title": "Kde působíte?",
+      "description": "Regiony si nastavíte v profilu. Klienti vás najdou podle kraje.",
+      "editLater": "Můžete nastavit později v nastavení profilu."
+    },
+    "complete": {
+      "title": "Vše připraveno!",
+      "description": "Váš profil je nastaven. Nyní můžete přijímat leady od klientů."
+    },
+    "next": "Pokračovat",
+    "back": "Zpět",
+    "saving": "Ukládám...",
+    "saveError": "Nepodařilo se uložit",
+    "goToDashboard": "Přejít na dashboard"
   }
 }

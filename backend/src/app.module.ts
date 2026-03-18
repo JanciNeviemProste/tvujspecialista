@@ -23,6 +23,7 @@ import { CommunityModule } from './community/community.module';
 import { ForumModule } from './forum/forum.module';
 import { validate } from './config/env.validation';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     AcademyModule,
     CommunityModule,
     ForumModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [

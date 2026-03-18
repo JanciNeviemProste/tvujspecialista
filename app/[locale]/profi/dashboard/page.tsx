@@ -12,6 +12,7 @@ import { adminApi } from '@/lib/api/admin';
 import React from 'react';
 import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown, Home, Landmark, GraduationCap } from 'lucide-react';
 import type { Lead } from '@/types/lead';
+import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard';
 
 export default function DashboardPage() {
   const t = useTranslations('dashboard.main');
@@ -70,6 +71,11 @@ export default function DashboardPage() {
   if (!user) {
     router.push('/profi/prihlaseni');
     return null;
+  }
+
+  // Show onboarding wizard for specialists who haven't completed onboarding
+  if (specialistProfile && specialistProfile.onboardingCompleted === false && user.role !== 'admin') {
+    return <OnboardingWizard onComplete={() => window.location.reload()} />;
   }
 
   const isAdmin = user.role === 'admin';

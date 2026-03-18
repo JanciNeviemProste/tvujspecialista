@@ -22,7 +22,7 @@ export const specialistsApi = {
   getMyProfile: () =>
     apiClient.get('/specialists/me/profile'),
 
-  updateProfile: (data: Partial<SpecialistFilters & { name: string; bio: string; phone: string; mediaGallery: Array<{ type: string; url: string; caption?: string }> }>) =>
+  updateProfile: (data: Record<string, unknown>) =>
     apiClient.patch('/specialists/me', data),
 
   uploadPhoto: (file: File) => {

@@ -1590,5 +1590,42 @@
       "created": "Lead został utworzony",
       "createError": "Błąd tworzenia leada"
     }
+  },
+  "onboarding": {
+    "photo": {
+      "title": "Dodaj zdjęcie profilowe",
+      "description": "Profesjonalne zdjęcie zwiększa zaufanie klientów o 70%.",
+      "skip": "Możesz dodać później w ustawieniach profilu."
+    },
+    "bio": {
+      "title": "Przedstaw się klientom",
+      "description": "Napisz krótkie bio i wymień swoje usługi.",
+      "bioLabel": "O mnie",
+      "bioPlaceholder": "Napisz coś o sobie, swoim doświadczeniu...",
+      "servicesLabel": "Usługi (oddzielone przecinkiem)",
+      "servicesPlaceholder": "Kredyty hipoteczne, Ubezpieczenia, Inwestycje..."
+    },
+    "credentials": {
+      "title": "Wykształcenie i certyfikaty",
+      "description": "Zwiększ swoją wiarygodność, podając kwalifikacje.",
+      "educationLabel": "Wykształcenie",
+      "educationPlaceholder": "Uniwersytet Ekonomiczny, Wydział Finansów",
+      "certificationsLabel": "Certyfikaty (oddzielone przecinkiem)",
+      "certificationsPlaceholder": "EFA, CFP, ICI..."
+    },
+    "regions": {
+      "title": "Gdzie działasz?",
+      "description": "Regiony ustawisz w profilu. Klienci znajdą Cię według regionu.",
+      "editLater": "Możesz ustawić później w ustawieniach profilu."
+    },
+    "complete": {
+      "title": "Wszystko gotowe!",
+      "description": "Twój profil jest gotowy. Teraz możesz otrzymywać leady od klientów."
+    },
+    "next": "Dalej",
+    "back": "Wstecz",
+    "saving": "Zapisuję...",
+    "saveError": "Nie udało się zapisać",
+    "goToDashboard": "Przejdź do panelu"
   }
 }

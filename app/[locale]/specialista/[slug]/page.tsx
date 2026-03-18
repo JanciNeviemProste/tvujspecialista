@@ -9,6 +9,7 @@ import { RatingStars } from '@/components/shared/RatingStars';
 import { Globe, ShieldCheck } from 'lucide-react';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
+import { SpecialistJsonLd } from '@/components/seo/JsonLd';
 import type { Review } from '@/types/review';
 
 function getVideoEmbedUrl(url: string): string {
@@ -98,6 +99,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <SpecialistJsonLd specialist={specialist} />
       <PublicHeader />
 
       <div className="container mx-auto px-4 py-8">

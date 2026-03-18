@@ -27,6 +27,7 @@ export interface Specialist {
   videoUrl?: string
   regions?: string[]
   mediaGallery?: Array<{ type: 'image' | 'video'; url: string; caption?: string }>
+  onboardingCompleted?: boolean
   availability: string[]
   subscriptionTier: SubscriptionTier
   createdAt: Date

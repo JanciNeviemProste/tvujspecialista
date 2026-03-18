@@ -18,6 +18,7 @@ import { UpdateDealStatusDto } from './dto/update-deal-status.dto';
 import { AddNoteDto } from './dto/add-note.dto';
 import { EmailService } from '../email/email.service';
 import { CrmService } from '../crm/crm.service';
+import { NotificationsGateway } from '../notifications/notifications.gateway';
 
 @Injectable()
 export class DealsService {
@@ -32,6 +33,7 @@ export class DealsService {
     private specialistRepository: Repository<Specialist>,
     private emailService: EmailService,
     private crmService: CrmService,
+    private notificationsGateway: NotificationsGateway,
   ) {}
 
   async create(createDealDto: CreateDealDto) {
@@ -71,6 +73,20 @@ export class DealsService {
       createDealDto.customerName,
       specialist.name,
     );
+
+    // Real-time notification
+    const specialistWithUser = await this.specialistRepository.findOne({
+      where: { id: savedDeal.specialistId },
+      relations: ['user'],
+    });
+    if (specialistWithUser?.user) {
+      this.notificationsGateway.notifyUser(specialistWithUser.user.id, 'new_lead', {
+        id: savedDeal.id,
+        customerName: savedDeal.customerName,
+        message: savedDeal.message?.substring(0, 100),
+        createdAt: savedDeal.createdAt,
+      });
+    }
 
     return savedDeal;
   }

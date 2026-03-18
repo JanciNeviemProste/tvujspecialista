@@ -1590,5 +1590,42 @@
       "created": "Lead was created",
       "createError": "Error creating lead"
     }
+  },
+  "onboarding": {
+    "photo": {
+      "title": "Add a profile photo",
+      "description": "A professional photo increases client trust by 70%.",
+      "skip": "You can add one later from profile settings."
+    },
+    "bio": {
+      "title": "Introduce yourself to clients",
+      "description": "Write a short bio and list your services.",
+      "bioLabel": "About me",
+      "bioPlaceholder": "Write something about yourself, your experience...",
+      "servicesLabel": "Services (comma-separated)",
+      "servicesPlaceholder": "Mortgages, Insurance, Investments..."
+    },
+    "credentials": {
+      "title": "Education and certifications",
+      "description": "Increase your credibility by listing your qualifications.",
+      "educationLabel": "Education",
+      "educationPlaceholder": "University of Economics, Faculty of Finance",
+      "certificationsLabel": "Certifications (comma-separated)",
+      "certificationsPlaceholder": "EFA, CFP, ICI..."
+    },
+    "regions": {
+      "title": "Where do you operate?",
+      "description": "You can set your regions in your profile. Clients will find you by region.",
+      "editLater": "You can set this later in profile settings."
+    },
+    "complete": {
+      "title": "All set!",
+      "description": "Your profile is ready. You can now receive leads from clients."
+    },
+    "next": "Continue",
+    "back": "Back",
+    "saving": "Saving...",
+    "saveError": "Failed to save",
+    "goToDashboard": "Go to dashboard"
   }
 }

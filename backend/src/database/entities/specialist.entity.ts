@@ -143,6 +143,9 @@ export class Specialist {
   @Column('jsonb', { default: [] })
   mediaGallery: Array<{ type: string; url: string; caption?: string }>;
 
+  @Column({ default: false })
+  onboardingCompleted: boolean;
+
   // Commission tracking (NEW)
   @Exclude()
   @Column({ type: 'decimal', precision: 5, scale: 4, default: 0.15 })
