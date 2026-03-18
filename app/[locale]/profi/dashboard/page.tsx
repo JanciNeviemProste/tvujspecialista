@@ -118,7 +118,7 @@ export default function DashboardPage() {
               </>
             ) : (
               <>
-                <div className="rounded-lg border bg-white p-6">
+                <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="mb-2 flex items-center justify-between">
                     <span className="text-sm font-medium text-gray-600">{t('stats.newLeads')}</span>
                     <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
@@ -133,13 +133,13 @@ export default function DashboardPage() {
                   </p>
                 </div>
 
-                <div className="rounded-lg border bg-white p-6">
+                <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.totalLeads')}</div>
                   <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
                   <p className="mt-2 text-sm text-gray-500">{t('stats.sinceStart')}</p>
                 </div>
 
-                <div className="rounded-lg border bg-white p-6">
+                <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.avgRating')}</div>
                   <div className="flex items-baseline gap-2">
                     <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
                   <p className="mt-2 text-sm text-gray-500">{t('stats.yourRating')}</p>
                 </div>
 
-                <div className="rounded-lg border bg-white p-6">
+                <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.successRate')}</div>
                   <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
                   <p className="mt-2 text-sm text-gray-500">{t('stats.closedDeals')}</p>
@@ -162,56 +162,56 @@ export default function DashboardPage() {
         {isAdmin && (
           <>
             <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Users className="h-5 w-5 text-blue-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.customers')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.customersCount ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Home className="h-5 w-5 text-green-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.realEstateAgents')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.realEstateAgentsCount ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Landmark className="h-5 w-5 text-emerald-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.financialAdvisors')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.financialAdvisorsCount ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="h-5 w-5 text-purple-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.leads')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.leadsCount ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <GraduationCap className="h-5 w-5 text-indigo-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.academyGraduates')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.academyGraduatesCount ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Calendar className="h-5 w-5 text-orange-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.pastEvents')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.pastEventsCount ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <CreditCard className="h-5 w-5 text-cyan-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.monthlySubscriptions')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.monthlySubscriptions ?? 0}</div>
               </div>
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Crown className="h-5 w-5 text-amber-500" />
                   <span className="text-sm font-medium text-gray-600">{t('admin.yearlySubscriptions')}</span>
@@ -224,7 +224,7 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Link
                 href="/profi/dashboard/admin/kurzy"
-                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+                className="rounded-xl border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group"
               >
                 <BookOpen className="h-8 w-8 text-blue-600 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.academy')}</h3>
@@ -232,7 +232,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 href="/profi/dashboard/admin/forum"
-                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+                className="rounded-xl border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group"
               >
                 <MessageSquare className="h-8 w-8 text-blue-500 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.forum')}</h3>
@@ -240,7 +240,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 href="/profi/dashboard/admin/komunita"
-                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+                className="rounded-xl border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group"
               >
                 <Calendar className="h-8 w-8 text-orange-500 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.community')}</h3>
@@ -248,7 +248,7 @@ export default function DashboardPage() {
               </Link>
               <Link
                 href="/profi/dashboard/admin/pouzivatelia"
-                className="rounded-lg border bg-white p-6 hover:shadow-md transition-shadow group"
+                className="rounded-xl border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg group"
               >
                 <Users className="h-8 w-8 text-purple-600 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.users')}</h3>
@@ -292,18 +292,21 @@ export default function DashboardPage() {
                   <div className="divide-y">
                     {normalizedLeads.leads.slice(0, 5).map((lead: Lead) => {
                       const statusInfo = getStatusBadge(lead.status);
+                      const isNew = lead.status === 'new';
                       return (
-                        <div key={lead.id} className="p-6">
+                        <div key={lead.id} className="p-6 transition-colors hover:bg-gray-50 dark:hover:bg-muted/30">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
-                              <h3 className="font-semibold text-gray-900">{lead.customerName}</h3>
+                              <h3 className="font-semibold text-gray-900 dark:text-foreground">{lead.customerName}</h3>
                               <p className="text-sm text-gray-500">
                                 {new Date(lead.createdAt).toLocaleDateString('cs-CZ')}
                               </p>
-                              <p className="mt-1 text-sm text-gray-600">{lead.customerEmail}</p>
-                              <p className="text-sm text-gray-600">{lead.customerPhone}</p>
+                              <div className={isNew ? 'blur-sm select-none' : ''}>
+                                <p className="mt-1 text-sm text-gray-600 dark:text-muted-foreground">{lead.customerEmail}</p>
+                                <p className="text-sm text-gray-600 dark:text-muted-foreground">{lead.customerPhone}</p>
+                              </div>
                               {lead.message && (
-                                <p className="mt-2 text-sm text-gray-700">
+                                <p className="mt-2 text-sm text-gray-700 dark:text-muted-foreground">
                                   &quot;{lead.message.substring(0, 100)}
                                   {lead.message.length > 100 ? '...' : ''}&quot;
                                 </p>
@@ -335,7 +338,7 @@ export default function DashboardPage() {
 
             {/* Quick Actions */}
             <div className="lg:col-span-1">
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <h2 className="mb-4 text-lg font-semibold text-gray-900">{t('quickActions.title')}</h2>
                 <div className="space-y-3">
                   <a

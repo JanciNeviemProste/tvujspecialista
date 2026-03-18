@@ -762,6 +762,13 @@
       "loadError": "Failed to load reviews",
       "count": "{count} reviews",
       "yourResponse": "Your response:",
+      "writeResponse": "Write a response",
+      "responsePlaceholder": "Write your response to this review...",
+      "sendResponse": "Send response",
+      "sending": "Sending...",
+      "cancel": "Cancel",
+      "responseSuccess": "Response sent successfully",
+      "responseError": "Failed to send response",
       "empty": {
         "title": "No reviews yet",
         "description": "Once clients leave reviews, they will appear here."

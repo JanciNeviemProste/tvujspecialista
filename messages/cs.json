@@ -762,6 +762,13 @@
       "loadError": "Nepodařilo se načíst recenze",
       "count": "{count} recenzí",
       "yourResponse": "Vaše odpověď:",
+      "writeResponse": "Napsat odpověď",
+      "responsePlaceholder": "Napište svou odpověď na tuto recenzi...",
+      "sendResponse": "Odeslat odpověď",
+      "sending": "Odesílání...",
+      "cancel": "Zrušit",
+      "responseSuccess": "Odpověď byla úspěšně odeslána",
+      "responseError": "Nepodařilo se odeslat odpověď",
       "empty": {
         "title": "Zatím žádné recenze",
         "description": "Jakmile klienti zanechají recenze, zobrazí se zde."

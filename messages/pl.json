@@ -762,6 +762,13 @@
       "loadError": "Nie udało się załadować opinii",
       "count": "{count} opinii",
       "yourResponse": "Twoja odpowiedź:",
+      "writeResponse": "Napisz odpowiedź",
+      "responsePlaceholder": "Napisz swoją odpowiedź na tę opinię...",
+      "sendResponse": "Wyślij odpowiedź",
+      "sending": "Wysyłanie...",
+      "cancel": "Anuluj",
+      "responseSuccess": "Odpowiedź została pomyślnie wysłana",
+      "responseError": "Nie udało się wysłać odpowiedzi",
       "empty": {
         "title": "Brak opinii",
         "description": "Gdy klienci zostawią opinie, pojawią się tutaj."

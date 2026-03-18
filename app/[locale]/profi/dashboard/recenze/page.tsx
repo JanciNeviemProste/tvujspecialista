@@ -31,6 +31,9 @@ export default function ReviewsPage() {
   const { user, isLoading: authLoading } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [respondingTo, setRespondingTo] = useState<string | null>(null);
+  const [responseText, setResponseText] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     async function loadReviews() {
@@ -148,13 +151,64 @@ export default function ReviewsPage() {
                       </div>
                       <StarRating rating={review.rating} />
                       <p className="mt-3 text-gray-700">{review.text}</p>
-                      {review.response && (
+                      {review.response ? (
                         <div className="mt-4 rounded-lg bg-gray-50 p-4">
                           <p className="mb-1 text-sm font-medium text-gray-600">
                             {t('yourResponse')}
                           </p>
                           <p className="text-sm text-gray-700">{review.response.text}</p>
                         </div>
+                      ) : respondingTo === review.id ? (
+                        <div className="mt-4 space-y-3">
+                          <textarea
+                            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            rows={3}
+                            placeholder={t('responsePlaceholder')}
+                            value={responseText}
+                            onChange={(e) => setResponseText(e.target.value)}
+                          />
+                          <div className="flex gap-2">
+                            <button
+                              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors disabled:opacity-50"
+                              disabled={!responseText.trim() || submitting}
+                              onClick={async () => {
+                                setSubmitting(true);
+                                try {
+                                  await reviewsApi.respond(review.id, responseText.trim());
+                                  setReviews((prev) =>
+                                    prev.map((r) =>
+                                      r.id === review.id
+                                        ? { ...r, response: { text: responseText.trim(), createdAt: new Date() } }
+                                        : r
+                                    )
+                                  );
+                                  setRespondingTo(null);
+                                  setResponseText('');
+                                  toast.success(t('responseSuccess'));
+                                } catch {
+                                  toast.error(t('responseError'));
+                                } finally {
+                                  setSubmitting(false);
+                                }
+                              }}
+                            >
+                              {submitting ? t('sending') : t('sendResponse')}
+                            </button>
+                            <button
+                              className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                              onClick={() => { setRespondingTo(null); setResponseText(''); }}
+                            >
+                              {t('cancel')}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <button
+                          className="mt-3 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                          onClick={() => setRespondingTo(review.id)}
+                        >
+                          {t('writeResponse')}
+                        </button>
                       )}
                     </div>
                     <div className="ml-4 text-right">

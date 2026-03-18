@@ -1,12 +1,37 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
-import { Mail, Phone, ArrowRight, Lock } from 'lucide-react';
+import { Mail, Phone, ArrowRight, Lock, Clock, TrendingDown } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { format } from 'date-fns';
 import { sk } from 'date-fns/locale';
+
+function getSuccessChance(createdAt: string): { percent: number; color: string; label: string } {
+  const elapsed = Date.now() - new Date(createdAt).getTime();
+  const minutes = elapsed / 60000;
+
+  if (minutes < 5) return { percent: 95, color: 'text-green-600 bg-green-50', label: '5 min' };
+  if (minutes < 30) return { percent: 85, color: 'text-green-600 bg-green-50', label: '30 min' };
+  if (minutes < 60) return { percent: 70, color: 'text-yellow-600 bg-yellow-50', label: '1 h' };
+  if (minutes < 180) return { percent: 55, color: 'text-orange-600 bg-orange-50', label: '3 h' };
+  if (minutes < 720) return { percent: 35, color: 'text-orange-600 bg-orange-50', label: '12 h' };
+  if (minutes < 1440) return { percent: 20, color: 'text-red-600 bg-red-50', label: '24 h' };
+  if (minutes < 4320) return { percent: 10, color: 'text-red-600 bg-red-50', label: '3 d' };
+  return { percent: 5, color: 'text-red-700 bg-red-100', label: '3+ d' };
+}
+
+function formatElapsed(createdAt: string): string {
+  const elapsed = Date.now() - new Date(createdAt).getTime();
+  const minutes = Math.floor(elapsed / 60000);
+  if (minutes < 1) return '< 1 min';
+  if (minutes < 60) return `${minutes} min`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} h ${minutes % 60} min`;
+  const days = Math.floor(hours / 24);
+  return `${days} d ${hours % 24} h`;
+}
 
 interface DealCardProps {
   deal: Deal;
@@ -24,6 +49,16 @@ function DealCardInner({
   const t = useTranslations('dashboard.deals');
 
   const isNew = deal.status === DealStatus.NEW;
+
+  // Live-updating timer for NEW leads
+  const [, setTick] = useState(0);
+  useEffect(() => {
+    if (!isNew) return;
+    const interval = setInterval(() => setTick((t) => t + 1), 30000); // update every 30s
+    return () => clearInterval(interval);
+  }, [isNew]);
+
+  const chance = isNew ? getSuccessChance(deal.createdAt) : null;
 
   return (
     <div
@@ -45,6 +80,20 @@ function DealCardInner({
             {isNew ? t('status.new') : t('status.contacted')}
           </span>
         </div>
+
+        {/* Urgency timer — only for NEW leads */}
+        {isNew && chance && (
+          <div className={cn('flex items-center justify-between rounded-lg px-3 py-2 text-xs font-medium', chance.color)}>
+            <div className="flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{formatElapsed(deal.createdAt)}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <TrendingDown className="h-3.5 w-3.5" />
+              <span>{chance.percent}%</span>
+            </div>
+          </div>
+        )}
 
         {/* Contact info — blurred for NEW status */}
         <div className={cn('space-y-2 text-sm text-gray-500 dark:text-gray-400', isNew && 'relative')}>

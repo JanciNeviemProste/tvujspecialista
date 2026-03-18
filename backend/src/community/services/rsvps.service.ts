@@ -90,12 +90,13 @@ export class RSVPsService {
       return savedRSVP;
     }
 
-    // 4. Create RSVP (status: pending)
+    // 4. Create RSVP (auto-confirmed, no approval needed)
     const rsvp = this.rsvpRepository.create({
       eventId,
       userId,
-      status: RSVPStatus.PENDING,
+      status: RSVPStatus.CONFIRMED,
       registeredAt: new Date(),
+      confirmedAt: new Date(),
       notes,
     });
 
