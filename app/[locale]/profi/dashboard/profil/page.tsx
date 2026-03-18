@@ -26,6 +26,8 @@ const profileSchema = z.object({
   education: z.string(),
   website: z.string().url('Zadejte platnou URL adresu').or(z.literal('')).optional(),
   linkedin: z.string().url('Zadejte platnou URL adresu').or(z.literal('')).optional(),
+  facebook: z.string().url('Zadejte platnou URL adresu').or(z.literal('')).optional(),
+  instagram: z.string().url('Zadejte platnou URL adresu').or(z.literal('')).optional(),
   availability: z.string(),
 });
 
@@ -58,6 +60,8 @@ export default function ProfileEditPage() {
       education: '',
       website: '',
       linkedin: '',
+      facebook: '',
+      instagram: '',
       availability: '',
     },
   });
@@ -77,6 +81,8 @@ export default function ProfileEditPage() {
           education: specialist.education || '',
           website: specialist.website || '',
           linkedin: specialist.linkedin || '',
+          facebook: specialist.facebook || '',
+          instagram: specialist.instagram || '',
           availability: (specialist.availability || []).join(', '),
         });
       } catch {
@@ -145,6 +151,8 @@ export default function ProfileEditPage() {
         education: values.education,
         website: values.website || undefined,
         linkedin: values.linkedin || undefined,
+        facebook: values.facebook || undefined,
+        instagram: values.instagram || undefined,
         availability: values.availability.split(',').map((s) => s.trim()).filter(Boolean),
       };
       await specialistsApi.updateProfile(payload);
@@ -333,6 +341,24 @@ export default function ProfileEditPage() {
                     {...register('linkedin')}
                     error={errors.linkedin?.message}
                     className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Facebook</label>
+                  <input
+                    type="url"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="https://facebook.com/vasprofi"
+                    {...register('facebook')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                  <input
+                    type="url"
+                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="https://instagram.com/vasprofi"
+                    {...register('instagram')}
                   />
                 </div>
               </div>

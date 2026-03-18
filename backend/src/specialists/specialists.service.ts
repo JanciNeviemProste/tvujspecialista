@@ -41,6 +41,12 @@ export class SpecialistsService {
       });
     }
 
+    if (filters.region) {
+      query.andWhere(`specialist.regions @> :regionArr::jsonb`, {
+        regionArr: JSON.stringify([filters.region]),
+      });
+    }
+
     if (minRating !== undefined) {
       query.andWhere('specialist.rating >= :minRating', { minRating });
     }

@@ -315,6 +315,14 @@
       "title": "Jednoduché a transparentní ceny",
       "subtitle": "Vyberte si plán, který nejlepšie vyhovuje vašim potřebám. Začněte hned, žádné skryté poplatky."
     },
+    "forClients": {
+      "title": "Pro klienty zdarma",
+      "description": "Hledání a kontaktování specialistů je pro klienty zcela zdarma. Žádné skryté poplatky."
+    },
+    "forSpecialists": {
+      "badge": "Pro specialisty",
+      "title": "Vyberte si plán pro vaši praxi"
+    },
     "plans": {
       "monthly": {
         "name": "Měsíční členství",
@@ -1087,6 +1095,12 @@
     "web": "Web:",
     "linkedin": "Profil na LinkedIn",
     "specialistResponse": "Odpověď specialisty:",
+    "socialLinks": "Sociální sítě",
+    "trustSignals": "Proč si vybrat tohoto specialistu",
+    "yearsExp": "Let zkušeností",
+    "reviewsLabel": "Recenzí",
+    "avgRating": "Hodnocení",
+    "verifiedSpecialist": "Ověřený",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil specialisty {name} - {category} v {location}."

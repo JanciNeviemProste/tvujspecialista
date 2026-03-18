@@ -315,6 +315,14 @@
       "title": "Proste i przejrzyste ceny",
       "subtitle": "Wybierz plan najlepiej dopasowany do Twoich potrzeb. Zacznij od razu — bez ukrytych opłat."
     },
+    "forClients": {
+      "title": "Dla klientów za darmo",
+      "description": "Wyszukiwanie i kontaktowanie specjalistów jest dla klientów całkowicie bezpłatne. Bez ukrytych opłat."
+    },
+    "forSpecialists": {
+      "badge": "Dla specjalistów",
+      "title": "Wybierz plan dla swojej praktyki"
+    },
     "plans": {
       "monthly": {
         "name": "Członkostwo miesięczne",
@@ -1087,6 +1095,12 @@
     "web": "Strona:",
     "linkedin": "Profil na LinkedIn",
     "specialistResponse": "Odpowiedź specjalisty:",
+    "socialLinks": "Media społecznościowe",
+    "trustSignals": "Dlaczego wybrać tego specjalistę",
+    "yearsExp": "Lat doświadczenia",
+    "reviewsLabel": "Opinii",
+    "avgRating": "Ocena",
+    "verifiedSpecialist": "Zweryfikowany",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil specjalisty {name} — {category} w {location}."

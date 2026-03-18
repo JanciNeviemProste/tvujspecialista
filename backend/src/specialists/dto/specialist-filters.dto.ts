@@ -20,6 +20,10 @@ export class SpecialistFiltersDto {
   location?: string;
 
   @IsOptional()
+  @IsString()
+  region?: string;
+
+  @IsOptional()
   @IsNumber()
   @Type(() => Number)
   minRating?: number;

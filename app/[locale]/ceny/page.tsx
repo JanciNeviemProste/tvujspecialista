@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Check, X } from 'lucide-react';
+import { Check, Gift, X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
@@ -141,9 +141,34 @@ export default function PricingPage() {
         </div>
       </section>
 
+      {/* For Clients — Free */}
+      <section className="pb-8">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-4xl rounded-xl border-2 border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-800 p-6 text-center">
+            <div className="mb-2 flex items-center justify-center gap-2">
+              <Gift className="h-6 w-6 text-green-600" />
+              <h2 className="text-xl font-bold text-green-800 dark:text-green-300">
+                {t('forClients.title')}
+              </h2>
+            </div>
+            <p className="text-green-700 dark:text-green-400">
+              {t('forClients.description')}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Cards */}
       <section className="pb-12 sm:pb-20">
         <div className="container mx-auto px-4">
+          <div className="mb-8 text-center">
+            <span className="inline-block rounded-full bg-blue-100 dark:bg-primary/20 px-4 py-1.5 text-sm font-semibold text-blue-700 dark:text-primary mb-3">
+              {t('forSpecialists.badge')}
+            </span>
+            <h2 className="text-2xl font-bold dark:text-foreground">
+              {t('forSpecialists.title')}
+            </h2>
+          </div>
           <div className="mx-auto max-w-4xl grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2">
             {pricingPlans.map((plan) => (
               <PricingCard

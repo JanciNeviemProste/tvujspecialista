@@ -6,6 +6,7 @@ import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
+import { Linkedin, Facebook, Instagram, Globe, ShieldCheck } from 'lucide-react';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import type { Review } from '@/types/review';
@@ -92,12 +93,12 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             {/* Profile Header */}
             <div className="rounded-lg border bg-white p-8">
               <div className="flex items-start gap-6">
-                <div className="relative h-32 w-32 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+                <div className="relative h-44 w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
                   <Image
                     src={specialist.photo || '/images/placeholder-avatar.png'}
                     alt={specialist.name}
                     fill
-                    sizes="128px"
+                    sizes="176px"
                     className="object-cover"
                     priority
                   />
@@ -143,6 +144,31 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             <div className="rounded-lg border bg-white p-8">
               <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('aboutMe')}</h2>
               <p className="leading-relaxed text-gray-700">{specialist.bio}</p>
+            </div>
+
+            {/* Trust Signals */}
+            <div className="rounded-lg border bg-white dark:bg-card p-8">
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-foreground">{t('trustSignals')}</h2>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-4 text-center">
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{specialist.yearsExperience}+</div>
+                  <div className="text-xs text-gray-600 dark:text-muted-foreground">{t('yearsExp')}</div>
+                </div>
+                <div className="rounded-lg bg-green-50 dark:bg-green-900/20 p-4 text-center">
+                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">{specialist.reviewsCount}</div>
+                  <div className="text-xs text-gray-600 dark:text-muted-foreground">{t('reviewsLabel')}</div>
+                </div>
+                <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 p-4 text-center">
+                  <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{specialist.rating}</div>
+                  <div className="text-xs text-gray-600 dark:text-muted-foreground">{t('avgRating')}</div>
+                </div>
+                {specialist.verified && (
+                  <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 p-4 text-center">
+                    <ShieldCheck className="mx-auto mb-1 h-6 w-6 text-emerald-600 dark:text-emerald-400" />
+                    <div className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">{t('verifiedSpecialist')}</div>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Services */}
@@ -322,30 +348,39 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                       </p>
                     </div>
                   )}
-                  {specialist.website && (
+                  {(specialist.linkedin || specialist.facebook || specialist.instagram || specialist.website) && (
                     <div>
-                      <span className="text-gray-600">{t('web')}</span>
-                      <a
-                        href={specialist.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block font-medium text-blue-600 hover:underline"
-                      >
-                        {specialist.website}
-                      </a>
-                    </div>
-                  )}
-                  {specialist.linkedin && (
-                    <div>
-                      <span className="text-gray-600">LinkedIn:</span>
-                      <a
-                        href={specialist.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block font-medium text-blue-600 hover:underline"
-                      >
-                        {t('linkedin')}
-                      </a>
+                      <h4 className="mb-3 text-sm font-semibold text-gray-900 dark:text-foreground">{t('socialLinks')}</h4>
+                      <div className="flex gap-3">
+                        {specialist.linkedin && (
+                          <a href={specialist.linkedin} target="_blank" rel="noopener noreferrer"
+                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-blue-100 hover:text-blue-700 hover:-translate-y-0.5"
+                             aria-label="LinkedIn">
+                            <Linkedin className="h-5 w-5" />
+                          </a>
+                        )}
+                        {specialist.facebook && (
+                          <a href={specialist.facebook} target="_blank" rel="noopener noreferrer"
+                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-blue-100 hover:text-blue-700 hover:-translate-y-0.5"
+                             aria-label="Facebook">
+                            <Facebook className="h-5 w-5" />
+                          </a>
+                        )}
+                        {specialist.instagram && (
+                          <a href={specialist.instagram} target="_blank" rel="noopener noreferrer"
+                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-pink-100 hover:text-pink-600 hover:-translate-y-0.5"
+                             aria-label="Instagram">
+                            <Instagram className="h-5 w-5" />
+                          </a>
+                        )}
+                        {specialist.website && (
+                          <a href={specialist.website} target="_blank" rel="noopener noreferrer"
+                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-green-100 hover:text-green-700 hover:-translate-y-0.5"
+                             aria-label="Web">
+                            <Globe className="h-5 w-5" />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>

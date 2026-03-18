@@ -25,6 +25,7 @@ export interface Specialist {
   facebook?: string
   instagram?: string
   videoUrl?: string
+  regions?: string[]
   availability: string[]
   subscriptionTier: SubscriptionTier
   createdAt: Date

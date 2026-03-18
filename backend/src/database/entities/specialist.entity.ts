@@ -137,6 +137,9 @@ export class Specialist {
   @Column({ type: 'varchar', nullable: true })
   crmTipsterAccount: string | null;
 
+  @Column('jsonb', { default: [] })
+  regions: string[];
+
   // Commission tracking (NEW)
   @Exclude()
   @Column({ type: 'decimal', precision: 5, scale: 4, default: 0.15 })

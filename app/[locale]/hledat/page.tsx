@@ -7,6 +7,7 @@ import { SpecialistCard } from '@/components/shared/SpecialistCard';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
 import { SpecialistCategory, Specialist } from '@/types/specialist';
+import { regions } from '@/mocks/regions';
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
@@ -18,6 +19,7 @@ export default function SearchPage() {
   const [filters, setFilters] = useState({
     category: initialCategory,
     location: '',
+    region: '',
     minRating: undefined as number | undefined,
     verified: false,
     sortBy: 'rating' as 'rating' | 'newest',
@@ -31,6 +33,7 @@ export default function SearchPage() {
   const { data, isLoading, error } = useSpecialists({
     category: (filters.category || undefined) as SpecialistCategory | undefined,
     location: filters.location || undefined,
+    region: filters.region || undefined,
     minRating: filters.minRating,
     verified: filters.verified || undefined,
     sortBy: filters.sortBy,
@@ -85,14 +88,20 @@ export default function SearchPage() {
                 <select
                   aria-label={t('filters.selectLocation')}
                   className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  value={filters.location}
-                  onChange={(e) => updateFilters({ location: e.target.value })}
+                  value={filters.region || ''}
+                  onChange={(e) => updateFilters({ region: e.target.value, location: '' })}
                 >
                   <option value="">{t('filters.allLocations')}</option>
-                  <option value="Praha">Praha</option>
-                  <option value="Brno">Brno</option>
-                  <option value="Ostrava">Ostrava</option>
-                  <option value="Plzeň">Plzeň</option>
+                  <optgroup label="Česká republika">
+                    {regions.filter(r => r.country === 'CZ').map(r => (
+                      <option key={r.id} value={r.id}>{r.name}</option>
+                    ))}
+                  </optgroup>
+                  <optgroup label="Slovensko">
+                    {regions.filter(r => r.country === 'SK').map(r => (
+                      <option key={r.id} value={r.id}>{r.name}</option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
 

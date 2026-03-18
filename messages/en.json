@@ -315,6 +315,14 @@
       "title": "Simple and transparent pricing",
       "subtitle": "Choose the plan that best suits your needs. Get started right away — no hidden fees."
     },
+    "forClients": {
+      "title": "Free for clients",
+      "description": "Searching and contacting specialists is completely free for clients. No hidden fees."
+    },
+    "forSpecialists": {
+      "badge": "For specialists",
+      "title": "Choose a plan for your practice"
+    },
     "plans": {
       "monthly": {
         "name": "Monthly membership",
@@ -1087,6 +1095,12 @@
     "web": "Website:",
     "linkedin": "LinkedIn profile",
     "specialistResponse": "Specialist's response:",
+    "socialLinks": "Social media",
+    "trustSignals": "Why choose this specialist",
+    "yearsExp": "Years experience",
+    "reviewsLabel": "Reviews",
+    "avgRating": "Rating",
+    "verifiedSpecialist": "Verified",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Specialist profile {name} - {category} in {location}."

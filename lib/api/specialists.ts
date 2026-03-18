@@ -4,6 +4,7 @@ import type { SpecialistCategory } from '@/types/specialist';
 export interface SpecialistFilters {
   category?: SpecialistCategory;
   location?: string;
+  region?: string;
   minRating?: number;
   verified?: boolean;
   sortBy?: 'rating' | 'newest';
