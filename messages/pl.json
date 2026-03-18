@@ -753,6 +753,14 @@
         "linkedin": "LinkedIn",
         "linkedinPlaceholder": "https://linkedin.com/in/twoj-profil"
       },
+      "gallery": {
+        "title": "Galeria mediów",
+        "description": "Dodaj zdjęcia i filmy do swojego profilu",
+        "addVideo": "Dodaj wideo (YouTube / Vimeo)",
+        "add": "Dodaj",
+        "saved": "Galeria została zapisana",
+        "saveError": "Nie udało się zapisać galerii"
+      },
       "save": "Zapisz zmiany",
       "saving": "Zapisuję...",
       "loadError": "Nie udało się załadować profilu",
@@ -1101,6 +1109,7 @@
     "reviewsLabel": "Opinii",
     "avgRating": "Ocena",
     "verifiedSpecialist": "Zweryfikowany",
+    "gallery": "Galeria",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil specjalisty {name} — {category} w {location}."

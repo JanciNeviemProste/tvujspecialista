@@ -11,6 +11,20 @@ import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import type { Review } from '@/types/review';
 
+function getVideoEmbedUrl(url: string): string {
+  // YouTube
+  const ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
+  if (ytMatch) {
+    return `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?modestbranding=1&rel=0&showinfo=0&color=white`;
+  }
+  // Vimeo
+  const vimeoMatch = url.match(/vimeo\.com\/(\d+)/);
+  if (vimeoMatch) {
+    return `https://player.vimeo.com/video/${vimeoMatch[1]}?title=0&byline=0&portrait=0`;
+  }
+  return url;
+}
+
 export default function SpecialistDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const { data: specialist, isLoading, error } = useSpecialist(slug);
@@ -170,6 +184,48 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                 )}
               </div>
             </div>
+
+            {/* Media Gallery */}
+            {specialist.mediaGallery && specialist.mediaGallery.length > 0 && (
+              <div className="rounded-lg border bg-white dark:bg-card p-8">
+                <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-foreground">{t('gallery')}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {specialist.mediaGallery.map((item, index) => (
+                    item.type === 'video' ? (
+                      <div key={index} className="relative aspect-video col-span-2 sm:col-span-2 overflow-hidden rounded-xl bg-gray-900">
+                        <iframe
+                          src={getVideoEmbedUrl(item.url)}
+                          className="absolute inset-0 h-full w-full"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          title={item.caption || 'Video'}
+                        />
+                        {item.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                            <p className="text-sm text-white">{item.caption}</p>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div key={index} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100">
+                        <Image
+                          src={item.url}
+                          alt={item.caption || `Photo ${index + 1}`}
+                          fill
+                          sizes="(max-width: 640px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        {item.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
+                            <p className="text-sm text-white">{item.caption}</p>
+                          </div>
+                        )}
+                      </div>
+                    )
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (

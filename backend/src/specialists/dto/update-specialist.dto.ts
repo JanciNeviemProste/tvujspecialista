@@ -4,7 +4,23 @@ import {
   IsArray,
   IsUrl,
   MinLength,
+  ValidateNested,
+  IsIn,
 } from 'class-validator';
+import { Type } from 'class-transformer';
+
+export class MediaGalleryItemDto {
+  @IsString()
+  @IsIn(['image', 'video'])
+  type: string;
+
+  @IsString()
+  url: string;
+
+  @IsOptional()
+  @IsString()
+  caption?: string;
+}
 
 export class UpdateSpecialistDto {
   @IsOptional()
@@ -47,4 +63,15 @@ export class UpdateSpecialistDto {
   @IsArray()
   @IsString({ each: true })
   availability?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  regions?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => MediaGalleryItemDto)
+  mediaGallery?: MediaGalleryItemDto[];
 }

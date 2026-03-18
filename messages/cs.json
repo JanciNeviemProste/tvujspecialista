@@ -753,6 +753,14 @@
         "linkedin": "LinkedIn",
         "linkedinPlaceholder": "https://linkedin.com/in/vas-profil"
       },
+      "gallery": {
+        "title": "Galerie médií",
+        "description": "Přidejte fotky a videa do svého profilu",
+        "addVideo": "Přidat video (YouTube / Vimeo)",
+        "add": "Přidat",
+        "saved": "Galerie byla uložena",
+        "saveError": "Nepodařilo se uložit galerii"
+      },
       "save": "Uložit změny",
       "saving": "Ukládám...",
       "loadError": "Nepodařilo se načíst profil",
@@ -1101,6 +1109,7 @@
     "reviewsLabel": "Recenzí",
     "avgRating": "Hodnocení",
     "verifiedSpecialist": "Ověřený",
+    "gallery": "Galerie",
     "metadata": {
       "title": "{name} | tvujspecialista.cz",
       "description": "Profil specialisty {name} - {category} v {location}."

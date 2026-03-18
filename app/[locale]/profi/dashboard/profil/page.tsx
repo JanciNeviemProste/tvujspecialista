@@ -15,6 +15,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Play, X } from 'lucide-react';
 import type { Specialist } from '@/types/specialist';
 
 const profileSchema = z.object({
@@ -42,6 +43,8 @@ export default function ProfileEditPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
+  const [mediaItems, setMediaItems] = useState<Array<{ type: 'image' | 'video'; url: string; caption?: string }>>([]);
+  const [videoUrl, setVideoUrl] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -72,6 +75,7 @@ export default function ProfileEditPage() {
         const { data } = await specialistsApi.getMyProfile();
         const specialist = data as Specialist;
         if (specialist.photo) setPhotoUrl(specialist.photo);
+        setMediaItems(specialist.mediaGallery || []);
         reset({
           name: specialist.name || '',
           phone: specialist.phone || '',
@@ -161,6 +165,29 @@ export default function ProfileEditPage() {
       toast.error(t('saveError'));
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const addVideoItem = () => {
+    if (!videoUrl.trim()) return;
+    const updated = [...mediaItems, { type: 'video' as const, url: videoUrl.trim() }];
+    setMediaItems(updated);
+    setVideoUrl('');
+    saveMediaGallery(updated);
+  };
+
+  const removeMediaItem = (index: number) => {
+    const updated = mediaItems.filter((_, i) => i !== index);
+    setMediaItems(updated);
+    saveMediaGallery(updated);
+  };
+
+  const saveMediaGallery = async (items: typeof mediaItems) => {
+    try {
+      await specialistsApi.updateProfile({ mediaGallery: items });
+      toast.success(t('gallery.saved'));
+    } catch {
+      toast.error(t('gallery.saveError'));
     }
   };
 
@@ -360,6 +387,66 @@ export default function ProfileEditPage() {
                     placeholder="https://instagram.com/vasprofi"
                     {...register('instagram')}
                   />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Media Gallery */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xl">{t('gallery.title')}</CardTitle>
+              <CardDescription>{t('gallery.description')}</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Existing media grid */}
+              {mediaItems.length > 0 && (
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {mediaItems.map((item, index) => (
+                    <div key={index} className="group relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+                      {item.type === 'image' ? (
+                        <Image src={item.url} alt={item.caption || ''} fill className="object-cover" sizes="200px" />
+                      ) : (
+                        <div className="flex h-full items-center justify-center bg-gray-900 text-white">
+                          <Play className="h-8 w-8" />
+                        </div>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => removeMediaItem(index)}
+                        className="absolute top-2 right-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100 hover:bg-red-600"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
+                      {item.caption && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-2">
+                          <p className="text-xs text-white truncate">{item.caption}</p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Add video URL */}
+              <div className="space-y-2">
+                <label className="block text-sm font-medium text-gray-700">{t('gallery.addVideo')}</label>
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    placeholder="https://youtube.com/watch?v=... alebo https://vimeo.com/..."
+                    value={videoUrl}
+                    onChange={(e) => setVideoUrl(e.target.value)}
+                  />
+                  <button
+                    type="button"
+                    onClick={addVideoItem}
+                    disabled={!videoUrl.trim()}
+                    className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                  >
+                    {t('gallery.add')}
+                  </button>
                 </div>
               </div>
             </CardContent>
