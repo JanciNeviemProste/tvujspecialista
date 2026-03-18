@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
-import { Globe, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import { SpecialistJsonLd } from '@/components/seo/JsonLd';
@@ -403,18 +403,6 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                       <span className="text-gray-600">{t('availability')}</span>
                       <p className="font-medium text-gray-900">
                         {specialist.availability.join(', ')}
-                      </p>
-                    </div>
-                  )}
-                  {specialist.website && (
-                    <div>
-                      <span className="text-gray-600">{t('website')}</span>
-                      <p>
-                        <a href={specialist.website} target="_blank" rel="noopener noreferrer"
-                           className="font-medium text-blue-600 hover:underline">
-                          <Globe className="mr-1 inline h-4 w-4" />
-                          {specialist.website.replace(/^https?:\/\//, '')}
-                        </a>
                       </p>
                     </div>
                   )}
