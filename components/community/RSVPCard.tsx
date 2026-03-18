@@ -12,7 +12,6 @@ import { EventFormat } from '@/types/community'
 
 interface RSVPCardProps {
   rsvp: RSVP
-  onConfirm?: (id: string) => void
   onCancel?: (id: string) => void
   className?: string
 }
@@ -27,7 +26,7 @@ function getRSVPStatusVariant(status: RSVPStatus): 'default' | 'success' | 'dest
   return variants[status]
 }
 
-export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps) {
+export function RSVPCard({ rsvp, onCancel, className }: RSVPCardProps) {
   const t = useTranslations('community')
 
   const rsvpStatusLabels: Record<RSVPStatus, string> = {
@@ -42,7 +41,6 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
   }
 
   const { event } = rsvp
-  const isPending = rsvp.status === RSVPStatus.PENDING
   const isCancelled = rsvp.status === RSVPStatus.CANCELLED
   const isConfirmed = rsvp.status === RSVPStatus.CONFIRMED
   const isAttended = rsvp.status === RSVPStatus.ATTENDED
@@ -110,18 +108,8 @@ export function RSVPCard({ rsvp, onConfirm, onCancel, className }: RSVPCardProps
             </Link>
           </Button>
 
-          {/* Confirm/Cancel actions */}
-          {isPending && onConfirm && (
-            <Button
-              variant="premium"
-              className="w-full bg-amber-500 hover:bg-amber-600"
-              onClick={() => onConfirm(rsvp.id)}
-            >
-              {t('rsvp.confirmAttendance')}
-            </Button>
-          )}
-
-          {(isPending || isConfirmed) && onCancel && !isCancelled && (
+          {/* Cancel action */}
+          {isConfirmed && onCancel && !isCancelled && (
             <Button
               variant="ghost"
               className="w-full text-red-600 hover:text-red-600 hover:bg-red-50"

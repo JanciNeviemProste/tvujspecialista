@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
-import { Linkedin, Facebook, Instagram, Globe, ShieldCheck } from 'lucide-react';
+import { Globe, ShieldCheck } from 'lucide-react';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import type { Review } from '@/types/review';
@@ -348,39 +348,16 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                       </p>
                     </div>
                   )}
-                  {(specialist.linkedin || specialist.facebook || specialist.instagram || specialist.website) && (
+                  {specialist.website && (
                     <div>
-                      <h4 className="mb-3 text-sm font-semibold text-gray-900 dark:text-foreground">{t('socialLinks')}</h4>
-                      <div className="flex gap-3">
-                        {specialist.linkedin && (
-                          <a href={specialist.linkedin} target="_blank" rel="noopener noreferrer"
-                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-blue-100 hover:text-blue-700 hover:-translate-y-0.5"
-                             aria-label="LinkedIn">
-                            <Linkedin className="h-5 w-5" />
-                          </a>
-                        )}
-                        {specialist.facebook && (
-                          <a href={specialist.facebook} target="_blank" rel="noopener noreferrer"
-                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-blue-100 hover:text-blue-700 hover:-translate-y-0.5"
-                             aria-label="Facebook">
-                            <Facebook className="h-5 w-5" />
-                          </a>
-                        )}
-                        {specialist.instagram && (
-                          <a href={specialist.instagram} target="_blank" rel="noopener noreferrer"
-                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-pink-100 hover:text-pink-600 hover:-translate-y-0.5"
-                             aria-label="Instagram">
-                            <Instagram className="h-5 w-5" />
-                          </a>
-                        )}
-                        {specialist.website && (
-                          <a href={specialist.website} target="_blank" rel="noopener noreferrer"
-                             className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-all hover:bg-green-100 hover:text-green-700 hover:-translate-y-0.5"
-                             aria-label="Web">
-                            <Globe className="h-5 w-5" />
-                          </a>
-                        )}
-                      </div>
+                      <span className="text-gray-600">{t('website')}</span>
+                      <p>
+                        <a href={specialist.website} target="_blank" rel="noopener noreferrer"
+                           className="font-medium text-blue-600 hover:underline">
+                          <Globe className="mr-1 inline h-4 w-4" />
+                          {specialist.website.replace(/^https?:\/\//, '')}
+                        </a>
+                      </p>
                     </div>
                   )}
                 </div>

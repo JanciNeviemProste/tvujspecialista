@@ -125,18 +125,3 @@ export function useCancelRSVP() {
   });
 }
 
-export function useConfirmRSVP() {
-  const t = useTranslations('community');
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: (rsvpId: string) => communityApi.confirmRSVP(rsvpId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.community.myRSVPs });
-      queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
-      toast.success(t('toasts.rsvpConfirmed'));
-    },
-    onError: (error: Error) => {
-      toast.error(error.message || t('toasts.rsvpConfirmError'));
-    },
-  });
-}

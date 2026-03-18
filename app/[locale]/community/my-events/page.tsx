@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from '@/i18n/routing'
 import { Link } from '@/i18n/routing'
-import { useMyRSVPs, useCancelRSVP, useConfirmRSVP } from '@/lib/hooks/useCommunity'
+import { useMyRSVPs, useCancelRSVP } from '@/lib/hooks/useCommunity'
 import { getErrorMessage } from '@/lib/utils/error'
 import { RSVPCard } from '@/components/community/RSVPCard'
 import { RSVPsGridSkeleton } from '@/components/community/LoadingStates'
@@ -19,7 +19,6 @@ export default function MyEventsPage() {
   const { isAuthenticated, isLoading: authLoading } = useAuth()
   const { data: myRSVPs, isLoading, error } = useMyRSVPs()
   const cancelMutation = useCancelRSVP()
-  const confirmMutation = useConfirmRSVP()
 
   const [activeTab, setActiveTab] = useState('registered')
   const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
@@ -41,15 +40,6 @@ export default function MyEventsPage() {
       router.push('/profi/prihlaseni')
     }
   }, [isAuthenticated, authLoading, router])
-
-  const handleConfirm = async (rsvpId: string) => {
-    try {
-      await confirmMutation.mutateAsync(rsvpId)
-    } catch (error) {
-      console.error('Failed to confirm RSVP:', error)
-      setToastMessage({ type: 'error', message: getErrorMessage(error) })
-    }
-  }
 
   const handleCancel = async (rsvpId: string) => {
     if (!window.confirm(t('cancelConfirm'))) {
@@ -159,7 +149,6 @@ export default function MyEventsPage() {
                       <RSVPCard
                         key={rsvp.id}
                         rsvp={rsvp}
-                        onConfirm={handleConfirm}
                         onCancel={handleCancel}
                       />
                     ))}

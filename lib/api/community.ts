@@ -37,9 +37,6 @@ export const communityApi = {
   getMyRSVPs: () =>
     apiClient.get<RSVP[]>('/community/rsvps/my'),
 
-  confirmRSVP: (id: string) =>
-    apiClient.patch(`/community/rsvps/${id}/confirm`),
-
   cancelRSVP: (id: string) =>
     apiClient.patch(`/community/rsvps/${id}/cancel`),
 

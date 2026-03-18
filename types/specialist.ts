@@ -26,6 +26,7 @@ export interface Specialist {
   instagram?: string
   videoUrl?: string
   regions?: string[]
+  mediaGallery?: Array<{ type: 'image' | 'video'; url: string; caption?: string }>
   availability: string[]
   subscriptionTier: SubscriptionTier
   createdAt: Date
