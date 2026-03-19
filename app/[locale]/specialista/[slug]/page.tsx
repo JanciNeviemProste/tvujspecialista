@@ -188,46 +188,59 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             </div>
 
             {/* Media Gallery */}
-            {specialist.mediaGallery && specialist.mediaGallery.length > 0 && (
-              <div className="rounded-lg border bg-white dark:bg-card p-8">
-                <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-foreground">{t('gallery')}</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  {specialist.mediaGallery.map((item, index) => (
-                    item.type === 'video' ? (
-                      <div key={index} className="relative aspect-video col-span-2 sm:col-span-2 overflow-hidden rounded-xl bg-gray-900">
-                        <iframe
-                          src={getVideoEmbedUrl(item.url)}
-                          className="absolute inset-0 h-full w-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          title={item.caption || 'Video'}
-                        />
-                        {item.caption && (
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                            <p className="text-sm text-white">{item.caption}</p>
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <div key={index} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100">
-                        <Image
-                          src={item.url}
-                          alt={item.caption || `Photo ${index + 1}`}
-                          fill
-                          sizes="(max-width: 640px) 50vw, 33vw"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                        {item.caption && (
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
-                            <p className="text-sm text-white">{item.caption}</p>
-                          </div>
-                        )}
-                      </div>
-                    )
-                  ))}
+            {specialist.mediaGallery && specialist.mediaGallery.length > 0 && (() => {
+              const photos = specialist.mediaGallery.filter((item: { type: string }) => item.type === 'image');
+              const videos = specialist.mediaGallery.filter((item: { type: string }) => item.type === 'video');
+              return (
+                <div className="rounded-lg border bg-white dark:bg-card p-8">
+                  <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-foreground">{t('gallery')}</h2>
+
+                  {/* Photos grid — 3 columns */}
+                  {photos.length > 0 && (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
+                      {photos.map((item: { url: string; caption?: string }, index: number) => (
+                        <div key={`photo-${index}`} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100">
+                          <Image
+                            src={item.url}
+                            alt={item.caption || `Photo ${index + 1}`}
+                            fill
+                            sizes="(max-width: 640px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                          {item.caption && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">
+                              <p className="text-sm text-white">{item.caption}</p>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Videos — full width, stacked */}
+                  {videos.length > 0 && (
+                    <div className="space-y-4">
+                      {videos.map((item: { url: string; caption?: string }, index: number) => (
+                        <div key={`video-${index}`} className="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-900">
+                          <iframe
+                            src={getVideoEmbedUrl(item.url)}
+                            className="absolute inset-0 h-full w-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            title={item.caption || 'Video'}
+                          />
+                          {item.caption && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4">
+                              <p className="text-sm font-medium text-white">{item.caption}</p>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
+              );
+            })()}
 
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (
@@ -401,9 +414,13 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                   {specialist.availability && specialist.availability.length > 0 && (
                     <div>
                       <span className="text-gray-600">{t('availability')}</span>
-                      <p className="font-medium text-gray-900">
-                        {specialist.availability.join(', ')}
-                      </p>
+                      <div className="mt-1 space-y-1">
+                        {specialist.availability.map((slot: string, i: number) => (
+                          <p key={i} className="font-medium text-gray-900 dark:text-foreground text-xs">
+                            {slot}
+                          </p>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
