@@ -78,7 +78,7 @@ export const mockSpecialists: Specialist[] = [
       { type: 'image' as const, url: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=600&fit=crop', caption: 'Konzultácia s klientom' },
       { type: 'image' as const, url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=600&fit=crop', caption: 'Analýza investičního portfolia' },
       { type: 'video' as const, url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', caption: 'Ako si vybrať správnu investičnú stratégiu' },
-      { type: 'image' as const, url: 'https://images.unsplash.com/photo-1553729459-afe8f2e2ed65?w=600&h=600&fit=crop', caption: 'Finanční workshop Praha 2025' },
+      { type: 'image' as const, url: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=600&fit=crop', caption: 'Finanční workshop Praha 2025' },
       { type: 'image' as const, url: 'https://images.unsplash.com/photo-1591696205602-2f950c417cb9?w=600&h=600&fit=crop', caption: 'Tímová porada' },
       { type: 'image' as const, url: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=600&fit=crop', caption: 'Podpísanie zmluvy s klientom' },
     ],
