@@ -34,7 +34,7 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
           alt={specialist.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         {/* Badges overlaid on photo */}
         <div className="absolute top-3 left-3 flex gap-2">
