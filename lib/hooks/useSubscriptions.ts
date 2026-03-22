@@ -39,13 +39,9 @@ export function useCreateCheckout(type: SubscriptionType) {
       }
       return response.data;
     },
-    onSuccess: async (data: { sessionId?: string; url?: string }) => {
-      // Use the checkout URL directly from the session (Stripe.js v8+)
+    onSuccess: (data: { url: string }) => {
       if (data.url) {
         window.location.href = data.url;
-      } else if (data.sessionId) {
-        // Fallback for older implementation
-        window.location.href = `https://checkout.stripe.com/c/pay/${data.sessionId}`;
       }
     },
     onError: (error: Error) => {

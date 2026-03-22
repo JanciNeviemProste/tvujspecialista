@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
+import { useAuth } from '@/contexts/AuthContext';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations, useLocale } from 'next-intl';
@@ -43,6 +44,7 @@ export default function RegistrationPage() {
   const tValidation = useTranslations('common.validation');
   const locale = useLocale();
   const router = useRouter();
+  const { login } = useAuth();
   const [error, setError] = useState('');
 
   const {
@@ -61,7 +63,7 @@ export default function RegistrationPage() {
     setError('');
 
     try {
-      const response = await authApi.register({
+      await authApi.register({
         name: data.name,
         email: data.email,
         phone: data.phone,
@@ -73,16 +75,11 @@ export default function RegistrationPage() {
         locale,
       });
 
-      // Save tokens to localStorage (registration is always persistent)
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('accessToken', response.data.accessToken);
-        localStorage.setItem('refreshToken', response.data.refreshToken);
-      }
-
       toast.success(t('successToast'));
 
-      // Full page navigation to ensure AuthProvider re-initializes with new tokens
-      window.location.href = '/profi/dashboard';
+      // After successful registration, login properly through AuthContext
+      await login({ email: data.email, password: data.password });
+      router.push('/profi/dashboard');
     } catch (err: unknown) {
       setError(getErrorMessage(err));
     }

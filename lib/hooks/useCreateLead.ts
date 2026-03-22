@@ -11,7 +11,7 @@ export function useCreateLead() {
   return useMutation({
     mutationFn: (data: LeadFormData) => leadsApi.create(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.leads.my });
+      queryClient.invalidateQueries({ queryKey: queryKeys.deals.my });
       toast.success(t('toasts.created'));
     },
     onError: () => {

@@ -39,7 +39,7 @@ export class SubscriptionsService {
 
   async createEducationCheckout(
     userId: string,
-  ): Promise<{ sessionId: string }> {
+  ): Promise<{ url: string }> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -78,12 +78,12 @@ export class SubscriptionsService {
       },
     });
 
-    return { sessionId: session.id };
+    return { url: session.url };
   }
 
   async createMarketplaceCheckout(
     userId: string,
-  ): Promise<{ sessionId: string }> {
+  ): Promise<{ url: string }> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -131,10 +131,10 @@ export class SubscriptionsService {
       },
     });
 
-    return { sessionId: session.id };
+    return { url: session.url };
   }
 
-  async createPremiumCheckout(userId: string): Promise<{ sessionId: string }> {
+  async createPremiumCheckout(userId: string): Promise<{ url: string }> {
     const user = await this.userRepository.findOne({ where: { id: userId } });
     if (!user) {
       throw new NotFoundException('User not found');
@@ -177,7 +177,7 @@ export class SubscriptionsService {
       },
     });
 
-    return { sessionId: session.id };
+    return { url: session.url };
   }
 
   async findByUserId(userId: string): Promise<Subscription[]> {
@@ -347,7 +347,7 @@ export class SubscriptionsService {
       case SubscriptionType.MARKETPLACE:
         return this.configService.get('STRIPE_MARKETPLACE_PRICE_ID')!;
       case SubscriptionType.PREMIUM:
-        return this.configService.get('STRIPE_PREMIUM_SUBSCRIPTION_PRICE_ID')!;
+        return this.configService.get('STRIPE_PREMIUM_PRICE_ID')!;
       default:
         throw new BadRequestException('Invalid subscription type');
     }

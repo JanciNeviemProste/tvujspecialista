@@ -151,7 +151,6 @@ export function DealDetailModal({
               <button
                 onClick={() => {
                   onChangeStatus(deal, DealStatus.CONTACTED);
-                  onClose();
                 }}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
               >

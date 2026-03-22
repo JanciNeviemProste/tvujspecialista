@@ -27,7 +27,6 @@ export function useUpdateDealStatus() {
     mutationFn: ({ id, data }: { id: string; data: UpdateDealStatusDto }) =>
       dealsApi.updateDealStatus(id, data).then((res) => res.data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
       toast.success(t('toasts.statusUpdated'));
     },
     onError: (error: unknown) => {
@@ -35,6 +34,9 @@ export function useUpdateDealStatus() {
       const message =
         apiError?.response?.data?.message || t('toasts.statusUpdateError');
       toast.error(message);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
     },
   });
 }

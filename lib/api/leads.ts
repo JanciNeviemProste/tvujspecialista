@@ -19,7 +19,7 @@ export type LeadStatus = 'new' | 'contacted' | 'qualified' | 'closed_won' | 'clo
 
 export const leadsApi = {
   create: (data: LeadFormData) =>
-    apiClient.post('/leads', data),
+    apiClient.post('/deals', data),
 
   getMyLeads: (filters: LeadFilters = {}) =>
     apiClient.get('/leads/my', { params: filters }),
