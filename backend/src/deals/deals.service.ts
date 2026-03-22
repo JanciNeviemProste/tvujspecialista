@@ -7,6 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
+import * as Sentry from '@sentry/nestjs';
 import { Deal, DealStatus } from '../database/entities/deal.entity';
 import {
   LeadEvent,
@@ -62,17 +63,33 @@ export class DealsService {
       leadsThisMonth: specialist.leadsThisMonth + 1,
     });
 
-    await this.emailService.sendNewLeadNotification(
-      specialist.email,
-      specialist.name,
-      createDealDto,
-    );
+    try {
+      await this.emailService.sendNewLeadNotification(
+        specialist.email,
+        specialist.name,
+        createDealDto,
+      );
 
-    await this.emailService.sendLeadConfirmation(
-      createDealDto.customerEmail,
-      createDealDto.customerName,
-      specialist.name,
-    );
+      await this.emailService.sendLeadConfirmation(
+        createDealDto.customerEmail,
+        createDealDto.customerName,
+        specialist.name,
+      );
+    } catch (error) {
+      this.logger.error(
+        `Failed to send deal creation emails for deal ${savedDeal.id}, specialist ${specialist.id}:`,
+        error,
+      );
+      Sentry.captureException(error, {
+        tags: { module: 'deals', operation: 'create-email' },
+        extra: {
+          dealId: savedDeal.id,
+          specialistId: specialist.id,
+          customerEmail: createDealDto.customerEmail,
+        },
+      });
+      // Don't block deal creation if email fails
+    }
 
     // Real-time notification
     const specialistWithUser = await this.specialistRepository.findOne({
@@ -239,7 +256,14 @@ export class DealsService {
         );
       }
     } catch (error) {
-      this.logger.error('Failed to send status change email:', error);
+      this.logger.error(
+        `Failed to send status change email for deal ${dealId}, specialist ${specialist.id}:`,
+        error,
+      );
+      Sentry.captureException(error, {
+        tags: { module: 'deals', operation: 'status-change-email' },
+        extra: { dealId, specialistId: specialist.id, oldStatus, newStatus: updateDto.status },
+      });
       // Don't block the update if email fails
     }
 

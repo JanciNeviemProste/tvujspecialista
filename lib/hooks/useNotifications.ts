@@ -28,6 +28,18 @@ export function useNotifications() {
     const newSocket = io(`${wsUrl}/notifications`, {
       query: { userId: user.id },
       transports: ['websocket', 'polling'],
+      reconnection: true,
+      reconnectionAttempts: 10,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 30000,
+    });
+
+    newSocket.on('reconnect', (attemptNumber: number) => {
+      console.info(`Reconnected after ${attemptNumber} attempts`);
+    });
+
+    newSocket.on('reconnect_failed', () => {
+      toast.error('Pripojenie k notifikáciám zlyhalo. Obnovte stránku.');
     });
 
     newSocket.on('new_lead', (data: Record<string, unknown>) => {

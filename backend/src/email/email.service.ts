@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Resend } from 'resend';
+import * as Sentry from '@sentry/nestjs';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -156,6 +157,10 @@ export class EmailService {
       });
     } catch (error) {
       this.logger.error('Error sending email:', error);
+      Sentry.captureException(error, {
+        tags: { module: 'email', operation: 'send' },
+        extra: { recipient: to, subject },
+      });
     }
   }
 

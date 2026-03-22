@@ -86,6 +86,21 @@ apiClient.interceptors.response.use(
       }
     }
 
+    // Enrich error with user-friendly message
+    if (!error.response) {
+      // Network error — no response received
+      error.userMessage = 'Chyba pripojenia. Skontrolujte internetové pripojenie.';
+    } else if (error.response.status >= 500) {
+      // Server error
+      error.userMessage = 'Chyba servera. Skúste to znova neskôr.';
+    } else if (error.response.status === 422 || error.response.status === 400) {
+      // Validation error — use server message if available
+      error.userMessage = error.response.data?.message || 'Neplatné údaje.';
+    } else if (error.response.status === 429) {
+      // Rate limited
+      error.userMessage = 'Príliš veľa požiadaviek. Počkajte chvíľu.';
+    }
+
     return Promise.reject(error);
   }
 );

@@ -64,10 +64,17 @@ const nextConfig = {
   },
 }
 
+// Note: Source maps are uploaded to Sentry when SENTRY_AUTH_TOKEN is set.
+// Set this env var in Vercel dashboard for production source map support.
 export default withSentryConfig(withNextIntl(nextConfig), {
   // Suppresses source map uploading logs during build
   silent: true,
   // Upload source maps only when SENTRY_AUTH_TOKEN is set
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  widenClientFileUpload: true,
+  hideSourceMaps: true,
   disableServerWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
   disableClientWebpackPlugin: !process.env.SENTRY_AUTH_TOKEN,
 });
