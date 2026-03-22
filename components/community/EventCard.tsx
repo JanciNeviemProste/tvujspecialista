@@ -5,7 +5,7 @@ import { MapPin, Video, Calendar, Users, Clock } from 'lucide-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils/cn'
-import { formatDate } from '@/lib/utils/dateFormat'
+import { formatDatePattern as formatDate } from '@/lib/utils/format'
 
 interface EventCardProps {
   event: Event
@@ -47,7 +47,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
 
   return (
     <Link href={href} className={cn('block h-full', className)}>
-      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white dark:bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         {/* Banner */}
         <div className="relative aspect-[16/9] overflow-hidden">
           {event.bannerImage ? (

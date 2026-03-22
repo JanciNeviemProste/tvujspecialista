@@ -1,7 +1,7 @@
 'use client';
 
 import { use } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForumTopic, useCreatePost, useToggleLike, useDeletePost } from '@/lib/hooks/useForum';
@@ -13,7 +13,9 @@ import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Pin, Lock, Eye, MessageSquare } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 
 interface TopicDetailPageProps {
   params: Promise<{ category: string; topicId: string }>;
@@ -21,6 +23,7 @@ interface TopicDetailPageProps {
 
 export default function TopicDetailPage({ params }: TopicDetailPageProps) {
   const t = useTranslations('forum.topic');
+  const locale = useLocale();
   const { category, topicId } = use(params);
   const router = useRouter();
   const { user, isAuthenticated, isLoading: authLoading } = useAuth();
@@ -92,7 +95,7 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
           <span>
             {formatDistanceToNow(new Date(topic.createdAt), {
               addSuffix: true,
-              locale: sk,
+              locale: dateFnsLocaleMap[locale] || cs,
             })}
           </span>
           <div className="flex items-center gap-1">

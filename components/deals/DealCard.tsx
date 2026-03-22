@@ -1,12 +1,14 @@
 'use client';
 
 import { memo, useEffect, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { Mail, Phone, ArrowRight, Lock, Clock, TrendingDown } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { format } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 
 function getSuccessChance(createdAt: string): { percent: number; color: string; label: string } {
   const elapsed = Date.now() - new Date(createdAt).getTime();
@@ -47,6 +49,7 @@ function DealCardInner({
   className,
 }: DealCardProps) {
   const t = useTranslations('dashboard.deals');
+  const locale = useLocale();
 
   const isNew = deal.status === DealStatus.NEW;
 
@@ -128,7 +131,7 @@ function DealCardInner({
         {/* Created date */}
         <div className="text-xs text-gray-400 dark:text-gray-500">
           {t('card.created')}:{' '}
-          {format(new Date(deal.createdAt), 'd. MMM yyyy, HH:mm', { locale: sk })}
+          {format(new Date(deal.createdAt), 'd. MMM yyyy, HH:mm', { locale: dateFnsLocaleMap[locale] || cs })}
         </div>
       </div>
 

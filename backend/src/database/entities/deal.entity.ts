@@ -96,7 +96,7 @@ export class Deal {
   @JoinColumn({ name: 'specialistId' })
   specialist: Specialist;
 
-  @OneToMany(() => LeadEvent, (event) => event.lead)
+  @OneToMany(() => LeadEvent, (event) => event.lead, { cascade: true })
   events: LeadEvent[];
 
   @OneToOne(() => Commission, (commission) => commission.deal, {

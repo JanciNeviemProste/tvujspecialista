@@ -23,6 +23,7 @@ import { CreateCheckoutDto } from './dto/create-checkout.dto';
 export class StripeService {
   private readonly logger = new Logger(StripeService.name);
   private stripe: Stripe;
+  private processedEvents = new Set<string>();
 
   constructor(
     private configService: ConfigService,
@@ -114,6 +115,18 @@ export class StripeService {
       throw new BadRequestException(
         `Webhook signature verification failed: ${err instanceof Error ? err.message : 'Unknown error'}`,
       );
+    }
+
+    // Idempotency check: skip already-processed events
+    if (this.processedEvents.has(event.id)) {
+      this.logger.log(`Skipping already processed event: ${event.id}`);
+      return { received: true };
+    }
+    this.processedEvents.add(event.id);
+    // Keep only last 1000 events to prevent memory leak
+    if (this.processedEvents.size > 1000) {
+      const first = this.processedEvents.values().next().value;
+      if (first) this.processedEvents.delete(first);
     }
 
     switch (event.type) {

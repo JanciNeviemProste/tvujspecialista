@@ -1,5 +1,6 @@
 'use client';
 
+import { useLocale } from 'next-intl';
 import { Deal } from '@/types/deals';
 import { Mail, Phone, Calendar, DollarSign } from 'lucide-react';
 
@@ -8,6 +9,7 @@ interface DealInfoProps {
 }
 
 export function DealInfo({ deal }: DealInfoProps) {
+  const locale = useLocale();
   return (
     <>
       {/* Customer Information */}
@@ -64,7 +66,7 @@ export function DealInfo({ deal }: DealInfoProps) {
               <Calendar className="h-4 w-4 text-gray-400 dark:text-gray-500" />
               <span className="font-medium text-gray-900 dark:text-white">
                 {deal.estimatedCloseDate
-                  ? new Date(deal.estimatedCloseDate).toLocaleDateString('sk-SK')
+                  ? new Date(deal.estimatedCloseDate).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ')
                   : 'Nenastavene'}
               </span>
             </div>

@@ -14,6 +14,7 @@ import {
 } from '@nestjs/swagger';
 import { PaginationQueryDto } from '../common/dto/pagination-query.dto';
 import { UpdateSpecialistCrmDto } from './dto/update-specialist-crm.dto';
+import { PublishDto, UpdateStatusDto } from './dto/admin-action.dto';
 
 @ApiTags('Admin')
 @ApiBearerAuth()
@@ -95,9 +96,9 @@ export class AdminController {
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async publishCourse(
     @Param('id') id: string,
-    @Body('published') published: boolean,
+    @Body() body: PublishDto,
   ) {
-    return this.coursesService.publishAdmin(id, published);
+    return this.coursesService.publishAdmin(id, body.published);
   }
 
   @Get('courses/:id/enrollments')
@@ -123,9 +124,9 @@ export class AdminController {
   @ApiResponse({ status: 403, description: 'Forbidden - Admin role required' })
   async publishEvent(
     @Param('id') id: string,
-    @Body('published') published: boolean,
+    @Body() body: PublishDto,
   ) {
-    return this.eventsService.publishAdmin(id, published);
+    return this.eventsService.publishAdmin(id, body.published);
   }
 
   @Get('events/:id/attendees')
@@ -143,9 +144,9 @@ export class AdminController {
   @ApiResponse({ status: 400, description: 'Invalid status transition' })
   async updateRSVPStatus(
     @Param('id') id: string,
-    @Body('status') status: string,
+    @Body() body: UpdateStatusDto,
   ) {
-    return this.rsvpsService.updateStatusAdmin(id, status as any);
+    return this.rsvpsService.updateStatusAdmin(id, body.status as any);
   }
 
   @Post('users/:id/reset-password')

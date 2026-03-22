@@ -11,7 +11,16 @@ export function JsonLd({ data }: JsonLdProps) {
   );
 }
 
-export function OrganizationJsonLd() {
+const organizationDescriptions = {
+  cs: 'Najděte ověřeného finančního specialistu ve vašem okolí.',
+  sk: 'Nájdite overeného finančného špecialistu vo vašom okolí.',
+  en: 'Find a verified financial specialist in your area.',
+  pl: 'Znajdź zweryfikowanego specjalistę finansowego w Twojej okolicy.',
+};
+
+export function OrganizationJsonLd({ locale = 'cs' }: { locale?: string }) {
+  const description = organizationDescriptions[locale as keyof typeof organizationDescriptions] || organizationDescriptions.cs;
+
   return (
     <JsonLd
       data={{
@@ -20,12 +29,11 @@ export function OrganizationJsonLd() {
         name: 'TvujSpecialista.cz',
         url: 'https://tvujspecialista.cz',
         logo: 'https://tvujspecialista.cz/images/icon-512.png',
-        description:
-          'Marketplace pro hledání ověřených specialistů v oblasti financí a nemovitostí v ČR a SK.',
+        description,
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'customer service',
-          availableLanguage: ['Czech', 'Slovak'],
+          availableLanguage: ['Czech', 'Slovak', 'English', 'Polish'],
         },
       }}
     />

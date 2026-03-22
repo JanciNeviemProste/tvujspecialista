@@ -13,7 +13,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Calendar, MapPin, Video, Users, Clock, Tag, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { EventType, EventFormat, EventCategory } from '@/types/community'
-import { formatDate } from '@/lib/utils/dateFormat'
+import { formatDatePattern as formatDate } from '@/lib/utils/format'
 import { useAuth } from '@/contexts/AuthContext'
 
 export default function EventDetailPage() {

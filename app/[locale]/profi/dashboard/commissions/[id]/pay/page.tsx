@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { useParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useMyCommissions } from '@/lib/hooks/useCommissions';
 import { commissionsApi } from '@/lib/api/commissions';
 import { getErrorMessage } from '@/lib/utils/error';
@@ -13,7 +13,9 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, DollarSign, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { format } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { PaymentForm } from '@/components/commissions';
@@ -30,6 +32,7 @@ export default function CommissionPaymentPage() {
   const router = useRouter();
   const params = useParams();
   const commissionId = params.id as string;
+  const locale = useLocale();
   const { user, isLoading: authLoading } = useAuth();
   const { data: commissions, isLoading: commissionsLoading } = useMyCommissions();
 
@@ -188,7 +191,7 @@ export default function CommissionPaymentPage() {
             <div className="pt-4 border-t">
               <p className="text-sm text-muted-foreground">{t('dueDate')}</p>
               <p className="font-medium">
-                {format(new Date(commission.dueDate), 'd. MMMM yyyy', { locale: sk })}
+                {format(new Date(commission.dueDate), 'd. MMMM yyyy', { locale: dateFnsLocaleMap[locale] || cs })}
               </p>
             </div>
           </CardContent>

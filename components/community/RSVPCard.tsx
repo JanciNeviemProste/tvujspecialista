@@ -7,7 +7,7 @@ import { Calendar, MapPin, Video } from 'lucide-react'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils/cn'
-import { formatDate } from '@/lib/utils/dateFormat'
+import { formatDatePattern as formatDate } from '@/lib/utils/format'
 import { EventFormat } from '@/types/community'
 
 interface RSVPCardProps {

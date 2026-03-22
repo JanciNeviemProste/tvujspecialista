@@ -102,7 +102,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <p className="mt-8 text-sm text-gray-500">
-            Poslední aktualizace: {new Date().toLocaleDateString('cs-CZ')}
+            Poslední aktualizace: {new Date().toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ')}
           </p>
         </div>
       </div>

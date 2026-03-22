@@ -78,7 +78,7 @@ export default function DealsPage() {
   // Loading state
   if (authLoading || dealsLoading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-card">
         <div className="container mx-auto px-4 py-8">
           <div className="mb-8">
             <div className="h-8 w-48 bg-gray-200 rounded animate-pulse mb-2" />
@@ -95,7 +95,7 @@ export default function DealsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-card">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
@@ -105,15 +105,15 @@ export default function DealsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="p-4 rounded-lg border border-gray-200 bg-white">
+          <div className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-card">
             <p className="text-sm text-gray-500">{t('stats.total')}</p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
-          <div className="p-4 rounded-lg border border-gray-200 bg-white">
+          <div className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-card">
             <p className="text-sm text-gray-500">{t('stats.new')}</p>
             <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
           </div>
-          <div className="p-4 rounded-lg border border-gray-200 bg-white">
+          <div className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-card">
             <p className="text-sm text-gray-500">{t('stats.accepted')}</p>
             <p className="text-2xl font-bold text-emerald-600">{stats.accepted}</p>
           </div>

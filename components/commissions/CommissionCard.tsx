@@ -5,9 +5,12 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, DollarSign, AlertCircle, CheckCircle } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { cn } from '@/lib/utils/cn';
 import { format, isPast } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 
 interface CommissionCardProps {
   commission: Commission;
@@ -30,6 +33,7 @@ function formatCurrency(value: number): string {
 }
 
 export function CommissionCard({ commission, onPay, className }: CommissionCardProps) {
+  const locale = useLocale();
   const statusInfo = statusConfig[commission.status];
   const dueDate = new Date(commission.dueDate);
   const isOverdue = isPast(dueDate) && commission.status === CommissionStatus.PENDING;
@@ -84,7 +88,7 @@ export function CommissionCard({ commission, onPay, className }: CommissionCardP
               'font-medium',
               isOverdue && 'text-destructive'
             )}>
-              {format(dueDate, 'd. MMM yyyy', { locale: sk })}
+              {format(dueDate, 'd. MMM yyyy', { locale: dateFnsLocaleMap[locale] || cs })}
             </span>
             {isOverdue && (
               <AlertCircle className="h-4 w-4 text-destructive" />
@@ -96,7 +100,7 @@ export function CommissionCard({ commission, onPay, className }: CommissionCardP
               <CheckCircle className="h-4 w-4 text-success" />
               <span className="text-muted-foreground">Zaplatené:</span>
               <span className="font-medium">
-                {format(new Date(commission.paidAt), 'd. MMM yyyy', { locale: sk })}
+                {format(new Date(commission.paidAt), 'd. MMM yyyy', { locale: dateFnsLocaleMap[locale] || cs })}
               </span>
             </div>
           )}
@@ -106,7 +110,7 @@ export function CommissionCard({ commission, onPay, className }: CommissionCardP
               <Calendar className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground">Vyfakturované:</span>
               <span className="font-medium">
-                {format(new Date(commission.invoicedAt), 'd. MMM yyyy', { locale: sk })}
+                {format(new Date(commission.invoicedAt), 'd. MMM yyyy', { locale: dateFnsLocaleMap[locale] || cs })}
               </span>
             </div>
           )}

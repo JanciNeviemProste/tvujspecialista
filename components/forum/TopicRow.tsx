@@ -5,9 +5,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { MessageSquare, Eye, Pin, Lock } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { formatDistanceToNow } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
 import type { ForumTopic } from '@/types/forum';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 
 interface TopicRowProps {
   topic: ForumTopic;
@@ -15,6 +18,7 @@ interface TopicRowProps {
 }
 
 export function TopicRow({ topic, categorySlug }: TopicRowProps) {
+  const locale = useLocale();
   const authorInitials = topic.author.name
     .split(' ')
     .map((n) => n[0])
@@ -46,7 +50,7 @@ export function TopicRow({ topic, categorySlug }: TopicRowProps) {
                 {topic.author.name} &middot;{' '}
                 {formatDistanceToNow(new Date(topic.createdAt), {
                   addSuffix: true,
-                  locale: sk,
+                  locale: dateFnsLocaleMap[locale] || cs,
                 })}
               </p>
             </div>

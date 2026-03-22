@@ -87,7 +87,7 @@ export default function AdminForumPage() {
             key={cat.id}
             onClick={() => setSelectedCategory(cat.slug)}
             className={`rounded-lg border p-4 text-left transition-colors ${
-              selectedCategory === cat.slug ? 'border-primary bg-primary/5' : 'bg-white hover:border-gray-300'
+              selectedCategory === cat.slug ? 'border-primary bg-primary/5' : 'bg-white dark:bg-card hover:border-gray-300'
             }`}
           >
             <h3 className="font-semibold">{cat.name}</h3>
@@ -111,7 +111,7 @@ export default function AdminForumPage() {
           ) : topicsData?.topics && topicsData.topics.length > 0 ? (
             <div className="space-y-3">
               {topicsData.topics.map((topic: any) => (
-                <div key={topic.id} className="rounded-lg border bg-white p-4 flex items-center justify-between">
+                <div key={topic.id} className="rounded-lg border bg-white dark:bg-card p-4 flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       {topic.isPinned && <Pin className="h-3 w-3 text-primary" />}

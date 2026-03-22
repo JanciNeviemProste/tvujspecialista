@@ -1096,7 +1096,8 @@
       "submit": "Odeslat poptávku",
       "submitting": "Odesílání...",
       "success": "Poptávka odeslána!",
-      "successDesc": "Specialista vás brzy kontaktuje."
+      "successDesc": "Specialista vás brzy kontaktuje.",
+      "gdprConsent": "Souhlasím se zpracováním osobních údajů v souladu s GDPR."
     },
     "moreInfo": "Další informace",
     "availability": "Dostupnost:",
@@ -1554,7 +1555,10 @@
     "pricing": {
       "recommended": "Doporučujeme",
       "currentPlan": "Aktuální plán",
-      "loading": "Načítám..."
+      "loading": "Načítám...",
+      "currency": "Kč",
+      "perMonth": "/měsíc",
+      "perYear": "/rok"
     }
   },
   "errors": {

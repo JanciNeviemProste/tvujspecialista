@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { academyApi } from '@/lib/api/academy';
 import { adminApi } from '@/lib/api/admin';
@@ -212,6 +212,7 @@ function CourseFormModal({
 }
 
 function CourseEnrollments({ courseId }: { courseId: string }) {
+  const locale = useLocale();
   const { data, isLoading } = useQuery({
     queryKey: ['adminCourseEnrollments', courseId],
     queryFn: () => adminApi.getCourseEnrollments(courseId).then((res) => res.data),
@@ -251,19 +252,19 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
     <div className="border-t bg-gray-50">
       {/* Stats */}
       <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-white rounded-lg p-3 border text-center">
+        <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-blue-600">{enrollments.length}</div>
           <div className="text-xs text-gray-500">Celkom</div>
         </div>
-        <div className="bg-white rounded-lg p-3 border text-center">
+        <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-green-600">{active.length}</div>
           <div className="text-xs text-gray-500">Aktívnych</div>
         </div>
-        <div className="bg-white rounded-lg p-3 border text-center">
+        <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-purple-600">{completed.length}</div>
           <div className="text-xs text-gray-500">Dokončených</div>
         </div>
-        <div className="bg-white rounded-lg p-3 border text-center">
+        <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-amber-600">{avgProgress}%</div>
           <div className="text-xs text-gray-500">Priem. progres</div>
         </div>
@@ -310,7 +311,7 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
                   </div>
                 </td>
                 <td className="py-2 text-right text-gray-500">
-                  {enrollment.lastAccessedAt ? new Date(enrollment.lastAccessedAt).toLocaleDateString('sk-SK') : '—'}
+                  {enrollment.lastAccessedAt ? new Date(enrollment.lastAccessedAt).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ') : '—'}
                 </td>
               </tr>
             ))}
@@ -460,7 +461,7 @@ export default function AdminCoursesPage() {
           {courses.map((course: any) => {
             const isExpanded = expandedCourse === course.id;
             return (
-              <div key={course.id} className="rounded-lg border bg-white overflow-hidden">
+              <div key={course.id} className="rounded-lg border bg-white dark:bg-card overflow-hidden">
                 <div className="p-4 flex items-center justify-between">
                   <div className="flex-1 cursor-pointer" onClick={() => setExpandedCourse(isExpanded ? null : course.id)}>
                     <div className="flex items-center gap-2">

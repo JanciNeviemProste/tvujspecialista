@@ -97,7 +97,7 @@ function DroppableColumn({
       {/* Column header */}
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-lg text-gray-900">{label}</h3>
-        <span className="inline-flex items-center rounded-full border border-gray-300 bg-white px-2.5 py-0.5 text-xs font-medium text-gray-700">
+        <span className="inline-flex items-center rounded-full border border-gray-300 bg-white dark:bg-card px-2.5 py-0.5 text-xs font-medium text-gray-700">
           {dealCount}
         </span>
       </div>

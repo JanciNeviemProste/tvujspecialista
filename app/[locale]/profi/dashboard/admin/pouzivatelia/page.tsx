@@ -96,7 +96,7 @@ export default function AdminUsersPage() {
       {isLoading ? (
         <div className="space-y-4">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="animate-pulse rounded-lg border bg-white p-4">
+            <div key={i} className="animate-pulse rounded-lg border bg-white dark:bg-card p-4">
               <div className="flex items-center gap-4">
                 <div className="h-10 w-10 rounded-full bg-gray-200" />
                 <div className="flex-1 space-y-2">
@@ -108,7 +108,7 @@ export default function AdminUsersPage() {
           ))}
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-lg border bg-white">
+        <div className="overflow-x-auto rounded-lg border bg-white dark:bg-card">
           <table className="w-full text-sm">
             <thead className="border-b bg-gray-50">
               <tr>

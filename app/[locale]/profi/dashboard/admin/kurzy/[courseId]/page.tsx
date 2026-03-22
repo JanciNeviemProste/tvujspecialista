@@ -1,3 +1,4 @@
+// TODO: Split into CourseEditor, ModulesList, and LessonEditor sub-components
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
@@ -103,7 +104,7 @@ function LessonModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-      <div className="w-full max-w-lg bg-white rounded-xl shadow-2xl">
+      <div className="w-full max-w-lg bg-white dark:bg-card rounded-xl shadow-2xl">
         <div className="flex items-center justify-between p-5 border-b">
           <h3 className="text-lg font-bold">{isEdit ? 'Upraviť lekciu' : 'Nová lekcia'}</h3>
           <button onClick={onClose} className="p-2 rounded-md hover:bg-gray-100"><X className="h-4 w-4" /></button>
@@ -353,7 +354,7 @@ function LessonRow({
   const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <div className="border border-gray-200 rounded-lg bg-white">
+    <div className="border border-gray-200 rounded-lg bg-white dark:bg-card">
       <div className="flex items-center gap-3 px-4 py-3">
         <GripVertical className="h-4 w-4 text-gray-300 shrink-0" />
         {lesson.type === 'video' ? (
@@ -518,7 +519,7 @@ function ModuleSection({
   return (
     <div className="border border-gray-200 rounded-xl bg-gray-50 overflow-hidden">
       {/* Module header */}
-      <div className="flex items-center gap-3 px-5 py-4 bg-white border-b border-gray-100">
+      <div className="flex items-center gap-3 px-5 py-4 bg-white dark:bg-card border-b border-gray-100">
         <button onClick={() => setExpanded(!expanded)} className="p-1 rounded-md hover:bg-gray-100">
           <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${expanded ? '' : '-rotate-90'}`} />
         </button>
@@ -711,7 +712,7 @@ export default function CourseBuilderPage() {
       {modulesLoading ? (
         <div className="space-y-4">
           {[1, 2].map((i) => (
-            <div key={i} className="rounded-xl border border-gray-200 bg-white p-6 animate-pulse">
+            <div key={i} className="rounded-xl border border-gray-200 bg-white dark:bg-card p-6 animate-pulse">
               <div className="h-5 w-48 bg-gray-200 rounded mb-3" />
               <div className="h-4 w-32 bg-gray-100 rounded" />
             </div>

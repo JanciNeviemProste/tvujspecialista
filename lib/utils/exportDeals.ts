@@ -1,5 +1,5 @@
 import { Deal } from '@/types/deals';
-import { formatDate } from './dateFormat';
+import { formatDatePattern as formatDate } from './format';
 
 export function exportDealsToCSV(deals: Deal[], filename?: string) {
   if (deals.length === 0) {

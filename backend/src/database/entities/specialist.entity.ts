@@ -155,13 +155,13 @@ export class Specialist {
   @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
   totalCommissionPaid: number;
 
-  @OneToMany(() => Review, (review) => review.specialist)
+  @OneToMany(() => Review, (review) => review.specialist, { cascade: true })
   reviews: Review[];
 
-  @OneToMany(() => Lead, (lead) => lead.specialist)
+  @OneToMany(() => Lead, (lead) => lead.specialist, { cascade: true })
   leads: Lead[];
 
-  @OneToMany(() => Deal, (deal) => deal.specialist)
+  @OneToMany(() => Deal, (deal) => deal.specialist, { cascade: true })
   deals: Deal[];
 
   @OneToOne(() => User, { nullable: true })

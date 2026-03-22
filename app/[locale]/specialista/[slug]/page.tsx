@@ -1,7 +1,7 @@
 'use client';
 
 import { use, useState, FormEvent } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import Image from 'next/image';
@@ -32,12 +32,14 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
   const createLead = useCreateLead();
   const t = useTranslations('specialist');
   const tCommon = useTranslations('common');
+  const locale = useLocale();
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
     customerPhone: '',
     message: '',
   });
+  const [gdprConsent, setGdprConsent] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
@@ -51,7 +53,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
         customerEmail: formData.customerEmail,
         customerPhone: formData.customerPhone,
         message: formData.message,
-        gdprConsent: true,
+        gdprConsent,
       });
       setSubmitSuccess(true);
       setFormData({ customerName: '', customerEmail: '', customerPhone: '', message: '' });
@@ -107,7 +109,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
           {/* Main Content */}
           <div className="space-y-6 lg:col-span-2">
             {/* Profile Header */}
-            <div className="rounded-lg border bg-white p-8">
+            <div className="rounded-lg border bg-white dark:bg-card p-8">
               <div className="flex items-start gap-6">
                 <div className="relative h-44 w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
                   <Image
@@ -157,7 +159,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             </div>
 
             {/* About */}
-            <div className="rounded-lg border bg-white p-8">
+            <div className="rounded-lg border bg-white dark:bg-card p-8">
               <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('aboutMe')}</h2>
               <p className="leading-relaxed text-gray-700">{specialist.bio}</p>
             </div>
@@ -244,7 +246,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (
-              <div className="rounded-lg border bg-white p-8">
+              <div className="rounded-lg border bg-white dark:bg-card p-8">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('services')}</h2>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   {specialist.services.map((service: string, index: number) => (
@@ -269,7 +271,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* Credentials */}
             {(specialist.education || (specialist.certifications && specialist.certifications.length > 0)) && (
-              <div className="rounded-lg border bg-white p-8">
+              <div className="rounded-lg border bg-white dark:bg-card p-8">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('credentials')}</h2>
                 <div className="space-y-3">
                   {specialist.education && (
@@ -294,7 +296,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* Reviews */}
             {specialist.reviews && specialist.reviews.length > 0 && (
-              <div className="rounded-lg border bg-white p-8">
+              <div className="rounded-lg border bg-white dark:bg-card p-8">
                 <h2 className="mb-6 text-2xl font-bold text-gray-900">
                   {t('reviews', { count: specialist.reviews.length })}
                 </h2>
@@ -311,7 +313,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                           )}
                         </div>
                         <span className="text-sm text-gray-500">
-                          {new Date(review.createdAt).toLocaleDateString('cs-CZ')}
+                          {new Date(review.createdAt).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ')}
                         </span>
                       </div>
                       <div className="mb-2">
@@ -335,7 +337,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
           <div className="lg:col-span-1">
             <div className="sticky top-4 space-y-6">
               {/* Contact Card */}
-              <div className="rounded-lg border bg-white p-6">
+              <div className="rounded-lg border bg-white dark:bg-card p-6">
                 <h3 className="mb-4 text-lg font-bold text-gray-900">{t('contactSpecialist')}</h3>
 
                 {submitSuccess && (
@@ -397,9 +399,21 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     />
                   </div>
+                  <label className="flex items-start gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      required
+                      checked={gdprConsent}
+                      onChange={(e) => setGdprConsent(e.target.checked)}
+                      className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600"
+                    />
+                    <span className="text-gray-600 dark:text-muted-foreground">
+                      {t('contactForm.gdprConsent')}
+                    </span>
+                  </label>
                   <button
                     type="submit"
-                    disabled={createLead.isPending}
+                    disabled={createLead.isPending || !gdprConsent}
                     className="w-full rounded-md bg-blue-600 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {createLead.isPending ? t('contactForm.submitting') : t('contactForm.submit')}

@@ -1096,7 +1096,8 @@
       "submit": "Send inquiry",
       "submitting": "Sending...",
       "success": "Inquiry sent!",
-      "successDesc": "The specialist will contact you shortly."
+      "successDesc": "The specialist will contact you shortly.",
+      "gdprConsent": "I agree to the processing of personal data in accordance with GDPR."
     },
     "moreInfo": "More information",
     "availability": "Availability:",
@@ -1554,7 +1555,10 @@
     "pricing": {
       "recommended": "Recommended",
       "currentPlan": "Current plan",
-      "loading": "Loading..."
+      "loading": "Loading...",
+      "currency": "CZK",
+      "perMonth": "/month",
+      "perYear": "/year"
     }
   },
   "errors": {

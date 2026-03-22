@@ -25,9 +25,12 @@ import {
   useResumeSubscription,
   useCustomerPortal,
 } from '@/lib/hooks/useSubscriptions';
+import { useLocale, useTranslations } from 'next-intl';
 import { SubscriptionType } from '@/types/subscriptions';
 import { format } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 
 const upgradeOptions = {
   [SubscriptionType.EDUCATION]: [
@@ -49,6 +52,8 @@ const downgradeOptions = {
 };
 
 export default function SubscriptionManagementPage() {
+  const locale = useLocale();
+  const tSub = useTranslations('subscription');
   const { data: subscription, isLoading } = useMyActiveSubscription();
   const upgradeMutation = useUpgradeSubscription();
   const downgradeMutation = useDowngradeSubscription();
@@ -136,7 +141,7 @@ export default function SubscriptionManagementPage() {
   }
 
   const currentPeriodEnd = subscription.currentPeriodEnd
-    ? format(new Date(subscription.currentPeriodEnd), 'd. MMMM yyyy', { locale: sk })
+    ? format(new Date(subscription.currentPeriodEnd), 'd. MMMM yyyy', { locale: dateFnsLocaleMap[locale] || cs })
     : 'N/A';
 
   const upgrades = upgradeOptions[subscription.subscriptionType] || [];
@@ -305,7 +310,7 @@ export default function SubscriptionManagementPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-semibold">{option.name}</p>
-                    <p className="text-sm text-muted-foreground">{option.price} Kč/mesiac</p>
+                    <p className="text-sm text-muted-foreground">{option.price} {tSub('pricing.currency')}{tSub('pricing.perMonth')}</p>
                   </div>
                   {selectedNewType === option.type && (
                     <Badge variant="default">Vybraté</Badge>
@@ -349,7 +354,7 @@ export default function SubscriptionManagementPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-semibold">{option.name}</p>
-                    <p className="text-sm text-muted-foreground">{option.price} Kč/mesiac</p>
+                    <p className="text-sm text-muted-foreground">{option.price} {tSub('pricing.currency')}{tSub('pricing.perMonth')}</p>
                   </div>
                   {selectedNewType === option.type && (
                     <Badge variant="default">Vybraté</Badge>

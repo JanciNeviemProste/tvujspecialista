@@ -1096,7 +1096,8 @@
       "submit": "Wyślij zapytanie",
       "submitting": "Wysyłanie...",
       "success": "Zapytanie wysłane!",
-      "successDesc": "Specjalista skontaktuje się z Tobą wkrótce."
+      "successDesc": "Specjalista skontaktuje się z Tobą wkrótce.",
+      "gdprConsent": "Wyrażam zgodę na przetwarzanie danych osobowych zgodnie z RODO."
     },
     "moreInfo": "Więcej informacji",
     "availability": "Dostępność:",
@@ -1554,7 +1555,10 @@
     "pricing": {
       "recommended": "Polecane",
       "currentPlan": "Aktualny plan",
-      "loading": "Ładowanie..."
+      "loading": "Ładowanie...",
+      "currency": "CZK",
+      "perMonth": "/miesiąc",
+      "perYear": "/rok"
     }
   },
   "errors": {

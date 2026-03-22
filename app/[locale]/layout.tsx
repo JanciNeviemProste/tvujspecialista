@@ -92,7 +92,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <NextIntlClientProvider messages={messages}>
       <SkipLink />
-      <OrganizationJsonLd />
+      <OrganizationJsonLd locale={locale} />
       <WebSiteJsonLd />
       <Providers>
         {children}

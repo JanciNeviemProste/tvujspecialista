@@ -185,7 +185,7 @@ export default function PricingPage() {
       </section>
 
       {/* Features Comparison */}
-      <section className="border-t bg-white dark:bg-background py-20">
+      <section className="border-t bg-white dark:bg-card py-20">
         <div className="container mx-auto px-4">
           <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold">{t('comparison.title')}</h2>
           <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">

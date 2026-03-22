@@ -1,10 +1,11 @@
+// TODO: Split into EventsTable, RSVPsTable, and Filters sub-components
 'use client';
 
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { useRouter } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { communityApi } from '@/lib/api/community';
 import { adminApi } from '@/lib/api/admin';
@@ -113,7 +114,7 @@ function EventFormModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl ring-1 ring-black/5 max-h-[90vh] overflow-y-auto">
+      <div className="w-full max-w-2xl bg-white dark:bg-card rounded-xl shadow-2xl ring-1 ring-black/5 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b">
           <h2 className="text-xl font-bold">{isEdit ? 'Upraviť event' : 'Nový event'}</h2>
           <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100">
@@ -355,6 +356,7 @@ function AttendeeStatusBadge({ status }: { status: string }) {
 
 function AttendeesPanel({ eventId }: { eventId: string }) {
   const tAdmin = useTranslations('dashboard.admin');
+  const locale = useLocale();
   const queryClient = useQueryClient();
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
@@ -418,7 +420,7 @@ function AttendeesPanel({ eventId }: { eventId: string }) {
                 <AttendeeStatusBadge status={rsvp.status} />
               </td>
               <td className="px-4 py-2 text-gray-500">
-                {rsvp.registeredAt ? new Date(rsvp.registeredAt).toLocaleDateString('cs-CZ') : '-'}
+                {rsvp.registeredAt ? new Date(rsvp.registeredAt).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ') : '-'}
               </td>
               <td className="px-4 py-2 text-right">
                 <div className="flex items-center justify-end gap-1">
@@ -476,6 +478,7 @@ export default function AdminCommunityPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.community');
   const tAdmin = useTranslations('dashboard.admin');
+  const locale = useLocale();
   const { user, isLoading: authLoading } = useAuth();
   const queryClient = useQueryClient();
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -648,7 +651,7 @@ export default function AdminCommunityPage() {
       ) : (
         <div className="space-y-3">
           {eventsList.map((event: any) => (
-            <div key={event.id} className="rounded-lg border bg-white overflow-hidden">
+            <div key={event.id} className="rounded-lg border bg-white dark:bg-card overflow-hidden">
               <div className="p-4 flex items-center justify-between">
                 <button
                   className="flex-1 text-left"
@@ -670,7 +673,7 @@ export default function AdminCommunityPage() {
                     </span>
                   </div>
                   <p className="text-sm text-gray-500 mt-1">
-                    {event.startDate ? new Date(event.startDate).toLocaleDateString('cs-CZ') : 'Bez dátumu'} &middot;
+                    {event.startDate ? new Date(event.startDate).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ') : 'Bez dátumu'} &middot;
                     {event.attendeeCount ?? 0}/{event.maxAttendees ?? '\u221e'} účastníkov
                   </p>
                 </button>

@@ -152,50 +152,63 @@ export class DealsService {
 
     const oldStatus = deal.status;
 
-    // CRM gate: if NEW → CONTACTED, push to CRM first
-    if (
-      oldStatus === DealStatus.NEW &&
-      updateDto.status === DealStatus.CONTACTED
-    ) {
-      const crmResult = await this.crmService.pushLeadToCrm(deal, specialist);
+    const queryRunner = this.dealRepository.manager.connection.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      // CRM gate: if NEW -> CONTACTED, push to CRM first
+      if (
+        oldStatus === DealStatus.NEW &&
+        updateDto.status === DealStatus.CONTACTED
+      ) {
+        const crmResult = await this.crmService.pushLeadToCrm(deal, specialist);
 
-      if (!crmResult.success) {
-        await this.leadEventRepository.save({
+        if (!crmResult.success) {
+          await queryRunner.manager.save(LeadEvent, {
+            leadId: dealId,
+            type: LeadEventType.CRM_PUSH_FAILED,
+            data: { error: crmResult.error, provider: crmResult.provider },
+          });
+
+          deal.crmPushError = crmResult.error || 'CRM push failed';
+          await queryRunner.manager.save(Deal, deal);
+
+          await queryRunner.commitTransaction();
+          throw new BadRequestException(
+            `CRM push failed: ${crmResult.error || 'Unknown error'}`,
+          );
+        }
+
+        deal.crmExternalId = crmResult.externalId ?? null;
+        deal.crmPushedAt = new Date();
+        deal.crmPushError = null;
+
+        await queryRunner.manager.save(LeadEvent, {
           leadId: dealId,
-          type: LeadEventType.CRM_PUSH_FAILED,
-          data: { error: crmResult.error, provider: crmResult.provider },
+          type: LeadEventType.CRM_PUSHED,
+          data: {
+            provider: crmResult.provider,
+            externalId: crmResult.externalId,
+          },
         });
-
-        deal.crmPushError = crmResult.error || 'CRM push failed';
-        await this.dealRepository.save(deal);
-
-        throw new BadRequestException(
-          `CRM push failed: ${crmResult.error || 'Unknown error'}`,
-        );
       }
 
-      deal.crmExternalId = crmResult.externalId ?? null;
-      deal.crmPushedAt = new Date();
-      deal.crmPushError = null;
+      deal.status = updateDto.status;
+      await queryRunner.manager.save(Deal, deal);
 
-      await this.leadEventRepository.save({
+      await queryRunner.manager.save(LeadEvent, {
         leadId: dealId,
-        type: LeadEventType.CRM_PUSHED,
-        data: {
-          provider: crmResult.provider,
-          externalId: crmResult.externalId,
-        },
+        type: LeadEventType.STATUS_CHANGED,
+        data: { oldStatus, newStatus: updateDto.status },
       });
+
+      await queryRunner.commitTransaction();
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      throw error;
+    } finally {
+      await queryRunner.release();
     }
-
-    deal.status = updateDto.status;
-    await this.dealRepository.save(deal);
-
-    await this.leadEventRepository.save({
-      leadId: dealId,
-      type: LeadEventType.STATUS_CHANGED,
-      data: { oldStatus, newStatus: updateDto.status },
-    });
 
     // Send email notification
     try {

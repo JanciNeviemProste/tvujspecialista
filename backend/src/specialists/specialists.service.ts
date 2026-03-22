@@ -83,23 +83,28 @@ export class SpecialistsService {
   }
 
   async findBySlug(slug: string) {
-    const specialist = await this.specialistRepository.findOne({
-      where: { slug },
-    });
+    const specialist = await this.specialistRepository
+      .createQueryBuilder('specialist')
+      .leftJoinAndSelect(
+        'specialist.reviews',
+        'review',
+        'review.published = :published',
+        { published: true },
+      )
+      .where('specialist.slug = :slug', { slug })
+      .addOrderBy('review.createdAt', 'DESC')
+      .getOne();
+
     if (!specialist) {
       throw new NotFoundException('Specialist not found');
     }
 
-    const reviews = await this.reviewRepository.find({
-      where: { specialistId: specialist.id, published: true },
-      order: { createdAt: 'DESC' },
-      take: 10,
-    });
+    // Limit to 10 most recent reviews (already sorted DESC by createdAt)
+    if (specialist.reviews && specialist.reviews.length > 10) {
+      specialist.reviews = specialist.reviews.slice(0, 10);
+    }
 
-    return {
-      ...specialist,
-      reviews,
-    };
+    return specialist;
   }
 
   async findByUserId(userId: string) {

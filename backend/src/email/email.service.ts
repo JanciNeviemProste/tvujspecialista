@@ -171,13 +171,38 @@ export class EmailService {
     return '';
   }
 
+  private htmlEncode(str: string): string {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  /** Keys that contain user-provided content and must be HTML-encoded. */
+  private static readonly USER_FACING_KEYS = new Set([
+    'customerName',
+    'customerEmail',
+    'customerPhone',
+    'message',
+    'specialistName',
+    'userName',
+    'name',
+    'eventTitle',
+    'courseTitle',
+  ]);
+
   private replaceVariables(
     template: string,
     variables: Record<string, string>,
   ): string {
     let result = template;
     for (const [key, value] of Object.entries(variables)) {
-      result = result.replace(new RegExp(`{{${key}}}`, 'g'), value);
+      const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const safeValue = EmailService.USER_FACING_KEYS.has(key)
+        ? this.htmlEncode(value)
+        : value;
+      result = result.replace(new RegExp(`{{${escapedKey}}}`, 'g'), safeValue);
     }
     return result;
   }

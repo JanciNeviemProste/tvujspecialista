@@ -7,7 +7,7 @@ import { reviewsApi } from '@/lib/api/reviews';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import type { Review } from '@/types/review';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -27,6 +27,7 @@ function StarRating({ rating }: { rating: number }) {
 export default function ReviewsPage() {
   const t = useTranslations('dashboard.reviews');
   const tCommon = useTranslations('common.status');
+  const locale = useLocale();
   const router = useRouter();
   const { user, isLoading: authLoading } = useAuth();
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -213,7 +214,7 @@ export default function ReviewsPage() {
                     </div>
                     <div className="ml-4 text-right">
                       <p className="text-sm text-gray-500">
-                        {new Date(review.createdAt).toLocaleDateString('cs-CZ')}
+                        {new Date(review.createdAt).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ')}
                       </p>
                     </div>
                   </div>

@@ -67,7 +67,7 @@ export function DealFilters({
             status: e.target.value as typeof filters.status,
           })
         }
-        className="px-4 py-2 rounded-lg border bg-white text-sm min-w-[180px]"
+        className="px-4 py-2 rounded-lg border bg-white dark:bg-card text-sm min-w-[180px]"
         aria-label="Filter by lead status"
       >
         <option value="all">{t('filters.allStatuses')}</option>

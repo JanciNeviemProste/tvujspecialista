@@ -4,9 +4,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ThumbsUp, Trash2 } from 'lucide-react';
+import { useLocale } from 'next-intl';
 import { formatDistanceToNow } from 'date-fns';
-import { sk } from 'date-fns/locale';
+import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils/cn';
+
+const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
 import type { ForumPost } from '@/types/forum';
 
 interface PostCardProps {
@@ -19,6 +22,7 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, currentUserId, isAdmin, onLike, onDelete, isLiking }: PostCardProps) {
+  const locale = useLocale();
   const authorInitials = post.author.name
     .split(' ')
     .map((n) => n[0])
@@ -41,7 +45,7 @@ export function PostCard({ post, currentUserId, isAdmin, onLike, onDelete, isLik
               <p className="text-xs text-muted-foreground">
                 {formatDistanceToNow(new Date(post.createdAt), {
                   addSuffix: true,
-                  locale: sk,
+                  locale: dateFnsLocaleMap[locale] || cs,
                 })}
                 {post.isEdited && ' (upravené)'}
               </p>

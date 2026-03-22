@@ -44,9 +44,9 @@ export function PricingCard({
         <CardTitle className="text-2xl">{plan.name}</CardTitle>
         <CardDescription className="text-sm">{plan.description}</CardDescription>
         <div className="mt-4">
-          <span className="text-4xl font-bold">{plan.monthlyPrice} Kč</span>
+          <span className="text-4xl font-bold">{plan.monthlyPrice} {t('pricing.currency')}</span>
           <span className="text-muted-foreground ml-2">
-            {plan.recommended ? '/rok' : '/mesiac'}
+            {plan.recommended ? t('pricing.perYear') : t('pricing.perMonth')}
           </span>
         </div>
         <p className="text-sm text-muted-foreground mt-1">
