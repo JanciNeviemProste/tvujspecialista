@@ -21,13 +21,13 @@ export const subscriptionsApi = {
 
   // Create checkout sessions
   createEducationCheckout: () =>
-    apiClient.post<{ sessionId: string }>('/subscriptions/education/checkout'),
+    apiClient.post<{ url: string }>('/subscriptions/education/checkout'),
 
   createMarketplaceCheckout: () =>
-    apiClient.post<{ sessionId: string }>('/subscriptions/marketplace/checkout'),
+    apiClient.post<{ url: string }>('/subscriptions/marketplace/checkout'),
 
   createPremiumCheckout: () =>
-    apiClient.post<{ sessionId: string }>('/subscriptions/premium/checkout'),
+    apiClient.post<{ url: string }>('/subscriptions/premium/checkout'),
 
   // Manage subscription
   upgradeSubscription: (id: string, newType: SubscriptionType) =>
