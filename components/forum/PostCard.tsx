@@ -1,14 +1,15 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { ThumbsUp, Trash2 } from 'lucide-react';
+import { ThumbsUp, Trash2, Pencil } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
 import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils/cn';
+import { useUpdatePost } from '@/lib/hooks/useForum';
 import type { ForumPost } from '@/types/forum';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
@@ -32,6 +33,10 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
     .toUpperCase();
 
   const isOwn = currentUserId === post.authorId;
+  const isAuthor = isOwn;
+  const [editing, setEditing] = useState(false);
+  const [editContent, setEditContent] = useState('');
+  const updatePost = useUpdatePost();
 
   return (
     <Card>
@@ -54,23 +59,63 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
             </div>
           </div>
 
-          {/* Delete button (own posts or admin) */}
-          {(isOwn || isAdmin) && onDelete && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => onDelete(post.id)}
-              className="text-muted-foreground hover:text-destructive"
-            >
-              <Trash2 className="h-4 w-4" />
-            </Button>
-          )}
+          {/* Edit and Delete buttons */}
+          <div className="flex items-center gap-1">
+            {isAuthor && (
+              <button
+                onClick={() => { setEditing(true); setEditContent(post.content); }}
+                className="text-gray-400 hover:text-blue-500 transition-colors p-1"
+                title={t('post.edit')}
+              >
+                <Pencil className="h-4 w-4" />
+              </button>
+            )}
+            {(isOwn || isAdmin) && onDelete && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onDelete(post.id)}
+                className="text-muted-foreground hover:text-destructive"
+              >
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Content */}
-        <div className="prose prose-sm max-w-none mb-4 whitespace-pre-wrap">
-          {post.content}
-        </div>
+        {editing ? (
+          <div className="mt-2 space-y-2">
+            <textarea
+              className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              rows={4}
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  updatePost.mutate({ postId: post.id, content: editContent });
+                  setEditing(false);
+                }}
+                disabled={!editContent.trim() || updatePost.isPending}
+                className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+              >
+                {t('post.save')}
+              </button>
+              <button
+                onClick={() => setEditing(false)}
+                className="rounded-lg border border-gray-300 dark:border-border px-4 py-1.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-muted transition-colors"
+              >
+                {t('post.cancelEdit')}
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="prose prose-sm max-w-none mb-4 whitespace-pre-wrap">
+            {post.content}
+          </div>
+        )}
 
         {/* Actions */}
         <div className="flex items-center gap-2">

@@ -1680,7 +1680,9 @@
       "topicDeleteError": "Error deleting topic",
       "postDeleted": "Post was deleted",
       "postDeleteError": "Error deleting post",
-      "likeError": "Error toggling like"
+      "likeError": "Error toggling like",
+      "postUpdated": "Post updated",
+      "postUpdateError": "Failed to update post"
     },
     "newTopic": {
       "title": "New topic",
@@ -1694,7 +1696,10 @@
       "submit": "Create topic"
     },
     "post": {
-      "edited": "edited"
+      "edited": "edited",
+      "edit": "Edit",
+      "save": "Save",
+      "cancelEdit": "Cancel"
     },
     "reply": {
       "placeholder": "Write your reply...",
@@ -1803,5 +1808,11 @@
     "saving": "Saving...",
     "saveError": "Failed to save",
     "goToDashboard": "Go to dashboard"
+  },
+  "cookies": {
+    "title": "We use cookies",
+    "description": "This site uses cookies to improve your experience, analyze traffic, and personalize content. By clicking \"Accept\" you agree to the use of all cookies.",
+    "accept": "Accept all",
+    "reject": "Essential only"
   }
 }

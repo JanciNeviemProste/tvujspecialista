@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Patch,
   Delete,
   Param,
   Body,
@@ -31,6 +32,19 @@ export class ForumPostsController {
     @Body() dto: CreatePostDto,
   ) {
     return this.postsService.create(req.user.userId, topicId, dto);
+  }
+
+  @Patch('posts/:id')
+  @ApiOperation({ summary: 'Edit own post' })
+  @ApiResponse({ status: 200, description: 'Post updated' })
+  @ApiResponse({ status: 403, description: 'Can only edit own posts' })
+  @ApiResponse({ status: 404, description: 'Post not found' })
+  async update(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+    @Body() updatePostDto: { content: string },
+  ) {
+    return this.postsService.update(id, req.user.userId, updatePostDto.content);
   }
 
   @Delete('posts/:id')

@@ -1680,7 +1680,9 @@
       "topicDeleteError": "Chyba pri mazaní témy",
       "postDeleted": "Príspevok bol vymazaný",
       "postDeleteError": "Chyba pri mazaní príspevku",
-      "likeError": "Chyba pri označení páči sa mi"
+      "likeError": "Chyba pri označení páči sa mi",
+      "postUpdated": "Príspevok bol upravený",
+      "postUpdateError": "Nepodarilo sa upraviť príspevok"
     },
     "newTopic": {
       "title": "Nová téma",
@@ -1694,7 +1696,10 @@
       "submit": "Vytvoriť tému"
     },
     "post": {
-      "edited": "upravené"
+      "edited": "upravené",
+      "edit": "Upraviť",
+      "save": "Uložiť",
+      "cancelEdit": "Zrušiť"
     },
     "reply": {
       "placeholder": "Napíšte svoju odpoveď...",
@@ -1803,5 +1808,11 @@
     "saving": "Ukladám...",
     "saveError": "Nepodarilo sa uložiť",
     "goToDashboard": "Prejsť na dashboard"
+  },
+  "cookies": {
+    "title": "Používame cookies",
+    "description": "Táto stránka používa cookies na zlepšenie vášho zážitku, analýzu návštevnosti a personalizáciu obsahu. Kliknutím na \"Prijať\" súhlasíte s používaním všetkých cookies.",
+    "accept": "Prijať všetky",
+    "reject": "Len nevyhnutné"
   }
 }

@@ -52,6 +52,26 @@ export class ForumPostsService {
     return result!;
   }
 
+  async update(postId: string, userId: string, content: string): Promise<ForumPost> {
+    const post = await this.postsRepository.findOne({
+      where: { id: postId },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    if (post.authorId !== userId) {
+      throw new ForbiddenException('You can only edit your own posts');
+    }
+
+    post.content = content;
+    post.isEdited = true;
+    post.editedAt = new Date();
+
+    return this.postsRepository.save(post);
+  }
+
   async delete(id: string, userId: string, userRole?: string): Promise<void> {
     const post = await this.postsRepository.findOne({
       where: { id },

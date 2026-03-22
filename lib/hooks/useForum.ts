@@ -81,6 +81,23 @@ export function useToggleLike() {
   });
 }
 
+export function useUpdatePost() {
+  const queryClient = useQueryClient();
+  const t = useTranslations('forum');
+
+  return useMutation({
+    mutationFn: ({ postId, content }: { postId: string; content: string }) =>
+      forumApi.updatePost(postId, content),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.forum.categories });
+      toast.success(t('toasts.postUpdated'));
+    },
+    onError: () => {
+      toast.error(t('toasts.postUpdateError'));
+    },
+  });
+}
+
 export function useDeletePost(topicId: string) {
   const t = useTranslations('forum');
   const queryClient = useQueryClient();

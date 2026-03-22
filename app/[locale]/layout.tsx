@@ -6,6 +6,7 @@ import { routing } from '@/i18n/routing';
 import { Providers } from '../providers';
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/seo/JsonLd';
 import { SkipLink } from '@/components/a11y/SkipLink';
+import { CookieConsent } from '@/components/shared/CookieConsent';
 
 type Props = {
   children: React.ReactNode;
@@ -96,6 +97,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       <WebSiteJsonLd />
       <Providers>
         {children}
+        <CookieConsent />
       </Providers>
     </NextIntlClientProvider>
   );

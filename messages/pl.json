@@ -1680,7 +1680,9 @@
       "topicDeleteError": "Błąd usuwania tematu",
       "postDeleted": "Wpis został usunięty",
       "postDeleteError": "Błąd usuwania wpisu",
-      "likeError": "Błąd oznaczania polubienia"
+      "likeError": "Błąd oznaczania polubienia",
+      "postUpdated": "Post został zaktualizowany",
+      "postUpdateError": "Nie udało się zaktualizować posta"
     },
     "newTopic": {
       "title": "Nowy temat",
@@ -1694,7 +1696,10 @@
       "submit": "Utwórz temat"
     },
     "post": {
-      "edited": "edytowano"
+      "edited": "edytowano",
+      "edit": "Edytuj",
+      "save": "Zapisz",
+      "cancelEdit": "Anuluj"
     },
     "reply": {
       "placeholder": "Napisz swoją odpowiedź...",
@@ -1803,5 +1808,11 @@
     "saving": "Zapisuję...",
     "saveError": "Nie udało się zapisać",
     "goToDashboard": "Przejdź do panelu"
+  },
+  "cookies": {
+    "title": "Używamy plików cookies",
+    "description": "Ta strona używa plików cookies w celu poprawy doświadczenia, analizy ruchu i personalizacji treści. Klikając \"Akceptuj\" zgadzasz się na używanie wszystkich plików cookies.",
+    "accept": "Zaakceptuj wszystkie",
+    "reject": "Tylko niezbędne"
   }
 }

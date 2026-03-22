@@ -31,6 +31,9 @@ export const forumApi = {
   createPost: (topicId: string, data: { content: string }) =>
     apiClient.post<ForumPost>(`/forum/topics/${topicId}/posts`, data),
 
+  updatePost: (postId: string, content: string) =>
+    apiClient.patch(`/forum/posts/${postId}`, { content }),
+
   deletePost: (id: string) =>
     apiClient.delete(`/forum/posts/${id}`),
 
