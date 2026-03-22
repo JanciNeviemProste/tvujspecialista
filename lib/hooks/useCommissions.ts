@@ -8,6 +8,7 @@ export function useMyCommissions() {
   return useQuery({
     queryKey: queryKeys.commissions.all,
     queryFn: () => commissionsApi.getMyCommissions().then((res) => res.data),
+    staleTime: 2 * 60 * 1000,
   });
 }
 
@@ -15,6 +16,7 @@ export function useCommissionStats() {
   return useQuery({
     queryKey: queryKeys.commissions.stats,
     queryFn: () => commissionsApi.getCommissionStats().then((res) => res.data),
+    staleTime: 2 * 60 * 1000,
   });
 }
 

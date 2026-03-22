@@ -7,6 +7,7 @@ export function useAdminStats() {
   return useQuery({
     queryKey: ['adminStats'],
     queryFn: () => adminApi.getStats().then((res) => res.data),
+    staleTime: 30 * 1000,
   });
 }
 
@@ -14,6 +15,7 @@ export function useAdminUsers(page = 1) {
   return useQuery({
     queryKey: ['adminUsers', page],
     queryFn: () => adminApi.getUsers(page).then((res) => res.data),
+    staleTime: 30 * 1000,
   });
 }
 
@@ -21,6 +23,7 @@ export function useAdminSpecialists(page = 1) {
   return useQuery({
     queryKey: ['adminSpecialists', page],
     queryFn: () => adminApi.getSpecialists(page).then((res) => res.data),
+    staleTime: 30 * 1000,
   });
 }
 

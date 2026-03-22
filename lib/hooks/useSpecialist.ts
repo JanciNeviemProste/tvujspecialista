@@ -11,5 +11,6 @@ export function useSpecialist(slug: string) {
     queryKey: queryKeys.specialists.detail(slug),
     queryFn: () => specialistsApi.getBySlug(slug).then((res) => res.data),
     enabled: !!slug,
+    staleTime: 5 * 60 * 1000,
   });
 }

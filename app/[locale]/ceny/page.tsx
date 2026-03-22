@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Check, Gift, X } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Button } from '@/components/ui/button';
 import { PricingCard } from '@/components/subscriptions/PricingCard';
@@ -15,6 +15,7 @@ export default function PricingPage() {
   const { user } = useAuth();
   const { data: activeSubscription } = useMyActiveSubscription();
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionType | null>(null);
+  const locale = useLocale();
   const t = useTranslations('pricing');
 
   const pricingPlans: PricingPlan[] = [
@@ -99,7 +100,7 @@ export default function PricingPage() {
 
   const handleSelectPlan = (type: SubscriptionType) => {
     if (!user) {
-      window.location.href = '/prihlasenie?redirect=/ceny';
+      window.location.href = `/${locale}/profi/prihlaseni`;
       return;
     }
 

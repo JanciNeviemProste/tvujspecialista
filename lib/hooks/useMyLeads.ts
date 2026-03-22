@@ -7,5 +7,6 @@ export function useMyLeads(filters: LeadFilters = {}) {
   return useQuery<LeadListResponse>({
     queryKey: [...queryKeys.leads.my, filters],
     queryFn: () => leadsApi.getMyLeads(filters).then((res) => res.data),
+    staleTime: 30 * 1000,
   });
 }

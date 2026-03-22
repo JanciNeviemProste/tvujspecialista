@@ -6,5 +6,6 @@ export function useSpecialists(filters: SpecialistFilters = {}) {
   return useQuery({
     queryKey: [...queryKeys.specialists.all, filters],
     queryFn: () => specialistsApi.getAll(filters).then((res) => res.data),
+    staleTime: 60 * 1000,
   });
 }

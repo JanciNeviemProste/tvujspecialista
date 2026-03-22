@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import { leadsApi, type LeadFormData } from '@/lib/api/leads';
-import { queryKeys } from '@/lib/queryKeys';
 import { toast } from 'sonner';
 
 export function useCreateLead() {
@@ -11,7 +10,7 @@ export function useCreateLead() {
   return useMutation({
     mutationFn: (data: LeadFormData) => leadsApi.create(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.deals.my });
+      queryClient.invalidateQueries({ queryKey: ['myDeals'] });
       toast.success(t('toasts.created'));
     },
     onError: () => {

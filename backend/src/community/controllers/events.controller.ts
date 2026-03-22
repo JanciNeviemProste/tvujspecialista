@@ -45,6 +45,20 @@ export class EventsController {
     return this.eventsService.findUpcoming();
   }
 
+  @Get(':id/attendees')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get event attendees (owner only)' })
+  @ApiResponse({ status: 200, description: 'Returns list of attendees' })
+  @ApiResponse({ status: 404, description: 'Event not found' })
+  @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
+  async getAttendees(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    return this.eventsService.getAttendees(id, req.user.userId);
+  }
+
   @Get(':slug')
   @ApiOperation({ summary: 'Get event by slug' })
   @ApiResponse({ status: 200, description: 'Returns event details' })
@@ -131,19 +145,5 @@ export class EventsController {
   async cancel(@Request() req: AuthenticatedRequest, @Param('id') id: string) {
     await this.eventsService.cancel(id, req.user.userId);
     return { message: 'Event cancelled successfully' };
-  }
-
-  @Get(':id/attendees')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOperation({ summary: 'Get event attendees (owner only)' })
-  @ApiResponse({ status: 200, description: 'Returns list of attendees' })
-  @ApiResponse({ status: 404, description: 'Event not found' })
-  @ApiResponse({ status: 403, description: 'Forbidden - Owner only' })
-  async getAttendees(
-    @Request() req: AuthenticatedRequest,
-    @Param('id') id: string,
-  ) {
-    return this.eventsService.getAttendees(id, req.user.userId);
   }
 }

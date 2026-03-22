@@ -13,12 +13,14 @@ import {
   ApiBearerAuth,
   ApiResponse,
 } from '@nestjs/swagger';
+import { IsEnum } from 'class-validator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SubscriptionsService } from './subscriptions.service';
 import { SubscriptionType } from '../database/entities/subscription.entity';
 import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.interface';
 
 class ChangeSubscriptionDto {
+  @IsEnum(SubscriptionType)
   newType: SubscriptionType;
 }
 

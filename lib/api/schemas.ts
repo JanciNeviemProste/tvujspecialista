@@ -5,7 +5,7 @@ import { z } from 'zod';
 export const userSchema = z.object({
   id: z.string(),
   email: z.string(),
-  role: z.enum(['customer', 'provider', 'admin']),
+  role: z.enum(['customer', 'specialist', 'provider', 'admin']),
   name: z.string(),
   phone: z.string().optional(),
   verified: z.boolean(),

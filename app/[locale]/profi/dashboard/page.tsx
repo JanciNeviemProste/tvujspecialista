@@ -25,10 +25,12 @@ export default function DashboardPage() {
   const { data: subscription } = useQuery({
     queryKey: ['mySubscription'],
     queryFn: () => paymentsApi.getMySubscription().then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
   });
   const { data: specialistProfile, isLoading: isProfileLoading } = useQuery({
     queryKey: ['mySpecialistProfile'],
     queryFn: () => specialistsApi.getMyProfile().then((res) => res.data),
+    staleTime: 2 * 60 * 1000,
   });
   const { data: adminStats } = useQuery({
     queryKey: ['adminStats'],

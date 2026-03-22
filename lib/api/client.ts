@@ -79,7 +79,8 @@ apiClient.interceptors.response.use(
             removeToken('refreshToken');
             // Only redirect if on a protected page
             if (window.location.pathname.startsWith('/profi/dashboard')) {
-              window.location.href = '/profi/prihlaseni';
+              const locale = window.location.pathname.split('/')[1] || 'cs';
+              window.location.href = `/${locale}/profi/prihlaseni`;
             }
           }
         }

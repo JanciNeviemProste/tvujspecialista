@@ -78,6 +78,10 @@ export class SubscriptionsService {
       },
     });
 
+    if (!session.url) {
+      throw new BadRequestException('Failed to create checkout session');
+    }
+
     return { url: session.url };
   }
 
@@ -131,6 +135,10 @@ export class SubscriptionsService {
       },
     });
 
+    if (!session.url) {
+      throw new BadRequestException('Failed to create checkout session');
+    }
+
     return { url: session.url };
   }
 
@@ -176,6 +184,10 @@ export class SubscriptionsService {
         subscriptionType: SubscriptionType.PREMIUM,
       },
     });
+
+    if (!session.url) {
+      throw new BadRequestException('Failed to create checkout session');
+    }
 
     return { url: session.url };
   }
