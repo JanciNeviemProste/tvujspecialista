@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, FormEvent } from 'react';
+import { use, useState, useEffect, FormEvent } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
@@ -43,6 +43,13 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (submitSuccess) {
+      const timer = setTimeout(() => setSubmitSuccess(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitSuccess]);
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!specialist) return;
@@ -58,7 +65,6 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
       });
       setSubmitSuccess(true);
       setFormData({ customerName: '', customerEmail: '', customerPhone: '', message: '' });
-      setTimeout(() => setSubmitSuccess(false), 5000);
     } catch (err) {
       // Error handling is done in the hook
     }

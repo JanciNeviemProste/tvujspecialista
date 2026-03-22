@@ -67,11 +67,15 @@ export class AuthService {
       savedUser.locale,
     );
 
-    const slug = generateSlug(
+    let slug = generateSlug(
       registerDto.name,
       registerDto.category,
       registerDto.location,
     );
+    const existing = await this.specialistRepository.findOne({ where: { slug } });
+    if (existing) {
+      slug = `${slug}-${Date.now().toString(36)}`;
+    }
 
     const specialist = this.specialistRepository.create({
       userId: savedUser.id,

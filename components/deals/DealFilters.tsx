@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Deal, DealStatus, DealFilters as DealFiltersType } from '@/types/deals';
 import { Input } from '@/components/ui/input';
@@ -22,16 +22,18 @@ export function DealFilters({
 }: DealFiltersProps) {
   const t = useTranslations('dashboard.deals');
   const [searchValue, setSearchValue] = useState(filters.search);
+  const filtersRef = useRef(filters);
+  filtersRef.current = filters;
 
   // Debounce search input
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (searchValue !== filters.search) {
-        onFiltersChange({ ...filters, search: searchValue });
+      if (searchValue !== filtersRef.current.search) {
+        onFiltersChange({ ...filtersRef.current, search: searchValue });
       }
     }, 300);
     return () => clearTimeout(timer);
-  }, [searchValue]);
+  }, [searchValue, onFiltersChange]);
 
   useEffect(() => {
     setSearchValue(filters.search);

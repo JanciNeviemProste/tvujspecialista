@@ -121,28 +121,29 @@ export class AdminService {
       financialAdvisors,
       academyGraduates,
     ] = await Promise.all([
-      this.userRepository.count(),
-      this.specialistRepository.count(),
-      this.specialistRepository.count({ where: { verified: true } }),
-      this.leadRepository.count(),
-      this.leadRepository.count({ where: { status: LeadStatus.NEW } }),
-      this.leadRepository.count({ where: { status: LeadStatus.CONTACTED } }),
-      this.leadRepository.count({ where: { status: LeadStatus.CLOSED_WON } }),
-      this.eventRepository.count(),
+      this.userRepository.count().catch(() => 0),
+      this.specialistRepository.count().catch(() => 0),
+      this.specialistRepository.count({ where: { verified: true } }).catch(() => 0),
+      this.leadRepository.count().catch(() => 0),
+      this.leadRepository.count({ where: { status: LeadStatus.NEW } }).catch(() => 0),
+      this.leadRepository.count({ where: { status: LeadStatus.CONTACTED } }).catch(() => 0),
+      this.leadRepository.count({ where: { status: LeadStatus.CLOSED_WON } }).catch(() => 0),
+      this.eventRepository.count().catch(() => 0),
       this.eventRepository.count({
         where: {
           endDate: LessThan(new Date()),
           status: Not(EventStatus.CANCELLED),
         },
-      }),
-      this.userRepository.count({ where: { role: UserRole.CUSTOMER } }),
-      this.specialistRepository.count({ where: { category: SpecialistCategory.REAL_ESTATE_AGENT } }),
-      this.specialistRepository.count({ where: { category: SpecialistCategory.FINANCIAL_ADVISOR } }),
+      }).catch(() => 0),
+      this.userRepository.count({ where: { role: UserRole.CUSTOMER } }).catch(() => 0),
+      this.specialistRepository.count({ where: { category: SpecialistCategory.REAL_ESTATE_AGENT } }).catch(() => 0),
+      this.specialistRepository.count({ where: { category: SpecialistCategory.FINANCIAL_ADVISOR } }).catch(() => 0),
       this.enrollmentRepository.createQueryBuilder('e')
         .select('COUNT(DISTINCT e.userId)', 'count')
         .where('e.status = :status', { status: EnrollmentStatus.COMPLETED })
         .getRawOne()
-        .then((r) => parseInt(r?.count || '0', 10)),
+        .then((r) => parseInt(r?.count || '0', 10))
+        .catch(() => 0),
     ]);
 
     // Subscription stats

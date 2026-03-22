@@ -55,9 +55,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .getMe()
         .then((res) => setUser(res.data))
         .catch(() => {
-          // Don't remove tokens here — the API client interceptor handles
-          // token refresh and cleanup. Just clear user state.
           setUser(null);
+          removeStorageItem('accessToken');
+          removeStorageItem('refreshToken');
         })
         .finally(() => setIsLoading(false));
     } else {

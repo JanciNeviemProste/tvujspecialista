@@ -26,7 +26,7 @@ export default function DashboardPage() {
     queryKey: ['mySubscription'],
     queryFn: () => paymentsApi.getMySubscription().then((res) => res.data),
   });
-  const { data: specialistProfile } = useQuery({
+  const { data: specialistProfile, isLoading: isProfileLoading } = useQuery({
     queryKey: ['mySpecialistProfile'],
     queryFn: () => specialistsApi.getMyProfile().then((res) => res.data),
   });
@@ -75,7 +75,8 @@ export default function DashboardPage() {
   }
 
   // Show onboarding wizard for specialists who haven't completed onboarding
-  if (specialistProfile && specialistProfile.onboardingCompleted === false && user.role !== 'admin') {
+  // Don't show onboarding while profile is still loading
+  if (!isProfileLoading && specialistProfile && specialistProfile.onboardingCompleted === false && user.role !== 'admin') {
     return <OnboardingWizard onComplete={() => window.location.reload()} />;
   }
 

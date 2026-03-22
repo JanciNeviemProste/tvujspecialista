@@ -154,11 +154,20 @@ export class StripeService {
   private async handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     const metadata = session.metadata ?? {};
     const { userId, specialistId, tier, subscriptionType } = metadata;
+    if (!userId) {
+      this.logger.error('Checkout session missing userId in metadata');
+      return;
+    }
 
     // Get subscription details from Stripe
     const stripeSubscription = await this.stripe.subscriptions.retrieve(
       session.subscription as string,
     );
+
+    if (!stripeSubscription.items?.data?.[0]?.id) {
+      this.logger.error('Stripe subscription has no items');
+      return;
+    }
 
     let subscription = await this.subscriptionRepository.findOne({
       where: { userId },
@@ -303,7 +312,7 @@ export class StripeService {
     switch (event.type) {
       case 'payment_intent.succeeded': {
         const paymentIntent = event.data.object;
-        if (paymentIntent.metadata.commissionId) {
+        if (paymentIntent.metadata?.commissionId) {
           await this.handleCommissionPaymentSuccess(paymentIntent.id);
         }
         break;
