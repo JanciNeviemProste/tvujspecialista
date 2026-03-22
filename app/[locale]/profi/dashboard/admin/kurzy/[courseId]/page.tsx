@@ -1,21 +1,21 @@
-// TODO: Split into CourseEditor, ModulesList, and LessonEditor sub-components
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useRouter } from '@/i18n/routing';
-import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { academyApi } from '@/lib/api/academy';
 import { adminApi } from '@/lib/api/admin';
 import {
-  ArrowLeft, Plus, Pencil, Trash2, X, ChevronUp, ChevronDown,
-  GripVertical, Video, FileText, Upload, Check, Loader2, BookOpen,
-  Eye, EyeOff, Play
+  Plus, Pencil, Trash2, X, ChevronUp, ChevronDown,
+  GripVertical, Video, FileText, Upload, Loader2,
+  Play
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Module, Lesson } from '@/types/academy';
+import CourseHeader from '@/components/admin/CourseHeader';
+import ModulesContainer from '@/components/admin/ModulesContainer';
 
 // ─── Module Form ────────────────────────────────────────────
 function ModuleForm({
@@ -672,82 +672,44 @@ export default function CourseBuilderPage() {
   };
 
   const sortedModules = (modules || []).slice().sort((a: Module, b: Module) => a.position - b.position);
+  const lessonsCount = sortedModules.reduce((sum: number, m: Module) => sum + (m.lessons?.length || 0), 0);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center gap-4">
-          <Link href="/academy/admin" className="text-gray-400 hover:text-gray-900 transition-colors">
-            <ArrowLeft className="h-5 w-5" />
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold flex items-center gap-3">
-              <BookOpen className="h-6 w-6 text-blue-600" />
-              {course?.title || 'Načítavam...'}
-            </h1>
-            <p className="text-gray-500 mt-1">
-              {sortedModules.length} {sortedModules.length === 1 ? 'modul' : sortedModules.length < 5 ? 'moduly' : 'modulov'}
-              {' · '}
-              {sortedModules.reduce((sum: number, m: Module) => sum + (m.lessons?.length || 0), 0)} lekcií
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={handlePublish}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              course?.published
-                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                : 'bg-green-600 text-white hover:bg-green-700'
-            }`}
-          >
-            {course?.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-            {course?.published ? 'Skryť' : 'Publikovať'}
-          </button>
-        </div>
-      </div>
+      <CourseHeader
+        course={course}
+        modulesCount={sortedModules.length}
+        lessonsCount={lessonsCount}
+        onPublishToggle={handlePublish}
+        isLoading={!course}
+      />
 
-      {/* Modules list */}
-      {modulesLoading ? (
-        <div className="space-y-4">
-          {[1, 2].map((i) => (
-            <div key={i} className="rounded-xl border border-gray-200 bg-white dark:bg-card p-6 animate-pulse">
-              <div className="h-5 w-48 bg-gray-200 rounded mb-3" />
-              <div className="h-4 w-32 bg-gray-100 rounded" />
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {sortedModules.map((mod: Module, i: number) => (
-            <ModuleSection
-              key={mod.id}
-              module={mod}
-              index={i}
-              total={sortedModules.length}
-              onRefresh={refresh}
-            />
-          ))}
-
-          {/* Add Module */}
-          {addingModule ? (
-            <ModuleForm
-              onSave={handleCreateModule}
-              onCancel={() => setAddingModule(false)}
-              loading={moduleLoading}
-            />
-          ) : (
-            <button
-              onClick={() => setAddingModule(true)}
-              className="flex items-center gap-2 w-full px-5 py-4 rounded-xl border-2 border-dashed border-gray-300 text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors font-medium"
-            >
-              <Plus className="h-5 w-5" />
-              Pridať modul
-            </button>
-          )}
-        </div>
-      )}
+      <ModulesContainer
+        modules={sortedModules}
+        isLoading={modulesLoading}
+        addingModule={addingModule}
+        onToggleAddModule={() => setAddingModule(!addingModule)}
+        onSaveModule={handleCreateModule}
+        moduleLoading={moduleLoading}
+        onRefresh={refresh}
+        courseId={courseId}
+        renderModuleForm={({ onSave, onCancel, loading }) => (
+          <ModuleForm
+            onSave={onSave}
+            onCancel={onCancel}
+            loading={loading}
+          />
+        )}
+        renderModuleSection={({ module: mod, index, total, onRefresh: onRefreshMod }) => (
+          <ModuleSection
+            key={mod.id}
+            module={mod}
+            index={index}
+            total={total}
+            onRefresh={onRefreshMod}
+          />
+        )}
+      />
     </div>
   );
 }
