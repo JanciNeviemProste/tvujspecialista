@@ -3,6 +3,7 @@ import {
   IsString,
   IsArray,
   IsUrl,
+  IsBoolean,
   MinLength,
   ValidateNested,
   IsIn,
@@ -58,6 +59,18 @@ export class UpdateSpecialistDto {
   @IsOptional()
   @IsUrl()
   linkedin?: string;
+
+  @IsOptional()
+  @IsUrl({}, { message: 'Invalid URL' })
+  facebook?: string;
+
+  @IsOptional()
+  @IsUrl({}, { message: 'Invalid URL' })
+  instagram?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  onboardingCompleted?: boolean;
 
   @IsOptional()
   @IsArray()

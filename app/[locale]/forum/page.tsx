@@ -14,7 +14,7 @@ export default function ForumPage() {
   const t = useTranslations('forum');
   const router = useRouter();
   const { isAuthenticated, isLoading: authLoading } = useAuth();
-  const { data: categories, isLoading: categoriesLoading } = useForumCategories();
+  const { data: categories, isLoading: categoriesLoading } = useForumCategories(isAuthenticated);
 
   // Redirect if not authenticated
   if (!authLoading && !isAuthenticated) {

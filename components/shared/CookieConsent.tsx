@@ -8,8 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 export function CookieConsent() {
   const t = useTranslations('cookies');
   const [visible, setVisible] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       // Show after 1 second delay
@@ -27,6 +29,8 @@ export function CookieConsent() {
     localStorage.setItem('cookie-consent', 'rejected');
     setVisible(false);
   };
+
+  if (!isMounted) return null;
 
   return (
     <AnimatePresence>

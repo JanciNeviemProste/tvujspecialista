@@ -114,6 +114,7 @@ export interface LessonProgress {
   enrollmentId: string;
   lessonId: string;
   completed: boolean;
+  completedAt?: string;
   watchTimeSeconds: number;
   lastWatchedAt: string;
   notes?: string;

@@ -23,7 +23,9 @@ export function useNotifications() {
     if (!user) return;
 
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://tvujspecialista-production.up.railway.app/api';
-    const wsUrl = apiUrl.replace('/api', '').replace('https://', 'wss://').replace('http://', 'ws://');
+    const parsedUrl = new URL(apiUrl);
+    const wsProtocol = parsedUrl.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = `${wsProtocol}//${parsedUrl.host}`;
 
     const newSocket = io(`${wsUrl}/notifications`, {
       query: { userId: user.id },

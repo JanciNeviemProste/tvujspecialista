@@ -72,7 +72,7 @@ export function useUpdateEvent() {
       communityApi.updateEvent(id, data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
-      queryClient.invalidateQueries({ queryKey: queryKeys.community.event('') });
+      queryClient.invalidateQueries({ queryKey: ['event'] });
       toast.success(t('toasts.eventUpdated'));
     },
     onError: (error: Error) => {
@@ -104,7 +104,7 @@ export function useRSVP() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.myRSVPs });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
-      queryClient.invalidateQueries({ queryKey: queryKeys.community.event('') });
+      queryClient.invalidateQueries({ queryKey: ['event'] });
       toast.success(t('toasts.rsvpSuccess'));
     },
     onError: (error: Error) => {
@@ -121,7 +121,7 @@ export function useCancelRSVP() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.community.myRSVPs });
       queryClient.invalidateQueries({ queryKey: queryKeys.community.events });
-      queryClient.invalidateQueries({ queryKey: queryKeys.community.event('') });
+      queryClient.invalidateQueries({ queryKey: ['event'] });
       toast.success(t('toasts.rsvpCancelled'));
     },
     onError: (error: Error) => {

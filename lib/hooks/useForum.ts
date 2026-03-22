@@ -5,11 +5,12 @@ import { queryKeys } from '@/lib/queryKeys';
 import { toast } from 'sonner';
 
 // Categories
-export function useForumCategories() {
+export function useForumCategories(enabled = true) {
   return useQuery({
     queryKey: queryKeys.forum.categories,
     queryFn: () => forumApi.getCategories().then((res) => res.data),
     staleTime: 60 * 1000,
+    enabled,
   });
 }
 
@@ -41,6 +42,7 @@ export function useCreateTopic() {
       forumApi.createTopic(data).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.forum.categories });
+      queryClient.invalidateQueries({ queryKey: ['forumTopics'] });
       toast.success(t('toasts.topicCreated'));
     },
     onError: () => {
@@ -89,7 +91,7 @@ export function useUpdatePost() {
     mutationFn: ({ postId, content }: { postId: string; content: string }) =>
       forumApi.updatePost(postId, content),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.forum.categories });
+      queryClient.invalidateQueries({ queryKey: ['forumTopic'] });
       toast.success(t('toasts.postUpdated'));
     },
     onError: () => {
