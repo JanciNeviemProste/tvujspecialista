@@ -2,12 +2,12 @@ import {
   Injectable,
   NotFoundException,
   ForbiddenException,
-  BadRequestException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ForumTopic } from '../../database/entities/forum-topic.entity';
 import { ForumCategory } from '../../database/entities/forum-category.entity';
+import { ForumLike } from '../../database/entities/forum-like.entity';
 import { CreateTopicDto } from '../dto/create-topic.dto';
 import { QueryTopicsDto } from '../dto/query-topics.dto';
 import { UserRole } from '../../database/entities/user.entity';
@@ -19,6 +19,8 @@ export class ForumTopicsService {
     private topicsRepository: Repository<ForumTopic>,
     @InjectRepository(ForumCategory)
     private categoriesRepository: Repository<ForumCategory>,
+    @InjectRepository(ForumLike)
+    private likesRepository: Repository<ForumLike>,
   ) {}
 
   async findByCategory(
@@ -58,7 +60,7 @@ export class ForumTopicsService {
     return { topics, total, page, limit };
   }
 
-  async findById(id: string): Promise<ForumTopic> {
+  async findById(id: string, userId?: string): Promise<ForumTopic & { posts?: (any)[] }> {
     const topic = await this.topicsRepository.findOne({
       where: { id },
       relations: ['author', 'category', 'posts', 'posts.author'],
@@ -70,6 +72,21 @@ export class ForumTopicsService {
     // Increment view count
     await this.topicsRepository.increment({ id }, 'viewCount', 1);
     topic.viewCount += 1;
+
+    // Annotate posts with hasLiked for the current user
+    if (userId && topic.posts && topic.posts.length > 0) {
+      const postIds = topic.posts.map((p) => p.id);
+      const userLikes = await this.likesRepository
+        .createQueryBuilder('like')
+        .where('like.postId IN (:...postIds)', { postIds })
+        .andWhere('like.userId = :userId', { userId })
+        .getMany();
+      const likedPostIds = new Set(userLikes.map((l) => l.postId));
+      (topic as any).posts = topic.posts.map((post) => ({
+        ...post,
+        hasLiked: likedPostIds.has(post.id),
+      }));
+    }
 
     return topic;
   }
@@ -104,7 +121,7 @@ export class ForumTopicsService {
     // Increment category topic count
     await this.categoriesRepository.increment({ id: dto.categoryId }, 'topicCount', 1);
 
-    return this.findById(saved.id);
+    return this.findById(saved.id, userId);
   }
 
   async pin(id: string, userId: string, role: UserRole): Promise<ForumTopic> {

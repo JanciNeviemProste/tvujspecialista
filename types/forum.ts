@@ -42,6 +42,7 @@ export interface ForumPost {
   isEdited: boolean;
   editedAt: string | null;
   likesCount: number;
+  hasLiked?: boolean;
   author: ForumTopicAuthor;
   createdAt: string;
   updatedAt: string;

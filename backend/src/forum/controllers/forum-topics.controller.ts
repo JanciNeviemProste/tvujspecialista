@@ -38,8 +38,11 @@ export class ForumTopicsController {
   @ApiOperation({ summary: 'Get topic detail with posts' })
   @ApiResponse({ status: 200, description: 'Returns topic with all posts' })
   @ApiResponse({ status: 404, description: 'Topic not found' })
-  async findById(@Param('id') id: string) {
-    return this.topicsService.findById(id);
+  async findById(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    return this.topicsService.findById(id, req.user.userId);
   }
 
   @Post('topics')

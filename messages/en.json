@@ -1678,6 +1678,8 @@
       "replyAddError": "Error adding reply",
       "topicDeleted": "Topic was deleted",
       "topicDeleteError": "Error deleting topic",
+      "postDeleted": "Post was deleted",
+      "postDeleteError": "Error deleting post",
       "likeError": "Error toggling like"
     },
     "newTopic": {
@@ -1690,6 +1692,9 @@
       "contentPlaceholder": "Describe your topic in detail...",
       "submitting": "Creating...",
       "submit": "Create topic"
+    },
+    "post": {
+      "edited": "edited"
     },
     "reply": {
       "placeholder": "Write your reply...",

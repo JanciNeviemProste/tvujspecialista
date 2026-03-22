@@ -5,13 +5,13 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { ThumbsUp, Trash2 } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils/cn';
+import type { ForumPost } from '@/types/forum';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
-import type { ForumPost } from '@/types/forum';
 
 interface PostCardProps {
   post: ForumPost;
@@ -24,6 +24,7 @@ interface PostCardProps {
 
 function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLiking }: PostCardProps) {
   const locale = useLocale();
+  const t = useTranslations('forum');
   const authorInitials = post.author.name
     .split(' ')
     .map((n) => n[0])
@@ -48,7 +49,7 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
                   addSuffix: true,
                   locale: dateFnsLocaleMap[locale] || cs,
                 })}
-                {post.isEdited && ' (upravené)'}
+                {post.isEdited && ` (${t('post.edited')})`}
               </p>
             </div>
           </div>
@@ -80,7 +81,7 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
             disabled={isLiking}
             className={cn(
               'gap-2',
-              post.likesCount > 0 && 'text-primary'
+              post.hasLiked && 'text-primary'
             )}
           >
             <ThumbsUp className="h-4 w-4" />

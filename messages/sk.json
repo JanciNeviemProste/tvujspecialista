@@ -1678,6 +1678,8 @@
       "replyAddError": "Chyba pri pridávaní odpovede",
       "topicDeleted": "Téma bola vymazaná",
       "topicDeleteError": "Chyba pri mazaní témy",
+      "postDeleted": "Príspevok bol vymazaný",
+      "postDeleteError": "Chyba pri mazaní príspevku",
       "likeError": "Chyba pri označení páči sa mi"
     },
     "newTopic": {
@@ -1690,6 +1692,9 @@
       "contentPlaceholder": "Popíšte svoju tému podrobnejšie...",
       "submitting": "Vytváram...",
       "submit": "Vytvoriť tému"
+    },
+    "post": {
+      "edited": "upravené"
     },
     "reply": {
       "placeholder": "Napíšte svoju odpoveď...",

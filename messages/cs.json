@@ -1678,6 +1678,8 @@
       "replyAddError": "Chyba při přidávání odpovědi",
       "topicDeleted": "Téma bylo smazáno",
       "topicDeleteError": "Chyba při mazání tématu",
+      "postDeleted": "Příspěvek byl smazán",
+      "postDeleteError": "Chyba při mazání příspěvku",
       "likeError": "Chyba při označení líbí se mi"
     },
     "newTopic": {
@@ -1690,6 +1692,9 @@
       "contentPlaceholder": "Popište své téma podrobněji...",
       "submitting": "Vytvářím...",
       "submit": "Vytvořit téma"
+    },
+    "post": {
+      "edited": "upraveno"
     },
     "reply": {
       "placeholder": "Napište svoji odpověď...",

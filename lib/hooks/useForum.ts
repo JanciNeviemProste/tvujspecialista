@@ -89,10 +89,10 @@ export function useDeletePost(topicId: string) {
       forumApi.deletePost(postId).then((res) => res.data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.forum.topic(topicId) });
-      toast.success(t('toasts.topicDeleted'));
+      toast.success(t('toasts.postDeleted'));
     },
     onError: () => {
-      toast.error(t('toasts.topicDeleteError'));
+      toast.error(t('toasts.postDeleteError'));
     },
   });
 }

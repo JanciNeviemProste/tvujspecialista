@@ -9,7 +9,6 @@ import { PostCard } from '@/components/forum/PostCard';
 import { ReplyForm } from '@/components/forum/ReplyForm';
 import { TopicDetailSkeleton } from '@/components/forum/LoadingStates';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Pin, Lock, Eye, MessageSquare } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';

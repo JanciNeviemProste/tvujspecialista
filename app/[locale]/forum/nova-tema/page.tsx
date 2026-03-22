@@ -1,6 +1,7 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useForumCategories, useCreateTopic } from '@/lib/hooks/useForum';
 import { NewTopicForm } from '@/components/forum/NewTopicForm';

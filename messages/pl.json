@@ -1678,6 +1678,8 @@
       "replyAddError": "Błąd dodawania odpowiedzi",
       "topicDeleted": "Temat został usunięty",
       "topicDeleteError": "Błąd usuwania tematu",
+      "postDeleted": "Wpis został usunięty",
+      "postDeleteError": "Błąd usuwania wpisu",
       "likeError": "Błąd oznaczania polubienia"
     },
     "newTopic": {
@@ -1690,6 +1692,9 @@
       "contentPlaceholder": "Opisz swój temat szczegółowo...",
       "submitting": "Tworzenie...",
       "submit": "Utwórz temat"
+    },
+    "post": {
+      "edited": "edytowano"
     },
     "reply": {
       "placeholder": "Napisz swoją odpowiedź...",
