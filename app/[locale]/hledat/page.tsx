@@ -82,6 +82,17 @@ export default function SearchPage() {
                 </select>
               </div>
 
+              {/* City Search */}
+              <div className="mb-4">
+                <input
+                  type="text"
+                  className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  placeholder={t('filters.cityPlaceholder')}
+                  value={filters.location}
+                  onChange={(e) => updateFilters({ location: e.target.value })}
+                />
+              </div>
+
               {/* Location Filter */}
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">{t('filters.location')}</label>

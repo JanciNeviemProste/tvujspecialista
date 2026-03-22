@@ -12,14 +12,15 @@ import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 
 const loginSchema = z.object({
-  email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
-  password: z.string().min(1, 'Heslo je povinné'),
+  email: z.string().min(1, 'emailRequired').email('emailInvalid'),
+  password: z.string().min(1, 'passwordRequired'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function LoginPage() {
   const t = useTranslations('auth.login');
+  const tValidation = useTranslations('common.validation');
   const tActions = useTranslations('common.actions');
   const router = useRouter();
   const { login, user, isLoading: authLoading } = useAuth();
@@ -108,7 +109,7 @@ export default function LoginPage() {
                   {...register('email')}
                 />
                 {errors.email && (
-                  <p className="text-sm text-red-500">{errors.email.message}</p>
+                  <p className="text-sm text-red-500">{tValidation(errors.email.message as Parameters<typeof tValidation>[0])}</p>
                 )}
               </div>
 
@@ -124,7 +125,7 @@ export default function LoginPage() {
                   {...register('password')}
                 />
                 {errors.password && (
-                  <p className="text-sm text-red-500">{errors.password.message}</p>
+                  <p className="text-sm text-red-500">{tValidation(errors.password.message as Parameters<typeof tValidation>[0])}</p>
                 )}
               </div>
 

@@ -5,13 +5,15 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard, Sun, Moon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations('common.nav');
+  const { theme, setTheme } = useTheme();
 
   const closeMenu = useCallback(() => {
     setIsOpen(false);
@@ -130,6 +132,22 @@ export function MobileNav() {
                     </Link>
                   </>
                 )}
+
+                <div className="my-4 border-t" />
+
+                {/* Dark Mode Toggle */}
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors w-full"
+                  aria-label="Toggle dark mode"
+                >
+                  {theme === 'dark' ? (
+                    <Sun className="h-5 w-5 text-muted-foreground" />
+                  ) : (
+                    <Moon className="h-5 w-5 text-muted-foreground" />
+                  )}
+                  <span className="font-medium">{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+                </button>
 
                 <div className="my-4 border-t" />
 

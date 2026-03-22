@@ -15,24 +15,24 @@ import { PublicHeader } from '@/components/layout/PublicHeader';
 
 const registrationSchema = z
   .object({
-    name: z.string().min(1, 'Jméno je povinné'),
-    email: z.string().min(1, 'Email je povinný').email('Zadejte platný email'),
-    phone: z.string().min(1, 'Telefon je povinný'),
-    password: z.string().min(8, 'Heslo musí mít alespoň 8 znaků'),
-    confirmPassword: z.string().min(1, 'Potvrzení hesla je povinné'),
-    category: z.string().min(1, 'Kategorie je povinná'),
-    location: z.string().min(1, 'Lokalita je povinná'),
-    yearsExperience: z.string().min(1, 'Roky praxe jsou povinné'),
-    bio: z.string().min(1, 'Popis služeb je povinný'),
+    name: z.string().min(1, 'nameRequired'),
+    email: z.string().min(1, 'emailRequired').email('emailInvalid'),
+    phone: z.string().min(1, 'phoneRequired'),
+    password: z.string().min(8, 'passwordMinLength'),
+    confirmPassword: z.string().min(1, 'confirmPasswordRequired'),
+    category: z.string().min(1, 'categoryRequired'),
+    location: z.string().min(1, 'locationRequired'),
+    yearsExperience: z.string().min(1, 'experienceRequired'),
+    bio: z.string().min(1, 'bioRequired'),
     termsAccepted: z.literal(true, {
-      message: 'Musíte souhlasit s obchodními podmínkami',
+      message: 'termsRequired',
     }),
     gdprAccepted: z.literal(true, {
-      message: 'Musíte souhlasit se zpracováním osobních údajů',
+      message: 'gdprRequired',
     }),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: 'Hesla se neshodují',
+    message: 'passwordMismatch',
     path: ['confirmPassword'],
   });
 
@@ -40,6 +40,7 @@ type RegistrationFormData = z.infer<typeof registrationSchema>;
 
 export default function RegistrationPage() {
   const t = useTranslations('auth.register');
+  const tValidation = useTranslations('common.validation');
   const locale = useLocale();
   const router = useRouter();
   const [error, setError] = useState('');
@@ -139,7 +140,7 @@ export default function RegistrationPage() {
                         {...register('name')}
                       />
                       {errors.name && (
-                        <p id="reg-name-error" className="text-sm text-red-500" role="alert">{errors.name.message}</p>
+                        <p id="reg-name-error" className="text-sm text-red-500" role="alert">{tValidation(errors.name.message as Parameters<typeof tValidation>[0])}</p>
                       )}
                     </div>
                     <div>
@@ -156,7 +157,7 @@ export default function RegistrationPage() {
                         {...register('email')}
                       />
                       {errors.email && (
-                        <p id="reg-email-error" className="text-sm text-red-500" role="alert">{errors.email.message}</p>
+                        <p id="reg-email-error" className="text-sm text-red-500" role="alert">{tValidation(errors.email.message as Parameters<typeof tValidation>[0])}</p>
                       )}
                     </div>
                   </div>
@@ -175,7 +176,7 @@ export default function RegistrationPage() {
                       {...register('phone')}
                     />
                     {errors.phone && (
-                      <p id="reg-phone-error" className="text-sm text-red-500" role="alert">{errors.phone.message}</p>
+                      <p id="reg-phone-error" className="text-sm text-red-500" role="alert">{tValidation(errors.phone.message as Parameters<typeof tValidation>[0])}</p>
                     )}
                   </div>
                 </div>
@@ -202,7 +203,7 @@ export default function RegistrationPage() {
                         <option value="Realitní makléř">Realitní makléř</option>
                       </select>
                       {errors.category && (
-                        <p id="reg-category-error" className="text-sm text-red-500" role="alert">{errors.category.message}</p>
+                        <p id="reg-category-error" className="text-sm text-red-500" role="alert">{tValidation(errors.category.message as Parameters<typeof tValidation>[0])}</p>
                       )}
                     </div>
                     <div>
@@ -223,7 +224,7 @@ export default function RegistrationPage() {
                         <option value="Plzeň">Plzeň</option>
                       </select>
                       {errors.location && (
-                        <p id="reg-location-error" className="text-sm text-red-500" role="alert">{errors.location.message}</p>
+                        <p id="reg-location-error" className="text-sm text-red-500" role="alert">{tValidation(errors.location.message as Parameters<typeof tValidation>[0])}</p>
                       )}
                     </div>
                   </div>
@@ -243,7 +244,7 @@ export default function RegistrationPage() {
                       {...register('yearsExperience')}
                     />
                     {errors.yearsExperience && (
-                      <p id="reg-experience-error" className="text-sm text-red-500" role="alert">{errors.yearsExperience.message}</p>
+                      <p id="reg-experience-error" className="text-sm text-red-500" role="alert">{tValidation(errors.yearsExperience.message as Parameters<typeof tValidation>[0])}</p>
                     )}
                   </div>
 
@@ -261,7 +262,7 @@ export default function RegistrationPage() {
                       {...register('bio')}
                     />
                     {errors.bio && (
-                      <p id="reg-bio-error" className="text-sm text-red-500" role="alert">{errors.bio.message}</p>
+                      <p id="reg-bio-error" className="text-sm text-red-500" role="alert">{tValidation(errors.bio.message as Parameters<typeof tValidation>[0])}</p>
                     )}
                   </div>
                 </div>
@@ -285,7 +286,7 @@ export default function RegistrationPage() {
                       {...register('password')}
                     />
                     {errors.password && (
-                      <p id="reg-password-error" className="text-sm text-red-500" role="alert">{errors.password.message}</p>
+                      <p id="reg-password-error" className="text-sm text-red-500" role="alert">{tValidation(errors.password.message as Parameters<typeof tValidation>[0])}</p>
                     )}
                   </div>
                   <div>
@@ -302,7 +303,7 @@ export default function RegistrationPage() {
                       {...register('confirmPassword')}
                     />
                     {errors.confirmPassword && (
-                      <p id="reg-confirm-password-error" className="text-sm text-red-500" role="alert">{errors.confirmPassword.message}</p>
+                      <p id="reg-confirm-password-error" className="text-sm text-red-500" role="alert">{tValidation(errors.confirmPassword.message as Parameters<typeof tValidation>[0])}</p>
                     )}
                   </div>
                 </div>
@@ -326,7 +327,7 @@ export default function RegistrationPage() {
                     </span>
                   </label>
                   {errors.termsAccepted && (
-                    <p className="text-sm text-red-500">{errors.termsAccepted.message}</p>
+                    <p className="text-sm text-red-500">{tValidation(errors.termsAccepted.message as Parameters<typeof tValidation>[0])}</p>
                   )}
                   <label className="flex items-start">
                     <input
@@ -346,7 +347,7 @@ export default function RegistrationPage() {
                     </span>
                   </label>
                   {errors.gdprAccepted && (
-                    <p className="text-sm text-red-500">{errors.gdprAccepted.message}</p>
+                    <p className="text-sm text-red-500">{tValidation(errors.gdprAccepted.message as Parameters<typeof tValidation>[0])}</p>
                   )}
                 </div>
               </div>

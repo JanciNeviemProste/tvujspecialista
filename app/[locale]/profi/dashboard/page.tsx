@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { paymentsApi } from '@/lib/api/payments';
 import { specialistsApi } from '@/lib/api/specialists';
 import { adminApi } from '@/lib/api/admin';
-import React from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown, Home, Landmark, GraduationCap } from 'lucide-react';
 import type { Lead } from '@/types/lead';
 import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard';
@@ -81,16 +81,16 @@ export default function DashboardPage() {
 
   const isAdmin = user.role === 'admin';
 
-  const stats = {
+  const stats = useMemo(() => ({
     newLeads: normalizedLeads?.stats?.new || 0,
     totalLeads: normalizedLeads?.total || 0,
     rating: specialistProfile?.rating ?? 0,
     successRate: normalizedLeads?.total
       ? Math.round(((normalizedLeads?.stats?.closedWon || 0) / normalizedLeads.total) * 100)
       : 0,
-  };
+  }), [normalizedLeads, specialistProfile?.rating]);
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = useCallback((status: string) => {
     const statusMap: Record<string, { label: string; className: string }> = {
       new: { label: tStatus('new'), className: 'bg-blue-100 text-blue-700' },
       contacted: { label: tStatus('contacted'), className: 'bg-yellow-100 text-yellow-700' },
@@ -99,7 +99,7 @@ export default function DashboardPage() {
       closed_lost: { label: tStatus('closedLost'), className: 'bg-red-100 text-red-700' },
     };
     return statusMap[status] || statusMap.new;
-  };
+  }, [tStatus]);
 
   return (
     <div className="min-h-screen bg-gray-50">

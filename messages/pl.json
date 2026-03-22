@@ -295,7 +295,8 @@
       "stars": "{count}+ gwiazdek",
       "verifiedOnly": "Tylko zweryfikowani specjaliści",
       "czechRepublic": "Republika Czeska",
-      "slovakia": "Słowacja"
+      "slovakia": "Słowacja",
+      "cityPlaceholder": "Szukaj według miasta..."
     },
     "sort": {
       "label": "Sortuj według:",

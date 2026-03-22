@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import Image from 'next/image';
 import { RatingStars } from '@/components/shared/RatingStars';
-import { ShieldCheck } from 'lucide-react';
+import { ShieldCheck, X } from 'lucide-react';
 import { useSpecialist } from '@/lib/hooks/useSpecialist';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import { SpecialistJsonLd } from '@/components/seo/JsonLd';
@@ -41,6 +41,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
   });
   const [gdprConsent, setGdprConsent] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -201,7 +202,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                   {photos.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                       {photos.map((item: { url: string; caption?: string }, index: number) => (
-                        <div key={`photo-${index}`} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100">
+                        <div key={`photo-${index}`} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 cursor-pointer" onClick={() => setLightboxImage(item.url)}>
                           <Image
                             src={item.url}
                             alt={item.caption || `Photo ${index + 1}`}
@@ -443,6 +444,30 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
           </div>
         </div>
       </div>
+
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
+            onClick={() => setLightboxImage(null)}
+            aria-label="Close"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          <div className="relative max-h-[90vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={lightboxImage}
+              alt="Gallery photo"
+              width={1200}
+              height={800}
+              className="rounded-lg object-contain max-h-[90vh]"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

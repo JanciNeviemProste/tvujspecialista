@@ -295,7 +295,8 @@
       "stars": "{count}+ hvězdiček",
       "verifiedOnly": "Pouze ověření specialisté",
       "czechRepublic": "Česká republika",
-      "slovakia": "Slovensko"
+      "slovakia": "Slovensko",
+      "cityPlaceholder": "Hledat podle města..."
     },
     "sort": {
       "label": "Seřadit podle:",

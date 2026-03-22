@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { RSVP, RSVPStatus } from '@/types/community'
 import { Card, CardContent } from '@/components/ui/card'
@@ -26,7 +27,7 @@ function getRSVPStatusVariant(status: RSVPStatus): 'default' | 'success' | 'dest
   return variants[status]
 }
 
-export function RSVPCard({ rsvp, onCancel, className }: RSVPCardProps) {
+function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
   const t = useTranslations('community')
 
   const rsvpStatusLabels: Record<RSVPStatus, string> = {
@@ -137,3 +138,5 @@ export function RSVPCard({ rsvp, onCancel, className }: RSVPCardProps) {
     </Card>
   )
 }
+
+export const RSVPCard = memo(RSVPCardInner)

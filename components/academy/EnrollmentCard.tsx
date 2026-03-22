@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Enrollment } from '@/types/academy'
 import { Card, CardContent } from '@/components/ui/card'
@@ -44,7 +45,7 @@ function formatRelativeTime(date: string, t: ReturnType<typeof useTranslations>)
   }
 }
 
-export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
+function EnrollmentCardInner({ enrollment, className }: EnrollmentCardProps) {
   const t = useTranslations('academy')
   const isCompleted = enrollment.status === 'completed'
   const buttonText = isCompleted ? t('enrollment.repeat') : t('enrollment.continue')
@@ -123,3 +124,5 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
     </Card>
   )
 }
+
+export const EnrollmentCard = memo(EnrollmentCardInner)

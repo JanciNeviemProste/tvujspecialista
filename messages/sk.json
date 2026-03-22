@@ -295,7 +295,8 @@
       "stars": "{count}+ hviezdičiek",
       "verifiedOnly": "Iba overení špecialisti",
       "czechRepublic": "Česká republika",
-      "slovakia": "Slovensko"
+      "slovakia": "Slovensko",
+      "cityPlaceholder": "Hľadať podľa mesta..."
     },
     "sort": {
       "label": "Zoradiť podľa:",

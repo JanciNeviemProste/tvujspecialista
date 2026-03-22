@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Star, Quote, BadgeCheck } from 'lucide-react';
 
 interface TestimonialCardProps {
@@ -10,7 +11,7 @@ interface TestimonialCardProps {
   verifiedLabel: string;
 }
 
-export function TestimonialCard({ quote, name, location, rating, verifiedLabel }: TestimonialCardProps) {
+function TestimonialCardInner({ quote, name, location, rating, verifiedLabel }: TestimonialCardProps) {
   const ratingNumber = parseFloat(rating);
   const fullStars = Math.floor(ratingNumber);
   const hasHalfStar = ratingNumber % 1 >= 0.5;
@@ -58,3 +59,5 @@ export function TestimonialCard({ quote, name, location, rating, verifiedLabel }
     </div>
   );
 }
+
+export const TestimonialCard = memo(TestimonialCardInner);

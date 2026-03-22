@@ -295,7 +295,8 @@
       "stars": "{count}+ stars",
       "verifiedOnly": "Verified specialists only",
       "czechRepublic": "Czech Republic",
-      "slovakia": "Slovakia"
+      "slovakia": "Slovakia",
+      "cityPlaceholder": "Search by city..."
     },
     "sort": {
       "label": "Sort by:",

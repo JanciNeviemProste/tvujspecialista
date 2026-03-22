@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Commission, CommissionStatus } from '@/types/commissions';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -32,7 +33,7 @@ function formatCurrency(value: number): string {
   }).format(value);
 }
 
-export function CommissionCard({ commission, onPay, className }: CommissionCardProps) {
+function CommissionCardInner({ commission, onPay, className }: CommissionCardProps) {
   const locale = useLocale();
   const statusInfo = statusConfig[commission.status];
   const dueDate = new Date(commission.dueDate);
@@ -139,3 +140,5 @@ export function CommissionCard({ commission, onPay, className }: CommissionCardP
     </Card>
   );
 }
+
+export const CommissionCard = memo(CommissionCardInner);
