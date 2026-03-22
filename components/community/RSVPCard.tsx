@@ -55,7 +55,7 @@ export function RSVPCard({ rsvp, onCancel, className }: RSVPCardProps) {
       className={cn('overflow-hidden', className)}
     >
       {/* Event thumbnail */}
-      <div className="relative h-32 overflow-hidden bg-gray-200">
+      <div className="relative h-32 overflow-hidden bg-gray-200 dark:bg-muted">
         <Image
           src={event.bannerImage}
           alt={event.title}

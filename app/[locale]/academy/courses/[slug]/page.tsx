@@ -117,7 +117,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
   if (courseLoading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2 space-y-6">
@@ -137,7 +137,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
   if (courseError || !course) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-background">
         <div className="container mx-auto px-4 py-20">
           <div className="rounded-lg border border-red-300 bg-red-50 p-8 text-center">
             <h2 className="mb-2 text-xl font-semibold text-red-600">
@@ -170,7 +170,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
   ) || course.lessonCount;
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
@@ -227,7 +227,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
 
             {/* Thumbnail with play overlay */}
             <Link href={`/academy/learn/${course.slug}`}>
-              <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-200 group cursor-pointer">
+              <div className="relative aspect-video overflow-hidden rounded-lg bg-gray-200 dark:bg-muted group cursor-pointer">
                 <Image
                   src={course.thumbnailUrl}
                   alt={course.title}

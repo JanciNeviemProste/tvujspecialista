@@ -115,7 +115,7 @@ export default function ReviewsPage() {
                       {item.stars} &#9733;
                     </span>
                     <div className="flex-1">
-                      <div className="h-2 overflow-hidden rounded-full bg-gray-200">
+                      <div className="h-2 overflow-hidden rounded-full bg-gray-200 dark:bg-muted">
                         <div
                           className="h-full rounded-full bg-yellow-400"
                           style={{ width: `${item.percentage}%` }}

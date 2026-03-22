@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { useRouter } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import { academyApi } from '@/lib/api/academy';
 import { adminApi } from '@/lib/api/admin';
@@ -29,6 +30,7 @@ function ModuleForm({
   onCancel: () => void;
   loading: boolean;
 }) {
+  const t = useTranslations('dashboard.admin.courses');
   const [title, setTitle] = useState(initial?.title || '');
   const [description, setDescription] = useState(initial?.description || '');
 
@@ -38,31 +40,31 @@ function ModuleForm({
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Názov modulu"
-        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+        placeholder={t('module.titlePlaceholder')}
+        className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
         disabled={loading}
       />
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        placeholder="Popis modulu"
+        placeholder={t('module.descriptionPlaceholder')}
         rows={2}
-        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+        className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
         disabled={loading}
       />
       <div className="flex gap-2">
         <button
           onClick={() => {
-            if (!title.trim()) { toast.error('Názov je povinný'); return; }
+            if (!title.trim()) { toast.error(t('validation.titleRequired')); return; }
             onSave({ title: title.trim(), description: description.trim() });
           }}
           disabled={loading}
           className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
         >
-          {loading ? 'Ukladám...' : 'Uložiť'}
+          {loading ? t('actions.saving') : t('actions.save')}
         </button>
         <button onClick={onCancel} disabled={loading} className="px-4 py-2 rounded-lg border border-gray-300 text-sm hover:bg-gray-50">
-          Zrušiť
+          {t('actions.cancel')}
         </button>
       </div>
     </div>
@@ -85,6 +87,7 @@ function LessonModal({
   loading: boolean;
   isEdit: boolean;
 }) {
+  const t = useTranslations('dashboard.admin.courses');
   const [title, setTitle] = useState(initial?.title || '');
   const [description, setDescription] = useState(initial?.description || '');
   const [type, setType] = useState(initial?.type || 'video');
@@ -106,43 +109,43 @@ function LessonModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
       <div className="w-full max-w-lg bg-white dark:bg-card rounded-xl shadow-2xl">
         <div className="flex items-center justify-between p-5 border-b">
-          <h3 className="text-lg font-bold">{isEdit ? 'Upraviť lekciu' : 'Nová lekcia'}</h3>
+          <h3 className="text-lg font-bold">{isEdit ? t('lesson.editTitle') : t('lesson.newTitle')}</h3>
           <button onClick={onClose} className="p-2 rounded-md hover:bg-gray-100"><X className="h-4 w-4" /></button>
         </div>
         <div className="p-5 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Názov *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('lesson.nameLabel')}</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="napr. Úvod do hypotéky"
+              className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder={t('lesson.namePlaceholder')}
               disabled={loading}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Popis</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{t('lesson.descriptionLabel')}</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="Čo sa študent naučí..."
+              className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder={t('lesson.descriptionPlaceholder')}
               disabled={loading}
             />
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Typ</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{t('lesson.typeLabel')}</label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={loading}
               >
-                <option value="video">Video</option>
-                <option value="reading">Materiál / Text</option>
+                <option value="video">{t('lesson.typeVideo')}</option>
+                <option value="reading">{t('lesson.typeReading')}</option>
               </select>
             </div>
             <div className="flex items-end pb-1">
@@ -154,23 +157,23 @@ function LessonModal({
                   className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="text-sm text-gray-700">Zadarmo (preview)</span>
+                <span className="text-sm text-gray-700">{t('lesson.freePreview')}</span>
               </label>
             </div>
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={onClose} disabled={loading} className="flex-1 rounded-lg border border-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50">
-              Zrušiť
+              {t('actions.cancel')}
             </button>
             <button
               onClick={() => {
-                if (!title.trim()) { toast.error('Názov je povinný'); return; }
+                if (!title.trim()) { toast.error(t('validation.titleRequired')); return; }
                 onSave({ title: title.trim(), description: description.trim(), type, free });
               }}
               disabled={loading}
               className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-sm font-medium hover:bg-blue-700 disabled:opacity-50"
             >
-              {loading ? 'Ukladám...' : isEdit ? 'Uložiť zmeny' : 'Vytvoriť lekciu'}
+              {loading ? t('actions.saving') : isEdit ? t('actions.saveChanges') : t('lesson.create')}
             </button>
           </div>
         </div>
@@ -187,6 +190,7 @@ function VideoUploadZone({
   lesson: Lesson;
   onUploadDone: () => void;
 }) {
+  const t = useTranslations('dashboard.admin.courses');
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [dragOver, setDragOver] = useState(false);
@@ -195,11 +199,11 @@ function VideoUploadZone({
   const handleFile = async (file: File) => {
     const allowedTypes = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/webm'];
     if (!allowedTypes.includes(file.type)) {
-      toast.error('Povolené: MP4, MOV, AVI, WebM');
+      toast.error(t('video.allowedFormats'));
       return;
     }
     if (file.size > 500 * 1024 * 1024) {
-      toast.error('Maximálna veľkosť: 500 MB');
+      toast.error(t('video.maxSize'));
       return;
     }
 
@@ -211,12 +215,12 @@ function VideoUploadZone({
         setProgress(percent);
       });
       setProgress(100);
-      toast.success('Video nahrané');
+      toast.success(t('video.uploaded'));
       onUploadDone();
     } catch (error: any) {
       console.error('Video upload error:', error);
       const detail = error?.response?.data?.message || error?.message || '';
-      toast.error(`Nahrávanie videa zlyhalo${detail ? ': ' + detail : ''}`);
+      toast.error(`${t('video.uploadFailed')}${detail ? ': ' + detail : ''}`);
     } finally {
       setUploading(false);
     }
@@ -228,18 +232,18 @@ function VideoUploadZone({
       <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
         <Play className="h-5 w-5 text-green-600" />
         <div className="flex-1">
-          <p className="text-sm font-medium text-green-800">Video nahrané</p>
+          <p className="text-sm font-medium text-green-800">{t('video.uploaded')}</p>
           <p className="text-xs text-green-600">{lesson.video.title} ({Math.round(lesson.video.duration / 60)} min)</p>
         </div>
         <button
           onClick={async () => {
-            if (!window.confirm('Zmazať video?')) return;
+            if (!window.confirm(t('video.confirmDelete'))) return;
             try {
               await academyApi.deleteVideo(lesson.video!.id);
-              toast.success('Video zmazané');
+              toast.success(t('video.deleted'));
               onUploadDone();
             } catch {
-              toast.error('Mazanie zlyhalo');
+              toast.error(t('video.deleteFailed'));
             }
           }}
           className="p-1.5 rounded-md hover:bg-red-100 text-red-600"
@@ -255,17 +259,17 @@ function VideoUploadZone({
       <div className="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
         <X className="h-5 w-5 text-red-600" />
         <div className="flex-1">
-          <p className="text-sm font-medium text-red-800">Upload zlyhal</p>
-          <p className="text-xs text-red-600">Kliknite na kôš pre zmazanie a nahrajte video znova</p>
+          <p className="text-sm font-medium text-red-800">{t('video.uploadError')}</p>
+          <p className="text-xs text-red-600">{t('video.uploadErrorHint')}</p>
         </div>
         <button
           onClick={async () => {
             try {
               await academyApi.deleteVideo(lesson.video!.id);
-              toast.success('Chybný záznam zmazaný');
+              toast.success(t('video.errorRecordDeleted'));
               onUploadDone();
             } catch {
-              toast.error('Mazanie zlyhalo');
+              toast.error(t('video.deleteFailed'));
             }
           }}
           className="p-1.5 rounded-md hover:bg-red-100 text-red-600"
@@ -281,7 +285,7 @@ function VideoUploadZone({
       <div className="flex items-center gap-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
         <Loader2 className="h-5 w-5 text-amber-600 animate-spin" />
         <p className="text-sm text-amber-700">
-          {lesson.video.status === 'uploading' ? 'Nahráva sa...' : 'Spracováva sa...'}
+          {lesson.video.status === 'uploading' ? t('video.uploading') : t('video.processing')}
         </p>
       </div>
     );
@@ -303,7 +307,7 @@ function VideoUploadZone({
         <div className="p-4 border border-blue-200 bg-blue-50 rounded-lg">
           <div className="flex items-center gap-3 mb-2">
             <Loader2 className="h-5 w-5 text-blue-600 animate-spin" />
-            <span className="text-sm text-blue-700">Nahráva sa video... {progress}%</span>
+            <span className="text-sm text-blue-700">{t('video.uploadingProgress', { progress })}</span>
           </div>
           <div className="h-2 bg-blue-100 rounded-full overflow-hidden">
             <div className="h-full bg-blue-600 rounded-full transition-all" style={{ width: `${progress}%` }} />
@@ -325,8 +329,8 @@ function VideoUploadZone({
           }`}
         >
           <Upload className="h-6 w-6 text-gray-400 mb-1" />
-          <span className="text-sm font-medium text-gray-600">Nahrať video</span>
-          <span className="text-xs text-gray-400">MP4, MOV, AVI, WebM - max 500 MB</span>
+          <span className="text-sm font-medium text-gray-600">{t('video.uploadButton')}</span>
+          <span className="text-xs text-gray-400">{t('video.uploadHint')}</span>
         </div>
       )}
     </div>
@@ -351,6 +355,7 @@ function LessonRow({
   onReorder: (dir: 'up' | 'down') => void;
   onRefresh: () => void;
 }) {
+  const t = useTranslations('dashboard.admin.courses');
   const [showVideo, setShowVideo] = useState(false);
 
   return (
@@ -366,7 +371,7 @@ function LessonRow({
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-gray-900 truncate">{lesson.title}</span>
             {lesson.free && (
-              <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-medium">Free</span>
+              <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-medium">{t('lesson.free')}</span>
             )}
             {lesson.video?.status === 'ready' && (
               <span className="inline-flex items-center rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-xs font-medium">
@@ -383,15 +388,15 @@ function LessonRow({
             <button
               onClick={() => setShowVideo(!showVideo)}
               className="p-1.5 rounded-md hover:bg-blue-50 text-blue-600"
-              title="Video"
+              title={t('video.title')}
             >
               <Upload className="h-3.5 w-3.5" />
             </button>
           )}
-          <button onClick={onEdit} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500" title="Upraviť">
+          <button onClick={onEdit} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500" title={t('actions.edit')}>
             <Pencil className="h-3.5 w-3.5" />
           </button>
-          <button onClick={onDelete} className="p-1.5 rounded-md hover:bg-red-50 text-red-500" title="Zmazať">
+          <button onClick={onDelete} className="p-1.5 rounded-md hover:bg-red-50 text-red-500" title={t('actions.delete')}>
             <Trash2 className="h-3.5 w-3.5" />
           </button>
           <button onClick={() => onReorder('up')} disabled={index === 0} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 disabled:opacity-30">
@@ -423,6 +428,7 @@ function ModuleSection({
   total: number;
   onRefresh: () => void;
 }) {
+  const t = useTranslations('dashboard.admin.courses');
   const [expanded, setExpanded] = useState(true);
   const [editing, setEditing] = useState(false);
   const [addingLesson, setAddingLesson] = useState(false);
@@ -435,24 +441,24 @@ function ModuleSection({
     setLoading(true);
     try {
       await academyApi.updateModule(mod.id, data);
-      toast.success('Modul aktualizovaný');
+      toast.success(t('toasts.moduleUpdated'));
       setEditing(false);
       onRefresh();
     } catch {
-      toast.error('Aktualizácia zlyhala');
+      toast.error(t('toasts.updateFailed'));
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteModule = async () => {
-    if (!window.confirm(`Zmazať modul "${mod.title}" a všetky jeho lekcie?`)) return;
+    if (!window.confirm(t('toasts.confirmDeleteModule', { title: mod.title }))) return;
     try {
       await academyApi.deleteModule(mod.id);
-      toast.success('Modul zmazaný');
+      toast.success(t('toasts.moduleDeleted'));
       onRefresh();
     } catch {
-      toast.error('Mazanie zlyhalo');
+      toast.error(t('toasts.deleteFailed'));
     }
   };
 
@@ -462,7 +468,7 @@ function ModuleSection({
       await academyApi.reorderModule(mod.id, newPos);
       onRefresh();
     } catch {
-      toast.error('Zmena poradia zlyhala');
+      toast.error(t('toasts.reorderFailed'));
     }
   };
 
@@ -470,11 +476,11 @@ function ModuleSection({
     setLoading(true);
     try {
       await academyApi.createLesson(mod.id, data);
-      toast.success('Lekcia vytvorená');
+      toast.success(t('toasts.lessonCreated'));
       setAddingLesson(false);
       onRefresh();
     } catch {
-      toast.error('Vytvorenie lekcie zlyhalo');
+      toast.error(t('toasts.lessonCreateFailed'));
     } finally {
       setLoading(false);
     }
@@ -485,24 +491,24 @@ function ModuleSection({
     setLoading(true);
     try {
       await academyApi.updateLesson(editingLesson.id, data);
-      toast.success('Lekcia aktualizovaná');
+      toast.success(t('toasts.lessonUpdated'));
       setEditingLesson(null);
       onRefresh();
     } catch {
-      toast.error('Aktualizácia zlyhala');
+      toast.error(t('toasts.updateFailed'));
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteLesson = async (lesson: Lesson) => {
-    if (!window.confirm(`Zmazať lekciu "${lesson.title}"?`)) return;
+    if (!window.confirm(t('toasts.confirmDeleteLesson', { title: lesson.title }))) return;
     try {
       await academyApi.deleteLesson(lesson.id);
-      toast.success('Lekcia zmazaná');
+      toast.success(t('toasts.lessonDeleted'));
       onRefresh();
     } catch {
-      toast.error('Mazanie zlyhalo');
+      toast.error(t('toasts.deleteFailed'));
     }
   };
 
@@ -512,7 +518,7 @@ function ModuleSection({
       await academyApi.reorderLesson(lesson.id, newPos);
       onRefresh();
     } catch {
-      toast.error('Zmena poradia zlyhala');
+      toast.error(t('toasts.reorderFailed'));
     }
   };
 
@@ -525,16 +531,16 @@ function ModuleSection({
         </button>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-gray-400 uppercase">Modul {index + 1}</span>
+            <span className="text-xs font-medium text-gray-400 uppercase">{t('module.label', { number: index + 1 })}</span>
             <span className="text-sm font-semibold text-gray-900 truncate">{mod.title}</span>
-            <span className="text-xs text-gray-400">({lessons.length} {lessons.length === 1 ? 'lekcia' : lessons.length < 5 ? 'lekcie' : 'lekcií'})</span>
+            <span className="text-xs text-gray-400">({t('module.lessonCount', { count: lessons.length })})</span>
           </div>
         </div>
         <div className="flex items-center gap-1 shrink-0">
-          <button onClick={() => setEditing(true)} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500" title="Upraviť">
+          <button onClick={() => setEditing(true)} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500" title={t('actions.edit')}>
             <Pencil className="h-4 w-4" />
           </button>
-          <button onClick={handleDeleteModule} className="p-1.5 rounded-md hover:bg-red-50 text-red-500" title="Zmazať">
+          <button onClick={handleDeleteModule} className="p-1.5 rounded-md hover:bg-red-50 text-red-500" title={t('actions.delete')}>
             <Trash2 className="h-4 w-4" />
           </button>
           <button onClick={() => handleReorderModule('up')} disabled={index === 0} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 disabled:opacity-30">
@@ -579,7 +585,7 @@ function ModuleSection({
             className="flex items-center gap-2 w-full px-4 py-2.5 rounded-lg border-2 border-dashed border-gray-300 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
           >
             <Plus className="h-4 w-4" />
-            Pridať lekciu
+            {t('lesson.add')}
           </button>
         </div>
       )}
@@ -612,6 +618,8 @@ function ModuleSection({
 
 // ─── Main Page ──────────────────────────────────────────────
 export default function CourseBuilderPage() {
+  const t = useTranslations('dashboard.admin.courses');
+  const tAdmin = useTranslations('dashboard.admin');
   const params = useParams();
   const courseId = params.courseId as string;
   const router = useRouter();
@@ -650,11 +658,11 @@ export default function CourseBuilderPage() {
     setModuleLoading(true);
     try {
       await academyApi.createModule(courseId, data);
-      toast.success('Modul vytvorený');
+      toast.success(t('toasts.moduleCreated'));
       setAddingModule(false);
       refresh();
     } catch {
-      toast.error('Vytvorenie modulu zlyhalo');
+      toast.error(t('toasts.moduleCreateFailed'));
     } finally {
       setModuleLoading(false);
     }
@@ -664,10 +672,10 @@ export default function CourseBuilderPage() {
     if (!course) return;
     try {
       await adminApi.publishCourse(courseId, !course.published);
-      toast.success(course.published ? 'Kurz skrytý' : 'Kurz publikovaný');
+      toast.success(course.published ? tAdmin('toasts.courseHidden') : tAdmin('toasts.coursePublished'));
       refresh();
     } catch {
-      toast.error('Akcia zlyhala');
+      toast.error(tAdmin('toasts.actionFailed'));
     }
   };
 

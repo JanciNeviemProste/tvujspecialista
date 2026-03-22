@@ -506,7 +506,7 @@ export default function HomePageClient() {
               </div>
               <Link
                 href="/profi/registrace"
-                className="inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3.5 text-base font-semibold text-blue-600 dark:text-primary hover:bg-gray-100 dark:hover:bg-gray-200 transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
+                className="inline-flex items-center gap-2 rounded-lg bg-white dark:bg-card px-8 py-3.5 text-base font-semibold text-blue-600 dark:text-primary hover:bg-gray-100 dark:hover:bg-gray-200 transition-all shadow-lg hover:-translate-y-0.5 hover:shadow-xl"
               >
                 {t('ctaSpecialist.button')}
                 <ArrowRight className="h-4 w-4" />

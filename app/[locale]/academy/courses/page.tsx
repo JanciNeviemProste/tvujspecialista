@@ -59,7 +59,7 @@ export default function CourseCatalogPage() {
   const hasActiveFilters = filters.search || filters.category || filters.level || filters.featured
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -129,7 +129,7 @@ export default function CourseCatalogPage() {
                       {t('courses.filters.category')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as CourseCategory | '' })}
                     >
@@ -146,7 +146,7 @@ export default function CourseCatalogPage() {
                       {t('courses.filters.level')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.level}
                       onChange={(e) => setFilters({ ...filters, level: e.target.value as CourseLevel | '' })}
                     >
@@ -194,7 +194,7 @@ export default function CourseCatalogPage() {
             {!isLoading && !error && (
               <>
                 {filteredCourses.length === 0 ? (
-                  <div className="rounded-lg border bg-white p-12 text-center">
+                  <div className="rounded-lg border bg-white dark:bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
                       {t('courses.empty.title')}

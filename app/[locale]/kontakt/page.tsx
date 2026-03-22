@@ -68,7 +68,7 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Contact Form */}
-          <div className="rounded-lg border bg-white p-8">
+          <div className="rounded-lg border bg-white dark:bg-card p-8">
             <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('form.title')}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
@@ -167,7 +167,7 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="space-y-6">
             {/* Company Info */}
-            <div className="rounded-lg border bg-white p-6">
+            <div className="rounded-lg border bg-white dark:bg-card p-6">
               <h2 className="mb-4 text-xl font-bold text-gray-900">{t('info.title')}</h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
@@ -259,7 +259,7 @@ export default function ContactPage() {
             </div>
 
             {/* Quick Links */}
-            <div className="rounded-lg border bg-white p-6">
+            <div className="rounded-lg border bg-white dark:bg-card p-6">
               <h2 className="mb-4 text-xl font-bold text-gray-900">{t('quickLinks.title')}</h2>
               <div className="space-y-2">
                 <Link href="/o-nas" className="block text-blue-600 hover:underline">
@@ -281,7 +281,7 @@ export default function ContactPage() {
             </div>
 
             {/* Social Media */}
-            <div className="rounded-lg border bg-white p-6">
+            <div className="rounded-lg border bg-white dark:bg-card p-6">
               <h2 className="mb-4 text-xl font-bold text-gray-900">{t('social.title')}</h2>
               <div className="flex gap-4">
                 <a

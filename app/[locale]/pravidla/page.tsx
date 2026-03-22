@@ -20,7 +20,7 @@ export default async function TermsPage({ params }: Props) {
   const t = await getTranslations('terms');
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       <PublicHeader />
 
       <div className="container mx-auto max-w-4xl px-4 py-12">

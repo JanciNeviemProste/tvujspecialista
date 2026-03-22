@@ -77,7 +77,7 @@ function CourseFormModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm p-4">
       <div className="w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] border border-gray-200 dark:border-neutral-700 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{isEdit ? 'Upraviť kurz' : 'Nový kurz'}</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white">{isEdit ? tAdmin('courseForm.editTitle') : tAdmin('courseForm.newTitle')}</h2>
           <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-500 dark:text-gray-400">
             <X className="h-5 w-5" />
           </button>
@@ -85,31 +85,31 @@ function CourseFormModal({
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Názov kurzu *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.nameLabel')}</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => handleChange('title', e.target.value)}
               className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="napr. Základy hypotekárneho poradenstva"
+              placeholder={tAdmin('courseForm.namePlaceholder')}
               disabled={isLoading}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Popis *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.descriptionLabel')}</label>
             <textarea
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
               rows={3}
               className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="Podrobný popis kurzu..."
+              placeholder={tAdmin('courseForm.descriptionPlaceholder')}
               disabled={isLoading}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">URL náhľadového obrázku *</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.thumbnailLabel')}</label>
             <input
               type="url"
               value={form.thumbnailUrl}
@@ -122,60 +122,60 @@ function CourseFormModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Úroveň</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.levelLabel')}</label>
               <select
                 value={form.level}
                 onChange={(e) => handleChange('level', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="beginner">Začiatočník</option>
-                <option value="intermediate">Pokročilý</option>
-                <option value="advanced">Expert</option>
+                <option value="beginner">{tAdmin('courseForm.levelBeginner')}</option>
+                <option value="intermediate">{tAdmin('courseForm.levelIntermediate')}</option>
+                <option value="advanced">{tAdmin('courseForm.levelAdvanced')}</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kategória</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.categoryLabel')}</label>
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="financial">Financie</option>
-                <option value="real_estate">Reality</option>
-                <option value="both">Oboje</option>
+                <option value="financial">{tAdmin('courseForm.categoryFinancial')}</option>
+                <option value="real_estate">{tAdmin('courseForm.categoryRealEstate')}</option>
+                <option value="both">{tAdmin('courseForm.categoryBoth')}</option>
               </select>
             </div>
           </div>
 
           <div className="border-t border-gray-200 dark:border-neutral-700 pt-4 mt-4">
-            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Inštruktor</h3>
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{tAdmin('courseForm.instructorSection')}</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Meno inštruktora *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.instructorNameLabel')}</label>
                 <input
                   type="text"
                   value={form.instructorName}
                   onChange={(e) => handleChange('instructorName', e.target.value)}
                   className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                  placeholder="Ing. Ján Novák"
+                  placeholder={tAdmin('courseForm.instructorNamePlaceholder')}
                   disabled={isLoading}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio inštruktora *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.instructorBioLabel')}</label>
                 <textarea
                   value={form.instructorBio}
                   onChange={(e) => handleChange('instructorBio', e.target.value)}
                   rows={2}
                   className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                  placeholder="Krátky popis inštruktora..."
+                  placeholder={tAdmin('courseForm.instructorBioPlaceholder')}
                   disabled={isLoading}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">URL fotky inštruktora *</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.instructorPhotoLabel')}</label>
                 <input
                   type="url"
                   value={form.instructorPhoto}
@@ -195,14 +195,14 @@ function CourseFormModal({
               disabled={isLoading}
               className="flex-1 rounded-lg border border-gray-300 dark:border-neutral-600 text-gray-700 dark:text-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
             >
-              Zrušiť
+              {tAdmin('courseForm.cancel')}
             </button>
             <button
               type="submit"
               disabled={isLoading}
               className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
             >
-              {isLoading ? 'Ukladám...' : isEdit ? 'Uložiť zmeny' : 'Vytvoriť kurz'}
+              {isLoading ? tAdmin('courseForm.saving') : isEdit ? tAdmin('courseForm.saveChanges') : tAdmin('courseForm.createCourse')}
             </button>
           </div>
         </form>
@@ -212,6 +212,7 @@ function CourseFormModal({
 }
 
 function CourseEnrollments({ courseId }: { courseId: string }) {
+  const t = useTranslations('dashboard.admin.courses');
   const locale = useLocale();
   const { data, isLoading } = useQuery({
     queryKey: ['adminCourseEnrollments', courseId],
@@ -222,9 +223,9 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
     return (
       <div className="p-4 border-t bg-gray-50">
         <div className="animate-pulse space-y-2">
-          <div className="h-4 w-32 bg-gray-200 rounded" />
-          <div className="h-8 bg-gray-200 rounded" />
-          <div className="h-8 bg-gray-200 rounded" />
+          <div className="h-4 w-32 bg-gray-200 dark:bg-muted rounded" />
+          <div className="h-8 bg-gray-200 dark:bg-muted rounded" />
+          <div className="h-8 bg-gray-200 dark:bg-muted rounded" />
         </div>
       </div>
     );
@@ -236,7 +237,7 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
     return (
       <div className="p-4 border-t bg-gray-50 text-center">
         <Users className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-        <p className="text-sm text-gray-500">Zatiaľ žiadni prihlásení študenti</p>
+        <p className="text-sm text-gray-500">{t('enrollments.noStudents')}</p>
       </div>
     );
   }
@@ -254,19 +255,19 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
       <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-blue-600">{enrollments.length}</div>
-          <div className="text-xs text-gray-500">Celkom</div>
+          <div className="text-xs text-gray-500">{t('enrollments.total')}</div>
         </div>
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-green-600">{active.length}</div>
-          <div className="text-xs text-gray-500">Aktívnych</div>
+          <div className="text-xs text-gray-500">{t('enrollments.active')}</div>
         </div>
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-purple-600">{completed.length}</div>
-          <div className="text-xs text-gray-500">Dokončených</div>
+          <div className="text-xs text-gray-500">{t('enrollments.completed')}</div>
         </div>
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-amber-600">{avgProgress}%</div>
-          <div className="text-xs text-gray-500">Priem. progres</div>
+          <div className="text-xs text-gray-500">{t('enrollments.avgProgress')}</div>
         </div>
       </div>
 
@@ -275,11 +276,11 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b text-left text-gray-500">
-              <th className="pb-2 font-medium">Študent</th>
-              <th className="pb-2 font-medium">Email</th>
-              <th className="pb-2 font-medium">Stav</th>
-              <th className="pb-2 font-medium text-right">Progres</th>
-              <th className="pb-2 font-medium text-right">Posledný prístup</th>
+              <th className="pb-2 font-medium">{t('enrollments.student')}</th>
+              <th className="pb-2 font-medium">{t('enrollments.email')}</th>
+              <th className="pb-2 font-medium">{t('enrollments.status')}</th>
+              <th className="pb-2 font-medium text-right">{t('enrollments.progress')}</th>
+              <th className="pb-2 font-medium text-right">{t('enrollments.lastAccess')}</th>
             </tr>
           </thead>
           <tbody>
@@ -295,13 +296,13 @@ function CourseEnrollments({ courseId }: { courseId: string }) {
                     enrollment.status === 'completed' ? 'bg-purple-100 text-purple-700' :
                     'bg-gray-100 text-gray-600'
                   }`}>
-                    {enrollment.status === 'active' ? 'Aktívny' :
-                     enrollment.status === 'completed' ? 'Dokončený' : 'Odhlásený'}
+                    {enrollment.status === 'active' ? t('enrollments.statusActive') :
+                     enrollment.status === 'completed' ? t('enrollments.statusCompleted') : t('enrollments.statusDropped')}
                   </span>
                 </td>
                 <td className="py-2 text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <div className="w-16 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-16 h-1.5 bg-gray-200 dark:bg-muted rounded-full overflow-hidden">
                       <div
                         className="h-full bg-blue-600 rounded-full"
                         style={{ width: `${Math.min(Number(enrollment.progress || 0), 100)}%` }}
@@ -408,9 +409,9 @@ export default function AdminCoursesPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 w-48 bg-gray-200 rounded" />
+          <div className="h-8 w-48 bg-gray-200 dark:bg-muted rounded" />
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 bg-gray-200 rounded-lg" />
+            <div key={i} className="h-20 bg-gray-200 dark:bg-muted rounded-lg" />
           ))}
         </div>
       </div>
@@ -431,7 +432,7 @@ export default function AdminCoursesPage() {
               <BookOpen className="h-6 w-6 text-blue-600" />
               {t('title')}
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">{courses.length} kurzov celkom</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">{t('totalCourses', { count: courses.length })}</p>
           </div>
         </div>
         <button
@@ -439,21 +440,21 @@ export default function AdminCoursesPage() {
           className="flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           <Plus className="h-4 w-4" />
-          Nový kurz
+          {t('newCourse')}
         </button>
       </div>
 
       {courses.length === 0 ? (
         <div className="text-center py-20">
           <BookOpen className="h-12 w-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Žiadne kurzy</h3>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">Zatiaľ neboli vytvorené žiadne kurzy.</p>
+          <h3 className="text-lg font-semibold mb-2">{t('noCourses')}</h3>
+          <p className="text-gray-500 dark:text-gray-400 mb-4">{t('noCoursesDesc')}</p>
           <button
             onClick={() => setModalOpen(true)}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
           >
             <Plus className="h-4 w-4" />
-            Vytvoriť prvý kurz
+            {t('createFirstCourse')}
           </button>
         </div>
       ) : (
@@ -467,21 +468,21 @@ export default function AdminCoursesPage() {
                     <div className="flex items-center gap-2">
                       <h3 className="font-semibold">{course.title}</h3>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${course.published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
-                        {course.published ? 'Publikovaný' : 'Skrytý'}
+                        {course.published ? t('published') : t('hidden')}
                       </span>
                       <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
                         {course.level}
                       </span>
                     </div>
                     <p className="text-sm text-gray-500 mt-1">
-                      {course.moduleCount ?? 0} modulov &middot; {course.lessonCount ?? 0} lekcií &middot; {course.enrollmentCount ?? 0} zapísaných
+                      {t('courseStats', { modules: course.moduleCount ?? 0, lessons: course.lessonCount ?? 0, enrolled: course.enrollmentCount ?? 0 })}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setExpandedCourse(isExpanded ? null : course.id)}
                       className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
-                      title="Zobraziť študentov"
+                      title={t('showStudents')}
                     >
                       {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                     </button>
@@ -489,13 +490,13 @@ export default function AdminCoursesPage() {
                       href={`/academy/admin/${course.id}`}
                       className="px-3 py-1.5 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors text-blue-600 text-xs font-medium"
                     >
-                      Obsah
+                      {t('content')}
                     </Link>
                     <button
                       onClick={() => openEdit(course)}
                       disabled={actionLoading === course.id}
                       className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
-                      title="Upraviť"
+                      title={t('editAction')}
                     >
                       <Pencil className="h-4 w-4" />
                     </button>
@@ -503,7 +504,7 @@ export default function AdminCoursesPage() {
                       onClick={() => handlePublish(course.id, course.published)}
                       disabled={actionLoading === course.id}
                       className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
-                      title={course.published ? 'Skryť' : 'Publikovať'}
+                      title={course.published ? t('hide') : t('publish')}
                     >
                       {course.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
@@ -511,7 +512,7 @@ export default function AdminCoursesPage() {
                       onClick={() => handleDelete(course.id)}
                       disabled={actionLoading === course.id}
                       className="p-2 rounded-md hover:bg-red-50 transition-colors text-red-500"
-                      title="Zmazať"
+                      title={t('deleteAction')}
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

@@ -60,7 +60,7 @@ export function EnrollmentCard({ enrollment, className }: EnrollmentCardProps) {
       className={cn('overflow-hidden', className)}
     >
       {/* Course thumbnail */}
-      <div className="relative h-32 overflow-hidden bg-gray-200">
+      <div className="relative h-32 overflow-hidden bg-gray-200 dark:bg-muted">
         <Image
           src={enrollment.course.thumbnailUrl}
           alt={enrollment.course.title}

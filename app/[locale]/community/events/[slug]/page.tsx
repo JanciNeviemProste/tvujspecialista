@@ -71,12 +71,12 @@ export default function EventDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-6">
-            <div className="h-96 bg-gray-200 rounded-lg" />
-            <div className="h-8 bg-gray-200 rounded w-3/4" />
-            <div className="h-4 bg-gray-200 rounded w-1/2" />
+            <div className="h-96 bg-gray-200 dark:bg-muted rounded-lg" />
+            <div className="h-8 bg-gray-200 dark:bg-muted rounded w-3/4" />
+            <div className="h-4 bg-gray-200 dark:bg-muted rounded w-1/2" />
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function EventDetailPage() {
 
   if (error || !event) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
             <p className="text-red-600">
@@ -106,7 +106,7 @@ export default function EventDetailPage() {
   const formattedEndTime = formatDate(event.endDate, 'HH:mm')
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
@@ -121,7 +121,7 @@ export default function EventDetailPage() {
       )}
 
       {/* Banner Image */}
-      <div className="relative h-96 w-full overflow-hidden bg-gray-200">
+      <div className="relative h-96 w-full overflow-hidden bg-gray-200 dark:bg-muted">
         <Image
           src={event.bannerImage}
           alt={event.title}

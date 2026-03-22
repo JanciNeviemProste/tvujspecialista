@@ -44,7 +44,7 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
   const breadcrumbs = getBreadcrumbs();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       {/* Forum Navigation Bar */}
       <div className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto px-4">

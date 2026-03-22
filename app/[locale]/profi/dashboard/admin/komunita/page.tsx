@@ -58,6 +58,7 @@ function EventFormModal({
   isEdit: boolean;
 }) {
   const tAdmin = useTranslations('dashboard.admin');
+  const tCommunity = useTranslations('dashboard.admin.community');
   const [form, setForm] = useState<EventFormData>(initialData);
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
@@ -78,20 +79,20 @@ function EventFormModal({
   const handleImageUpload = async (file: File) => {
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
     if (!allowedTypes.includes(file.type)) {
-      toast.error('Povolené formáty: JPEG, PNG, WebP');
+      toast.error(tCommunity('image.allowedFormats'));
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
-      toast.error('Maximálna veľkosť: 5 MB');
+      toast.error(tCommunity('image.maxSize'));
       return;
     }
     setUploading(true);
     try {
       const res = await adminApi.uploadEventBanner(file);
       handleChange('bannerImage', res.data.bannerImage);
-      toast.success('Obrázok nahraný');
+      toast.success(tCommunity('image.uploaded'));
     } catch {
-      toast.error('Nahrávanie obrázka zlyhalo');
+      toast.error(tCommunity('image.uploadFailed'));
     } finally {
       setUploading(false);
     }
@@ -117,7 +118,7 @@ function EventFormModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
       <div className="w-full max-w-2xl bg-white dark:bg-card rounded-xl shadow-2xl ring-1 ring-black/5 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-bold">{isEdit ? 'Upraviť event' : 'Nový event'}</h2>
+          <h2 className="text-xl font-bold">{isEdit ? tCommunity('eventForm.editTitle') : tCommunity('eventForm.newTitle')}</h2>
           <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100">
             <X className="h-5 w-5" />
           </button>
@@ -126,7 +127,7 @@ function EventFormModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* Banner Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Banner obrázok</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.bannerImage')}</label>
             <input
               ref={fileInputRef}
               type="file"
@@ -150,9 +151,9 @@ function EventFormModal({
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-3 py-1.5 bg-white rounded-lg text-sm font-medium shadow-lg"
+                    className="px-3 py-1.5 bg-white dark:bg-card rounded-lg text-sm font-medium shadow-lg"
                   >
-                    Zmeniť obrázok
+                    {tCommunity('image.change')}
                   </button>
                 </div>
               </div>
@@ -169,13 +170,13 @@ function EventFormModal({
                 {uploading ? (
                   <>
                     <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-2" />
-                    <span className="text-sm text-gray-500">Nahrávam...</span>
+                    <span className="text-sm text-gray-500">{tCommunity('image.uploading')}</span>
                   </>
                 ) : (
                   <>
                     <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                    <span className="text-sm font-medium text-gray-600">Klikni alebo pretiahni obrázok</span>
-                    <span className="text-xs text-gray-400 mt-1">JPEG, PNG, WebP - max 5 MB</span>
+                    <span className="text-sm font-medium text-gray-600">{tCommunity('image.dragOrClick')}</span>
+                    <span className="text-xs text-gray-400 mt-1">{tCommunity('image.hint')}</span>
                   </>
                 )}
               </div>
@@ -183,90 +184,90 @@ function EventFormModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Názov eventu *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.nameLabel')}</label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => handleChange('title', e.target.value)}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="napr. Workshop: Hypotéky v praxi"
+              className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder={tCommunity('eventForm.namePlaceholder')}
               disabled={isLoading}
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Popis *</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.descriptionLabel')}</label>
             <textarea
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
               rows={3}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-              placeholder="Podrobný popis eventu..."
+              className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+              placeholder={tCommunity('eventForm.descriptionPlaceholder')}
               disabled={isLoading}
             />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Typ</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.typeLabel')}</label>
               <select
                 value={form.type}
                 onChange={(e) => handleChange('type', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="workshop">Workshop</option>
-                <option value="networking">Networking</option>
-                <option value="conference">Konferencia</option>
-                <option value="webinar">Webinár</option>
-                <option value="meetup">Meetup</option>
+                <option value="workshop">{tCommunity('eventForm.typeWorkshop')}</option>
+                <option value="networking">{tCommunity('eventForm.typeNetworking')}</option>
+                <option value="conference">{tCommunity('eventForm.typeConference')}</option>
+                <option value="webinar">{tCommunity('eventForm.typeWebinar')}</option>
+                <option value="meetup">{tCommunity('eventForm.typeMeetup')}</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Formát</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.formatLabel')}</label>
               <select
                 value={form.format}
                 onChange={(e) => handleChange('format', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="online">Online</option>
-                <option value="offline">Offline</option>
+                <option value="online">{tCommunity('eventForm.formatOnline')}</option>
+                <option value="offline">{tCommunity('eventForm.formatOffline')}</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Kategória</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.categoryLabel')}</label>
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="financial">Financie</option>
-                <option value="real_estate">Reality</option>
-                <option value="both">Oboje</option>
+                <option value="financial">{tCommunity('eventForm.categoryFinancial')}</option>
+                <option value="real_estate">{tCommunity('eventForm.categoryRealEstate')}</option>
+                <option value="both">{tCommunity('eventForm.categoryBoth')}</option>
               </select>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Začiatok *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.startDate')}</label>
               <input
                 type="datetime-local"
                 value={form.startDate}
                 onChange={(e) => handleChange('startDate', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Koniec *</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.endDate')}</label>
               <input
                 type="datetime-local"
                 value={form.endDate}
                 onChange={(e) => handleChange('endDate', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               />
             </div>
@@ -274,24 +275,24 @@ function EventFormModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Miesto</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.locationLabel')}</label>
               <input
                 type="text"
                 value={form.location}
                 onChange={(e) => handleChange('location', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                placeholder="napr. Bratislava, Hotel Devín"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                placeholder={tCommunity('eventForm.locationPlaceholder')}
                 disabled={isLoading}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Max. účastníkov</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.maxAttendeesLabel')}</label>
               <input
                 type="number"
                 value={form.maxAttendees}
                 onChange={(e) => handleChange('maxAttendees', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                placeholder="napr. 50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                placeholder={tCommunity('eventForm.maxAttendeesPlaceholder')}
                 min="1"
                 disabled={isLoading}
               />
@@ -300,12 +301,12 @@ function EventFormModal({
 
           {form.format === 'online' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Meeting link</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">{tCommunity('eventForm.meetingLinkLabel')}</label>
               <input
                 type="url"
                 value={form.meetingLink}
                 onChange={(e) => handleChange('meetingLink', e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 placeholder="https://zoom.us/j/..."
                 disabled={isLoading}
               />
@@ -319,14 +320,14 @@ function EventFormModal({
               disabled={isLoading}
               className="flex-1 rounded-lg border border-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 transition-colors"
             >
-              Zrušiť
+              {tCommunity('eventForm.cancel')}
             </button>
             <button
               type="submit"
               disabled={isLoading}
               className="flex-1 rounded-lg bg-blue-600 text-white py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors disabled:opacity-50"
             >
-              {isLoading ? 'Ukladám...' : isEdit ? 'Uložiť zmeny' : 'Vytvoriť event'}
+              {isLoading ? tCommunity('eventForm.saving') : isEdit ? tCommunity('eventForm.saveChanges') : tCommunity('eventForm.createEvent')}
             </button>
           </div>
         </form>
@@ -461,9 +462,9 @@ export default function AdminCommunityPage() {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="animate-pulse space-y-4">
-          <div className="h-8 w-48 bg-gray-200 rounded" />
+          <div className="h-8 w-48 bg-gray-200 dark:bg-muted rounded" />
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 bg-gray-200 rounded-lg" />
+            <div key={i} className="h-20 bg-gray-200 dark:bg-muted rounded-lg" />
           ))}
         </div>
       </div>

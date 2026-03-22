@@ -62,7 +62,7 @@ export default function EventsCatalogPage() {
   const hasActiveFilters = filters.search || filters.type || filters.format || filters.category || filters.featured
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
@@ -132,7 +132,7 @@ export default function EventsCatalogPage() {
                       {t('filters.eventType')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.type}
                       onChange={(e) => setFilters({ ...filters, type: e.target.value as EventType | '' })}
                     >
@@ -151,7 +151,7 @@ export default function EventsCatalogPage() {
                       {t('filters.format')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.format}
                       onChange={(e) => setFilters({ ...filters, format: e.target.value as EventFormat | '' })}
                     >
@@ -167,7 +167,7 @@ export default function EventsCatalogPage() {
                       {t('filters.category')}
                     </label>
                     <select
-                      className="flex h-10 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as EventCategory | '' })}
                     >
@@ -215,7 +215,7 @@ export default function EventsCatalogPage() {
             {!isLoading && !error && (
               <>
                 {filteredEvents.length === 0 ? (
-                  <div className="rounded-lg border bg-white p-12 text-center">
+                  <div className="rounded-lg border bg-white dark:bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
                       {t('empty.title')}

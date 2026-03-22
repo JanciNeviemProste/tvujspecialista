@@ -56,11 +56,11 @@ export default function MyEventsPage() {
 
   if (authLoading || !isAuthenticated) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white dark:bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="animate-pulse space-y-6">
-            <div className="h-8 bg-gray-200 rounded w-1/4" />
-            <div className="h-64 bg-gray-200 rounded" />
+            <div className="h-8 bg-gray-200 dark:bg-muted rounded w-1/4" />
+            <div className="h-64 bg-gray-200 dark:bg-muted rounded" />
           </div>
         </div>
       </div>
@@ -77,7 +77,7 @@ export default function MyEventsPage() {
   ) || []
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-background">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">

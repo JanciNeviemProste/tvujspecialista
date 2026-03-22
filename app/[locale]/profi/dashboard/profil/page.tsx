@@ -207,7 +207,7 @@ export default function ProfileEditPage() {
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-6">
-              <div className="relative h-24 w-24 overflow-hidden rounded-full bg-gray-200">
+              <div className="relative h-24 w-24 overflow-hidden rounded-full bg-gray-200 dark:bg-muted">
                 {photoUrl ? (
                   <Image
                     src={photoUrl}

@@ -25,7 +25,7 @@ export function DashboardHeader() {
   ];
 
   return (
-    <header className="border-b bg-white">
+    <header className="border-b bg-white dark:bg-card">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="text-2xl font-bold text-blue-600">
           tvujspecialista.cz

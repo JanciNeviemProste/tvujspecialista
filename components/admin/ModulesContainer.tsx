@@ -43,7 +43,7 @@ export default function ModulesContainer({
       <div className="space-y-4">
         {[1, 2].map((i) => (
           <div key={i} className="rounded-xl border border-gray-200 bg-white dark:bg-card p-6 animate-pulse">
-            <div className="h-5 w-48 bg-gray-200 rounded mb-3" />
+            <div className="h-5 w-48 bg-gray-200 dark:bg-muted rounded mb-3" />
             <div className="h-4 w-32 bg-gray-100 rounded" />
           </div>
         ))}

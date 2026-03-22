@@ -252,7 +252,7 @@ export default function LearnPage() {
           )}
 
           {/* Lesson content */}
-          <div className="flex-1 p-6 space-y-6 bg-white text-gray-900">
+          <div className="flex-1 p-6 space-y-6 bg-white dark:bg-card text-gray-900">
             <div>
               <h2 className="text-2xl font-bold mb-2">{currentLesson.title}</h2>
               {currentLesson.description && (

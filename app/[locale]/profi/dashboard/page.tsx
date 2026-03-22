@@ -117,8 +117,8 @@ export default function DashboardPage() {
               <>
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="rounded-lg border bg-white dark:bg-card p-6 animate-pulse">
-                    <div className="h-4 w-24 bg-gray-200 rounded mb-4" />
-                    <div className="h-8 w-16 bg-gray-200 rounded mb-2" />
+                    <div className="h-4 w-24 bg-gray-200 dark:bg-muted rounded mb-4" />
+                    <div className="h-8 w-16 bg-gray-200 dark:bg-muted rounded mb-2" />
                     <div className="h-3 w-32 bg-gray-100 rounded" />
                   </div>
                 ))}
@@ -286,11 +286,11 @@ export default function DashboardPage() {
                       <div key={i} className="p-6 animate-pulse">
                         <div className="flex items-start justify-between">
                           <div className="flex-1 space-y-3">
-                            <div className="h-4 w-32 bg-gray-200 rounded" />
+                            <div className="h-4 w-32 bg-gray-200 dark:bg-muted rounded" />
                             <div className="h-3 w-24 bg-gray-100 rounded" />
                             <div className="h-3 w-40 bg-gray-100 rounded" />
                           </div>
-                          <div className="h-6 w-16 bg-gray-200 rounded-full" />
+                          <div className="h-6 w-16 bg-gray-200 dark:bg-muted rounded-full" />
                         </div>
                       </div>
                     ))}

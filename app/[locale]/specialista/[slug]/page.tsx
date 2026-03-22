@@ -111,7 +111,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             {/* Profile Header */}
             <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
               <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-4 sm:gap-6">
-                <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+                <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-muted">
                   <Image
                     src={specialist.photo || '/images/placeholder-avatar.png'}
                     alt={specialist.name}

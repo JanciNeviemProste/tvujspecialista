@@ -53,7 +53,7 @@ function CourseCardInner({
 
   return (
     <Link href={href} className={cn('block h-full', className)}>
-      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white dark:bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         {/* Thumbnail */}
         <div className="relative h-48 overflow-hidden">
           {course.thumbnailUrl && !imgError ? (

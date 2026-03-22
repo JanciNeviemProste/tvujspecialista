@@ -98,9 +98,9 @@ export default function AdminUsersPage() {
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="animate-pulse rounded-lg border bg-white dark:bg-card p-4">
               <div className="flex items-center gap-4">
-                <div className="h-10 w-10 rounded-full bg-gray-200" />
+                <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-muted" />
                 <div className="flex-1 space-y-2">
-                  <div className="h-4 w-32 bg-gray-200 rounded" />
+                  <div className="h-4 w-32 bg-gray-200 dark:bg-muted rounded" />
                   <div className="h-3 w-48 bg-gray-100 rounded" />
                 </div>
               </div>
@@ -161,7 +161,7 @@ export default function AdminUsersPage() {
                         </button>
                         <button
                           onClick={() => setConfirmResetId(null)}
-                          className="rounded bg-gray-200 px-2 py-1 text-xs text-gray-700 hover:bg-gray-300"
+                          className="rounded bg-gray-200 dark:bg-muted px-2 py-1 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-muted/80"
                         >
                           {t('no')}
                         </button>
