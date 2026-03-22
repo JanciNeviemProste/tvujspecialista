@@ -15,7 +15,7 @@ import { ArrowLeft, DollarSign, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 
-const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
+const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { PaymentForm } from '@/components/commissions';

@@ -15,7 +15,7 @@ import { Pin, Lock, Eye, MessageSquare } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 
-const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
+const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 interface TopicDetailPageProps {
   params: Promise<{ category: string; topicId: string }>;

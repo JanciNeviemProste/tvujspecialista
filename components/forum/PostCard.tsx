@@ -9,7 +9,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils/cn';
 
-const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
+const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 import type { ForumPost } from '@/types/forum';
 
 interface PostCardProps {

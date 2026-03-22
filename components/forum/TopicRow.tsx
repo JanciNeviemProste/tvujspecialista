@@ -10,7 +10,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 import type { ForumTopic } from '@/types/forum';
 
-const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
+const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 interface TopicRowProps {
   topic: ForumTopic;

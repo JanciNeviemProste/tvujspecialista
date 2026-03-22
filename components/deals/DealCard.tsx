@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils/cn';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 
-const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
+const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 function getSuccessChance(createdAt: string): { percent: number; color: string; label: string } {
   const elapsed = Date.now() - new Date(createdAt).getTime();

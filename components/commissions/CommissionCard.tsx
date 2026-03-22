@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils/cn';
 import { format, isPast } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 
-const dateFnsLocaleMap: Record<string, Locale> = { cs, sk, en: enUS, pl };
+const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 interface CommissionCardProps {
   commission: Commission;
