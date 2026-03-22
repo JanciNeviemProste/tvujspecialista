@@ -34,11 +34,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     en: 'Marketplace for finding verified specialists in finance and real estate.',
   };
 
+  const keywordsByLocale: Record<string, string[]> = {
+    cs: ['finanční poradce', 'realitní makléř', 'hypotéky', 'pojištění', 'nemovitosti'],
+    sk: ['finančný poradca', 'realitný makléř', 'hypotéky', 'poistenie', 'nehnuteľnosti'],
+    en: ['financial advisor', 'real estate agent', 'mortgages', 'insurance', 'properties'],
+    pl: ['doradca finansowy', 'agent nieruchomości', 'kredyty hipoteczne', 'ubezpieczenia', 'nieruchomości'],
+  };
+
   return {
     metadataBase: new URL('https://tvujspecialista.cz'),
     title: titles[locale] || titles.cs,
     description: descriptions[locale] || descriptions.cs,
-    keywords: ['realitný makléř', 'finanční poradce', 'hypotéky', 'pojištění', 'nemovitosti', 'kurzy', 'Academy', 'Community'],
+    keywords: keywordsByLocale[locale] || keywordsByLocale.cs,
     authors: [{ name: 'TvujSpecialista.cz' }],
     manifest: '/manifest.json',
     alternates: {

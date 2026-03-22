@@ -65,7 +65,22 @@ export function formatReviewCount(count: number, locale: string = 'cs'): string 
  * Format date with a pattern string (legacy support from dateFormat.ts)
  * Supported patterns: 'DD. MM. YYYY', 'd. MMM yyyy', 'd. MMMM yyyy', 'HH:mm', 'DD. MM. YYYY HH:mm'
  */
-export function formatDatePattern(date: string | Date, formatStr: string = 'DD. MM. YYYY'): string {
+
+const monthNamesByLocale: Record<string, string[]> = {
+  cs: ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince'],
+  sk: ['januára', 'februára', 'marca', 'apríla', 'mája', 'júna', 'júla', 'augusta', 'septembra', 'októbra', 'novembra', 'decembra'],
+  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+  pl: ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'],
+}
+
+const monthNamesShortByLocale: Record<string, string[]> = {
+  cs: ['led', 'úno', 'bře', 'dub', 'kvě', 'čvn', 'čvc', 'srp', 'zář', 'říj', 'lis', 'pro'],
+  sk: ['jan', 'feb', 'mar', 'apr', 'máj', 'jún', 'júl', 'aug', 'sep', 'okt', 'nov', 'dec'],
+  en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  pl: ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'],
+}
+
+export function formatDatePattern(date: string | Date, formatStr: string = 'DD. MM. YYYY', locale: string = 'cs'): string {
   const d = typeof date === 'string' ? new Date(date) : date
 
   const day = d.getDate()
@@ -76,15 +91,8 @@ export function formatDatePattern(date: string | Date, formatStr: string = 'DD. 
 
   const pad = (n: number) => n.toString().padStart(2, '0')
 
-  const monthNames = [
-    'ledna', 'února', 'března', 'dubna', 'května', 'června',
-    'července', 'srpna', 'září', 'října', 'listopadu', 'prosince'
-  ]
-
-  const monthNamesShort = [
-    'led', 'úno', 'bře', 'dub', 'kvě', 'čvn',
-    'čvc', 'srp', 'zář', 'říj', 'lis', 'pro'
-  ]
+  const monthNames = monthNamesByLocale[locale] || monthNamesByLocale['cs']
+  const monthNamesShort = monthNamesShortByLocale[locale] || monthNamesShortByLocale['cs']
 
   if (formatStr === 'DD. MM. YYYY') {
     return `${pad(day)}. ${pad(month)}. ${year}`
@@ -108,39 +116,6 @@ export function formatDatePattern(date: string | Date, formatStr: string = 'DD. 
 
   // Default fallback
   return d.toLocaleDateString('cs-CZ')
-}
-
-/**
- * Get relative time string (e.g., "pred 2 hodinami")
- */
-export function getRelativeTime(date: string | Date): string {
-  const now = new Date()
-  const past = typeof date === 'string' ? new Date(date) : date
-  const diffInMs = now.getTime() - past.getTime()
-  const diffInMins = Math.floor(diffInMs / 60000)
-  const diffInHours = Math.floor(diffInMs / 3600000)
-  const diffInDays = Math.floor(diffInMs / 86400000)
-
-  if (diffInMins < 1) {
-    return 'právě teď'
-  } else if (diffInMins < 60) {
-    return `před ${diffInMins} ${diffInMins === 1 ? 'minutou' : diffInMins < 5 ? 'minutami' : 'minutami'}`
-  } else if (diffInHours < 24) {
-    return `před ${diffInHours} ${diffInHours === 1 ? 'hodinou' : diffInHours < 5 ? 'hodinami' : 'hodinami'}`
-  } else if (diffInDays === 1) {
-    return 'včera'
-  } else if (diffInDays < 7) {
-    return `před ${diffInDays} dny`
-  } else if (diffInDays < 30) {
-    const weeks = Math.floor(diffInDays / 7)
-    return `před ${weeks} ${weeks === 1 ? 'týdnem' : 'týdny'}`
-  } else if (diffInDays < 365) {
-    const months = Math.floor(diffInDays / 30)
-    return `před ${months} ${months === 1 ? 'měsícem' : 'měsíci'}`
-  } else {
-    const years = Math.floor(diffInDays / 365)
-    return `před ${years} ${years === 1 ? 'rokem' : 'roky'}`
-  }
 }
 
 // Format duration in minutes to human readable format

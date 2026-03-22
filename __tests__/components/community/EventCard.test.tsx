@@ -44,7 +44,7 @@ jest.mock('next/link', () => ({
 // Mock formatDatePattern to return predictable values
 jest.mock('@/lib/utils/format', () => ({
   ...jest.requireActual('@/lib/utils/format'),
-  formatDatePattern: (date: string, format: string) => {
+  formatDatePattern: (date: string, format: string, _locale?: string) => {
     if (format === 'd. MMM yyyy') return '15. mar 2026';
     if (format === 'HH:mm') return '18:00';
     return date;

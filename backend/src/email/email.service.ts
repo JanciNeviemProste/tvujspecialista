@@ -447,14 +447,16 @@ export class EmailService {
     deal: DealData,
     oldStatus: string,
     newStatus: string,
+    locale?: string,
   ): Promise<void> {
+    const loc = this.getLocale(locale);
     const template = this.loadTemplate('deal-status-change');
 
     const html = this.replaceVariables(template, {
       specialistName,
       customerName: deal.customerName,
-      oldStatus: this.getStatusLabel(oldStatus),
-      newStatus: this.getStatusLabel(newStatus),
+      oldStatus: this.getStatusLabel(oldStatus, loc),
+      newStatus: this.getStatusLabel(newStatus, loc),
       dealsUrl: `${this.configService.get<string>('FRONTEND_URL')}/profi/dashboard/deals`,
     });
 
@@ -465,7 +467,7 @@ export class EmailService {
         `
         <h1>Zmena statusu dealu</h1>
         <p>Dobrý deň ${specialistName},</p>
-        <p>Status vášho dealu pre ${deal.customerName} bol zmenený z ${this.getStatusLabel(oldStatus)} na ${this.getStatusLabel(newStatus)}.</p>
+        <p>Status vášho dealu pre ${deal.customerName} bol zmenený z ${this.getStatusLabel(oldStatus, loc)} na ${this.getStatusLabel(newStatus, loc)}.</p>
       `,
     );
   }
@@ -601,15 +603,13 @@ export class EmailService {
     );
   }
 
-  private getStatusLabel(status: string): string {
-    const labels: Record<string, string> = {
-      new: 'Nový',
-      contacted: 'Kontaktovaný',
-      qualified: 'Kvalifikovaný',
-      in_progress: 'V procese',
-      closed_won: 'Uzavretý (Vyhrané)',
-      closed_lost: 'Uzavretý (Prehrané)',
+  private getStatusLabel(status: string, locale: string = 'cs'): string {
+    const labels: Record<string, Record<string, string>> = {
+      cs: { new: 'Nový', contacted: 'Kontaktovaný', qualified: 'Kvalifikovaný', in_progress: 'V procesu', closed_won: 'Uzavřeno - získáno', closed_lost: 'Uzavřeno - ztraceno' },
+      sk: { new: 'Nový', contacted: 'Kontaktovaný', qualified: 'Kvalifikovaný', in_progress: 'V procese', closed_won: 'Uzavreté - získané', closed_lost: 'Uzavreté - stratené' },
+      en: { new: 'New', contacted: 'Contacted', qualified: 'Qualified', in_progress: 'In Progress', closed_won: 'Closed Won', closed_lost: 'Closed Lost' },
+      pl: { new: 'Nowy', contacted: 'Skontaktowany', qualified: 'Kwalifikowany', in_progress: 'W toku', closed_won: 'Zamknięte - wygrane', closed_lost: 'Zamknięte - przegrane' },
     };
-    return labels[status] || status;
+    return labels[locale]?.[status] || labels['cs'][status] || status;
   }
 }

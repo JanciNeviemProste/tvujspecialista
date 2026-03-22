@@ -3,7 +3,7 @@ import { formatDatePattern as formatDate } from './format';
 
 export function exportDealsToCSV(deals: Deal[], filename?: string) {
   if (deals.length === 0) {
-    alert('Žiadne dealy na export');
+    alert('No deals to export');
     return;
   }
 

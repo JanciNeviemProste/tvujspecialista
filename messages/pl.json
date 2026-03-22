@@ -1606,9 +1606,12 @@
     },
     "event": {
       "workshop": "Warsztaty",
+      "networking": "Networking",
       "conference": "Konferencja",
       "webinar": "Webinar",
       "meetup": "Meetup",
+      "formatOnline": "Online",
+      "formatOffline": "Stacjonarny",
       "online": "Spotkanie online",
       "full": "Brak miejsc",
       "free": "Bezpłatne",

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { RSVP, RSVPStatus } from '@/types/community'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -29,6 +29,7 @@ function getRSVPStatusVariant(status: RSVPStatus): 'default' | 'success' | 'dest
 
 function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
   const t = useTranslations('community')
+  const locale = useLocale()
 
   const rsvpStatusLabels: Record<RSVPStatus, string> = {
     [RSVPStatus.PENDING]: t('rsvp.pending'),
@@ -47,8 +48,8 @@ function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
   const isAttended = rsvp.status === RSVPStatus.ATTENDED
 
   // Format date
-  const formattedDate = formatDate(event.startDate, 'd. MMMM yyyy')
-  const formattedTime = formatDate(event.startDate, 'HH:mm')
+  const formattedDate = formatDate(event.startDate, 'd. MMMM yyyy', locale)
+  const formattedTime = formatDate(event.startDate, 'HH:mm', locale)
 
   return (
     <Card

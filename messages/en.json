@@ -1606,9 +1606,12 @@
     },
     "event": {
       "workshop": "Workshop",
+      "networking": "Networking",
       "conference": "Conference",
       "webinar": "Webinar",
       "meetup": "Meetup",
+      "formatOnline": "Online",
+      "formatOffline": "In-person",
       "online": "Online meeting",
       "full": "Full",
       "free": "Free",

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { useRouter } from '@/i18n/routing'
 import { useEvent, useRSVP, useMyRSVPs } from '@/lib/hooks/useCommunity'
 import { getErrorMessage } from '@/lib/utils/error'
@@ -19,6 +19,7 @@ import { useAuth } from '@/contexts/AuthContext'
 export default function EventDetailPage() {
   const t = useTranslations('community.eventDetail')
   const tCatalog = useTranslations('community.eventsCatalog')
+  const locale = useLocale()
   const params = useParams()
   const slug = params?.slug as string
   const router = useRouter()
@@ -101,9 +102,9 @@ export default function EventDetailPage() {
   const isFree = event.price === 0
 
   // Format dates
-  const formattedStartDate = formatDate(event.startDate, 'd. MMMM yyyy')
-  const formattedStartTime = formatDate(event.startDate, 'HH:mm')
-  const formattedEndTime = formatDate(event.endDate, 'HH:mm')
+  const formattedStartDate = formatDate(event.startDate, 'd. MMMM yyyy', locale)
+  const formattedStartTime = formatDate(event.startDate, 'HH:mm', locale)
+  const formattedEndTime = formatDate(event.endDate, 'HH:mm', locale)
 
   return (
     <div className="min-h-screen bg-white dark:bg-background">

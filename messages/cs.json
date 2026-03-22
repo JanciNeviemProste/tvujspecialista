@@ -1606,9 +1606,12 @@
     },
     "event": {
       "workshop": "Workshop",
+      "networking": "Networking",
       "conference": "Konference",
       "webinar": "Webinář",
       "meetup": "Meetup",
+      "formatOnline": "Online",
+      "formatOffline": "Offline",
       "online": "Online setkání",
       "full": "Obsazeno",
       "free": "Zdarma",

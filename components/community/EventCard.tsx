@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { Event, EventType, EventFormat } from '@/types/community'
 import { MapPin, Video, Calendar, Users, Clock } from 'lucide-react'
 import Image from 'next/image'
@@ -13,10 +13,6 @@ interface EventCardProps {
   className?: string
 }
 
-function getEventFormatLabel(format: EventFormat): string {
-  return format === EventFormat.ONLINE ? 'Online' : 'Offline'
-}
-
 const typeColorMap: Record<EventType, string> = {
   [EventType.WORKSHOP]: 'bg-purple-100 text-purple-700',
   [EventType.NETWORKING]: 'bg-blue-100 text-blue-700',
@@ -27,21 +23,24 @@ const typeColorMap: Record<EventType, string> = {
 
 export const EventCard = memo(function EventCard({ event, showRSVPButton = true, className }: EventCardProps) {
   const t = useTranslations('community')
+  const locale = useLocale()
 
   const eventTypeLabels: Record<EventType, string> = {
     [EventType.WORKSHOP]: t('event.workshop'),
-    [EventType.NETWORKING]: 'Networking',
+    [EventType.NETWORKING]: t('event.networking'),
     [EventType.CONFERENCE]: t('event.conference'),
     [EventType.WEBINAR]: t('event.webinar'),
     [EventType.MEETUP]: t('event.meetup'),
   }
 
+  const eventFormatLabel = event.format === EventFormat.ONLINE ? t('event.formatOnline') : t('event.formatOffline')
+
   const href = `/community/events/${event.slug}`
   const isFullyBooked = event.maxAttendees ? event.attendeeCount >= event.maxAttendees : false
   const isFree = event.price === 0
 
-  const formattedDate = formatDate(event.startDate, 'd. MMM yyyy')
-  const formattedTime = formatDate(event.startDate, 'HH:mm')
+  const formattedDate = formatDate(event.startDate, 'd. MMM yyyy', locale)
+  const formattedTime = formatDate(event.startDate, 'HH:mm', locale)
 
   const spotsLeft = event.maxAttendees ? event.maxAttendees - event.attendeeCount : null
 
@@ -90,9 +89,9 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
             </span>
             <span className="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-gray-700 shadow-sm">
               {event.format === EventFormat.ONLINE ? (
-                <><Video className="h-3 w-3 mr-1" />{getEventFormatLabel(event.format)}</>
+                <><Video className="h-3 w-3 mr-1" />{eventFormatLabel}</>
               ) : (
-                <><MapPin className="h-3 w-3 mr-1" />{getEventFormatLabel(event.format)}</>
+                <><MapPin className="h-3 w-3 mr-1" />{eventFormatLabel}</>
               )}
             </span>
           </div>
