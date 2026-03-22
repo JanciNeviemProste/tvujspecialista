@@ -293,7 +293,9 @@
       "allLocations": "Všechny lokality",
       "minRating": "Hodnocení minimálně",
       "stars": "{count}+ hvězdiček",
-      "verifiedOnly": "Pouze ověření specialisté"
+      "verifiedOnly": "Pouze ověření specialisté",
+      "czechRepublic": "Česká republika",
+      "slovakia": "Slovensko"
     },
     "sort": {
       "label": "Seřadit podle:",

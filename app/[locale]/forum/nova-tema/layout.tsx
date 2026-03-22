@@ -5,14 +5,14 @@ type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'contact.metadata' });
+  const t = await getTranslations({ locale, namespace: 'forum' });
   return {
-    title: t('title'),
-    description: t('description'),
-    openGraph: { title: t('title'), description: t('description'), type: 'website' },
+    title: t('metadata.title'),
+    description: t('metadata.description'),
+    robots: { index: false, follow: false },
   };
 }
 
-export default function ContactLayout({ children }: { children: React.ReactNode }) {
+export default function NewTopicLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

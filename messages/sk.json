@@ -293,7 +293,9 @@
       "allLocations": "Všetky lokality",
       "minRating": "Hodnotenie minimálne",
       "stars": "{count}+ hviezdičiek",
-      "verifiedOnly": "Iba overení špecialisti"
+      "verifiedOnly": "Iba overení špecialisti",
+      "czechRepublic": "Česká republika",
+      "slovakia": "Slovensko"
     },
     "sort": {
       "label": "Zoradiť podľa:",

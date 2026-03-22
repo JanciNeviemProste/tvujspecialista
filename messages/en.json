@@ -293,7 +293,9 @@
       "allLocations": "All locations",
       "minRating": "Minimum rating",
       "stars": "{count}+ stars",
-      "verifiedOnly": "Verified specialists only"
+      "verifiedOnly": "Verified specialists only",
+      "czechRepublic": "Czech Republic",
+      "slovakia": "Slovakia"
     },
     "sort": {
       "label": "Sort by:",

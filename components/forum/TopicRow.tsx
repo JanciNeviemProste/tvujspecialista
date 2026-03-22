@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Link } from '@/i18n/routing';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,7 +18,7 @@ interface TopicRowProps {
   categorySlug: string;
 }
 
-export function TopicRow({ topic, categorySlug }: TopicRowProps) {
+function TopicRowInner({ topic, categorySlug }: TopicRowProps) {
   const locale = useLocale();
   const authorInitials = topic.author.name
     .split(' ')
@@ -72,3 +73,5 @@ export function TopicRow({ topic, categorySlug }: TopicRowProps) {
     </Link>
   );
 }
+
+export const TopicRow = memo(TopicRowInner);

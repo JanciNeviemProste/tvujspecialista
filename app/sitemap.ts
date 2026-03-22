@@ -1,7 +1,9 @@
 import { MetadataRoute } from 'next';
 import { locales, defaultLocale } from '@/i18n/config';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://tvujspecialista-production.up.railway.app/api';
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tvujspecialista.cz';
 
   const staticRoutes: {
@@ -25,7 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Generate URLs for all locales
-  return staticRoutes.flatMap((route) =>
+  const staticEntries = staticRoutes.flatMap((route) =>
     locales.map((locale) => ({
       url: `${baseUrl}/${locale}${route.path}`,
       lastModified: new Date(),
@@ -33,4 +35,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: locale === defaultLocale ? route.priority : route.priority * 0.9,
     }))
   );
+
+  // Dynamic: specialist profiles
+  let specialistEntries: MetadataRoute.Sitemap = [];
+  try {
+    const res = await fetch(`${API_URL}/specialists?limit=100`, { next: { revalidate: 3600 } });
+    if (res.ok) {
+      const data = await res.json();
+      specialistEntries = (data.specialists || []).flatMap((s: { slug: string; updatedAt: string }) =>
+        locales.map((locale) => ({
+          url: `${baseUrl}/${locale}/specialista/${s.slug}`,
+          lastModified: new Date(s.updatedAt),
+          changeFrequency: 'weekly' as const,
+          priority: locale === defaultLocale ? 0.9 : 0.8,
+        }))
+      );
+    }
+  } catch {
+    // API unavailable — skip dynamic entries
+  }
+
+  return [...staticEntries, ...specialistEntries];
 }

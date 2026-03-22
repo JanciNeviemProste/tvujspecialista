@@ -109,22 +109,22 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
           {/* Main Content */}
           <div className="space-y-6 lg:col-span-2">
             {/* Profile Header */}
-            <div className="rounded-lg border bg-white dark:bg-card p-8">
-              <div className="flex items-start gap-6">
-                <div className="relative h-44 w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
+            <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
+              <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-4 sm:gap-6">
+                <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
                   <Image
                     src={specialist.photo || '/images/placeholder-avatar.png'}
                     alt={specialist.name}
                     fill
-                    sizes="176px"
+                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 176px"
                     className="object-cover"
                     priority
                   />
                 </div>
 
                 <div className="flex-1">
-                  <div className="mb-2 flex items-center gap-2">
-                    <h1 className="text-3xl font-bold text-gray-900">{specialist.name}</h1>
+                  <div className="mb-2 flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{specialist.name}</h1>
                     {specialist.verified && (
                       <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
                         {tCommon('status.verified')}
@@ -159,13 +159,13 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             </div>
 
             {/* About */}
-            <div className="rounded-lg border bg-white dark:bg-card p-8">
+            <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
               <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('aboutMe')}</h2>
               <p className="leading-relaxed text-gray-700">{specialist.bio}</p>
             </div>
 
             {/* Trust Signals */}
-            <div className="rounded-lg border bg-white dark:bg-card p-8">
+            <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
               <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-foreground">{t('trustSignals')}</h2>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-4 text-center">
@@ -194,7 +194,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
               const photos = specialist.mediaGallery.filter((item: { type: string }) => item.type === 'image');
               const videos = specialist.mediaGallery.filter((item: { type: string }) => item.type === 'video');
               return (
-                <div className="rounded-lg border bg-white dark:bg-card p-8">
+                <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
                   <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-foreground">{t('gallery')}</h2>
 
                   {/* Photos grid — 3 columns */}
@@ -246,7 +246,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (
-              <div className="rounded-lg border bg-white dark:bg-card p-8">
+              <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('services')}</h2>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   {specialist.services.map((service: string, index: number) => (
@@ -271,7 +271,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* Credentials */}
             {(specialist.education || (specialist.certifications && specialist.certifications.length > 0)) && (
-              <div className="rounded-lg border bg-white dark:bg-card p-8">
+              <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
                 <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('credentials')}</h2>
                 <div className="space-y-3">
                   {specialist.education && (
@@ -296,7 +296,7 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
 
             {/* Reviews */}
             {specialist.reviews && specialist.reviews.length > 0 && (
-              <div className="rounded-lg border bg-white dark:bg-card p-8">
+              <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
                 <h2 className="mb-6 text-2xl font-bold text-gray-900">
                   {t('reviews', { count: specialist.reviews.length })}
                 </h2>

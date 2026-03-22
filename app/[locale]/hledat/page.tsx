@@ -92,12 +92,12 @@ export default function SearchPage() {
                   onChange={(e) => updateFilters({ region: e.target.value, location: '' })}
                 >
                   <option value="">{t('filters.allLocations')}</option>
-                  <optgroup label="Česká republika">
+                  <optgroup label={t('filters.czechRepublic')}>
                     {regions.filter(r => r.country === 'CZ').map(r => (
                       <option key={r.id} value={r.id}>{r.name}</option>
                     ))}
                   </optgroup>
-                  <optgroup label="Slovensko">
+                  <optgroup label={t('filters.slovakia')}>
                     {regions.filter(r => r.country === 'SK').map(r => (
                       <option key={r.id} value={r.id}>{r.name}</option>
                     ))}

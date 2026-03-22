@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
@@ -21,7 +22,7 @@ interface PostCardProps {
   isLiking?: boolean;
 }
 
-export function PostCard({ post, currentUserId, isAdmin, onLike, onDelete, isLiking }: PostCardProps) {
+function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLiking }: PostCardProps) {
   const locale = useLocale();
   const authorInitials = post.author.name
     .split(' ')
@@ -90,3 +91,5 @@ export function PostCard({ post, currentUserId, isAdmin, onLike, onDelete, isLik
     </Card>
   );
 }
+
+export const PostCard = memo(PostCardInner);

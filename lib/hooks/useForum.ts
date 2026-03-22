@@ -9,6 +9,7 @@ export function useForumCategories() {
   return useQuery({
     queryKey: queryKeys.forum.categories,
     queryFn: () => forumApi.getCategories().then((res) => res.data),
+    staleTime: 60 * 1000,
   });
 }
 
@@ -18,6 +19,7 @@ export function useForumTopics(categorySlug: string, params: { search?: string; 
     queryKey: [...queryKeys.forum.topics(categorySlug), params],
     queryFn: () => forumApi.getTopics(categorySlug, params).then((res) => res.data),
     enabled: !!categorySlug,
+    staleTime: 60 * 1000,
   });
 }
 
@@ -26,6 +28,7 @@ export function useForumTopic(id: string) {
     queryKey: queryKeys.forum.topic(id),
     queryFn: () => forumApi.getTopic(id).then((res) => res.data),
     enabled: !!id,
+    staleTime: 60 * 1000,
   });
 }
 

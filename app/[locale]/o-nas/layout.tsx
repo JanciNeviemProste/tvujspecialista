@@ -5,7 +5,7 @@ type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'contact.metadata' });
+  const t = await getTranslations({ locale, namespace: 'about.metadata' });
   return {
     title: t('title'),
     description: t('description'),
@@ -13,6 +13,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function ContactLayout({ children }: { children: React.ReactNode }) {
+export default function AboutLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

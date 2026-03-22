@@ -5,14 +5,13 @@ type Props = { params: Promise<{ locale: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'contact.metadata' });
+  const t = await getTranslations({ locale, namespace: 'auth.resetPassword.metadata' });
   return {
     title: t('title'),
     description: t('description'),
-    openGraph: { title: t('title'), description: t('description'), type: 'website' },
   };
 }
 
-export default function ContactLayout({ children }: { children: React.ReactNode }) {
+export default function ResetPasswordLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

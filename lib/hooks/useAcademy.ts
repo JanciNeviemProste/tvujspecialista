@@ -9,6 +9,7 @@ export function useCourses(filters: CourseFilters = {}) {
   return useQuery({
     queryKey: [...queryKeys.academy.courses, filters],
     queryFn: () => academyApi.getCourses(filters).then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -17,6 +18,7 @@ export function useCourse(slug: string) {
     queryKey: queryKeys.academy.course(slug),
     queryFn: () => academyApi.getCourseBySlug(slug).then((res) => res.data),
     enabled: !!slug,
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -25,6 +27,7 @@ export function useMyEnrollments(filters: EnrollmentFilters = {}) {
   return useQuery({
     queryKey: [...queryKeys.academy.enrollments, filters],
     queryFn: () => academyApi.getMyEnrollments(filters).then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -33,6 +36,7 @@ export function useEnrollment(id: string) {
     queryKey: queryKeys.academy.enrollment(id),
     queryFn: () => academyApi.getEnrollmentById(id).then((res) => res.data),
     enabled: !!id,
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -42,6 +46,7 @@ export function useEnrollmentByCourse(courseId: string) {
     queryFn: () => academyApi.getEnrollmentByCourse(courseId).then((res) => res.data),
     enabled: !!courseId,
     retry: false, // Don't retry if not enrolled
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -76,6 +81,7 @@ export function useEnrollmentProgress(enrollmentId: string) {
     queryKey: queryKeys.academy.enrollmentProgress(enrollmentId),
     queryFn: () => academyApi.getEnrollmentProgress(enrollmentId).then((res) => res.data),
     enabled: !!enrollmentId,
+    staleTime: 5 * 60 * 1000,
   });
 }
 

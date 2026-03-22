@@ -9,6 +9,7 @@ export function useMySubscriptions() {
   return useQuery({
     queryKey: queryKeys.subscriptions.current,
     queryFn: () => subscriptionsApi.getMySubscriptions().then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -16,6 +17,7 @@ export function useMyActiveSubscription() {
   return useQuery({
     queryKey: queryKeys.subscriptions.active,
     queryFn: () => subscriptionsApi.getMyActiveSubscription().then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
   });
 }
 

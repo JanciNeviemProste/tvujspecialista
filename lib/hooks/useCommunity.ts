@@ -10,6 +10,7 @@ export function useEvents(filters: EventFilters = {}) {
   return useQuery({
     queryKey: [...queryKeys.community.events, filters],
     queryFn: () => communityApi.getEvents(filters).then((res) => res.data),
+    staleTime: 2 * 60 * 1000,
   });
 }
 
@@ -17,6 +18,7 @@ export function useUpcomingEvents() {
   return useQuery({
     queryKey: [...queryKeys.community.events, 'upcoming'],
     queryFn: () => communityApi.getUpcomingEvents().then((res) => res.data),
+    staleTime: 2 * 60 * 1000,
   });
 }
 
@@ -25,6 +27,7 @@ export function useEvent(slug: string | undefined) {
     queryKey: queryKeys.community.event(slug!),
     queryFn: () => communityApi.getEventBySlug(slug!).then((res) => res.data),
     enabled: !!slug,
+    staleTime: 2 * 60 * 1000,
   });
 }
 
@@ -32,6 +35,7 @@ export function useMyRSVPs() {
   return useQuery({
     queryKey: queryKeys.community.myRSVPs,
     queryFn: () => communityApi.getMyRSVPs().then((res) => res.data),
+    staleTime: 2 * 60 * 1000,
   });
 }
 
@@ -40,6 +44,7 @@ export function useAttendees(eventId: string | undefined) {
     queryKey: queryKeys.community.attendees(eventId!),
     queryFn: () => communityApi.getAttendees(eventId!).then((res) => res.data),
     enabled: !!eventId,
+    staleTime: 2 * 60 * 1000,
   });
 }
 
