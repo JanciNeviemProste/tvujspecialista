@@ -6,15 +6,11 @@ import { useAuth } from '@/contexts/AuthContext';
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { NotificationBell } from '@/components/shared/NotificationBell';
-import { useTheme } from 'next-themes';
-import { Sun, Moon } from 'lucide-react';
 
 export function PublicHeader() {
   const nav = useTranslations('common.nav');
   const router = useRouter();
   const { user, isAuthenticated, isLoading, logout } = useAuth();
-  const { theme, setTheme } = useTheme();
-
   const handleLogout = async () => {
     await logout();
     router.push('/profi/prihlaseni');
@@ -52,13 +48,6 @@ export function PublicHeader() {
               </Link>
               <NotificationBell />
               <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-muted transition-colors"
-                aria-label="Toggle dark mode"
-              >
-                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
-              <button
                 onClick={handleLogout}
                 className="rounded bg-blue-600 dark:bg-primary px-4 py-2 text-sm text-white hover:bg-blue-700 dark:hover:bg-primary/90 transition-colors"
               >
@@ -67,13 +56,6 @@ export function PublicHeader() {
             </>
           ) : !isLoading ? (
             <>
-              <button
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="rounded-lg p-2 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-muted transition-colors"
-                aria-label="Toggle dark mode"
-              >
-                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </button>
               <Link
                 href="/profi/prihlaseni"
                 className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary transition-colors"
