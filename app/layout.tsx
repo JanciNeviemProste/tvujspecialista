@@ -13,6 +13,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var d = document.documentElement;
+                var t = localStorage.getItem('theme');
+                if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                  d.classList.add('dark');
+                } else {
+                  d.classList.remove('dark');
+                }
+              } catch(e) {}
+            `,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
