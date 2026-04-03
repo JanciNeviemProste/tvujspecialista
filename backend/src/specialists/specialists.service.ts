@@ -130,6 +130,14 @@ export class SpecialistsService {
     return this.specialistRepository.save(specialist);
   }
 
+  async recalculateAllRatings() {
+    const specialists = await this.specialistRepository.find();
+    for (const s of specialists) {
+      await this.calculateRating(s.id);
+    }
+    return { recalculated: specialists.length };
+  }
+
   async calculateRating(specialistId: string) {
     const reviews = await this.reviewRepository.find({
       where: { specialistId, published: true },

@@ -11,6 +11,7 @@ import { Enrollment } from '../database/entities/enrollment.entity';
 import { CommunityModule } from '../community/community.module';
 import { AcademyModule } from '../academy/academy.module';
 import { EmailModule } from '../email/email.module';
+import { SpecialistsModule } from '../specialists/specialists.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { EmailModule } from '../email/email.module';
     CommunityModule,
     AcademyModule,
     EmailModule,
+    SpecialistsModule,
   ],
   controllers: [AdminController],
   providers: [AdminService],

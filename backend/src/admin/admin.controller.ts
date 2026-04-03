@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Patch, Param, Query, Body, UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
+import { SpecialistsService } from '../specialists/specialists.service';
 import { EventsService } from '../community/services/events.service';
 import { RSVPsService } from '../community/services/rsvps.service';
 import { CoursesService } from '../academy/services/courses.service';
@@ -23,11 +24,19 @@ import { PublishDto, UpdateStatusDto } from './dto/admin-action.dto';
 export class AdminController {
   constructor(
     private readonly adminService: AdminService,
+    private readonly specialistsService: SpecialistsService,
     private readonly eventsService: EventsService,
     private readonly rsvpsService: RSVPsService,
     private readonly coursesService: CoursesService,
     private readonly enrollmentsService: EnrollmentsService,
   ) {}
+
+  @Post('recalculate-ratings')
+  @ApiOperation({ summary: 'Recalculate ratings and topSpecialist for all specialists' })
+  @ApiResponse({ status: 200, description: 'Recalculation complete' })
+  async recalculateRatings() {
+    return this.specialistsService.recalculateAllRatings();
+  }
 
   @Get('users')
   @ApiOperation({ summary: 'Get all users (Admin only)' })
