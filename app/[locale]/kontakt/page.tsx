@@ -265,7 +265,7 @@ export default function ContactPage() {
                 <Link href="/o-nas" className="block text-blue-600 hover:underline">
                   {t('quickLinks.aboutUs')}
                 </Link>
-                <Link href="/ceny" className="block text-blue-600 hover:underline">
+                <Link href="/profi/dashboard/ceny" className="block text-blue-600 hover:underline">
                   {t('quickLinks.pricing')}
                 </Link>
                 <Link href="/pravidla" className="block text-blue-600 hover:underline">

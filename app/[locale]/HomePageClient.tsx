@@ -573,7 +573,7 @@ export default function HomePageClient() {
             <div>
               <h4 className="mb-4 font-semibold dark:text-foreground">{footer('forSpecialists')}</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/ceny" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">{nav('pricing')}</Link></li>
+                <li><Link href="/profi/dashboard/ceny" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">{nav('pricing')}</Link></li>
                 <li><Link href="/profi/prihlaseni" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">{footer('login')}</Link></li>
                 <li><Link href="/profi/registrace" className="text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary transition-colors">{footer('registration')}</Link></li>
               </ul>

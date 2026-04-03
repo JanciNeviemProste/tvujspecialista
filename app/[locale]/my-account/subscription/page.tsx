@@ -131,7 +131,7 @@ export default function SubscriptionManagementPage() {
             <CardDescription>Momentálne nemáte žiadne aktívne predplatné</CardDescription>
           </CardHeader>
           <CardFooter>
-            <Link href="/ceny">
+            <Link href="/profi/dashboard/ceny">
               <Button>Pozrieť cenové plány</Button>
             </Link>
           </CardFooter>

@@ -370,7 +370,7 @@ export default function DashboardPage() {
                     💬 {t('quickActions.manageReviews')}
                   </a>
                   <a
-                    href="/ceny"
+                    href="/profi/dashboard/ceny"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
                     💳 {t('quickActions.upgradePlan')}

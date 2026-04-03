@@ -9,10 +9,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t('title'),
     description: t('description'),
-    openGraph: { title: t('title'), description: t('description'), type: 'website' },
+    robots: { index: false, follow: false },
   };
 }
 
-export default function PricingLayout({ children }: { children: React.ReactNode }) {
+export default function DashboardPricingLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

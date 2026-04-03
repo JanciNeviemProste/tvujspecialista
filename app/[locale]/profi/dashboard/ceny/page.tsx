@@ -2,20 +2,15 @@
 
 import { useState } from 'react';
 import { Check, Gift, X } from 'lucide-react';
-import { useTranslations, useLocale } from 'next-intl';
-import { Link } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { PricingCard } from '@/components/subscriptions/PricingCard';
-import { PublicHeader } from '@/components/layout/PublicHeader';
 import { PricingPlan, SubscriptionType } from '@/types/subscriptions';
 import { useCreateCheckout, useMyActiveSubscription } from '@/lib/hooks/useSubscriptions';
-import { useAuth } from '@/contexts/AuthContext';
 
-export default function PricingPage() {
-  const { user } = useAuth();
+export default function DashboardPricingPage() {
   const { data: activeSubscription } = useMyActiveSubscription();
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionType | null>(null);
-  const locale = useLocale();
   const t = useTranslations('pricing');
 
   const pricingPlans: PricingPlan[] = [
@@ -99,11 +94,6 @@ export default function PricingPage() {
   const premiumCheckout = useCreateCheckout(SubscriptionType.PREMIUM);
 
   const handleSelectPlan = (type: SubscriptionType) => {
-    if (!user) {
-      window.location.href = `/${locale}/profi/prihlaseni`;
-      return;
-    }
-
     setSelectedPlan(type);
 
     switch (type) {
@@ -127,46 +117,27 @@ export default function PricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white dark:from-background to-gray-50 dark:to-muted/30">
-      <PublicHeader />
-
+    <div className="min-h-screen bg-gray-50">
       {/* Hero */}
-      <section className="py-12 sm:py-20">
+      <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
+          <h1 className="mb-4 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
             {t('hero.title')}
           </h1>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg lg:text-xl text-muted-foreground">
+          <p className="mx-auto max-w-2xl text-base sm:text-lg text-gray-600">
             {t('hero.subtitle')}
           </p>
         </div>
       </section>
 
-      {/* For Clients — Free */}
-      <section className="pb-8">
-        <div className="container mx-auto px-4">
-          <div className="mx-auto max-w-4xl rounded-xl bg-green-600 dark:bg-green-700 p-8 text-center shadow-lg">
-            <div className="mb-3 flex items-center justify-center gap-3">
-              <Gift className="h-8 w-8 text-white" />
-              <h2 className="text-2xl font-bold text-white">
-                {t('forClients.title')}
-              </h2>
-            </div>
-            <p className="text-lg text-green-50">
-              {t('forClients.description')}
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* Pricing Cards */}
-      <section className="pb-12 sm:pb-20">
+      <section className="pb-12 sm:pb-16">
         <div className="container mx-auto px-4">
           <div className="mb-8 text-center">
-            <span className="inline-block rounded-full bg-blue-100 dark:bg-primary/20 px-4 py-1.5 text-sm font-semibold text-blue-700 dark:text-primary mb-3">
+            <span className="inline-block rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 mb-3">
               {t('forSpecialists.badge')}
             </span>
-            <h2 className="text-2xl font-bold dark:text-foreground">
+            <h2 className="text-2xl font-bold text-gray-900">
               {t('forSpecialists.title')}
             </h2>
           </div>
@@ -186,29 +157,29 @@ export default function PricingPage() {
       </section>
 
       {/* Features Comparison */}
-      <section className="border-t bg-white dark:bg-card py-20">
+      <section className="border-t bg-white py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold">{t('comparison.title')}</h2>
+          <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">{t('comparison.title')}</h2>
           <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
             <table className="w-full min-w-[600px]">
               <thead>
-                <tr className="border-b dark:border-border">
+                <tr className="border-b">
                   <th className="py-4 text-left text-xs sm:text-sm font-semibold">{t('comparison.feature')}</th>
                   <th className="py-4 text-center text-xs sm:text-sm font-semibold">{t('comparison.monthlyLabel')}</th>
                   <th className="py-4 text-center text-xs sm:text-sm font-semibold">{t('comparison.yearlyLabel')}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y dark:divide-border">
+              <tbody className="divide-y">
                 {comparisonFeatures.map((category) => (
                   <>
-                    <tr key={category.category} className="bg-gray-50 dark:bg-muted/30">
-                      <td colSpan={3} className="py-3 text-xs sm:text-sm font-semibold text-gray-900 dark:text-foreground">
+                    <tr key={category.category} className="bg-gray-50">
+                      <td colSpan={3} className="py-3 text-xs sm:text-sm font-semibold text-gray-900">
                         {category.category}
                       </td>
                     </tr>
                     {category.features.map((feature) => (
                       <tr key={feature.name}>
-                        <td className="py-4 text-xs sm:text-sm text-gray-700 dark:text-muted-foreground">{feature.name}</td>
+                        <td className="py-4 text-xs sm:text-sm text-gray-700">{feature.name}</td>
                         <td className="py-4 text-center">
                           {feature.monthly ? (
                             <Check className="mx-auto h-5 w-5 text-green-500" />
@@ -234,34 +205,17 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section className="border-t py-20">
+      <section className="border-t py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold">{t('faq.title')}</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">{t('faq.title')}</h2>
           <div className="mx-auto max-w-3xl space-y-8">
             {faqs.map((faq, index) => (
               <div key={index}>
-                <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-foreground">{faq.question}</h3>
-                <p className="text-gray-600 dark:text-muted-foreground">{faq.answer}</p>
+                <h3 className="mb-3 text-xl font-semibold text-gray-900">{faq.question}</h3>
+                <p className="text-gray-600">{faq.answer}</p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="border-t bg-primary py-16 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="mb-4 text-3xl font-bold">{t('cta.title')}</h2>
-          <p className="mb-8 text-lg">
-            {t('cta.subtitle')}
-          </p>
-          {!user && (
-            <Link href="/profi/registrace">
-              <Button size="lg" variant="secondary">
-                {t('cta.button')}
-              </Button>
-            </Link>
-          )}
         </div>
       </section>
     </div>

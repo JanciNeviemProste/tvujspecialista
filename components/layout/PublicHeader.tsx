@@ -60,7 +60,7 @@ export function PublicHeader() {
           {!isLoading && isAuthenticated ? (
             <>
               <Link
-                href="/ceny"
+                href="/profi/dashboard/ceny"
                 className="text-sm font-medium hover:text-blue-600 transition-colors"
               >
                 {nav('membership')}
