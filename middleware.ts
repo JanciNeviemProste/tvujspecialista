@@ -17,14 +17,25 @@ export function middleware(request: NextRequest) {
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
 
   // Content Security Policy
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://tvujspecialista-production.up.railway.app/api';
+  // Extract origin from API URL for CSP (connect-src needs origin, not full path)
+  let apiOrigin: string;
+  let apiHost: string;
+  try {
+    const parsed = new URL(apiUrl);
+    apiOrigin = parsed.origin;
+    apiHost = parsed.host;
+  } catch {
+    apiOrigin = 'https://tvujspecialista-production.up.railway.app';
+    apiHost = 'tvujspecialista-production.up.railway.app';
+  }
   const cspDirectives = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' js.stripe.com www.googletagmanager.com www.google-analytics.com *.sentry.io",
     "style-src 'self' 'unsafe-inline'",
     "img-src 'self' data: blob: res.cloudinary.com *.cloudinary.com www.google-analytics.com",
     "font-src 'self' data:",
-    `connect-src 'self' ${apiUrl} api.stripe.com *.sentry.io *.ingest.sentry.io www.google-analytics.com`,
+    `connect-src 'self' ${apiOrigin} wss://${apiHost} api.stripe.com *.sentry.io *.ingest.sentry.io www.google-analytics.com`,
     "frame-src 'self' https://js.stripe.com https://www.youtube-nocookie.com https://player.vimeo.com",
     "object-src 'none'",
     "base-uri 'self'",
