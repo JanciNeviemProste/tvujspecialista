@@ -16,7 +16,7 @@ export class ReviewToken {
   @Column()
   specialistId: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'uuid', nullable: true })
   leadId: string | null;
 
   @Column()
