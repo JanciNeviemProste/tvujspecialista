@@ -23,6 +23,7 @@ export interface RegistrationData {
   website?: string;
   linkedin?: string;
   availability?: string[];
+  regions?: string[];
   locale?: string;
 }
 

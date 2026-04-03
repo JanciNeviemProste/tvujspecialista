@@ -554,6 +554,8 @@
       "selectLocation": "Vyberte lokalitu",
       "experience": "Roky praxe",
       "experiencePlaceholder": "např. 5",
+      "operatingRegions": "Oblast působnosti (kraje)",
+      "operatingRegionsDesc": "Vyberte kraje, kde působíte. Pomůže zákazníkům najít vás snáze.",
       "bio": "Krátký popis vašich služeb",
       "bioPlaceholder": "Popište, čím se zabýváte a jak můžete pomoci klientům...",
       "password": "Heslo",

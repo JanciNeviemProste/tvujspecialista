@@ -18,7 +18,6 @@ export default function SearchPage() {
   const [page, setPage] = useState(1);
   const [filters, setFilters] = useState({
     category: initialCategory,
-    location: '',
     region: '',
     minRating: undefined as number | undefined,
     verified: false,
@@ -32,7 +31,6 @@ export default function SearchPage() {
 
   const { data, isLoading, error } = useSpecialists({
     category: (filters.category || undefined) as SpecialistCategory | undefined,
-    location: filters.location || undefined,
     region: filters.region || undefined,
     minRating: filters.minRating,
     verified: filters.verified || undefined,
@@ -82,17 +80,6 @@ export default function SearchPage() {
                 </select>
               </div>
 
-              {/* City Search */}
-              <div className="mb-4">
-                <input
-                  type="text"
-                  className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  placeholder={t('filters.cityPlaceholder')}
-                  value={filters.location}
-                  onChange={(e) => updateFilters({ location: e.target.value })}
-                />
-              </div>
-
               {/* Location Filter */}
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">{t('filters.location')}</label>
@@ -100,19 +87,12 @@ export default function SearchPage() {
                   aria-label={t('filters.selectLocation')}
                   className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.region || ''}
-                  onChange={(e) => updateFilters({ region: e.target.value, location: '' })}
+                  onChange={(e) => updateFilters({ region: e.target.value })}
                 >
                   <option value="">{t('filters.allLocations')}</option>
-                  <optgroup label={t('filters.czechRepublic')}>
-                    {regions.filter(r => r.country === 'CZ').map(r => (
-                      <option key={r.id} value={r.id}>{r.name}</option>
-                    ))}
-                  </optgroup>
-                  <optgroup label={t('filters.slovakia')}>
-                    {regions.filter(r => r.country === 'SK').map(r => (
-                      <option key={r.id} value={r.id}>{r.name}</option>
-                    ))}
-                  </optgroup>
+                  {regions.filter(r => r.country === 'CZ').map(r => (
+                    <option key={r.id} value={r.id}>{r.name}</option>
+                  ))}
                 </select>
               </div>
 

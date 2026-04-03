@@ -82,19 +82,17 @@ export function MobileNav() {
                   <span className="font-medium">{t('searchSpecialist')}</span>
                 </Link>
 
-                {/* Hidden: Membership link - uncomment when pricing page is ready
-                <Link
-                  href="/ceny"
-                  onClick={closeMenu}
-                  className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
-                >
-                  <DollarSign className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">{t('membership')}</span>
-                </Link>
-                */}
-
                 {isAuthenticated && (
                   <>
+                    <Link
+                      href="/ceny"
+                      onClick={closeMenu}
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
+                    >
+                      <DollarSign className="h-5 w-5 text-muted-foreground" />
+                      <span className="font-medium">{t('membership')}</span>
+                    </Link>
+
                     <div className="my-4 border-t" />
 
                     <Link

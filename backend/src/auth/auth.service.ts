@@ -93,6 +93,7 @@ export class AuthService {
       website: registerDto.website || undefined,
       linkedin: registerDto.linkedin || undefined,
       availability: registerDto.availability || [],
+      regions: registerDto.regions || [],
     });
     await this.specialistRepository.save(specialist);
 

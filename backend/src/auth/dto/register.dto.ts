@@ -86,6 +86,11 @@ export class RegisterDto {
   availability?: string[];
 
   @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  regions?: string[];
+
+  @IsOptional()
   @IsIn(['cs', 'sk', 'en', 'pl'])
   locale?: string;
 }

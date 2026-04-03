@@ -57,17 +57,14 @@ export function PublicHeader() {
           >
             {nav('searchSpecialist')}
           </Link>
-          {/* Hidden: Membership link - uncomment when pricing page is ready
-          <Link
-            href="/ceny"
-            className="text-sm font-medium hover:text-blue-600 transition-colors"
-          >
-            {nav('membership')}
-          </Link>
-          */}
-
           {!isLoading && isAuthenticated ? (
             <>
+              <Link
+                href="/ceny"
+                className="text-sm font-medium hover:text-blue-600 transition-colors"
+              >
+                {nav('membership')}
+              </Link>
               <Link
                 href="/profi/dashboard"
                 className="text-sm font-medium hover:text-blue-600 transition-colors"

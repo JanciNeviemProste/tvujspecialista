@@ -13,6 +13,7 @@ import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations, useLocale } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
+import { regions } from '@/mocks/regions';
 import {
   TrendingUp,
   UserCheck,
@@ -58,6 +59,8 @@ export default function RegistrationPage() {
   const router = useRouter();
   const { login } = useAuth();
   const [error, setError] = useState('');
+  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
+  const czRegions = regions.filter(r => r.country === 'CZ');
 
   const {
     register,
@@ -84,6 +87,7 @@ export default function RegistrationPage() {
         location: data.location,
         yearsExperience: parseInt(data.yearsExperience),
         bio: data.bio,
+        regions: selectedRegions,
         locale,
       });
 
@@ -302,10 +306,9 @@ export default function RegistrationPage() {
                           {...register('location')}
                         >
                           <option value="">{t('selectLocation')}</option>
-                          <option value="Praha">Praha</option>
-                          <option value="Brno">Brno</option>
-                          <option value="Ostrava">Ostrava</option>
-                          <option value="Plzeň">Plzeň</option>
+                          {czRegions.map(r => (
+                            <option key={r.id} value={r.name}>{r.name}</option>
+                          ))}
                         </select>
                         {errors.location && (
                           <p id="reg-location-error" className="text-sm text-red-500" role="alert">{tValidation(errors.location.message as Parameters<typeof tValidation>[0])}</p>
@@ -330,6 +333,33 @@ export default function RegistrationPage() {
                       {errors.yearsExperience && (
                         <p id="reg-experience-error" className="text-sm text-red-500" role="alert">{tValidation(errors.yearsExperience.message as Parameters<typeof tValidation>[0])}</p>
                       )}
+                    </div>
+
+                    {/* Operating regions */}
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-gray-700">
+                        {t('operatingRegions')}
+                      </label>
+                      <p className="mb-3 text-xs text-gray-500">{t('operatingRegionsDesc')}</p>
+                      <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto rounded-md border border-gray-300 p-3">
+                        {czRegions.map(r => (
+                          <label key={r.id} className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              className="h-4 w-4 rounded border-gray-300 text-blue-600"
+                              checked={selectedRegions.includes(r.id)}
+                              onChange={(e) => {
+                                setSelectedRegions(prev =>
+                                  e.target.checked
+                                    ? [...prev, r.id]
+                                    : prev.filter(id => id !== r.id)
+                                );
+                              }}
+                            />
+                            <span className="text-sm text-gray-700">{r.name}</span>
+                          </label>
+                        ))}
+                      </div>
                     </div>
 
                     <div>

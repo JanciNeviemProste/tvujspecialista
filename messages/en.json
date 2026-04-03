@@ -554,6 +554,8 @@
       "selectLocation": "Select location",
       "experience": "Years of experience",
       "experiencePlaceholder": "e.g. 5",
+      "operatingRegions": "Area of operation (regions)",
+      "operatingRegionsDesc": "Select regions where you work. This helps customers find you more easily.",
       "bio": "Brief description of your services",
       "bioPlaceholder": "Describe what you do and how you can help clients...",
       "password": "Password",
