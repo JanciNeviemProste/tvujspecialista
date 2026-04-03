@@ -81,7 +81,7 @@ import { ForumLike } from './entities/forum-like.entity';
           return {
             type: 'postgres',
             url: databaseUrl,
-            ssl: { rejectUnauthorized: true },
+            ssl: { rejectUnauthorized: false },
             ...shared,
           };
         }
@@ -93,7 +93,7 @@ import { ForumLike } from './entities/forum-like.entity';
           username: configService.get('DATABASE_USER'),
           password: configService.get('DATABASE_PASSWORD'),
           database: configService.get('DATABASE_NAME'),
-          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: true } : false,
+          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
           ...shared,
         };
       },

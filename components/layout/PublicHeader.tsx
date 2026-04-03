@@ -44,7 +44,7 @@ export function PublicHeader() {
   }, [dropdownOpen, closeDropdown]);
 
   return (
-    <header className="border-b bg-white sticky top-0 z-30">
+    <header className="border-b bg-white dark:bg-gray-900 dark:border-gray-800 sticky top-0 z-30">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link href="/" className="text-2xl font-bold text-blue-600">
           tvujspecialista.cz
@@ -93,23 +93,23 @@ export function PublicHeader() {
               </button>
 
               {dropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-white shadow-xl border border-gray-100 overflow-hidden z-50">
+                <div className="absolute right-0 top-full mt-2 w-64 rounded-xl bg-white dark:bg-gray-800 shadow-xl border border-gray-100 dark:border-gray-700 overflow-hidden z-50">
                   <div className="p-2 space-y-1">
                     <Link
                       href="/profi/prihlaseni"
                       onClick={closeDropdown}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                     >
-                      <LogIn className="h-5 w-5 text-blue-600" />
-                      <span className="text-sm font-semibold text-gray-900">{spec('login')}</span>
+                      <LogIn className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{spec('login')}</span>
                     </Link>
                     <Link
                       href="/profi/registrace"
                       onClick={closeDropdown}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
                     >
-                      <UserPlus className="h-5 w-5 text-blue-600" />
-                      <span className="text-sm font-semibold text-blue-600">{spec('register')}</span>
+                      <UserPlus className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                      <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{spec('register')}</span>
                     </Link>
                   </div>
                 </div>
