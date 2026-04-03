@@ -136,15 +136,22 @@ export class SpecialistsService {
     });
 
     if (reviews.length === 0) {
+      await this.specialistRepository.update(specialistId, {
+        rating: 0,
+        reviewsCount: 0,
+        topSpecialist: false,
+      });
       return { rating: 0, reviewsCount: 0 };
     }
 
     const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
     const rating = Math.round((totalRating / reviews.length) * 10) / 10;
+    const topSpecialist = reviews.length >= 150 && rating >= 4.0;
 
     await this.specialistRepository.update(specialistId, {
       rating,
       reviewsCount: reviews.length,
+      topSpecialist,
     });
 
     return { rating, reviewsCount: reviews.length };
