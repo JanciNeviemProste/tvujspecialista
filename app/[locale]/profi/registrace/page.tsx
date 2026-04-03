@@ -33,7 +33,6 @@ import {
   CheckCircle2,
   Shield,
   CreditCard,
-  Lock,
 } from 'lucide-react';
 
 // ─── Zod schema (identical to original) ───────────────────────────────────────
@@ -328,7 +327,7 @@ export default function RegistrationPage() {
             {painPoints.map((p, i) => (
               <StaggerItem key={i}>
                 <div className="flex gap-5 rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border-l-4 border-red-400">
-                  <span className="text-3xl leading-none mt-1" role="img" aria-label="">
+                  <span className="text-3xl leading-none mt-1" aria-hidden="true">
                     {p.emoji}
                   </span>
                   <div>
@@ -481,7 +480,7 @@ export default function RegistrationPage() {
                       <p className="font-semibold text-gray-900 dark:text-white text-sm">
                         {tm.name}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-gray-400 dark:text-gray-500">
                         {tm.role} &bull; {tm.city}
                       </p>
                     </div>
@@ -718,7 +717,7 @@ export default function RegistrationPage() {
                       <input
                         id="reg-name"
                         type="text"
-                        placeholder="Jan Novák"
+                        placeholder={t('namePlaceholder')}
                         className={inputClass}
                         aria-invalid={errors.name ? 'true' : undefined}
                         aria-describedby={errors.name ? 'reg-name-error' : undefined}
@@ -738,7 +737,7 @@ export default function RegistrationPage() {
                       <input
                         id="reg-email"
                         type="email"
-                        placeholder="jan@example.com"
+                        placeholder={t('emailPlaceholder')}
                         className={inputClass}
                         aria-invalid={errors.email ? 'true' : undefined}
                         aria-describedby={errors.email ? 'reg-email-error' : undefined}
@@ -758,7 +757,7 @@ export default function RegistrationPage() {
                       <input
                         id="reg-phone"
                         type="tel"
-                        placeholder="+420 777 123 456"
+                        placeholder={t('phonePlaceholder')}
                         className={inputClass}
                         aria-invalid={errors.phone ? 'true' : undefined}
                         aria-describedby={errors.phone ? 'reg-phone-error' : undefined}
@@ -846,7 +845,7 @@ export default function RegistrationPage() {
                         id="reg-experience"
                         type="number"
                         min="0"
-                        placeholder="např. 5"
+                        placeholder={t('experiencePlaceholder')}
                         className={inputClass}
                         aria-invalid={errors.yearsExperience ? 'true' : undefined}
                         aria-describedby={
@@ -902,7 +901,7 @@ export default function RegistrationPage() {
                       <textarea
                         id="reg-bio"
                         rows={4}
-                        placeholder="Stručně popište vaši zkušenost, specializaci a co klientům nabízíte..."
+                        placeholder={t('bioPlaceholder')}
                         className={inputClass}
                         aria-invalid={errors.bio ? 'true' : undefined}
                         aria-describedby={errors.bio ? 'reg-bio-error' : undefined}
@@ -946,7 +945,7 @@ export default function RegistrationPage() {
                         <input
                           id="reg-password"
                           type="password"
-                          placeholder="Min. 8 znaků"
+                          placeholder={t('passwordPlaceholder')}
                           className={inputClass}
                           aria-invalid={errors.password ? 'true' : undefined}
                           aria-describedby={errors.password ? 'reg-password-error' : undefined}
@@ -968,7 +967,7 @@ export default function RegistrationPage() {
                         <input
                           id="reg-confirm-password"
                           type="password"
-                          placeholder="Zopakujte heslo"
+                          placeholder={t('confirmPasswordPlaceholder')}
                           className={inputClass}
                           aria-invalid={errors.confirmPassword ? 'true' : undefined}
                           aria-describedby={
