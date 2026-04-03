@@ -204,7 +204,7 @@ export class EnrollmentsService {
   async getCertificate(enrollmentId: string, userId: string) {
     const enrollment = await this.enrollmentRepository.findOne({
       where: { id: enrollmentId, userId },
-      relations: ['course'],
+      relations: ['course', 'user'],
     });
 
     if (!enrollment) {
@@ -216,7 +216,7 @@ export class EnrollmentsService {
     }
 
     return {
-      studentName: userId, // will be resolved on frontend from auth context
+      studentName: enrollment.user?.name ?? userId,
       courseName: enrollment.course.title,
       courseCategory: enrollment.course.category,
       courseLevel: enrollment.course.level,
@@ -268,7 +268,7 @@ export class EnrollmentsService {
     enrollment.progress = Math.round(progressPercentage * 100) / 100; // Round to 2 decimal places
 
     // If 100% complete, mark as completed and issue certificate
-    if (progressPercentage === 100) {
+    if (progressPercentage >= 100) {
       enrollment.status = EnrollmentStatus.COMPLETED;
       enrollment.completedAt = new Date();
       enrollment.certificateIssued = true;

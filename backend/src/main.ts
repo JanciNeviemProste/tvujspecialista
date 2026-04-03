@@ -74,6 +74,11 @@ async function bootstrap() {
       logger.error('CRITICAL: JWT_SECRET is not set or using default value in production!');
       process.exit(1);
     }
+    const jwtRefreshSecret = process.env.JWT_REFRESH_SECRET || '';
+    if (!jwtRefreshSecret || jwtRefreshSecret.includes('dev-refresh-secret')) {
+      logger.error('CRITICAL: JWT_REFRESH_SECRET is not set or using default value in production!');
+      process.exit(1);
+    }
   }
 
   const port = process.env.PORT || 3001;

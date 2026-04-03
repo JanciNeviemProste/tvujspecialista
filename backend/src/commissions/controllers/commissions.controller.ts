@@ -36,11 +36,7 @@ export class CommissionsController {
     type: [CommissionResponseDto],
   })
   async getMyCommissions(@Request() req: AuthenticatedRequest) {
-    const specialist = await this.commissionsService[
-      'specialistRepository'
-    ].findOne({
-      where: { userId: req.user.userId },
-    });
+    const specialist = await this.commissionsService.findSpecialistByUserId(req.user.userId);
 
     if (!specialist) {
       throw new NotFoundException('Specialist not found');
@@ -55,11 +51,7 @@ export class CommissionsController {
   @ApiOperation({ summary: 'Get commission statistics' })
   @ApiResponse({ status: 200, description: 'Returns commission statistics', type: [CommissionResponseDto] })
   async getMyStats(@Request() req: AuthenticatedRequest) {
-    const specialist = await this.commissionsService[
-      'specialistRepository'
-    ].findOne({
-      where: { userId: req.user.userId },
-    });
+    const specialist = await this.commissionsService.findSpecialistByUserId(req.user.userId);
 
     if (!specialist) {
       throw new NotFoundException('Specialist not found');
@@ -80,11 +72,7 @@ export class CommissionsController {
     @Param('id') id: string,
     @Request() req: AuthenticatedRequest,
   ) {
-    const specialist = await this.commissionsService[
-      'specialistRepository'
-    ].findOne({
-      where: { userId: req.user.userId },
-    });
+    const specialist = await this.commissionsService.findSpecialistByUserId(req.user.userId);
 
     if (!specialist) {
       throw new NotFoundException('Specialist not found');

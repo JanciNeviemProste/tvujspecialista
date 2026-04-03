@@ -280,6 +280,13 @@ export class AuthService {
   }
 
   async refreshToken(refreshToken: string) {
+    // Verify JWT signature first
+    try {
+      this.jwtService.verify(refreshToken, { secret: this.configService.get('JWT_REFRESH_SECRET') });
+    } catch {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
+
     const storedToken = await this.refreshTokenRepository.findOne({
       where: { token: refreshToken },
     });

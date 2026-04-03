@@ -27,6 +27,10 @@ export class CommissionsService {
     private emailService: EmailService,
   ) {}
 
+  async findSpecialistByUserId(userId: string): Promise<Specialist | null> {
+    return this.specialistRepository.findOne({ where: { userId } });
+  }
+
   async createCommission(
     dealId: string,
     specialistId: string,

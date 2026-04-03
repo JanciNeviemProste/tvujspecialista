@@ -1,3 +1,5 @@
+'use client'
+
 import { memo } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 import { Event, EventType, EventFormat } from '@/types/community'

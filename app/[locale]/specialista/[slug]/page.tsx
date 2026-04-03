@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { PublicHeader } from '@/components/layout/PublicHeader';
@@ -18,7 +19,10 @@ export default async function SpecialistDetailPage({ params }: { params: Promise
     });
     if (res.ok) {
       specialist = await res.json();
+    } else if (res.status === 404) {
+      notFound(); // proper 404 HTTP response
     }
+    // for other errors (500 etc.), specialist stays null — render error UI below
   } catch {
     // fetch failed — specialist stays null
   }

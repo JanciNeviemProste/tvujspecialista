@@ -31,9 +31,18 @@ const IMAGE_SIGNATURES: Array<{ mime: string; bytes: number[] }> = [
 ];
 
 function validateImageMagicBytes(buffer: Buffer): boolean {
-  return IMAGE_SIGNATURES.some(sig =>
-    sig.bytes.every((byte, i) => buffer[i] === byte),
-  );
+  for (const sig of IMAGE_SIGNATURES) {
+    // Special handling for WebP: RIFF at 0-3, then WEBP at 8-11
+    if (sig.mime === 'image/webp') {
+      const riffMatch = sig.bytes.every((b, i) => buffer[i] === b);
+      const webpMarker = [0x57, 0x45, 0x42, 0x50];
+      const webpMatch = webpMarker.every((b, i) => buffer[8 + i] === b);
+      if (riffMatch && webpMatch) return true;
+    } else {
+      if (sig.bytes.every((b, i) => buffer[i] === b)) return true;
+    }
+  }
+  return false;
 }
 
 @ApiTags('Upload')

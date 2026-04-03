@@ -55,9 +55,12 @@ export class LeadsService {
       data: { customerName: createLeadDto.customerName },
     });
 
-    await this.specialistRepository.update(specialist.id, {
-      leadsThisMonth: specialist.leadsThisMonth + 1,
-    });
+    await this.specialistRepository
+      .createQueryBuilder()
+      .update()
+      .set({ leadsThisMonth: () => '"leadsThisMonth" + 1' })
+      .where('id = :id', { id: specialist.id })
+      .execute();
 
     await this.emailService.sendNewLeadNotification(
       specialist.email,

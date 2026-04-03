@@ -9,6 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { ForumPostsService } from '../services/forum-posts.service';
 import { CreatePostDto } from '../dto/create-post.dto';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
@@ -21,6 +22,7 @@ import { AuthenticatedRequest } from '../../auth/interfaces/authenticated-reques
 export class ForumPostsController {
   constructor(private postsService: ForumPostsService) {}
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('topics/:topicId/posts')
   @ApiOperation({ summary: 'Reply to a topic' })
   @ApiResponse({ status: 201, description: 'Post created successfully' })
@@ -60,6 +62,7 @@ export class ForumPostsController {
     return { message: 'Post deleted successfully' };
   }
 
+  @Throttle({ default: { limit: 10, ttl: 60000 } })
   @Post('posts/:id/like')
   @ApiOperation({ summary: 'Toggle like on a post' })
   @ApiResponse({ status: 200, description: 'Like toggled' })

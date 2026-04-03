@@ -25,7 +25,7 @@ export function middleware(request: NextRequest) {
     "img-src 'self' data: blob: res.cloudinary.com *.cloudinary.com www.google-analytics.com",
     "font-src 'self' data:",
     `connect-src 'self' ${apiUrl} api.stripe.com *.sentry.io *.ingest.sentry.io www.google-analytics.com`,
-    "frame-src 'self' js.stripe.com",
+    "frame-src 'self' https://js.stripe.com https://www.youtube-nocookie.com https://player.vimeo.com",
     "object-src 'none'",
     "base-uri 'self'",
     "form-action 'self'",

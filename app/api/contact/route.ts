@@ -33,10 +33,11 @@ function checkRateLimit(ip: string): boolean {
 export async function POST(request: NextRequest) {
   try {
     // Rate limiting
-    const ip =
-      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      request.headers.get('x-real-ip') ||
-      'unknown';
+    // Note: in-memory rate limit resets on serverless cold-starts — best-effort protection
+    const forwarded = request.headers.get('x-forwarded-for');
+    const ip = forwarded
+      ? forwarded.split(',').at(-1)!.trim()  // last IP is set by trusted proxy
+      : 'unknown';
 
     if (!checkRateLimit(ip)) {
       return NextResponse.json(

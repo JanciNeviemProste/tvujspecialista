@@ -66,9 +66,12 @@ export class DealsService {
       data: { customerName: createDealDto.customerName },
     });
 
-    await this.specialistRepository.update(specialist.id, {
-      leadsThisMonth: specialist.leadsThisMonth + 1,
-    });
+    await this.specialistRepository
+      .createQueryBuilder()
+      .update()
+      .set({ leadsThisMonth: () => '"leadsThisMonth" + 1' })
+      .where('id = :id', { id: specialist.id })
+      .execute();
 
     try {
       await this.emailService.sendNewLeadNotification(
@@ -179,6 +182,7 @@ export class DealsService {
     const queryRunner = this.dealRepository.manager.connection.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
+    let committed = false;
     try {
       // CRM gate: if NEW -> CONTACTED, push to CRM first
       if (
@@ -198,6 +202,7 @@ export class DealsService {
           await queryRunner.manager.save(Deal, deal);
 
           await queryRunner.commitTransaction();
+          committed = true;
           throw new BadRequestException(
             `CRM push failed: ${crmResult.error || 'Unknown error'}`,
           );
@@ -227,8 +232,11 @@ export class DealsService {
       });
 
       await queryRunner.commitTransaction();
+      committed = true;
     } catch (error) {
-      await queryRunner.rollbackTransaction();
+      if (!committed) {
+        await queryRunner.rollbackTransaction();
+      }
       throw error;
     } finally {
       await queryRunner.release();

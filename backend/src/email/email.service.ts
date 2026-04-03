@@ -233,11 +233,11 @@ export class EmailService {
       html ||
         `
         <h1>Nová poptávka</h1>
-        <p>Dobrý den ${specialistName},</p>
-        <p>Máte novou poptávku od ${leadData.customerName}.</p>
-        <p><strong>Email:</strong> ${leadData.customerEmail}</p>
-        <p><strong>Telefon:</strong> ${leadData.customerPhone}</p>
-        <p><strong>Zpráva:</strong> ${leadData.message}</p>
+        <p>Dobrý den ${this.htmlEncode(specialistName)},</p>
+        <p>Máte novou poptávku od ${this.htmlEncode(leadData.customerName)}.</p>
+        <p><strong>Email:</strong> ${this.htmlEncode(leadData.customerEmail)}</p>
+        <p><strong>Telefon:</strong> ${this.htmlEncode(leadData.customerPhone)}</p>
+        <p><strong>Zpráva:</strong> ${this.htmlEncode(leadData.message)}</p>
       `,
     );
   }
@@ -259,8 +259,8 @@ export class EmailService {
       html ||
         `
         <h1>Potvrzení poptávky</h1>
-        <p>Dobrý den ${customerName},</p>
-        <p>Děkujeme za vaši poptávku. ${specialistName} vás bude brzy kontaktovat.</p>
+        <p>Dobrý den ${this.htmlEncode(customerName)},</p>
+        <p>Děkujeme za vaši poptávku. ${this.htmlEncode(specialistName)} vás bude brzy kontaktovat.</p>
       `,
     );
   }
@@ -309,8 +309,8 @@ export class EmailService {
       html ||
         `
         <h1>Gratulujeme k zápisu do kurzu!</h1>
-        <p>Dobrý den ${userName},</p>
-        <p>Byl/a jste úspěšně zapsán/a do kurzu: <strong>${courseTitle}</strong></p>
+        <p>Dobrý den ${this.htmlEncode(userName)},</p>
+        <p>Byl/a jste úspěšně zapsán/a do kurzu: <strong>${this.htmlEncode(courseTitle)}</strong></p>
         <p><a href="${courseUrl}">Začít se učit</a></p>
       `,
     );
@@ -339,8 +339,8 @@ export class EmailService {
       html ||
         `
         <h1>Potvrzení registrace na akci</h1>
-        <p>Dobrý den ${userName},</p>
-        <p>Byl/a jste úspěšně registrován/a na akci: <strong>${eventTitle}</strong></p>
+        <p>Dobrý den ${this.htmlEncode(userName)},</p>
+        <p>Byl/a jste úspěšně registrován/a na akci: <strong>${this.htmlEncode(eventTitle)}</strong></p>
         <p><a href="${eventUrl}">Zobrazit detail akce</a></p>
         <p><a href="${myEventsUrl}">Moje akce</a></p>
       `,
@@ -367,8 +367,8 @@ export class EmailService {
       html ||
         `
         <h1>Akce byla zrušena</h1>
-        <p>Dobrý den ${userName},</p>
-        <p>Omlouváme se, ale akce <strong>${eventTitle}</strong> byla zrušena.</p>
+        <p>Dobrý den ${this.htmlEncode(userName)},</p>
+        <p>Omlouváme se, ale akce <strong>${this.htmlEncode(eventTitle)}</strong> byla zrušena.</p>
         <p>Pokud jste zaplatili vstupné, bude vám vráceno.</p>
         <p><a href="${eventsUrl}">Zobrazit další akce</a></p>
       `,
@@ -466,8 +466,8 @@ export class EmailService {
       html ||
         `
         <h1>Zmena statusu dealu</h1>
-        <p>Dobrý deň ${specialistName},</p>
-        <p>Status vášho dealu pre ${deal.customerName} bol zmenený z ${this.getStatusLabel(oldStatus, loc)} na ${this.getStatusLabel(newStatus, loc)}.</p>
+        <p>Dobrý deň ${this.htmlEncode(specialistName)},</p>
+        <p>Status vášho dealu pre ${this.htmlEncode(deal.customerName)} bol zmenený z ${this.htmlEncode(this.getStatusLabel(oldStatus, loc))} na ${this.htmlEncode(this.getStatusLabel(newStatus, loc))}.</p>
       `,
     );
   }
@@ -502,9 +502,9 @@ export class EmailService {
       html ||
         `
         <h1>Hodnota dealu nastavená</h1>
-        <p>Dobrý deň ${specialistName},</p>
-        <p>Hodnota vášho dealu pre ${deal.customerName} bola nastavená na ${formattedValue} €.</p>
-        <p>Predpokladané uzavretie: ${formattedDate}</p>
+        <p>Dobrý deň ${this.htmlEncode(specialistName)},</p>
+        <p>Hodnota vášho dealu pre ${this.htmlEncode(deal.customerName)} bola nastavená na ${this.htmlEncode(formattedValue)} €.</p>
+        <p>Predpokladané uzavretie: ${this.htmlEncode(formattedDate)}</p>
       `,
     );
   }

@@ -1,3 +1,5 @@
+'use client';
+
 import { memo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Course } from '@/types/academy';

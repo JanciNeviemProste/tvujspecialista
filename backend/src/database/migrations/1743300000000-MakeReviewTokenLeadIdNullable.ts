@@ -10,11 +10,9 @@ export class MakeReviewTokenLeadIdNullable1743300000000
   }
 
   async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `UPDATE "review_tokens" SET "leadId" = gen_random_uuid() WHERE "leadId" IS NULL`,
-    );
-    await queryRunner.query(
-      `ALTER TABLE "review_tokens" ALTER COLUMN "leadId" SET NOT NULL`,
-    );
+    // Delete orphaned tokens that have no leadId (can't restore them)
+    await queryRunner.query(`DELETE FROM "review_tokens" WHERE "leadId" IS NULL`);
+    // Now restore NOT NULL constraint
+    await queryRunner.query(`ALTER TABLE "review_tokens" ALTER COLUMN "leadId" SET NOT NULL`);
   }
 }

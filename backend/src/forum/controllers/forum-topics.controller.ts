@@ -10,6 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { ForumTopicsService } from '../services/forum-topics.service';
 import { CreateTopicDto } from '../dto/create-topic.dto';
 import { QueryTopicsDto } from '../dto/query-topics.dto';
@@ -45,6 +46,7 @@ export class ForumTopicsController {
     return this.topicsService.findById(id, req.user.userId);
   }
 
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post('topics')
   @ApiOperation({ summary: 'Create a new topic' })
   @ApiResponse({ status: 201, description: 'Topic created successfully' })
