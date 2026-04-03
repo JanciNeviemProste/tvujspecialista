@@ -577,6 +577,33 @@
         "trial": "Szybki start",
         "trialDesc": "Zacznij pozyskiwać klientów już dziś"
       },
+      "landing": {
+        "heroTitle": "Przestań czekać na polecenia. Zacznij rosnąć.",
+        "heroSubtitle": "Co miesiąc tysiące klientów szuka doradcy finansowego lub agenta nieruchomości. Twój profil na tvujspecialista.cz to Twój 24/7 zespół sprzedażowy — pracuje za Ciebie, nawet gdy śpisz.",
+        "urgencyBadge": "Rejestracja w 2 minuty · Całkowicie bezpłatna",
+        "benefit1Title": "Kwalifikowane leady z Twojego regionu",
+        "benefit1Desc": "Otrzymuj zapytania od osób aktywnie szukających dokładnie tego, co oferujesz. Żadnych zimnych telefonów, żadnego marnowania czasu.",
+        "benefit2Title": "Profesjonalny profil, który przekonuje",
+        "benefit2Desc": "Twoje certyfikaty, doświadczenie i osiągnięcia w jednym miejscu. Klienci sami Cię znajdą, sprawdzą i skontaktują się.",
+        "benefit3Title": "Zweryfikowane opinie, które budują zaufanie",
+        "benefit3Desc": "Zadowoleni klienci zostawiają recenzje bezpośrednio na Twoim profilu. Prawdziwe oceny = więcej nowych klientów. Proste.",
+        "benefit4Title": "Inteligentny CRM do zarządzania kontaktami",
+        "benefit4Desc": "Pipeline Kanban, oś czasu aktywności, eksport kontaktów. Nigdy nie zapomnisz o follow-upie i nie stracisz żadnej okazji.",
+        "benefit5Title": "Akademia: ucz się więcej, zarabiaj więcej",
+        "benefit5Desc": "Ekskluzywne kursy i filmy dla agentów nieruchomości i doradców finansowych. Wiedza, której Twoja konkurencja nie ma.",
+        "benefit6Title": "Społeczność i networking",
+        "benefit6Desc": "Eventy, warsztaty i forum z tysiącami profesjonalistów. Dziel się doświadczeniami, nawiązuj partnerstwa, rozwijaj się razem.",
+        "statsLabel1": "klientów miesięcznie",
+        "statsValue1": "500+",
+        "statsLabel2": "więcej zapytań",
+        "statsValue2": "3×",
+        "statsLabel3": "aktywnych specjalistów",
+        "statsValue3": "100+",
+        "testimonialQuote": "W pierwszym miesiącu zdobyłem 4 nowych klientów, których nigdy bym nie spotkał w inny sposób. Czas poświęcony na rejestrację? 2 minuty. Zwrot? Nieobliczalny.",
+        "testimonialAuthor": "Martin K.",
+        "testimonialRole": "Doradca finansowy, Praga",
+        "trustLine": "Bez zobowiązań. Bez karty kredytowej. Profil bezpłatny na zawsze."
+      },
       "metadata": {
         "title": "Rejestracja | tvujspecialista.cz",
         "description": "Zarejestruj się jako specjalista na platformie tvujspecialista.cz."

@@ -577,6 +577,33 @@
         "trial": "Quick start",
         "trialDesc": "Start receiving clients today"
       },
+      "landing": {
+        "heroTitle": "Stop waiting for referrals. Start growing.",
+        "heroSubtitle": "Every month, thousands of customers search for a financial advisor or real estate agent. Your profile on tvujspecialista.cz is your 24/7 sales team — working for you even while you sleep.",
+        "urgencyBadge": "Register in 2 minutes · Completely free",
+        "benefit1Title": "Qualified leads from your region",
+        "benefit1Desc": "Receive enquiries from people actively looking for exactly what you offer. No cold calls, no wasted time.",
+        "benefit2Title": "A professional profile that converts",
+        "benefit2Desc": "Your certifications, experience and achievements in one place. Customers find you, learn about you, and reach out — on their own.",
+        "benefit3Title": "Verified reviews that build trust",
+        "benefit3Desc": "Happy clients leave reviews directly on your profile. Real ratings = more new customers. Simple.",
+        "benefit4Title": "Smart CRM for managing contacts",
+        "benefit4Desc": "Kanban pipeline, activity timeline, contact export. Never miss a follow-up, never lose an opportunity.",
+        "benefit5Title": "Academy: learn more, earn more",
+        "benefit5Desc": "Exclusive courses and videos for real estate agents and financial advisors. Knowledge your competition doesn't have.",
+        "benefit6Title": "Community & networking",
+        "benefit6Desc": "Events, workshops and a forum with thousands of professionals. Share experiences, build partnerships, grow together.",
+        "statsLabel1": "customers per month",
+        "statsValue1": "500+",
+        "statsLabel2": "more enquiries",
+        "statsValue2": "3×",
+        "statsLabel3": "active specialists",
+        "statsValue3": "100+",
+        "testimonialQuote": "In my first month I gained 4 new clients I never would have met otherwise. Time invested in signing up? 2 minutes. Return on investment? Immeasurable.",
+        "testimonialAuthor": "Martin K.",
+        "testimonialRole": "Financial Advisor, Prague",
+        "trustLine": "No commitment. No credit card. Free profile forever."
+      },
       "metadata": {
         "title": "Register | tvujspecialista.cz",
         "description": "Register as a specialist on the tvujspecialista.cz platform."

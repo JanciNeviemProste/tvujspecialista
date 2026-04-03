@@ -577,6 +577,33 @@
         "trial": "Rychlý start",
         "trialDesc": "Začněte přijímat klienty ještě dnes"
       },
+      "landing": {
+        "heroTitle": "Přestaňte čekat na doporučení. Začněte růst.",
+        "heroSubtitle": "Každý měsíc tisíce zákazníků hledají finančního poradce nebo realitního makléře. Váš profil na tvujspecialista.cz je váš 24/7 prodejní tým — pracuje za vás, i když spíte.",
+        "urgencyBadge": "Registrace za 2 minuty · Zcela zdarma",
+        "benefit1Title": "Kvalifikované leady z vašeho regionu",
+        "benefit1Desc": "Dostávejte poptávky od lidí, kteří aktivně hledají právě to, co nabízíte. Žádné studené hovory, žádné plýtvání časem.",
+        "benefit2Title": "Profesionální profil, který přesvědčuje",
+        "benefit2Desc": "Vaše certifikace, zkušenosti a úspěchy na jednom místě. Zákazníci si vás vyhledají, prozkoumají a kontaktují — sami.",
+        "benefit3Title": "Ověřené recenze, které budují důvěru",
+        "benefit3Desc": "Spokojení klienti zanechají recenzi přímo na vašem profilu. Reálné hodnocení = více nových zákazníků. Jednoduché.",
+        "benefit4Title": "Chytrý CRM pro správu kontaktů",
+        "benefit4Desc": "Kanban pipeline, timeline aktivit, export kontaktů. Nikdy nezapomenete na follow-up a neuteče vám žádná příležitost.",
+        "benefit5Title": "Akademie: vzdělávejte se, vydělávejte více",
+        "benefit5Desc": "Exkluzivní kurzy a videa pro realitní makléře a finanční poradce. Znalosti, které vaše konkurence nemá.",
+        "benefit6Title": "Komunita a networking",
+        "benefit6Desc": "Eventy, workshopy a fórum s tisíci odborníků. Sdílejte zkušenosti, navazujte partnerství, rostěte společně.",
+        "statsLabel1": "zákazníků měsíčně",
+        "statsValue1": "500+",
+        "statsLabel2": "více poptávek",
+        "statsValue2": "3×",
+        "statsLabel3": "aktivních specialistů",
+        "statsValue3": "100+",
+        "testimonialQuote": "Za první měsíc jsem získal 4 nové klienty, které bych jinak nikdy nepotkal. Investice času do registrace? 2 minuty. Návratnost? Nedozírná.",
+        "testimonialAuthor": "Martin K.",
+        "testimonialRole": "Finanční poradce, Praha",
+        "trustLine": "Bez závazků. Bez kreditní karty. Profil zdarma navždy."
+      },
       "metadata": {
         "title": "Registrace | tvujspecialista.cz",
         "description": "Zaregistrujte se jako specialista na platformě tvujspecialista.cz."

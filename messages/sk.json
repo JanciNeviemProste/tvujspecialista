@@ -577,6 +577,33 @@
         "trial": "Rýchly štart",
         "trialDesc": "Začnite prijímať klientov ešte dnes"
       },
+      "landing": {
+        "heroTitle": "Prestaňte čakať na odporúčania. Začnite rásť.",
+        "heroSubtitle": "Každý mesiac tisíce zákazníkov hľadajú finančného poradcu alebo realitného makléra. Váš profil na tvujspecialista.cz je váš 24/7 predajný tím — pracuje za vás, aj keď spíte.",
+        "urgencyBadge": "Registrácia za 2 minúty · Úplne zadarmo",
+        "benefit1Title": "Kvalifikované leady z vášho regiónu",
+        "benefit1Desc": "Dostávajte dopyty od ľudí, ktorí aktívne hľadajú presne to, čo ponúkate. Žiadne studené hovory, žiadne strácanie času.",
+        "benefit2Title": "Profesionálny profil, ktorý presviedča",
+        "benefit2Desc": "Vaše certifikácie, skúsenosti a úspechy na jednom mieste. Zákazníci vás nájdu, preskúmajú a kontaktujú — sami.",
+        "benefit3Title": "Overené recenzie, ktoré budujú dôveru",
+        "benefit3Desc": "Spokojní klienti zanechajú recenziu priamo na vašom profile. Reálne hodnotenie = viac nových zákazníkov. Jednoduché.",
+        "benefit4Title": "Chytrý CRM pre správu kontaktov",
+        "benefit4Desc": "Kanban pipeline, časová os aktivít, export kontaktov. Nikdy nezabudnete na follow-up a neunikne vám žiadna príležitosť.",
+        "benefit5Title": "Akadémia: vzdelávajte sa, zarábajte viac",
+        "benefit5Desc": "Exkluzívne kurzy a videá pre realitných maklérov a finančných poradcov. Znalosti, ktoré vaša konkurencia nemá.",
+        "benefit6Title": "Komunita a networking",
+        "benefit6Desc": "Eventy, workshopy a fórum s tisícami odborníkov. Zdieľajte skúsenosti, nadväzujte partnerstvá, rastite spoločne.",
+        "statsLabel1": "zákazníkov mesačne",
+        "statsValue1": "500+",
+        "statsLabel2": "viac dopytov",
+        "statsValue2": "3×",
+        "statsLabel3": "aktívnych špecialistov",
+        "statsValue3": "100+",
+        "testimonialQuote": "Za prvý mesiac som získal 4 nových klientov, ktorých by som inak nikdy nestretol. Investícia času do registrácie? 2 minúty. Návratnosť? Nedozierná.",
+        "testimonialAuthor": "Martin K.",
+        "testimonialRole": "Finančný poradca, Bratislava",
+        "trustLine": "Bez záväzkov. Bez kreditnej karty. Profil zadarmo navždy."
+      },
       "metadata": {
         "title": "Registrácia | tvujspecialista.cz",
         "description": "Zaregistrujte sa ako špecialistu na platforme tvujspecialista.cz."
