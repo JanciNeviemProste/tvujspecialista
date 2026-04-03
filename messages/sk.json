@@ -818,6 +818,8 @@
     "reviews": {
       "title": "Recenzie",
       "subtitle": "Prehľad všetkých recenzií od vašich klientov",
+      "tabManage": "Správa recenzií",
+      "tabRequest": "Získať recenziu",
       "loading": "Načítavanie recenzií...",
       "loadError": "Nepodarilo sa načítať recenzie",
       "count": "{count} recenzií",
@@ -835,13 +837,20 @@
       },
       "requestReview": {
         "title": "Požiadať klienta o recenziu",
-        "description": "Zadajte email klienta a my mu pošleme odkaz na zanechanie recenzie.",
+        "description": "Zadajte email vášho klienta a my mu automaticky pošleme odkaz na zanechanie recenzie. Jednoduché a rýchle.",
         "emailLabel": "Email klienta",
         "emailPlaceholder": "klient@example.com",
-        "sendButton": "Odoslať žiadosť",
+        "sendButton": "Odoslať žiadosť o recenziu",
         "sending": "Odosielanie...",
         "success": "Žiadosť o recenziu bola odoslaná",
-        "error": "Nepodarilo sa odoslať žiadosť"
+        "error": "Nepodarilo sa odoslať žiadosť",
+        "howItWorks": "Ako to funguje?",
+        "step1": "Zadajte email klienta",
+        "step1desc": "Napíšte email zákazníka, od ktorého chcete získať hodnotenie.",
+        "step2": "Klient dostane email",
+        "step2desc": "Automaticky mu odošleme pozvánku s odkazom na formulár.",
+        "step3": "Recenzia sa zobrazí",
+        "step3desc": "Po vyplnení sa recenzia automaticky pridá k vášmu profilu."
       },
       "metadata": {
         "title": "Recenzie | tvujspecialista.cz",

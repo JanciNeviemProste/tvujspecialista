@@ -818,6 +818,8 @@
     "reviews": {
       "title": "Reviews",
       "subtitle": "Overview of all reviews from your clients",
+      "tabManage": "Manage Reviews",
+      "tabRequest": "Get a Review",
       "loading": "Loading reviews...",
       "loadError": "Failed to load reviews",
       "count": "{count} reviews",
@@ -835,13 +837,20 @@
       },
       "requestReview": {
         "title": "Request a Review from a Client",
-        "description": "Enter the client's email and we will send them a link to leave a review.",
+        "description": "Enter your client's email and we will automatically send them a link to leave a review. Simple and fast.",
         "emailLabel": "Client email",
         "emailPlaceholder": "client@example.com",
-        "sendButton": "Send Request",
+        "sendButton": "Send Review Request",
         "sending": "Sending...",
         "success": "Review request sent successfully",
-        "error": "Failed to send review request"
+        "error": "Failed to send review request",
+        "howItWorks": "How does it work?",
+        "step1": "Enter client email",
+        "step1desc": "Type the email of the customer you want feedback from.",
+        "step2": "Client receives email",
+        "step2desc": "We automatically send an invitation with a link to the review form.",
+        "step3": "Review appears",
+        "step3desc": "Once submitted, the review is automatically added to your profile."
       },
       "metadata": {
         "title": "Reviews | tvujspecialista.cz",

@@ -818,6 +818,8 @@
     "reviews": {
       "title": "Opinie",
       "subtitle": "Przegląd wszystkich opinii od Twoich klientów",
+      "tabManage": "Zarządzanie opiniami",
+      "tabRequest": "Uzyskaj opinię",
       "loading": "Ładowanie opinii...",
       "loadError": "Nie udało się załadować opinii",
       "count": "{count} opinii",
@@ -835,13 +837,20 @@
       },
       "requestReview": {
         "title": "Poproś klienta o recenzję",
-        "description": "Podaj email klienta, a my wyślemy mu link do wystawienia recenzji.",
+        "description": "Podaj email swojego klienta, a my automatycznie wyślemy mu link do wystawienia recenzji. Proste i szybkie.",
         "emailLabel": "Email klienta",
         "emailPlaceholder": "klient@example.com",
-        "sendButton": "Wyślij prośbę",
+        "sendButton": "Wyślij prośbę o recenzję",
         "sending": "Wysyłanie...",
         "success": "Prośba o recenzję została wysłana",
-        "error": "Nie udało się wysłać prośby"
+        "error": "Nie udało się wysłać prośby",
+        "howItWorks": "Jak to działa?",
+        "step1": "Podaj email klienta",
+        "step1desc": "Wpisz email klienta, od którego chcesz uzyskać opinię.",
+        "step2": "Klient otrzyma email",
+        "step2desc": "Automatycznie wyślemy zaproszenie z linkiem do formularza.",
+        "step3": "Opinia się pojawi",
+        "step3desc": "Po wypełnieniu opinia zostanie automatycznie dodana do Twojego profilu."
       },
       "metadata": {
         "title": "Opinie | tvujspecialista.cz",
