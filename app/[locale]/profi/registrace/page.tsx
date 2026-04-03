@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/routing';
 import { useRouter } from '@/i18n/routing';
 import { useForm } from 'react-hook-form';
@@ -16,6 +16,8 @@ import { PublicHeader } from '@/components/layout/PublicHeader';
 import { regions } from '@/mocks/regions';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
+import { StaggerGrid, StaggerItem } from '@/components/shared/StaggerGrid';
+import { RatingStars } from '@/components/shared/RatingStars';
 import {
   TrendingUp,
   UserCheck,
@@ -31,6 +33,7 @@ import {
   CheckCircle2,
   Shield,
   CreditCard,
+  Lock,
 } from 'lucide-react';
 
 // ─── Zod schema (identical to original) ───────────────────────────────────────
@@ -90,6 +93,7 @@ function FaqItem({ question, answer }: { question: string; answer: string }) {
 export default function RegistrationPage() {
   const t = useTranslations('auth.register');
   const tValidation = useTranslations('common.validation');
+  const tL = useTranslations('auth.register.landing');
   const locale = useLocale();
   const router = useRouter();
   const { login } = useAuth();
@@ -98,6 +102,10 @@ export default function RegistrationPage() {
   const [error, setError] = useState('');
   const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
   const [step, setStep] = useState<1 | 2 | 3>(1);
+
+  // New state
+  const [showFloatingCta, setShowFloatingCta] = useState(false);
+  const [liveNotifIndex, setLiveNotifIndex] = useState(0);
 
   const czRegions = regions.filter((r) => r.country === 'CZ');
 
@@ -113,6 +121,21 @@ export default function RegistrationPage() {
       gdprAccepted: false as unknown as true,
     },
   });
+
+  // Scroll-based floating CTA
+  useEffect(() => {
+    const handleScroll = () => setShowFloatingCta(window.scrollY > 600);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Rotating live notification
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setLiveNotifIndex(prev => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Step navigation
   const goToStep2 = async () => {
@@ -152,148 +175,46 @@ export default function RegistrationPage() {
 
   // ─── Data ──────────────────────────────────────────────────────────────────
   const painPoints = [
-    {
-      emoji: '🔍',
-      stat: '78 % lidí',
-      title: 'hledá poradce online',
-      desc: 'A pokud vás tam nenajdou, zavolají konkurenci. Jednoduše.',
-    },
-    {
-      emoji: '⏱️',
-      stat: '15+ hodin týdně',
-      title: 'ztracených na hledání klientů',
-      desc: 'Průměrný poradce stráví tolik času hledáním nových klientů místo jejich obsluhy.',
-    },
-    {
-      emoji: '⭐',
-      stat: '67 % rozhodnutí',
-      title: 'závisí na recenzích',
-      desc: 'Bez ověřených recenzí ztrácíte důvěru dřív, než se představíte.',
-    },
-    {
-      emoji: '💰',
-      stat: 'Až 120 000 Kč ročně',
-      title: 'přicházíte o příjmy',
-      desc: 'Tolik odhadujeme, že přicházíte o příjmy kvůli slabé online přítomnosti.',
-    },
+    { emoji: '🔍', stat: tL('pain1Stat'), title: tL('pain1Title'), desc: tL('pain1Desc') },
+    { emoji: '⏱️', stat: tL('pain2Stat'), title: tL('pain2Title'), desc: tL('pain2Desc') },
+    { emoji: '⭐', stat: tL('pain3Stat'), title: tL('pain3Title'), desc: tL('pain3Desc') },
+    { emoji: '💰', stat: tL('pain4Stat'), title: tL('pain4Title'), desc: tL('pain4Desc') },
   ];
 
   const benefits = [
-    {
-      icon: TrendingUp,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50 dark:bg-blue-950',
-      title: 'Kvalifikované leady z vašeho regionu',
-      desc: 'Zákazníci, kteří aktivně hledají. Žádné studené hovory.',
-    },
-    {
-      icon: UserCheck,
-      color: 'text-indigo-600',
-      bg: 'bg-indigo-50 dark:bg-indigo-950',
-      title: 'Profil, který přesvědčí místo vás',
-      desc: 'Certifikace, zkušenosti a úspěchy na jednom místě.',
-    },
-    {
-      icon: Star,
-      color: 'text-amber-500',
-      bg: 'bg-amber-50 dark:bg-amber-950',
-      title: 'Recenze, které budují důvěru',
-      desc: 'Spokojení klienti zanechají hodnocení. Noví vidí realitu.',
-    },
-    {
-      icon: LayoutDashboard,
-      color: 'text-purple-600',
-      bg: 'bg-purple-50 dark:bg-purple-950',
-      title: 'CRM, který za vás sleduje kontakty',
-      desc: 'Kanban pipeline, timeline, export. Nikdy nezapomenete na follow-up.',
-    },
-    {
-      icon: GraduationCap,
-      color: 'text-green-600',
-      bg: 'bg-green-50 dark:bg-green-950',
-      title: 'Akademie pro váš profesní růst',
-      desc: 'Exkluzivní kurzy pro poradce a makléře. Vzdělávejte se, vydělejte více.',
-    },
-    {
-      icon: Users,
-      color: 'text-rose-500',
-      bg: 'bg-rose-50 dark:bg-rose-950',
-      title: 'Komunita 300+ specialistů',
-      desc: 'Eventy, workshopy, forum. Networkujte s nejlepšími v oboru.',
-    },
+    { icon: TrendingUp, color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-950', title: tL('benefit1Title'), desc: tL('benefit1Desc') },
+    { icon: UserCheck, color: 'text-indigo-600', bg: 'bg-indigo-50 dark:bg-indigo-950', title: tL('benefit2Title'), desc: tL('benefit2Desc') },
+    { icon: Star, color: 'text-amber-500', bg: 'bg-amber-50 dark:bg-amber-950', title: tL('benefit3Title'), desc: tL('benefit3Desc') },
+    { icon: LayoutDashboard, color: 'text-purple-600', bg: 'bg-purple-50 dark:bg-purple-950', title: tL('benefit4Title'), desc: tL('benefit4Desc') },
+    { icon: GraduationCap, color: 'text-green-600', bg: 'bg-green-50 dark:bg-green-950', title: tL('benefit5Title'), desc: tL('benefit5Desc') },
+    { icon: Users, color: 'text-rose-500', bg: 'bg-rose-50 dark:bg-rose-950', title: tL('benefit6Title'), desc: tL('benefit6Desc') },
   ];
 
   const testimonials = [
-    {
-      initials: 'MK',
-      avatarBg: 'bg-blue-500',
-      name: 'Martin K.',
-      role: 'Finanční poradce',
-      city: 'Praha',
-      quote:
-        'Za první měsíc jsem získal 4 nové klienty, které bych jinak nikdy nepotkal. Investice času? 2 minuty na registraci. Návratnost? Nedozírná.',
-    },
-    {
-      initials: 'PN',
-      avatarBg: 'bg-rose-500',
-      name: 'Petra N.',
-      role: 'Realitní makléřka',
-      city: 'Brno',
-      quote:
-        'Recenze na profilu mi pomohly získat důvěru zákazníků, kteří mě vůbec neznali. Teď mi volají sami. Bez studených hovorů.',
-    },
-    {
-      initials: 'TV',
-      avatarBg: 'bg-green-500',
-      name: 'Tomáš V.',
-      role: 'Finanční poradce',
-      city: 'Ostrava',
-      quote:
-        'CRM v dashboardu mi ušetřil minimálně 5 hodin týdně. Všechny kontakty přehledně, každý follow-up načas. Prostě funguje.',
-    },
+    { initials: 'MK', avatarBg: 'bg-blue-500', name: tL('testimonial1Name'), role: tL('testimonial1Role'), city: tL('testimonial1City'), quote: tL('testimonial1Quote') },
+    { initials: 'PN', avatarBg: 'bg-rose-500', name: tL('testimonial2Name'), role: tL('testimonial2Role'), city: tL('testimonial2City'), quote: tL('testimonial2Quote') },
+    { initials: 'TV', avatarBg: 'bg-green-500', name: tL('testimonial3Name'), role: tL('testimonial3Role'), city: tL('testimonial3City'), quote: tL('testimonial3Quote') },
   ];
 
   const statsData = [
-    { target: '2847', label: 'zákazníků měsíčně' },
-    { target: '312', label: 'aktivních specialistů' },
-    { target: '4.8', label: 'průměrné hodnocení' },
-    { target: '94', label: '% spokojenost' },
+    { target: tL('stat1Value'), label: tL('stat1Label') },
+    { target: tL('stat2Value'), label: tL('stat2Label') },
+    { target: tL('stat3Value'), label: tL('stat3Label') },
+    { target: tL('stat4Value'), label: tL('stat4Label') },
   ];
 
   const faqItems = [
-    {
-      q: 'Je registrace opravdu zdarma?',
-      a: 'Ano, základní profil je zdarma navždy. Platíte pouze pokud se rozhodnete pro prémiové funkce — více leadů, pokročilé analytiky a prioritní zobrazení.',
-    },
-    {
-      q: 'Kolik klientů mohu realisticky očekávat?',
-      a: 'Záleží na vaší kategorii a regionu. Průměrný specialista dostane 3–8 kvalifikovaných poptávek měsíčně. Prémiový profil 2–3× více.',
-    },
-    {
-      q: 'Jak fungují recenze zákazníků?',
-      a: 'Po každém uzavřeném případu můžete zákazníkovi poslat žádost o recenzi. Recenze jsou ověřené — zobrazují se jen od skutečných klientů.',
-    },
-    {
-      q: 'Mohu profil kdykoli zrušit?',
-      a: 'Samozřejmě. Žádné závazky, žádné storno poplatky. Kdykoliv jedním klikem.',
-    },
-    {
-      q: 'Jaké kategorie specialistů přijímáte?',
-      a: 'Aktuálně finanční poradce a realitní makléře. V plánu máme rozšíření o pojišťovací agenty, hypoteční specialisty a daňové poradce.',
-    },
-    {
-      q: 'Jak se lišíte od konkurence?',
-      a: 'Nezaměřujeme se na kvantitu, ale kvalitu. Každý zákazník prošel filtrem — ví, co hledá, má reálný zájem. Žádné falešné poptávky.',
-    },
-    {
-      q: 'Musím platit za každý lead?',
-      a: 'Ne. Na základním plánu dostanete leady zdarma. Platíte pouze za prémiové funkce jako zvýrazněný profil nebo pokročilé CRM.',
-    },
-    {
-      q: 'Jak dlouho trvá aktivace profilu?',
-      a: 'Technicky okamžitě. Po registraci jste v systému. Plná aktivace a indexace profilu proběhne do 24 hodin.',
-    },
+    { q: tL('faq1Q'), a: tL('faq1A') },
+    { q: tL('faq2Q'), a: tL('faq2A') },
+    { q: tL('faq3Q'), a: tL('faq3A') },
+    { q: tL('faq4Q'), a: tL('faq4A') },
+    { q: tL('faq5Q'), a: tL('faq5A') },
+    { q: tL('faq6Q'), a: tL('faq6A') },
+    { q: tL('faq7Q'), a: tL('faq7A') },
+    { q: tL('faq8Q'), a: tL('faq8A') },
   ];
+
+  const liveNotifications = [tL('liveNotification1'), tL('liveNotification2'), tL('liveNotification3')];
 
   const inputClass =
     'w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors';
@@ -317,21 +238,25 @@ export default function RegistrationPage() {
         <div className="relative mx-auto max-w-5xl px-4 text-center">
           <ScrollReveal>
             {/* Urgency badge */}
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full bg-green-500/20 border border-green-400/30 px-5 py-2 text-sm font-semibold text-green-300">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-green-500/20 border border-green-400/30 px-5 py-2 text-sm font-semibold text-green-300">
               <CheckCircle2 className="h-4 w-4" />
-              100% zdarma &bull; Bez kreditní karty &bull; Aktivace do 24 hodin
+              {tL('urgencyBadge')}
+            </div>
+
+            {/* Urgency offer */}
+            <div className="mb-6">
+              <span className="inline-block rounded-full bg-amber-500/20 border border-amber-400/30 px-4 py-1.5 text-xs font-semibold text-amber-300">
+                {tL('urgencyOffer')}
+              </span>
             </div>
 
             {/* H1 */}
             <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
-              Každý den přicházíte o&nbsp;klienty,
-              <br className="hidden md:block" />
-              <span className="text-blue-300"> které nikdy nepotkáte.</span>
+              {tL('heroTitle')}
             </h1>
 
             <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100 md:text-xl leading-relaxed">
-              Zatímco vy spoléháte na doporučení, vaši konkurenti získávají klienty online.
-              Každý měsíc. Automaticky.
+              {tL('heroSubtitle')}
             </p>
 
             {/* CTA */}
@@ -339,28 +264,24 @@ export default function RegistrationPage() {
               href="#registrace"
               className="inline-flex items-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-400/40 hover:-translate-y-0.5"
             >
-              Zaregistrovat se zdarma
+              {tL('heroCta')}
               <ArrowRight className="h-5 w-5" />
             </a>
 
             <p className="mt-4 text-sm text-blue-300">
-              Již 312 specialistů využívá naši platformu
+              {tL('heroCtaSubtext')}
             </p>
           </ScrollReveal>
 
           {/* Stats row */}
           <ScrollReveal delay={0.2}>
             <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {[
-                { value: '2 847', label: 'zákazníků / měsíc' },
-                { value: '4,8★', label: 'průměrné hodnocení' },
-                { value: '312', label: 'specialistů na platformě' },
-              ].map((s) => (
+              {statsData.slice(0, 3).map((s) => (
                 <div
                   key={s.label}
                   className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-5"
                 >
-                  <p className="text-3xl font-extrabold text-white">{s.value}</p>
+                  <p className="text-3xl font-extrabold text-white">{s.target}</p>
                   <p className="mt-1 text-sm text-blue-200">{s.label}</p>
                 </div>
               ))}
@@ -370,6 +291,24 @@ export default function RegistrationPage() {
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════════
+          SECTION NEW — SOCIAL PROOF BAR
+      ════════════════════════════════════════════════════════════════════════ */}
+      <div className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 py-4">
+        <div className="mx-auto max-w-5xl px-4">
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-4">
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+              {tL('socialProofBarText')}
+            </span>
+            <span className="hidden text-gray-300 dark:text-gray-600 sm:block">&bull;</span>
+            <div className="flex items-center gap-2">
+              <RatingStars rating={4.8} size="sm" showCount={false} />
+              <span className="text-sm text-gray-600 dark:text-gray-400">{tL('socialProofRating')}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ════════════════════════════════════════════════════════════════════════
           SECTION 2 — PROBLÉM (pain points)
       ════════════════════════════════════════════════════════════════════════ */}
       <section className="py-20 md:py-28 bg-orange-50 dark:bg-gray-900">
@@ -377,17 +316,17 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-14">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                Poznáváte&nbsp;se?
+                {tL('problemTitle')}
               </h2>
               <p className="mt-3 text-gray-500 dark:text-gray-400">
-                Tyhle problémy zná každý poradce. Jen málokdo je aktivně řeší.
+                {tL('problemSubtitle')}
               </p>
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <StaggerGrid className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {painPoints.map((p, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
+              <StaggerItem key={i}>
                 <div className="flex gap-5 rounded-2xl bg-white dark:bg-gray-800 p-6 shadow-sm border-l-4 border-red-400">
                   <span className="text-3xl leading-none mt-1" role="img" aria-label="">
                     {p.emoji}
@@ -400,14 +339,65 @@ export default function RegistrationPage() {
                     </p>
                   </div>
                 </div>
-              </ScrollReveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
 
           <ScrollReveal delay={0.4}>
             <p className="mt-10 text-center text-sm italic text-gray-400 dark:text-gray-500">
-              Tyto problémy má většina specialistů. Ale jen málokdo je aktivně řeší.
+              {tL('problemFooter')}
             </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════════
+          SECTION NEW — BEFORE/AFTER
+      ════════════════════════════════════════════════════════════════════════ */}
+      <section className="py-20 md:py-28 bg-white dark:bg-gray-950">
+        <div className="mx-auto max-w-5xl px-4">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
+                {tL('beforeAfterTitle')}
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg">
+              {/* LEFT — BEFORE (red/gray) */}
+              <div className="bg-red-50 dark:bg-red-950/30 p-8 border-r border-red-200 dark:border-red-800">
+                <h3 className="font-bold text-red-600 dark:text-red-400 mb-6 text-center flex items-center justify-center gap-2">
+                  <span>❌</span> {tL('beforeTitle')}
+                </h3>
+                <ul className="space-y-3">
+                  {[tL('before1'), tL('before2'), tL('before3'), tL('before4'), tL('before5')].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                      <span className="text-red-400 shrink-0 mt-0.5">✗</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* RIGHT — AFTER (green/blue) */}
+              <div className="bg-green-50 dark:bg-green-950/30 p-8">
+                <h3 className="font-bold text-green-600 dark:text-green-400 mb-6 text-center flex items-center justify-center gap-2">
+                  <span>✅</span> {tL('afterTitle')}
+                </h3>
+                <ul className="space-y-3">
+                  {[tL('after1'), tL('after2'), tL('after3'), tL('after4'), tL('after5')].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-gray-700 dark:text-gray-300 text-sm">
+                      <span className="text-green-500 shrink-0 mt-0.5">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            {/* CTA after before/after */}
+            <div className="text-center mt-8">
+              <a href="#registrace" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-6 py-3 text-sm font-bold text-white transition-colors">
+                {tL('heroCta')} <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
           </ScrollReveal>
         </div>
       </section>
@@ -415,22 +405,20 @@ export default function RegistrationPage() {
       {/* ════════════════════════════════════════════════════════════════════════
           SECTION 3 — ŘEŠENÍ (benefits)
       ════════════════════════════════════════════════════════════════════════ */}
-      <section className="py-20 md:py-28 bg-white dark:bg-gray-950">
+      <section className="py-20 md:py-28 bg-gray-50 dark:bg-gray-900">
         <div className="mx-auto max-w-6xl px-4">
           <ScrollReveal>
             <div className="text-center mb-14">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                Představte si, jak vypadá váš první&nbsp;měsíc
-                <br className="hidden md:block" />
-                na&nbsp;tvujspecialista.cz
+                {tL('solutionTitle')}
               </h2>
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerGrid className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {benefits.map((b, i) => (
-              <ScrollReveal key={i} delay={i * 0.08}>
-                <div className="rounded-2xl bg-gray-50 dark:bg-gray-900 p-6 hover:shadow-md transition-shadow h-full">
+              <StaggerItem key={i}>
+                <div className="rounded-2xl bg-white dark:bg-gray-800 p-6 hover:shadow-md transition-shadow h-full">
                   <div className={`mb-4 inline-flex rounded-xl p-3 ${b.bg}`}>
                     <b.icon className={`h-6 w-6 ${b.color}`} />
                   </div>
@@ -439,9 +427,9 @@ export default function RegistrationPage() {
                     {b.desc}
                   </p>
                 </div>
-              </ScrollReveal>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerGrid>
         </div>
       </section>
 
@@ -450,6 +438,14 @@ export default function RegistrationPage() {
       ════════════════════════════════════════════════════════════════════════ */}
       <section className="py-20 md:py-28 bg-blue-50 dark:bg-gray-900">
         <div className="mx-auto max-w-5xl px-4">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
+                {tL('proofTitle')}
+              </h2>
+            </div>
+          </ScrollReveal>
+
           {/* Animated stats */}
           <ScrollReveal>
             <div className="grid grid-cols-2 gap-6 md:grid-cols-4 mb-16">
@@ -457,8 +453,6 @@ export default function RegistrationPage() {
                 <div key={s.label} className="text-center">
                   <p className="text-4xl font-extrabold text-blue-600 dark:text-blue-400">
                     <AnimatedCounter target={s.target} />
-                    {s.label === 'průměrné hodnocení' && '★'}
-                    {s.label === '% spokojenost' && '%'}
                   </p>
                   <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">{s.label}</p>
                 </div>
@@ -471,6 +465,9 @@ export default function RegistrationPage() {
             {testimonials.map((tm, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
                 <div className="rounded-2xl bg-white dark:bg-gray-800 p-7 shadow-sm h-full flex flex-col">
+                  <div className="mb-4">
+                    <RatingStars rating={5} size="sm" showCount={false} />
+                  </div>
                   <p className="flex-1 text-sm text-gray-700 dark:text-gray-300 leading-relaxed italic mb-6">
                     &ldquo;{tm.quote}&rdquo;
                   </p>
@@ -504,7 +501,7 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-14">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                Od registrace k&nbsp;prvnímu klientovi za&nbsp;3&nbsp;kroky
+                {tL('stepsTitle')}
               </h2>
             </div>
           </ScrollReveal>
@@ -514,39 +511,69 @@ export default function RegistrationPage() {
               {
                 num: '01',
                 icon: UserPlus,
-                title: 'Zaregistrujte se za 2 minuty',
-                desc: 'Vyplňte základní údaje. Žádná kreditní karta. Žádné závazky.',
+                label: tL('step1Label'),
+                title: tL('step1Title'),
+                desc: tL('step1Desc'),
               },
               {
                 num: '02',
                 icon: Edit,
-                title: 'Vytvořte profil, který prodává',
-                desc: 'Přidejte certifikace, zkušenosti, fotku. Profil pracuje za vás 24/7.',
+                label: tL('step2Label'),
+                title: tL('step2Title'),
+                desc: tL('step2Desc'),
               },
               {
                 num: '03',
                 icon: TrendingUp,
-                title: 'Přijímejte kvalifikované poptávky',
-                desc: 'Zákazníci vás najdou, kontaktují a vy se staráte jen o obchod.',
+                label: tL('step3Label'),
+                title: tL('step3Title'),
+                desc: tL('step3Desc'),
               },
-            ].map((step, i) => (
+            ].map((s, i) => (
               <ScrollReveal key={i} delay={i * 0.15}>
                 <div className="text-center">
                   <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-600 shadow-lg shadow-blue-600/30">
-                    <step.icon className="h-7 w-7 text-white" />
+                    <s.icon className="h-7 w-7 text-white" />
                   </div>
                   <p className="mb-1 text-xs font-bold tracking-widest text-blue-500 uppercase">
-                    Krok {step.num}
+                    {s.label} {s.num}
                   </p>
-                  <h3 className="mb-2 font-bold text-gray-900 dark:text-white">{step.title}</h3>
+                  <h3 className="mb-2 font-bold text-gray-900 dark:text-white">{s.title}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                    {step.desc}
+                    {s.desc}
                   </p>
                 </div>
               </ScrollReveal>
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════════════
+          SECTION NEW — GARANCE
+      ════════════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 bg-green-50 dark:bg-green-950/20">
+        <ScrollReveal>
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/50 mb-6">
+              <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
+            </div>
+            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-3">
+              {tL('guaranteeTitle')}
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 mb-10">
+              {tL('guaranteeSubtitle')}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+              {[tL('guarantee1'), tL('guarantee2'), tL('guarantee3'), tL('guarantee4')].map((g, i) => (
+                <div key={i} className="flex items-center gap-3 rounded-xl bg-white dark:bg-gray-800 px-5 py-4 shadow-sm">
+                  <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{g}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════════════
@@ -557,7 +584,7 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                Máte otázky? Máme odpovědi.
+                {tL('faqTitle')}
               </h2>
             </div>
           </ScrollReveal>
@@ -584,29 +611,29 @@ export default function RegistrationPage() {
         <ScrollReveal>
           <div className="relative mx-auto max-w-3xl px-4 text-center">
             <h2 className="mb-4 text-4xl font-extrabold text-white md:text-5xl leading-tight">
-              Vaši budoucí klienti vás právě hledají.
+              {tL('finalCtaTitle')}
             </h2>
             <p className="mb-10 text-xl text-blue-200">
-              Otázka je — najdou vás, nebo vaši konkurenci?
+              {tL('finalCtaSubtitle')}
             </p>
 
             <a
               href="#registrace"
               className="inline-flex items-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-400/40 hover:-translate-y-0.5"
             >
-              Zaregistrovat se zdarma — trvá 2 minuty
+              {tL('finalCtaButton')}
               <ArrowRight className="h-5 w-5" />
             </a>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-blue-300">
               <span className="flex items-center gap-1.5">
-                <Shield className="h-4 w-4" /> Bez závazků
+                <Shield className="h-4 w-4" /> {tL('trustNoCommitment')}
               </span>
               <span className="flex items-center gap-1.5">
-                <CreditCard className="h-4 w-4" /> Bez kreditní karty
+                <CreditCard className="h-4 w-4" /> {tL('trustNoCreditCard')}
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4" /> Profil zdarma navždy
+                <CheckCircle2 className="h-4 w-4" /> {tL('trustFreeForever')}
               </span>
             </div>
           </div>
@@ -621,10 +648,10 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-10">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                Vytvořte si profil&nbsp;zdarma
+                {tL('formTitle')}
               </h2>
               <p className="mt-3 text-gray-500 dark:text-gray-400">
-                Připojte se k&nbsp;312 specialistům, kteří již získávají klienty online.
+                {tL('formSubtitle')}
               </p>
             </div>
           </ScrollReveal>
@@ -636,12 +663,12 @@ export default function RegistrationPage() {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">
-                    Krok {step} ze 3
+                    {tL('formStepLabel', { step })}
                   </span>
                   <span className="text-xs text-gray-400">
-                    {step === 1 && 'Osobní údaje'}
-                    {step === 2 && 'Profesní informace'}
-                    {step === 3 && 'Heslo a souhlas'}
+                    {step === 1 && tL('formStep1Name')}
+                    {step === 2 && tL('formStep2Name')}
+                    {step === 3 && tL('formStep3Name')}
                   </span>
                 </div>
                 <div className="flex gap-2">
@@ -686,7 +713,7 @@ export default function RegistrationPage() {
                   <div className="space-y-5">
                     <div>
                       <label htmlFor="reg-name" className={labelClass}>
-                        Celé jméno <span aria-hidden="true">*</span>
+                        {t('name')} <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-name"
@@ -706,7 +733,7 @@ export default function RegistrationPage() {
 
                     <div>
                       <label htmlFor="reg-email" className={labelClass}>
-                        E-mail <span aria-hidden="true">*</span>
+                        {t('email')} <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-email"
@@ -726,7 +753,7 @@ export default function RegistrationPage() {
 
                     <div>
                       <label htmlFor="reg-phone" className={labelClass}>
-                        Telefon <span aria-hidden="true">*</span>
+                        {t('phone')} <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-phone"
@@ -749,7 +776,7 @@ export default function RegistrationPage() {
                       onClick={goToStep2}
                       className="mt-2 w-full rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
                     >
-                      Pokračovat
+                      {tL('formContinue')}
                       <ArrowRight className="h-4 w-4" />
                     </button>
                   </div>
@@ -761,7 +788,7 @@ export default function RegistrationPage() {
                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       <div>
                         <label htmlFor="reg-category" className={labelClass}>
-                          Kategorie <span aria-hidden="true">*</span>
+                          {t('category')} <span aria-hidden="true">*</span>
                         </label>
                         <select
                           id="reg-category"
@@ -770,9 +797,9 @@ export default function RegistrationPage() {
                           aria-describedby={errors.category ? 'reg-category-error' : undefined}
                           {...register('category')}
                         >
-                          <option value="">Vyberte kategorii</option>
-                          <option value="Finanční poradce">Finanční poradce</option>
-                          <option value="Realitní makléř">Realitní makléř</option>
+                          <option value="">{t('selectCategory')}</option>
+                          <option value="Finanční poradce">{tL('categoryFinancial')}</option>
+                          <option value="Realitní makléř">{tL('categoryRealEstate')}</option>
                         </select>
                         {errors.category && (
                           <p id="reg-category-error" className={errorClass} role="alert">
@@ -785,7 +812,7 @@ export default function RegistrationPage() {
 
                       <div>
                         <label htmlFor="reg-location" className={labelClass}>
-                          Hlavní region <span aria-hidden="true">*</span>
+                          {t('location')} <span aria-hidden="true">*</span>
                         </label>
                         <select
                           id="reg-location"
@@ -794,7 +821,7 @@ export default function RegistrationPage() {
                           aria-describedby={errors.location ? 'reg-location-error' : undefined}
                           {...register('location')}
                         >
-                          <option value="">Vyberte kraj</option>
+                          <option value="">{tL('selectRegion')}</option>
                           {czRegions.map((r) => (
                             <option key={r.id} value={r.name}>
                               {r.name}
@@ -813,7 +840,7 @@ export default function RegistrationPage() {
 
                     <div>
                       <label htmlFor="reg-experience" className={labelClass}>
-                        Let zkušeností <span aria-hidden="true">*</span>
+                        {t('experience')} <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-experience"
@@ -838,9 +865,9 @@ export default function RegistrationPage() {
 
                     {/* Operating regions checkboxes */}
                     <div>
-                      <label className={labelClass}>Kraje, kde působíte</label>
+                      <label className={labelClass}>{t('operatingRegions')}</label>
                       <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
-                        Vyberte všechny kraje, ve kterých poskytujete služby.
+                        {t('operatingRegionsDesc')}
                       </p>
                       <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 p-3">
                         {czRegions.map((r) => (
@@ -870,7 +897,7 @@ export default function RegistrationPage() {
 
                     <div>
                       <label htmlFor="reg-bio" className={labelClass}>
-                        O sobě <span aria-hidden="true">*</span>
+                        {t('bio')} <span aria-hidden="true">*</span>
                       </label>
                       <textarea
                         id="reg-bio"
@@ -894,14 +921,14 @@ export default function RegistrationPage() {
                         onClick={() => setStep(1)}
                         className="flex-1 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 py-3.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       >
-                        ← Zpět
+                        {tL('formBack')}
                       </button>
                       <button
                         type="button"
                         onClick={goToStep3}
                         className="flex-1 rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
                       >
-                        Pokračovat
+                        {tL('formContinue')}
                         <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
@@ -914,7 +941,7 @@ export default function RegistrationPage() {
                     <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                       <div>
                         <label htmlFor="reg-password" className={labelClass}>
-                          Heslo <span aria-hidden="true">*</span>
+                          {t('password')} <span aria-hidden="true">*</span>
                         </label>
                         <input
                           id="reg-password"
@@ -936,7 +963,7 @@ export default function RegistrationPage() {
 
                       <div>
                         <label htmlFor="reg-confirm-password" className={labelClass}>
-                          Potvrzení hesla <span aria-hidden="true">*</span>
+                          {t('confirmPassword')} <span aria-hidden="true">*</span>
                         </label>
                         <input
                           id="reg-confirm-password"
@@ -1021,7 +1048,7 @@ export default function RegistrationPage() {
                         onClick={() => setStep(2)}
                         className="flex-none rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-5 py-3.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       >
-                        ← Zpět
+                        {tL('formBack')}
                       </button>
                       <button
                         type="submit"
@@ -1046,6 +1073,30 @@ export default function RegistrationPage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* FLOATING MOBILE CTA */}
+      {showFloatingCta && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 lg:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 px-4 py-3 shadow-lg">
+          <a
+            href="#registrace"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-sm font-bold text-white transition-colors"
+          >
+            {tL('floatingCta')} <ArrowRight className="h-4 w-4" />
+          </a>
+          <p className="mt-1.5 text-center text-xs text-gray-400">{tL('floatingCtaTrust')}</p>
+        </div>
+      )}
+
+      {/* LIVE NOTIFICATION */}
+      <div className="hidden lg:block fixed bottom-6 left-6 z-30 max-w-xs">
+        <div className="flex items-center gap-3 rounded-xl bg-white dark:bg-gray-800 px-4 py-3 shadow-xl border border-gray-100 dark:border-gray-700">
+          <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center shrink-0">
+            <CheckCircle2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          </div>
+          <p className="text-xs text-gray-700 dark:text-gray-300">{liveNotifications[liveNotifIndex]}</p>
+        </div>
+      </div>
+
     </div>
   );
 }
