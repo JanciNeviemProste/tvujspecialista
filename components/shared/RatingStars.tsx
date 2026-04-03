@@ -3,13 +3,28 @@ interface RatingStarsProps {
   count?: number
   size?: 'sm' | 'md' | 'lg'
   showCount?: boolean
+  showRatingNumber?: boolean
+  countLabel?: string
 }
 
-export function RatingStars({ rating, count, size = 'md', showCount = true }: RatingStarsProps) {
+export function RatingStars({
+  rating,
+  count,
+  size = 'md',
+  showCount = true,
+  showRatingNumber = false,
+  countLabel,
+}: RatingStarsProps) {
   const sizeClasses = {
     sm: 'h-3 w-3',
     md: 'h-4 w-4',
     lg: 'h-5 w-5',
+  }
+
+  const ratingFontSize = {
+    sm: 'text-sm',
+    md: 'text-base',
+    lg: 'text-lg',
   }
 
   const stars = []
@@ -67,9 +82,16 @@ export function RatingStars({ rating, count, size = 'md', showCount = true }: Ra
 
   return (
     <div className="flex items-center gap-1">
+      {showRatingNumber && (
+        <span className={`${ratingFontSize[size]} font-bold text-gray-900 mr-0.5`}>
+          {rating.toFixed(1)}
+        </span>
+      )}
       {stars}
       {showCount && count !== undefined && (
-        <span className="ml-1 text-sm text-gray-600">({count})</span>
+        <span className="ml-1 text-sm text-gray-500">
+          {count} {countLabel || ''}
+        </span>
       )}
     </div>
   )

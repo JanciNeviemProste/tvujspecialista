@@ -22,6 +22,7 @@ interface SpecialistCardProps {
 
 export const SpecialistCard = memo(function SpecialistCard({ specialist }: SpecialistCardProps) {
   const tCommon = useTranslations('common')
+  const tSpec = useTranslations('specialist')
   return (
     <a
       href={`/specialista/${specialist.slug}`}
@@ -60,7 +61,7 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
           {specialist.category} &middot; {specialist.location}
         </p>
         <div className="mb-3">
-          <RatingStars rating={specialist.rating} count={specialist.reviewsCount} size="sm" />
+          <RatingStars rating={specialist.rating} count={specialist.reviewsCount} countLabel={tSpec('reviewsLabel')} showRatingNumber size="sm" />
         </div>
         <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-gray-600 dark:text-muted-foreground">
           {specialist.bio}

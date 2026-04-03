@@ -118,15 +118,28 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
             {/* Profile Header */}
             <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
               <div className="flex flex-col items-center text-center sm:flex-row sm:items-start sm:text-left gap-4 sm:gap-6">
-                <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 flex-shrink-0 overflow-hidden rounded-full bg-gray-200 dark:bg-muted">
-                  <Image
-                    src={specialist.photo || '/images/placeholder-avatar.png'}
-                    alt={specialist.name}
-                    fill
-                    sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 176px"
-                    className="object-cover"
-                    priority
-                  />
+                <div className="flex flex-col items-center gap-3 flex-shrink-0">
+                  {/* Rating summary above avatar */}
+                  <div className="flex items-center gap-1.5">
+                    <RatingStars
+                      rating={specialist.rating}
+                      count={specialist.reviewsCount}
+                      countLabel={t('reviewsLabel')}
+                      showRatingNumber
+                      size="md"
+                    />
+                  </div>
+
+                  <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 overflow-hidden rounded-full bg-gray-200">
+                    <Image
+                      src={specialist.photo || '/images/placeholder-avatar.png'}
+                      alt={specialist.name}
+                      fill
+                      sizes="(max-width: 640px) 96px, (max-width: 1024px) 128px, 176px"
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
                 </div>
 
                 <div className="flex-1">
@@ -147,14 +160,6 @@ export default function SpecialistDetailPage({ params }: { params: Promise<{ slu
                   <p className="mb-3 text-lg text-gray-600">
                     {specialist.category} • {specialist.location}
                   </p>
-
-                  <div className="mb-4">
-                    <RatingStars
-                      rating={specialist.rating}
-                      count={specialist.reviewsCount}
-                      size="md"
-                    />
-                  </div>
 
                   <div className="flex items-center gap-6 text-sm text-gray-600">
                     <div>

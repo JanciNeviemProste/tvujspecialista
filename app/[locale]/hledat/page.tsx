@@ -122,7 +122,7 @@ export default function SearchPage() {
                   {t('filters.minRating')}
                 </label>
                 <div className="space-y-2">
-                  {[5, 4, 3].map((rating) => (
+                  {[4, 3, 2].map((rating) => (
                     <label key={rating} className="flex items-center">
                       <input
                         type="radio"
