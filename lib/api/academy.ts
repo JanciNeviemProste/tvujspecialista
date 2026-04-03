@@ -44,6 +44,9 @@ export const academyApi = {
   getEnrollmentProgress: (enrollmentId: string) =>
     apiClient.get<LessonProgress[]>(`/academy/progress/enrollment/${enrollmentId}`),
 
+  getCertificate: (enrollmentId: string) =>
+    apiClient.get(`/academy/enrollments/${enrollmentId}/certificate`),
+
   // Admin
   publishCourse: (courseId: string, published: boolean) =>
     apiClient.patch(`/academy/courses/${courseId}/publish`, { published }),

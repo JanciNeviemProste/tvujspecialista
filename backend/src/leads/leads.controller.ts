@@ -9,6 +9,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { LeadsService } from './leads.service';
 import { CreateLeadDto } from './dto/create-lead.dto';
 import { UpdateLeadStatusDto } from './dto/update-lead-status.dto';
@@ -22,6 +23,7 @@ import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.i
 export class LeadsController {
   constructor(private leadsService: LeadsService) {}
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post()
   @UseGuards(LeadLimitGuard)
   @ApiOperation({ summary: 'Create a new lead' })

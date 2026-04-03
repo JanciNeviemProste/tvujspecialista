@@ -280,7 +280,7 @@ export class EmailService {
       html ||
         `
         <h1>${t.title}</h1>
-        <p>${t.greeting} ${name},</p>
+        <p>${t.greeting} ${this.htmlEncode(name)},</p>
         <p>${t.body}</p>
       `,
     );
@@ -571,7 +571,7 @@ export class EmailService {
       t.subject,
       `
         <h1>${t.title}</h1>
-        <p>${t.greeting} ${name},</p>
+        <p>${t.greeting} ${this.htmlEncode(name)},</p>
         <p>${t.body}</p>
         <p><a href="${resetUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
         <p>${t.expiry}</p>
@@ -596,7 +596,7 @@ export class EmailService {
       t.subject,
       `
         <h1>${t.title}</h1>
-        <p>${t.greeting} ${name},</p>
+        <p>${t.greeting} ${this.htmlEncode(name)},</p>
         <p>${t.body}</p>
         <p><a href="${verifyUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a></p>
       `,

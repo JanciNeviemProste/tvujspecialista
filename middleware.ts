@@ -32,7 +32,7 @@ export function middleware(request: NextRequest) {
     "frame-ancestors 'none'",
     "upgrade-insecure-requests",
   ].join('; ');
-  response.headers.set('Content-Security-Policy-Report-Only', cspDirectives);
+  response.headers.set('Content-Security-Policy', cspDirectives);
 
   // HSTS only in production
   if (process.env.NODE_ENV === 'production') {

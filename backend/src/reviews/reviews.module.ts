@@ -5,12 +5,13 @@ import { ReviewsService } from './reviews.service';
 import { Review } from '../database/entities/review.entity';
 import { ReviewToken } from '../database/entities/review-token.entity';
 import { Specialist } from '../database/entities/specialist.entity';
+import { User } from '../database/entities/user.entity';
 import { SpecialistsModule } from '../specialists/specialists.module';
 import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Review, ReviewToken, Specialist]),
+    TypeOrmModule.forFeature([Review, ReviewToken, Specialist, User]),
     SpecialistsModule,
     EmailModule,
   ],

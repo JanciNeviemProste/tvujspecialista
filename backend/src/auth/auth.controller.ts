@@ -103,6 +103,7 @@ export class AuthController {
     return { message: 'Password changed successfully' };
   }
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post('verify-email')
   @ApiOperation({ summary: 'Verify email with token' })
   @ApiResponse({ status: 200, description: 'Email verified successfully' })

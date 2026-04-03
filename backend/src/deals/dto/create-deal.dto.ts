@@ -1,7 +1,13 @@
-import { IsNotEmpty, IsEmail, IsString, IsBoolean, MaxLength } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsEmail, IsString, IsBoolean, MaxLength, IsOptional, ValidateIf } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateDealDto {
+  @ApiPropertyOptional({ description: 'Honeypot field - must be empty' })
+  @IsOptional()
+  @IsString()
+  @ValidateIf((o) => o.website !== undefined && o.website !== '')
+  website?: string; // honeypot — bots fill this, humans leave it empty
+
   @ApiProperty({ description: 'ID of the specialist' })
   @IsNotEmpty()
   @IsString()

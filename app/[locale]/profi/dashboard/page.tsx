@@ -353,30 +353,30 @@ export default function DashboardPage() {
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <h2 className="mb-4 text-lg font-semibold text-gray-900">{t('quickActions.title')}</h2>
                 <div className="space-y-3">
-                  <a
+                  <Link
                     href="/profi/dashboard/deals"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
                     🤝 {t('quickActions.dealPipeline')}
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/profi/dashboard/profil"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
                     📝 {t('quickActions.editProfile')}
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/profi/dashboard/recenze"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
                     💬 {t('quickActions.manageReviews')}
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     href="/profi/dashboard/ceny"
                     className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
                   >
                     💳 {t('quickActions.upgradePlan')}
-                  </a>
+                  </Link>
                 </div>
               </div>
 

@@ -3,11 +3,16 @@ import {
   IsEmail,
   IsString,
   IsBoolean,
+  IsOptional,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
 export class CreateLeadDto {
+  @IsOptional()
+  @IsString()
+  website?: string; // honeypot — bots fill this, humans leave it empty
+
   @IsNotEmpty()
   @IsString()
   specialistId: string;

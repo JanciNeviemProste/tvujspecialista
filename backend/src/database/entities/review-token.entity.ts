@@ -16,8 +16,8 @@ export class ReviewToken {
   @Column()
   specialistId: string;
 
-  @Column()
-  leadId: string;
+  @Column({ nullable: true })
+  leadId: string | null;
 
   @Column()
   customerEmail: string;

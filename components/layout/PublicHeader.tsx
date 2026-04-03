@@ -7,6 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { NotificationBell } from '@/components/shared/NotificationBell';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { ChevronDown, LogIn, UserPlus } from 'lucide-react';
 
 export function PublicHeader() {
@@ -116,11 +117,13 @@ export function PublicHeader() {
             </div>
           ) : null}
 
+          <ThemeToggle />
           <LocaleSwitcher />
         </nav>
 
         {/* Mobile Navigation */}
         <div className="flex items-center gap-2 lg:hidden">
+          <ThemeToggle />
           <LocaleSwitcher />
           <MobileNav />
         </div>

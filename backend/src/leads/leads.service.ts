@@ -28,6 +28,12 @@ export class LeadsService {
   ) {}
 
   async create(createLeadDto: CreateLeadDto) {
+    // Honeypot check
+    if (createLeadDto.website) {
+      this.logger.warn('Honeypot triggered — likely bot submission');
+      return { id: 'fake', status: 'new' } as any;
+    }
+
     if (!createLeadDto.gdprConsent) {
       throw new BadRequestException('GDPR consent is required');
     }

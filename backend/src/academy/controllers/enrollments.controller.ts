@@ -92,6 +92,20 @@ export class EnrollmentsController {
     return this.enrollmentsService.findById(id, req.user.userId);
   }
 
+  @Get(':id/certificate')
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get certificate data for completed enrollment' })
+  @ApiResponse({ status: 200, description: 'Returns certificate data' })
+  @ApiResponse({ status: 400, description: 'Certificate not issued yet' })
+  @ApiResponse({ status: 404, description: 'Enrollment not found' })
+  async getCertificate(
+    @Request() req: AuthenticatedRequest,
+    @Param('id') id: string,
+  ) {
+    return this.enrollmentsService.getCertificate(id, req.user.userId);
+  }
+
   @Patch(':id/drop')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()

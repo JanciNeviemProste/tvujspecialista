@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { Resend } from 'resend';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Jméno musí mít alespoň 2 znaky'),
@@ -64,16 +65,27 @@ export async function POST(request: NextRequest) {
 
     const { name, email, phone, subject, message } = result.data;
 
-    // Log the contact submission (backend handles actual email sending)
-    console.log('[Contact Form Submission]', {
-      name,
-      email,
-      phone: phone || '(not provided)',
-      subject,
-      message,
-      timestamp: new Date().toISOString(),
-      ip,
-    });
+    const resendKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.CONTACT_EMAIL || process.env.RESEND_FROM_EMAIL;
+
+    if (resendKey && toEmail) {
+      const resend = new Resend(resendKey);
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL || 'noreply@tvujspecialista.cz',
+        to: toEmail,
+        replyTo: email,
+        subject: `Kontaktní formulář: ${subject}`,
+        html: `
+          <h2>Nová zpráva z kontaktního formuláře</h2>
+          <p><strong>Jméno:</strong> ${name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+          <p><strong>Email:</strong> ${email.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+          ${phone ? `<p><strong>Telefon:</strong> ${phone.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>` : ''}
+          <p><strong>Předmět:</strong> ${subject.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+          <hr />
+          <p>${message.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br />')}</p>
+        `,
+      });
+    }
 
     return NextResponse.json(
       {

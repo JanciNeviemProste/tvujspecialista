@@ -9,6 +9,7 @@ import * as crypto from 'crypto';
 import { Review } from '../database/entities/review.entity';
 import { ReviewToken } from '../database/entities/review-token.entity';
 import { Specialist } from '../database/entities/specialist.entity';
+import { User } from '../database/entities/user.entity';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { RespondReviewDto } from './dto/respond-review.dto';
 import { SpecialistsService } from '../specialists/specialists.service';
@@ -23,6 +24,8 @@ export class ReviewsService {
     private reviewTokenRepository: Repository<ReviewToken>,
     @InjectRepository(Specialist)
     private specialistRepository: Repository<Specialist>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
     private specialistsService: SpecialistsService,
     private emailService: EmailService,
   ) {}
@@ -124,18 +127,21 @@ export class ReviewsService {
       throw new NotFoundException('Specialist not found');
     }
 
-    const reviewToken = await this.createReviewToken(specialist.id, 'direct-request', customerEmail);
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    const locale = user?.locale || 'cs';
+
+    const reviewToken = await this.createReviewToken(specialist.id, null, customerEmail);
     await this.emailService.sendReviewRequest(
       customerEmail,
       specialist.name,
       reviewToken.token,
-      'cs',
+      locale,
     );
   }
 
   async createReviewToken(
     specialistId: string,
-    leadId: string,
+    leadId: string | null,
     customerEmail: string,
   ) {
     const token = crypto.randomBytes(32).toString('hex');

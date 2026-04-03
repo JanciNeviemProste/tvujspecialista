@@ -8,6 +8,7 @@ import {
   Request,
 } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { RespondReviewDto } from './dto/respond-review.dto';
@@ -20,6 +21,7 @@ import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.i
 export class ReviewsController {
   constructor(private reviewsService: ReviewsService) {}
 
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   @Post()
   @ApiOperation({ summary: 'Create a review for a specialist' })
   @ApiResponse({ status: 201, description: 'Review created successfully' })

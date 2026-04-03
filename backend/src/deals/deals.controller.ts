@@ -14,6 +14,7 @@ import {
   ApiBearerAuth,
   ApiResponse,
 } from '@nestjs/swagger';
+import { Throttle } from '@nestjs/throttler';
 import { DealsService } from './deals.service';
 import { CreateDealDto } from './dto/create-deal.dto';
 import { UpdateDealStatusDto } from './dto/update-deal-status.dto';
@@ -28,6 +29,7 @@ import { DealResponseDto } from './dto/deal-response.dto';
 export class DealsController {
   constructor(private dealsService: DealsService) {}
 
+  @Throttle({ default: { limit: 5, ttl: 60000 } })
   @Post()
   @UseGuards(LeadLimitGuard)
   @ApiOperation({ summary: 'Create a new deal (public endpoint)' })

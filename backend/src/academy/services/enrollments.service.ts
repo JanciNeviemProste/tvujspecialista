@@ -201,6 +201,31 @@ export class EnrollmentsService {
     );
   }
 
+  async getCertificate(enrollmentId: string, userId: string) {
+    const enrollment = await this.enrollmentRepository.findOne({
+      where: { id: enrollmentId, userId },
+      relations: ['course'],
+    });
+
+    if (!enrollment) {
+      throw new NotFoundException('Enrollment not found');
+    }
+
+    if (!enrollment.certificateIssued) {
+      throw new BadRequestException('Certificate not issued yet — complete the course first');
+    }
+
+    return {
+      studentName: userId, // will be resolved on frontend from auth context
+      courseName: enrollment.course.title,
+      courseCategory: enrollment.course.category,
+      courseLevel: enrollment.course.level,
+      completedAt: enrollment.completedAt,
+      certificateIssuedAt: enrollment.certificateIssuedAt,
+      enrollmentId: enrollment.id,
+    };
+  }
+
   async updateProgress(enrollmentId: string): Promise<void> {
     // Find enrollment with lesson progress
     const enrollment = await this.enrollmentRepository.findOne({
@@ -242,10 +267,12 @@ export class EnrollmentsService {
     const progressPercentage = (completedLessons / totalLessons) * 100;
     enrollment.progress = Math.round(progressPercentage * 100) / 100; // Round to 2 decimal places
 
-    // If 100% complete, mark as completed
+    // If 100% complete, mark as completed and issue certificate
     if (progressPercentage === 100) {
       enrollment.status = EnrollmentStatus.COMPLETED;
       enrollment.completedAt = new Date();
+      enrollment.certificateIssued = true;
+      enrollment.certificateIssuedAt = new Date();
     }
 
     await this.enrollmentRepository.save(enrollment);

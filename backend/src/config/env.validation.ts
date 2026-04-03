@@ -46,14 +46,12 @@ class EnvironmentVariables {
   @IsOptional()
   DATABASE_URL?: string;
 
-  // JWT - optional with dev defaults
+  // JWT
   @IsString()
-  @IsOptional()
   JWT_SECRET: string = 'dev-secret-change-in-production';
 
   @IsString()
-  @IsOptional()
-  JWT_REFRESH_SECRET: string = 'dev-secret-change-in-production';
+  JWT_REFRESH_SECRET: string = 'dev-refresh-secret-change-in-production';
 
   @IsString()
   @IsOptional()

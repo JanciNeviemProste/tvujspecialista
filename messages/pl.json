@@ -733,6 +733,20 @@
         "yearlySubscriptions": "Subskrypcje roczne"
       }
     },
+    "statistics": {
+      "title": "Statystyki",
+      "totalLeads": "Wszystkie leady",
+      "leadsThisMonth": "Leady w tym miesiącu",
+      "successRate": "Skuteczność",
+      "averageRating": "Średnia ocena",
+      "leadsByStatus": "Leady wg statusu",
+      "reviewDistribution": "Rozkład recenzji",
+      "monthlyTrend": "Trend miesięczny",
+      "noData": "Brak danych",
+      "stars": "{count} gwiazdek",
+      "reviews": "{count} recenzji",
+      "leads": "{count} leadów"
+    },
     "settings": {
       "title": "Ustawienia konta",
       "subtitle": "Zarządzaj swoimi danymi logowania",
@@ -1283,6 +1297,7 @@
     },
     "header": {
       "dashboard": "Dashboard",
+      "statistics": "Statystyki",
       "academy": "Akademia",
       "forum": "Forum",
       "community": "Eventy",
@@ -1506,6 +1521,19 @@
       "continue": "Kontynuuj",
       "viewCourse": "Zobacz kurs",
       "featured": "Polecane"
+    },
+    "certificate": {
+      "loading": "Ładowanie certyfikatu...",
+      "notFound": "Certyfikat nie znaleziony",
+      "notFoundDesc": "Ten certyfikat nie istnieje lub nie masz dostępu.",
+      "title": "Certyfikat ukończenia",
+      "subtitle": "tvujspecialista.cz Academy",
+      "awardedTo": "Przyznano",
+      "forCompleting": "Za pomyślne ukończenie kursu",
+      "completedOn": "Ukończono dnia {date}",
+      "print": "Drukuj",
+      "student": "Student",
+      "verifiedCertificate": "Zweryfikowany certyfikat"
     },
     "enrollment": {
       "completed": "Ukończono",

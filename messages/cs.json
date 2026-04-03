@@ -733,6 +733,20 @@
         "yearlySubscriptions": "Roční předplatné"
       }
     },
+    "statistics": {
+      "title": "Statistiky",
+      "totalLeads": "Celkové leady",
+      "leadsThisMonth": "Leady tento měsíc",
+      "successRate": "Úspěšnost",
+      "averageRating": "Průměrné hodnocení",
+      "leadsByStatus": "Leady podle stavu",
+      "reviewDistribution": "Rozložení recenzí",
+      "monthlyTrend": "Měsíční trend",
+      "noData": "Zatím žádná data",
+      "stars": "{count} hvězd",
+      "reviews": "{count} recenzí",
+      "leads": "{count} leadů"
+    },
     "settings": {
       "title": "Nastavení účtu",
       "subtitle": "Spravujte své přihlašovací údaje",
@@ -1283,6 +1297,7 @@
     },
     "header": {
       "dashboard": "Dashboard",
+      "statistics": "Statistiky",
       "academy": "Akademie",
       "forum": "Fórum",
       "community": "Eventy",
@@ -1506,6 +1521,19 @@
       "continue": "Pokračovat",
       "viewCourse": "Zobrazit kurz",
       "featured": "Doporučené"
+    },
+    "certificate": {
+      "loading": "Načítání certifikátu...",
+      "notFound": "Certifikát nenalezen",
+      "notFoundDesc": "Tento certifikát neexistuje nebo k němu nemáte přístup.",
+      "title": "Certifikát o absolvování",
+      "subtitle": "tvujspecialista.cz Academy",
+      "awardedTo": "Uděleno",
+      "forCompleting": "Za úspěšné absolvování kurzu",
+      "completedOn": "Dokončeno dne {date}",
+      "print": "Vytisknout",
+      "student": "Student",
+      "verifiedCertificate": "Ověřený certifikát"
     },
     "enrollment": {
       "completed": "Dokončeno",

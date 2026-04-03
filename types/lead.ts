@@ -32,6 +32,7 @@ export interface LeadFormData {
   customerPhone: string
   message: string
   gdprConsent: boolean
+  website?: string
 }
 
 export interface LeadFilters {

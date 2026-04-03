@@ -38,6 +38,13 @@ export class DealsService {
   ) {}
 
   async create(createDealDto: CreateDealDto) {
+    // Honeypot check — bots fill this hidden field, humans leave it empty
+    if (createDealDto.website) {
+      this.logger.warn('Honeypot triggered — likely bot submission');
+      // Return fake success to not alert the bot
+      return { id: crypto.randomUUID(), status: 'new' };
+    }
+
     if (!createDealDto.gdprConsent) {
       throw new BadRequestException('GDPR consent is required');
     }

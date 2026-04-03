@@ -23,6 +23,19 @@ interface UploadedFile {
   buffer: Buffer;
 }
 
+// Magic byte signatures for allowed image types
+const IMAGE_SIGNATURES: Array<{ mime: string; bytes: number[] }> = [
+  { mime: 'image/jpeg', bytes: [0xFF, 0xD8, 0xFF] },
+  { mime: 'image/png', bytes: [0x89, 0x50, 0x4E, 0x47] },
+  { mime: 'image/webp', bytes: [0x52, 0x49, 0x46, 0x46] }, // RIFF header
+];
+
+function validateImageMagicBytes(buffer: Buffer): boolean {
+  return IMAGE_SIGNATURES.some(sig =>
+    sig.bytes.every((byte, i) => buffer[i] === byte),
+  );
+}
+
 @ApiTags('Upload')
 @Controller('upload')
 export class CloudinaryController {
@@ -49,6 +62,10 @@ export class CloudinaryController {
       throw new BadRequestException(
         'Invalid file type. Only JPEG, PNG, and WebP are allowed',
       );
+    }
+
+    if (!validateImageMagicBytes(file.buffer)) {
+      throw new BadRequestException('File content does not match an allowed image format');
     }
 
     if (file.size > 5 * 1024 * 1024) {
@@ -78,6 +95,10 @@ export class CloudinaryController {
       throw new BadRequestException(
         'Invalid file type. Only JPEG, PNG, and WebP are allowed',
       );
+    }
+
+    if (!validateImageMagicBytes(file.buffer)) {
+      throw new BadRequestException('File content does not match an allowed image format');
     }
 
     if (file.size > 5 * 1024 * 1024) {
