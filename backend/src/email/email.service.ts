@@ -603,6 +603,64 @@ export class EmailService {
     );
   }
 
+  async sendReviewRequest(
+    customerEmail: string,
+    specialistName: string,
+    reviewToken: string,
+    locale?: string,
+  ): Promise<void> {
+    const loc = this.getLocale(locale);
+    const prefix = this.getLocalePrefix(loc);
+    const reviewUrl = `${this.configService.get<string>('FRONTEND_URL')}${prefix}/recenze?token=${reviewToken}`;
+
+    const translations: Record<Locale, { subject: string; greeting: string; body: string; button: string; footer: string }> = {
+      cs: {
+        subject: `${specialistName} vás žádá o hodnocení`,
+        greeting: 'Dobrý den',
+        body: `Specialista <strong>${this.htmlEncode(specialistName)}</strong> vás žádá o zanechání recenze na platformě tvujspecialista.cz. Vaše hodnocení pomáhá ostatním klientům při výběru správného odborníka.`,
+        button: 'Zanechat recenzi',
+        footer: 'Pokud si nepřejete zanechat recenzi, tento email ignorujte.',
+      },
+      sk: {
+        subject: `${specialistName} vás žiada o hodnotenie`,
+        greeting: 'Dobrý deň',
+        body: `Špecialista <strong>${this.htmlEncode(specialistName)}</strong> vás žiada o zanechanie recenzie na platforme tvujspecialista.cz. Vaše hodnotenie pomáha ostatným klientom pri výbere správneho odborníka.`,
+        button: 'Zanechať recenziu',
+        footer: 'Ak si neprajete zanechať recenziu, tento email ignorujte.',
+      },
+      en: {
+        subject: `${specialistName} is requesting your review`,
+        greeting: 'Hello',
+        body: `Specialist <strong>${this.htmlEncode(specialistName)}</strong> is asking you to leave a review on tvujspecialista.cz. Your feedback helps other clients find the right expert.`,
+        button: 'Leave a Review',
+        footer: 'If you do not wish to leave a review, you can ignore this email.',
+      },
+      pl: {
+        subject: `${specialistName} prosi o recenzję`,
+        greeting: 'Dzień dobry',
+        body: `Specjalista <strong>${this.htmlEncode(specialistName)}</strong> prosi o wystawienie recenzji na platformie tvujspecialista.cz. Twoja opinia pomaga innym klientom w wyborze odpowiedniego eksperta.`,
+        button: 'Wystaw recenzję',
+        footer: 'Jeśli nie chcesz wystawiać recenzji, możesz zignorować ten email.',
+      },
+    };
+
+    const t = translations[loc];
+
+    await this.sendEmail(
+      customerEmail,
+      t.subject,
+      `
+        <h1>${t.subject}</h1>
+        <p>${t.greeting},</p>
+        <p>${t.body}</p>
+        <p style="margin: 24px 0;">
+          <a href="${reviewUrl}" style="padding: 12px 24px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px;">${t.button}</a>
+        </p>
+        <p style="color: #6b7280; font-size: 14px;">${t.footer}</p>
+      `,
+    );
+  }
+
   private getStatusLabel(status: string, locale: string = 'cs'): string {
     const labels: Record<string, Record<string, string>> = {
       cs: { new: 'Nový', contacted: 'Kontaktovaný', qualified: 'Kvalifikovaný', in_progress: 'V procesu', closed_won: 'Uzavřeno - získáno', closed_lost: 'Uzavřeno - ztraceno' },

@@ -833,6 +833,16 @@
         "title": "Zatím žádné recenze",
         "description": "Jakmile klienti zanechají recenze, zobrazí se zde."
       },
+      "requestReview": {
+        "title": "Požádat klienta o recenzi",
+        "description": "Zadejte email klienta a my mu zašleme odkaz na zanechání recenze.",
+        "emailLabel": "Email klienta",
+        "emailPlaceholder": "klient@example.com",
+        "sendButton": "Odeslat žádost",
+        "sending": "Odesílání...",
+        "success": "Žádost o recenzi byla odeslána",
+        "error": "Nepodařilo se odeslat žádost"
+      },
       "metadata": {
         "title": "Recenze | tvujspecialista.cz",
         "description": "Přehled recenzí vašich klientů."

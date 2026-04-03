@@ -833,6 +833,16 @@
         "title": "Brak opinii",
         "description": "Gdy klienci zostawią opinie, pojawią się tutaj."
       },
+      "requestReview": {
+        "title": "Poproś klienta o recenzję",
+        "description": "Podaj email klienta, a my wyślemy mu link do wystawienia recenzji.",
+        "emailLabel": "Email klienta",
+        "emailPlaceholder": "klient@example.com",
+        "sendButton": "Wyślij prośbę",
+        "sending": "Wysyłanie...",
+        "success": "Prośba o recenzję została wysłana",
+        "error": "Nie udało się wysłać prośby"
+      },
       "metadata": {
         "title": "Opinie | tvujspecialista.cz",
         "description": "Przegląd opinii Twoich klientów."

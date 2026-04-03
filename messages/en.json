@@ -833,6 +833,16 @@
         "title": "No reviews yet",
         "description": "Once clients leave reviews, they will appear here."
       },
+      "requestReview": {
+        "title": "Request a Review from a Client",
+        "description": "Enter the client's email and we will send them a link to leave a review.",
+        "emailLabel": "Client email",
+        "emailPlaceholder": "client@example.com",
+        "sendButton": "Send Request",
+        "sending": "Sending...",
+        "success": "Review request sent successfully",
+        "error": "Failed to send review request"
+      },
       "metadata": {
         "title": "Reviews | tvujspecialista.cz",
         "description": "Overview of your clients' reviews."

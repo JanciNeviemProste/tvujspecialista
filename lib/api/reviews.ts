@@ -20,4 +20,7 @@ export const reviewsApi = {
 
   respond: (id: string, response: string) =>
     apiClient.post(`/reviews/${id}/respond`, { response }),
+
+  requestReviewToken: (customerEmail: string) =>
+    apiClient.post('/reviews/request-token', { customerEmail }),
 };

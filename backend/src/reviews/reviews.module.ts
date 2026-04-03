@@ -6,11 +6,13 @@ import { Review } from '../database/entities/review.entity';
 import { ReviewToken } from '../database/entities/review-token.entity';
 import { Specialist } from '../database/entities/specialist.entity';
 import { SpecialistsModule } from '../specialists/specialists.module';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Review, ReviewToken, Specialist]),
     SpecialistsModule,
+    EmailModule,
   ],
   controllers: [ReviewsController],
   providers: [ReviewsService],

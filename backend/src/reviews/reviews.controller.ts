@@ -11,6 +11,7 @@ import { ApiTags, ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagg
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { RespondReviewDto } from './dto/respond-review.dto';
+import { RequestReviewTokenDto } from './dto/request-review-token.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AuthenticatedRequest } from '../auth/interfaces/authenticated-request.interface';
 
@@ -40,6 +41,19 @@ export class ReviewsController {
   @ApiResponse({ status: 200, description: 'Returns my reviews' })
   async getMyReviews(@Request() req: AuthenticatedRequest) {
     return this.reviewsService.findMyReviews(req.user.userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('request-token')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Request a review from a customer via email' })
+  @ApiResponse({ status: 201, description: 'Review request sent' })
+  async requestReviewToken(
+    @Request() req: AuthenticatedRequest,
+    @Body() dto: RequestReviewTokenDto,
+  ) {
+    await this.reviewsService.requestReviewByEmail(req.user.userId, dto.customerEmail);
+    return { success: true };
   }
 
   @UseGuards(JwtAuthGuard)

@@ -12,6 +12,7 @@ import { Specialist } from '../database/entities/specialist.entity';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { RespondReviewDto } from './dto/respond-review.dto';
 import { SpecialistsService } from '../specialists/specialists.service';
+import { EmailService } from '../email/email.service';
 
 @Injectable()
 export class ReviewsService {
@@ -23,6 +24,7 @@ export class ReviewsService {
     @InjectRepository(Specialist)
     private specialistRepository: Repository<Specialist>,
     private specialistsService: SpecialistsService,
+    private emailService: EmailService,
   ) {}
 
   async create(createReviewDto: CreateReviewDto) {
@@ -114,6 +116,21 @@ export class ReviewsService {
     review.respondedAt = new Date();
 
     return this.reviewRepository.save(review);
+  }
+
+  async requestReviewByEmail(userId: string, customerEmail: string): Promise<void> {
+    const specialist = await this.specialistRepository.findOne({ where: { userId } });
+    if (!specialist) {
+      throw new NotFoundException('Specialist not found');
+    }
+
+    const reviewToken = await this.createReviewToken(specialist.id, 'direct-request', customerEmail);
+    await this.emailService.sendReviewRequest(
+      customerEmail,
+      specialist.name,
+      reviewToken.token,
+      'cs',
+    );
   }
 
   async createReviewToken(

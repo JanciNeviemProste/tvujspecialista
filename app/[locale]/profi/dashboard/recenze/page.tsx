@@ -35,6 +35,8 @@ export default function ReviewsPage() {
   const [respondingTo, setRespondingTo] = useState<string | null>(null);
   const [responseText, setResponseText] = useState('');
   const [submitting, setSubmitting] = useState(false);
+  const [requestEmail, setRequestEmail] = useState('');
+  const [requestSending, setRequestSending] = useState(false);
 
   useEffect(() => {
     async function loadReviews() {
@@ -91,6 +93,43 @@ export default function ReviewsPage() {
           <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
           <p className="text-gray-600">{t('subtitle')}</p>
         </div>
+
+        {/* Zadost o recenzi */}
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>{t('requestReview.title')}</CardTitle>
+            <CardDescription>{t('requestReview.description')}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex gap-3 max-w-md">
+              <input
+                type="email"
+                className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                placeholder={t('requestReview.emailPlaceholder')}
+                value={requestEmail}
+                onChange={(e) => setRequestEmail(e.target.value)}
+              />
+              <button
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors disabled:opacity-50 whitespace-nowrap"
+                disabled={!requestEmail.trim() || requestSending}
+                onClick={async () => {
+                  setRequestSending(true);
+                  try {
+                    await reviewsApi.requestReviewToken(requestEmail.trim());
+                    setRequestEmail('');
+                    toast.success(t('requestReview.success'));
+                  } catch {
+                    toast.error(t('requestReview.error'));
+                  } finally {
+                    setRequestSending(false);
+                  }
+                }}
+              >
+                {requestSending ? t('requestReview.sending') : t('requestReview.sendButton')}
+              </button>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Souhrn hodnoceni */}
         <Card className="mb-8">
