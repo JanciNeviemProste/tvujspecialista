@@ -46,6 +46,7 @@ export interface LeadFilters {
 export interface LeadListResponse {
   leads: Lead[]
   total: number
+  newThisMonth: number
   stats: {
     new: number
     contacted: number

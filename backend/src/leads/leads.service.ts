@@ -82,6 +82,10 @@ export class LeadsService {
       closedLost: 0,
     };
 
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    let newThisMonth = 0;
+
     for (const lead of leads) {
       switch (lead.status) {
         case LeadStatus.NEW: stats.new++; break;
@@ -90,12 +94,16 @@ export class LeadsService {
         case LeadStatus.CLOSED_WON: stats.closedWon++; break;
         case LeadStatus.CLOSED_LOST: stats.closedLost++; break;
       }
+      if (new Date(lead.createdAt) >= monthStart) {
+        newThisMonth++;
+      }
     }
 
     return {
       leads,
       total: leads.length,
       stats,
+      newThisMonth,
     };
   }
 

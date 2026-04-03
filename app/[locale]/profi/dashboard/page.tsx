@@ -43,9 +43,11 @@ export default function DashboardPage() {
     if (!leadsData) return null;
     if (Array.isArray(leadsData)) {
       const leads = leadsData as Lead[];
+      const monthStart = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
       return {
         leads,
         total: leads.length,
+        newThisMonth: leads.filter(l => new Date(l.createdAt) >= monthStart).length,
         stats: {
           new: leads.filter(l => l.status === 'new').length,
           contacted: leads.filter(l => l.status === 'contacted').length,
@@ -85,7 +87,7 @@ export default function DashboardPage() {
   const isAdmin = user.role === 'admin';
 
   const stats = useMemo(() => ({
-    newLeads: normalizedLeads?.stats?.new || 0,
+    newLeads: normalizedLeads?.newThisMonth ?? 0,
     totalLeads: normalizedLeads?.total || 0,
     rating: specialistProfile?.rating ?? 0,
     successRate: normalizedLeads?.total
