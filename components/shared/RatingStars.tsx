@@ -27,9 +27,12 @@ export function RatingStars({
     lg: 'text-lg',
   }
 
+  const numericRating = typeof rating === 'string' ? parseFloat(rating) : rating
+  const safeRating = isNaN(numericRating) ? 0 : numericRating
+
   const stars = []
-  const fullStars = Math.floor(rating)
-  const hasHalfStar = rating % 1 >= 0.5
+  const fullStars = Math.floor(safeRating)
+  const hasHalfStar = safeRating % 1 >= 0.5
 
   for (let i = 0; i < 5; i++) {
     if (i < fullStars) {
@@ -84,7 +87,7 @@ export function RatingStars({
     <div className="flex items-center gap-1">
       {showRatingNumber && (
         <span className={`${ratingFontSize[size]} font-bold text-gray-900 mr-0.5`}>
-          {rating.toFixed(1)}
+          {safeRating.toFixed(1)}
         </span>
       )}
       {stars}
