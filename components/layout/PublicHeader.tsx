@@ -31,12 +31,14 @@ export function PublicHeader() {
           >
             {nav('searchSpecialist')}
           </Link>
+          {/* Hidden: Membership link - uncomment when pricing page is ready
           <Link
             href="/ceny"
             className="text-sm font-medium hover:text-blue-600 dark:text-muted-foreground dark:hover:text-primary transition-colors"
           >
             {nav('membership')}
           </Link>
+          */}
 
           {!isLoading && isAuthenticated ? (
             <>
