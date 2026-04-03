@@ -17,9 +17,21 @@
       "openMenu": "Otevřít menu",
       "closeMenu": "Zavřít menu",
       "mainNavigation": "Hlavní navigace",
+      "iAmSpecialist": "Jsem specialista",
       "forSpecialists": "Pro specialisty",
       "logout": "Odhlásit se",
-      "account": "Účet"
+      "account": "Účet",
+      "specialistDropdown": {
+        "login": "Přihlásit se",
+        "loginDesc": "Už mám účet specialisty",
+        "register": "Registrovat se zdarma",
+        "registerDesc": "Vytvořit nový profil specialisty",
+        "whyJoin": "Proč se přidat?",
+        "benefit1": "Získejte nové klienty z celé ČR a SR",
+        "benefit2": "Buďte viditelní pro tisíce zákazníků hledajících specialisty",
+        "benefit3": "Sbírejte ověřené recenze a budujte svou reputaci",
+        "benefit4": "Profesionální profil s certifikacemi a portfoliem"
+      }
     },
     "footer": {
       "description": "Marketplace pro hledání ověřených specialistů",

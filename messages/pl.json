@@ -17,9 +17,21 @@
       "openMenu": "Otwórz menu",
       "closeMenu": "Zamknij menu",
       "mainNavigation": "Nawigacja główna",
+      "iAmSpecialist": "Jestem specjalistą",
       "forSpecialists": "Dla specjalistów",
       "logout": "Wyloguj się",
-      "account": "Konto"
+      "account": "Konto",
+      "specialistDropdown": {
+        "login": "Zaloguj się",
+        "loginDesc": "Mam już konto specjalisty",
+        "register": "Zarejestruj się za darmo",
+        "registerDesc": "Utwórz nowy profil specjalisty",
+        "whyJoin": "Dlaczego warto dołączyć?",
+        "benefit1": "Pozyskuj nowych klientów z całej Czech i Słowacji",
+        "benefit2": "Bądź widoczny dla tysięcy klientów szukających specjalistów",
+        "benefit3": "Zbieraj zweryfikowane opinie i buduj swoją reputację",
+        "benefit4": "Profesjonalny profil z certyfikatami i portfolio"
+      }
     },
     "footer": {
       "description": "Marketplace do wyszukiwania zweryfikowanych specjalistów",

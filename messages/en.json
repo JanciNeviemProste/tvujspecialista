@@ -17,9 +17,21 @@
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
       "mainNavigation": "Main navigation",
+      "iAmSpecialist": "I'm a Specialist",
       "forSpecialists": "For specialists",
       "logout": "Log out",
-      "account": "Account"
+      "account": "Account",
+      "specialistDropdown": {
+        "login": "Log in",
+        "loginDesc": "I already have a specialist account",
+        "register": "Register for free",
+        "registerDesc": "Create a new specialist profile",
+        "whyJoin": "Why join us?",
+        "benefit1": "Get new clients from across the Czech Republic and Slovakia",
+        "benefit2": "Be visible to thousands of customers looking for specialists",
+        "benefit3": "Collect verified reviews and build your reputation",
+        "benefit4": "Professional profile with certifications and portfolio"
+      }
     },
     "footer": {
       "description": "Marketplace for finding verified specialists",

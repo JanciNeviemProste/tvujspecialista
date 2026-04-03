@@ -5,13 +5,14 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard } from 'lucide-react';
+import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard, LogIn, UserPlus, Star, TrendingUp, Shield } from 'lucide-react';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, isAuthenticated } = useAuth();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const t = useTranslations('common.nav');
+  const spec = useTranslations('common.nav.specialistDropdown');
 
 
   const closeMenu = useCallback(() => {
@@ -151,16 +152,46 @@ export function MobileNav() {
                     </>
                   ) : (
                     <>
-                      <Link href="/profi/prihlaseni" onClick={closeMenu} className="w-full">
-                        <Button variant="outline" className="w-full" size="lg">
-                          {t('login')}
-                        </Button>
+                      <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
+                        {t('iAmSpecialist')}
+                      </p>
+                      <Link href="/profi/prihlaseni" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                        <LogIn className="h-5 w-5 text-blue-600 shrink-0" />
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">{spec('login')}</p>
+                          <p className="text-xs text-gray-500">{spec('loginDesc')}</p>
+                        </div>
                       </Link>
-                      <Link href="/profi/registrace" onClick={closeMenu} className="w-full">
-                        <Button className="w-full" size="lg">
-                          {t('register')}
-                        </Button>
+                      <Link href="/profi/registrace" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-100 hover:bg-blue-100 transition-colors">
+                        <UserPlus className="h-5 w-5 text-blue-600 shrink-0" />
+                        <div>
+                          <p className="text-sm font-semibold text-blue-600">{spec('register')}</p>
+                          <p className="text-xs text-gray-500">{spec('registerDesc')}</p>
+                        </div>
                       </Link>
+
+                      {/* Benefits for specialists */}
+                      <div className="mt-4 bg-gray-50 rounded-lg p-4">
+                        <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">{spec('whyJoin')}</p>
+                        <ul className="space-y-2.5">
+                          <li className="flex items-start gap-2.5">
+                            <TrendingUp className="h-4 w-4 text-blue-500 mt-0.5 shrink-0" />
+                            <span className="text-xs text-gray-600">{spec('benefit1')}</span>
+                          </li>
+                          <li className="flex items-start gap-2.5">
+                            <Users className="h-4 w-4 text-blue-500 mt-0.5 shrink-0" />
+                            <span className="text-xs text-gray-600">{spec('benefit2')}</span>
+                          </li>
+                          <li className="flex items-start gap-2.5">
+                            <Star className="h-4 w-4 text-amber-500 mt-0.5 shrink-0" />
+                            <span className="text-xs text-gray-600">{spec('benefit3')}</span>
+                          </li>
+                          <li className="flex items-start gap-2.5">
+                            <Shield className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
+                            <span className="text-xs text-gray-600">{spec('benefit4')}</span>
+                          </li>
+                        </ul>
+                      </div>
                     </>
                   )}
                 </div>
