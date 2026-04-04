@@ -107,21 +107,17 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                 </div>
 
                 <div className="flex-1">
-                  <div className="mb-2">
+                  <div className="mb-2 flex flex-wrap items-center justify-center sm:justify-start gap-2">
                     <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{specialist.name}</h1>
-                    {(specialist.verified || specialist.topSpecialist) && (
-                      <div className="mt-2 flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                        {specialist.verified && (
-                          <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
-                            {tCommon('status.verified')}
-                          </span>
-                        )}
-                        {specialist.topSpecialist && (
-                          <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
-                            {tCommon('status.top')}
-                          </span>
-                        )}
-                      </div>
+                    {specialist.verified && (
+                      <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
+                        {tCommon('status.verified')}
+                      </span>
+                    )}
+                    {specialist.topSpecialist && (
+                      <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
+                        {tCommon('status.top')}
+                      </span>
                     )}
                   </div>
 
