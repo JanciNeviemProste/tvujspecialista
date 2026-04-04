@@ -12,6 +12,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations, useLocale } from 'next-intl';
+import Image from 'next/image';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { regions } from '@/mocks/regions';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
@@ -234,58 +235,83 @@ export default function RegistrationPage() {
           <div className="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-blue-500/20 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto max-w-5xl px-4 text-center">
-          <ScrollReveal>
-            {/* Urgency badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-green-500/20 border border-green-400/30 px-5 py-2 text-sm font-semibold text-green-300">
-              <CheckCircle2 className="h-4 w-4" />
-              {tL('urgencyBadge')}
-            </div>
-
-            {/* Urgency offer */}
-            <div className="mb-6">
-              <span className="inline-block rounded-full bg-amber-500/20 border border-amber-400/30 px-4 py-1.5 text-xs font-semibold text-amber-300">
-                {tL('urgencyOffer')}
-              </span>
-            </div>
-
-            {/* H1 */}
-            <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
-              {tL('heroTitle')}
-            </h1>
-
-            <p className="mx-auto mb-10 max-w-2xl text-lg text-blue-100 md:text-xl leading-relaxed">
-              {tL('heroSubtitle')}
-            </p>
-
-            {/* CTA */}
-            <a
-              href="#registrace"
-              className="inline-flex items-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-400/40 hover:-translate-y-0.5"
-            >
-              {tL('heroCta')}
-              <ArrowRight className="h-5 w-5" />
-            </a>
-
-            <p className="mt-4 text-sm text-blue-300">
-              {tL('heroCtaSubtext')}
-            </p>
-          </ScrollReveal>
-
-          {/* Stats row */}
-          <ScrollReveal delay={0.2}>
-            <div className="mt-16 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {statsData.slice(0, 3).map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-5"
-                >
-                  <p className="text-3xl font-extrabold text-white">{s.target}</p>
-                  <p className="mt-1 text-sm text-blue-200">{s.label}</p>
+        <div className="relative mx-auto max-w-6xl px-4">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+            {/* Left — text content */}
+            <ScrollReveal>
+              <div className="text-center lg:text-left">
+                {/* Urgency badge */}
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-green-500/20 border border-green-400/30 px-5 py-2 text-sm font-semibold text-green-300">
+                  <CheckCircle2 className="h-4 w-4" />
+                  {tL('urgencyBadge')}
                 </div>
-              ))}
-            </div>
-          </ScrollReveal>
+
+                {/* Urgency offer */}
+                <div className="mb-6">
+                  <span className="inline-block rounded-full bg-amber-500/20 border border-amber-400/30 px-4 py-1.5 text-xs font-semibold text-amber-300">
+                    {tL('urgencyOffer')}
+                  </span>
+                </div>
+
+                {/* H1 */}
+                <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
+                  {tL('heroTitle')}
+                </h1>
+
+                <p className="mb-10 max-w-2xl text-lg text-blue-100 md:text-xl leading-relaxed lg:mx-0 mx-auto">
+                  {tL('heroSubtitle')}
+                </p>
+
+                {/* CTA */}
+                <a
+                  href="#registrace"
+                  className="inline-flex items-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-400/40 hover:-translate-y-0.5"
+                >
+                  {tL('heroCta')}
+                  <ArrowRight className="h-5 w-5" />
+                </a>
+
+                <p className="mt-4 text-sm text-blue-300">
+                  {tL('heroCtaSubtext')}
+                </p>
+
+                {/* Stats row */}
+                <div className="mt-12 grid grid-cols-3 gap-4">
+                  {statsData.slice(0, 3).map((s) => (
+                    <div
+                      key={s.label}
+                      className="rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-4 text-center"
+                    >
+                      <p className="text-2xl font-extrabold text-white md:text-3xl">{s.target}</p>
+                      <p className="mt-1 text-xs text-blue-200 md:text-sm">{s.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </ScrollReveal>
+
+            {/* Right — phone mockup */}
+            <ScrollReveal delay={0.3}>
+              <div className="relative mx-auto w-64 sm:w-72 lg:w-80">
+                {/* Phone frame */}
+                <div className="relative overflow-hidden rounded-[2.5rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white">
+                  {/* Notch */}
+                  <div className="absolute top-0 left-1/2 z-10 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-gray-800" />
+                  <Image
+                    src="/images/landing/profile-mobile.png"
+                    alt={tL('altProfileMockup')}
+                    width={320}
+                    height={640}
+                    className="w-full"
+                    priority
+                    quality={85}
+                  />
+                </div>
+                {/* Glow effect behind phone */}
+                <div className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true" />
+              </div>
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
@@ -429,6 +455,55 @@ export default function RegistrationPage() {
               </StaggerItem>
             ))}
           </StaggerGrid>
+
+          {/* Feature screenshots */}
+          <ScrollReveal delay={0.2}>
+            <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2">
+              {/* CRM screenshot */}
+              <div className="group">
+                <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 transition-transform group-hover:-translate-y-1">
+                  <div className="h-8 bg-gray-800 flex items-center gap-1.5 px-4">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-yellow-500" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-green-500" />
+                  </div>
+                  <div className="relative h-56 sm:h-64 overflow-hidden">
+                    <Image
+                      src="/images/landing/crm.png"
+                      alt={tL('altCrmScreenshot')}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={85}
+                    />
+                  </div>
+                </div>
+                <p className="mt-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400">{tL('benefit4Title')}</p>
+              </div>
+
+              {/* Academy screenshot */}
+              <div className="group">
+                <div className="overflow-hidden rounded-2xl shadow-lg ring-1 ring-gray-200 dark:ring-gray-700 transition-transform group-hover:-translate-y-1">
+                  <div className="h-8 bg-gray-800 flex items-center gap-1.5 px-4">
+                    <span className="h-2.5 w-2.5 rounded-full bg-red-500" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-yellow-500" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-green-500" />
+                  </div>
+                  <div className="relative h-56 sm:h-64 overflow-hidden">
+                    <Image
+                      src="/images/landing/academy.png"
+                      alt={tL('altAcademyScreenshot')}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      quality={85}
+                    />
+                  </div>
+                </div>
+                <p className="mt-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400">{tL('benefit5Title')}</p>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
