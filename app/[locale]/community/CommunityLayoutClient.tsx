@@ -119,7 +119,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                 <div key={crumb.href} className="flex items-center gap-2 flex-shrink-0">
                   {index > 0 && <span className="text-gray-500">/</span>}
                   {index === breadcrumbs.length - 1 ? (
-                    <span className="text-gray-900 font-medium">{crumb.label}</span>
+                    <span className="text-gray-900 dark:text-white font-medium">{crumb.label}</span>
                   ) : (
                     <Link
                       href={crumb.href}

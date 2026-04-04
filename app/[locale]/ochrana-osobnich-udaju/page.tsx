@@ -23,18 +23,18 @@ export default async function PrivacyPage({ params }: Props) {
       <PublicHeader />
 
       <div className="container mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
 
         <div className="prose prose-gray max-w-none">
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">1. Správce osobních údajů</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">1. Správce osobních údajů</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Správcem osobních údajů je provozovatel platformy tvujspecialista.cz.
             </p>
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">2. Jaké údaje zpracováváme</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">2. Jaké údaje zpracováváme</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">Zpracováváme následující údaje:</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li>Identifikační údaje (jméno, příjmení)</li>
@@ -45,7 +45,7 @@ export default async function PrivacyPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">3. Účel zpracování</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">3. Účel zpracování</h2>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li>Poskytování služeb platformy</li>
               <li>Zprostředkování kontaktu mezi zákazníky a poskytovateli</li>
@@ -55,7 +55,7 @@ export default async function PrivacyPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">4. Právní základ zpracování</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">4. Právní základ zpracování</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Údaje zpracováváme na základě:
             </p>
@@ -67,7 +67,7 @@ export default async function PrivacyPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">5. Doba uložení údajů</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">5. Doba uložení údajů</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Osobní údaje uchováváme po dobu nezbytně nutnou k naplnění účelu zpracování,
               obvykle po dobu trvání uživatelského účtu a následně max. 5 let pro účetní
@@ -76,7 +76,7 @@ export default async function PrivacyPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">6. Vaše práva</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">6. Vaše práva</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">Máte právo:</p>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li>Na přístup k osobním údajům</li>
@@ -89,7 +89,7 @@ export default async function PrivacyPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">7. Cookies</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">7. Cookies</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Používáme cookies pro zlepšení funkčnosti webu a analytics. Detaily naleznete
               v našem Cookie Policy.
@@ -97,7 +97,7 @@ export default async function PrivacyPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">8. Kontakt</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">8. Kontakt</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Pro uplatnění svých práv nebo dotazy ohledně zpracování osobních údajů nás
               kontaktujte na <a href="mailto:gdpr@tvujspecialista.cz" className="text-blue-600 hover:underline">gdpr@tvujspecialista.cz</a>

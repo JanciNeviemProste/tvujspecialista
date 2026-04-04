@@ -89,7 +89,7 @@ function CourseCardInner({
 
         <div className="flex-1 p-5 space-y-3">
           {/* Title */}
-          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 min-h-[3.5rem] group-hover:text-blue-600 transition-colors">
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white line-clamp-2 min-h-[3.5rem] group-hover:text-blue-600 transition-colors">
             {course.title}
           </h3>
 
@@ -109,7 +109,7 @@ function CourseCardInner({
           {rating > 0 && (
             <div className="flex items-center gap-1.5">
               <Star className="h-4 w-4 fill-amber-400 text-amber-400" />
-              <span className="text-sm font-medium text-gray-900">{rating.toFixed(1)}</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">{rating.toFixed(1)}</span>
               <span className="text-sm text-gray-400">({reviewCount})</span>
             </div>
           )}

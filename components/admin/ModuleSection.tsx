@@ -129,7 +129,7 @@ export default function ModuleSection({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <span className="text-xs font-medium text-gray-400 uppercase">{t('module.label', { number: index + 1 })}</span>
-            <span className="text-sm font-semibold text-gray-900 truncate">{mod.title}</span>
+            <span className="text-sm font-semibold text-gray-900 dark:text-white truncate">{mod.title}</span>
             <span className="text-xs text-gray-400">({t('module.lessonCount', { count: lessons.length })})</span>
           </div>
         </div>

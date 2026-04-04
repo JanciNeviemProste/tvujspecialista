@@ -42,7 +42,7 @@ export default function LessonRow({
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-900 truncate">{lesson.title}</span>
+            <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{lesson.title}</span>
             {lesson.free && (
               <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-medium">{t('lesson.free')}</span>
             )}

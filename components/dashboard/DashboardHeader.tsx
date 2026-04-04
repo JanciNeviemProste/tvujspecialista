@@ -48,7 +48,7 @@ export function DashboardHeader() {
           })}
           <button
             onClick={handleLogout}
-            className="text-sm font-medium text-gray-600 hover:text-gray-900"
+            className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-white"
           >
             {t('logout')}
           </button>

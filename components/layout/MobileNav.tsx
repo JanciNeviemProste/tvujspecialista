@@ -155,7 +155,7 @@ export function MobileNav() {
                       </p>
                       <Link href="/profi/prihlaseni" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
                         <LogIn className="h-5 w-5 text-blue-600 shrink-0" />
-                        <span className="text-sm font-semibold text-gray-900">{spec('login')}</span>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white">{spec('login')}</span>
                       </Link>
                       <Link href="/profi/registrace" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-100 hover:bg-blue-100 transition-colors">
                         <UserPlus className="h-5 w-5 text-blue-600 shrink-0" />

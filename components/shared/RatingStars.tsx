@@ -86,7 +86,7 @@ export function RatingStars({
   return (
     <div className="flex items-center gap-1">
       {showRatingNumber && (
-        <span className={`${ratingFontSize[size]} font-bold text-gray-900 mr-0.5`}>
+        <span className={`${ratingFontSize[size]} font-bold text-gray-900 dark:text-white mr-0.5`}>
           {safeRating.toFixed(1)}
         </span>
       )}

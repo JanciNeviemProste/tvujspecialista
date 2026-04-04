@@ -267,22 +267,19 @@ export default function RegistrationPage() {
             <ScrollReveal delay={0.3}>
               <div className="relative mx-auto w-64 sm:w-72 lg:w-80">
                 {/* Phone frame */}
-                <div className="relative overflow-hidden rounded-[2rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-black aspect-[3/5]">
+                <div className="relative overflow-hidden rounded-[2rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white aspect-[3/5]">
                   {/* Notch — Dynamic Island style */}
                   <div className="absolute top-1.5 left-1/2 z-10 h-[22px] w-24 -translate-x-1/2 rounded-full bg-black" />
-                  {/* Screen bezel — keeps content away from rounded frame edges */}
-                  <div className="absolute inset-[6px] top-0 overflow-hidden rounded-[1.6rem]">
-                    <Image
-                      src="/images/landing/profile-mobile.png"
-                      alt={tL('altProfileMockup')}
-                      fill
-                      className="object-cover"
-                      style={{ objectPosition: '50% 65%' }}
-                      priority
-                      quality={85}
-                      sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
-                    />
-                  </div>
+                  <Image
+                    src="/images/landing/profile-mobile-cropped.png"
+                    alt={tL('altProfileMockup')}
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: 'center top' }}
+                    priority
+                    quality={85}
+                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
+                  />
                 </div>
                 {/* Glow effect behind phone */}
                 <div className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true" />

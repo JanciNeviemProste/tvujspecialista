@@ -101,7 +101,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
 
         {/* Content */}
         <div className="flex-1 p-5 space-y-3">
-          <h3 className="font-bold text-lg text-gray-900 line-clamp-2 min-h-[3.5rem] group-hover:text-blue-600 transition-colors">
+          <h3 className="font-bold text-lg text-gray-900 dark:text-white line-clamp-2 min-h-[3.5rem] group-hover:text-blue-600 transition-colors">
             {event.title}
           </h3>
 

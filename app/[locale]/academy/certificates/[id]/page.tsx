@@ -81,7 +81,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
           </div>
 
           {/* Title */}
-          <h1 className="mb-2 text-center text-3xl font-bold text-gray-900 sm:text-4xl">
+          <h1 className="mb-2 text-center text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
             {t('title')}
           </h1>
           <p className="mb-8 text-center text-lg text-gray-500">{t('subtitle')}</p>
@@ -95,7 +95,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
           {/* Course info */}
           <div className="mb-8 text-center">
             <p className="mb-1 text-sm uppercase tracking-wider text-gray-500">{t('forCompleting')}</p>
-            <p className="text-xl font-semibold text-gray-900">{cert.courseName}</p>
+            <p className="text-xl font-semibold text-gray-900 dark:text-white">{cert.courseName}</p>
             <p className="mt-1 text-sm text-gray-500">
               {cert.courseLevel} • {cert.courseCategory}
             </p>

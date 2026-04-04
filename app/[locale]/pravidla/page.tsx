@@ -24,11 +24,11 @@ export default async function TermsPage({ params }: Props) {
       <PublicHeader />
 
       <div className="container mx-auto max-w-4xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
 
         <div className="prose prose-gray max-w-none">
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">1. Úvodní ustanovení</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">1. Úvodní ustanovení</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Tyto obchodní podmínky upravují vztahy mezi provozovatelem platformy
               tvujspecialista.cz a uživateli služby.
@@ -36,7 +36,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">2. Vymezení pojmů</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">2. Vymezení pojmů</h2>
             <ul className="list-disc list-inside space-y-2 text-gray-700">
               <li>
                 <strong>Provozovatel:</strong> společnost provozující platformu tvujspecialista.cz
@@ -54,7 +54,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
               3. Práva a povinnosti zákazníků
             </h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
@@ -64,7 +64,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
               4. Práva a povinnosti poskytovatelů
             </h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
@@ -75,7 +75,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">5. Platební podmínky</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">5. Platební podmínky</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Poskytovatelé platí měsíční poplatek podle zvoleného tarifu. Platba je splatná
               předem.
@@ -83,7 +83,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">6. Ochrana osobních údajů</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">6. Ochrana osobních údajů</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Zpracování osobních údajů se řídí samostatným dokumentem{' '}
               <Link href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
@@ -94,7 +94,7 @@ export default async function TermsPage({ params }: Props) {
           </section>
 
           <section className="mb-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900">7. Závěrečná ustanovení</h2>
+            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">7. Závěrečná ustanovení</h2>
             <p className="mb-4 text-gray-700 leading-relaxed">
               Provozovatel si vyhrazuje právo tyto podmínky kdykoli změnit. Změny nabývají
               účinnosti okamžikem zveřejnění na webových stránkách.

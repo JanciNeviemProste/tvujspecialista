@@ -108,7 +108,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
 
                 <div className="flex-1">
                   <div className="mb-2 flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{specialist.name}</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{specialist.name}</h1>
                     {specialist.verified && (
                       <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
                         {tCommon('status.verified')}
@@ -136,7 +136,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
 
             {/* About */}
             <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-              <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('aboutMe')}</h2>
+              <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('aboutMe')}</h2>
               <p className="leading-relaxed text-gray-700">{specialist.bio}</p>
             </div>
 
@@ -223,7 +223,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (
               <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('services')}</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('services')}</h2>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   {specialist.services.map((service: string, index: number) => (
                     <div key={index} className="flex items-center">
@@ -248,17 +248,17 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             {/* Credentials */}
             {(specialist.education || (specialist.certifications && specialist.certifications.length > 0)) && (
               <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900">{t('credentials')}</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('credentials')}</h2>
                 <div className="space-y-3">
                   {specialist.education && (
                     <div>
-                      <h3 className="font-semibold text-gray-900">{t('education')}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{t('education')}</h3>
                       <p className="text-gray-700">{specialist.education}</p>
                     </div>
                   )}
                   {specialist.certifications && specialist.certifications.length > 0 && (
                     <div>
-                      <h3 className="font-semibold text-gray-900">{t('certifications')}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{t('certifications')}</h3>
                       <ul className="list-inside list-disc text-gray-700">
                         {specialist.certifications.map((cert: string, index: number) => (
                           <li key={index}>{cert}</li>
@@ -273,7 +273,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             {/* Reviews */}
             {specialist.reviews && specialist.reviews.length > 0 && (
               <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-                <h2 className="mb-6 text-2xl font-bold text-gray-900">
+                <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">
                   {t('reviews', { count: specialist.reviews.length })}
                 </h2>
                 <div className="space-y-6">
@@ -281,7 +281,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                     <div key={review.id} className="border-b pb-6 last:border-b-0 last:pb-0">
                       <div className="mb-2 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <h3 className="font-semibold text-gray-900">{review.customerName}</h3>
+                          <h3 className="font-semibold text-gray-900 dark:text-white">{review.customerName}</h3>
                           {review.verified && (
                             <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
                               {tCommon('status.verifiedReview')}
@@ -298,7 +298,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                       <p className="text-gray-700">{review.text}</p>
                       {review.response && (
                         <div className="mt-3 rounded-lg bg-gray-50 p-3">
-                          <p className="text-sm font-semibold text-gray-900">{t('specialistResponse')}</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white">{t('specialistResponse')}</p>
                           <p className="text-sm text-gray-700">{review.response.text}</p>
                         </div>
                       )}
@@ -314,7 +314,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             <div className="sticky top-4 space-y-6">
               {/* Contact Card */}
               <div className="rounded-lg border bg-white dark:bg-card p-6">
-                <h3 className="mb-4 text-lg font-bold text-gray-900">{t('contactSpecialist')}</h3>
+                <h3 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">{t('contactSpecialist')}</h3>
 
                 {submitSuccess && (
                   <div className="mb-4 rounded-lg bg-green-50 p-4 text-center">
@@ -410,7 +410,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
 
               {/* Info Card */}
               <div className="rounded-lg border bg-gray-50 p-6">
-                <h3 className="mb-4 text-sm font-semibold text-gray-900">{t('moreInfo')}</h3>
+                <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">{t('moreInfo')}</h3>
                 <div className="space-y-3 text-sm">
                   {specialist.availability && specialist.availability.length > 0 && (
                     <div>
