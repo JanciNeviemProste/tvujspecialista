@@ -12,9 +12,9 @@ export interface RegistrationData {
   email: string;
   phone: string;
   password: string;
-  category: 'Finanční poradce' | 'Realitní makléř';
-  location: string;
-  yearsExperience: number;
+  category?: 'Finanční poradce' | 'Realitní makléř';
+  location?: string;
+  yearsExperience?: number;
   bio?: string;
   hourlyRate?: number;
   services?: string[];

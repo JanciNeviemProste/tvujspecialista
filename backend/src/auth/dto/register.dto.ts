@@ -39,18 +39,18 @@ export class RegisterDto {
   @MaxLength(20)
   phone: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsEnum(SpecialistCategory)
-  category: SpecialistCategory;
+  category?: SpecialistCategory;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  location: string;
+  location?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsInt()
   @Min(0)
-  yearsExperience: number;
+  yearsExperience?: number;
 
   @IsOptional()
   @IsString()

@@ -1978,6 +1978,18 @@
     }
   },
   "onboarding": {
+    "basics": {
+      "title": "Základní profesní údaje",
+      "description": "Řekněte nám, čím se zabýváte. Pomůže klientům najít vás.",
+      "categoryLabel": "Kategorie",
+      "selectCategory": "Vyberte kategorii",
+      "categoryFinancial": "Finanční poradce",
+      "categoryRealEstate": "Realitní makléř",
+      "locationLabel": "Hlavní region",
+      "selectLocation": "Vyberte kraj",
+      "experienceLabel": "Roky praxe",
+      "experiencePlaceholder": "např. 5"
+    },
     "photo": {
       "title": "Přidejte profilovou fotku",
       "description": "Profesionální fotka zvyšuje důvěru klientů o 70%.",

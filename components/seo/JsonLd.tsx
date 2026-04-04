@@ -112,11 +112,11 @@ export function SpecialistJsonLd({
   specialist: {
     name: string;
     photo?: string;
-    category: string;
+    category: string | null;
     bio: string;
     rating: number;
     reviewsCount: number;
-    location: string;
+    location: string | null;
     services: string[];
   };
 }) {

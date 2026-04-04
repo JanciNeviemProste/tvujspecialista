@@ -12,8 +12,8 @@ interface SpecialistCardProps {
     photo: string
     verified: boolean
     topSpecialist: boolean
-    category: string
-    location: string
+    category: string | null
+    location: string | null
     rating: number
     reviewsCount: number
     bio: string

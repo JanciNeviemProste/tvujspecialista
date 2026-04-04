@@ -9,12 +9,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
-import type { SpecialistCategory } from '@/types/specialist';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { PublicHeader } from '@/components/layout/PublicHeader';
-import { regions } from '@/mocks/regions';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
 import { StaggerGrid, StaggerItem } from '@/components/shared/StaggerGrid';
@@ -36,7 +34,7 @@ import {
   CreditCard,
 } from 'lucide-react';
 
-// ─── Zod schema (identical to original) ───────────────────────────────────────
+// ─── Zod schema (simplified — professional info filled after registration) ────
 const registrationSchema = z
   .object({
     name: z.string().min(1, 'nameRequired'),
@@ -44,10 +42,6 @@ const registrationSchema = z
     phone: z.string().min(1, 'phoneRequired'),
     password: z.string().min(8, 'passwordMinLength'),
     confirmPassword: z.string().min(1, 'confirmPasswordRequired'),
-    category: z.string().min(1, 'categoryRequired'),
-    location: z.string().min(1, 'locationRequired'),
-    yearsExperience: z.string().min(1, 'experienceRequired'),
-    bio: z.string().min(1, 'bioRequired'),
     termsAccepted: z.literal(true, {
       message: 'termsRequired',
     }),
@@ -100,19 +94,14 @@ export default function RegistrationPage() {
 
   // Form state
   const [error, setError] = useState('');
-  const [selectedRegions, setSelectedRegions] = useState<string[]>([]);
-  const [step, setStep] = useState<1 | 2 | 3>(1);
 
-  // New state
+  // UI state
   const [showFloatingCta, setShowFloatingCta] = useState(false);
   const [liveNotifIndex, setLiveNotifIndex] = useState(0);
-
-  const czRegions = regions.filter((r) => r.country === 'CZ');
 
   const {
     register,
     handleSubmit,
-    trigger,
     formState: { errors, isSubmitting },
   } = useForm<RegistrationFormData>({
     resolver: zodResolver(registrationSchema),
@@ -137,18 +126,7 @@ export default function RegistrationPage() {
     return () => clearInterval(timer);
   }, []);
 
-  // Step navigation
-  const goToStep2 = async () => {
-    const valid = await trigger(['name', 'email', 'phone']);
-    if (valid) setStep(2);
-  };
-
-  const goToStep3 = async () => {
-    const valid = await trigger(['category', 'location', 'yearsExperience', 'bio']);
-    if (valid) setStep(3);
-  };
-
-  // Submit (identical to original)
+  // Submit
   const onSubmit = async (data: RegistrationFormData) => {
     setError('');
     try {
@@ -157,11 +135,6 @@ export default function RegistrationPage() {
         email: data.email,
         phone: data.phone,
         password: data.password,
-        category: data.category as SpecialistCategory,
-        location: data.location,
-        yearsExperience: parseInt(data.yearsExperience),
-        bio: data.bio,
-        regions: selectedRegions,
         locale,
       });
 
@@ -734,30 +707,6 @@ export default function RegistrationPage() {
           <ScrollReveal delay={0.1}>
             <div className="rounded-2xl bg-white dark:bg-gray-800 p-8 shadow-sm border border-gray-200 dark:border-gray-700">
 
-              {/* Step indicator */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">
-                    {tL('formStepLabel', { step })}
-                  </span>
-                  <span className="text-xs text-gray-400">
-                    {step === 1 && tL('formStep1Name')}
-                    {step === 2 && tL('formStep2Name')}
-                    {step === 3 && tL('formStep3Name')}
-                  </span>
-                </div>
-                <div className="flex gap-2">
-                  {([1, 2, 3] as const).map((s) => (
-                    <div
-                      key={s}
-                      className={`h-2 flex-1 rounded-full transition-colors ${
-                        s <= step ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-700'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-
               {/* Tab switcher */}
               <div className="mb-6 flex rounded-lg bg-gray-100 dark:bg-gray-700 p-1">
                 <Link
@@ -782,360 +731,178 @@ export default function RegistrationPage() {
               )}
 
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
-
-                {/* ── STEP 1: Osobní údaje ── */}
-                {step === 1 && (
-                  <div className="space-y-5">
-                    <div>
-                      <label htmlFor="reg-name" className={labelClass}>
-                        {t('name')} <span aria-hidden="true">*</span>
-                      </label>
-                      <input
-                        id="reg-name"
-                        type="text"
-                        placeholder={t('namePlaceholder')}
-                        className={inputClass}
-                        aria-invalid={errors.name ? 'true' : undefined}
-                        aria-describedby={errors.name ? 'reg-name-error' : undefined}
-                        {...register('name')}
-                      />
-                      {errors.name && (
-                        <p id="reg-name-error" className={errorClass} role="alert">
-                          {tValidation(errors.name.message as Parameters<typeof tValidation>[0])}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label htmlFor="reg-email" className={labelClass}>
-                        {t('email')} <span aria-hidden="true">*</span>
-                      </label>
-                      <input
-                        id="reg-email"
-                        type="email"
-                        placeholder={t('emailPlaceholder')}
-                        className={inputClass}
-                        aria-invalid={errors.email ? 'true' : undefined}
-                        aria-describedby={errors.email ? 'reg-email-error' : undefined}
-                        {...register('email')}
-                      />
-                      {errors.email && (
-                        <p id="reg-email-error" className={errorClass} role="alert">
-                          {tValidation(errors.email.message as Parameters<typeof tValidation>[0])}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label htmlFor="reg-phone" className={labelClass}>
-                        {t('phone')} <span aria-hidden="true">*</span>
-                      </label>
-                      <input
-                        id="reg-phone"
-                        type="tel"
-                        placeholder={t('phonePlaceholder')}
-                        className={inputClass}
-                        aria-invalid={errors.phone ? 'true' : undefined}
-                        aria-describedby={errors.phone ? 'reg-phone-error' : undefined}
-                        {...register('phone')}
-                      />
-                      {errors.phone && (
-                        <p id="reg-phone-error" className={errorClass} role="alert">
-                          {tValidation(errors.phone.message as Parameters<typeof tValidation>[0])}
-                        </p>
-                      )}
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={goToStep2}
-                      className="mt-2 w-full rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
-                    >
-                      {tL('formContinue')}
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                )}
-
-                {/* ── STEP 2: Profesní informace ── */}
-                {step === 2 && (
-                  <div className="space-y-5">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="reg-category" className={labelClass}>
-                          {t('category')} <span aria-hidden="true">*</span>
-                        </label>
-                        <select
-                          id="reg-category"
-                          className={inputClass}
-                          aria-invalid={errors.category ? 'true' : undefined}
-                          aria-describedby={errors.category ? 'reg-category-error' : undefined}
-                          {...register('category')}
-                        >
-                          <option value="">{t('selectCategory')}</option>
-                          <option value="Finanční poradce">{tL('categoryFinancial')}</option>
-                          <option value="Realitní makléř">{tL('categoryRealEstate')}</option>
-                        </select>
-                        {errors.category && (
-                          <p id="reg-category-error" className={errorClass} role="alert">
-                            {tValidation(
-                              errors.category.message as Parameters<typeof tValidation>[0]
-                            )}
-                          </p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label htmlFor="reg-location" className={labelClass}>
-                          {t('location')} <span aria-hidden="true">*</span>
-                        </label>
-                        <select
-                          id="reg-location"
-                          className={inputClass}
-                          aria-invalid={errors.location ? 'true' : undefined}
-                          aria-describedby={errors.location ? 'reg-location-error' : undefined}
-                          {...register('location')}
-                        >
-                          <option value="">{tL('selectRegion')}</option>
-                          {czRegions.map((r) => (
-                            <option key={r.id} value={r.name}>
-                              {r.name}
-                            </option>
-                          ))}
-                        </select>
-                        {errors.location && (
-                          <p id="reg-location-error" className={errorClass} role="alert">
-                            {tValidation(
-                              errors.location.message as Parameters<typeof tValidation>[0]
-                            )}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="reg-experience" className={labelClass}>
-                        {t('experience')} <span aria-hidden="true">*</span>
-                      </label>
-                      <input
-                        id="reg-experience"
-                        type="number"
-                        min="0"
-                        placeholder={t('experiencePlaceholder')}
-                        className={inputClass}
-                        aria-invalid={errors.yearsExperience ? 'true' : undefined}
-                        aria-describedby={
-                          errors.yearsExperience ? 'reg-experience-error' : undefined
-                        }
-                        {...register('yearsExperience')}
-                      />
-                      {errors.yearsExperience && (
-                        <p id="reg-experience-error" className={errorClass} role="alert">
-                          {tValidation(
-                            errors.yearsExperience.message as Parameters<typeof tValidation>[0]
-                          )}
-                        </p>
-                      )}
-                    </div>
-
-                    {/* Operating regions checkboxes */}
-                    <div>
-                      <label className={labelClass}>{t('operatingRegions')}</label>
-                      <p className="mb-2 text-xs text-gray-500 dark:text-gray-400">
-                        {t('operatingRegionsDesc')}
+                <div className="space-y-5">
+                  <div>
+                    <label htmlFor="reg-name" className={labelClass}>
+                      {t('name')} <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="reg-name"
+                      type="text"
+                      placeholder={t('namePlaceholder')}
+                      className={inputClass}
+                      aria-invalid={errors.name ? 'true' : undefined}
+                      aria-describedby={errors.name ? 'reg-name-error' : undefined}
+                      {...register('name')}
+                    />
+                    {errors.name && (
+                      <p id="reg-name-error" className={errorClass} role="alert">
+                        {tValidation(errors.name.message as Parameters<typeof tValidation>[0])}
                       </p>
-                      <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto rounded-xl border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 p-3">
-                        {czRegions.map((r) => (
-                          <label
-                            key={r.id}
-                            className="flex items-center gap-2 cursor-pointer rounded-lg hover:bg-white dark:hover:bg-gray-800 px-2 py-1 transition-colors"
-                          >
-                            <input
-                              type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600"
-                              checked={selectedRegions.includes(r.id)}
-                              onChange={(e) => {
-                                setSelectedRegions((prev) =>
-                                  e.target.checked
-                                    ? [...prev, r.id]
-                                    : prev.filter((id) => id !== r.id)
-                                );
-                              }}
-                            />
-                            <span className="text-sm text-gray-700 dark:text-gray-300">
-                              {r.name}
-                            </span>
-                          </label>
-                        ))}
-                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="reg-email" className={labelClass}>
+                      {t('email')} <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="reg-email"
+                      type="email"
+                      placeholder={t('emailPlaceholder')}
+                      className={inputClass}
+                      aria-invalid={errors.email ? 'true' : undefined}
+                      aria-describedby={errors.email ? 'reg-email-error' : undefined}
+                      {...register('email')}
+                    />
+                    {errors.email && (
+                      <p id="reg-email-error" className={errorClass} role="alert">
+                        {tValidation(errors.email.message as Parameters<typeof tValidation>[0])}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label htmlFor="reg-phone" className={labelClass}>
+                      {t('phone')} <span aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      id="reg-phone"
+                      type="tel"
+                      placeholder={t('phonePlaceholder')}
+                      className={inputClass}
+                      aria-invalid={errors.phone ? 'true' : undefined}
+                      aria-describedby={errors.phone ? 'reg-phone-error' : undefined}
+                      {...register('phone')}
+                    />
+                    {errors.phone && (
+                      <p id="reg-phone-error" className={errorClass} role="alert">
+                        {tValidation(errors.phone.message as Parameters<typeof tValidation>[0])}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="reg-password" className={labelClass}>
+                        {t('password')} <span aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        id="reg-password"
+                        type="password"
+                        placeholder={t('passwordPlaceholder')}
+                        className={inputClass}
+                        aria-invalid={errors.password ? 'true' : undefined}
+                        aria-describedby={errors.password ? 'reg-password-error' : undefined}
+                        {...register('password')}
+                      />
+                      {errors.password && (
+                        <p id="reg-password-error" className={errorClass} role="alert">
+                          {tValidation(
+                            errors.password.message as Parameters<typeof tValidation>[0]
+                          )}
+                        </p>
+                      )}
                     </div>
 
                     <div>
-                      <label htmlFor="reg-bio" className={labelClass}>
-                        {t('bio')} <span aria-hidden="true">*</span>
+                      <label htmlFor="reg-confirm-password" className={labelClass}>
+                        {t('confirmPassword')} <span aria-hidden="true">*</span>
                       </label>
-                      <textarea
-                        id="reg-bio"
-                        rows={4}
-                        placeholder={t('bioPlaceholder')}
+                      <input
+                        id="reg-confirm-password"
+                        type="password"
+                        placeholder={t('confirmPasswordPlaceholder')}
                         className={inputClass}
-                        aria-invalid={errors.bio ? 'true' : undefined}
-                        aria-describedby={errors.bio ? 'reg-bio-error' : undefined}
-                        {...register('bio')}
+                        aria-invalid={errors.confirmPassword ? 'true' : undefined}
+                        aria-describedby={
+                          errors.confirmPassword ? 'reg-confirm-password-error' : undefined
+                        }
+                        {...register('confirmPassword')}
                       />
-                      {errors.bio && (
-                        <p id="reg-bio-error" className={errorClass} role="alert">
-                          {tValidation(errors.bio.message as Parameters<typeof tValidation>[0])}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="flex gap-3">
-                      <button
-                        type="button"
-                        onClick={() => setStep(1)}
-                        className="flex-1 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 py-3.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        {tL('formBack')}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={goToStep3}
-                        className="flex-1 rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white transition-colors flex items-center justify-center gap-2"
-                      >
-                        {tL('formContinue')}
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {/* ── STEP 3: Heslo a souhlas ── */}
-                {step === 3 && (
-                  <div className="space-y-5">
-                    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                      <div>
-                        <label htmlFor="reg-password" className={labelClass}>
-                          {t('password')} <span aria-hidden="true">*</span>
-                        </label>
-                        <input
-                          id="reg-password"
-                          type="password"
-                          placeholder={t('passwordPlaceholder')}
-                          className={inputClass}
-                          aria-invalid={errors.password ? 'true' : undefined}
-                          aria-describedby={errors.password ? 'reg-password-error' : undefined}
-                          {...register('password')}
-                        />
-                        {errors.password && (
-                          <p id="reg-password-error" className={errorClass} role="alert">
-                            {tValidation(
-                              errors.password.message as Parameters<typeof tValidation>[0]
-                            )}
-                          </p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label htmlFor="reg-confirm-password" className={labelClass}>
-                          {t('confirmPassword')} <span aria-hidden="true">*</span>
-                        </label>
-                        <input
-                          id="reg-confirm-password"
-                          type="password"
-                          placeholder={t('confirmPasswordPlaceholder')}
-                          className={inputClass}
-                          aria-invalid={errors.confirmPassword ? 'true' : undefined}
-                          aria-describedby={
-                            errors.confirmPassword ? 'reg-confirm-password-error' : undefined
-                          }
-                          {...register('confirmPassword')}
-                        />
-                        {errors.confirmPassword && (
-                          <p
-                            id="reg-confirm-password-error"
-                            className={errorClass}
-                            role="alert"
-                          >
-                            {tValidation(
-                              errors.confirmPassword.message as Parameters<
-                                typeof tValidation
-                              >[0]
-                            )}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Checkboxes */}
-                    <div className="space-y-3 pt-2">
-                      <label className="flex items-start gap-3 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 shrink-0"
-                          {...register('termsAccepted')}
-                        />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
-                          {t('termsAgree')}{' '}
-                          <Link href="/pravidla" className="text-blue-600 hover:underline">
-                            {t('termsLink')}
-                          </Link>{' '}
-                          <span aria-hidden="true">*</span>
-                        </span>
-                      </label>
-                      {errors.termsAccepted && (
-                        <p className={errorClass}>
+                      {errors.confirmPassword && (
+                        <p
+                          id="reg-confirm-password-error"
+                          className={errorClass}
+                          role="alert"
+                        >
                           {tValidation(
-                            errors.termsAccepted.message as Parameters<typeof tValidation>[0]
-                          )}
-                        </p>
-                      )}
-
-                      <label className="flex items-start gap-3 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 shrink-0"
-                          {...register('gdprAccepted')}
-                        />
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
-                          {t('gdprAgree')}{' '}
-                          <Link
-                            href="/ochrana-osobnich-udaju"
-                            className="text-blue-600 hover:underline"
-                          >
-                            {t('gdprLink')}
-                          </Link>{' '}
-                          <span aria-hidden="true">*</span>
-                        </span>
-                      </label>
-                      {errors.gdprAccepted && (
-                        <p className={errorClass}>
-                          {tValidation(
-                            errors.gdprAccepted.message as Parameters<typeof tValidation>[0]
+                            errors.confirmPassword.message as Parameters<typeof tValidation>[0]
                           )}
                         </p>
                       )}
                     </div>
-
-                    <div className="flex gap-3 pt-2">
-                      <button
-                        type="button"
-                        onClick={() => setStep(2)}
-                        className="flex-none rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-5 py-3.5 text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                      >
-                        {tL('formBack')}
-                      </button>
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="flex-1 rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
-                      >
-                        {isSubmitting ? t('submitting') : t('submit')}
-                        {!isSubmitting && <ArrowRight className="h-4 w-4" />}
-                      </button>
-                    </div>
                   </div>
-                )}
+
+                  {/* Checkboxes */}
+                  <div className="space-y-3 pt-2">
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 shrink-0"
+                        {...register('termsAccepted')}
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">
+                        {t('termsAgree')}{' '}
+                        <Link href="/pravidla" className="text-blue-600 hover:underline">
+                          {t('termsLink')}
+                        </Link>{' '}
+                        <span aria-hidden="true">*</span>
+                      </span>
+                    </label>
+                    {errors.termsAccepted && (
+                      <p className={errorClass}>
+                        {tValidation(
+                          errors.termsAccepted.message as Parameters<typeof tValidation>[0]
+                        )}
+                      </p>
+                    )}
+
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 shrink-0"
+                        {...register('gdprAccepted')}
+                      />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">
+                        {t('gdprAgree')}{' '}
+                        <Link
+                          href="/ochrana-osobnich-udaju"
+                          className="text-blue-600 hover:underline"
+                        >
+                          {t('gdprLink')}
+                        </Link>{' '}
+                        <span aria-hidden="true">*</span>
+                      </span>
+                    </label>
+                    {errors.gdprAccepted && (
+                      <p className={errorClass}>
+                        {tValidation(
+                          errors.gdprAccepted.message as Parameters<typeof tValidation>[0]
+                        )}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full rounded-xl bg-blue-600 hover:bg-blue-700 py-3.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+                  >
+                    {isSubmitting ? t('submitting') : t('submit')}
+                    {!isSubmitting && <ArrowRight className="h-4 w-4" />}
+                  </button>
+                </div>
 
                 <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                   {t('haveAccount')}{' '}

@@ -1978,6 +1978,18 @@
     }
   },
   "onboarding": {
+    "basics": {
+      "title": "Basic Professional Info",
+      "description": "Tell us what you do. It helps clients find you.",
+      "categoryLabel": "Category",
+      "selectCategory": "Select category",
+      "categoryFinancial": "Financial Advisor",
+      "categoryRealEstate": "Real Estate Agent",
+      "locationLabel": "Main region",
+      "selectLocation": "Select region",
+      "experienceLabel": "Years of experience",
+      "experiencePlaceholder": "e.g. 5"
+    },
     "photo": {
       "title": "Add a profile photo",
       "description": "A professional photo increases client trust by 70%.",

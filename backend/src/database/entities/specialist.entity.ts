@@ -68,17 +68,18 @@ export class Specialist {
   @Column({
     type: 'enum',
     enum: SpecialistCategory,
+    nullable: true,
   })
-  category: SpecialistCategory;
+  category: SpecialistCategory | null;
 
-  @Column()
-  location: string;
+  @Column({ type: 'varchar', nullable: true })
+  location: string | null;
 
   @Column('text', { default: '' })
   bio: string;
 
-  @Column('int')
-  yearsExperience: number;
+  @Column('int', { nullable: true, default: 0 })
+  yearsExperience: number | null;
 
   @Column('decimal', { precision: 3, scale: 2, default: 0 })
   rating: number;

@@ -1978,6 +1978,18 @@
     }
   },
   "onboarding": {
+    "basics": {
+      "title": "Podstawowe dane zawodowe",
+      "description": "Powiedz nam, czym się zajmujesz. To pomoże klientom cię znaleźć.",
+      "categoryLabel": "Kategoria",
+      "selectCategory": "Wybierz kategorię",
+      "categoryFinancial": "Doradca finansowy",
+      "categoryRealEstate": "Pośrednik nieruchomości",
+      "locationLabel": "Główny region",
+      "selectLocation": "Wybierz region",
+      "experienceLabel": "Lata doświadczenia",
+      "experiencePlaceholder": "np. 5"
+    },
     "photo": {
       "title": "Dodaj zdjęcie profilowe",
       "description": "Profesjonalne zdjęcie zwiększa zaufanie klientów o 70%.",

@@ -11,7 +11,7 @@ export interface Specialist {
   photo: string
   verified: boolean
   topSpecialist: boolean
-  category: SpecialistCategory
+  category: SpecialistCategory | null
   location: string
   bio: string
   yearsExperience: number

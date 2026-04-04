@@ -1,7 +1,7 @@
 export function generateSlug(
   name: string,
-  category: string,
-  location: string,
+  category?: string | null,
+  location?: string | null,
 ): string {
   const normalize = (str: string): string => {
     return str
@@ -12,10 +12,17 @@ export function generateSlug(
       .replace(/^-+|-+$/g, '');
   };
 
-  const namePart = normalize(name);
-  const categoryPart =
-    category === 'Finanční poradce' ? 'financni-poradce' : 'realitni-makler';
-  const locationPart = normalize(location);
+  const parts = [normalize(name)];
 
-  return `${namePart}-${categoryPart}-${locationPart}`;
+  if (category) {
+    parts.push(
+      category === 'Finanční poradce' ? 'financni-poradce' : 'realitni-makler',
+    );
+  }
+
+  if (location) {
+    parts.push(normalize(location));
+  }
+
+  return parts.join('-');
 }
