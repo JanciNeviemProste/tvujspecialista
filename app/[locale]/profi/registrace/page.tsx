@@ -854,7 +854,7 @@ export default function RegistrationPage() {
                       />
                       <span className="text-sm text-gray-700 dark:text-gray-300">
                         {t('termsAgree')}{' '}
-                        <Link href="/pravidla" className="text-blue-600 hover:underline">
+                        <Link href="/pravidla" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline" onClick={(e) => e.stopPropagation()}>
                           {t('termsLink')}
                         </Link>{' '}
                         <span aria-hidden="true">*</span>
@@ -878,7 +878,10 @@ export default function RegistrationPage() {
                         {t('gdprAgree')}{' '}
                         <Link
                           href="/ochrana-osobnich-udaju"
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="text-blue-600 hover:underline"
+                          onClick={(e) => e.stopPropagation()}
                         >
                           {t('gdprLink')}
                         </Link>{' '}
