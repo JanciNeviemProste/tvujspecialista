@@ -72,7 +72,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <PublicHeader />
 
       <div className="container mx-auto px-4 py-8">
@@ -94,7 +94,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                     />
                   </div>
 
-                  <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 overflow-hidden rounded-full bg-gray-200">
+                  <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-44 lg:w-44 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700">
                     <Image
                       src={specialist.photo || '/images/placeholder-avatar.png'}
                       alt={specialist.name}
@@ -121,11 +121,11 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                     )}
                   </div>
 
-                  <p className="mb-3 text-lg text-gray-600">
+                  <p className="mb-3 text-lg text-gray-600 dark:text-gray-300">
                     {specialist.category} • {specialist.location}
                   </p>
 
-                  <div className="flex items-center gap-6 text-sm text-gray-600">
+                  <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
                     <div>
                       {t('experience', { years: specialist.yearsExperience })}
                     </div>
@@ -137,7 +137,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             {/* About */}
             <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
               <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('aboutMe')}</h2>
-              <p className="leading-relaxed text-gray-700">{specialist.bio}</p>
+              <p className="leading-relaxed text-gray-700 dark:text-gray-300">{specialist.bio}</p>
             </div>
 
             {/* Trust Signals */}
@@ -177,7 +177,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                   {photos.length > 0 && (
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                       {photos.map((item: { url: string; caption?: string }, index: number) => (
-                        <div key={`photo-${index}`} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 cursor-pointer" onClick={() => setLightboxImage(item.url)}>
+                        <div key={`photo-${index}`} className="group relative aspect-square overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-700 cursor-pointer" onClick={() => setLightboxImage(item.url)}>
                           <Image
                             src={item.url}
                             alt={item.caption || `Photo ${index + 1}`}
@@ -238,7 +238,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span className="text-gray-700">{service}</span>
+                      <span className="text-gray-700 dark:text-gray-300">{service}</span>
                     </div>
                   ))}
                 </div>
@@ -253,13 +253,13 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                   {specialist.education && (
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white">{t('education')}</h3>
-                      <p className="text-gray-700">{specialist.education}</p>
+                      <p className="text-gray-700 dark:text-gray-300">{specialist.education}</p>
                     </div>
                   )}
                   {specialist.certifications && specialist.certifications.length > 0 && (
                     <div>
                       <h3 className="font-semibold text-gray-900 dark:text-white">{t('certifications')}</h3>
-                      <ul className="list-inside list-disc text-gray-700">
+                      <ul className="list-inside list-disc text-gray-700 dark:text-gray-300">
                         {specialist.certifications.map((cert: string, index: number) => (
                           <li key={index}>{cert}</li>
                         ))}
@@ -288,18 +288,18 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                             </span>
                           )}
                         </div>
-                        <span className="text-sm text-gray-500">
+                        <span className="text-sm text-gray-500 dark:text-gray-400">
                           {new Date(review.createdAt).toLocaleDateString(locale === 'sk' ? 'sk-SK' : locale === 'en' ? 'en-US' : locale === 'pl' ? 'pl-PL' : 'cs-CZ')}
                         </span>
                       </div>
                       <div className="mb-2">
                         <RatingStars rating={review.rating} showCount={false} size="sm" />
                       </div>
-                      <p className="text-gray-700">{review.text}</p>
+                      <p className="text-gray-700 dark:text-gray-300">{review.text}</p>
                       {review.response && (
-                        <div className="mt-3 rounded-lg bg-gray-50 p-3">
+                        <div className="mt-3 rounded-lg bg-gray-50 dark:bg-gray-800 p-3">
                           <p className="text-sm font-semibold text-gray-900 dark:text-white">{t('specialistResponse')}</p>
-                          <p className="text-sm text-gray-700">{review.response.text}</p>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">{review.response.text}</p>
                         </div>
                       )}
                     </div>
@@ -337,50 +337,50 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                       {t('contactForm.name')}
                     </label>
                     <input
                       type="text"
                       required
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       placeholder={t('contactForm.namePlaceholder')}
                       value={formData.customerName}
                       onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">{t('contactForm.email')}</label>
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('contactForm.email')}</label>
                     <input
                       type="email"
                       required
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       placeholder={t('contactForm.emailPlaceholder')}
                       value={formData.customerEmail}
                       onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                       {t('contactForm.phone')}
                     </label>
                     <input
                       type="tel"
                       required
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       placeholder={t('contactForm.phonePlaceholder')}
                       value={formData.customerPhone}
                       onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700">
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                       {t('contactForm.message')}
                     </label>
                     <textarea
                       required
                       rows={4}
-                      className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                       placeholder={t('contactForm.messagePlaceholder')}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -392,7 +392,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                       required
                       checked={gdprConsent}
                       onChange={(e) => setGdprConsent(e.target.checked)}
-                      className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600"
+                      className="mt-0.5 h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600"
                     />
                     <span className="text-gray-600 dark:text-muted-foreground">
                       {t('contactForm.gdprConsent')}
@@ -409,12 +409,12 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
               </div>
 
               {/* Info Card */}
-              <div className="rounded-lg border bg-gray-50 p-6">
+              <div className="rounded-lg border bg-gray-50 dark:bg-gray-800 p-6">
                 <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">{t('moreInfo')}</h3>
                 <div className="space-y-3 text-sm">
                   {specialist.availability && specialist.availability.length > 0 && (
                     <div>
-                      <span className="text-gray-600">{t('availability')}</span>
+                      <span className="text-gray-600 dark:text-gray-300">{t('availability')}</span>
                       <div className="mt-1 space-y-1">
                         {specialist.availability.map((slot: string, i: number) => (
                           <p key={i} className="font-medium text-gray-900 dark:text-foreground text-xs">
