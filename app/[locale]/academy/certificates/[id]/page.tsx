@@ -29,7 +29,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600 mx-auto" />
-          <p className="text-gray-600">{t('loading')}</p>
+          <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
         </div>
       </div>
     );
@@ -58,7 +58,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
       <div className="mb-6 flex justify-end gap-3 print:hidden">
         <button
           onClick={() => window.print()}
-          className="flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          className="flex items-center gap-2 rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-800"
         >
           <Printer className="h-4 w-4" />
           {t('print')}
@@ -67,7 +67,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
 
       {/* Certificate */}
       <div className="mx-auto max-w-3xl">
-        <div className="rounded-2xl border-4 border-amber-400 bg-white p-8 sm:p-12 shadow-xl print:shadow-none print:border-2">
+        <div className="rounded-2xl border-4 border-amber-400 bg-white dark:bg-gray-900 p-8 sm:p-12 shadow-xl print:shadow-none print:border-2">
           {/* Top ornament line */}
           <div className="mb-8 flex justify-center">
             <div className="h-1 w-24 rounded bg-amber-400" />

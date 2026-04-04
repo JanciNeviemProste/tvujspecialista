@@ -98,7 +98,7 @@ export function PublicHeader() {
                     <Link
                       href="/profi/prihlaseni"
                       onClick={closeDropdown}
-                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                      className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
                     >
                       <LogIn className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                       <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{spec('login')}</span>

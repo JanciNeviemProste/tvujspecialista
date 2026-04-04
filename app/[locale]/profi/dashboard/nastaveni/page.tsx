@@ -50,10 +50,10 @@ export default function AccountSettingsPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600">{tActions('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400">{tActions('loading')}</p>
           </div>
         </div>
       </div>
@@ -82,11 +82,11 @@ export default function AccountSettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
-          <p className="text-gray-600">{t('subtitle')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
+          <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
         </div>
 
         {/* Informace o uctu */}
@@ -99,11 +99,11 @@ export default function AccountSettingsPage() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
                 <Label className="text-gray-500">{t('name')}</Label>
-                <p className="mt-1 font-medium text-gray-900">{user.name}</p>
+                <p className="mt-1 font-medium text-gray-900 dark:text-white">{user.name}</p>
               </div>
               <div>
                 <Label className="text-gray-500">{t('email')}</Label>
-                <p className="mt-1 font-medium text-gray-900">{user.email}</p>
+                <p className="mt-1 font-medium text-gray-900 dark:text-white">{user.email}</p>
               </div>
             </div>
           </CardContent>

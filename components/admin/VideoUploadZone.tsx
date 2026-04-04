@@ -155,7 +155,7 @@ export default function VideoUploadZone({
           }`}
         >
           <Upload className="h-6 w-6 text-gray-400 mb-1" />
-          <span className="text-sm font-medium text-gray-600">{t('video.uploadButton')}</span>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('video.uploadButton')}</span>
           <span className="text-xs text-gray-400">{t('video.uploadHint')}</span>
         </div>
       )}

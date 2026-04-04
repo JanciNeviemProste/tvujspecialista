@@ -34,7 +34,7 @@ export default function AcademyError({
         </CardHeader>
         <CardContent>
           {error.message && (
-            <div className="rounded-lg bg-gray-100 p-4 text-sm">
+            <div className="rounded-lg bg-gray-100 dark:bg-gray-700 p-4 text-sm">
               <p className="font-mono text-gray-500">{error.message}</p>
             </div>
           )}

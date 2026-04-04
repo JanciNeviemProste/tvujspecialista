@@ -45,11 +45,11 @@ export default function LessonModal({
       <div className="w-full max-w-lg bg-white dark:bg-card rounded-xl shadow-2xl">
         <div className="flex items-center justify-between p-5 border-b">
           <h3 className="text-lg font-bold">{isEdit ? t('lesson.editTitle') : t('lesson.newTitle')}</h3>
-          <button onClick={onClose} className="p-2 rounded-md hover:bg-gray-100"><X className="h-4 w-4" /></button>
+          <button onClick={onClose} className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700"><X className="h-4 w-4" /></button>
         </div>
         <div className="p-5 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">{t('lesson.nameLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('lesson.nameLabel')}</label>
             <input
               type="text"
               value={title}
@@ -60,7 +60,7 @@ export default function LessonModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">{t('lesson.descriptionLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('lesson.descriptionLabel')}</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -72,7 +72,7 @@ export default function LessonModal({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">{t('lesson.typeLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('lesson.typeLabel')}</label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
@@ -89,15 +89,15 @@ export default function LessonModal({
                   type="checkbox"
                   checked={free}
                   onChange={(e) => setFree(e.target.checked)}
-                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="text-sm text-gray-700">{t('lesson.freePreview')}</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300">{t('lesson.freePreview')}</span>
               </label>
             </div>
           </div>
           <div className="flex gap-3 pt-2">
-            <button onClick={onClose} disabled={loading} className="flex-1 rounded-lg border border-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50">
+            <button onClick={onClose} disabled={loading} className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 py-2.5 text-sm font-medium hover:bg-gray-50 dark:bg-gray-800">
               {t('actions.cancel')}
             </button>
             <button

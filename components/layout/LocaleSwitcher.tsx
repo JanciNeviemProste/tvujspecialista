@@ -89,7 +89,7 @@ export function LocaleSwitcher() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label={t('switchLanguage')}
         aria-expanded={isOpen}
-        className="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 transition-colors"
       >
         <Globe className="h-4 w-4 text-gray-500" />
         <Flag locale={locale} className="h-3.5 w-5 rounded-[2px]" />
@@ -97,7 +97,7 @@ export function LocaleSwitcher() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-gray-200 bg-white shadow-lg z-50 py-1 animate-in fade-in-0 zoom-in-95 duration-150">
+        <div className="absolute right-0 top-full mt-2 w-44 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-lg z-50 py-1 animate-in fade-in-0 zoom-in-95 duration-150">
           {locales.map((loc) => (
             <button
               key={loc}

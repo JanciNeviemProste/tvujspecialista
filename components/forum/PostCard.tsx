@@ -105,7 +105,7 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
               </button>
               <button
                 onClick={() => setEditing(false)}
-                className="rounded-lg border border-gray-300 dark:border-border px-4 py-1.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-muted transition-colors"
+                className="rounded-lg border border-gray-300 dark:border-border px-4 py-1.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted transition-colors"
               >
                 {t('post.cancelEdit')}
               </button>

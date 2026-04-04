@@ -70,7 +70,7 @@ function CourseCurriculumInner({
         return (
           <Card key={module.id}>
             <CardHeader
-              className="cursor-pointer hover:bg-gray-50 transition-colors"
+              className="cursor-pointer hover:bg-gray-50 dark:bg-gray-800 transition-colors"
               onClick={() => toggleModule(module.id)}
             >
               <div className="flex items-center justify-between">
@@ -122,7 +122,7 @@ function CourseCurriculumInner({
                               <Check className="h-4 w-4 text-white" />
                             </div>
                           ) : (
-                            <div className="h-6 w-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                            <div className="h-6 w-6 rounded-full border-2 border-gray-300 dark:border-gray-600 flex items-center justify-center">
                               <span className="text-xs text-gray-500 font-medium">
                                 {lessonIndex + 1}
                               </span>

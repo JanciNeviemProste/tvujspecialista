@@ -58,10 +58,10 @@ export default function ReviewsPage() {
 
   if (authLoading || isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600">{t('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -88,16 +88,16 @@ export default function ReviewsPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
-          <p className="text-gray-600">{t('subtitle')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
+          <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
         </div>
 
         {/* Tabs */}
-        <div className="mb-8 border-b border-gray-200">
+        <div className="mb-8 border-b border-gray-200 dark:border-gray-700">
           <div className="flex gap-0">
             <button
               className={`relative px-6 py-3 text-sm font-medium transition-colors ${
@@ -146,7 +146,7 @@ export default function ReviewsPage() {
               <CardContent className="p-6">
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
                   <div className="flex flex-col items-center justify-center">
-                    <div className="text-5xl font-bold text-gray-900">
+                    <div className="text-5xl font-bold text-gray-900 dark:text-white">
                       {averageRating.toFixed(1)}
                     </div>
                     <StarRating rating={Math.round(averageRating)} />
@@ -157,7 +157,7 @@ export default function ReviewsPage() {
                   <div className="space-y-2">
                     {ratingDistribution.map((item) => (
                       <div key={item.stars} className="flex items-center gap-3">
-                        <span className="w-8 text-right text-sm text-gray-600">
+                        <span className="w-8 text-right text-sm text-gray-600 dark:text-gray-400">
                           {item.stars} &#9733;
                         </span>
                         <div className="flex-1">
@@ -187,7 +187,7 @@ export default function ReviewsPage() {
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="mb-2 flex items-center gap-3">
-                            <h3 className="font-semibold text-gray-900">
+                            <h3 className="font-semibold text-gray-900 dark:text-white">
                               {review.customerName}
                             </h3>
                             {review.verified && (
@@ -197,18 +197,18 @@ export default function ReviewsPage() {
                             )}
                           </div>
                           <StarRating rating={review.rating} />
-                          <p className="mt-3 text-gray-700">{review.text}</p>
+                          <p className="mt-3 text-gray-700 dark:text-gray-300">{review.text}</p>
                           {review.response ? (
-                            <div className="mt-4 rounded-lg bg-gray-50 p-4">
-                              <p className="mb-1 text-sm font-medium text-gray-600">
+                            <div className="mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 p-4">
+                              <p className="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400">
                                 {t('yourResponse')}
                               </p>
-                              <p className="text-sm text-gray-700">{review.response.text}</p>
+                              <p className="text-sm text-gray-700 dark:text-gray-300">{review.response.text}</p>
                             </div>
                           ) : respondingTo === review.id ? (
                             <div className="mt-4 space-y-3">
                               <textarea
-                                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                                className="w-full rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 rows={3}
                                 placeholder={t('responsePlaceholder')}
                                 value={responseText}
@@ -242,7 +242,7 @@ export default function ReviewsPage() {
                                   {submitting ? t('sending') : t('sendResponse')}
                                 </button>
                                 <button
-                                  className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+                                  className="rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                                   onClick={() => { setRespondingTo(null); setResponseText(''); }}
                                 >
                                   {t('cancel')}
@@ -271,10 +271,10 @@ export default function ReviewsPage() {
             ) : (
               <Card>
                 <CardContent className="p-12 text-center">
-                  <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                  <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
                     {t('empty.title')}
                   </h3>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 dark:text-gray-400">
                     {t('empty.description')}
                   </p>
                 </CardContent>
@@ -300,13 +300,13 @@ export default function ReviewsPage() {
               <CardContent>
                 <div className="space-y-4">
                   <div>
-                    <label className="mb-1.5 block text-sm font-medium text-gray-700">
+                    <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
                       {t('requestReview.emailLabel')}
                     </label>
                     <div className="flex gap-3">
                       <input
                         type="email"
-                        className="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                         placeholder={t('requestReview.emailPlaceholder')}
                         value={requestEmail}
                         onChange={(e) => setRequestEmail(e.target.value)}
@@ -348,7 +348,7 @@ export default function ReviewsPage() {
                       1
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900">{t('requestReview.step1')}</h4>
+                      <h4 className="font-medium text-gray-900 dark:text-white">{t('requestReview.step1')}</h4>
                       <p className="mt-0.5 text-sm text-gray-500">{t('requestReview.step1desc')}</p>
                     </div>
                   </div>
@@ -358,7 +358,7 @@ export default function ReviewsPage() {
                       2
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900">{t('requestReview.step2')}</h4>
+                      <h4 className="font-medium text-gray-900 dark:text-white">{t('requestReview.step2')}</h4>
                       <p className="mt-0.5 text-sm text-gray-500">{t('requestReview.step2desc')}</p>
                     </div>
                   </div>
@@ -368,7 +368,7 @@ export default function ReviewsPage() {
                       3
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900">{t('requestReview.step3')}</h4>
+                      <h4 className="font-medium text-gray-900 dark:text-white">{t('requestReview.step3')}</h4>
                       <p className="mt-0.5 text-sm text-gray-500">{t('requestReview.step3desc')}</p>
                     </div>
                   </div>

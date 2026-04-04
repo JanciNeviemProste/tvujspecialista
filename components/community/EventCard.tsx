@@ -48,7 +48,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
 
   return (
     <Link href={href} className={cn('block h-full', className)}>
-      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white dark:bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         {/* Banner */}
         <div className="relative aspect-[16/9] overflow-hidden">
           {event.bannerImage ? (
@@ -71,7 +71,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
 
           {/* Date badge */}
           <div className="absolute top-3 left-3">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-gray-800 shadow-sm">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-xs font-semibold text-gray-800 dark:text-gray-100 shadow-sm">
               <Calendar className="h-3 w-3" />
               {formattedDate}
             </span>
@@ -89,7 +89,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
             <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-sm', typeColorMap[event.type])}>
               {eventTypeLabels[event.type]}
             </span>
-            <span className="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-gray-700 shadow-sm">
+            <span className="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-gray-700 dark:text-gray-300 shadow-sm">
               {event.format === EventFormat.ONLINE ? (
                 <><Video className="h-3 w-3 mr-1" />{eventFormatLabel}</>
               ) : (

@@ -32,7 +32,7 @@ export default function LessonRow({
   const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <div className="border border-gray-200 rounded-lg bg-white dark:bg-card">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-card">
       <div className="flex items-center gap-3 px-4 py-3">
         <GripVertical className="h-4 w-4 text-gray-300 shrink-0" />
         {lesson.type === 'video' ? (
@@ -66,16 +66,16 @@ export default function LessonRow({
               <Upload className="h-3.5 w-3.5" />
             </button>
           )}
-          <button onClick={onEdit} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500" title={t('actions.edit')}>
+          <button onClick={onEdit} className="p-1.5 rounded-md hover:bg-gray-100 dark:bg-gray-700 text-gray-500" title={t('actions.edit')}>
             <Pencil className="h-3.5 w-3.5" />
           </button>
           <button onClick={onDelete} className="p-1.5 rounded-md hover:bg-red-50 text-red-500" title={t('actions.delete')}>
             <Trash2 className="h-3.5 w-3.5" />
           </button>
-          <button onClick={() => onReorder('up')} disabled={index === 0} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 disabled:opacity-30">
+          <button onClick={() => onReorder('up')} disabled={index === 0} className="p-1.5 rounded-md hover:bg-gray-100 dark:bg-gray-700 text-gray-400 disabled:opacity-30">
             <ChevronUp className="h-3.5 w-3.5" />
           </button>
-          <button onClick={() => onReorder('down')} disabled={index === total - 1} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 disabled:opacity-30">
+          <button onClick={() => onReorder('down')} disabled={index === total - 1} className="p-1.5 rounded-md hover:bg-gray-100 dark:bg-gray-700 text-gray-400 disabled:opacity-30">
             <ChevronDown className="h-3.5 w-3.5" />
           </button>
         </div>

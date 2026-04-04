@@ -55,7 +55,7 @@ function CourseCardInner({
 
   return (
     <Link href={href} className={cn('block h-full', className)}>
-      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 bg-white dark:bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+      <div className="overflow-hidden h-full flex flex-col group rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-card shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
         {/* Thumbnail */}
         <div className="relative h-48 overflow-hidden">
           {course.thumbnailUrl && !imgError ? (
@@ -76,7 +76,7 @@ function CourseCardInner({
 
           {/* Badges overlay */}
           <div className="absolute top-3 left-3 right-3 flex justify-between items-start">
-            <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-sm', levelColors[course.level] || 'bg-gray-100 text-gray-700')}>
+            <span className={cn('inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium shadow-sm', levelColors[course.level] || 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300')}>
               {levelLabels[course.level] || course.level}
             </span>
             {course.featured && (
@@ -138,7 +138,7 @@ function CourseCardInner({
           {/* Progress bar (if enrolled) */}
           {enrolled && progress !== undefined && (
             <div className="space-y-1">
-              <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-blue-600 rounded-full transition-all"
                   style={{ width: `${Math.min(progress, 100)}%` }}

@@ -63,7 +63,7 @@ export default function CourseFormModal({
       <div className="w-full max-w-2xl bg-white dark:bg-neutral-900 rounded-2xl shadow-[0_25px_60px_-12px_rgba(0,0,0,0.5)] border border-gray-200 dark:border-neutral-700 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-neutral-700">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">{isEdit ? tAdmin('courseForm.editTitle') : tAdmin('courseForm.newTitle')}</h2>
-          <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-500 dark:text-gray-400">
+          <button onClick={onClose} disabled={isLoading} className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-neutral-800 text-gray-500 dark:text-gray-400">
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -178,7 +178,7 @@ export default function CourseFormModal({
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 rounded-lg border border-gray-300 dark:border-neutral-600 text-gray-700 dark:text-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors"
+              className="flex-1 rounded-lg border border-gray-300 dark:border-neutral-600 text-gray-700 dark:text-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-neutral-800 transition-colors"
             >
               {tAdmin('courseForm.cancel')}
             </button>

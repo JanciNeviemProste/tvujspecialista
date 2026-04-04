@@ -105,15 +105,15 @@ export default function DealsPage() {
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-card">
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card">
             <p className="text-sm text-gray-500">{t('stats.total')}</p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
-          <div className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-card">
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card">
             <p className="text-sm text-gray-500">{t('stats.new')}</p>
             <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
           </div>
-          <div className="p-4 rounded-lg border border-gray-200 bg-white dark:bg-card">
+          <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card">
             <p className="text-sm text-gray-500">{t('stats.accepted')}</p>
             <p className="text-2xl font-bold text-emerald-600">{stats.accepted}</p>
           </div>

@@ -103,7 +103,7 @@ export function CloseDealModal({
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors disabled:opacity-50"
+            className="rounded-full p-2 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-neutral-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors disabled:opacity-50"
           >
             <X className="h-5 w-5" />
           </button>

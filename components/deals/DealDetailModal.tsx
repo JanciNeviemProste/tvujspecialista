@@ -95,7 +95,7 @@ export function DealDetailModal({
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-2 hover:bg-gray-100 dark:hover:bg-neutral-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            className="rounded-full p-2 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-neutral-800 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
             aria-label={t('detail.close')}
           >
             <X className="h-5 w-5" aria-hidden="true" />
@@ -159,7 +159,7 @@ export function DealDetailModal({
             )}
             <button
               onClick={onClose}
-              className="ml-auto text-gray-500 hover:text-gray-700 px-4 py-2.5 rounded-xl text-sm transition-colors"
+              className="ml-auto text-gray-500 hover:text-gray-700 dark:text-gray-300 px-4 py-2.5 rounded-xl text-sm transition-colors"
             >
               {t('detail.close')}
             </button>

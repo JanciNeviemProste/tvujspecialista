@@ -61,7 +61,7 @@ export function CookieConsent() {
                   </button>
                   <button
                     onClick={handleReject}
-                    className="rounded-lg border border-gray-300 dark:border-border px-6 py-2 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-muted transition-colors"
+                    className="rounded-lg border border-gray-300 dark:border-border px-6 py-2 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted transition-colors"
                   >
                     {t('reject')}
                   </button>

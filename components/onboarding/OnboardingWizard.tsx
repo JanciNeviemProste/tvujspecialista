@@ -244,7 +244,7 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
           <div className="mt-8 flex justify-between">
             {currentStep > 0 && currentStep < STEPS.length - 1 && (
               <button
-                className="rounded-lg border border-gray-300 dark:border-border px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:hover:bg-muted transition-colors"
+                className="rounded-lg border border-gray-300 dark:border-border px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted transition-colors"
                 onClick={() => setCurrentStep(currentStep - 1)}
               >
                 {t('back')}

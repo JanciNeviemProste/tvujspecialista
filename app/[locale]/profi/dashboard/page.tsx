@@ -62,11 +62,11 @@ export default function DashboardPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="mb-4 text-5xl">⏳</div>
-            <p className="text-gray-600">{t('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -107,12 +107,12 @@ export default function DashboardPage() {
   }, [tStatus]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
         {/* Welcome */}
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('welcome', { name: user.name })}</h1>
-          <p className="text-gray-600">{t('overview')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('welcome', { name: user.name })}</h1>
+          <p className="text-gray-600 dark:text-gray-400">{t('overview')}</p>
         </div>
 
         {/* Stats Cards - only for specialists */}
@@ -124,7 +124,7 @@ export default function DashboardPage() {
                   <div key={i} className="rounded-lg border bg-white dark:bg-card p-6 animate-pulse">
                     <div className="h-4 w-24 bg-gray-200 dark:bg-muted rounded mb-4" />
                     <div className="h-8 w-16 bg-gray-200 dark:bg-muted rounded mb-2" />
-                    <div className="h-3 w-32 bg-gray-100 rounded" />
+                    <div className="h-3 w-32 bg-gray-100 dark:bg-gray-700 rounded" />
                   </div>
                 ))}
               </>
@@ -132,12 +132,12 @@ export default function DashboardPage() {
               <>
                 <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <div className="mb-2 flex items-center justify-between">
-                    <span className="text-sm font-medium text-gray-600">{t('stats.newLeads')}</span>
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('stats.newLeads')}</span>
                     <span className="rounded-full bg-blue-100 px-2 py-1 text-xs font-semibold text-blue-600">
                       {t('stats.thisMonth')}
                     </span>
                   </div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.newLeads}</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">{stats.newLeads}</div>
                   <p className="mt-2 text-sm text-gray-500">
                     {subscription && subscription.tier && (
                       t('stats.remaining', { count: subscription.tier === 'premium' ? '∞' : String(subscription.remainingLeads || 0) })
@@ -146,23 +146,23 @@ export default function DashboardPage() {
                 </div>
 
                 <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.totalLeads')}</div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.totalLeads}</div>
+                  <div className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">{t('stats.totalLeads')}</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">{stats.totalLeads}</div>
                   <p className="mt-2 text-sm text-gray-500">{t('stats.sinceStart')}</p>
                 </div>
 
                 <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.avgRating')}</div>
+                  <div className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">{t('stats.avgRating')}</div>
                   <div className="flex items-baseline gap-2">
-                    <div className="text-3xl font-bold text-gray-900">{stats.rating}</div>
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white">{stats.rating}</div>
                     <div className="text-xl text-yellow-400">★</div>
                   </div>
                   <p className="mt-2 text-sm text-gray-500">{t('stats.yourRating')}</p>
                 </div>
 
                 <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <div className="mb-2 text-sm font-medium text-gray-600">{t('stats.successRate')}</div>
-                  <div className="text-3xl font-bold text-gray-900">{stats.successRate}%</div>
+                  <div className="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">{t('stats.successRate')}</div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">{stats.successRate}%</div>
                   <p className="mt-2 text-sm text-gray-500">{t('stats.closedDeals')}</p>
                 </div>
               </>
@@ -177,56 +177,56 @@ export default function DashboardPage() {
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Users className="h-5 w-5 text-blue-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.customers')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.customers')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.customersCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Home className="h-5 w-5 text-green-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.realEstateAgents')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.realEstateAgents')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.realEstateAgentsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Landmark className="h-5 w-5 text-emerald-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.financialAdvisors')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.financialAdvisors')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.financialAdvisorsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <TrendingUp className="h-5 w-5 text-purple-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.leads')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.leads')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.leadsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <GraduationCap className="h-5 w-5 text-indigo-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.academyGraduates')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.academyGraduates')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.academyGraduatesCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Calendar className="h-5 w-5 text-orange-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.pastEvents')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.pastEvents')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.pastEventsCount ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <CreditCard className="h-5 w-5 text-cyan-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.monthlySubscriptions')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.monthlySubscriptions')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.monthlySubscriptions ?? 0}</div>
               </div>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="flex items-center gap-3 mb-2">
                   <Crown className="h-5 w-5 text-amber-500" />
-                  <span className="text-sm font-medium text-gray-600">{t('admin.yearlySubscriptions')}</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('admin.yearlySubscriptions')}</span>
                 </div>
                 <div className="text-3xl font-bold">{adminStats?.yearlySubscriptions ?? 0}</div>
               </div>
@@ -240,7 +240,7 @@ export default function DashboardPage() {
               >
                 <BookOpen className="h-8 w-8 text-blue-600 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.academy')}</h3>
-                <p className="text-sm text-gray-600">{t('admin.academyDesc')}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('admin.academyDesc')}</p>
               </Link>
               <Link
                 href="/profi/dashboard/admin/forum"
@@ -248,7 +248,7 @@ export default function DashboardPage() {
               >
                 <MessageSquare className="h-8 w-8 text-blue-500 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.forum')}</h3>
-                <p className="text-sm text-gray-600">{t('admin.forumDesc')}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('admin.forumDesc')}</p>
               </Link>
               <Link
                 href="/profi/dashboard/admin/komunita"
@@ -256,7 +256,7 @@ export default function DashboardPage() {
               >
                 <Calendar className="h-8 w-8 text-orange-500 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.community')}</h3>
-                <p className="text-sm text-gray-600">{t('admin.communityDesc')}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('admin.communityDesc')}</p>
               </Link>
               <Link
                 href="/profi/dashboard/admin/pouzivatelia"
@@ -264,7 +264,7 @@ export default function DashboardPage() {
               >
                 <Users className="h-8 w-8 text-purple-600 mb-3 group-hover:scale-110 transition-transform" />
                 <h3 className="text-lg font-semibold mb-1">{t('admin.users')}</h3>
-                <p className="text-sm text-gray-600">{t('admin.usersDesc')}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">{t('admin.usersDesc')}</p>
               </Link>
             </div>
           </>
@@ -278,7 +278,7 @@ export default function DashboardPage() {
               <div className="rounded-lg border bg-white dark:bg-card">
                 <div className="border-b p-6">
                   <div className="flex items-center justify-between">
-                    <h2 className="text-lg font-semibold text-gray-900">{t('recentLeads')}</h2>
+                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('recentLeads')}</h2>
                     <Link href="/profi/dashboard/deals" className="text-sm font-medium text-blue-600 hover:underline">
                       {tActions('showAll')}
                     </Link>
@@ -292,8 +292,8 @@ export default function DashboardPage() {
                         <div className="flex items-start justify-between">
                           <div className="flex-1 space-y-3">
                             <div className="h-4 w-32 bg-gray-200 dark:bg-muted rounded" />
-                            <div className="h-3 w-24 bg-gray-100 rounded" />
-                            <div className="h-3 w-40 bg-gray-100 rounded" />
+                            <div className="h-3 w-24 bg-gray-100 dark:bg-gray-700 rounded" />
+                            <div className="h-3 w-40 bg-gray-100 dark:bg-gray-700 rounded" />
                           </div>
                           <div className="h-6 w-16 bg-gray-200 dark:bg-muted rounded-full" />
                         </div>
@@ -306,7 +306,7 @@ export default function DashboardPage() {
                       const statusInfo = getStatusBadge(lead.status);
                       const isNew = lead.status === 'new';
                       return (
-                        <div key={lead.id} className="p-6 transition-colors hover:bg-gray-50 dark:hover:bg-muted/30">
+                        <div key={lead.id} className="p-6 transition-colors hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted/30">
                           <div className="flex items-start justify-between">
                             <div className="flex-1">
                               <h3 className={`font-semibold text-gray-900 dark:text-foreground ${isNew ? 'blur-sm select-none' : ''}`}>{lead.customerName}</h3>
@@ -339,8 +339,8 @@ export default function DashboardPage() {
                 ) : (
                   <div className="p-12 text-center">
                     <div className="mb-4 text-5xl">📭</div>
-                    <h3 className="mb-2 text-lg font-semibold text-gray-900">{t('emptyLeads.title')}</h3>
-                    <p className="text-gray-600">
+                    <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">{t('emptyLeads.title')}</h3>
+                    <p className="text-gray-600 dark:text-gray-400">
                       {t('emptyLeads.description')}
                     </p>
                   </div>
@@ -351,29 +351,29 @@ export default function DashboardPage() {
             {/* Quick Actions */}
             <div className="lg:col-span-1">
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <h2 className="mb-4 text-lg font-semibold text-gray-900">{t('quickActions.title')}</h2>
+                <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">{t('quickActions.title')}</h2>
                 <div className="space-y-3">
                   <Link
                     href="/profi/dashboard/deals"
-                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                    className="block rounded-md border border-gray-300 dark:border-gray-600 p-3 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:bg-gray-800"
                   >
                     🤝 {t('quickActions.dealPipeline')}
                   </Link>
                   <Link
                     href="/profi/dashboard/profil"
-                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                    className="block rounded-md border border-gray-300 dark:border-gray-600 p-3 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:bg-gray-800"
                   >
                     📝 {t('quickActions.editProfile')}
                   </Link>
                   <Link
                     href="/profi/dashboard/recenze"
-                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                    className="block rounded-md border border-gray-300 dark:border-gray-600 p-3 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:bg-gray-800"
                   >
                     💬 {t('quickActions.manageReviews')}
                   </Link>
                   <Link
                     href="/profi/dashboard/ceny"
-                    className="block rounded-md border border-gray-300 p-3 text-sm font-medium text-gray-900 hover:bg-gray-50"
+                    className="block rounded-md border border-gray-300 dark:border-gray-600 p-3 text-sm font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:bg-gray-800"
                   >
                     💳 {t('quickActions.upgradePlan')}
                   </Link>

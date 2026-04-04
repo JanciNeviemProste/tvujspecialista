@@ -103,10 +103,10 @@ export default function ProfileEditPage() {
 
   if (authLoading || isLoadingProfile) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600">{t('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
           </div>
         </div>
       </div>
@@ -192,11 +192,11 @@ export default function ProfileEditPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
-          <p className="text-gray-600">{t('subtitle')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
+          <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
         </div>
 
         {/* Profilova fotka */}
@@ -371,19 +371,19 @@ export default function ProfileEditPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Facebook</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Facebook</label>
                   <input
                     type="url"
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="https://facebook.com/vasprofi"
                     {...register('facebook')}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Instagram</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Instagram</label>
                   <input
                     type="url"
-                    className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="https://instagram.com/vasprofi"
                     {...register('instagram')}
                   />
@@ -403,7 +403,7 @@ export default function ProfileEditPage() {
               {mediaItems.length > 0 && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                   {mediaItems.map((item, index) => (
-                    <div key={index} className="group relative aspect-square overflow-hidden rounded-lg bg-gray-100">
+                    <div key={index} className="group relative aspect-square overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700">
                       {item.type === 'image' ? (
                         <Image src={item.url} alt={item.caption || ''} fill className="object-cover" sizes="200px" />
                       ) : (
@@ -430,11 +430,11 @@ export default function ProfileEditPage() {
 
               {/* Add video URL */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700">{t('gallery.addVideo')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('gallery.addVideo')}</label>
                 <div className="flex gap-2">
                   <input
                     type="url"
-                    className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="flex-1 rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="https://youtube.com/watch?v=... alebo https://vimeo.com/..."
                     value={videoUrl}
                     onChange={(e) => setVideoUrl(e.target.value)}

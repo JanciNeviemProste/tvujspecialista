@@ -168,7 +168,7 @@ export default function AdminCoursesPage() {
                   <div className="flex-1 cursor-pointer" onClick={() => setExpandedCourse(isExpanded ? null : course.id)}>
                     <div className="flex items-center gap-2">
                       <h3 className="font-semibold">{course.title}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${course.published ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${course.published ? 'bg-green-100 text-green-700' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}>
                         {course.published ? t('published') : t('hidden')}
                       </span>
                       <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700">
@@ -182,7 +182,7 @@ export default function AdminCoursesPage() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => setExpandedCourse(isExpanded ? null : course.id)}
-                      className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+                      className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors text-gray-600 dark:text-gray-400"
                       title={t('showStudents')}
                     >
                       {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -196,7 +196,7 @@ export default function AdminCoursesPage() {
                     <button
                       onClick={() => openEdit(course)}
                       disabled={actionLoading === course.id}
-                      className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+                      className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors text-gray-600 dark:text-gray-400"
                       title={t('editAction')}
                     >
                       <Pencil className="h-4 w-4" />
@@ -204,7 +204,7 @@ export default function AdminCoursesPage() {
                     <button
                       onClick={() => handlePublish(course.id, course.published)}
                       disabled={actionLoading === course.id}
-                      className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+                      className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors text-gray-600 dark:text-gray-400"
                       title={course.published ? t('hide') : t('publish')}
                     >
                       {course.published ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}

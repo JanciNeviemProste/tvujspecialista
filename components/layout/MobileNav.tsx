@@ -153,7 +153,7 @@ export function MobileNav() {
                       <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
                         {t('iAmSpecialist')}
                       </p>
-                      <Link href="/profi/prihlaseni" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
+                      <Link href="/profi/prihlaseni" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:bg-gray-800 transition-colors">
                         <LogIn className="h-5 w-5 text-blue-600 shrink-0" />
                         <span className="text-sm font-semibold text-gray-900 dark:text-white">{spec('login')}</span>
                       </Link>

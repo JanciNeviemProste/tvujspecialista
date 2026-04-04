@@ -42,9 +42,9 @@ export default function ModulesContainer({
     return (
       <div className="space-y-4">
         {[1, 2].map((i) => (
-          <div key={i} className="rounded-xl border border-gray-200 bg-white dark:bg-card p-6 animate-pulse">
+          <div key={i} className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-card p-6 animate-pulse">
             <div className="h-5 w-48 bg-gray-200 dark:bg-muted rounded mb-3" />
-            <div className="h-4 w-32 bg-gray-100 rounded" />
+            <div className="h-4 w-32 bg-gray-100 dark:bg-gray-700 rounded" />
           </div>
         ))}
       </div>
@@ -72,7 +72,7 @@ export default function ModulesContainer({
       ) : (
         <button
           onClick={onToggleAddModule}
-          className="flex items-center gap-2 w-full px-5 py-4 rounded-xl border-2 border-dashed border-gray-300 text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors font-medium"
+          className="flex items-center gap-2 w-full px-5 py-4 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600 text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors font-medium"
         >
           <Plus className="h-5 w-5" />
           Pridať modul

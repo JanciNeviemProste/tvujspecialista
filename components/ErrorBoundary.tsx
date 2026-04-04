@@ -26,7 +26,7 @@ function ErrorFallbackUI({ error, errorInfo, resetErrorBoundary }: { error: Erro
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gray-50 dark:bg-gray-800">
       <Card className="max-w-2xl w-full">
         <CardHeader>
           <div className="flex items-center gap-3">

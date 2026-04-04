@@ -97,7 +97,7 @@ function DroppableColumn({
       {/* Column header */}
       <div className="flex items-center justify-between">
         <h3 className="font-semibold text-lg text-gray-900 dark:text-white">{label}</h3>
-        <span className="inline-flex items-center rounded-full border border-gray-300 bg-white dark:bg-card px-2.5 py-0.5 text-xs font-medium text-gray-700">
+        <span className="inline-flex items-center rounded-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-card px-2.5 py-0.5 text-xs font-medium text-gray-700 dark:text-gray-300">
           {dealCount}
         </span>
       </div>
@@ -186,7 +186,7 @@ export function DealKanban({ deals, onStatusChange, onViewDetails, className }: 
               dealCount={columnDeals.length}
             >
               {columnDeals.length === 0 ? (
-                <div className="flex items-center justify-center h-32 text-sm text-gray-400 border-2 border-dashed border-gray-300 rounded-lg">
+                <div className="flex items-center justify-center h-32 text-sm text-gray-400 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
                   {t('empty.noDeals')}
                 </div>
               ) : (

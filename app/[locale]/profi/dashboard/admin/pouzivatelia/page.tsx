@@ -36,7 +36,7 @@ export default function AdminUsersPage() {
   if (!authLoading && (!user || user.role !== 'admin')) {
     return (
       <div className="flex items-center justify-center py-20">
-        <p className="text-gray-600">Access denied</p>
+        <p className="text-gray-600 dark:text-gray-400">Access denied</p>
       </div>
     );
   }
@@ -68,7 +68,7 @@ export default function AdminUsersPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/profi/dashboard"
-          className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+          className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 dark:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
           {t('backToDashboard')}
@@ -89,7 +89,7 @@ export default function AdminUsersPage() {
           placeholder={t('searchPlaceholder')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full rounded-md border border-gray-300 pl-10 pr-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-md border border-gray-300 dark:border-gray-600 pl-10 pr-4 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
 
@@ -101,7 +101,7 @@ export default function AdminUsersPage() {
                 <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-muted" />
                 <div className="flex-1 space-y-2">
                   <div className="h-4 w-32 bg-gray-200 dark:bg-muted rounded" />
-                  <div className="h-3 w-48 bg-gray-100 rounded" />
+                  <div className="h-3 w-48 bg-gray-100 dark:bg-gray-700 rounded" />
                 </div>
               </div>
             </div>
@@ -110,21 +110,21 @@ export default function AdminUsersPage() {
       ) : (
         <div className="overflow-x-auto rounded-lg border bg-white dark:bg-card">
           <table className="w-full text-sm">
-            <thead className="border-b bg-gray-50">
+            <thead className="border-b bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">{t('name')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">{t('email')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">{t('role')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">{t('verified')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">{t('registered')}</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-700">{t('actions')}</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('name')}</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('email')}</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('role')}</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('verified')}</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('registered')}</th>
+                <th className="px-4 py-3 text-right font-medium text-gray-700 dark:text-gray-300">{t('actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {filteredUsers.map((u: User) => (
-                <tr key={u.id} className="hover:bg-gray-50">
+                <tr key={u.id} className="hover:bg-gray-50 dark:bg-gray-800">
                   <td className="px-4 py-3 font-medium">{u.name}</td>
-                  <td className="px-4 py-3 text-gray-600">{u.email}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{u.email}</td>
                   <td className="px-4 py-3">
                     <span
                       className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
@@ -145,7 +145,7 @@ export default function AdminUsersPage() {
                       <XCircle className="h-4 w-4 text-red-400" />
                     )}
                   </td>
-                  <td className="px-4 py-3 text-gray-600">
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">
                     {new Date(u.createdAt).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3 text-right">
@@ -169,7 +169,7 @@ export default function AdminUsersPage() {
                     ) : (
                       <button
                         onClick={() => setConfirmResetId(u.id)}
-                        className="inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50"
+                        className="inline-flex items-center gap-1 rounded-md border px-3 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-800"
                         title={t('resetPassword')}
                       >
                         <KeyRound className="h-3 w-3" />
@@ -191,7 +191,7 @@ export default function AdminUsersPage() {
               >
                 {t('prev')}
               </button>
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-gray-400">
                 {t('pageOf', { page, total: data.totalPages })}
               </span>
               <button

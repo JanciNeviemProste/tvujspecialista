@@ -29,7 +29,7 @@ export default async function SpecialistDetailPage({ params }: { params: Promise
 
   if (!specialist) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <PublicHeader />
         <div className="container mx-auto px-4 py-20">
           <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">

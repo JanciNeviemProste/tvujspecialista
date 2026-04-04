@@ -117,14 +117,14 @@ export default function DashboardPricingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       {/* Hero */}
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="mb-4 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+          <h1 className="mb-4 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
             {t('hero.title')}
           </h1>
-          <p className="mx-auto max-w-2xl text-base sm:text-lg text-gray-600">
+          <p className="mx-auto max-w-2xl text-base sm:text-lg text-gray-600 dark:text-gray-400">
             {t('hero.subtitle')}
           </p>
         </div>
@@ -137,7 +137,7 @@ export default function DashboardPricingPage() {
             <span className="inline-block rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 mb-3">
               {t('forSpecialists.badge')}
             </span>
-            <h2 className="text-2xl font-bold text-gray-900">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               {t('forSpecialists.title')}
             </h2>
           </div>
@@ -157,9 +157,9 @@ export default function DashboardPricingPage() {
       </section>
 
       {/* Features Comparison */}
-      <section className="border-t bg-white py-16">
+      <section className="border-t bg-white dark:bg-gray-900 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900">{t('comparison.title')}</h2>
+          <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{t('comparison.title')}</h2>
           <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
             <table className="w-full min-w-[600px]">
               <thead>
@@ -172,14 +172,14 @@ export default function DashboardPricingPage() {
               <tbody className="divide-y">
                 {comparisonFeatures.map((category) => (
                   <>
-                    <tr key={category.category} className="bg-gray-50">
-                      <td colSpan={3} className="py-3 text-xs sm:text-sm font-semibold text-gray-900">
+                    <tr key={category.category} className="bg-gray-50 dark:bg-gray-800">
+                      <td colSpan={3} className="py-3 text-xs sm:text-sm font-semibold text-gray-900 dark:text-white">
                         {category.category}
                       </td>
                     </tr>
                     {category.features.map((feature) => (
                       <tr key={feature.name}>
-                        <td className="py-4 text-xs sm:text-sm text-gray-700">{feature.name}</td>
+                        <td className="py-4 text-xs sm:text-sm text-gray-700 dark:text-gray-300">{feature.name}</td>
                         <td className="py-4 text-center">
                           {feature.monthly ? (
                             <Check className="mx-auto h-5 w-5 text-green-500" />
@@ -207,12 +207,12 @@ export default function DashboardPricingPage() {
       {/* FAQ */}
       <section className="border-t py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900">{t('faq.title')}</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 dark:text-white">{t('faq.title')}</h2>
           <div className="mx-auto max-w-3xl space-y-8">
             {faqs.map((faq, index) => (
               <div key={index}>
-                <h3 className="mb-3 text-xl font-semibold text-gray-900">{faq.question}</h3>
-                <p className="text-gray-600">{faq.answer}</p>
+                <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">{faq.question}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{faq.answer}</p>
               </div>
             ))}
           </div>

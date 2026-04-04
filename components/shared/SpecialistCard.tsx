@@ -29,7 +29,7 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
       className="group block overflow-hidden rounded-xl border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:bg-card dark:border-border"
     >
       {/* Photo — dominant, full-width */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100 dark:bg-gray-700">
         <Image
           src={specialist.photo}
           alt={specialist.name}

@@ -51,7 +51,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
   const breadcrumbs = getBreadcrumbs();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       {/* Academy Navigation Bar */}
       <div className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto px-4">

@@ -125,14 +125,14 @@ export default function AdminForumPage() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handlePin(topic.id)}
-                      className={`p-2 rounded-md hover:bg-gray-100 transition-colors ${topic.isPinned ? 'text-primary' : 'text-gray-400'}`}
+                      className={`p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors ${topic.isPinned ? 'text-primary' : 'text-gray-400'}`}
                       title={topic.isPinned ? 'Odopnúť' : 'Pripnúť'}
                     >
                       <Pin className="h-4 w-4" />
                     </button>
                     <button
                       onClick={() => handleLock(topic.id)}
-                      className={`p-2 rounded-md hover:bg-gray-100 transition-colors ${topic.isLocked ? 'text-red-500' : 'text-gray-400'}`}
+                      className={`p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors ${topic.isLocked ? 'text-red-500' : 'text-gray-400'}`}
                       title={topic.isLocked ? 'Odomknúť' : 'Zamknúť'}
                     >
                       {topic.isLocked ? <Unlock className="h-4 w-4" /> : <Lock className="h-4 w-4" />}

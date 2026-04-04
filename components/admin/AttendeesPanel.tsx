@@ -21,7 +21,7 @@ function AttendeeStatusBadge({ status }: { status: string }) {
     cancelled: 'Zrušený',
   };
   return (
-    <span className={`text-xs px-2 py-0.5 rounded-full ${styles[status] ?? 'bg-gray-100 text-gray-600'}`}>
+    <span className={`text-xs px-2 py-0.5 rounded-full ${styles[status] ?? 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'}`}>
       {labels[status] ?? status}
     </span>
   );
@@ -56,7 +56,7 @@ export default function AttendeesPanel({ eventId }: { eventId: string }) {
     return (
       <div className="p-4 animate-pulse space-y-2">
         {[1, 2].map((i) => (
-          <div key={i} className="h-10 bg-gray-100 rounded" />
+          <div key={i} className="h-10 bg-gray-100 dark:bg-gray-700 rounded" />
         ))}
       </div>
     );
@@ -76,7 +76,7 @@ export default function AttendeesPanel({ eventId }: { eventId: string }) {
     <div className="border-t">
       <table className="w-full text-sm">
         <thead>
-          <tr className="bg-gray-50 text-left text-gray-600">
+          <tr className="bg-gray-50 dark:bg-gray-800 text-left text-gray-600 dark:text-gray-400">
             <th className="px-4 py-2 font-medium">Meno</th>
             <th className="px-4 py-2 font-medium">Email</th>
             <th className="px-4 py-2 font-medium">Status</th>
@@ -86,7 +86,7 @@ export default function AttendeesPanel({ eventId }: { eventId: string }) {
         </thead>
         <tbody className="divide-y">
           {attendees.map((rsvp: any) => (
-            <tr key={rsvp.id} className="hover:bg-gray-50">
+            <tr key={rsvp.id} className="hover:bg-gray-50 dark:bg-gray-800">
               <td className="px-4 py-2 font-medium">{rsvp.user?.name ?? 'Neznámy'}</td>
               <td className="px-4 py-2 text-gray-500">{rsvp.user?.email ?? '-'}</td>
               <td className="px-4 py-2">

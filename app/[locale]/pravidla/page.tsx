@@ -29,7 +29,7 @@ export default async function TermsPage({ params }: Props) {
         <div className="prose prose-gray max-w-none">
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">1. Úvodní ustanovení</h2>
-            <p className="mb-4 text-gray-700 leading-relaxed">
+            <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               Tyto obchodní podmínky upravují vztahy mezi provozovatelem platformy
               tvujspecialista.cz a uživateli služby.
             </p>
@@ -37,7 +37,7 @@ export default async function TermsPage({ params }: Props) {
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">2. Vymezení pojmů</h2>
-            <ul className="list-disc list-inside space-y-2 text-gray-700">
+            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300">
               <li>
                 <strong>Provozovatel:</strong> společnost provozující platformu tvujspecialista.cz
               </li>
@@ -57,7 +57,7 @@ export default async function TermsPage({ params }: Props) {
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
               3. Práva a povinnosti zákazníků
             </h2>
-            <p className="mb-4 text-gray-700 leading-relaxed">
+            <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               Zákazník má právo bezplatně procházet profily specialistů a odesílat poptávky.
               Zákazník je povinen poskytovat pravdivé a aktuální informace.
             </p>
@@ -67,7 +67,7 @@ export default async function TermsPage({ params }: Props) {
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
               4. Práva a povinnosti poskytovatelů
             </h2>
-            <p className="mb-4 text-gray-700 leading-relaxed">
+            <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               Poskytovatel má právo prezentovat své služby a získávat leady od zákazníků.
               Poskytovatel je povinen udržovat aktuální a pravdivý profil a reagovat na
               poptávky v přiměřené době.
@@ -76,7 +76,7 @@ export default async function TermsPage({ params }: Props) {
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">5. Platební podmínky</h2>
-            <p className="mb-4 text-gray-700 leading-relaxed">
+            <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               Poskytovatelé platí měsíční poplatek podle zvoleného tarifu. Platba je splatná
               předem.
             </p>
@@ -84,7 +84,7 @@ export default async function TermsPage({ params }: Props) {
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">6. Ochrana osobních údajů</h2>
-            <p className="mb-4 text-gray-700 leading-relaxed">
+            <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               Zpracování osobních údajů se řídí samostatným dokumentem{' '}
               <Link href="/ochrana-osobnich-udaju" className="text-blue-600 hover:underline">
                 Ochrana osobních údajů
@@ -95,7 +95,7 @@ export default async function TermsPage({ params }: Props) {
 
           <section className="mb-8">
             <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">7. Závěrečná ustanovení</h2>
-            <p className="mb-4 text-gray-700 leading-relaxed">
+            <p className="mb-4 text-gray-700 dark:text-gray-300 leading-relaxed">
               Provozovatel si vyhrazuje právo tyto podmínky kdykoli změnit. Změny nabývají
               účinnosti okamžikem zveřejnění na webových stránkách.
             </p>

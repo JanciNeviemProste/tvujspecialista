@@ -267,7 +267,7 @@ export default function RegistrationPage() {
             <ScrollReveal delay={0.3}>
               <div className="relative mx-auto w-64 sm:w-72 lg:w-80">
                 {/* Phone frame */}
-                <div className="relative overflow-hidden rounded-[2rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white aspect-[3/5]">
+                <div className="relative overflow-hidden rounded-[2rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white dark:bg-gray-900 aspect-[3/5]">
                   {/* Notch — Dynamic Island style */}
                   <div className="absolute top-1.5 left-1/2 z-10 h-[22px] w-24 -translate-x-1/2 rounded-full bg-black" />
                   <Image
@@ -849,7 +849,7 @@ export default function RegistrationPage() {
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="checkbox"
-                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 shrink-0"
+                        className="mt-0.5 h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 accent-blue-600 shrink-0"
                         {...register('termsAccepted')}
                       />
                       <span className="text-sm text-gray-700 dark:text-gray-300">
@@ -871,7 +871,7 @@ export default function RegistrationPage() {
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input
                         type="checkbox"
-                        className="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 accent-blue-600 shrink-0"
+                        className="mt-0.5 h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 accent-blue-600 shrink-0"
                         {...register('gdprAccepted')}
                       />
                       <span className="text-sm text-gray-700 dark:text-gray-300">

@@ -120,10 +120,10 @@ export default function ModuleSection({
   };
 
   return (
-    <div className="border border-gray-200 rounded-xl bg-gray-50 overflow-hidden">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800 overflow-hidden">
       {/* Module header */}
       <div className="flex items-center gap-3 px-5 py-4 bg-white dark:bg-card border-b border-gray-100">
-        <button onClick={() => setExpanded(!expanded)} className="p-1 rounded-md hover:bg-gray-100">
+        <button onClick={() => setExpanded(!expanded)} className="p-1 rounded-md hover:bg-gray-100 dark:bg-gray-700">
           <ChevronDown className={`h-4 w-4 text-gray-500 transition-transform ${expanded ? '' : '-rotate-90'}`} />
         </button>
         <div className="flex-1 min-w-0">
@@ -134,16 +134,16 @@ export default function ModuleSection({
           </div>
         </div>
         <div className="flex items-center gap-1 shrink-0">
-          <button onClick={() => setEditing(true)} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-500" title={t('actions.edit')}>
+          <button onClick={() => setEditing(true)} className="p-1.5 rounded-md hover:bg-gray-100 dark:bg-gray-700 text-gray-500" title={t('actions.edit')}>
             <Pencil className="h-4 w-4" />
           </button>
           <button onClick={handleDeleteModule} className="p-1.5 rounded-md hover:bg-red-50 text-red-500" title={t('actions.delete')}>
             <Trash2 className="h-4 w-4" />
           </button>
-          <button onClick={() => handleReorderModule('up')} disabled={index === 0} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 disabled:opacity-30">
+          <button onClick={() => handleReorderModule('up')} disabled={index === 0} className="p-1.5 rounded-md hover:bg-gray-100 dark:bg-gray-700 text-gray-400 disabled:opacity-30">
             <ChevronUp className="h-4 w-4" />
           </button>
-          <button onClick={() => handleReorderModule('down')} disabled={index === total - 1} className="p-1.5 rounded-md hover:bg-gray-100 text-gray-400 disabled:opacity-30">
+          <button onClick={() => handleReorderModule('down')} disabled={index === total - 1} className="p-1.5 rounded-md hover:bg-gray-100 dark:bg-gray-700 text-gray-400 disabled:opacity-30">
             <ChevronDown className="h-4 w-4" />
           </button>
         </div>
@@ -179,7 +179,7 @@ export default function ModuleSection({
 
           <button
             onClick={() => setAddingLesson(true)}
-            className="flex items-center gap-2 w-full px-4 py-2.5 rounded-lg border-2 border-dashed border-gray-300 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+            className="flex items-center gap-2 w-full px-4 py-2.5 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
           >
             <Plus className="h-4 w-4" />
             {t('lesson.add')}

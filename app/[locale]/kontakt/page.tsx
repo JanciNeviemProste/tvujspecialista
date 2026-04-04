@@ -60,19 +60,19 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <PublicHeader />
 
       <div className="container mx-auto max-w-5xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900">{t('title')}</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Contact Form */}
           <div className="rounded-lg border bg-white dark:bg-card p-8">
-            <h2 className="mb-6 text-2xl font-bold text-gray-900">{t('form.title')}</h2>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">{t('form.title')}</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('form.name')}
                 </label>
                 <input
@@ -81,7 +81,7 @@ export default function ContactPage() {
                   placeholder={t('form.namePlaceholder')}
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? 'name-error' : undefined}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('name')}
                 />
                 {errors.name && (
@@ -90,14 +90,14 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">{t('form.email')}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('form.email')}</label>
                 <input
                   type="email"
                   id="contact-email"
                   placeholder={t('form.emailPlaceholder')}
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? 'email-error' : undefined}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('email')}
                 />
                 {errors.email && (
@@ -106,24 +106,24 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t('form.phone')}
                 </label>
                 <input
                   type="tel"
                   placeholder={t('form.phonePlaceholder')}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('phone')}
                 />
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">{t('form.subject')}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('form.subject')}</label>
                 <select
                   id="contact-subject"
                   aria-invalid={!!errors.subject}
                   aria-describedby={errors.subject ? 'subject-error' : undefined}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('subject')}
                 >
                   <option value="">{t('form.selectSubject')}</option>
@@ -139,14 +139,14 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700">{t('form.message')}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('form.message')}</label>
                 <textarea
                   id="contact-message"
                   rows={6}
                   placeholder={t('form.messagePlaceholder')}
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? 'message-error' : undefined}
-                  className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('message')}
                 />
                 {errors.message && (
@@ -168,7 +168,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             {/* Company Info */}
             <div className="rounded-lg border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">{t('info.title')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">{t('info.title')}</h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="text-blue-600">
@@ -187,7 +187,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">{t('info.email')}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white">{t('info.email')}</div>
                     <a
                       href="mailto:info@tvujspecialista.cz"
                       className="text-blue-600 hover:underline"
@@ -214,11 +214,11 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">{t('info.phone')}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white">{t('info.phone')}</div>
                     <a href="tel:+420777123456" className="text-blue-600 hover:underline">
                       +420 777 123 456
                     </a>
-                    <p className="text-sm text-gray-600">{t('info.phoneHours')}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('info.phoneHours')}</p>
                   </div>
                 </div>
 
@@ -245,8 +245,8 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">{t('info.address')}</div>
-                    <p className="text-gray-600">
+                    <div className="font-semibold text-gray-900 dark:text-white">{t('info.address')}</div>
+                    <p className="text-gray-600 dark:text-gray-400">
                       tvujspecialista.cz s.r.o.
                       <br />
                       Vinohradská 184/2396
@@ -260,7 +260,7 @@ export default function ContactPage() {
 
             {/* Quick Links */}
             <div className="rounded-lg border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">{t('quickLinks.title')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">{t('quickLinks.title')}</h2>
               <div className="space-y-2">
                 <Link href="/o-nas" className="block text-blue-600 hover:underline">
                   {t('quickLinks.aboutUs')}
@@ -282,7 +282,7 @@ export default function ContactPage() {
 
             {/* Social Media */}
             <div className="rounded-lg border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">{t('social.title')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">{t('social.title')}</h2>
               <div className="flex gap-4">
                 <a
                   href="#"

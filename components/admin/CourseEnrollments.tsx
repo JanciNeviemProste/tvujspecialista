@@ -19,7 +19,7 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
 
   if (isLoading) {
     return (
-      <div className="p-4 border-t bg-gray-50">
+      <div className="p-4 border-t bg-gray-50 dark:bg-gray-800">
         <div className="animate-pulse space-y-2">
           <div className="h-4 w-32 bg-gray-200 dark:bg-muted rounded" />
           <div className="h-8 bg-gray-200 dark:bg-muted rounded" />
@@ -33,7 +33,7 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
 
   if (enrollments.length === 0) {
     return (
-      <div className="p-4 border-t bg-gray-50 text-center">
+      <div className="p-4 border-t bg-gray-50 dark:bg-gray-800 text-center">
         <Users className="h-8 w-8 text-gray-300 mx-auto mb-2" />
         <p className="text-sm text-gray-500">{t('enrollments.noStudents')}</p>
       </div>
@@ -48,7 +48,7 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
     : 0;
 
   return (
-    <div className="border-t bg-gray-50">
+    <div className="border-t bg-gray-50 dark:bg-gray-800">
       {/* Stats */}
       <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
@@ -106,7 +106,7 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
                         style={{ width: `${Math.min(Number(enrollment.progress || 0), 100)}%` }}
                       />
                     </div>
-                    <span className="text-gray-600 w-10 text-right">{Math.round(Number(enrollment.progress || 0))}%</span>
+                    <span className="text-gray-600 dark:text-gray-400 w-10 text-right">{Math.round(Number(enrollment.progress || 0))}%</span>
                   </div>
                 </td>
                 <td className="py-2 text-right text-gray-500">

@@ -29,10 +29,10 @@ export default function GlobalError({
 
   return (
     <html>
-      <body className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+      <body className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-gray-800 p-4">
         <div className="text-center">
-          <h1 className="mb-4 text-2xl font-bold text-gray-900">{t.title}</h1>
-          <p className="mb-6 text-gray-600">{t.description}</p>
+          <h1 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t.title}</h1>
+          <p className="mb-6 text-gray-600 dark:text-gray-400">{t.description}</p>
           <div className="flex gap-4 justify-center">
             <button
               onClick={reset}
@@ -40,7 +40,7 @@ export default function GlobalError({
             >
               {t.retry}
             </button>
-            <a href="/" className="rounded-lg border px-6 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100">
+            <a href="/" className="rounded-lg border px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:bg-gray-700">
               {t.home}
             </a>
           </div>

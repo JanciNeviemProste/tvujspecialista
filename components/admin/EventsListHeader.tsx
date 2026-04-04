@@ -13,7 +13,7 @@ export default function EventsListHeader({ count, onCreateNew, t }: EventsListHe
   return (
     <div className="flex items-center justify-between mb-8">
       <div className="flex items-center gap-4">
-        <Link href="/community" className="text-gray-400 hover:text-gray-900 transition-colors">
+        <Link href="/community" className="text-gray-400 hover:text-gray-900 dark:text-white transition-colors">
           <ArrowLeft className="h-5 w-5" />
         </Link>
         <div>

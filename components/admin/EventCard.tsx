@@ -66,7 +66,7 @@ export default function EventCard({
           <button
             onClick={onEdit}
             disabled={actionLoading}
-            className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-600"
+            className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors text-gray-600 dark:text-gray-400"
             title="Upraviť"
           >
             <Pencil className="h-4 w-4" />
@@ -75,7 +75,7 @@ export default function EventCard({
             <button
               onClick={onPublish}
               disabled={actionLoading}
-              className="p-2 rounded-md hover:bg-gray-100 transition-colors text-green-600"
+              className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors text-green-600"
               title="Publikovať"
             >
               <Eye className="h-4 w-4" />
@@ -111,7 +111,7 @@ export default function EventCard({
           </button>
           <button
             onClick={onToggleExpand}
-            className="p-2 rounded-md hover:bg-gray-100 transition-colors text-gray-400"
+            className="p-2 rounded-md hover:bg-gray-100 dark:bg-gray-700 transition-colors text-gray-400"
             title="Zobraziť účastníkov"
           >
             {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
