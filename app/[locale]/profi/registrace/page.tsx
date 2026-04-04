@@ -263,25 +263,69 @@ export default function RegistrationPage() {
               </div>
             </ScrollReveal>
 
-            {/* Right — phone mockup */}
+            {/* Right — profile card mockup */}
             <ScrollReveal delay={0.3}>
-              <div className="relative mx-auto w-64 sm:w-72 lg:w-80">
-                {/* Phone frame */}
-                <div className="relative overflow-hidden rounded-[2rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white dark:bg-gray-900 aspect-[3/5]">
-                  {/* Notch — Dynamic Island style */}
-                  <div className="absolute top-1.5 left-1/2 z-10 h-[22px] w-24 -translate-x-1/2 rounded-full bg-black" />
-                  <Image
-                    src="/images/landing/profile-mobile-cropped.png"
-                    alt={tL('altProfileMockup')}
-                    fill
-                    className="object-cover"
-                    style={{ objectPosition: 'center top' }}
-                    priority
-                    quality={85}
-                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
-                  />
+              <div className="relative mx-auto w-72 sm:w-80 lg:w-96">
+                {/* Profile card */}
+                <div className="rounded-2xl bg-white dark:bg-gray-800 shadow-2xl border border-gray-100 dark:border-gray-700 p-6 sm:p-8">
+                  {/* Avatar */}
+                  <div className="flex flex-col items-center text-center">
+                    <div className="relative mb-4">
+                      <div className="h-20 w-20 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 flex items-center justify-center text-2xl font-bold text-white">
+                        MD
+                      </div>
+                      <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full bg-green-500 border-2 border-white dark:border-gray-800 flex items-center justify-center">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-white" />
+                      </div>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Martin Dvořák</h3>
+                    <div className="mt-1.5 flex flex-wrap items-center justify-center gap-1.5">
+                      <span className="rounded-full bg-green-100 dark:bg-green-900/40 px-2.5 py-0.5 text-xs font-semibold text-green-700 dark:text-green-400">
+                        ✓ Ověřený
+                      </span>
+                      <span className="rounded-full bg-amber-100 dark:bg-amber-900/40 px-2.5 py-0.5 text-xs font-semibold text-amber-700 dark:text-amber-400">
+                        ★ Top
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Finanční poradce · Praha</p>
+                    <div className="mt-2 flex items-center gap-1">
+                      <div className="flex">
+                        {[1,2,3,4].map(i => (
+                          <svg key={i} className="h-4 w-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                        ))}
+                        <svg className="h-4 w-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" clipPath="inset(0 50% 0 0)" /></svg>
+                      </div>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">4.8 (63)</span>
+                    </div>
+                    <p className="mt-1 text-xs text-gray-400 dark:text-gray-500">12 let praxe</p>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="my-5 border-t border-gray-100 dark:border-gray-700" />
+
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-3 text-center">
+                    <div>
+                      <p className="text-lg font-bold text-blue-600 dark:text-blue-400">24</p>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400">klientů</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-green-600 dark:text-green-400">98%</p>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400">spokojenost</p>
+                    </div>
+                    <div>
+                      <p className="text-lg font-bold text-amber-600 dark:text-amber-400">4.8</p>
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400">hodnocení</p>
+                    </div>
+                  </div>
+
+                  {/* CTA */}
+                  <button className="mt-5 w-full rounded-xl bg-blue-600 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20">
+                    Kontaktovat
+                  </button>
                 </div>
-                {/* Glow effect behind phone */}
+
+                {/* Glow effect */}
                 <div className="pointer-events-none absolute -inset-8 -z-10 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true" />
               </div>
             </ScrollReveal>
