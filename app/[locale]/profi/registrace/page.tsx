@@ -294,17 +294,18 @@ export default function RegistrationPage() {
             <ScrollReveal delay={0.3}>
               <div className="relative mx-auto w-64 sm:w-72 lg:w-80">
                 {/* Phone frame */}
-                <div className="relative overflow-hidden rounded-[2.5rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white">
-                  {/* Notch */}
-                  <div className="absolute top-0 left-1/2 z-10 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-gray-800" />
+                <div className="relative overflow-hidden rounded-[2.5rem] ring-[8px] ring-gray-800 shadow-2xl shadow-black/40 bg-white aspect-[9/17]">
+                  {/* Notch — Dynamic Island style */}
+                  <div className="absolute top-2 left-1/2 z-10 h-[22px] w-24 -translate-x-1/2 rounded-full bg-gray-900" />
                   <Image
                     src="/images/landing/profile-mobile.png"
                     alt={tL('altProfileMockup')}
-                    width={320}
-                    height={640}
-                    className="w-full"
+                    fill
+                    className="object-cover"
+                    style={{ objectPosition: 'center 18%' }}
                     priority
                     quality={85}
+                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
                   />
                 </div>
                 {/* Glow effect behind phone */}
