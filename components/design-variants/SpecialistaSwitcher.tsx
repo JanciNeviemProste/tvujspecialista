@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 import { User, ArrowLeft } from 'lucide-react';
 
 const VARIANTS = [
-  { id: 'v0', label: 'V0', name: 'Originál', href: '/design/specialista/v0' as const },
-  { id: 'v1', label: 'V1', name: 'Trusted Authority', href: '/design/specialista/v1' as const },
-  { id: 'v2', label: 'V2', name: 'Modern Tech', href: '/design/specialista/v2' as const },
-  { id: 'v3', label: 'V3', name: 'Quiet Luxury', href: '/design/specialista/v3' as const },
-  { id: 'v4', label: 'V4', name: 'Bold Fintech', href: '/design/specialista/v4' as const },
-  { id: 'v5', label: 'V5', name: 'Print Editorial', href: '/design/specialista/v5' as const },
+  { id: 'v0', label: 'V0', name: 'Originál', href: '/specialista/design/v0' as const },
+  { id: 'v1', label: 'V1', name: 'Trusted Authority', href: '/specialista/design/v1' as const },
+  { id: 'v2', label: 'V2', name: 'Modern Tech', href: '/specialista/design/v2' as const },
+  { id: 'v3', label: 'V3', name: 'Quiet Luxury', href: '/specialista/design/v3' as const },
+  { id: 'v4', label: 'V4', name: 'Bold Fintech', href: '/specialista/design/v4' as const },
+  { id: 'v5', label: 'V5', name: 'Print Editorial', href: '/specialista/design/v5' as const },
 ] as const;
 
 export function SpecialistaSwitcher() {
@@ -28,7 +28,7 @@ export function SpecialistaSwitcher() {
     >
       <div className="flex items-center gap-1 rounded-full border border-white/10 bg-neutral-900/90 p-1.5 shadow-2xl backdrop-blur-xl">
         <Link
-          href="/design/specialista"
+          href="/specialista/design"
           className="flex h-10 w-10 items-center justify-center rounded-full text-white/60 transition-colors hover:bg-white/10 hover:text-white"
           aria-label="Späť na prehľad profile variantov"
         >

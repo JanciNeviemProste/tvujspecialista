@@ -126,13 +126,13 @@ export default function DesignIndexPage() {
               🏠 Homepage
             </Link>
             <Link
-              href="/design/registrace"
+              href="/profi/registrace/design"
               className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-5 py-2.5 text-sm font-semibold text-indigo-900 transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200"
             >
               ✍️ Registrácia špecialistu →
             </Link>
             <Link
-              href="/design/specialista"
+              href="/specialista/design"
               className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-5 py-2.5 text-sm font-semibold text-amber-900 transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200"
             >
               👤 Profil špecialistu →
