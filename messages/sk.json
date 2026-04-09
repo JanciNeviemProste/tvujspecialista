@@ -139,7 +139,7 @@
     "v2": {
       "hero": {
         "eyebrow": "Marketplace · 2026",
-        "title": "Najlepší <serif>špecialisti</serif>, ktorým môžete naozaj veriť.",
+        "title": "NNajlepší <serif>špecialisti</serif>, ktorým môžete naozaj veriť.",
         "subtitle": "Porovnajte hodnotenia, prečítajte overené recenzie a nájdite toho pravého finančného poradcu alebo realitného makléra — úplne zadarmo.",
         "ctaPrimary": "Nájsť špecialistu",
         "ctaSecondary": "Som špecialista",
@@ -172,10 +172,22 @@
           "description": "Finanční poradcovia, realitní makléri a hypotekárni špecialisti zo všetkých regiónov ČR a SR.",
           "trend": "+312 za posledný mesiac"
         },
-        "cell1": { "value": "98%", "label": "Spokojnosť klientov" },
-        "cell2": { "value": "15K+", "label": "Spárovaní mesačne" },
-        "cell3": { "value": "4.9", "label": "Priemerné hodnotenie" },
-        "cell4": { "value": "<24h", "label": "Priemerná odpoveď" }
+        "cell1": {
+          "value": "98%",
+          "label": "Spokojnosť klientov"
+        },
+        "cell2": {
+          "value": "15K+",
+          "label": "Spárovaní mesačne"
+        },
+        "cell3": {
+          "value": "4.9",
+          "label": "Priemerné hodnotenie"
+        },
+        "cell4": {
+          "value": "<24h",
+          "label": "Priemerná odpoveď"
+        }
       }
     },
     "hero": {
@@ -1035,9 +1047,7 @@
       "stats": {
         "total": "Celkom",
         "new": "Nové",
-        "inProgress": "V procese",
-        "won": "Získané",
-        "value": "Hodnota"
+        "accepted": "V CRM"
       },
       "showAnalytics": "Zobraziť analytiku",
       "hideAnalytics": "Skryť analytiku",
@@ -1141,11 +1151,6 @@
         "moveToCrm": "Presunúť do CRM",
         "crmError": "Chyba CRM"
       },
-      "stats": {
-        "total": "Celkom",
-        "new": "Nové",
-        "accepted": "V CRM"
-      },
       "kanban": {
         "columnNew": "Nový lead",
         "columnCrm": "Presunuté do CRM"
@@ -1220,7 +1225,7 @@
         "createFirstCourse": "Vytvoriť prvý kurz",
         "published": "Publikovaný",
         "hidden": "Skrytý",
-        "courseStats": "{modules} modulov \u00b7 {lessons} lekcií \u00b7 {enrolled} zapísaných",
+        "courseStats": "{modules} modulov · {lessons} lekcií · {enrolled} zapísaných",
         "showStudents": "Zobraziť študentov",
         "content": "Obsah",
         "editAction": "Upraviť",
