@@ -1,5 +1,6 @@
 import { Link } from '@/i18n/routing';
-import { ArrowUpRight, UserPlus, Sparkles } from 'lucide-react';
+import { ArrowUpRight, UserPlus } from 'lucide-react';
+import { BrandMark } from '@/components/shared/BrandMark';
 
 const VARIANTS = [
   {
@@ -79,9 +80,7 @@ export default function RegistraceDesignIndexPage() {
       <div className="sticky top-0 z-50 border-b border-neutral-200 bg-white/80 backdrop-blur-xl dark:border-neutral-800 dark:bg-neutral-950/80">
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-amber-500">
-              <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} />
-            </div>
+            <BrandMark size="md" />
             <div>
               <div className="text-sm font-bold text-neutral-900 dark:text-white">tvujspecialista.cz</div>
               <div className="text-xs text-neutral-500 dark:text-neutral-400">Registration Concepts · April 2026</div>
