@@ -3,54 +3,54 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Light mode - Premium colors */
+  /* Light mode - Trusted Authority */
   --background: 0 0% 100%;
-  --foreground: 0 0% 9%; /* neutral-900 */
+  --foreground: 240 10% 9%;
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 9%;
+  --card-foreground: 240 10% 9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 9%;
-  --primary: 217 91% 60%; /* blue-500 */
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 96%; /* neutral-100 */
-  --secondary-foreground: 0 0% 9%;
-  --muted: 0 0% 96%;
-  --muted-foreground: 0 0% 45%; /* neutral-500 */
-  --accent: 38 92% 50%; /* gold-500 */
-  --accent-foreground: 0 0% 9%;
+  --popover-foreground: 240 10% 9%;
+  --primary: 244 79% 59%; /* Indigo #4F46E5 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 5% 96%;
+  --secondary-foreground: 240 10% 9%;
+  --muted: 240 5% 96%;
+  --muted-foreground: 240 5% 45%;
+  --accent: 36 93% 45%; /* Refined Amber #D97706 */
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 90%; /* neutral-200 */
-  --input: 0 0% 90%;
-  --ring: 217 91% 60%;
-  --radius: 0.75rem;
+  --border: 240 5% 90%;
+  --input: 240 5% 90%;
+  --ring: 244 79% 59%;
+  --radius: 0.625rem;
 
-  /* Premium shadows */
-  --shadow-premium: 0 4px 14px 0 rgba(245, 158, 11, 0.39);
-  --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  /* Trusted Authority shadows */
+  --shadow-premium: 0 4px 14px 0 rgba(217, 119, 6, 0.32);
+  --shadow-glass: 0 8px 32px 0 rgba(79, 70, 229, 0.12);
 }
 
 .dark {
-  /* Dark mode - Premium dark colors */
-  --background: 0 0% 4%; /* #0a0a0a */
-  --foreground: 0 0% 98%; /* neutral-50 */
-  --card: 0 0% 9%; /* neutral-900 */
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 4%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 217 91% 60%; /* blue-500 */
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 15%; /* dark neutral */
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 65%; /* lighter gray */
-  --accent: 38 92% 50%; /* gold-500 */
-  --accent-foreground: 0 0% 9%;
+  /* Dark mode - Trusted Authority (deep navy-black base) */
+  --background: 240 10% 5%; /* #0C0C14 */
+  --foreground: 240 5% 98%;
+  --card: 240 10% 8%;
+  --card-foreground: 240 5% 98%;
+  --popover: 240 10% 5%;
+  --popover-foreground: 240 5% 98%;
+  --primary: 244 79% 64%; /* Indigo slightly lighter for dark mode contrast */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 240 10% 15%;
+  --secondary-foreground: 240 5% 98%;
+  --muted: 240 10% 15%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 36 93% 50%; /* Amber slightly brighter in dark mode */
+  --accent-foreground: 240 10% 5%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 98%;
-  --border: 0 0% 15%; /* darker border */
-  --input: 0 0% 15%;
-  --ring: 217 91% 60%;
+  --border: 240 10% 18%;
+  --input: 240 10% 18%;
+  --ring: 244 79% 64%;
 }
 
 * {
@@ -60,21 +60,21 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: var(--font-sans), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
 
-/* Premium gradient backgrounds */
+/* Trusted Authority gradient backgrounds */
 .gradient-premium {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  background: linear-gradient(135deg, #D97706 0%, #b45309 100%);
 }
 
 .gradient-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
 }
 
 .gradient-hero {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #f59e0b 100%);
+  background: linear-gradient(135deg, #312e81 0%, #4F46E5 50%, #D97706 100%);
   background-size: 200% 200%;
 }
 
@@ -85,7 +85,7 @@ body {
 }
 
 .hero-gradient-animate {
-  background: linear-gradient(135deg, hsl(217 91% 95%) 0%, hsl(0 0% 100%) 40%, hsl(38 92% 95%) 100%);
+  background: linear-gradient(135deg, hsl(244 79% 96%) 0%, hsl(0 0% 100%) 40%, hsl(36 93% 95%) 100%);
   background-size: 200% 200%;
   animation: hero-gradient 8s ease infinite;
 }
@@ -103,8 +103,8 @@ body {
 }
 
 .dark .glass {
-  background: rgba(23, 23, 23, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(12, 12, 20, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Premium card hover effect */
@@ -163,6 +163,324 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ============================================
+   DESIGN VARIANTS — scoped palette overrides
+   Applied via [data-theme="v2"] wrapper
+   ============================================ */
+
+/* V2 — Modern Tech (Emerald + Slate, Geist) */
+[data-theme="v2"] {
+  --background: 0 0% 100%;
+  --foreground: 215 28% 17%;
+  --card: 0 0% 100%;
+  --card-foreground: 215 28% 17%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 215 28% 17%;
+  --primary: 160 84% 39%; /* Emerald #10b981 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 215 28% 17%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215 16% 47%;
+  --accent: 215 28% 17%; /* Slate */
+  --accent-foreground: 0 0% 100%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 160 84% 39%;
+  --radius: 0.5rem;
+  font-family: var(--font-v2-sans), ui-sans-serif, system-ui, sans-serif;
+}
+[data-theme="v2"].dark,
+.dark [data-theme="v2"] {
+  --background: 222 47% 5%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 8%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 47% 5%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 160 84% 45%;
+  --primary-foreground: 222 47% 5%;
+  --secondary: 217 33% 17%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  --accent: 210 40% 98%;
+  --accent-foreground: 222 47% 5%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  --ring: 160 84% 45%;
+}
+
+/* V3 — Quiet Luxury (Charcoal + Champagne, Fraunces + Inter Tight) */
+[data-theme="v3"] {
+  --background: 30 20% 98%;
+  --foreground: 0 0% 6%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 6%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 6%;
+  --primary: 0 0% 6%; /* Charcoal */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 30 15% 94%;
+  --secondary-foreground: 0 0% 6%;
+  --muted: 30 15% 94%;
+  --muted-foreground: 0 0% 40%;
+  --accent: 37 38% 60%; /* Champagne #c9a96e */
+  --accent-foreground: 0 0% 6%;
+  --border: 30 15% 88%;
+  --input: 30 15% 88%;
+  --ring: 37 38% 60%;
+  --radius: 0rem;
+  font-family: var(--font-v3-sans), ui-sans-serif, system-ui, sans-serif;
+}
+[data-theme="v3"].dark,
+.dark [data-theme="v3"] {
+  --background: 0 0% 5%;
+  --foreground: 30 20% 94%;
+  --card: 0 0% 8%;
+  --card-foreground: 30 20% 94%;
+  --popover: 0 0% 5%;
+  --popover-foreground: 30 20% 94%;
+  --primary: 37 38% 60%;
+  --primary-foreground: 0 0% 5%;
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 30 20% 94%;
+  --muted: 0 0% 12%;
+  --muted-foreground: 30 10% 65%;
+  --accent: 37 38% 60%;
+  --accent-foreground: 0 0% 5%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 37 38% 60%;
+}
+
+/* V4 — Bold Fintech (Violet + Lime, Space Grotesk) */
+[data-theme="v4"] {
+  --background: 0 0% 100%;
+  --foreground: 263 70% 8%;
+  --card: 0 0% 100%;
+  --card-foreground: 263 70% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 263 70% 8%;
+  --primary: 263 70% 50%; /* Violet #6d28d9 */
+  --primary-foreground: 0 0% 100%;
+  --secondary: 263 30% 96%;
+  --secondary-foreground: 263 70% 8%;
+  --muted: 263 30% 96%;
+  --muted-foreground: 263 15% 40%;
+  --accent: 83 74% 50%; /* Lime #84cc16 */
+  --accent-foreground: 263 70% 8%;
+  --border: 263 20% 88%;
+  --input: 263 20% 88%;
+  --ring: 263 70% 50%;
+  --radius: 1.5rem;
+  font-family: var(--font-v4-sans), ui-sans-serif, system-ui, sans-serif;
+}
+[data-theme="v4"].dark,
+.dark [data-theme="v4"] {
+  --background: 263 70% 5%;
+  --foreground: 0 0% 98%;
+  --card: 263 60% 10%;
+  --card-foreground: 0 0% 98%;
+  --popover: 263 70% 5%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 263 80% 65%;
+  --primary-foreground: 263 70% 5%;
+  --secondary: 263 40% 15%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 263 40% 15%;
+  --muted-foreground: 263 15% 70%;
+  --accent: 83 80% 55%;
+  --accent-foreground: 263 70% 5%;
+  --border: 263 30% 20%;
+  --input: 263 30% 20%;
+  --ring: 263 80% 65%;
+}
+
+/* V5 — Print Editorial (Cream + Ink, Fraunces) */
+[data-theme="v5"] {
+  --background: 40 33% 96%; /* Cream #faf6ef */
+  --foreground: 0 0% 4%;
+  --card: 40 33% 98%;
+  --card-foreground: 0 0% 4%;
+  --popover: 40 33% 98%;
+  --popover-foreground: 0 0% 4%;
+  --primary: 0 0% 4%; /* Ink */
+  --primary-foreground: 40 33% 96%;
+  --secondary: 40 25% 92%;
+  --secondary-foreground: 0 0% 4%;
+  --muted: 40 25% 92%;
+  --muted-foreground: 0 0% 35%;
+  --accent: 12 76% 52%; /* Rust accent */
+  --accent-foreground: 40 33% 96%;
+  --border: 40 20% 85%;
+  --input: 40 20% 85%;
+  --ring: 0 0% 4%;
+  --radius: 0rem;
+  font-family: var(--font-v5-sans), ui-sans-serif, system-ui, sans-serif;
+}
+[data-theme="v5"].dark,
+.dark [data-theme="v5"] {
+  --background: 0 0% 6%;
+  --foreground: 40 33% 94%;
+  --card: 0 0% 10%;
+  --card-foreground: 40 33% 94%;
+  --popover: 0 0% 6%;
+  --popover-foreground: 40 33% 94%;
+  --primary: 40 33% 94%;
+  --primary-foreground: 0 0% 6%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 40 33% 94%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 40 15% 65%;
+  --accent: 12 76% 55%;
+  --accent-foreground: 40 33% 94%;
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 40 33% 94%;
+}
+
+/* Per-variant display-serif font overrides */
+[data-theme="v3"] .text-display-serif,
+[data-theme="v5"] .text-display-serif {
+  font-family: var(--font-display-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* ============================================
+   PREMIUM REDESIGN UTILITIES (Phase 3)
+   ============================================ */
+
+/* Editorial serif italic — display headlines */
+.text-serif-italic {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+/* Text balance for big headlines */
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Animated gradient mesh background — light mode */
+.gradient-mesh-light {
+  background-color: hsl(0 0% 100%);
+  background-image:
+    radial-gradient(at 20% 20%, hsla(244, 79%, 92%, 0.6) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(36, 93%, 90%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 0% 80%, hsla(244, 79%, 96%, 0.6) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(36, 93%, 95%, 0.5) 0px, transparent 50%);
+}
+
+/* Animated gradient mesh background — dark mode */
+.gradient-mesh-dark {
+  background-color: hsl(240 10% 5%);
+  background-image:
+    radial-gradient(at 20% 20%, hsla(244, 79%, 30%, 0.4) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(36, 93%, 25%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 80%, hsla(244, 79%, 25%, 0.35) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(36, 93%, 20%, 0.25) 0px, transparent 50%);
+}
+
+.dark .gradient-mesh {
+  background-color: hsl(240 10% 5%);
+  background-image:
+    radial-gradient(at 20% 20%, hsla(244, 79%, 30%, 0.4) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(36, 93%, 25%, 0.3) 0px, transparent 50%),
+    radial-gradient(at 0% 80%, hsla(244, 79%, 25%, 0.35) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(36, 93%, 20%, 0.25) 0px, transparent 50%);
+}
+
+.gradient-mesh {
+  background-color: hsl(0 0% 100%);
+  background-image:
+    radial-gradient(at 20% 20%, hsla(244, 79%, 92%, 0.6) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(36, 93%, 90%, 0.5) 0px, transparent 50%),
+    radial-gradient(at 0% 80%, hsla(244, 79%, 96%, 0.6) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, hsla(36, 93%, 95%, 0.5) 0px, transparent 50%);
+}
+
+/* Subtle grid overlay for hero backgrounds */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, hsla(240, 10%, 50%, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, hsla(240, 10%, 50%, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.dark .bg-grid {
+  background-image:
+    linear-gradient(to right, hsla(240, 10%, 80%, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, hsla(240, 10%, 80%, 0.04) 1px, transparent 1px);
+}
+
+/* Gradient border using mask-composite trick (works on all modern browsers) */
+.gradient-border {
+  position: relative;
+  background-clip: padding-box;
+  border: 1px solid transparent;
+}
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  margin: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, hsl(244 79% 59%), hsl(36 93% 45%));
+}
+
+/* Premium glass morphism — more refined than .glass */
+.glass-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(255, 255, 255, 0.65) 100%
+  );
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(15, 15, 25, 0.08);
+}
+
+.dark .glass-premium {
+  background: linear-gradient(
+    135deg,
+    rgba(20, 20, 32, 0.7) 0%,
+    rgba(12, 12, 20, 0.5) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* Marquee container — masks edges so logos fade in/out */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* Bento grid helper */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    gap: 1.5rem;
+  }
+}
+
+/* Tilted card 3D effect base */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Sonner toast close button — top right corner */

@@ -21,6 +21,8 @@
       "forSpecialists": "For specialists",
       "logout": "Log out",
       "account": "Account",
+      "loginSubtitle": "Return to dashboard",
+      "registerSubtitle": "Free · 2 minutes",
       "specialistDropdown": {
         "login": "Log in",
         "loginDesc": "I already have a specialist account",
@@ -134,6 +136,42 @@
     }
   },
   "home": {
+    "v2": {
+      "hero": {
+        "eyebrow": "Marketplace · 2026",
+        "title": "The best <serif>specialists</serif> you can truly trust.",
+        "subtitle": "Compare ratings, read verified reviews and find the right financial advisor or real estate agent — completely free.",
+        "ctaPrimary": "Find a specialist",
+        "ctaSecondary": "I'm a specialist",
+        "trustNumber": "2,500+ specialists",
+        "trustLabel": "in our network",
+        "reviewsLabel": "from 15,000+ reviews",
+        "verifiedLabel": "100% verified",
+        "chipReviews": "Rating",
+        "chipVerified": "Verified",
+        "chipVerifiedSub": "ID + certifications",
+        "chipTop": "TOP",
+        "chipTopSub": "Specialist 2026"
+      },
+      "trust": {
+        "label": "Trusted by"
+      },
+      "stats": {
+        "eyebrow": "Numbers that speak",
+        "title": "A marketplace that <serif>works</serif>",
+        "subtitle": "Thousands of specialists and clients have already found what they were looking for.",
+        "featured": {
+          "value": "2,500+",
+          "label": "Active specialists",
+          "description": "Financial advisors, real estate agents and mortgage specialists from all regions of CZ and SK.",
+          "trend": "+312 in the last month"
+        },
+        "cell1": { "value": "98%", "label": "Client satisfaction" },
+        "cell2": { "value": "15K+", "label": "Matches per month" },
+        "cell3": { "value": "4.9", "label": "Average rating" },
+        "cell4": { "value": "<24h", "label": "Average response" }
+      }
+    },
     "hero": {
       "title": "Find a verified specialist — risk-free, stress-free",
       "subtitle": "Compare ratings, read verified reviews and contact the best financial advisors and real estate agents near you. Completely free of charge.",

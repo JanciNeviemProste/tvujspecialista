@@ -21,6 +21,8 @@
       "forSpecialists": "Dla specjalistów",
       "logout": "Wyloguj się",
       "account": "Konto",
+      "loginSubtitle": "Wróć do dashboardu",
+      "registerSubtitle": "Za darmo · 2 minuty",
       "specialistDropdown": {
         "login": "Zaloguj się",
         "loginDesc": "Mam już konto specjalisty",
@@ -134,6 +136,42 @@
     }
   },
   "home": {
+    "v2": {
+      "hero": {
+        "eyebrow": "Marketplace · 2026",
+        "title": "Najlepsi <serif>specjaliści</serif>, którym możesz naprawdę zaufać.",
+        "subtitle": "Porównaj oceny, przeczytaj zweryfikowane opinie i znajdź odpowiedniego doradcę finansowego lub pośrednika nieruchomości — całkowicie za darmo.",
+        "ctaPrimary": "Znajdź specjalistę",
+        "ctaSecondary": "Jestem specjalistą",
+        "trustNumber": "2 500+ specjalistów",
+        "trustLabel": "w naszej sieci",
+        "reviewsLabel": "z 15 000+ opinii",
+        "verifiedLabel": "100% zweryfikowane",
+        "chipReviews": "Ocena",
+        "chipVerified": "Zweryfikowany",
+        "chipVerifiedSub": "ID + certyfikaty",
+        "chipTop": "TOP",
+        "chipTopSub": "Specjalista 2026"
+      },
+      "trust": {
+        "label": "Zaufali nam"
+      },
+      "stats": {
+        "eyebrow": "Liczby, które mówią",
+        "title": "Marketplace, który <serif>działa</serif>",
+        "subtitle": "Tysiące specjalistów i klientów już znalazło to, czego szukali.",
+        "featured": {
+          "value": "2 500+",
+          "label": "Aktywnych specjalistów",
+          "description": "Doradcy finansowi, pośrednicy nieruchomości i specjaliści hipoteczni ze wszystkich regionów CZ i SK.",
+          "trend": "+312 w ostatnim miesiącu"
+        },
+        "cell1": { "value": "98%", "label": "Satysfakcja klientów" },
+        "cell2": { "value": "15K+", "label": "Dopasowań miesięcznie" },
+        "cell3": { "value": "4.9", "label": "Średnia ocena" },
+        "cell4": { "value": "<24h", "label": "Średnia odpowiedź" }
+      }
+    },
     "hero": {
       "title": "Znajdź zweryfikowanego specjalistę — bez ryzyka, bez stresu",
       "subtitle": "Porównaj oceny, przeczytaj zweryfikowane opinie i skontaktuj się z najlepszymi doradcami finansowymi oraz pośrednikami nieruchomości w Twojej okolicy. Całkowicie bezpłatnie.",

@@ -21,6 +21,8 @@
       "forSpecialists": "Pro specialisty",
       "logout": "Odhlásit se",
       "account": "Účet",
+      "loginSubtitle": "Vrátit se do dashboardu",
+      "registerSubtitle": "Zdarma · 2 minuty",
       "specialistDropdown": {
         "login": "Přihlásit se",
         "loginDesc": "Už mám účet specialisty",
@@ -134,6 +136,42 @@
     }
   },
   "home": {
+    "v2": {
+      "hero": {
+        "eyebrow": "Marketplace · 2026",
+        "title": "Najlepší <serif>specialisté</serif>, kterým můžete naozaj věřit.",
+        "subtitle": "Porovnejte hodnocení, přečtěte ověřené recenze a najděte toho pravého finančního poradce nebo realitního makléře — zcela zdarma.",
+        "ctaPrimary": "Najít specialistu",
+        "ctaSecondary": "Jsem specialista",
+        "trustNumber": "2 500+ specialistů",
+        "trustLabel": "v naší síti",
+        "reviewsLabel": "z 15 000+ recenzí",
+        "verifiedLabel": "100% ověřeno",
+        "chipReviews": "Hodnocení",
+        "chipVerified": "Ověřený",
+        "chipVerifiedSub": "ID + certifikace",
+        "chipTop": "TOP",
+        "chipTopSub": "Specialista 2026"
+      },
+      "trust": {
+        "label": "Důvěřuje nám"
+      },
+      "stats": {
+        "eyebrow": "Čísla, která mluví",
+        "title": "Marketplace, který <serif>funguje</serif>",
+        "subtitle": "Tisíce specialistů a klientů již našli to, co hledali.",
+        "featured": {
+          "value": "2 500+",
+          "label": "Aktivních specialistů",
+          "description": "Finanční poradci, realitní makléři a hypoteční specialisté ze všech regionů ČR a SR.",
+          "trend": "+312 za poslední měsíc"
+        },
+        "cell1": { "value": "98%", "label": "Spokojenost klientů" },
+        "cell2": { "value": "15K+", "label": "Spárování měsíčně" },
+        "cell3": { "value": "4.9", "label": "Průměrné hodnocení" },
+        "cell4": { "value": "<24h", "label": "Průměrná odpověď" }
+      }
+    },
     "hero": {
       "title": "Najděte ověřeného specialistu — bez rizika, bez stresu",
       "subtitle": "Porovnejte hodnocení, přečtěte si ověřené recenze a kontaktujte ty nejlepší finanční poradce a realitní makléře ve vašem okolí. Zcela bezplatně.",

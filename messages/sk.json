@@ -21,6 +21,8 @@
       "forSpecialists": "Pre špecialistov",
       "logout": "Odhlásiť sa",
       "account": "Účet",
+      "loginSubtitle": "Vrátiť sa do dashboardu",
+      "registerSubtitle": "Zadarmo · 2 minúty",
       "specialistDropdown": {
         "login": "Prihlásiť sa",
         "loginDesc": "Už mám účet špecialistu",
@@ -134,6 +136,42 @@
     }
   },
   "home": {
+    "v2": {
+      "hero": {
+        "eyebrow": "Marketplace · 2026",
+        "title": "Najlepší <serif>špecialisti</serif>, ktorým môžete naozaj veriť.",
+        "subtitle": "Porovnajte hodnotenia, prečítajte overené recenzie a nájdite toho pravého finančného poradcu alebo realitného makléra — úplne zadarmo.",
+        "ctaPrimary": "Nájsť špecialistu",
+        "ctaSecondary": "Som špecialista",
+        "trustNumber": "2 500+ špecialistov",
+        "trustLabel": "v našej sieti",
+        "reviewsLabel": "z 15 000+ recenzií",
+        "verifiedLabel": "100% overené",
+        "chipReviews": "Hodnotenie",
+        "chipVerified": "Overený",
+        "chipVerifiedSub": "ID + certifikácie",
+        "chipTop": "TOP",
+        "chipTopSub": "Špecialista 2026"
+      },
+      "trust": {
+        "label": "Dôverujú nám"
+      },
+      "stats": {
+        "eyebrow": "Čísla, ktoré hovoria",
+        "title": "Marketplace, ktorý <serif>funguje</serif>",
+        "subtitle": "Tisíce špecialistov a klientov už našli to, čo hľadali.",
+        "featured": {
+          "value": "2 500+",
+          "label": "Aktívnych špecialistov",
+          "description": "Finanční poradcovia, realitní makléri a hypotekárni špecialisti zo všetkých regiónov ČR a SR.",
+          "trend": "+312 za posledný mesiac"
+        },
+        "cell1": { "value": "98%", "label": "Spokojnosť klientov" },
+        "cell2": { "value": "15K+", "label": "Spárovaní mesačne" },
+        "cell3": { "value": "4.9", "label": "Priemerné hodnotenie" },
+        "cell4": { "value": "<24h", "label": "Priemerná odpoveď" }
+      }
+    },
     "hero": {
       "title": "Nájdite overeného špecialistu — bez rizika, bez stresu",
       "subtitle": "Porovnajte hodnotenia, prečítajte si overené recenzie a kontaktujte tých najlepších finančných poradcov a realitných maklérov vo vašom okolí. Úplne bezplatne.",
