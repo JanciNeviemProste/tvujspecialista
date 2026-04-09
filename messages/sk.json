@@ -151,7 +151,13 @@
         "chipVerified": "Overený",
         "chipVerifiedSub": "ID + certifikácie",
         "chipTop": "TOP",
-        "chipTopSub": "Špecialista 2026"
+        "chipTopSub": "Špecialista 2026",
+        "preview": {
+          "name": "Eva Nováková",
+          "category": "Finančná poradkyňa",
+          "location": "Bratislava",
+          "bio": "Špecializácia na hypotéky a investície pre mladé rodiny. 12 rokov praxe."
+        }
       },
       "trust": {
         "label": "Dôverujú nám"

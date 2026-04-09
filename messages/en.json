@@ -151,7 +151,13 @@
         "chipVerified": "Verified",
         "chipVerifiedSub": "ID + certifications",
         "chipTop": "TOP",
-        "chipTopSub": "Specialist 2026"
+        "chipTopSub": "Specialist 2026",
+        "preview": {
+          "name": "Eva Nováková",
+          "category": "Financial Advisor",
+          "location": "Prague",
+          "bio": "Specializing in mortgages and investments for young families. 12 years of experience."
+        }
       },
       "trust": {
         "label": "Trusted by"

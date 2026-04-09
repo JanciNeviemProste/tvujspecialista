@@ -6,18 +6,7 @@ import { motion, type Variants } from 'framer-motion';
 import { ArrowRight, Search, Star, ShieldCheck } from 'lucide-react';
 import { SpecialistCardV2 } from '@/components/shared/SpecialistCardV2';
 
-const heroPreviewSpecialist = {
-  slug: 'eva-novakova',
-  name: 'Eva Nováková',
-  photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80',
-  verified: true,
-  topSpecialist: true,
-  category: 'Finanční poradkyně',
-  location: 'Praha',
-  rating: 4.9,
-  reviewsCount: 127,
-  bio: 'Specializace na hypotéky a investice pro mladé rodiny. 12 let zkušeností.',
-};
+const PREVIEW_PHOTO = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -36,6 +25,20 @@ const fadeUp: Variants = {
 
 export function HeroEditorial() {
   const t = useTranslations('home.v2.hero');
+  const tPreview = useTranslations('home.v2.hero.preview');
+
+  const heroPreviewSpecialist = {
+    slug: 'eva-novakova',
+    name: tPreview('name'),
+    photo: PREVIEW_PHOTO,
+    verified: true,
+    topSpecialist: true,
+    category: tPreview('category'),
+    location: tPreview('location'),
+    rating: 4.9,
+    reviewsCount: 127,
+    bio: tPreview('bio'),
+  };
 
   return (
     <section className="relative overflow-hidden">
@@ -168,7 +171,7 @@ export function HeroEditorial() {
             </motion.div>
           </div>
 
-          {/* RIGHT — Floating specialist preview card (40%) */}
+          {/* RIGHT — Specialist preview card (40%) */}
           <div className="relative lg:col-span-5">
             <motion.div
               initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -176,56 +179,6 @@ export function HeroEditorial() {
               transition={{ delay: 0.4, duration: 1, ease: EASE_OUT_EXPO }}
               className="relative mx-auto w-full max-w-[380px] px-2 sm:px-0 lg:max-w-none lg:px-4"
             >
-              {/* Floating chip — rating (top right, outside card) */}
-              <motion.div
-                initial={{ opacity: 0, y: -16, x: 16 }}
-                animate={{ opacity: 1, y: 0, x: 0 }}
-                transition={{ delay: 0.9, duration: 0.6, ease: EASE_OUT_EXPO }}
-                className="absolute right-0 top-6 z-20 hidden lg:block"
-              >
-                <div className="glass-premium animate-float rounded-2xl px-4 py-3 shadow-elevation-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15">
-                      <Star className="h-4 w-4 fill-accent text-accent" strokeWidth={0} />
-                    </div>
-                    <div>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-xl font-bold leading-none text-foreground">4.9</span>
-                        <span className="text-xs text-muted-foreground">/ 5</span>
-                      </div>
-                      <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                        {t('chipReviews')}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Floating chip — verified (bottom left, outside card) */}
-              <motion.div
-                initial={{ opacity: 0, y: 16, x: -16 }}
-                animate={{ opacity: 1, y: 0, x: 0 }}
-                transition={{ delay: 1.1, duration: 0.6, ease: EASE_OUT_EXPO }}
-                className="absolute -bottom-4 left-0 z-20 hidden lg:block"
-                style={{ animationDelay: '2s' }}
-              >
-                <div className="glass-premium animate-float rounded-2xl px-4 py-3 shadow-elevation-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15">
-                      <ShieldCheck className="h-4 w-4 text-primary" strokeWidth={2.5} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold leading-none text-foreground">
-                        {t('chipVerified')}
-                      </div>
-                      <div className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                        {t('chipVerifiedSub')}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
               <SpecialistCardV2 specialist={heroPreviewSpecialist} tilt />
             </motion.div>
           </div>

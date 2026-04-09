@@ -151,7 +151,13 @@
         "chipVerified": "Zweryfikowany",
         "chipVerifiedSub": "ID + certyfikaty",
         "chipTop": "TOP",
-        "chipTopSub": "Specjalista 2026"
+        "chipTopSub": "Specjalista 2026",
+        "preview": {
+          "name": "Eva Nováková",
+          "category": "Doradca finansowy",
+          "location": "Praga",
+          "bio": "Specjalizacja w kredytach hipotecznych i inwestycjach dla młodych rodzin. 12 lat doświadczenia."
+        }
       },
       "trust": {
         "label": "Zaufali nam"

@@ -95,28 +95,28 @@ export const SpecialistCardV2 = memo(function SpecialistCardV2({
         {/* Bottom gradient for content overlay */}
         <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/85 via-black/50 to-transparent" />
 
-        {/* Badges */}
+        {/* Badges — always white bg + dark text regardless of theme (overlay on photo) */}
         <div className="absolute left-4 top-4 flex flex-wrap gap-2">
           {specialist.verified && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-foreground backdrop-blur-md">
-              <ShieldCheck className="h-3 w-3 text-primary" strokeWidth={3} />
+            <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-neutral-900 backdrop-blur-md">
+              <ShieldCheck className="h-3 w-3 text-indigo-600" strokeWidth={3} />
               {tCommon('status.verified')}
             </span>
           )}
           {specialist.topSpecialist && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-accent to-accent/80 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-premium">
+            <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-premium">
               <Sparkles className="h-3 w-3" strokeWidth={3} />
               {tCommon('status.top')}
             </span>
           )}
         </div>
 
-        {/* Rating chip top right */}
-        <div className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-xs font-bold text-foreground backdrop-blur-md">
-          <Star className="h-3 w-3 fill-accent text-accent" />
+        {/* Rating chip top right — always white bg + dark text (overlay on photo) */}
+        <div className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-xs font-bold text-neutral-900 backdrop-blur-md">
+          <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
           {specialist.rating.toFixed(1)}
-          <span className="text-muted-foreground">·</span>
-          <span className="text-muted-foreground">{specialist.reviewsCount}</span>
+          <span className="text-neutral-500">·</span>
+          <span className="text-neutral-500">{specialist.reviewsCount}</span>
         </div>
 
         {/* Bottom content overlay */}

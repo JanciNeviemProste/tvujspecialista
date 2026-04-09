@@ -151,7 +151,13 @@
         "chipVerified": "Ověřený",
         "chipVerifiedSub": "ID + certifikace",
         "chipTop": "TOP",
-        "chipTopSub": "Specialista 2026"
+        "chipTopSub": "Specialista 2026",
+        "preview": {
+          "name": "Eva Nováková",
+          "category": "Finanční poradkyně",
+          "location": "Praha",
+          "bio": "Specializace na hypotéky a investice pro mladé rodiny. 12 let zkušeností."
+        }
       },
       "trust": {
         "label": "Důvěřuje nám"
