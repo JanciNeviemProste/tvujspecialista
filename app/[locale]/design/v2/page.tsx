@@ -1,3 +1,4 @@
+import { HeaderV2 } from '@/components/design-variants/v2/HeaderV2';
 import { HeroV2 } from '@/components/design-variants/v2/HeroV2';
 import { CategoriesRowsV2 } from '@/components/design-variants/v2/Sections/CategoriesRowsV2';
 import { FeaturesGridV2 } from '@/components/design-variants/v2/Sections/FeaturesGridV2';
@@ -8,6 +9,7 @@ import { DesignSwitcher } from '@/components/design-variants/DesignSwitcher';
 export default function DesignV2Page() {
   return (
     <div data-theme="v2" className="min-h-screen bg-background pb-24">
+      <HeaderV2 />
       <HeroV2 />
       <CategoriesRowsV2 />
       <FeaturesGridV2 />

@@ -6,12 +6,15 @@
  * before the Trusted Authority redesign. Preserved verbatim (hardcoded blue/gray
  * classes included) so V0 shows the genuine "before" state to reviewers.
  *
- * The PublicHeader is intentionally omitted — the design showcase uses the
- * floating DesignSwitcher instead so reviewers can jump between variants.
+ * Uses the real PublicHeader component to give V0 full authentic pre-redesign
+ * navigation experience (ThemeToggle, LocaleSwitcher, "Jsem specialista"
+ * dropdown, MobileNav, NotificationBell). DesignSwitcher at bottom handles
+ * variant navigation; PublicHeader handles site navigation — no conflict.
  */
 
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/routing';
+import { PublicHeader } from '@/components/layout/PublicHeader';
 import { FAQ } from '@/components/home/FAQ';
 import { TestimonialCard } from '@/components/home/TestimonialCard';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
@@ -72,13 +75,8 @@ export function OriginalHomePage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-950" style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
-      {/* Minimal top nav for V0 showcase (no PublicHeader — DesignSwitcher at bottom handles variant navigation) */}
-      <header className="border-b border-gray-200 bg-white dark:bg-gray-900 dark:border-gray-800">
-        <div className="container mx-auto flex h-16 items-center px-4">
-          <div className="text-2xl font-bold text-blue-600">tvujspecialista.cz</div>
-          <div className="ml-auto text-xs text-gray-500 dark:text-gray-400">V0 · Pôvodná verzia</div>
-        </div>
-      </header>
+      {/* Real PublicHeader — authentic pre-redesign navigation */}
+      <PublicHeader />
 
       <main id="main-content">
         {/* 1. HERO */}

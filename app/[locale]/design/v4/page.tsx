@@ -1,3 +1,4 @@
+import { HeaderV4 } from '@/components/design-variants/v4/HeaderV4';
 import { HeroV4 } from '@/components/design-variants/v4/HeroV4';
 import { CategoriesV4 } from '@/components/design-variants/v4/Sections/CategoriesV4';
 import { FeaturesV4 } from '@/components/design-variants/v4/Sections/FeaturesV4';
@@ -8,6 +9,7 @@ import { DesignSwitcher } from '@/components/design-variants/DesignSwitcher';
 export default function DesignV4Page() {
   return (
     <div data-theme="v4" className="min-h-screen bg-background pb-24">
+      <HeaderV4 />
       <HeroV4 />
       <CategoriesV4 />
       <FeaturesV4 />

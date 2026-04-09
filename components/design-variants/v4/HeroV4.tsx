@@ -13,23 +13,7 @@ export function HeroV4() {
       className="relative min-h-screen overflow-hidden bg-background"
       style={{ fontFamily: 'var(--font-v4-sans), ui-sans-serif, system-ui, sans-serif' }}
     >
-      {/* Top nav bar */}
-      <div className="relative z-20 flex items-center justify-between px-6 py-6 lg:px-12">
-        <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary">
-            <Zap className="h-5 w-5 text-primary-foreground" strokeWidth={3} />
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">tvujspecialista</span>
-        </div>
-        <Link
-          href="/profi/registrace"
-          className="rounded-full bg-foreground px-6 py-3 text-sm font-bold text-background transition-all hover:bg-accent hover:text-accent-foreground"
-        >
-          Získať profil →
-        </Link>
-      </div>
-
-      {/* BIG OVERSIZED DISPLAY — breaks out of container */}
+      {/* BIG OVERSIZED DISPLAY — breaks out of container (nav handled by HeaderV4 above) */}
       <div className="relative">
         {/* Marquee diagonal tag behind */}
         <div className="pointer-events-none absolute -top-10 left-0 right-0 -rotate-2 overflow-hidden whitespace-nowrap">
