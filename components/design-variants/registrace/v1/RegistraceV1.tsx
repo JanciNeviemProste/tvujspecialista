@@ -21,7 +21,6 @@ import {
   Lock,
   Eye,
   EyeOff,
-  Sparkles,
 } from 'lucide-react';
 
 import { PremiumHeader } from '@/components/layout/PremiumHeader';
@@ -287,7 +286,17 @@ export function RegistraceV1() {
                 {/* Form header */}
                 <div className="mb-6 flex items-center gap-3">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent shadow-indigo">
-                    <Sparkles className="h-5 w-5 text-white" strokeWidth={2.5} />
+                    <span
+                      className="text-[2rem] italic leading-none text-white"
+                      style={{
+                        fontFamily: 'var(--font-serif), Georgia, serif',
+                        fontWeight: 400,
+                        marginTop: '-4px',
+                        marginLeft: '1px',
+                      }}
+                    >
+                      t
+                    </span>
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-foreground">Vytvoriť profil</h2>

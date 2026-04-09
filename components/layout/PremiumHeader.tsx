@@ -8,7 +8,7 @@ import { LocaleSwitcher } from '@/components/layout/LocaleSwitcher';
 import { MobileNav } from '@/components/layout/MobileNav';
 import { NotificationBell } from '@/components/shared/NotificationBell';
 import { ThemeToggle } from '@/components/theme-toggle';
-import { ChevronDown, LogIn, UserPlus, Sparkles } from 'lucide-react';
+import { ChevronDown, LogIn, UserPlus } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -73,9 +73,19 @@ export function PremiumHeader() {
             href="/"
             className="group flex items-center gap-2 font-bold tracking-tight"
           >
-            <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-primary to-accent shadow-indigo">
-              <Sparkles className="h-4 w-4 text-white" strokeWidth={2.5} />
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+            <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-primary to-accent shadow-indigo">
+              <span
+                className="text-[1.5rem] italic leading-none text-white"
+                style={{
+                  fontFamily: 'var(--font-serif), Georgia, serif',
+                  fontWeight: 400,
+                  marginTop: '-2px',
+                  marginLeft: '1px',
+                }}
+              >
+                t
+              </span>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
             </div>
             <span className={`text-lg transition-all duration-300 ${scrolled ? 'hidden sm:inline' : 'inline'}`}>
               tvuj<span className="text-primary">specialista</span>
