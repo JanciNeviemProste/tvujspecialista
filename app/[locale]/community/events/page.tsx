@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
@@ -66,7 +67,7 @@ export default function EventsCatalogPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
+          <h1 className="mb-2 text-4xl font-bold"><EditableText tKey="community.eventsCatalog.title">{t('title')}</EditableText></h1>
           <p className="text-lg text-gray-500">
             {isLoading ? (
               t('loading')
@@ -87,7 +88,7 @@ export default function EventsCatalogPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>{t('filters.title')}</CardTitle>
+                    <CardTitle><EditableText tKey="community.eventsCatalog.filters.title">{t('filters.title')}</EditableText></CardTitle>
                     {hasActiveFilters && (
                       <Button
                         variant="ghost"
@@ -95,7 +96,7 @@ export default function EventsCatalogPage() {
                         onClick={handleClearFilters}
                         className="h-auto p-0 text-xs hover:text-red-600"
                       >
-                        {t('filters.clear')}
+                        <EditableText tKey="community.eventsCatalog.filters.clear">{t('filters.clear')}</EditableText>
                       </Button>
                     )}
                   </div>
@@ -104,7 +105,7 @@ export default function EventsCatalogPage() {
                   {/* Search */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('filters.search')}
+                      <EditableText tKey="community.eventsCatalog.filters.search">{t('filters.search')}</EditableText>
                     </label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
@@ -129,52 +130,52 @@ export default function EventsCatalogPage() {
                   {/* Type Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('filters.eventType')}
+                      <EditableText tKey="community.eventsCatalog.filters.eventType">{t('filters.eventType')}</EditableText>
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.type}
                       onChange={(e) => setFilters({ ...filters, type: e.target.value as EventType | '' })}
                     >
-                      <option value="">{t('filters.allTypes')}</option>
-                      <option value={EventType.WORKSHOP}>{t('filters.typeWorkshop')}</option>
-                      <option value={EventType.NETWORKING}>{t('filters.typeNetworking')}</option>
-                      <option value={EventType.CONFERENCE}>{t('filters.typeConference')}</option>
-                      <option value={EventType.WEBINAR}>{t('filters.typeWebinar')}</option>
-                      <option value={EventType.MEETUP}>{t('filters.typeMeetup')}</option>
+                      <option value=""><EditableText tKey="community.eventsCatalog.filters.allTypes">{t('filters.allTypes')}</EditableText></option>
+                      <option value={EventType.WORKSHOP}><EditableText tKey="community.eventsCatalog.filters.typeWorkshop">{t('filters.typeWorkshop')}</EditableText></option>
+                      <option value={EventType.NETWORKING}><EditableText tKey="community.eventsCatalog.filters.typeNetworking">{t('filters.typeNetworking')}</EditableText></option>
+                      <option value={EventType.CONFERENCE}><EditableText tKey="community.eventsCatalog.filters.typeConference">{t('filters.typeConference')}</EditableText></option>
+                      <option value={EventType.WEBINAR}><EditableText tKey="community.eventsCatalog.filters.typeWebinar">{t('filters.typeWebinar')}</EditableText></option>
+                      <option value={EventType.MEETUP}><EditableText tKey="community.eventsCatalog.filters.typeMeetup">{t('filters.typeMeetup')}</EditableText></option>
                     </select>
                   </div>
 
                   {/* Format Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('filters.format')}
+                      <EditableText tKey="community.eventsCatalog.filters.format">{t('filters.format')}</EditableText>
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.format}
                       onChange={(e) => setFilters({ ...filters, format: e.target.value as EventFormat | '' })}
                     >
-                      <option value="">{t('filters.allFormats')}</option>
-                      <option value={EventFormat.ONLINE}>{t('filters.formatOnline')}</option>
-                      <option value={EventFormat.OFFLINE}>{t('filters.formatOffline')}</option>
+                      <option value=""><EditableText tKey="community.eventsCatalog.filters.allFormats">{t('filters.allFormats')}</EditableText></option>
+                      <option value={EventFormat.ONLINE}><EditableText tKey="community.eventsCatalog.filters.formatOnline">{t('filters.formatOnline')}</EditableText></option>
+                      <option value={EventFormat.OFFLINE}><EditableText tKey="community.eventsCatalog.filters.formatOffline">{t('filters.formatOffline')}</EditableText></option>
                     </select>
                   </div>
 
                   {/* Category Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('filters.category')}
+                      <EditableText tKey="community.eventsCatalog.filters.category">{t('filters.category')}</EditableText>
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as EventCategory | '' })}
                     >
-                      <option value="">{t('filters.allCategories')}</option>
-                      <option value={EventCategory.REAL_ESTATE}>{t('filters.catRealEstate')}</option>
-                      <option value={EventCategory.FINANCIAL}>{t('filters.catFinancial')}</option>
-                      <option value={EventCategory.BOTH}>{t('filters.catBoth')}</option>
+                      <option value=""><EditableText tKey="community.eventsCatalog.filters.allCategories">{t('filters.allCategories')}</EditableText></option>
+                      <option value={EventCategory.REAL_ESTATE}><EditableText tKey="community.eventsCatalog.filters.catRealEstate">{t('filters.catRealEstate')}</EditableText></option>
+                      <option value={EventCategory.FINANCIAL}><EditableText tKey="community.eventsCatalog.filters.catFinancial">{t('filters.catFinancial')}</EditableText></option>
+                      <option value={EventCategory.BOTH}><EditableText tKey="community.eventsCatalog.filters.catBoth">{t('filters.catBoth')}</EditableText></option>
                     </select>
                   </div>
 
@@ -188,7 +189,7 @@ export default function EventsCatalogPage() {
                         onChange={(e) => setFilters({ ...filters, featured: e.target.checked })}
                       />
                       <span className="text-sm font-medium">
-                        {t('filters.featuredOnly')}
+                        <EditableText tKey="community.eventsCatalog.filters.featuredOnly">{t('filters.featuredOnly')}</EditableText>
                       </span>
                     </label>
                   </div>
@@ -206,7 +207,7 @@ export default function EventsCatalogPage() {
             {error && (
               <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
                 <p className="text-red-600">
-                  {t('loadErrorLong')}
+                  <EditableText tKey="community.eventsCatalog.loadErrorLong">{t('loadErrorLong')}</EditableText>
                 </p>
               </div>
             )}
@@ -218,14 +219,14 @@ export default function EventsCatalogPage() {
                   <div className="rounded-lg border bg-white dark:bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
-                      {t('empty.title')}
+                      <EditableText tKey="community.eventsCatalog.empty.title">{t('empty.title')}</EditableText>
                     </h3>
                     <p className="text-gray-500 mb-4">
-                      {t('empty.description')}
+                      <EditableText tKey="community.eventsCatalog.empty.description">{t('empty.description')}</EditableText>
                     </p>
                     {hasActiveFilters && (
                       <Button variant="outline" onClick={handleClearFilters}>
-                        {t('empty.clearFilters')}
+                        <EditableText tKey="community.eventsCatalog.empty.clearFilters">{t('empty.clearFilters')}</EditableText>
                       </Button>
                     )}
                   </div>

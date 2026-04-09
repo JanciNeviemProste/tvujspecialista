@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { memo } from 'react'
@@ -41,12 +42,12 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
         <div className="absolute top-3 left-3 flex gap-2">
           {specialist.verified && (
             <span className="rounded-full bg-green-500/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-              {tCommon('status.verified')}
+              <EditableText tKey="common.status.verified">{tCommon('status.verified')}</EditableText>
             </span>
           )}
           {specialist.topSpecialist && (
             <span className="rounded-full bg-amber-500/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-              {tCommon('status.top')}
+              <EditableText tKey="common.status.top">{tCommon('status.top')}</EditableText>
             </span>
           )}
         </div>
@@ -67,7 +68,7 @@ export const SpecialistCard = memo(function SpecialistCard({ specialist }: Speci
           {specialist.bio}
         </p>
         <div className="rounded-lg bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors group-hover:bg-blue-700">
-          {tCommon('actions.contact')}
+          <EditableText tKey="common.actions.contact">{tCommon('actions.contact')}</EditableText>
         </div>
       </div>
     </a>

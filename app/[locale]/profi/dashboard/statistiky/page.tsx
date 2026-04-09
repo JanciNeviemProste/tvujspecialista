@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { reviewsApi } from '@/lib/api/reviews';
 import type { Lead } from '@/types/lead';
 import type { Review } from '@/types/review';
+import { EditableText } from '@/components/editor/EditableText';
 
 // ── helpers ──────────────────────────────────────────────────────────
 
@@ -162,7 +163,7 @@ export default function StatisticsPage() {
         {/* Page title */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-foreground">
-            {t('title')}
+            <EditableText tKey="dashboard.statistics.title">{t('title')}</EditableText>
           </h1>
         </div>
 
@@ -179,7 +180,7 @@ export default function StatisticsPage() {
             <>
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="mb-2 text-sm font-medium text-gray-600 dark:text-muted-foreground">
-                  {t('totalLeads')}
+                  <EditableText tKey="dashboard.statistics.totalLeads">{t('totalLeads')}</EditableText>
                 </div>
                 <div className="text-3xl font-bold text-gray-900 dark:text-foreground">
                   {total}
@@ -188,7 +189,7 @@ export default function StatisticsPage() {
 
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="mb-2 text-sm font-medium text-gray-600 dark:text-muted-foreground">
-                  {t('leadsThisMonth')}
+                  <EditableText tKey="dashboard.statistics.leadsThisMonth">{t('leadsThisMonth')}</EditableText>
                 </div>
                 <div className="text-3xl font-bold text-gray-900 dark:text-foreground">
                   {normalized?.newThisMonth ?? 0}
@@ -197,7 +198,7 @@ export default function StatisticsPage() {
 
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="mb-2 text-sm font-medium text-gray-600 dark:text-muted-foreground">
-                  {t('successRate')}
+                  <EditableText tKey="dashboard.statistics.successRate">{t('successRate')}</EditableText>
                 </div>
                 <div className="text-3xl font-bold text-gray-900 dark:text-foreground">
                   {successRate}%
@@ -206,7 +207,7 @@ export default function StatisticsPage() {
 
               <div className="rounded-lg border bg-white dark:bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <div className="mb-2 text-sm font-medium text-gray-600 dark:text-muted-foreground">
-                  {t('averageRating')}
+                  <EditableText tKey="dashboard.statistics.averageRating">{t('averageRating')}</EditableText>
                 </div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-3xl font-bold text-gray-900 dark:text-foreground">
@@ -229,11 +230,11 @@ export default function StatisticsPage() {
           ) : (
             <div className="rounded-lg border bg-white dark:bg-card p-6">
               <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-foreground">
-                {t('leadsByStatus')}
+                <EditableText tKey="dashboard.statistics.leadsByStatus">{t('leadsByStatus')}</EditableText>
               </h2>
               {total === 0 ? (
                 <p className="text-sm text-gray-500 dark:text-muted-foreground">
-                  {t('noData')}
+                  <EditableText tKey="dashboard.statistics.noData">{t('noData')}</EditableText>
                 </p>
               ) : (
                 <div className="space-y-4">
@@ -270,11 +271,11 @@ export default function StatisticsPage() {
           ) : (
             <div className="rounded-lg border bg-white dark:bg-card p-6">
               <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-foreground">
-                {t('reviewDistribution')}
+                <EditableText tKey="dashboard.statistics.reviewDistribution">{t('reviewDistribution')}</EditableText>
               </h2>
               {reviewStats.total === 0 ? (
                 <p className="text-sm text-gray-500 dark:text-muted-foreground">
-                  {t('noData')}
+                  <EditableText tKey="dashboard.statistics.noData">{t('noData')}</EditableText>
                 </p>
               ) : (
                 <>
@@ -327,11 +328,11 @@ export default function StatisticsPage() {
         ) : (
           <div className="rounded-lg border bg-white dark:bg-card p-6">
             <h2 className="mb-6 text-lg font-semibold text-gray-900 dark:text-foreground">
-              {t('monthlyTrend')}
+              <EditableText tKey="dashboard.statistics.monthlyTrend">{t('monthlyTrend')}</EditableText>
             </h2>
             {total === 0 ? (
               <p className="text-sm text-gray-500 dark:text-muted-foreground">
-                {t('noData')}
+                <EditableText tKey="dashboard.statistics.noData">{t('noData')}</EditableText>
               </p>
             ) : (
               <div className="flex items-end gap-4">

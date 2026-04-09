@@ -11,6 +11,7 @@ import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function ResetPasswordPage() {
   const t = useTranslations('auth.resetPassword');
@@ -64,12 +65,12 @@ export default function ResetPasswordPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-background flex items-center justify-center px-4">
         <div className="w-full max-w-md rounded-lg border bg-white dark:bg-card dark:border-border p-8 shadow-sm text-center">
           <div className="mb-4 text-5xl">⚠️</div>
-          <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground">{t('invalidLink')}</h1>
+          <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.resetPassword.invalidLink">{t('invalidLink')}</EditableText></h1>
           <p className="mb-4 text-sm text-gray-600 dark:text-muted-foreground">
-            {t('invalidLinkDesc')}
+            <EditableText tKey="auth.resetPassword.invalidLinkDesc">{t('invalidLinkDesc')}</EditableText>
           </p>
           <Link href="/profi/zapomenute-heslo" className="text-sm font-medium text-blue-600 dark:text-primary hover:underline">
-            {t('requestNewLink')}
+            <EditableText tKey="auth.resetPassword.requestNewLink">{t('requestNewLink')}</EditableText>
           </Link>
         </div>
       </div>
@@ -83,22 +84,22 @@ export default function ResetPasswordPage() {
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           <div className="rounded-lg border bg-white dark:bg-card dark:border-border p-8 shadow-sm">
-            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
+            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.resetPassword.title">{t('title')}</EditableText></h1>
             <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">
-              {t('subtitle')}
+              <EditableText tKey="auth.resetPassword.subtitle">{t('subtitle')}</EditableText>
             </p>
 
             {success ? (
               <div className="rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-800 p-4">
                 <p className="text-sm text-green-700 dark:text-green-400">
-                  {t('successMessage')}
+                  <EditableText tKey="auth.resetPassword.successMessage">{t('successMessage')}</EditableText>
                 </p>
               </div>
             ) : (
               <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                    {t('newPassword')}
+                    <EditableText tKey="auth.resetPassword.newPassword">{t('newPassword')}</EditableText>
                   </label>
                   <input
                     type="password"
@@ -114,7 +115,7 @@ export default function ResetPasswordPage() {
 
                 <div>
                   <label htmlFor="confirmPassword" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                    {t('confirmPassword')}
+                    <EditableText tKey="auth.resetPassword.confirmPassword">{t('confirmPassword')}</EditableText>
                   </label>
                   <input
                     type="password"
@@ -141,7 +142,7 @@ export default function ResetPasswordPage() {
 
           <div className="mt-6 text-center">
             <Link href="/profi/prihlaseni" className="text-sm text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary">
-              {tActions('backToLogin')}
+              <EditableText tKey="common.actions.backToLogin">{tActions('backToLogin')}</EditableText>
             </Link>
           </div>
         </div>

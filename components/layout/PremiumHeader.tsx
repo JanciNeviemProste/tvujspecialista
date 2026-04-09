@@ -10,6 +10,7 @@ import { NotificationBell } from '@/components/shared/NotificationBell';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ChevronDown, LogIn, UserPlus } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { EditableText } from '@/components/editor/EditableText';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -98,7 +99,7 @@ export function PremiumHeader() {
               href="/hledat"
               className="rounded-full px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-foreground"
             >
-              {nav('searchSpecialist')}
+              <EditableText tKey="common.nav.searchSpecialist">{nav('searchSpecialist')}</EditableText>
             </Link>
 
             {!isLoading && isAuthenticated ? (
@@ -107,13 +108,13 @@ export function PremiumHeader() {
                   href="/profi/dashboard/ceny"
                   className="rounded-full px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-foreground"
                 >
-                  {nav('membership')}
+                  <EditableText tKey="common.nav.membership">{nav('membership')}</EditableText>
                 </Link>
                 <Link
                   href="/profi/dashboard"
                   className="rounded-full px-4 py-2 text-sm font-medium text-foreground/70 transition-colors hover:bg-secondary hover:text-foreground"
                 >
-                  {nav('dashboard')}
+                  <EditableText tKey="common.nav.dashboard">{nav('dashboard')}</EditableText>
                 </Link>
               </>
             ) : null}
@@ -130,7 +131,7 @@ export function PremiumHeader() {
                   onClick={handleLogout}
                   className="rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-secondary/70"
                 >
-                  {nav('logout')}
+                  <EditableText tKey="common.nav.logout">{nav('logout')}</EditableText>
                 </button>
               </>
             ) : !isLoading ? (
@@ -144,7 +145,7 @@ export function PremiumHeader() {
                     aria-expanded={dropdownOpen}
                     aria-haspopup="true"
                   >
-                    {nav('iAmSpecialist')}
+                    <EditableText tKey="common.nav.iAmSpecialist">{nav('iAmSpecialist')}</EditableText>
                     <ChevronDown className={`h-3.5 w-3.5 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
@@ -166,10 +167,10 @@ export function PremiumHeader() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-foreground">
-                              {spec('login')}
+                              <EditableText tKey="common.nav.specialistDropdown.login">{spec('login')}</EditableText>
                             </div>
                             <div className="text-xs text-muted-foreground">
-                              {nav('loginSubtitle')}
+                              <EditableText tKey="common.nav.loginSubtitle">{nav('loginSubtitle')}</EditableText>
                             </div>
                           </div>
                         </Link>
@@ -183,10 +184,10 @@ export function PremiumHeader() {
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="text-sm font-semibold text-foreground">
-                              {spec('register')}
+                              <EditableText tKey="common.nav.specialistDropdown.register">{spec('register')}</EditableText>
                             </div>
                             <div className="text-xs text-muted-foreground">
-                              {nav('registerSubtitle')}
+                              <EditableText tKey="common.nav.registerSubtitle">{nav('registerSubtitle')}</EditableText>
                             </div>
                           </div>
                         </Link>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 import { toast } from 'sonner';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface LessonModalProps {
   isOpen: boolean;
@@ -49,7 +50,7 @@ export default function LessonModal({
         </div>
         <div className="p-5 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('lesson.nameLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courses.lesson.nameLabel">{t('lesson.nameLabel')}</EditableText></label>
             <input
               type="text"
               value={title}
@@ -60,7 +61,7 @@ export default function LessonModal({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('lesson.descriptionLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courses.lesson.descriptionLabel">{t('lesson.descriptionLabel')}</EditableText></label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -72,15 +73,15 @@ export default function LessonModal({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('lesson.typeLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courses.lesson.typeLabel">{t('lesson.typeLabel')}</EditableText></label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={loading}
               >
-                <option value="video">{t('lesson.typeVideo')}</option>
-                <option value="reading">{t('lesson.typeReading')}</option>
+                <option value="video"><EditableText tKey="dashboard.admin.courses.lesson.typeVideo">{t('lesson.typeVideo')}</EditableText></option>
+                <option value="reading"><EditableText tKey="dashboard.admin.courses.lesson.typeReading">{t('lesson.typeReading')}</EditableText></option>
               </select>
             </div>
             <div className="flex items-end pb-1">
@@ -92,13 +93,13 @@ export default function LessonModal({
                   className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
                   disabled={loading}
                 />
-                <span className="text-sm text-gray-700 dark:text-gray-300">{t('lesson.freePreview')}</span>
+                <span className="text-sm text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.courses.lesson.freePreview">{t('lesson.freePreview')}</EditableText></span>
               </label>
             </div>
           </div>
           <div className="flex gap-3 pt-2">
             <button onClick={onClose} disabled={loading} className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 py-2.5 text-sm font-medium hover:bg-gray-50 dark:bg-gray-800">
-              {t('actions.cancel')}
+              <EditableText tKey="dashboard.admin.courses.actions.cancel">{t('actions.cancel')}</EditableText>
             </button>
             <button
               onClick={() => {

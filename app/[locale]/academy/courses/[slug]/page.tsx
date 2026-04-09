@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { use, useEffect, useState } from 'react'
@@ -141,14 +142,14 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
         <div className="container mx-auto px-4 py-20">
           <div className="rounded-lg border border-red-300 bg-red-50 p-8 text-center">
             <h2 className="mb-2 text-xl font-semibold text-red-600">
-              {t('courseDetail.notFound')}
+              <EditableText tKey="academy.courseDetail.notFound">{t('courseDetail.notFound')}</EditableText>
             </h2>
             <p className="mb-4 text-gray-500">
-              {t('courseDetail.notFoundDesc')}
+              <EditableText tKey="academy.courseDetail.notFoundDesc">{t('courseDetail.notFoundDesc')}</EditableText>
             </p>
             <Link href="/academy/courses">
               <Button variant="outline">
-                {t('courseDetail.backToCatalog')}
+                <EditableText tKey="academy.courseDetail.backToCatalog">{t('courseDetail.backToCatalog')}</EditableText>
               </Button>
             </Link>
           </div>
@@ -208,11 +209,11 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 <div className="flex items-center gap-2">
                   <Star className="h-5 w-5 fill-amber-400 text-amber-400" />
                   <span className="font-semibold">{Number(course.rating ?? 0).toFixed(1)}</span>
-                  <span className="text-gray-500">({course.reviewCount} {t('courseDetail.ratings')})</span>
+                  <span className="text-gray-500">({course.reviewCount} <EditableText tKey="academy.courseDetail.ratings">{t('courseDetail.ratings')}</EditableText>)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Users className="h-5 w-5 text-gray-500" />
-                  <span>{course.enrollmentCount} {t('courseDetail.students')}</span>
+                  <span>{course.enrollmentCount} <EditableText tKey="academy.courseDetail.students">{t('courseDetail.students')}</EditableText></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Clock className="h-5 w-5 text-gray-500" />
@@ -247,7 +248,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <GraduationCap className="h-5 w-5" />
-                  {t('courseDetail.instructor')}
+                  <EditableText tKey="academy.courseDetail.instructor">{t('courseDetail.instructor')}</EditableText>
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -272,7 +273,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                 <Card>
                   <CardContent className="p-4 flex items-center justify-between gap-4">
                     <p className="text-sm text-gray-500 flex-1">
-                      {t('courseDetail.getAccess')}
+                      <EditableText tKey="academy.courseDetail.getAccess">{t('courseDetail.getAccess')}</EditableText>
                     </p>
                     <Button
                       variant="premium"
@@ -290,7 +291,7 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
             {/* Course Curriculum */}
             {course.modules && course.modules.length > 0 && (
               <div>
-                <h2 className="mb-4 text-2xl font-bold">{t('courseDetail.curriculum')}</h2>
+                <h2 className="mb-4 text-2xl font-bold"><EditableText tKey="academy.courseDetail.curriculum">{t('courseDetail.curriculum')}</EditableText></h2>
                 <CourseCurriculum
                   modules={course.modules}
                   courseSlug={course.slug}
@@ -311,33 +312,33 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
                   {!isAuthenticated ? (
                     <>
                       <p className="text-sm text-gray-500">
-                        {t('courseDetail.loginRequired')}
+                        <EditableText tKey="academy.courseDetail.loginRequired">{t('courseDetail.loginRequired')}</EditableText>
                       </p>
                       <Link href="/profi/prihlaseni" className="w-full">
                         <Button variant="default" className="w-full">
-                          {t('courseDetail.login')}
+                          <EditableText tKey="academy.courseDetail.login">{t('courseDetail.login')}</EditableText>
                         </Button>
                       </Link>
                     </>
                   ) : isEnrolled ? (
                     <>
                       <div className="space-y-2">
-                        <p className="text-sm font-medium">{t('courseDetail.yourProgress')}</p>
+                        <p className="text-sm font-medium"><EditableText tKey="academy.courseDetail.yourProgress">{t('courseDetail.yourProgress')}</EditableText></p>
                         <Progress value={enrollment.progress} className="h-3" />
                         <p className="text-xs text-gray-500 text-right">
-                          {Math.round(enrollment.progress)}% {t('courseDetail.completed')}
+                          {Math.round(enrollment.progress)}% <EditableText tKey="academy.courseDetail.completed">{t('courseDetail.completed')}</EditableText>
                         </p>
                       </div>
                       <Link href={`/academy/learn/${course.slug}`} className="w-full">
                         <Button variant="premium" className="w-full">
-                          {t('courseDetail.continueLearning')}
+                          <EditableText tKey="academy.courseDetail.continueLearning">{t('courseDetail.continueLearning')}</EditableText>
                         </Button>
                       </Link>
                     </>
                   ) : (
                     <>
                       <p className="text-sm text-gray-500">
-                        {t('courseDetail.getAccess')}
+                        <EditableText tKey="academy.courseDetail.getAccess">{t('courseDetail.getAccess')}</EditableText>
                       </p>
                       <Button
                         variant="premium"
@@ -356,23 +357,23 @@ export default function CourseDetailPage({ params }: CourseDetailPageProps) {
               {/* Course Info Card */}
               <Card>
                 <CardHeader>
-                  <CardTitle>{t('courseDetail.courseInfo')}</CardTitle>
+                  <CardTitle><EditableText tKey="academy.courseDetail.courseInfo">{t('courseDetail.courseInfo')}</EditableText></CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-500">{t('courseDetail.duration')}</span>
+                    <span className="text-gray-500"><EditableText tKey="academy.courseDetail.duration">{t('courseDetail.duration')}</EditableText></span>
                     <span className="font-medium">{formatDuration(totalDuration)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">{t('courseDetail.lessonCount')}</span>
+                    <span className="text-gray-500"><EditableText tKey="academy.courseDetail.lessonCount">{t('courseDetail.lessonCount')}</EditableText></span>
                     <span className="font-medium">{totalLessons}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">{t('courseDetail.level')}</span>
+                    <span className="text-gray-500"><EditableText tKey="academy.courseDetail.level">{t('courseDetail.level')}</EditableText></span>
                     <span className="font-medium">{getLevelLabel(course.level, t)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500">{t('courseDetail.category')}</span>
+                    <span className="text-gray-500"><EditableText tKey="academy.courseDetail.category">{t('courseDetail.category')}</EditableText></span>
                     <span className="font-medium">{getCategoryLabel(course.category, t)}</span>
                   </div>
                 </CardContent>

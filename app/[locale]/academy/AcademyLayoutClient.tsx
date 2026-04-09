@@ -5,6 +5,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { BookOpen, Home, Library, User, LayoutDashboard, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface AcademyLayoutClientProps {
   children: React.ReactNode;
@@ -66,7 +67,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav.home')}</span>
+                <span className="hidden sm:inline"><EditableText tKey="academy.nav.home">{t('nav.home')}</EditableText></span>
               </Link>
               <Link
                 href="/academy/courses"
@@ -76,7 +77,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                 )}
               >
                 <Library className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav.courses')}</span>
+                <span className="hidden sm:inline"><EditableText tKey="academy.nav.courses">{t('nav.courses')}</EditableText></span>
               </Link>
               {isAuthenticated && (
                 <Link
@@ -87,7 +88,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                   )}
                 >
                   <User className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav.myLearning')}</span>
+                  <span className="hidden sm:inline"><EditableText tKey="academy.nav.myLearning">{t('nav.myLearning')}</EditableText></span>
                 </Link>
               )}
               {user?.role === 'admin' && (
@@ -96,7 +97,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                   className="flex items-center gap-2 text-sm font-medium text-amber-600 transition-colors hover:text-amber-700"
                 >
                   <Settings className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav.manageCourses')}</span>
+                  <span className="hidden sm:inline"><EditableText tKey="academy.nav.manageCourses">{t('nav.manageCourses')}</EditableText></span>
                 </Link>
               )}
               {isAuthenticated && (
@@ -105,7 +106,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
                   className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
                 >
                   <LayoutDashboard className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav.dashboard')}</span>
+                  <span className="hidden sm:inline"><EditableText tKey="academy.nav.dashboard">{t('nav.dashboard')}</EditableText></span>
                 </Link>
               )}
             </nav>
@@ -114,7 +115,7 @@ export default function AcademyLayoutClient({ children }: AcademyLayoutClientPro
             <div className="flex items-center gap-2 text-sm font-semibold">
               <BookOpen className="h-5 w-5 text-blue-600" />
               <span className="hidden sm:inline bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {t('branding')}
+                <EditableText tKey="academy.branding">{t('branding')}</EditableText>
               </span>
             </div>
           </div>

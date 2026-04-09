@@ -11,6 +11,7 @@ import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils/cn';
 import { useUpdatePost } from '@/lib/hooks/useForum';
 import type { ForumPost } from '@/types/forum';
+import { EditableText } from '@/components/editor/EditableText';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
@@ -54,7 +55,7 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
                   addSuffix: true,
                   locale: dateFnsLocaleMap[locale] || cs,
                 })}
-                {post.isEdited && ` (${t('post.edited')})`}
+                {post.isEdited && ` ($<EditableText tKey="forum.post.edited">{t('post.edited')}</EditableText>)`}
               </p>
             </div>
           </div>
@@ -101,13 +102,13 @@ function PostCardInner({ post, currentUserId, isAdmin, onLike, onDelete, isLikin
                 disabled={!editContent.trim() || updatePost.isPending}
                 className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
               >
-                {t('post.save')}
+                <EditableText tKey="forum.post.save">{t('post.save')}</EditableText>
               </button>
               <button
                 onClick={() => setEditing(false)}
                 className="rounded-lg border border-gray-300 dark:border-border px-4 py-1.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted transition-colors"
               >
-                {t('post.cancelEdit')}
+                <EditableText tKey="forum.post.cancelEdit">{t('post.cancelEdit')}</EditableText>
               </button>
             </div>
           </div>

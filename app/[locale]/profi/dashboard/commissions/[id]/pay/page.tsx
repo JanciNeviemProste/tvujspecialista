@@ -19,6 +19,7 @@ const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { PaymentForm } from '@/components/commissions';
+import { EditableText } from '@/components/editor/EditableText';
 
 // Initialize Stripe
 const stripeKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -108,7 +109,7 @@ export default function CommissionPaymentPage() {
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="mb-4 text-5xl">⏳</div>
-              <p className="text-muted-foreground">{t('loading')}</p>
+              <p className="text-muted-foreground"><EditableText tKey="dashboard.commissions.pay.loading">{t('loading')}</EditableText></p>
             </div>
           </div>
         </div>
@@ -123,16 +124,16 @@ export default function CommissionPaymentPage() {
         <div className="container mx-auto px-4 py-8 max-w-2xl">
           <Button variant="ghost" onClick={handleBack} className="mb-6">
             <ArrowLeft className="h-4 w-4 mr-2" />
-            {t('back')}
+            <EditableText tKey="dashboard.commissions.pay.back">{t('back')}</EditableText>
           </Button>
 
           <Card variant="elevated">
             <CardContent className="p-8 text-center">
               <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-              <h2 className="text-xl font-semibold mb-2">{t('error')}</h2>
+              <h2 className="text-xl font-semibold mb-2"><EditableText tKey="dashboard.commissions.pay.error">{t('error')}</EditableText></h2>
               <p className="text-muted-foreground mb-4">{error || t('notFound')}</p>
               <Button onClick={handleBack}>
-                {t('back')}
+                <EditableText tKey="dashboard.commissions.pay.back">{t('back')}</EditableText>
               </Button>
             </CardContent>
           </Card>
@@ -154,42 +155,42 @@ export default function CommissionPaymentPage() {
         {/* Back button */}
         <Button variant="ghost" onClick={handleBack} className="mb-6">
           <ArrowLeft className="h-4 w-4 mr-2" />
-          {t('back')}
+          <EditableText tKey="dashboard.commissions.pay.back">{t('back')}</EditableText>
         </Button>
 
         {/* Commission summary */}
         <Card variant="elevated" className="mb-6">
           <CardHeader>
-            <CardTitle>{t('summaryTitle')}</CardTitle>
+            <CardTitle><EditableText tKey="dashboard.commissions.pay.summaryTitle">{t('summaryTitle')}</EditableText></CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {commission.deal && (
               <div>
-                <p className="text-sm text-muted-foreground">{t('deal')}</p>
+                <p className="text-sm text-muted-foreground"><EditableText tKey="dashboard.commissions.pay.deal">{t('deal')}</EditableText></p>
                 <p className="font-medium">{commission.deal.customerName}</p>
               </div>
             )}
 
             <div className="grid grid-cols-2 gap-4 pt-4 border-t">
               <div>
-                <p className="text-sm text-muted-foreground">{t('dealValue')}</p>
+                <p className="text-sm text-muted-foreground"><EditableText tKey="dashboard.commissions.pay.dealValue">{t('dealValue')}</EditableText></p>
                 <p className="font-medium">{formatCurrency(commission.dealValue)}</p>
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">{t('commissionRate')}</p>
+                <p className="text-sm text-muted-foreground"><EditableText tKey="dashboard.commissions.pay.commissionRate">{t('commissionRate')}</EditableText></p>
                 <p className="font-medium">{commission.commissionRate}%</p>
               </div>
             </div>
 
             <div className="pt-4 border-t">
-              <p className="text-sm text-muted-foreground mb-1">{t('amountDue')}</p>
+              <p className="text-sm text-muted-foreground mb-1"><EditableText tKey="dashboard.commissions.pay.amountDue">{t('amountDue')}</EditableText></p>
               <p className="text-3xl font-bold text-success">
                 {formatCurrency(commission.commissionAmount)}
               </p>
             </div>
 
             <div className="pt-4 border-t">
-              <p className="text-sm text-muted-foreground">{t('dueDate')}</p>
+              <p className="text-sm text-muted-foreground"><EditableText tKey="dashboard.commissions.pay.dueDate">{t('dueDate')}</EditableText></p>
               <p className="font-medium">
                 {format(new Date(commission.dueDate), 'd. MMMM yyyy', { locale: dateFnsLocaleMap[locale] || cs })}
               </p>
@@ -202,9 +203,9 @@ export default function CommissionPaymentPage() {
           <Card variant="elevated">
             <CardContent className="p-8 text-center">
               <CheckCircle2 className="h-16 w-16 text-success mx-auto mb-4" />
-              <h2 className="text-2xl font-semibold mb-2">{t('successTitle')}</h2>
+              <h2 className="text-2xl font-semibold mb-2"><EditableText tKey="dashboard.commissions.pay.successTitle">{t('successTitle')}</EditableText></h2>
               <p className="text-muted-foreground mb-4">
-                {t('successMessage')}
+                <EditableText tKey="dashboard.commissions.pay.successMessage">{t('successMessage')}</EditableText>
               </p>
               <div className="flex justify-center">
                 <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary"></div>
@@ -214,7 +215,7 @@ export default function CommissionPaymentPage() {
         ) : (
           <Card variant="elevated">
             <CardHeader>
-              <CardTitle>{t('paymentTitle')}</CardTitle>
+              <CardTitle><EditableText tKey="dashboard.commissions.pay.paymentTitle">{t('paymentTitle')}</EditableText></CardTitle>
             </CardHeader>
             <CardContent>
               {clientSecret ? (
@@ -230,13 +231,13 @@ export default function CommissionPaymentPage() {
               ) : (
                 <div className="p-8 text-center">
                   <div className="mb-4 text-4xl">⏳</div>
-                  <p className="text-muted-foreground">{t('loadingPayment')}</p>
+                  <p className="text-muted-foreground"><EditableText tKey="dashboard.commissions.pay.loadingPayment">{t('loadingPayment')}</EditableText></p>
                 </div>
               )}
 
               <div className="mt-6 pt-6 border-t">
                 <Button variant="outline" onClick={handleBack} className="w-full">
-                  {t('back')}
+                  <EditableText tKey="dashboard.commissions.pay.back">{t('back')}</EditableText>
                 </Button>
               </div>
             </CardContent>

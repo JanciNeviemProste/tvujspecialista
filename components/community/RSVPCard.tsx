@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 import { memo } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 import { RSVP, RSVPStatus } from '@/types/community'
@@ -91,7 +92,7 @@ function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
           {event.format === EventFormat.ONLINE ? (
             <>
               <Video className="h-4 w-4" />
-              <span>{t('rsvp.onlineMeeting')}</span>
+              <span><EditableText tKey="community.rsvp.onlineMeeting">{t('rsvp.onlineMeeting')}</EditableText></span>
             </>
           ) : (
             <>
@@ -106,7 +107,7 @@ function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
           {/* View details button */}
           <Button asChild variant="outline" className="w-full">
             <Link href={`/community/events/${event.slug}`}>
-              {t('rsvp.viewDetail')}
+              <EditableText tKey="community.rsvp.viewDetail">{t('rsvp.viewDetail')}</EditableText>
             </Link>
           </Button>
 
@@ -117,7 +118,7 @@ function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
               className="w-full text-red-600 hover:text-red-600 hover:bg-red-50"
               onClick={() => onCancel(rsvp.id)}
             >
-              {t('rsvp.cancelRegistration')}
+              <EditableText tKey="community.rsvp.cancelRegistration">{t('rsvp.cancelRegistration')}</EditableText>
             </Button>
           )}
 
@@ -130,7 +131,7 @@ function RSVPCardInner({ rsvp, onCancel, className }: RSVPCardProps) {
             >
               <a href={event.meetingLink} target="_blank" rel="noopener noreferrer">
                 <Video className="h-4 w-4 mr-2" />
-                {t('rsvp.join')}
+                <EditableText tKey="community.rsvp.join">{t('rsvp.join')}</EditableText>
               </a>
             </Button>
           )}

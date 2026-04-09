@@ -29,6 +29,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { SubscriptionType } from '@/types/subscriptions';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
+import { EditableText } from '@/components/editor/EditableText';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
@@ -310,7 +311,7 @@ export default function SubscriptionManagementPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-semibold">{option.name}</p>
-                    <p className="text-sm text-muted-foreground">{option.price} {tSub('pricing.currency')}{tSub('pricing.perMonth')}</p>
+                    <p className="text-sm text-muted-foreground">{option.price} <EditableText tKey="subscription.pricing.currency">{tSub('pricing.currency')}</EditableText><EditableText tKey="subscription.pricing.perMonth">{tSub('pricing.perMonth')}</EditableText></p>
                   </div>
                   {selectedNewType === option.type && (
                     <Badge variant="default">Vybraté</Badge>
@@ -354,7 +355,7 @@ export default function SubscriptionManagementPage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-semibold">{option.name}</p>
-                    <p className="text-sm text-muted-foreground">{option.price} {tSub('pricing.currency')}{tSub('pricing.perMonth')}</p>
+                    <p className="text-sm text-muted-foreground">{option.price} <EditableText tKey="subscription.pricing.currency">{tSub('pricing.currency')}</EditableText><EditableText tKey="subscription.pricing.perMonth">{tSub('pricing.perMonth')}</EditableText></p>
                   </div>
                   {selectedNewType === option.type && (
                     <Badge variant="default">Vybraté</Badge>

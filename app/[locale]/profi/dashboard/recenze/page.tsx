@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import type { Review } from '@/types/review';
 import { useTranslations, useLocale } from 'next-intl';
+import { EditableText } from '@/components/editor/EditableText';
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -61,7 +62,7 @@ export default function ReviewsPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.reviews.loading">{t('loading')}</EditableText></p>
           </div>
         </div>
       </div>
@@ -92,8 +93,8 @@ export default function ReviewsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
-          <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white"><EditableText tKey="dashboard.reviews.title">{t('title')}</EditableText></h1>
+          <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.reviews.subtitle">{t('subtitle')}</EditableText></p>
         </div>
 
         {/* Tabs */}
@@ -111,7 +112,7 @@ export default function ReviewsPage() {
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                 </svg>
-                {t('tabManage')}
+                <EditableText tKey="dashboard.reviews.tabManage">{t('tabManage')}</EditableText>
               </span>
               {activeTab === 'manage' && (
                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
@@ -129,7 +130,7 @@ export default function ReviewsPage() {
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                {t('tabRequest')}
+                <EditableText tKey="dashboard.reviews.tabRequest">{t('tabRequest')}</EditableText>
               </span>
               {activeTab === 'request' && (
                 <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600" />
@@ -192,7 +193,7 @@ export default function ReviewsPage() {
                             </h3>
                             {review.verified && (
                               <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
-                                {tCommon('verified')}
+                                <EditableText tKey="common.status.verified">{tCommon('verified')}</EditableText>
                               </span>
                             )}
                           </div>
@@ -201,7 +202,7 @@ export default function ReviewsPage() {
                           {review.response ? (
                             <div className="mt-4 rounded-lg bg-gray-50 dark:bg-gray-800 p-4">
                               <p className="mb-1 text-sm font-medium text-gray-600 dark:text-gray-400">
-                                {t('yourResponse')}
+                                <EditableText tKey="dashboard.reviews.yourResponse">{t('yourResponse')}</EditableText>
                               </p>
                               <p className="text-sm text-gray-700 dark:text-gray-300">{review.response.text}</p>
                             </div>
@@ -245,7 +246,7 @@ export default function ReviewsPage() {
                                   className="rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-800 transition-colors"
                                   onClick={() => { setRespondingTo(null); setResponseText(''); }}
                                 >
-                                  {t('cancel')}
+                                  <EditableText tKey="dashboard.reviews.cancel">{t('cancel')}</EditableText>
                                 </button>
                               </div>
                             </div>
@@ -254,7 +255,7 @@ export default function ReviewsPage() {
                               className="mt-3 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
                               onClick={() => setRespondingTo(review.id)}
                             >
-                              {t('writeResponse')}
+                              <EditableText tKey="dashboard.reviews.writeResponse">{t('writeResponse')}</EditableText>
                             </button>
                           )}
                         </div>
@@ -272,10 +273,10 @@ export default function ReviewsPage() {
               <Card>
                 <CardContent className="p-12 text-center">
                   <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
-                    {t('empty.title')}
+                    <EditableText tKey="dashboard.reviews.empty.title">{t('empty.title')}</EditableText>
                   </h3>
                   <p className="text-gray-600 dark:text-gray-400">
-                    {t('empty.description')}
+                    <EditableText tKey="dashboard.reviews.empty.description">{t('empty.description')}</EditableText>
                   </p>
                 </CardContent>
               </Card>
@@ -293,15 +294,15 @@ export default function ReviewsPage() {
                   <svg className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  {t('requestReview.title')}
+                  <EditableText tKey="dashboard.reviews.requestReview.title">{t('requestReview.title')}</EditableText>
                 </CardTitle>
-                <CardDescription>{t('requestReview.description')}</CardDescription>
+                <CardDescription><EditableText tKey="dashboard.reviews.requestReview.description">{t('requestReview.description')}</EditableText></CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div>
                     <label className="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {t('requestReview.emailLabel')}
+                      <EditableText tKey="dashboard.reviews.requestReview.emailLabel">{t('requestReview.emailLabel')}</EditableText>
                     </label>
                     <div className="flex gap-3">
                       <input
@@ -338,7 +339,7 @@ export default function ReviewsPage() {
             {/* How it works */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">{t('requestReview.howItWorks')}</CardTitle>
+                <CardTitle className="text-lg"><EditableText tKey="dashboard.reviews.requestReview.howItWorks">{t('requestReview.howItWorks')}</EditableText></CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-6">
@@ -348,8 +349,8 @@ export default function ReviewsPage() {
                       1
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">{t('requestReview.step1')}</h4>
-                      <p className="mt-0.5 text-sm text-gray-500">{t('requestReview.step1desc')}</p>
+                      <h4 className="font-medium text-gray-900 dark:text-white"><EditableText tKey="dashboard.reviews.requestReview.step1">{t('requestReview.step1')}</EditableText></h4>
+                      <p className="mt-0.5 text-sm text-gray-500"><EditableText tKey="dashboard.reviews.requestReview.step1desc">{t('requestReview.step1desc')}</EditableText></p>
                     </div>
                   </div>
                   {/* Step 2 */}
@@ -358,8 +359,8 @@ export default function ReviewsPage() {
                       2
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">{t('requestReview.step2')}</h4>
-                      <p className="mt-0.5 text-sm text-gray-500">{t('requestReview.step2desc')}</p>
+                      <h4 className="font-medium text-gray-900 dark:text-white"><EditableText tKey="dashboard.reviews.requestReview.step2">{t('requestReview.step2')}</EditableText></h4>
+                      <p className="mt-0.5 text-sm text-gray-500"><EditableText tKey="dashboard.reviews.requestReview.step2desc">{t('requestReview.step2desc')}</EditableText></p>
                     </div>
                   </div>
                   {/* Step 3 */}
@@ -368,8 +369,8 @@ export default function ReviewsPage() {
                       3
                     </div>
                     <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">{t('requestReview.step3')}</h4>
-                      <p className="mt-0.5 text-sm text-gray-500">{t('requestReview.step3desc')}</p>
+                      <h4 className="font-medium text-gray-900 dark:text-white"><EditableText tKey="dashboard.reviews.requestReview.step3">{t('requestReview.step3')}</EditableText></h4>
+                      <p className="mt-0.5 text-sm text-gray-500"><EditableText tKey="dashboard.reviews.requestReview.step3desc">{t('requestReview.step3desc')}</EditableText></p>
                     </div>
                   </div>
                 </div>

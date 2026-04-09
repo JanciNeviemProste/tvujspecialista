@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { EditableText } from '@/components/editor/EditableText';
 
 const changePasswordSchema = z
   .object({
@@ -53,7 +54,7 @@ export default function AccountSettingsPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600 dark:text-gray-400">{tActions('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="common.actions.loading">{tActions('loading')}</EditableText></p>
           </div>
         </div>
       </div>
@@ -85,24 +86,24 @@ export default function AccountSettingsPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
-          <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white"><EditableText tKey="dashboard.settings.title">{t('title')}</EditableText></h1>
+          <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.settings.subtitle">{t('subtitle')}</EditableText></p>
         </div>
 
         {/* Informace o uctu */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-xl">{t('accountInfo')}</CardTitle>
-            <CardDescription>{t('accountInfoDesc')}</CardDescription>
+            <CardTitle className="text-xl"><EditableText tKey="dashboard.settings.accountInfo">{t('accountInfo')}</EditableText></CardTitle>
+            <CardDescription><EditableText tKey="dashboard.settings.accountInfoDesc">{t('accountInfoDesc')}</EditableText></CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <div>
-                <Label className="text-gray-500">{t('name')}</Label>
+                <Label className="text-gray-500"><EditableText tKey="dashboard.settings.name">{t('name')}</EditableText></Label>
                 <p className="mt-1 font-medium text-gray-900 dark:text-white">{user.name}</p>
               </div>
               <div>
-                <Label className="text-gray-500">{t('email')}</Label>
+                <Label className="text-gray-500"><EditableText tKey="dashboard.settings.email">{t('email')}</EditableText></Label>
                 <p className="mt-1 font-medium text-gray-900 dark:text-white">{user.email}</p>
               </div>
             </div>
@@ -112,15 +113,15 @@ export default function AccountSettingsPage() {
         {/* Zmena hesla */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl">{t('changePassword')}</CardTitle>
+            <CardTitle className="text-xl"><EditableText tKey="dashboard.settings.changePassword">{t('changePassword')}</EditableText></CardTitle>
             <CardDescription>
-              {t('changePasswordDesc')}
+              <EditableText tKey="dashboard.settings.changePasswordDesc">{t('changePasswordDesc')}</EditableText>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="max-w-md space-y-4">
               <div>
-                <Label htmlFor="currentPassword">{t('currentPassword')}</Label>
+                <Label htmlFor="currentPassword"><EditableText tKey="dashboard.settings.currentPassword">{t('currentPassword')}</EditableText></Label>
                 <Input
                   id="currentPassword"
                   type="password"
@@ -131,7 +132,7 @@ export default function AccountSettingsPage() {
               </div>
 
               <div>
-                <Label htmlFor="newPassword">{t('newPassword')}</Label>
+                <Label htmlFor="newPassword"><EditableText tKey="dashboard.settings.newPassword">{t('newPassword')}</EditableText></Label>
                 <Input
                   id="newPassword"
                   type="password"
@@ -140,12 +141,12 @@ export default function AccountSettingsPage() {
                   className="mt-1"
                 />
                 <p className="mt-1 text-xs text-gray-500">
-                  {t('newPasswordHint')}
+                  <EditableText tKey="dashboard.settings.newPasswordHint">{t('newPasswordHint')}</EditableText>
                 </p>
               </div>
 
               <div>
-                <Label htmlFor="confirmPassword">{t('confirmNewPassword')}</Label>
+                <Label htmlFor="confirmPassword"><EditableText tKey="dashboard.settings.confirmNewPassword">{t('confirmNewPassword')}</EditableText></Label>
                 <Input
                   id="confirmPassword"
                   type="password"
@@ -164,7 +165,7 @@ export default function AccountSettingsPage() {
                   variant="outline"
                   onClick={() => router.push('/profi/dashboard')}
                 >
-                  {tActions('backToDashboard')}
+                  <EditableText tKey="common.actions.backToDashboard">{tActions('backToDashboard')}</EditableText>
                 </Button>
               </div>
             </form>

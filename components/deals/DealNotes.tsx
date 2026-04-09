@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Deal } from '@/types/deals';
 import { MessageSquare, Plus } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface DealNotesProps {
   deal: Deal;
@@ -25,7 +26,7 @@ export function DealNotes({
 
   return (
     <div>
-      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">{t('detail.notes')}</h3>
+      <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3"><EditableText tKey="dashboard.deals.detail.notes">{t('detail.notes')}</EditableText></h3>
 
       {/* Existing Notes */}
       {deal.notes && deal.notes.length > 0 ? (
@@ -45,7 +46,7 @@ export function DealNotes({
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{t('detail.noNotes')}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4"><EditableText tKey="dashboard.deals.detail.noNotes">{t('detail.noNotes')}</EditableText></p>
       )}
 
       {/* Add Note Form */}

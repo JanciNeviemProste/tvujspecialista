@@ -9,6 +9,7 @@ import { CategoryCard } from '@/components/forum/CategoryCard';
 import { CategoriesGridSkeleton } from '@/components/forum/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, PenSquare } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function ForumPage() {
   const t = useTranslations('forum');
@@ -28,15 +29,15 @@ export default function ForumPage() {
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-2">
           <MessageSquare className="h-8 w-8 text-primary" />
-          <h1 className="text-3xl font-bold">{t('title')}</h1>
+          <h1 className="text-3xl font-bold"><EditableText tKey="forum.title">{t('title')}</EditableText></h1>
         </div>
         <p className="text-muted-foreground mb-6">
-          {t('subtitle')}
+          <EditableText tKey="forum.subtitle">{t('subtitle')}</EditableText>
         </p>
         <Link href="/forum/nova-tema">
           <Button className="gap-2">
             <PenSquare className="h-4 w-4" />
-            {t('newTopicButton')}
+            <EditableText tKey="forum.newTopicButton">{t('newTopicButton')}</EditableText>
           </Button>
         </Link>
       </div>
@@ -53,8 +54,8 @@ export default function ForumPage() {
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <MessageSquare className="h-16 w-16 text-muted-foreground mb-4" />
-          <h3 className="text-xl font-semibold mb-2">{t('emptyCategories.title')}</h3>
-          <p className="text-muted-foreground">{t('emptyCategories.description')}</p>
+          <h3 className="text-xl font-semibold mb-2"><EditableText tKey="forum.emptyCategories.title">{t('emptyCategories.title')}</EditableText></h3>
+          <p className="text-muted-foreground"><EditableText tKey="forum.emptyCategories.description">{t('emptyCategories.description')}</EditableText></p>
         </div>
       )}
     </div>

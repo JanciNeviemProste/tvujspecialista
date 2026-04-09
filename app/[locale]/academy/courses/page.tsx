@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
@@ -63,7 +64,7 @@ export default function CourseCatalogPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold">{t('courses.title')}</h1>
+          <h1 className="mb-2 text-4xl font-bold"><EditableText tKey="academy.courses.title">{t('courses.title')}</EditableText></h1>
           <p className="text-lg text-gray-500">
             {isLoading ? (
               t('courses.loading')
@@ -84,7 +85,7 @@ export default function CourseCatalogPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
-                    <CardTitle>{t('courses.filters.title')}</CardTitle>
+                    <CardTitle><EditableText tKey="academy.courses.filters.title">{t('courses.filters.title')}</EditableText></CardTitle>
                     {hasActiveFilters && (
                       <Button
                         variant="ghost"
@@ -92,7 +93,7 @@ export default function CourseCatalogPage() {
                         onClick={handleClearFilters}
                         className="h-auto p-0 text-xs hover:text-red-600"
                       >
-                        {t('courses.filters.clear')}
+                        <EditableText tKey="academy.courses.filters.clear">{t('courses.filters.clear')}</EditableText>
                       </Button>
                     )}
                   </div>
@@ -101,7 +102,7 @@ export default function CourseCatalogPage() {
                   {/* Search */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('courses.filters.search')}
+                      <EditableText tKey="academy.courses.filters.search">{t('courses.filters.search')}</EditableText>
                     </label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
@@ -126,34 +127,34 @@ export default function CourseCatalogPage() {
                   {/* Category Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('courses.filters.category')}
+                      <EditableText tKey="academy.courses.filters.category">{t('courses.filters.category')}</EditableText>
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.category}
                       onChange={(e) => setFilters({ ...filters, category: e.target.value as CourseCategory | '' })}
                     >
-                      <option value="">{t('courses.filters.allCategories')}</option>
-                      <option value={CourseCategory.REAL_ESTATE}>{t('courses.filters.catRealEstate')}</option>
-                      <option value={CourseCategory.FINANCIAL}>{t('courses.filters.catFinancial')}</option>
-                      <option value={CourseCategory.BOTH}>{t('courses.filters.catBoth')}</option>
+                      <option value=""><EditableText tKey="academy.courses.filters.allCategories">{t('courses.filters.allCategories')}</EditableText></option>
+                      <option value={CourseCategory.REAL_ESTATE}><EditableText tKey="academy.courses.filters.catRealEstate">{t('courses.filters.catRealEstate')}</EditableText></option>
+                      <option value={CourseCategory.FINANCIAL}><EditableText tKey="academy.courses.filters.catFinancial">{t('courses.filters.catFinancial')}</EditableText></option>
+                      <option value={CourseCategory.BOTH}><EditableText tKey="academy.courses.filters.catBoth">{t('courses.filters.catBoth')}</EditableText></option>
                     </select>
                   </div>
 
                   {/* Level Filter */}
                   <div>
                     <label className="mb-2 block text-sm font-medium">
-                      {t('courses.filters.level')}
+                      <EditableText tKey="academy.courses.filters.level">{t('courses.filters.level')}</EditableText>
                     </label>
                     <select
                       className="flex h-10 w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       value={filters.level}
                       onChange={(e) => setFilters({ ...filters, level: e.target.value as CourseLevel | '' })}
                     >
-                      <option value="">{t('courses.filters.allLevels')}</option>
-                      <option value={CourseLevel.BEGINNER}>{t('courses.filters.levelBeginner')}</option>
-                      <option value={CourseLevel.INTERMEDIATE}>{t('courses.filters.levelIntermediate')}</option>
-                      <option value={CourseLevel.ADVANCED}>{t('courses.filters.levelAdvanced')}</option>
+                      <option value=""><EditableText tKey="academy.courses.filters.allLevels">{t('courses.filters.allLevels')}</EditableText></option>
+                      <option value={CourseLevel.BEGINNER}><EditableText tKey="academy.courses.filters.levelBeginner">{t('courses.filters.levelBeginner')}</EditableText></option>
+                      <option value={CourseLevel.INTERMEDIATE}><EditableText tKey="academy.courses.filters.levelIntermediate">{t('courses.filters.levelIntermediate')}</EditableText></option>
+                      <option value={CourseLevel.ADVANCED}><EditableText tKey="academy.courses.filters.levelAdvanced">{t('courses.filters.levelAdvanced')}</EditableText></option>
                     </select>
                   </div>
 
@@ -167,7 +168,7 @@ export default function CourseCatalogPage() {
                         onChange={(e) => setFilters({ ...filters, featured: e.target.checked })}
                       />
                       <span className="text-sm font-medium">
-                        {t('courses.filters.featuredOnly')}
+                        <EditableText tKey="academy.courses.filters.featuredOnly">{t('courses.filters.featuredOnly')}</EditableText>
                       </span>
                     </label>
                   </div>
@@ -185,7 +186,7 @@ export default function CourseCatalogPage() {
             {error && (
               <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
                 <p className="text-red-600">
-                  {t('courses.loadErrorLong')}
+                  <EditableText tKey="academy.courses.loadErrorLong">{t('courses.loadErrorLong')}</EditableText>
                 </p>
               </div>
             )}
@@ -197,14 +198,14 @@ export default function CourseCatalogPage() {
                   <div className="rounded-lg border bg-white dark:bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold">
-                      {t('courses.empty.title')}
+                      <EditableText tKey="academy.courses.empty.title">{t('courses.empty.title')}</EditableText>
                     </h3>
                     <p className="text-gray-500 mb-4">
-                      {t('courses.empty.description')}
+                      <EditableText tKey="academy.courses.empty.description">{t('courses.empty.description')}</EditableText>
                     </p>
                     {hasActiveFilters && (
                       <Button variant="outline" onClick={handleClearFilters}>
-                        {t('courses.empty.clearFilters')}
+                        <EditableText tKey="academy.courses.empty.clearFilters">{t('courses.empty.clearFilters')}</EditableText>
                       </Button>
                     )}
                   </div>

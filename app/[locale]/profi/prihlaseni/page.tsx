@@ -10,6 +10,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
+import { EditableText } from '@/components/editor/EditableText';
 
 const loginSchema = z.object({
   email: z.string().min(1, 'emailRequired').email('emailInvalid'),
@@ -75,19 +76,19 @@ export default function LoginPage() {
             {/* Tab Switcher */}
             <div className="mb-6 flex rounded-lg bg-gray-100 dark:bg-muted p-1">
               <span className="flex-1 rounded-md bg-white dark:bg-card py-2.5 text-center text-sm font-medium text-gray-900 dark:text-foreground shadow-sm">
-                {t('tabLogin')}
+                <EditableText tKey="auth.login.tabLogin">{t('tabLogin')}</EditableText>
               </span>
               <Link
                 href="/profi/registrace"
                 className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 dark:text-muted-foreground hover:text-gray-700 dark:hover:text-foreground transition-all"
               >
-                {t('tabRegister')}
+                <EditableText tKey="auth.login.tabRegister">{t('tabRegister')}</EditableText>
               </Link>
             </div>
 
-            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
+            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.login.title">{t('title')}</EditableText></h1>
             <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">
-              {t('subtitle')}
+              <EditableText tKey="auth.login.subtitle">{t('subtitle')}</EditableText>
             </p>
 
             {error && (
@@ -99,7 +100,7 @@ export default function LoginPage() {
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  {t('email')}
+                  <EditableText tKey="auth.login.email">{t('email')}</EditableText>
                 </label>
                 <input
                   type="email"
@@ -115,7 +116,7 @@ export default function LoginPage() {
 
               <div>
                 <label htmlFor="password" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  {t('password')}
+                  <EditableText tKey="auth.login.password">{t('password')}</EditableText>
                 </label>
                 <input
                   type="password"
@@ -137,10 +138,10 @@ export default function LoginPage() {
                     onChange={(e) => setRememberMe(e.target.checked)}
                     className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">{t('rememberMe')}</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground"><EditableText tKey="auth.login.rememberMe">{t('rememberMe')}</EditableText></span>
                 </label>
                 <Link href="/profi/zapomenute-heslo" className="text-sm font-medium text-blue-600 dark:text-primary hover:underline">
-                  {t('forgotPassword')}
+                  <EditableText tKey="auth.login.forgotPassword">{t('forgotPassword')}</EditableText>
                 </Link>
               </div>
 
@@ -155,13 +156,13 @@ export default function LoginPage() {
 
             <div className="mt-6 border-t dark:border-border pt-6">
               <p className="text-center text-sm text-gray-600 dark:text-muted-foreground">
-                {t('termsAgreement')}{' '}
+                <EditableText tKey="auth.login.termsAgreement">{t('termsAgreement')}</EditableText>{' '}
                 <Link href="/pravidla" className="text-blue-600 dark:text-primary hover:underline">
-                  {t('termsLink')}
+                  <EditableText tKey="auth.login.termsLink">{t('termsLink')}</EditableText>
                 </Link>{' '}
-                {t('and')}{' '}
+                <EditableText tKey="auth.login.and">{t('and')}</EditableText>{' '}
                 <Link href="/ochrana-osobnich-udaju" className="text-blue-600 dark:text-primary hover:underline">
-                  {t('privacyLink')}
+                  <EditableText tKey="auth.login.privacyLink">{t('privacyLink')}</EditableText>
                 </Link>
                 .
               </p>
@@ -170,7 +171,7 @@ export default function LoginPage() {
 
           <div className="mt-6 text-center">
             <Link href="/" className="text-sm text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary">
-              {tActions('backToHome')}
+              <EditableText tKey="common.actions.backToHome">{tActions('backToHome')}</EditableText>
             </Link>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { DealCard } from './DealCard';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 import {
   DndContext,
   DragOverlay,
@@ -187,7 +188,7 @@ export function DealKanban({ deals, onStatusChange, onViewDetails, className }: 
             >
               {columnDeals.length === 0 ? (
                 <div className="flex items-center justify-center h-32 text-sm text-gray-400 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
-                  {t('empty.noDeals')}
+                  <EditableText tKey="dashboard.deals.empty.noDeals">{t('empty.noDeals')}</EditableText>
                 </div>
               ) : (
                 columnDeals.map((deal) => (

@@ -11,6 +11,7 @@ import { LessonSidebar } from '@/components/academy/LessonSidebar';
 import { useCourse, useEnrollmentProgress, useUpdateProgress, useEnrollmentByCourse } from '@/lib/hooks/useAcademy';
 import { cn } from '@/lib/utils/cn';
 import type { Lesson } from '@/types/academy';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function LearnPage() {
   const t = useTranslations('academy');
@@ -206,7 +207,7 @@ export default function LearnPage() {
       <div className="h-screen flex items-center justify-center bg-black">
         <div className="text-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto" />
-          <p className="text-white text-lg">{t('learn.loading')}</p>
+          <p className="text-white text-lg"><EditableText tKey="academy.learn.loading">{t('learn.loading')}</EditableText></p>
         </div>
       </div>
     );
@@ -222,7 +223,7 @@ export default function LearnPage() {
           onClick={() => router.push(`/academy/courses/${courseSlug}`)}
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          {t('learn.backToCourse')}
+          <EditableText tKey="academy.learn.backToCourse">{t('learn.backToCourse')}</EditableText>
         </Button>
 
         <div className="flex-1 text-center overflow-hidden">
@@ -297,7 +298,7 @@ export default function LearnPage() {
           size="sm"
         >
           <ChevronLeft className="h-4 w-4 lg:mr-2" />
-          <span className="hidden sm:inline">{t('learn.prevLesson')}</span>
+          <span className="hidden sm:inline"><EditableText tKey="academy.learn.prevLesson">{t('learn.prevLesson')}</EditableText></span>
         </Button>
 
         <Button
@@ -310,18 +311,18 @@ export default function LearnPage() {
           {updateProgress.isPending ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="hidden sm:inline">{t('learn.markingComplete')}</span>
+              <span className="hidden sm:inline"><EditableText tKey="academy.learn.markingComplete">{t('learn.markingComplete')}</EditableText></span>
             </>
           ) : currentProgress?.completed ? (
             <>
               <CheckCircle className="h-4 w-4" />
-              <span className="hidden sm:inline">{t('learn.completed')}</span>
+              <span className="hidden sm:inline"><EditableText tKey="academy.learn.completed">{t('learn.completed')}</EditableText></span>
             </>
           ) : (
             <>
               <CheckCircle className="h-4 w-4" />
-              <span className="hidden md:inline">{t('learn.markComplete')}</span>
-              <span className="md:hidden">{t('learn.complete')}</span>
+              <span className="hidden md:inline"><EditableText tKey="academy.learn.markComplete">{t('learn.markComplete')}</EditableText></span>
+              <span className="md:hidden"><EditableText tKey="academy.learn.complete">{t('learn.complete')}</EditableText></span>
             </>
           )}
         </Button>
@@ -333,7 +334,7 @@ export default function LearnPage() {
           className="text-gray-300 hover:text-white text-xs lg:text-sm"
           size="sm"
         >
-          <span className="hidden sm:inline">{t('learn.nextLesson')}</span>
+          <span className="hidden sm:inline"><EditableText tKey="academy.learn.nextLesson">{t('learn.nextLesson')}</EditableText></span>
           <ChevronRight className="h-4 w-4 lg:ml-2" />
         </Button>
       </div>

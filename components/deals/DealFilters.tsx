@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Search, X } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface DealFiltersProps {
   filters: DealFiltersType;
@@ -72,9 +73,9 @@ export function DealFilters({
         className="px-4 py-2 rounded-lg border bg-white dark:bg-card text-sm min-w-[180px]"
         aria-label="Filter by lead status"
       >
-        <option value="all">{t('filters.allStatuses')}</option>
-        <option value={DealStatus.NEW}>{t('status.new')}</option>
-        <option value={DealStatus.CONTACTED}>{t('status.contacted')}</option>
+        <option value="all"><EditableText tKey="dashboard.deals.filters.allStatuses">{t('filters.allStatuses')}</EditableText></option>
+        <option value={DealStatus.NEW}><EditableText tKey="dashboard.deals.status.new">{t('status.new')}</EditableText></option>
+        <option value={DealStatus.CONTACTED}><EditableText tKey="dashboard.deals.status.contacted">{t('status.contacted')}</EditableText></option>
       </select>
 
       {/* Clear Filters */}
@@ -87,7 +88,7 @@ export function DealFilters({
           aria-label="Clear all filters"
         >
           <X className="h-4 w-4" aria-hidden="true" />
-          {t('filters.clearFilters')}
+          <EditableText tKey="dashboard.deals.filters.clearFilters">{t('filters.clearFilters')}</EditableText>
         </Button>
       )}
     </div>

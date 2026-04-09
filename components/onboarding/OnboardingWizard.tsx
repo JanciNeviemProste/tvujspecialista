@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { Briefcase, Camera, FileText, Award, MapPin, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { regions } from '@/mocks/regions';
+import { EditableText } from '@/components/editor/EditableText';
 
 const STEPS = ['basics', 'photo', 'bio', 'credentials', 'regions', 'complete'] as const;
 
@@ -115,35 +116,35 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
           {currentStep === 0 && (
             <div className="space-y-4">
               <Briefcase className="mx-auto h-12 w-12 text-blue-600" />
-              <h2 className="text-2xl font-bold dark:text-foreground text-center">{t('basics.title')}</h2>
-              <p className="text-gray-600 dark:text-muted-foreground text-center">{t('basics.description')}</p>
+              <h2 className="text-2xl font-bold dark:text-foreground text-center"><EditableText tKey="onboarding.basics.title">{t('basics.title')}</EditableText></h2>
+              <p className="text-gray-600 dark:text-muted-foreground text-center"><EditableText tKey="onboarding.basics.description">{t('basics.description')}</EditableText></p>
               <div>
-                <label className={labelClass}>{t('basics.categoryLabel')} *</label>
+                <label className={labelClass}><EditableText tKey="onboarding.basics.categoryLabel">{t('basics.categoryLabel')}</EditableText> *</label>
                 <select
                   className={inputClass}
                   value={formData.category}
                   onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                 >
-                  <option value="">{t('basics.selectCategory')}</option>
-                  <option value="Finanční poradce">{t('basics.categoryFinancial')}</option>
-                  <option value="Realitní makléř">{t('basics.categoryRealEstate')}</option>
+                  <option value=""><EditableText tKey="onboarding.basics.selectCategory">{t('basics.selectCategory')}</EditableText></option>
+                  <option value="Finanční poradce"><EditableText tKey="onboarding.basics.categoryFinancial">{t('basics.categoryFinancial')}</EditableText></option>
+                  <option value="Realitní makléř"><EditableText tKey="onboarding.basics.categoryRealEstate">{t('basics.categoryRealEstate')}</EditableText></option>
                 </select>
               </div>
               <div>
-                <label className={labelClass}>{t('basics.locationLabel')}</label>
+                <label className={labelClass}><EditableText tKey="onboarding.basics.locationLabel">{t('basics.locationLabel')}</EditableText></label>
                 <select
                   className={inputClass}
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                 >
-                  <option value="">{t('basics.selectLocation')}</option>
+                  <option value=""><EditableText tKey="onboarding.basics.selectLocation">{t('basics.selectLocation')}</EditableText></option>
                   {czRegions.map((r) => (
                     <option key={r.id} value={r.name}>{r.name}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className={labelClass}>{t('basics.experienceLabel')}</label>
+                <label className={labelClass}><EditableText tKey="onboarding.basics.experienceLabel">{t('basics.experienceLabel')}</EditableText></label>
                 <input
                   type="number"
                   min="0"
@@ -160,19 +161,19 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
           {currentStep === 1 && (
             <div className="text-center space-y-4">
               <Camera className="mx-auto h-12 w-12 text-blue-600" />
-              <h2 className="text-2xl font-bold dark:text-foreground">{t('photo.title')}</h2>
-              <p className="text-gray-600 dark:text-muted-foreground">{t('photo.description')}</p>
-              <p className="text-sm text-gray-500">{t('photo.skip')}</p>
+              <h2 className="text-2xl font-bold dark:text-foreground"><EditableText tKey="onboarding.photo.title">{t('photo.title')}</EditableText></h2>
+              <p className="text-gray-600 dark:text-muted-foreground"><EditableText tKey="onboarding.photo.description">{t('photo.description')}</EditableText></p>
+              <p className="text-sm text-gray-500"><EditableText tKey="onboarding.photo.skip">{t('photo.skip')}</EditableText></p>
             </div>
           )}
 
           {/* Step 2: Bio + Services */}
           {currentStep === 2 && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold dark:text-foreground">{t('bio.title')}</h2>
-              <p className="text-gray-600 dark:text-muted-foreground">{t('bio.description')}</p>
+              <h2 className="text-2xl font-bold dark:text-foreground"><EditableText tKey="onboarding.bio.title">{t('bio.title')}</EditableText></h2>
+              <p className="text-gray-600 dark:text-muted-foreground"><EditableText tKey="onboarding.bio.description">{t('bio.description')}</EditableText></p>
               <div>
-                <label className={labelClass}>{t('bio.bioLabel')}</label>
+                <label className={labelClass}><EditableText tKey="onboarding.bio.bioLabel">{t('bio.bioLabel')}</EditableText></label>
                 <textarea
                   className={inputClass}
                   rows={4}
@@ -182,7 +183,7 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
                 />
               </div>
               <div>
-                <label className={labelClass}>{t('bio.servicesLabel')}</label>
+                <label className={labelClass}><EditableText tKey="onboarding.bio.servicesLabel">{t('bio.servicesLabel')}</EditableText></label>
                 <input
                   className={inputClass}
                   placeholder={t('bio.servicesPlaceholder')}
@@ -196,10 +197,10 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
           {/* Step 3: Credentials */}
           {currentStep === 3 && (
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold dark:text-foreground">{t('credentials.title')}</h2>
-              <p className="text-gray-600 dark:text-muted-foreground">{t('credentials.description')}</p>
+              <h2 className="text-2xl font-bold dark:text-foreground"><EditableText tKey="onboarding.credentials.title">{t('credentials.title')}</EditableText></h2>
+              <p className="text-gray-600 dark:text-muted-foreground"><EditableText tKey="onboarding.credentials.description">{t('credentials.description')}</EditableText></p>
               <div>
-                <label className={labelClass}>{t('credentials.educationLabel')}</label>
+                <label className={labelClass}><EditableText tKey="onboarding.credentials.educationLabel">{t('credentials.educationLabel')}</EditableText></label>
                 <input
                   className={inputClass}
                   placeholder={t('credentials.educationPlaceholder')}
@@ -208,7 +209,7 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
                 />
               </div>
               <div>
-                <label className={labelClass}>{t('credentials.certificationsLabel')}</label>
+                <label className={labelClass}><EditableText tKey="onboarding.credentials.certificationsLabel">{t('credentials.certificationsLabel')}</EditableText></label>
                 <input
                   className={inputClass}
                   placeholder={t('credentials.certificationsPlaceholder')}
@@ -223,9 +224,9 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
           {currentStep === 4 && (
             <div className="text-center space-y-4">
               <MapPin className="mx-auto h-12 w-12 text-blue-600" />
-              <h2 className="text-2xl font-bold dark:text-foreground">{t('regions.title')}</h2>
-              <p className="text-gray-600 dark:text-muted-foreground">{t('regions.description')}</p>
-              <p className="text-sm text-gray-500">{t('regions.editLater')}</p>
+              <h2 className="text-2xl font-bold dark:text-foreground"><EditableText tKey="onboarding.regions.title">{t('regions.title')}</EditableText></h2>
+              <p className="text-gray-600 dark:text-muted-foreground"><EditableText tKey="onboarding.regions.description">{t('regions.description')}</EditableText></p>
+              <p className="text-sm text-gray-500"><EditableText tKey="onboarding.regions.editLater">{t('regions.editLater')}</EditableText></p>
             </div>
           )}
 
@@ -235,8 +236,8 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                 <CheckCircle className="h-8 w-8 text-green-600" />
               </div>
-              <h2 className="text-2xl font-bold dark:text-foreground">{t('complete.title')}</h2>
-              <p className="text-gray-600 dark:text-muted-foreground">{t('complete.description')}</p>
+              <h2 className="text-2xl font-bold dark:text-foreground"><EditableText tKey="onboarding.complete.title">{t('complete.title')}</EditableText></h2>
+              <p className="text-gray-600 dark:text-muted-foreground"><EditableText tKey="onboarding.complete.description">{t('complete.description')}</EditableText></p>
             </div>
           )}
 
@@ -247,7 +248,7 @@ export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {
                 className="rounded-lg border border-gray-300 dark:border-border px-6 py-2.5 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted transition-colors"
                 onClick={() => setCurrentStep(currentStep - 1)}
               >
-                {t('back')}
+                <EditableText tKey="onboarding.back">{t('back')}</EditableText>
               </button>
             )}
             <button

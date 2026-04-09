@@ -9,6 +9,7 @@ import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function ForgotPasswordPage() {
   const t = useTranslations('auth.forgotPassword');
@@ -47,28 +48,28 @@ export default function ForgotPasswordPage() {
       <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           <div className="rounded-lg border bg-white dark:bg-card dark:border-border p-8 shadow-sm">
-            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
+            <h1 className="mb-2 text-2xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.forgotPassword.title">{t('title')}</EditableText></h1>
             <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">
-              {t('subtitle')}
+              <EditableText tKey="auth.forgotPassword.subtitle">{t('subtitle')}</EditableText>
             </p>
 
             {submitted ? (
               <div className="rounded-lg border border-green-200 bg-green-50 dark:bg-green-950/20 dark:border-green-800 p-4">
                 <p className="text-sm text-green-700 dark:text-green-400">
-                  {t('successMessage')}
+                  <EditableText tKey="auth.forgotPassword.successMessage">{t('successMessage')}</EditableText>
                 </p>
                 <Link
                   href="/profi/prihlaseni"
                   className="mt-4 inline-block text-sm font-medium text-blue-600 dark:text-primary hover:underline"
                 >
-                  {t('backToLogin')}
+                  <EditableText tKey="auth.forgotPassword.backToLogin">{t('backToLogin')}</EditableText>
                 </Link>
               </div>
             ) : (
               <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label htmlFor="email" className="mb-1 block text-sm font-medium text-gray-700 dark:text-foreground">
-                    {t('email')}
+                    <EditableText tKey="auth.forgotPassword.email">{t('email')}</EditableText>
                   </label>
                   <input
                     type="email"
@@ -94,9 +95,9 @@ export default function ForgotPasswordPage() {
 
             <div className="mt-6 border-t dark:border-border pt-6">
               <p className="text-center text-sm text-gray-600 dark:text-muted-foreground">
-                {t('rememberPassword')}{' '}
+                <EditableText tKey="auth.forgotPassword.rememberPassword">{t('rememberPassword')}</EditableText>{' '}
                 <Link href="/profi/prihlaseni" className="text-blue-600 dark:text-primary hover:underline">
-                  {tNav('login')}
+                  <EditableText tKey="common.nav.login">{tNav('login')}</EditableText>
                 </Link>
               </p>
             </div>
@@ -104,7 +105,7 @@ export default function ForgotPasswordPage() {
 
           <div className="mt-6 text-center">
             <Link href="/" className="text-sm text-gray-600 dark:text-muted-foreground hover:text-blue-600 dark:hover:text-primary">
-              {tActions('backToHome')}
+              <EditableText tKey="common.actions.backToHome">{tActions('backToHome')}</EditableText>
             </Link>
           </div>
         </div>

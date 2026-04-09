@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { PricingPlan } from '@/types/subscriptions';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface PricingCardProps {
   plan: PricingPlan;
@@ -35,7 +36,7 @@ export function PricingCard({
       {isRecommended && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
           <Badge variant="default" className="px-3 py-1">
-            {t('pricing.recommended')}
+            <EditableText tKey="subscription.pricing.recommended">{t('pricing.recommended')}</EditableText>
           </Badge>
         </div>
       )}
@@ -44,7 +45,7 @@ export function PricingCard({
         <CardTitle className="text-2xl">{plan.name}</CardTitle>
         <CardDescription className="text-sm">{plan.description}</CardDescription>
         <div className="mt-4">
-          <span className="text-4xl font-bold">{plan.monthlyPrice} {t('pricing.currency')}</span>
+          <span className="text-4xl font-bold">{plan.monthlyPrice} <EditableText tKey="subscription.pricing.currency">{t('pricing.currency')}</EditableText></span>
           <span className="text-muted-foreground ml-2">
             {plan.recommended ? t('pricing.perYear') : t('pricing.perMonth')}
           </span>

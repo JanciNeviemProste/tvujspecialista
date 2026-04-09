@@ -11,6 +11,7 @@ import type { Module, Lesson } from '@/types/academy';
 import ModuleForm from '@/components/admin/ModuleForm';
 import LessonRow from '@/components/admin/LessonRow';
 import LessonModal from '@/components/admin/LessonModal';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface ModuleSectionProps {
   module: Module;
@@ -182,7 +183,7 @@ export default function ModuleSection({
             className="flex items-center gap-2 w-full px-4 py-2.5 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
           >
             <Plus className="h-4 w-4" />
-            {t('lesson.add')}
+            <EditableText tKey="dashboard.admin.courses.lesson.add">{t('lesson.add')}</EditableText>
           </button>
         </div>
       )}

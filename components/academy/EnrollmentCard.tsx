@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Enrollment } from '@/types/academy'
@@ -94,7 +95,7 @@ function EnrollmentCardInner({ enrollment, className }: EnrollmentCardProps) {
 
         {/* Last accessed */}
         <p className="text-xs text-gray-500">
-          {t('enrollment.lastAccessed')} {formatRelativeTime(enrollment.lastAccessedAt, t)}
+          <EditableText tKey="academy.enrollment.lastAccessed">{t('enrollment.lastAccessed')}</EditableText> {formatRelativeTime(enrollment.lastAccessedAt, t)}
         </p>
 
         {/* Action buttons */}
@@ -115,7 +116,7 @@ function EnrollmentCardInner({ enrollment, className }: EnrollmentCardProps) {
                 className="w-full"
               >
                 <Award className="h-4 w-4 mr-2" />
-                {t('enrollment.downloadCertificate')}
+                <EditableText tKey="academy.enrollment.downloadCertificate">{t('enrollment.downloadCertificate')}</EditableText>
               </Button>
             </Link>
           )}

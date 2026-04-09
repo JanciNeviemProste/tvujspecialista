@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -90,7 +91,7 @@ export default function EventDetailPage() {
         <div className="container mx-auto px-4 py-8">
           <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
             <p className="text-red-600">
-              {t('notFound')}
+              <EditableText tKey="community.eventDetail.notFound">{t('notFound')}</EditableText>
             </p>
           </div>
         </div>
@@ -165,7 +166,7 @@ export default function EventDetailPage() {
             {/* Description */}
             <Card>
               <CardHeader>
-                <CardTitle>{t('about')}</CardTitle>
+                <CardTitle><EditableText tKey="community.eventDetail.about">{t('about')}</EditableText></CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-500 whitespace-pre-wrap">
@@ -178,7 +179,7 @@ export default function EventDetailPage() {
             {event.organizer && (
               <Card>
                 <CardHeader>
-                  <CardTitle>{t('organizer')}</CardTitle>
+                  <CardTitle><EditableText tKey="community.eventDetail.organizer">{t('organizer')}</EditableText></CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center gap-4">
@@ -202,7 +203,7 @@ export default function EventDetailPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Tag className="h-5 w-5" />
-                    {t('tags')}
+                    <EditableText tKey="community.eventDetail.tags">{t('tags')}</EditableText>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -224,7 +225,7 @@ export default function EventDetailPage() {
               {/* Event Info Card */}
               <Card>
                 <CardHeader>
-                  <CardTitle>{t('info')}</CardTitle>
+                  <CardTitle><EditableText tKey="community.eventDetail.info">{t('info')}</EditableText></CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   {/* Date & Time */}
@@ -243,7 +244,7 @@ export default function EventDetailPage() {
                     <div className="flex items-start gap-3">
                       <Video className="h-5 w-5 text-gray-500 mt-0.5" />
                       <div>
-                        <p className="font-medium">{t('onlineMeeting')}</p>
+                        <p className="font-medium"><EditableText tKey="community.eventDetail.onlineMeeting">{t('onlineMeeting')}</EditableText></p>
                         {event.meetingLink && isRegistered && (
                           <a
                             href={event.meetingLink}
@@ -251,13 +252,13 @@ export default function EventDetailPage() {
                             rel="noopener noreferrer"
                             className="text-sm text-blue-600 hover:underline flex items-center gap-1"
                           >
-                            {t('joinLink')}
+                            <EditableText tKey="community.eventDetail.joinLink">{t('joinLink')}</EditableText>
                             <ExternalLink className="h-3 w-3" />
                           </a>
                         )}
                         {!isRegistered && (
                           <p className="text-sm text-gray-500">
-                            {t('linkAfterRegistration')}
+                            <EditableText tKey="community.eventDetail.linkAfterRegistration">{t('linkAfterRegistration')}</EditableText>
                           </p>
                         )}
                       </div>
@@ -284,7 +285,7 @@ export default function EventDetailPage() {
                       </p>
                       {isFullyBooked && (
                         <Badge variant="destructive" className="mt-1">
-                          {t('fullyBooked')}
+                          <EditableText tKey="community.eventDetail.fullyBooked">{t('fullyBooked')}</EditableText>
                         </Badge>
                       )}
                     </div>
@@ -294,7 +295,7 @@ export default function EventDetailPage() {
                   <div className="flex items-start gap-3">
                     <Tag className="h-5 w-5 text-gray-500 mt-0.5" />
                     <div>
-                      <p className="font-medium">{t('category')}</p>
+                      <p className="font-medium"><EditableText tKey="community.eventDetail.category">{t('category')}</EditableText></p>
                       <p className="text-sm text-gray-500">
                         {{
                           [EventCategory.REAL_ESTATE]: tCatalog('filters.catRealEstate'),
@@ -307,7 +308,7 @@ export default function EventDetailPage() {
 
                   {/* Price */}
                   <div className="pt-4 border-t">
-                    <p className="text-sm text-gray-500 mb-2">{t('price')}</p>
+                    <p className="text-sm text-gray-500 mb-2"><EditableText tKey="community.eventDetail.price">{t('price')}</EditableText></p>
                     <p className="text-2xl font-bold text-blue-600">
                       {isFree ? t('free') : `${event.price} ${event.currency}`}
                     </p>
@@ -330,7 +331,7 @@ export default function EventDetailPage() {
 
                   {isRegistered && (
                     <p className="text-sm text-center text-gray-500">
-                      {t('confirmationEmailSent')}
+                      <EditableText tKey="community.eventDetail.confirmationEmailSent">{t('confirmationEmailSent')}</EditableText>
                     </p>
                   )}
                 </CardContent>

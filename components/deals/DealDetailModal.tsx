@@ -9,6 +9,7 @@ import { DealInfo } from '@/components/deals/DealInfo';
 import { DealNotes } from '@/components/deals/DealNotes';
 import { X, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface DealDetailModalProps {
   deal: Deal | null;
@@ -82,7 +83,7 @@ export function DealDetailModal({
         <div className="px-6 pt-5 pb-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <h2 id="deal-modal-title" className="text-xl font-bold text-gray-900 dark:text-white">
-              {t('detail.title')}
+              <EditableText tKey="dashboard.deals.detail.title">{t('detail.title')}</EditableText>
             </h2>
             <span className={cn(
               'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
@@ -108,13 +109,13 @@ export function DealDetailModal({
           {isNew && (
             <div className="flex items-center gap-2 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 text-sm">
               <Lock className="h-4 w-4 shrink-0" />
-              <span>{t('detail.contactHiddenNoticeCrm')}</span>
+              <span><EditableText tKey="dashboard.deals.detail.contactHiddenNoticeCrm">{t('detail.contactHiddenNoticeCrm')}</EditableText></span>
             </div>
           )}
 
           {deal.crmPushedAt && (
             <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 border border-green-200 text-green-800 text-sm">
-              <span>{t('detail.crmPushSuccess')}</span>
+              <span><EditableText tKey="dashboard.deals.detail.crmPushSuccess">{t('detail.crmPushSuccess')}</EditableText></span>
             </div>
           )}
 
@@ -132,11 +133,11 @@ export function DealDetailModal({
           {/* Timeline/Events */}
           <div>
             <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">
-              {t('detail.eventHistory')}
+              <EditableText tKey="dashboard.deals.detail.eventHistory">{t('detail.eventHistory')}</EditableText>
             </h3>
             {eventsError ? (
               <p className="text-sm text-gray-400 dark:text-gray-500 italic">
-                {t('detail.eventsError')}
+                <EditableText tKey="dashboard.deals.detail.eventsError">{t('detail.eventsError')}</EditableText>
               </p>
             ) : (
               <DealTimeline events={events || []} isLoading={eventsLoading} />
@@ -154,14 +155,14 @@ export function DealDetailModal({
                 }}
                 className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors"
               >
-                {t('card.moveToCrm')}
+                <EditableText tKey="dashboard.deals.card.moveToCrm">{t('card.moveToCrm')}</EditableText>
               </button>
             )}
             <button
               onClick={onClose}
               className="ml-auto text-gray-500 hover:text-gray-700 dark:text-gray-300 px-4 py-2.5 rounded-xl text-sm transition-colors"
             >
-              {t('detail.close')}
+              <EditableText tKey="dashboard.deals.detail.close">{t('detail.close')}</EditableText>
             </button>
           </div>
         </div>

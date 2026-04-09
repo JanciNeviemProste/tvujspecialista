@@ -11,6 +11,7 @@ import { CommissionCard } from '@/components/commissions/CommissionCard';
 import { CommissionStatsSkeleton, CommissionCardSkeleton } from '@/components/commissions/LoadingStates';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function CommissionsPage() {
   const t = useTranslations('dashboard.commissions');
@@ -59,8 +60,8 @@ export default function CommissionsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-          <p className="text-muted-foreground">{t('subtitle')}</p>
+          <h1 className="text-3xl font-bold mb-2"><EditableText tKey="dashboard.commissions.title">{t('title')}</EditableText></h1>
+          <p className="text-muted-foreground"><EditableText tKey="dashboard.commissions.subtitle">{t('subtitle')}</EditableText></p>
         </div>
 
         {/* Stats */}
@@ -89,9 +90,9 @@ export default function CommissionsPage() {
             {pendingCommissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="text-6xl mb-4">✅</div>
-                <h3 className="text-xl font-semibold mb-2">{t('emptyPending.title')}</h3>
+                <h3 className="text-xl font-semibold mb-2"><EditableText tKey="dashboard.commissions.emptyPending.title">{t('emptyPending.title')}</EditableText></h3>
                 <p className="text-muted-foreground">
-                  {t('emptyPending.description')}
+                  <EditableText tKey="dashboard.commissions.emptyPending.description">{t('emptyPending.description')}</EditableText>
                 </p>
               </div>
             ) : (
@@ -112,9 +113,9 @@ export default function CommissionsPage() {
             {invoicedCommissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="text-6xl mb-4">📄</div>
-                <h3 className="text-xl font-semibold mb-2">{t('emptyInvoiced.title')}</h3>
+                <h3 className="text-xl font-semibold mb-2"><EditableText tKey="dashboard.commissions.emptyInvoiced.title">{t('emptyInvoiced.title')}</EditableText></h3>
                 <p className="text-muted-foreground">
-                  {t('emptyInvoiced.description')}
+                  <EditableText tKey="dashboard.commissions.emptyInvoiced.description">{t('emptyInvoiced.description')}</EditableText>
                 </p>
               </div>
             ) : (
@@ -135,9 +136,9 @@ export default function CommissionsPage() {
             {paidCommissions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center">
                 <div className="text-6xl mb-4">💰</div>
-                <h3 className="text-xl font-semibold mb-2">{t('emptyPaid.title')}</h3>
+                <h3 className="text-xl font-semibold mb-2"><EditableText tKey="dashboard.commissions.emptyPaid.title">{t('emptyPaid.title')}</EditableText></h3>
                 <p className="text-muted-foreground">
-                  {t('emptyPaid.description')}
+                  <EditableText tKey="dashboard.commissions.emptyPaid.description">{t('emptyPaid.description')}</EditableText>
                 </p>
               </div>
             ) : (

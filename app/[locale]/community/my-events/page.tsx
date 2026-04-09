@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -24,7 +25,7 @@ export default function MyEventsPage() {
   const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error', message: string } | null>(null)
 
   useEffect(() => {
-    document.title = `${t('title')} | Komunita | tvujspecialista.cz`
+    document.title = `$<EditableText tKey="community.myEvents.title">{t('title')}</EditableText> | Komunita | tvujspecialista.cz`
   }, [t])
 
   useEffect(() => {
@@ -94,9 +95,9 @@ export default function MyEventsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="mb-2 text-4xl font-bold">{t('title')}</h1>
+          <h1 className="mb-2 text-4xl font-bold"><EditableText tKey="community.myEvents.title">{t('title')}</EditableText></h1>
           <p className="text-lg text-gray-500">
-            {t('subtitle')}
+            <EditableText tKey="community.myEvents.subtitle">{t('subtitle')}</EditableText>
           </p>
         </div>
 
@@ -118,7 +119,7 @@ export default function MyEventsPage() {
             {error && (
               <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
                 <p className="text-red-600">
-                  {t('loadError')}
+                  <EditableText tKey="community.myEvents.loadError">{t('loadError')}</EditableText>
                 </p>
               </div>
             )}
@@ -130,16 +131,16 @@ export default function MyEventsPage() {
                     <CardContent className="p-12 text-center">
                       <div className="mb-4 text-5xl">📅</div>
                       <h3 className="mb-2 text-xl font-semibold">
-                        {t('emptyActive.title')}
+                        <EditableText tKey="community.myEvents.emptyActive.title">{t('emptyActive.title')}</EditableText>
                       </h3>
                       <p className="text-gray-500 mb-4">
-                        {t('emptyActive.description')}
+                        <EditableText tKey="community.myEvents.emptyActive.description">{t('emptyActive.description')}</EditableText>
                       </p>
                       <Link
                         href="/community/events"
                         className="text-blue-600 hover:underline"
                       >
-                        {t('emptyActive.exploreLink')}
+                        <EditableText tKey="community.myEvents.emptyActive.exploreLink">{t('emptyActive.exploreLink')}</EditableText>
                       </Link>
                     </CardContent>
                   </Card>
@@ -165,7 +166,7 @@ export default function MyEventsPage() {
             {error && (
               <div className="rounded-lg border border-red-300 bg-red-50 p-12 text-center">
                 <p className="text-red-600">
-                  {t('loadError')}
+                  <EditableText tKey="community.myEvents.loadError">{t('loadError')}</EditableText>
                 </p>
               </div>
             )}
@@ -177,10 +178,10 @@ export default function MyEventsPage() {
                     <CardContent className="p-12 text-center">
                       <div className="mb-4 text-5xl">🕒</div>
                       <h3 className="mb-2 text-xl font-semibold">
-                        {t('emptyPast.title')}
+                        <EditableText tKey="community.myEvents.emptyPast.title">{t('emptyPast.title')}</EditableText>
                       </h3>
                       <p className="text-gray-500">
-                        {t('emptyPast.description')}
+                        <EditableText tKey="community.myEvents.emptyPast.description">{t('emptyPast.description')}</EditableText>
                       </p>
                     </CardContent>
                   </Card>

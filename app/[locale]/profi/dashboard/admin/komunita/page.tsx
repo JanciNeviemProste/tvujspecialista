@@ -13,6 +13,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import EventCard from '@/components/admin/EventCard';
 import EventsListHeader from '@/components/admin/EventsListHeader';
 import EventsEmptyState from '@/components/admin/EventsEmptyState';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface EventFormData {
   title: string;
@@ -127,7 +128,7 @@ function EventFormModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {/* Banner Image Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.bannerImage')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.bannerImage">{tCommunity('eventForm.bannerImage')}</EditableText></label>
             <input
               ref={fileInputRef}
               type="file"
@@ -153,7 +154,7 @@ function EventFormModal({
                     onClick={() => fileInputRef.current?.click()}
                     className="px-3 py-1.5 bg-white dark:bg-card rounded-lg text-sm font-medium shadow-lg"
                   >
-                    {tCommunity('image.change')}
+                    <EditableText tKey="dashboard.admin.community.image.change">{tCommunity('image.change')}</EditableText>
                   </button>
                 </div>
               </div>
@@ -170,13 +171,13 @@ function EventFormModal({
                 {uploading ? (
                   <>
                     <div className="h-8 w-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-2" />
-                    <span className="text-sm text-gray-500">{tCommunity('image.uploading')}</span>
+                    <span className="text-sm text-gray-500"><EditableText tKey="dashboard.admin.community.image.uploading">{tCommunity('image.uploading')}</EditableText></span>
                   </>
                 ) : (
                   <>
                     <Upload className="h-8 w-8 text-gray-400 mb-2" />
-                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{tCommunity('image.dragOrClick')}</span>
-                    <span className="text-xs text-gray-400 mt-1">{tCommunity('image.hint')}</span>
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.admin.community.image.dragOrClick">{tCommunity('image.dragOrClick')}</EditableText></span>
+                    <span className="text-xs text-gray-400 mt-1"><EditableText tKey="dashboard.admin.community.image.hint">{tCommunity('image.hint')}</EditableText></span>
                   </>
                 )}
               </div>
@@ -184,7 +185,7 @@ function EventFormModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.nameLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.nameLabel">{tCommunity('eventForm.nameLabel')}</EditableText></label>
             <input
               type="text"
               value={form.title}
@@ -196,7 +197,7 @@ function EventFormModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.descriptionLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.descriptionLabel">{tCommunity('eventForm.descriptionLabel')}</EditableText></label>
             <textarea
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
@@ -209,50 +210,50 @@ function EventFormModal({
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.typeLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.typeLabel">{tCommunity('eventForm.typeLabel')}</EditableText></label>
               <select
                 value={form.type}
                 onChange={(e) => handleChange('type', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="workshop">{tCommunity('eventForm.typeWorkshop')}</option>
-                <option value="networking">{tCommunity('eventForm.typeNetworking')}</option>
-                <option value="conference">{tCommunity('eventForm.typeConference')}</option>
-                <option value="webinar">{tCommunity('eventForm.typeWebinar')}</option>
-                <option value="meetup">{tCommunity('eventForm.typeMeetup')}</option>
+                <option value="workshop"><EditableText tKey="dashboard.admin.community.eventForm.typeWorkshop">{tCommunity('eventForm.typeWorkshop')}</EditableText></option>
+                <option value="networking"><EditableText tKey="dashboard.admin.community.eventForm.typeNetworking">{tCommunity('eventForm.typeNetworking')}</EditableText></option>
+                <option value="conference"><EditableText tKey="dashboard.admin.community.eventForm.typeConference">{tCommunity('eventForm.typeConference')}</EditableText></option>
+                <option value="webinar"><EditableText tKey="dashboard.admin.community.eventForm.typeWebinar">{tCommunity('eventForm.typeWebinar')}</EditableText></option>
+                <option value="meetup"><EditableText tKey="dashboard.admin.community.eventForm.typeMeetup">{tCommunity('eventForm.typeMeetup')}</EditableText></option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.formatLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.formatLabel">{tCommunity('eventForm.formatLabel')}</EditableText></label>
               <select
                 value={form.format}
                 onChange={(e) => handleChange('format', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="online">{tCommunity('eventForm.formatOnline')}</option>
-                <option value="offline">{tCommunity('eventForm.formatOffline')}</option>
+                <option value="online"><EditableText tKey="dashboard.admin.community.eventForm.formatOnline">{tCommunity('eventForm.formatOnline')}</EditableText></option>
+                <option value="offline"><EditableText tKey="dashboard.admin.community.eventForm.formatOffline">{tCommunity('eventForm.formatOffline')}</EditableText></option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.categoryLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.categoryLabel">{tCommunity('eventForm.categoryLabel')}</EditableText></label>
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-border dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="financial">{tCommunity('eventForm.categoryFinancial')}</option>
-                <option value="real_estate">{tCommunity('eventForm.categoryRealEstate')}</option>
-                <option value="both">{tCommunity('eventForm.categoryBoth')}</option>
+                <option value="financial"><EditableText tKey="dashboard.admin.community.eventForm.categoryFinancial">{tCommunity('eventForm.categoryFinancial')}</EditableText></option>
+                <option value="real_estate"><EditableText tKey="dashboard.admin.community.eventForm.categoryRealEstate">{tCommunity('eventForm.categoryRealEstate')}</EditableText></option>
+                <option value="both"><EditableText tKey="dashboard.admin.community.eventForm.categoryBoth">{tCommunity('eventForm.categoryBoth')}</EditableText></option>
               </select>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.startDate')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.startDate">{tCommunity('eventForm.startDate')}</EditableText></label>
               <input
                 type="datetime-local"
                 value={form.startDate}
@@ -262,7 +263,7 @@ function EventFormModal({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.endDate')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.endDate">{tCommunity('eventForm.endDate')}</EditableText></label>
               <input
                 type="datetime-local"
                 value={form.endDate}
@@ -275,7 +276,7 @@ function EventFormModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.locationLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.locationLabel">{tCommunity('eventForm.locationLabel')}</EditableText></label>
               <input
                 type="text"
                 value={form.location}
@@ -286,7 +287,7 @@ function EventFormModal({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.maxAttendeesLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.maxAttendeesLabel">{tCommunity('eventForm.maxAttendeesLabel')}</EditableText></label>
               <input
                 type="number"
                 value={form.maxAttendees}
@@ -301,7 +302,7 @@ function EventFormModal({
 
           {form.format === 'online' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tCommunity('eventForm.meetingLinkLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.community.eventForm.meetingLinkLabel">{tCommunity('eventForm.meetingLinkLabel')}</EditableText></label>
               <input
                 type="url"
                 value={form.meetingLink}
@@ -320,7 +321,7 @@ function EventFormModal({
               disabled={isLoading}
               className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600 py-2.5 text-sm font-medium hover:bg-gray-50 dark:bg-gray-800 transition-colors"
             >
-              {tCommunity('eventForm.cancel')}
+              <EditableText tKey="dashboard.admin.community.eventForm.cancel">{tCommunity('eventForm.cancel')}</EditableText>
             </button>
             <button
               type="submit"

@@ -4,6 +4,7 @@ import { Link } from '@/i18n/routing';
 import { useRouter, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslations } from 'next-intl';
+import { EditableText } from '@/components/editor/EditableText';
 
 export function DashboardHeader() {
   const t = useTranslations('dashboard.header');
@@ -50,7 +51,7 @@ export function DashboardHeader() {
             onClick={handleLogout}
             className="text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-white"
           >
-            {t('logout')}
+            <EditableText tKey="dashboard.header.logout">{t('logout')}</EditableText>
           </button>
         </nav>
       </div>

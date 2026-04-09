@@ -5,6 +5,7 @@ import { Link, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageSquare, Home, PenSquare, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface ForumLayoutClientProps {
   children: React.ReactNode;
@@ -59,7 +60,7 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav.categories')}</span>
+                <span className="hidden sm:inline"><EditableText tKey="forum.nav.categories">{t('nav.categories')}</EditableText></span>
               </Link>
               {isAuthenticated && (
                 <>
@@ -71,14 +72,14 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
                     )}
                   >
                     <PenSquare className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t('nav.newTopic')}</span>
+                    <span className="hidden sm:inline"><EditableText tKey="forum.nav.newTopic">{t('nav.newTopic')}</EditableText></span>
                   </Link>
                   <Link
                     href="/profi/dashboard"
                     className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
                   >
                     <LayoutDashboard className="h-4 w-4" />
-                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
+                    <span className="hidden sm:inline"><EditableText tKey="forum.nav.dashboard">{t('nav.dashboard')}</EditableText></span>
                   </Link>
                 </>
               )}
@@ -88,7 +89,7 @@ export default function ForumLayoutClient({ children }: ForumLayoutClientProps) 
             <div className="flex items-center gap-2 text-sm font-semibold">
               <MessageSquare className="h-5 w-5 text-blue-600" />
               <span className="hidden sm:inline text-blue-600 font-semibold">
-                {t('branding')}
+                <EditableText tKey="forum.branding">{t('branding')}</EditableText>
               </span>
             </div>
           </div>

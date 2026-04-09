@@ -18,27 +18,40 @@
  * - Does not handle template literals `${t('x')}`
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { resolve, join, relative } from 'node:path';
 
-const FILES = [
-  'app/[locale]/HomePageClient.tsx',
-  'app/[locale]/hledat/page.tsx',
-  'app/[locale]/ceny/page.tsx',
-  'app/[locale]/kontakt/page.tsx',
-  'app/[locale]/o-nas/page.tsx',
-  'app/[locale]/specialista/[slug]/SpecialistPageClient.tsx',
-  'components/home/ProblemSection.tsx',
-  'components/home/HowItWorks.tsx',
-  'components/home/CategoryCards.tsx',
-  'components/home/Benefits.tsx',
-  'components/home/Stats.tsx',
-  'components/home/CTASpecialist.tsx',
-  'components/home/Testimonials.tsx',
-  'components/home/FAQ.tsx',
-  'components/home/LogoMarquee.tsx',
-  'components/home/BentoStats.tsx',
+// Crawl all .tsx files under app/ and components/, skip excluded dirs
+const ROOTS = ['app', 'components'];
+const EXCLUDE_DIRS = new Set([
+  'node_modules',
+  '.next',
+  'dist',
+  'editor', // our own EditableText/Provider/Panel — don't self-wrap
+  'design-variants', // showcase only
+]);
+const EXCLUDE_FILE_PATTERNS = [
+  /error\.tsx$/, // error boundaries
+  /not-found\.tsx$/,
+  /layout\.tsx$/, // layout files use metadata t() in non-JSX context
 ];
+
+function walk(dir, acc = []) {
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    const st = statSync(full);
+    if (st.isDirectory()) {
+      if (EXCLUDE_DIRS.has(entry)) continue;
+      walk(full, acc);
+    } else if (entry.endsWith('.tsx')) {
+      if (EXCLUDE_FILE_PATTERNS.some((rx) => rx.test(entry))) continue;
+      acc.push(relative(process.cwd(), full).replace(/\\/g, '/'));
+    }
+  }
+  return acc;
+}
+
+const FILES = ROOTS.flatMap((r) => walk(resolve(process.cwd(), r)));
 
 const IMPORT_LINE = `import { EditableText } from '@/components/editor/EditableText';`;
 
@@ -112,8 +125,6 @@ const results = FILES.map(processFile);
 for (const r of results) {
   if (r.wrapped) {
     console.log(`✅ ${r.file} — wrapped ${r.wrapped} text(s)`);
-  } else {
-    console.log(`⏭️  ${r.file} — ${r.skipped}`);
   }
 }
 const total = results.reduce((s, r) => s + (r.wrapped ?? 0), 0);

@@ -6,6 +6,7 @@ import { academyApi } from '@/lib/api/academy';
 import { Trash2, X, Upload, Loader2, Play } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Lesson } from '@/types/academy';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface VideoUploadZoneProps {
   lesson: Lesson;
@@ -46,7 +47,7 @@ export default function VideoUploadZone({
     } catch (error: any) {
       console.error('Video upload error:', error);
       const detail = error?.response?.data?.message || error?.message || '';
-      toast.error(`${t('video.uploadFailed')}${detail ? ': ' + detail : ''}`);
+      toast.error(`$<EditableText tKey="dashboard.admin.courses.video.uploadFailed">{t('video.uploadFailed')}</EditableText>${detail ? ': ' + detail : ''}`);
     } finally {
       setUploading(false);
     }
@@ -58,7 +59,7 @@ export default function VideoUploadZone({
       <div className="flex items-center gap-3 p-3 bg-green-50 border border-green-200 rounded-lg">
         <Play className="h-5 w-5 text-green-600" />
         <div className="flex-1">
-          <p className="text-sm font-medium text-green-800">{t('video.uploaded')}</p>
+          <p className="text-sm font-medium text-green-800"><EditableText tKey="dashboard.admin.courses.video.uploaded">{t('video.uploaded')}</EditableText></p>
           <p className="text-xs text-green-600">{lesson.video.title} ({Math.round(lesson.video.duration / 60)} min)</p>
         </div>
         <button
@@ -85,8 +86,8 @@ export default function VideoUploadZone({
       <div className="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-lg">
         <X className="h-5 w-5 text-red-600" />
         <div className="flex-1">
-          <p className="text-sm font-medium text-red-800">{t('video.uploadError')}</p>
-          <p className="text-xs text-red-600">{t('video.uploadErrorHint')}</p>
+          <p className="text-sm font-medium text-red-800"><EditableText tKey="dashboard.admin.courses.video.uploadError">{t('video.uploadError')}</EditableText></p>
+          <p className="text-xs text-red-600"><EditableText tKey="dashboard.admin.courses.video.uploadErrorHint">{t('video.uploadErrorHint')}</EditableText></p>
         </div>
         <button
           onClick={async () => {
@@ -155,8 +156,8 @@ export default function VideoUploadZone({
           }`}
         >
           <Upload className="h-6 w-6 text-gray-400 mb-1" />
-          <span className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('video.uploadButton')}</span>
-          <span className="text-xs text-gray-400">{t('video.uploadHint')}</span>
+          <span className="text-sm font-medium text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.admin.courses.video.uploadButton">{t('video.uploadButton')}</EditableText></span>
+          <span className="text-xs text-gray-400"><EditableText tKey="dashboard.admin.courses.video.uploadHint">{t('video.uploadHint')}</EditableText></span>
         </div>
       )}
     </div>

@@ -7,6 +7,7 @@ import { Mail, Phone, ArrowRight, Lock, Clock, TrendingDown } from 'lucide-react
 import { cn } from '@/lib/utils/cn';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
+import { EditableText } from '@/components/editor/EditableText';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
@@ -104,7 +105,7 @@ function DealCardInner({
             <div className="absolute inset-0 z-10 flex items-center justify-center">
               <span className="flex items-center gap-1.5 text-xs font-medium text-gray-500 bg-white/80 dark:bg-neutral-900/80 px-3 py-1.5 rounded-full border">
                 <Lock className="h-3.5 w-3.5" />
-                {t('card.contactHidden')}
+                <EditableText tKey="dashboard.deals.card.contactHidden">{t('card.contactHidden')}</EditableText>
               </span>
             </div>
           )}
@@ -124,13 +125,13 @@ function DealCardInner({
         {/* CRM push error */}
         {deal.crmPushError && (
           <div className="text-xs text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400 px-2 py-1 rounded">
-            {t('card.crmError')}: {deal.crmPushError}
+            <EditableText tKey="dashboard.deals.card.crmError">{t('card.crmError')}</EditableText>: {deal.crmPushError}
           </div>
         )}
 
         {/* Created date */}
         <div className="text-xs text-gray-400 dark:text-gray-500">
-          {t('card.created')}:{' '}
+          <EditableText tKey="dashboard.deals.card.created">{t('card.created')}</EditableText>:{' '}
           {format(new Date(deal.createdAt), 'd. MMM yyyy, HH:mm', { locale: dateFnsLocaleMap[locale] || cs })}
         </div>
       </div>
@@ -142,7 +143,7 @@ function DealCardInner({
             className="flex-1 px-3 py-2 text-sm font-medium rounded-lg border border-gray-200 dark:border-neutral-700 text-gray-700 dark:text-gray-300 bg-white dark:bg-neutral-800 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
             onClick={() => onViewDetails(deal)}
           >
-            {t('card.detail')}
+            <EditableText tKey="dashboard.deals.card.detail">{t('card.detail')}</EditableText>
           </button>
         )}
         {onStatusChange && isNew && (
@@ -151,7 +152,7 @@ function DealCardInner({
             onClick={() => onStatusChange(deal, DealStatus.CONTACTED)}
           >
             <ArrowRight className="h-3.5 w-3.5" />
-            {t('card.moveToCrm')}
+            <EditableText tKey="dashboard.deals.card.moveToCrm">{t('card.moveToCrm')}</EditableText>
           </button>
         )}
       </div>

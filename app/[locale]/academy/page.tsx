@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useTranslations } from 'next-intl'
@@ -17,9 +18,9 @@ export default function AcademyLandingPage() {
       <section className="py-16 bg-white dark:bg-neutral-900">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">{t('featured.title')}</h2>
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"><EditableText tKey="academy.featured.title">{t('featured.title')}</EditableText></h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              {t('featured.subtitle')}
+              <EditableText tKey="academy.featured.subtitle">{t('featured.subtitle')}</EditableText>
             </p>
           </div>
 
@@ -30,7 +31,7 @@ export default function AcademyLandingPage() {
           {error && (
             <div className="rounded-lg border border-red-300 bg-red-50 dark:bg-red-950/30 p-8 text-center">
               <p className="text-red-600 dark:text-red-400">
-                {t('featured.loadError')}
+                <EditableText tKey="academy.featured.loadError">{t('featured.loadError')}</EditableText>
               </p>
             </div>
           )}
@@ -41,7 +42,7 @@ export default function AcademyLandingPage() {
               {featuredCourses.courses.length === 0 ? (
                 <div className="rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-12 text-center">
                   <p className="text-gray-500 dark:text-gray-400">
-                    {t('featured.empty')}
+                    <EditableText tKey="academy.featured.empty">{t('featured.empty')}</EditableText>
                   </p>
                 </div>
               ) : (
@@ -61,10 +62,10 @@ export default function AcademyLandingPage() {
         <div className="container mx-auto px-4">
           <div className="mx-auto max-w-4xl text-center">
             <h1 className="mb-6 text-5xl font-bold tracking-tight lg:text-6xl">
-              {t('hero.title')}
+              <EditableText tKey="academy.hero.title">{t('hero.title')}</EditableText>
             </h1>
             <p className="mb-4 text-xl lg:text-2xl opacity-90">
-              {t('hero.subtitle')}
+              <EditableText tKey="academy.hero.subtitle">{t('hero.subtitle')}</EditableText>
             </p>
           </div>
         </div>
@@ -84,9 +85,9 @@ export default function AcademyLandingPage() {
                   <GraduationCap className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('benefits.quality.title')}</h3>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="academy.benefits.quality.title">{t('benefits.quality.title')}</EditableText></h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('benefits.quality.description')}
+                <EditableText tKey="academy.benefits.quality.description">{t('benefits.quality.description')}</EditableText>
               </p>
             </div>
 
@@ -97,9 +98,9 @@ export default function AcademyLandingPage() {
                   <Clock className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('benefits.flexible.title')}</h3>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="academy.benefits.flexible.title">{t('benefits.flexible.title')}</EditableText></h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('benefits.flexible.description')}
+                <EditableText tKey="academy.benefits.flexible.description">{t('benefits.flexible.description')}</EditableText>
               </p>
             </div>
 
@@ -110,9 +111,9 @@ export default function AcademyLandingPage() {
                   <Award className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 </div>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('benefits.certificates.title')}</h3>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="academy.benefits.certificates.title">{t('benefits.certificates.title')}</EditableText></h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('benefits.certificates.description')}
+                <EditableText tKey="academy.benefits.certificates.description">{t('benefits.certificates.description')}</EditableText>
               </p>
             </div>
           </div>
@@ -126,7 +127,7 @@ export default function AcademyLandingPage() {
             href="/academy/courses"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl bg-blue-600 hover:bg-blue-700 text-white shadow-lg transition-colors"
           >
-            {t('viewAllCourses')}
+            <EditableText tKey="academy.viewAllCourses">{t('viewAllCourses')}</EditableText>
           </Link>
         </div>
       </section>

@@ -8,6 +8,7 @@ import { adminApi } from '@/lib/api/admin';
 import { ArrowLeft, KeyRound, CheckCircle, XCircle, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery } from '@tanstack/react-query';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface User {
   id: string;
@@ -71,12 +72,12 @@ export default function AdminUsersPage() {
           className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 dark:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
-          {t('backToDashboard')}
+          <EditableText tKey="dashboard.admin.users.backToDashboard">{t('backToDashboard')}</EditableText>
         </Link>
       </div>
 
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">{t('title')}</h1>
+        <h1 className="text-2xl font-bold"><EditableText tKey="dashboard.admin.users.title">{t('title')}</EditableText></h1>
         <span className="text-sm text-gray-500">
           {t('totalUsers', { count: data?.total || 0 })}
         </span>
@@ -112,12 +113,12 @@ export default function AdminUsersPage() {
           <table className="w-full text-sm">
             <thead className="border-b bg-gray-50 dark:bg-gray-800">
               <tr>
-                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('name')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('email')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('role')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('verified')}</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300">{t('registered')}</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-700 dark:text-gray-300">{t('actions')}</th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.users.name">{t('name')}</EditableText></th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.users.email">{t('email')}</EditableText></th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.users.role">{t('role')}</EditableText></th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.users.verified">{t('verified')}</EditableText></th>
+                <th className="px-4 py-3 text-left font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.users.registered">{t('registered')}</EditableText></th>
+                <th className="px-4 py-3 text-right font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.admin.users.actions">{t('actions')}</EditableText></th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -151,7 +152,7 @@ export default function AdminUsersPage() {
                   <td className="px-4 py-3 text-right">
                     {confirmResetId === u.id ? (
                       <div className="flex items-center justify-end gap-2">
-                        <span className="text-xs text-gray-500">{t('confirmReset')}</span>
+                        <span className="text-xs text-gray-500"><EditableText tKey="dashboard.admin.users.confirmReset">{t('confirmReset')}</EditableText></span>
                         <button
                           onClick={() => handleResetPassword(u.id)}
                           disabled={resetingId === u.id}
@@ -163,7 +164,7 @@ export default function AdminUsersPage() {
                           onClick={() => setConfirmResetId(null)}
                           className="rounded bg-gray-200 dark:bg-muted px-2 py-1 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-muted/80"
                         >
-                          {t('no')}
+                          <EditableText tKey="dashboard.admin.users.no">{t('no')}</EditableText>
                         </button>
                       </div>
                     ) : (
@@ -173,7 +174,7 @@ export default function AdminUsersPage() {
                         title={t('resetPassword')}
                       >
                         <KeyRound className="h-3 w-3" />
-                        {t('resetPassword')}
+                        <EditableText tKey="dashboard.admin.users.resetPassword">{t('resetPassword')}</EditableText>
                       </button>
                     )}
                   </td>
@@ -189,7 +190,7 @@ export default function AdminUsersPage() {
                 disabled={page <= 1}
                 className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
               >
-                {t('prev')}
+                <EditableText tKey="dashboard.admin.users.prev">{t('prev')}</EditableText>
               </button>
               <span className="text-sm text-gray-600 dark:text-gray-400">
                 {t('pageOf', { page, total: data.totalPages })}
@@ -199,7 +200,7 @@ export default function AdminUsersPage() {
                 disabled={page >= data.totalPages}
                 className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
               >
-                {t('next')}
+                <EditableText tKey="dashboard.admin.users.next">{t('next')}</EditableText>
               </button>
             </div>
           )}

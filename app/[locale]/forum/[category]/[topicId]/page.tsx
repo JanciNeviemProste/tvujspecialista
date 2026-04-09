@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Pin, Lock, Eye, MessageSquare } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
+import { EditableText } from '@/components/editor/EditableText';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
@@ -48,8 +49,8 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
   if (!topic) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h2 className="text-xl font-semibold mb-2">{t('notFound')}</h2>
-        <p className="text-muted-foreground">{t('notFoundDesc')}</p>
+        <h2 className="text-xl font-semibold mb-2"><EditableText tKey="forum.topic.notFound">{t('notFound')}</EditableText></h2>
+        <p className="text-muted-foreground"><EditableText tKey="forum.topic.notFoundDesc">{t('notFoundDesc')}</EditableText></p>
       </div>
     );
   }
@@ -142,7 +143,7 @@ export default function TopicDetailPage({ params }: TopicDetailPageProps) {
         <Card>
           <CardContent className="p-6 text-center text-muted-foreground">
             <Lock className="h-6 w-6 mx-auto mb-2" />
-            <p>{t('locked')}</p>
+            <p><EditableText tKey="forum.topic.locked">{t('locked')}</EditableText></p>
           </CardContent>
         </Card>
       ) : (

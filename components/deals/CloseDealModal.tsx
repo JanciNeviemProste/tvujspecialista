@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { X, CheckCircle, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface CloseDealModalProps {
   deal: Deal | null;
@@ -98,7 +99,7 @@ export function CloseDealModal({
         {/* Header */}
         <div className="px-6 pt-6 pb-4 flex items-center justify-between border-b border-gray-100 dark:border-neutral-800">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            {t('closeDeal.title')}
+            <EditableText tKey="dashboard.deals.closeDeal.title">{t('closeDeal.title')}</EditableText>
           </h2>
           <button
             onClick={onClose}
@@ -122,7 +123,7 @@ export function CloseDealModal({
             {/* Won/Lost Toggle */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t('closeDeal.result')}
+                <EditableText tKey="dashboard.deals.closeDeal.result">{t('closeDeal.result')}</EditableText>
               </label>
               <div className="grid grid-cols-2 gap-3">
                 <button
@@ -137,7 +138,7 @@ export function CloseDealModal({
                   )}
                 >
                   <CheckCircle className="h-4 w-4" />
-                  {t('closeDeal.won')}
+                  <EditableText tKey="dashboard.deals.closeDeal.won">{t('closeDeal.won')}</EditableText>
                 </button>
                 <button
                   type="button"
@@ -151,7 +152,7 @@ export function CloseDealModal({
                   )}
                 >
                   <XCircle className="h-4 w-4" />
-                  {t('closeDeal.lost')}
+                  <EditableText tKey="dashboard.deals.closeDeal.lost">{t('closeDeal.lost')}</EditableText>
                 </button>
               </div>
             </div>
@@ -160,7 +161,7 @@ export function CloseDealModal({
             {status === DealStatus.CLOSED_WON && (
               <div>
                 <label htmlFor="actualDealValue" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                  {t('closeDeal.actualValue')} (EUR) *
+                  <EditableText tKey="dashboard.deals.closeDeal.actualValue">{t('closeDeal.actualValue')}</EditableText> (EUR) *
                 </label>
                 <input
                   id="actualDealValue"
@@ -204,7 +205,7 @@ export function CloseDealModal({
               disabled={isLoading}
               className="flex-1 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700 disabled:opacity-50"
             >
-              {t('closeDeal.cancel')}
+              <EditableText tKey="dashboard.deals.closeDeal.cancel">{t('closeDeal.cancel')}</EditableText>
             </button>
             <button
               type="submit"

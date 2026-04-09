@@ -9,6 +9,7 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { NotificationBell } from '@/components/shared/NotificationBell';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ChevronDown, LogIn, UserPlus } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 export function PublicHeader() {
   const nav = useTranslations('common.nav');
@@ -56,7 +57,7 @@ export function PublicHeader() {
             href="/hledat"
             className="text-sm font-medium hover:text-blue-600 transition-colors"
           >
-            {nav('searchSpecialist')}
+            <EditableText tKey="common.nav.searchSpecialist">{nav('searchSpecialist')}</EditableText>
           </Link>
           {!isLoading && isAuthenticated ? (
             <>
@@ -64,20 +65,20 @@ export function PublicHeader() {
                 href="/profi/dashboard/ceny"
                 className="text-sm font-medium hover:text-blue-600 transition-colors"
               >
-                {nav('membership')}
+                <EditableText tKey="common.nav.membership">{nav('membership')}</EditableText>
               </Link>
               <Link
                 href="/profi/dashboard"
                 className="text-sm font-medium hover:text-blue-600 transition-colors"
               >
-                {nav('dashboard')}
+                <EditableText tKey="common.nav.dashboard">{nav('dashboard')}</EditableText>
               </Link>
               <NotificationBell />
               <button
                 onClick={handleLogout}
                 className="rounded bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700 transition-colors"
               >
-                {nav('logout')}
+                <EditableText tKey="common.nav.logout">{nav('logout')}</EditableText>
               </button>
             </>
           ) : !isLoading ? (
@@ -88,7 +89,7 @@ export function PublicHeader() {
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
               >
-                {nav('iAmSpecialist')}
+                <EditableText tKey="common.nav.iAmSpecialist">{nav('iAmSpecialist')}</EditableText>
                 <ChevronDown className={`h-4 w-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
@@ -101,7 +102,7 @@ export function PublicHeader() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors"
                     >
                       <LogIn className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                      <span className="text-sm font-semibold text-gray-900 dark:text-gray-100">{spec('login')}</span>
+                      <span className="text-sm font-semibold text-gray-900 dark:text-gray-100"><EditableText tKey="common.nav.specialistDropdown.login">{spec('login')}</EditableText></span>
                     </Link>
                     <Link
                       href="/profi/registrace"
@@ -109,7 +110,7 @@ export function PublicHeader() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
                     >
                       <UserPlus className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                      <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{spec('register')}</span>
+                      <span className="text-sm font-semibold text-blue-600 dark:text-blue-400"><EditableText tKey="common.nav.specialistDropdown.register">{spec('register')}</EditableText></span>
                     </Link>
                   </div>
                 </div>

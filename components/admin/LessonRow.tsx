@@ -8,6 +8,7 @@ import {
 } from 'lucide-react';
 import type { Lesson } from '@/types/academy';
 import VideoUploadZone from '@/components/admin/VideoUploadZone';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface LessonRowProps {
   lesson: Lesson;
@@ -44,7 +45,7 @@ export default function LessonRow({
           <div className="flex items-center gap-2">
             <span className="text-sm font-medium text-gray-900 dark:text-white truncate">{lesson.title}</span>
             {lesson.free && (
-              <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-medium">{t('lesson.free')}</span>
+              <span className="inline-flex items-center rounded-full bg-green-100 text-green-700 px-2 py-0.5 text-xs font-medium"><EditableText tKey="dashboard.admin.courses.lesson.free">{t('lesson.free')}</EditableText></span>
             )}
             {lesson.video?.status === 'ready' && (
               <span className="inline-flex items-center rounded-full bg-blue-100 text-blue-700 px-2 py-0.5 text-xs font-medium">

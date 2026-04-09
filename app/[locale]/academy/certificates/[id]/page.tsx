@@ -9,6 +9,7 @@ import { use } from 'react';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
+import { EditableText } from '@/components/editor/EditableText';
 
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
@@ -29,7 +30,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600 mx-auto" />
-          <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
+          <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="academy.certificate.loading">{t('loading')}</EditableText></p>
         </div>
       </div>
     );
@@ -39,8 +40,8 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="rounded-lg border border-red-200 bg-red-50 p-8 text-center">
-          <h2 className="mb-2 text-xl font-semibold text-red-900">{t('notFound')}</h2>
-          <p className="text-red-600">{t('notFoundDesc')}</p>
+          <h2 className="mb-2 text-xl font-semibold text-red-900"><EditableText tKey="academy.certificate.notFound">{t('notFound')}</EditableText></h2>
+          <p className="text-red-600"><EditableText tKey="academy.certificate.notFoundDesc">{t('notFoundDesc')}</EditableText></p>
         </div>
       </div>
     );
@@ -61,7 +62,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
           className="flex items-center gap-2 rounded-lg border border-gray-300 dark:border-gray-600 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-gray-800"
         >
           <Printer className="h-4 w-4" />
-          {t('print')}
+          <EditableText tKey="academy.certificate.print">{t('print')}</EditableText>
         </button>
       </div>
 
@@ -82,19 +83,19 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
 
           {/* Title */}
           <h1 className="mb-2 text-center text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
-            {t('title')}
+            <EditableText tKey="academy.certificate.title">{t('title')}</EditableText>
           </h1>
-          <p className="mb-8 text-center text-lg text-gray-500">{t('subtitle')}</p>
+          <p className="mb-8 text-center text-lg text-gray-500"><EditableText tKey="academy.certificate.subtitle">{t('subtitle')}</EditableText></p>
 
           {/* Recipient */}
           <div className="mb-8 text-center">
-            <p className="mb-1 text-sm uppercase tracking-wider text-gray-500">{t('awardedTo')}</p>
+            <p className="mb-1 text-sm uppercase tracking-wider text-gray-500"><EditableText tKey="academy.certificate.awardedTo">{t('awardedTo')}</EditableText></p>
             <p className="text-3xl font-bold text-blue-600 sm:text-4xl">{studentName}</p>
           </div>
 
           {/* Course info */}
           <div className="mb-8 text-center">
-            <p className="mb-1 text-sm uppercase tracking-wider text-gray-500">{t('forCompleting')}</p>
+            <p className="mb-1 text-sm uppercase tracking-wider text-gray-500"><EditableText tKey="academy.certificate.forCompleting">{t('forCompleting')}</EditableText></p>
             <p className="text-xl font-semibold text-gray-900 dark:text-white">{cert.courseName}</p>
             <p className="mt-1 text-sm text-gray-500">
               {cert.courseLevel} • {cert.courseCategory}
@@ -115,7 +116,7 @@ export default function CertificatePage({ params }: { params: Promise<{ id: stri
 
           {/* Platform branding */}
           <p className="mt-6 text-center text-xs text-gray-400">
-            tvujspecialista.cz • {t('verifiedCertificate')}
+            tvujspecialista.cz • <EditableText tKey="academy.certificate.verifiedCertificate">{t('verifiedCertificate')}</EditableText>
           </p>
         </div>
       </div>

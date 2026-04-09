@@ -4,6 +4,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Users } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { adminApi } from '@/lib/api/admin';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface CourseEnrollmentsProps {
   courseId: string;
@@ -35,7 +36,7 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
     return (
       <div className="p-4 border-t bg-gray-50 dark:bg-gray-800 text-center">
         <Users className="h-8 w-8 text-gray-300 mx-auto mb-2" />
-        <p className="text-sm text-gray-500">{t('enrollments.noStudents')}</p>
+        <p className="text-sm text-gray-500"><EditableText tKey="dashboard.admin.courses.enrollments.noStudents">{t('enrollments.noStudents')}</EditableText></p>
       </div>
     );
   }
@@ -53,19 +54,19 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
       <div className="p-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-blue-600">{enrollments.length}</div>
-          <div className="text-xs text-gray-500">{t('enrollments.total')}</div>
+          <div className="text-xs text-gray-500"><EditableText tKey="dashboard.admin.courses.enrollments.total">{t('enrollments.total')}</EditableText></div>
         </div>
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-green-600">{active.length}</div>
-          <div className="text-xs text-gray-500">{t('enrollments.active')}</div>
+          <div className="text-xs text-gray-500"><EditableText tKey="dashboard.admin.courses.enrollments.active">{t('enrollments.active')}</EditableText></div>
         </div>
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-purple-600">{completed.length}</div>
-          <div className="text-xs text-gray-500">{t('enrollments.completed')}</div>
+          <div className="text-xs text-gray-500"><EditableText tKey="dashboard.admin.courses.enrollments.completed">{t('enrollments.completed')}</EditableText></div>
         </div>
         <div className="bg-white dark:bg-card rounded-lg p-3 border text-center">
           <div className="text-lg font-bold text-amber-600">{avgProgress}%</div>
-          <div className="text-xs text-gray-500">{t('enrollments.avgProgress')}</div>
+          <div className="text-xs text-gray-500"><EditableText tKey="dashboard.admin.courses.enrollments.avgProgress">{t('enrollments.avgProgress')}</EditableText></div>
         </div>
       </div>
 
@@ -74,11 +75,11 @@ export default function CourseEnrollments({ courseId }: CourseEnrollmentsProps) 
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b text-left text-gray-500">
-              <th className="pb-2 font-medium">{t('enrollments.student')}</th>
-              <th className="pb-2 font-medium">{t('enrollments.email')}</th>
-              <th className="pb-2 font-medium">{t('enrollments.status')}</th>
-              <th className="pb-2 font-medium text-right">{t('enrollments.progress')}</th>
-              <th className="pb-2 font-medium text-right">{t('enrollments.lastAccess')}</th>
+              <th className="pb-2 font-medium"><EditableText tKey="dashboard.admin.courses.enrollments.student">{t('enrollments.student')}</EditableText></th>
+              <th className="pb-2 font-medium"><EditableText tKey="dashboard.admin.courses.enrollments.email">{t('enrollments.email')}</EditableText></th>
+              <th className="pb-2 font-medium"><EditableText tKey="dashboard.admin.courses.enrollments.status">{t('enrollments.status')}</EditableText></th>
+              <th className="pb-2 font-medium text-right"><EditableText tKey="dashboard.admin.courses.enrollments.progress">{t('enrollments.progress')}</EditableText></th>
+              <th className="pb-2 font-medium text-right"><EditableText tKey="dashboard.admin.courses.enrollments.lastAccess">{t('enrollments.lastAccess')}</EditableText></th>
             </tr>
           </thead>
           <tbody>

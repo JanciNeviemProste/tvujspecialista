@@ -6,6 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { authApi } from '@/lib/api/auth';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function VerifyEmailPage() {
   const t = useTranslations('auth.verifyEmail');
@@ -41,12 +42,12 @@ export default function VerifyEmailPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-background flex items-center justify-center px-4">
         <div className="w-full max-w-md rounded-lg border bg-white dark:bg-card dark:border-border p-8 shadow-sm text-center">
           <div className="mb-4 text-5xl">⚠️</div>
-          <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground">{t('invalidLink')}</h1>
+          <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.verifyEmail.invalidLink">{t('invalidLink')}</EditableText></h1>
           <p className="mb-4 text-sm text-gray-600 dark:text-muted-foreground">
-            {t('invalidLinkDesc')}
+            <EditableText tKey="auth.verifyEmail.invalidLinkDesc">{t('invalidLinkDesc')}</EditableText>
           </p>
           <Link href="/profi/prihlaseni" className="text-sm font-medium text-blue-600 dark:text-primary hover:underline">
-            {t('backToLogin')}
+            <EditableText tKey="auth.verifyEmail.backToLogin">{t('backToLogin')}</EditableText>
           </Link>
         </div>
       </div>
@@ -63,21 +64,21 @@ export default function VerifyEmailPage() {
             {status === 'loading' && (
               <>
                 <div className="mb-4 text-5xl animate-spin">⏳</div>
-                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground">{t('verifying')}</h1>
-                <p className="text-sm text-gray-600 dark:text-muted-foreground">{t('pleaseWait')}</p>
+                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.verifyEmail.verifying">{t('verifying')}</EditableText></h1>
+                <p className="text-sm text-gray-600 dark:text-muted-foreground"><EditableText tKey="auth.verifyEmail.pleaseWait">{t('pleaseWait')}</EditableText></p>
               </>
             )}
 
             {status === 'success' && (
               <>
                 <div className="mb-4 text-5xl">✅</div>
-                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground">{t('successTitle')}</h1>
-                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">{t('successDesc')}</p>
+                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.verifyEmail.successTitle">{t('successTitle')}</EditableText></h1>
+                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground"><EditableText tKey="auth.verifyEmail.successDesc">{t('successDesc')}</EditableText></p>
                 <Link
                   href="/profi/prihlaseni"
                   className="inline-block rounded-md bg-blue-600 px-6 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
                 >
-                  {t('backToLogin')}
+                  <EditableText tKey="auth.verifyEmail.backToLogin">{t('backToLogin')}</EditableText>
                 </Link>
               </>
             )}
@@ -85,13 +86,13 @@ export default function VerifyEmailPage() {
             {status === 'error' && (
               <>
                 <div className="mb-4 text-5xl">❌</div>
-                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground">{t('errorTitle')}</h1>
-                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">{t('errorDesc')}</p>
+                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.verifyEmail.errorTitle">{t('errorTitle')}</EditableText></h1>
+                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground"><EditableText tKey="auth.verifyEmail.errorDesc">{t('errorDesc')}</EditableText></p>
                 <Link
                   href="/profi/prihlaseni"
                   className="text-sm font-medium text-blue-600 dark:text-primary hover:underline"
                 >
-                  {t('backToLogin')}
+                  <EditableText tKey="auth.verifyEmail.backToLogin">{t('backToLogin')}</EditableText>
                 </Link>
               </>
             )}
@@ -99,13 +100,13 @@ export default function VerifyEmailPage() {
             {status === 'expired' && (
               <>
                 <div className="mb-4 text-5xl">⏰</div>
-                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground">{t('expiredTitle')}</h1>
-                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground">{t('expiredDesc')}</p>
+                <h1 className="mb-2 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="auth.verifyEmail.expiredTitle">{t('expiredTitle')}</EditableText></h1>
+                <p className="mb-6 text-sm text-gray-600 dark:text-muted-foreground"><EditableText tKey="auth.verifyEmail.expiredDesc">{t('expiredDesc')}</EditableText></p>
                 <Link
                   href="/profi/prihlaseni"
                   className="text-sm font-medium text-blue-600 dark:text-primary hover:underline"
                 >
-                  {t('backToLogin')}
+                  <EditableText tKey="auth.verifyEmail.backToLogin">{t('backToLogin')}</EditableText>
                 </Link>
               </>
             )}

@@ -17,6 +17,7 @@ import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
 import { StaggerGrid, StaggerItem } from '@/components/shared/StaggerGrid';
 import { RatingStars } from '@/components/shared/RatingStars';
+import { EditableText } from '@/components/editor/EditableText';
 import {
   TrendingUp,
   UserCheck,
@@ -216,23 +217,23 @@ export default function RegistrationPage() {
                 {/* Urgency badge */}
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-green-500/20 border border-green-400/30 px-5 py-2 text-sm font-semibold text-green-300">
                   <CheckCircle2 className="h-4 w-4" />
-                  {tL('urgencyBadge')}
+                  <EditableText tKey="auth.register.landing.urgencyBadge">{tL('urgencyBadge')}</EditableText>
                 </div>
 
                 {/* Urgency offer */}
                 <div className="mb-6">
                   <span className="inline-block rounded-full bg-amber-500/20 border border-amber-400/30 px-4 py-1.5 text-xs font-semibold text-amber-300">
-                    {tL('urgencyOffer')}
+                    <EditableText tKey="auth.register.landing.urgencyOffer">{tL('urgencyOffer')}</EditableText>
                   </span>
                 </div>
 
                 {/* H1 */}
                 <h1 className="mb-6 text-4xl font-extrabold leading-tight text-white md:text-5xl lg:text-6xl">
-                  {tL('heroTitle')}
+                  <EditableText tKey="auth.register.landing.heroTitle">{tL('heroTitle')}</EditableText>
                 </h1>
 
                 <p className="mb-10 max-w-2xl text-lg text-blue-100 md:text-xl leading-relaxed lg:mx-0 mx-auto">
-                  {tL('heroSubtitle')}
+                  <EditableText tKey="auth.register.landing.heroSubtitle">{tL('heroSubtitle')}</EditableText>
                 </p>
 
                 {/* CTA */}
@@ -240,12 +241,12 @@ export default function RegistrationPage() {
                   href="#registrace"
                   className="inline-flex items-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-400/40 hover:-translate-y-0.5"
                 >
-                  {tL('heroCta')}
+                  <EditableText tKey="auth.register.landing.heroCta">{tL('heroCta')}</EditableText>
                   <ArrowRight className="h-5 w-5" />
                 </a>
 
                 <p className="mt-4 text-sm text-blue-300">
-                  {tL('heroCtaSubtext')}
+                  <EditableText tKey="auth.register.landing.heroCtaSubtext">{tL('heroCtaSubtext')}</EditableText>
                 </p>
 
                 {/* Stats row */}
@@ -361,12 +362,12 @@ export default function RegistrationPage() {
         <div className="mx-auto max-w-5xl px-4">
           <div className="flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-4">
             <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              {tL('socialProofBarText')}
+              <EditableText tKey="auth.register.landing.socialProofBarText">{tL('socialProofBarText')}</EditableText>
             </span>
             <span className="hidden text-gray-300 dark:text-gray-600 sm:block">&bull;</span>
             <div className="flex items-center gap-2">
               <RatingStars rating={4.8} size="sm" showCount={false} />
-              <span className="text-sm text-gray-600 dark:text-gray-400">{tL('socialProofRating')}</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400"><EditableText tKey="auth.register.landing.socialProofRating">{tL('socialProofRating')}</EditableText></span>
             </div>
           </div>
         </div>
@@ -380,10 +381,10 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-14">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('problemTitle')}
+                <EditableText tKey="auth.register.landing.problemTitle">{tL('problemTitle')}</EditableText>
               </h2>
               <p className="mt-3 text-gray-500 dark:text-gray-400">
-                {tL('problemSubtitle')}
+                <EditableText tKey="auth.register.landing.problemSubtitle">{tL('problemSubtitle')}</EditableText>
               </p>
             </div>
           </ScrollReveal>
@@ -409,7 +410,7 @@ export default function RegistrationPage() {
 
           <ScrollReveal delay={0.4}>
             <p className="mt-10 text-center text-sm italic text-gray-400 dark:text-gray-500">
-              {tL('problemFooter')}
+              <EditableText tKey="auth.register.landing.problemFooter">{tL('problemFooter')}</EditableText>
             </p>
           </ScrollReveal>
         </div>
@@ -423,14 +424,14 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('beforeAfterTitle')}
+                <EditableText tKey="auth.register.landing.beforeAfterTitle">{tL('beforeAfterTitle')}</EditableText>
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-0 max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-lg">
               {/* LEFT — BEFORE (red/gray) */}
               <div className="bg-red-50 dark:bg-red-950/30 p-8 border-r border-red-200 dark:border-red-800">
                 <h3 className="font-bold text-red-600 dark:text-red-400 mb-6 text-center flex items-center justify-center gap-2">
-                  <span>❌</span> {tL('beforeTitle')}
+                  <span>❌</span> <EditableText tKey="auth.register.landing.beforeTitle">{tL('beforeTitle')}</EditableText>
                 </h3>
                 <ul className="space-y-3">
                   {[tL('before1'), tL('before2'), tL('before3'), tL('before4'), tL('before5')].map((item, i) => (
@@ -444,7 +445,7 @@ export default function RegistrationPage() {
               {/* RIGHT — AFTER (green/blue) */}
               <div className="bg-green-50 dark:bg-green-950/30 p-8">
                 <h3 className="font-bold text-green-600 dark:text-green-400 mb-6 text-center flex items-center justify-center gap-2">
-                  <span>✅</span> {tL('afterTitle')}
+                  <span>✅</span> <EditableText tKey="auth.register.landing.afterTitle">{tL('afterTitle')}</EditableText>
                 </h3>
                 <ul className="space-y-3">
                   {[tL('after1'), tL('after2'), tL('after3'), tL('after4'), tL('after5')].map((item, i) => (
@@ -459,7 +460,7 @@ export default function RegistrationPage() {
             {/* CTA after before/after */}
             <div className="text-center mt-8">
               <a href="#registrace" className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-6 py-3 text-sm font-bold text-white transition-colors">
-                {tL('heroCta')} <ArrowRight className="h-4 w-4" />
+                <EditableText tKey="auth.register.landing.heroCta">{tL('heroCta')}</EditableText> <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </ScrollReveal>
@@ -474,7 +475,7 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-14">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('solutionTitle')}
+                <EditableText tKey="auth.register.landing.solutionTitle">{tL('solutionTitle')}</EditableText>
               </h2>
             </div>
           </ScrollReveal>
@@ -517,7 +518,7 @@ export default function RegistrationPage() {
                     />
                   </div>
                 </div>
-                <p className="mt-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400">{tL('benefit4Title')}</p>
+                <p className="mt-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400"><EditableText tKey="auth.register.landing.benefit4Title">{tL('benefit4Title')}</EditableText></p>
               </div>
 
               {/* Academy screenshot */}
@@ -539,7 +540,7 @@ export default function RegistrationPage() {
                     />
                   </div>
                 </div>
-                <p className="mt-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400">{tL('benefit5Title')}</p>
+                <p className="mt-3 text-center text-sm font-medium text-gray-600 dark:text-gray-400"><EditableText tKey="auth.register.landing.benefit5Title">{tL('benefit5Title')}</EditableText></p>
               </div>
             </div>
           </ScrollReveal>
@@ -554,7 +555,7 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('proofTitle')}
+                <EditableText tKey="auth.register.landing.proofTitle">{tL('proofTitle')}</EditableText>
               </h2>
             </div>
           </ScrollReveal>
@@ -614,7 +615,7 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-14">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('stepsTitle')}
+                <EditableText tKey="auth.register.landing.stepsTitle">{tL('stepsTitle')}</EditableText>
               </h2>
             </div>
           </ScrollReveal>
@@ -672,10 +673,10 @@ export default function RegistrationPage() {
               <Shield className="h-8 w-8 text-green-600 dark:text-green-400" />
             </div>
             <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-3">
-              {tL('guaranteeTitle')}
+              <EditableText tKey="auth.register.landing.guaranteeTitle">{tL('guaranteeTitle')}</EditableText>
             </h2>
             <p className="text-gray-500 dark:text-gray-400 mb-10">
-              {tL('guaranteeSubtitle')}
+              <EditableText tKey="auth.register.landing.guaranteeSubtitle">{tL('guaranteeSubtitle')}</EditableText>
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
               {[tL('guarantee1'), tL('guarantee2'), tL('guarantee3'), tL('guarantee4')].map((g, i) => (
@@ -697,7 +698,7 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-12">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('faqTitle')}
+                <EditableText tKey="auth.register.landing.faqTitle">{tL('faqTitle')}</EditableText>
               </h2>
             </div>
           </ScrollReveal>
@@ -724,29 +725,29 @@ export default function RegistrationPage() {
         <ScrollReveal>
           <div className="relative mx-auto max-w-3xl px-4 text-center">
             <h2 className="mb-4 text-4xl font-extrabold text-white md:text-5xl leading-tight">
-              {tL('finalCtaTitle')}
+              <EditableText tKey="auth.register.landing.finalCtaTitle">{tL('finalCtaTitle')}</EditableText>
             </h2>
             <p className="mb-10 text-xl text-blue-200">
-              {tL('finalCtaSubtitle')}
+              <EditableText tKey="auth.register.landing.finalCtaSubtitle">{tL('finalCtaSubtitle')}</EditableText>
             </p>
 
             <a
               href="#registrace"
               className="inline-flex items-center gap-2 rounded-xl bg-blue-500 hover:bg-blue-400 px-8 py-4 text-base font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:shadow-blue-400/40 hover:-translate-y-0.5"
             >
-              {tL('finalCtaButton')}
+              <EditableText tKey="auth.register.landing.finalCtaButton">{tL('finalCtaButton')}</EditableText>
               <ArrowRight className="h-5 w-5" />
             </a>
 
             <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm text-blue-300">
               <span className="flex items-center gap-1.5">
-                <Shield className="h-4 w-4" /> {tL('trustNoCommitment')}
+                <Shield className="h-4 w-4" /> <EditableText tKey="auth.register.landing.trustNoCommitment">{tL('trustNoCommitment')}</EditableText>
               </span>
               <span className="flex items-center gap-1.5">
-                <CreditCard className="h-4 w-4" /> {tL('trustNoCreditCard')}
+                <CreditCard className="h-4 w-4" /> <EditableText tKey="auth.register.landing.trustNoCreditCard">{tL('trustNoCreditCard')}</EditableText>
               </span>
               <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4" /> {tL('trustFreeForever')}
+                <CheckCircle2 className="h-4 w-4" /> <EditableText tKey="auth.register.landing.trustFreeForever">{tL('trustFreeForever')}</EditableText>
               </span>
             </div>
           </div>
@@ -761,10 +762,10 @@ export default function RegistrationPage() {
           <ScrollReveal>
             <div className="text-center mb-10">
               <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white md:text-4xl">
-                {tL('formTitle')}
+                <EditableText tKey="auth.register.landing.formTitle">{tL('formTitle')}</EditableText>
               </h2>
               <p className="mt-3 text-gray-500 dark:text-gray-400">
-                {tL('formSubtitle')}
+                <EditableText tKey="auth.register.landing.formSubtitle">{tL('formSubtitle')}</EditableText>
               </p>
             </div>
           </ScrollReveal>
@@ -778,10 +779,10 @@ export default function RegistrationPage() {
                   href="/profi/prihlaseni"
                   className="flex-1 rounded-md py-2.5 text-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-all"
                 >
-                  {t('tabLogin')}
+                  <EditableText tKey="auth.register.tabLogin">{t('tabLogin')}</EditableText>
                 </Link>
                 <span className="flex-1 rounded-md bg-white dark:bg-gray-600 py-2.5 text-center text-sm font-medium text-gray-900 dark:text-white shadow-sm">
-                  {t('tabRegister')}
+                  <EditableText tKey="auth.register.tabRegister">{t('tabRegister')}</EditableText>
                 </span>
               </div>
 
@@ -799,7 +800,7 @@ export default function RegistrationPage() {
                 <div className="space-y-5">
                   <div>
                     <label htmlFor="reg-name" className={labelClass}>
-                      {t('name')} <span aria-hidden="true">*</span>
+                      <EditableText tKey="auth.register.name">{t('name')}</EditableText> <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-name"
@@ -819,7 +820,7 @@ export default function RegistrationPage() {
 
                   <div>
                     <label htmlFor="reg-email" className={labelClass}>
-                      {t('email')} <span aria-hidden="true">*</span>
+                      <EditableText tKey="auth.register.email">{t('email')}</EditableText> <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-email"
@@ -839,7 +840,7 @@ export default function RegistrationPage() {
 
                   <div>
                     <label htmlFor="reg-phone" className={labelClass}>
-                      {t('phone')} <span aria-hidden="true">*</span>
+                      <EditableText tKey="auth.register.phone">{t('phone')}</EditableText> <span aria-hidden="true">*</span>
                     </label>
                     <input
                       id="reg-phone"
@@ -860,7 +861,7 @@ export default function RegistrationPage() {
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
                       <label htmlFor="reg-password" className={labelClass}>
-                        {t('password')} <span aria-hidden="true">*</span>
+                        <EditableText tKey="auth.register.password">{t('password')}</EditableText> <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-password"
@@ -882,7 +883,7 @@ export default function RegistrationPage() {
 
                     <div>
                       <label htmlFor="reg-confirm-password" className={labelClass}>
-                        {t('confirmPassword')} <span aria-hidden="true">*</span>
+                        <EditableText tKey="auth.register.confirmPassword">{t('confirmPassword')}</EditableText> <span aria-hidden="true">*</span>
                       </label>
                       <input
                         id="reg-confirm-password"
@@ -918,9 +919,9 @@ export default function RegistrationPage() {
                         {...register('termsAccepted')}
                       />
                       <span className="text-sm text-gray-700 dark:text-gray-300">
-                        {t('termsAgree')}{' '}
+                        <EditableText tKey="auth.register.termsAgree">{t('termsAgree')}</EditableText>{' '}
                         <Link href="/pravidla" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline" onClick={(e) => e.stopPropagation()}>
-                          {t('termsLink')}
+                          <EditableText tKey="auth.register.termsLink">{t('termsLink')}</EditableText>
                         </Link>{' '}
                         <span aria-hidden="true">*</span>
                       </span>
@@ -940,7 +941,7 @@ export default function RegistrationPage() {
                         {...register('gdprAccepted')}
                       />
                       <span className="text-sm text-gray-700 dark:text-gray-300">
-                        {t('gdprAgree')}{' '}
+                        <EditableText tKey="auth.register.gdprAgree">{t('gdprAgree')}</EditableText>{' '}
                         <Link
                           href="/ochrana-osobnich-udaju"
                           target="_blank"
@@ -948,7 +949,7 @@ export default function RegistrationPage() {
                           className="text-blue-600 hover:underline"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          {t('gdprLink')}
+                          <EditableText tKey="auth.register.gdprLink">{t('gdprLink')}</EditableText>
                         </Link>{' '}
                         <span aria-hidden="true">*</span>
                       </span>
@@ -973,9 +974,9 @@ export default function RegistrationPage() {
                 </div>
 
                 <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-                  {t('haveAccount')}{' '}
+                  <EditableText tKey="auth.register.haveAccount">{t('haveAccount')}</EditableText>{' '}
                   <Link href="/profi/prihlaseni" className="font-medium text-blue-600 hover:underline">
-                    {t('loginHere')}
+                    <EditableText tKey="auth.register.loginHere">{t('loginHere')}</EditableText>
                   </Link>
                 </p>
               </form>
@@ -991,9 +992,9 @@ export default function RegistrationPage() {
             href="#registrace"
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 py-3 text-sm font-bold text-white transition-colors"
           >
-            {tL('floatingCta')} <ArrowRight className="h-4 w-4" />
+            <EditableText tKey="auth.register.landing.floatingCta">{tL('floatingCta')}</EditableText> <ArrowRight className="h-4 w-4" />
           </a>
-          <p className="mt-1.5 text-center text-xs text-gray-400">{tL('floatingCtaTrust')}</p>
+          <p className="mt-1.5 text-center text-xs text-gray-400"><EditableText tKey="auth.register.landing.floatingCtaTrust">{tL('floatingCtaTrust')}</EditableText></p>
         </div>
       )}
 

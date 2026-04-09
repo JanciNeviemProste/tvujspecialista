@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
 import { VideoControls } from '@/components/academy/VideoControls';
 import type { Video } from '@/types/academy';
+import { EditableText } from '@/components/editor/EditableText';
 
 /**
  * Pridá Cloudinary transformáciu pre browser-kompatibilný formát (MP4 + H.264 + AAC).
@@ -144,8 +145,8 @@ export function VideoPlayer({
       >
         <div className="text-center space-y-4">
           <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto" />
-          <p className="text-white text-lg">{t('processing')}</p>
-          <p className="text-gray-400 text-sm">{t('tryLater')}</p>
+          <p className="text-white text-lg"><EditableText tKey="academy.video.processing">{t('processing')}</EditableText></p>
+          <p className="text-gray-400 text-sm"><EditableText tKey="academy.video.tryLater">{t('tryLater')}</EditableText></p>
         </div>
       </div>
     );
@@ -161,9 +162,9 @@ export function VideoPlayer({
         )}
       >
         <div className="text-center space-y-2">
-          <p className="text-white text-lg">{t('notAvailable')}</p>
+          <p className="text-white text-lg"><EditableText tKey="academy.video.notAvailable">{t('notAvailable')}</EditableText></p>
           <p className="text-gray-400 text-sm">
-            {t('refreshOrContact')}
+            <EditableText tKey="academy.video.refreshOrContact">{t('refreshOrContact')}</EditableText>
           </p>
         </div>
       </div>
@@ -180,14 +181,14 @@ export function VideoPlayer({
         )}
       >
         <div className="text-center space-y-3">
-          <p className="text-white text-lg">{t('playbackError')}</p>
+          <p className="text-white text-lg"><EditableText tKey="academy.video.playbackError">{t('playbackError')}</EditableText></p>
           <p className="text-gray-400 text-sm">{videoError}</p>
           <Button
             variant="ghost"
             className="text-blue-400 hover:text-blue-300"
             onClick={() => setVideoError(null)}
           >
-            {t('tryAgain')}
+            <EditableText tKey="academy.video.tryAgain">{t('tryAgain')}</EditableText>
           </Button>
         </div>
       </div>

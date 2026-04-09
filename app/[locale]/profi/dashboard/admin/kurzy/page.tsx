@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import CourseFormModal, { type CourseFormData } from '@/components/admin/CourseFormModal';
 import CourseEnrollments from '@/components/admin/CourseEnrollments';
+import { EditableText } from '@/components/editor/EditableText';
 
 const emptyForm: CourseFormData = {
   title: '',
@@ -131,7 +132,7 @@ export default function AdminCoursesPage() {
           <div>
             <h1 className="text-2xl font-bold flex items-center gap-3">
               <BookOpen className="h-6 w-6 text-blue-600" />
-              {t('title')}
+              <EditableText tKey="dashboard.admin.courses.title">{t('title')}</EditableText>
             </h1>
             <p className="text-gray-500 dark:text-gray-400 mt-1">{t('totalCourses', { count: courses.length })}</p>
           </div>
@@ -141,21 +142,21 @@ export default function AdminCoursesPage() {
           className="flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
         >
           <Plus className="h-4 w-4" />
-          {t('newCourse')}
+          <EditableText tKey="dashboard.admin.courses.newCourse">{t('newCourse')}</EditableText>
         </button>
       </div>
 
       {courses.length === 0 ? (
         <div className="text-center py-20">
           <BookOpen className="h-12 w-12 text-gray-400 dark:text-gray-500 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">{t('noCourses')}</h3>
-          <p className="text-gray-500 dark:text-gray-400 mb-4">{t('noCoursesDesc')}</p>
+          <h3 className="text-lg font-semibold mb-2"><EditableText tKey="dashboard.admin.courses.noCourses">{t('noCourses')}</EditableText></h3>
+          <p className="text-gray-500 dark:text-gray-400 mb-4"><EditableText tKey="dashboard.admin.courses.noCoursesDesc">{t('noCoursesDesc')}</EditableText></p>
           <button
             onClick={() => setModalOpen(true)}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 text-white px-4 py-2.5 text-sm font-medium hover:bg-blue-700 transition-colors"
           >
             <Plus className="h-4 w-4" />
-            {t('createFirstCourse')}
+            <EditableText tKey="dashboard.admin.courses.createFirstCourse">{t('createFirstCourse')}</EditableText>
           </button>
         </div>
       ) : (
@@ -191,7 +192,7 @@ export default function AdminCoursesPage() {
                       href={`/academy/admin/${course.id}`}
                       className="px-3 py-1.5 rounded-md bg-blue-50 hover:bg-blue-100 transition-colors text-blue-600 text-xs font-medium"
                     >
-                      {t('content')}
+                      <EditableText tKey="dashboard.admin.courses.content">{t('content')}</EditableText>
                     </Link>
                     <button
                       onClick={() => openEdit(course)}

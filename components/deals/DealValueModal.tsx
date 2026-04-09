@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl';
 import { Deal } from '@/types/deals';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface DealValueModalProps {
   deal: Deal | null;
@@ -86,7 +87,7 @@ export function DealValueModal({
         {/* Header */}
         <div className="px-6 pt-6 pb-4 flex items-center justify-between border-b border-gray-100 dark:border-neutral-800">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            {t('valueModal.title')}
+            <EditableText tKey="dashboard.deals.valueModal.title">{t('valueModal.title')}</EditableText>
           </h2>
           <button
             onClick={onClose}
@@ -110,7 +111,7 @@ export function DealValueModal({
             {/* Deal Value */}
             <div>
               <label htmlFor="dealValue" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                {t('valueModal.value')}
+                <EditableText tKey="dashboard.deals.valueModal.value">{t('valueModal.value')}</EditableText>
               </label>
               <div className="relative">
                 <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-gray-500 dark:text-gray-400 font-medium">
@@ -140,7 +141,7 @@ export function DealValueModal({
             {/* Estimated Close Date */}
             <div>
               <label htmlFor="estimatedCloseDate" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
-                {t('valueModal.expectedClose')}
+                <EditableText tKey="dashboard.deals.valueModal.expectedClose">{t('valueModal.expectedClose')}</EditableText>
               </label>
               <input
                 id="estimatedCloseDate"
@@ -168,7 +169,7 @@ export function DealValueModal({
               disabled={isLoading}
               className="flex-1 bg-gray-100 dark:bg-neutral-800 hover:bg-gray-200 dark:hover:bg-neutral-700 text-gray-700 dark:text-gray-300 px-5 py-2.5 rounded-xl text-sm font-semibold transition-colors border border-gray-200 dark:border-neutral-700 disabled:opacity-50"
             >
-              {t('valueModal.cancel')}
+              <EditableText tKey="dashboard.deals.valueModal.cancel">{t('valueModal.cancel')}</EditableText>
             </button>
             <button
               type="submit"

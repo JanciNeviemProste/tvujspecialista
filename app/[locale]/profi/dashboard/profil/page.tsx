@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Play, X } from 'lucide-react';
 import type { Specialist } from '@/types/specialist';
+import { EditableText } from '@/components/editor/EditableText';
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Jmeno musi mit alespon 2 znaky'),
@@ -106,7 +107,7 @@ export default function ProfileEditPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
-            <p className="text-gray-600 dark:text-gray-400">{t('loading')}</p>
+            <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.profile.loading">{t('loading')}</EditableText></p>
           </div>
         </div>
       </div>
@@ -195,15 +196,15 @@ export default function ProfileEditPage() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
-          <p className="text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-white"><EditableText tKey="dashboard.profile.title">{t('title')}</EditableText></h1>
+          <p className="text-gray-600 dark:text-gray-400"><EditableText tKey="dashboard.profile.subtitle">{t('subtitle')}</EditableText></p>
         </div>
 
         {/* Profilova fotka */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-xl">{t('photo.title')}</CardTitle>
-            <CardDescription>{t('photo.description')}</CardDescription>
+            <CardTitle className="text-xl"><EditableText tKey="dashboard.profile.photo.title">{t('photo.title')}</EditableText></CardTitle>
+            <CardDescription><EditableText tKey="dashboard.profile.photo.description">{t('photo.description')}</EditableText></CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-6">
@@ -237,7 +238,7 @@ export default function ProfileEditPage() {
                 >
                   {isUploadingPhoto ? t('photo.uploading') : t('photo.upload')}
                 </Button>
-                <p className="mt-2 text-xs text-gray-500">{t('photo.hint')}</p>
+                <p className="mt-2 text-xs text-gray-500"><EditableText tKey="dashboard.profile.photo.hint">{t('photo.hint')}</EditableText></p>
               </div>
             </div>
           </CardContent>
@@ -247,13 +248,13 @@ export default function ProfileEditPage() {
           {/* Osobni udaje */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">{t('personal.title')}</CardTitle>
-              <CardDescription>{t('personal.description')}</CardDescription>
+              <CardTitle className="text-xl"><EditableText tKey="dashboard.profile.personal.title">{t('personal.title')}</EditableText></CardTitle>
+              <CardDescription><EditableText tKey="dashboard.profile.personal.description">{t('personal.description')}</EditableText></CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="name">{t('personal.name')}</Label>
+                  <Label htmlFor="name"><EditableText tKey="dashboard.profile.personal.name">{t('personal.name')}</EditableText></Label>
                   <Input
                     id="name"
                     {...register('name')}
@@ -262,7 +263,7 @@ export default function ProfileEditPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="phone">{t('personal.phone')}</Label>
+                  <Label htmlFor="phone"><EditableText tKey="dashboard.profile.personal.phone">{t('personal.phone')}</EditableText></Label>
                   <Input
                     id="phone"
                     type="tel"
@@ -274,7 +275,7 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="bio">{t('personal.about')}</Label>
+                <Label htmlFor="bio"><EditableText tKey="dashboard.profile.personal.about">{t('personal.about')}</EditableText></Label>
                 <Textarea
                   id="bio"
                   rows={5}
@@ -287,7 +288,7 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="education">{t('personal.education')}</Label>
+                <Label htmlFor="education"><EditableText tKey="dashboard.profile.personal.education">{t('personal.education')}</EditableText></Label>
                 <Input
                   id="education"
                   {...register('education')}
@@ -301,12 +302,12 @@ export default function ProfileEditPage() {
           {/* Profesni udaje */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">{t('professional.title')}</CardTitle>
-              <CardDescription>{t('professional.description')}</CardDescription>
+              <CardTitle className="text-xl"><EditableText tKey="dashboard.profile.professional.title">{t('professional.title')}</EditableText></CardTitle>
+              <CardDescription><EditableText tKey="dashboard.profile.professional.description">{t('professional.description')}</EditableText></CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="services">{t('professional.services')}</Label>
+                <Label htmlFor="services"><EditableText tKey="dashboard.profile.professional.services">{t('professional.services')}</EditableText></Label>
                 <Input
                   id="services"
                   placeholder={t('professional.servicesPlaceholder')}
@@ -317,7 +318,7 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="certifications">{t('professional.certifications')}</Label>
+                <Label htmlFor="certifications"><EditableText tKey="dashboard.profile.professional.certifications">{t('professional.certifications')}</EditableText></Label>
                 <Input
                   id="certifications"
                   placeholder={t('professional.certificationsPlaceholder')}
@@ -328,7 +329,7 @@ export default function ProfileEditPage() {
               </div>
 
               <div>
-                <Label htmlFor="availability">{t('professional.availability')}</Label>
+                <Label htmlFor="availability"><EditableText tKey="dashboard.profile.professional.availability">{t('professional.availability')}</EditableText></Label>
                 <Input
                   id="availability"
                   placeholder={t('professional.availabilityPlaceholder')}
@@ -343,13 +344,13 @@ export default function ProfileEditPage() {
           {/* Online profily */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">{t('online.title')}</CardTitle>
-              <CardDescription>{t('online.description')}</CardDescription>
+              <CardTitle className="text-xl"><EditableText tKey="dashboard.profile.online.title">{t('online.title')}</EditableText></CardTitle>
+              <CardDescription><EditableText tKey="dashboard.profile.online.description">{t('online.description')}</EditableText></CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <Label htmlFor="website">{t('online.website')}</Label>
+                  <Label htmlFor="website"><EditableText tKey="dashboard.profile.online.website">{t('online.website')}</EditableText></Label>
                   <Input
                     id="website"
                     type="url"
@@ -395,8 +396,8 @@ export default function ProfileEditPage() {
           {/* Media Gallery */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-xl">{t('gallery.title')}</CardTitle>
-              <CardDescription>{t('gallery.description')}</CardDescription>
+              <CardTitle className="text-xl"><EditableText tKey="dashboard.profile.gallery.title">{t('gallery.title')}</EditableText></CardTitle>
+              <CardDescription><EditableText tKey="dashboard.profile.gallery.description">{t('gallery.description')}</EditableText></CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Existing media grid */}
@@ -430,7 +431,7 @@ export default function ProfileEditPage() {
 
               {/* Add video URL */}
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('gallery.addVideo')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="dashboard.profile.gallery.addVideo">{t('gallery.addVideo')}</EditableText></label>
                 <div className="flex gap-2">
                   <input
                     type="url"
@@ -445,7 +446,7 @@ export default function ProfileEditPage() {
                     disabled={!videoUrl.trim()}
                     className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
                   >
-                    {t('gallery.add')}
+                    <EditableText tKey="dashboard.profile.gallery.add">{t('gallery.add')}</EditableText>
                   </button>
                 </div>
               </div>
@@ -462,7 +463,7 @@ export default function ProfileEditPage() {
               variant="outline"
               onClick={() => router.push('/profi/dashboard')}
             >
-              {tActions('backToDashboard')}
+              <EditableText tKey="common.actions.backToDashboard">{tActions('backToDashboard')}</EditableText>
             </Button>
           </div>
         </form>

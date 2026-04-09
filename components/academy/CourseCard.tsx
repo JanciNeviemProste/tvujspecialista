@@ -7,6 +7,7 @@ import { Clock, BookOpen, Star } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/cn';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface CourseCardProps {
   course: Course;
@@ -81,7 +82,7 @@ function CourseCardInner({
             </span>
             {course.featured && (
               <span className="inline-flex items-center rounded-full bg-amber-400/90 backdrop-blur-sm px-2.5 py-1 text-xs font-semibold text-amber-900 shadow-sm">
-                {t('course.featured')}
+                <EditableText tKey="academy.course.featured">{t('course.featured')}</EditableText>
               </span>
             )}
           </div>
@@ -101,7 +102,7 @@ function CourseCardInner({
             </div>
             <div className="flex items-center gap-1">
               <BookOpen className="h-4 w-4" />
-              <span>{course.lessonCount} {t('course.lessons')}</span>
+              <span>{course.lessonCount} <EditableText tKey="academy.course.lessons">{t('course.lessons')}</EditableText></span>
             </div>
           </div>
 
@@ -145,7 +146,7 @@ function CourseCardInner({
                 />
               </div>
               <p className="text-xs text-gray-400 text-right">
-                {Math.round(progress)}% {t('course.completed')}
+                {Math.round(progress)}% <EditableText tKey="academy.course.completed">{t('course.completed')}</EditableText>
               </p>
             </div>
           )}

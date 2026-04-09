@@ -6,6 +6,7 @@ import { Link } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Home, Search, DollarSign, GraduationCap, Users, MessageSquare, LayoutDashboard, LogIn, UserPlus } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,7 +71,7 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                 >
                   <Home className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">{t('home')}</span>
+                  <span className="font-medium"><EditableText tKey="common.nav.home">{t('home')}</EditableText></span>
                 </Link>
 
                 <Link
@@ -79,7 +80,7 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                 >
                   <Search className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">{t('searchSpecialist')}</span>
+                  <span className="font-medium"><EditableText tKey="common.nav.searchSpecialist">{t('searchSpecialist')}</EditableText></span>
                 </Link>
 
                 {isAuthenticated && (
@@ -90,7 +91,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <DollarSign className="h-5 w-5 text-muted-foreground" />
-                      <span className="font-medium">{t('membership')}</span>
+                      <span className="font-medium"><EditableText tKey="common.nav.membership">{t('membership')}</EditableText></span>
                     </Link>
 
                     <div className="my-4 border-t" />
@@ -101,7 +102,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <LayoutDashboard className="h-5 w-5 text-muted-foreground" />
-                      <span className="font-medium">{t('dashboard')}</span>
+                      <span className="font-medium"><EditableText tKey="common.nav.dashboard">{t('dashboard')}</EditableText></span>
                     </Link>
 
                     <Link
@@ -110,7 +111,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <GraduationCap className="h-5 w-5 text-primary" />
-                      <span className="font-medium">{t('academy')}</span>
+                      <span className="font-medium"><EditableText tKey="common.nav.academy">{t('academy')}</EditableText></span>
                     </Link>
 
                     <Link
@@ -119,7 +120,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <Users className="h-5 w-5 text-accent-500" />
-                      <span className="font-medium">{t('community')}</span>
+                      <span className="font-medium"><EditableText tKey="common.nav.community">{t('community')}</EditableText></span>
                     </Link>
 
                     <Link
@@ -128,7 +129,7 @@ export function MobileNav() {
                       className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-muted transition-colors"
                     >
                       <MessageSquare className="h-5 w-5 text-blue-500" />
-                      <span className="font-medium">{t('forum')}</span>
+                      <span className="font-medium"><EditableText tKey="common.nav.forum">{t('forum')}</EditableText></span>
                     </Link>
                   </>
                 )}
@@ -140,26 +141,26 @@ export function MobileNav() {
                   {isAuthenticated ? (
                     <>
                       <p className="text-sm text-muted-foreground">
-                        {t('loggedAs')} <span className="font-medium text-foreground">{user?.email}</span>
+                        <EditableText tKey="common.nav.loggedAs">{t('loggedAs')}</EditableText> <span className="font-medium text-foreground">{user?.email}</span>
                       </p>
                       <Link href="/my-account" onClick={closeMenu} className="w-full">
                         <Button variant="outline" className="w-full" size="lg">
-                          {t('myAccount')}
+                          <EditableText tKey="common.nav.myAccount">{t('myAccount')}</EditableText>
                         </Button>
                       </Link>
                     </>
                   ) : (
                     <>
                       <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
-                        {t('iAmSpecialist')}
+                        <EditableText tKey="common.nav.iAmSpecialist">{t('iAmSpecialist')}</EditableText>
                       </p>
                       <Link href="/profi/prihlaseni" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:bg-gray-800 transition-colors">
                         <LogIn className="h-5 w-5 text-blue-600 shrink-0" />
-                        <span className="text-sm font-semibold text-gray-900 dark:text-white">{spec('login')}</span>
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white"><EditableText tKey="common.nav.specialistDropdown.login">{spec('login')}</EditableText></span>
                       </Link>
                       <Link href="/profi/registrace" onClick={closeMenu} className="flex items-center gap-3 w-full px-4 py-3 rounded-lg bg-blue-50 border border-blue-100 hover:bg-blue-100 transition-colors">
                         <UserPlus className="h-5 w-5 text-blue-600 shrink-0" />
-                        <span className="text-sm font-semibold text-blue-600">{spec('register')}</span>
+                        <span className="text-sm font-semibold text-blue-600"><EditableText tKey="common.nav.specialistDropdown.register">{spec('register')}</EditableText></span>
                       </Link>
                     </>
                   )}

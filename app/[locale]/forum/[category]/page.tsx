@@ -11,6 +11,7 @@ import { TopicsListSkeleton } from '@/components/forum/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PenSquare, Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
@@ -62,7 +63,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         <Link href={`/forum/nova-tema?category=${category}`}>
           <Button className="gap-2">
             <PenSquare className="h-4 w-4" />
-            {tForum('newTopicButton')}
+            <EditableText tKey="forum.newTopicButton">{tForum('newTopicButton')}</EditableText>
           </Button>
         </Link>
       </div>
@@ -94,14 +95,14 @@ export default function CategoryPage({ params }: CategoryPageProps) {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <h3 className="text-xl font-semibold mb-2">{t('empty.title')}</h3>
+          <h3 className="text-xl font-semibold mb-2"><EditableText tKey="forum.category.empty.title">{t('empty.title')}</EditableText></h3>
           <p className="text-muted-foreground mb-4">
             {search ? t('empty.searchHint') : t('empty.noTopicsHint')}
           </p>
           <Link href={`/forum/nova-tema?category=${category}`}>
             <Button variant="outline" className="gap-2">
               <PenSquare className="h-4 w-4" />
-              {t('empty.createButton')}
+              <EditableText tKey="forum.category.empty.createButton">{t('empty.createButton')}</EditableText>
             </Button>
           </Link>
         </div>

@@ -10,6 +10,7 @@ import { forumApi } from '@/lib/api/forum';
 import { ArrowLeft, MessageSquare, Pin, Lock, Unlock } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function AdminForumPage() {
   const router = useRouter();
@@ -74,7 +75,7 @@ export default function AdminForumPage() {
         <div>
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <MessageSquare className="h-6 w-6 text-blue-500" />
-            {t('title')}
+            <EditableText tKey="dashboard.admin.forum.title">{t('title')}</EditableText>
           </h1>
           <p className="text-muted-foreground mt-1">{categories?.length ?? 0} kategórií</p>
         </div>

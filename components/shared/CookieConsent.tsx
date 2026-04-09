@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Cookie, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { EditableText } from '@/components/editor/EditableText';
 
 export function CookieConsent() {
   const t = useTranslations('cookies');
@@ -47,23 +48,23 @@ export function CookieConsent() {
               <Cookie className="h-6 w-6 text-amber-500 shrink-0 mt-0.5" />
               <div className="flex-1">
                 <h3 className="font-semibold text-gray-900 dark:text-foreground mb-1">
-                  {t('title')}
+                  <EditableText tKey="cookies.title">{t('title')}</EditableText>
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-muted-foreground mb-4">
-                  {t('description')}
+                  <EditableText tKey="cookies.description">{t('description')}</EditableText>
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <button
                     onClick={handleAccept}
                     className="rounded-lg bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-colors"
                   >
-                    {t('accept')}
+                    <EditableText tKey="cookies.accept">{t('accept')}</EditableText>
                   </button>
                   <button
                     onClick={handleReject}
                     className="rounded-lg border border-gray-300 dark:border-border px-6 py-2 text-sm font-medium text-gray-700 dark:text-foreground hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-muted transition-colors"
                   >
-                    {t('reject')}
+                    <EditableText tKey="cookies.reject">{t('reject')}</EditableText>
                   </button>
                 </div>
               </div>

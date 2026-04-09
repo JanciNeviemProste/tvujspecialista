@@ -13,6 +13,7 @@ import { DealFilters } from '@/components/deals/DealFilters';
 import { KanbanSkeleton, DealCardSkeleton } from '@/components/deals/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid, List } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 const DealDetailModal = dynamic(
   () => import('@/components/deals/DealDetailModal').then(mod => mod.DealDetailModal),
@@ -99,22 +100,22 @@ export default function DealsPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">{t('title')}</h1>
-          <p className="text-gray-500">{t('subtitle')}</p>
+          <h1 className="text-3xl font-bold mb-2"><EditableText tKey="dashboard.deals.title">{t('title')}</EditableText></h1>
+          <p className="text-gray-500"><EditableText tKey="dashboard.deals.subtitle">{t('subtitle')}</EditableText></p>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card">
-            <p className="text-sm text-gray-500">{t('stats.total')}</p>
+            <p className="text-sm text-gray-500"><EditableText tKey="dashboard.deals.stats.total">{t('stats.total')}</EditableText></p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
           <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card">
-            <p className="text-sm text-gray-500">{t('stats.new')}</p>
+            <p className="text-sm text-gray-500"><EditableText tKey="dashboard.deals.stats.new">{t('stats.new')}</EditableText></p>
             <p className="text-2xl font-bold text-blue-600">{stats.new}</p>
           </div>
           <div className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-card">
-            <p className="text-sm text-gray-500">{t('stats.accepted')}</p>
+            <p className="text-sm text-gray-500"><EditableText tKey="dashboard.deals.stats.accepted">{t('stats.accepted')}</EditableText></p>
             <p className="text-2xl font-bold text-emerald-600">{stats.accepted}</p>
           </div>
         </div>
@@ -151,7 +152,7 @@ export default function DealsPage() {
         {filteredDeals.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
             <div className="text-6xl mb-4">📭</div>
-            <h3 className="text-xl font-semibold mb-2">{t('empty.title')}</h3>
+            <h3 className="text-xl font-semibold mb-2"><EditableText tKey="dashboard.deals.empty.title">{t('empty.title')}</EditableText></h3>
             <p className="text-gray-500">
               {filters.search || filters.status !== 'all'
                 ? t('empty.tryFilters')

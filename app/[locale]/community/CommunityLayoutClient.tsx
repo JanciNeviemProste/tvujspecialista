@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useTranslations } from 'next-intl'
@@ -59,7 +60,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                 )}
               >
                 <Home className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav.home')}</span>
+                <span className="hidden sm:inline"><EditableText tKey="community.nav.home">{t('nav.home')}</EditableText></span>
               </Link>
               <Link
                 href="/community/events"
@@ -69,7 +70,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                 )}
               >
                 <Library className="h-4 w-4" />
-                <span className="hidden sm:inline">{t('nav.events')}</span>
+                <span className="hidden sm:inline"><EditableText tKey="community.nav.events">{t('nav.events')}</EditableText></span>
               </Link>
               {isAuthenticated && (
                 <Link
@@ -80,7 +81,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                   )}
                 >
                   <User className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav.myEvents')}</span>
+                  <span className="hidden sm:inline"><EditableText tKey="community.nav.myEvents">{t('nav.myEvents')}</EditableText></span>
                 </Link>
               )}
               {user?.role === 'admin' && (
@@ -89,7 +90,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                   className="flex items-center gap-2 text-sm font-medium text-amber-600 transition-colors hover:text-amber-700"
                 >
                   <Settings className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav.manageCommunity')}</span>
+                  <span className="hidden sm:inline"><EditableText tKey="community.nav.manageCommunity">{t('nav.manageCommunity')}</EditableText></span>
                 </Link>
               )}
               {isAuthenticated && (
@@ -98,7 +99,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
                   className="flex items-center gap-2 text-sm font-medium text-gray-500 transition-colors hover:text-blue-600"
                 >
                   <LayoutDashboard className="h-4 w-4" />
-                  <span className="hidden sm:inline">{t('nav.dashboard')}</span>
+                  <span className="hidden sm:inline"><EditableText tKey="community.nav.dashboard">{t('nav.dashboard')}</EditableText></span>
                 </Link>
               )}
             </nav>
@@ -107,7 +108,7 @@ export default function CommunityLayoutClient({ children }: CommunityLayoutClien
             <div className="flex items-center gap-2 text-sm font-semibold">
               <Calendar className="h-5 w-5 text-blue-600" />
               <span className="hidden sm:inline text-blue-600 font-semibold">
-                {t('branding')}
+                <EditableText tKey="community.branding">{t('branding')}</EditableText>
               </span>
             </div>
           </div>

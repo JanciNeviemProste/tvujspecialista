@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Send } from 'lucide-react';
 import type { ForumCategory } from '@/types/forum';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface NewTopicFormProps {
   categories: ForumCategory[];
@@ -35,13 +36,13 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('newTopic.title')}</CardTitle>
+        <CardTitle><EditableText tKey="forum.newTopic.title">{t('newTopic.title')}</EditableText></CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Category select */}
           <div className="space-y-2">
-            <Label htmlFor="category">{t('newTopic.category')}</Label>
+            <Label htmlFor="category"><EditableText tKey="forum.newTopic.category">{t('newTopic.category')}</EditableText></Label>
             <select
               id="category"
               value={categoryId}
@@ -49,7 +50,7 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
               className="w-full px-4 py-2 rounded-lg border bg-background text-sm"
               disabled={isLoading}
             >
-              <option value="">{t('newTopic.categoryPlaceholder')}</option>
+              <option value=""><EditableText tKey="forum.newTopic.categoryPlaceholder">{t('newTopic.categoryPlaceholder')}</EditableText></option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
                   {cat.name}
@@ -60,7 +61,7 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
 
           {/* Title */}
           <div className="space-y-2">
-            <Label htmlFor="title">{t('newTopic.topicTitle')}</Label>
+            <Label htmlFor="title"><EditableText tKey="forum.newTopic.topicTitle">{t('newTopic.topicTitle')}</EditableText></Label>
             <Input
               id="title"
               value={title}
@@ -75,7 +76,7 @@ export function NewTopicForm({ categories, defaultCategoryId, onSubmit, isLoadin
 
           {/* Content */}
           <div className="space-y-2">
-            <Label htmlFor="content">{t('newTopic.content')}</Label>
+            <Label htmlFor="content"><EditableText tKey="forum.newTopic.content">{t('newTopic.content')}</EditableText></Label>
             <textarea
               id="content"
               value={content}

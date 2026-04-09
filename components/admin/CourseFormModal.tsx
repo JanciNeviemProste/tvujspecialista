@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { X } from 'lucide-react';
 import { toast } from 'sonner';
+import { EditableText } from '@/components/editor/EditableText';
 
 export interface CourseFormData {
   title: string;
@@ -70,7 +71,7 @@ export default function CourseFormModal({
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.nameLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.nameLabel">{tAdmin('courseForm.nameLabel')}</EditableText></label>
             <input
               type="text"
               value={form.title}
@@ -82,7 +83,7 @@ export default function CourseFormModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.descriptionLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.descriptionLabel">{tAdmin('courseForm.descriptionLabel')}</EditableText></label>
             <textarea
               value={form.description}
               onChange={(e) => handleChange('description', e.target.value)}
@@ -94,7 +95,7 @@ export default function CourseFormModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.thumbnailLabel')}</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.thumbnailLabel">{tAdmin('courseForm.thumbnailLabel')}</EditableText></label>
             <input
               type="url"
               value={form.thumbnailUrl}
@@ -107,38 +108,38 @@ export default function CourseFormModal({
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.levelLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.levelLabel">{tAdmin('courseForm.levelLabel')}</EditableText></label>
               <select
                 value={form.level}
                 onChange={(e) => handleChange('level', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="beginner">{tAdmin('courseForm.levelBeginner')}</option>
-                <option value="intermediate">{tAdmin('courseForm.levelIntermediate')}</option>
-                <option value="advanced">{tAdmin('courseForm.levelAdvanced')}</option>
+                <option value="beginner"><EditableText tKey="dashboard.admin.courseForm.levelBeginner">{tAdmin('courseForm.levelBeginner')}</EditableText></option>
+                <option value="intermediate"><EditableText tKey="dashboard.admin.courseForm.levelIntermediate">{tAdmin('courseForm.levelIntermediate')}</EditableText></option>
+                <option value="advanced"><EditableText tKey="dashboard.admin.courseForm.levelAdvanced">{tAdmin('courseForm.levelAdvanced')}</EditableText></option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.categoryLabel')}</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.categoryLabel">{tAdmin('courseForm.categoryLabel')}</EditableText></label>
               <select
                 value={form.category}
                 onChange={(e) => handleChange('category', e.target.value)}
                 className="w-full rounded-lg border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-900 dark:text-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/50"
                 disabled={isLoading}
               >
-                <option value="financial">{tAdmin('courseForm.categoryFinancial')}</option>
-                <option value="real_estate">{tAdmin('courseForm.categoryRealEstate')}</option>
-                <option value="both">{tAdmin('courseForm.categoryBoth')}</option>
+                <option value="financial"><EditableText tKey="dashboard.admin.courseForm.categoryFinancial">{tAdmin('courseForm.categoryFinancial')}</EditableText></option>
+                <option value="real_estate"><EditableText tKey="dashboard.admin.courseForm.categoryRealEstate">{tAdmin('courseForm.categoryRealEstate')}</EditableText></option>
+                <option value="both"><EditableText tKey="dashboard.admin.courseForm.categoryBoth">{tAdmin('courseForm.categoryBoth')}</EditableText></option>
               </select>
             </div>
           </div>
 
           <div className="border-t border-gray-200 dark:border-neutral-700 pt-4 mt-4">
-            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{tAdmin('courseForm.instructorSection')}</h3>
+            <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3"><EditableText tKey="dashboard.admin.courseForm.instructorSection">{tAdmin('courseForm.instructorSection')}</EditableText></h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.instructorNameLabel')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.instructorNameLabel">{tAdmin('courseForm.instructorNameLabel')}</EditableText></label>
                 <input
                   type="text"
                   value={form.instructorName}
@@ -149,7 +150,7 @@ export default function CourseFormModal({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.instructorBioLabel')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.instructorBioLabel">{tAdmin('courseForm.instructorBioLabel')}</EditableText></label>
                 <textarea
                   value={form.instructorBio}
                   onChange={(e) => handleChange('instructorBio', e.target.value)}
@@ -160,7 +161,7 @@ export default function CourseFormModal({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{tAdmin('courseForm.instructorPhotoLabel')}</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><EditableText tKey="dashboard.admin.courseForm.instructorPhotoLabel">{tAdmin('courseForm.instructorPhotoLabel')}</EditableText></label>
                 <input
                   type="url"
                   value={form.instructorPhoto}
@@ -180,7 +181,7 @@ export default function CourseFormModal({
               disabled={isLoading}
               className="flex-1 rounded-lg border border-gray-300 dark:border-neutral-600 text-gray-700 dark:text-gray-300 py-2.5 text-sm font-medium hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-neutral-800 transition-colors"
             >
-              {tAdmin('courseForm.cancel')}
+              <EditableText tKey="dashboard.admin.courseForm.cancel">{tAdmin('courseForm.cancel')}</EditableText>
             </button>
             <button
               type="submit"

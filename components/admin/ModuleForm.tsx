@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface ModuleFormProps {
   initial?: { title: string; description: string };
@@ -51,7 +52,7 @@ export default function ModuleForm({
           {loading ? t('actions.saving') : t('actions.save')}
         </button>
         <button onClick={onCancel} disabled={loading} className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-sm hover:bg-gray-50 dark:bg-gray-800">
-          {t('actions.cancel')}
+          <EditableText tKey="dashboard.admin.courses.actions.cancel">{t('actions.cancel')}</EditableText>
         </button>
       </div>
     </div>

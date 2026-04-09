@@ -7,6 +7,7 @@ import { StripeCardElementOptions } from '@stripe/stripe-js';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle2, CreditCard } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface PaymentFormProps {
   clientSecret: string;
@@ -114,7 +115,7 @@ export function PaymentForm({
       {/* Card Element Container */}
       <div className="space-y-2">
         <label htmlFor="card-element" className="text-sm font-medium">
-          {t('payment.cardLabel')}
+          <EditableText tKey="dashboard.commissions.payment.cardLabel">{t('payment.cardLabel')}</EditableText>
         </label>
         <div className="p-4 border rounded-lg bg-background transition-colors focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2">
           <CardElement
@@ -132,7 +133,7 @@ export function PaymentForm({
         </div>
         <p className="text-xs text-muted-foreground flex items-center gap-1.5">
           <CreditCard className="h-3.5 w-3.5" />
-          {t('payment.securedByStripe')}
+          <EditableText tKey="dashboard.commissions.payment.securedByStripe">{t('payment.securedByStripe')}</EditableText>
         </p>
       </div>
 
@@ -162,11 +163,11 @@ export function PaymentForm({
       {/* Test Card Info (only show in development) */}
       {process.env.NODE_ENV === 'development' && (
         <div className="mt-4 p-3 rounded-lg bg-muted text-xs">
-          <p className="font-semibold mb-1">{t('payment.testCards')}</p>
+          <p className="font-semibold mb-1"><EditableText tKey="dashboard.commissions.payment.testCards">{t('payment.testCards')}</EditableText></p>
           <ul className="space-y-1 text-muted-foreground">
-            <li>{t('payment.testSuccess')} 4242 4242 4242 4242</li>
-            <li>{t('payment.testDeclined')} 4000 0000 0000 0002</li>
-            <li>{t('payment.testCvc')}</li>
+            <li><EditableText tKey="dashboard.commissions.payment.testSuccess">{t('payment.testSuccess')}</EditableText> 4242 4242 4242 4242</li>
+            <li><EditableText tKey="dashboard.commissions.payment.testDeclined">{t('payment.testDeclined')}</EditableText> 4000 0000 0000 0002</li>
+            <li><EditableText tKey="dashboard.commissions.payment.testCvc">{t('payment.testCvc')}</EditableText></li>
           </ul>
         </div>
       )}

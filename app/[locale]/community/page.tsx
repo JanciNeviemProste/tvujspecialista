@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useTranslations } from 'next-intl'
@@ -20,9 +21,9 @@ export default function CommunityLandingPage() {
       <section className="py-16 bg-white dark:bg-neutral-900">
         <div className="container mx-auto px-4">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white">{t('upcomingEvents.title')}</h2>
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white"><EditableText tKey="community.upcomingEvents.title">{t('upcomingEvents.title')}</EditableText></h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              {t('upcomingEvents.subtitle')}
+              <EditableText tKey="community.upcomingEvents.subtitle">{t('upcomingEvents.subtitle')}</EditableText>
             </p>
           </div>
 
@@ -33,7 +34,7 @@ export default function CommunityLandingPage() {
           {error && (
             <div className="rounded-lg border border-red-300 bg-red-50 dark:bg-red-950/30 p-8 text-center">
               <p className="text-red-600 dark:text-red-400">
-                {t('upcomingEvents.loadError')}
+                <EditableText tKey="community.upcomingEvents.loadError">{t('upcomingEvents.loadError')}</EditableText>
               </p>
             </div>
           )}
@@ -44,7 +45,7 @@ export default function CommunityLandingPage() {
               {displayEvents.length === 0 ? (
                 <div className="rounded-lg border border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-12 text-center">
                   <p className="text-gray-500 dark:text-gray-400">
-                    {t('upcomingEvents.empty')}
+                    <EditableText tKey="community.upcomingEvents.empty">{t('upcomingEvents.empty')}</EditableText>
                   </p>
                 </div>
               ) : (
@@ -70,9 +71,9 @@ export default function CommunityLandingPage() {
                   <Users className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('benefits.networking.title')}</h3>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="community.benefits.networking.title">{t('benefits.networking.title')}</EditableText></h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('benefits.networking.description')}
+                <EditableText tKey="community.benefits.networking.description">{t('benefits.networking.description')}</EditableText>
               </p>
             </div>
 
@@ -83,9 +84,9 @@ export default function CommunityLandingPage() {
                   <Calendar className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('benefits.exclusiveEvents.title')}</h3>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="community.benefits.exclusiveEvents.title">{t('benefits.exclusiveEvents.title')}</EditableText></h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('benefits.exclusiveEvents.description')}
+                <EditableText tKey="community.benefits.exclusiveEvents.description">{t('benefits.exclusiveEvents.description')}</EditableText>
               </p>
             </div>
 
@@ -96,9 +97,9 @@ export default function CommunityLandingPage() {
                   <TrendingUp className="h-8 w-8 text-purple-600 dark:text-purple-400" />
                 </div>
               </div>
-              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('benefits.careerGrowth.title')}</h3>
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="community.benefits.careerGrowth.title">{t('benefits.careerGrowth.title')}</EditableText></h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t('benefits.careerGrowth.description')}
+                <EditableText tKey="community.benefits.careerGrowth.description">{t('benefits.careerGrowth.description')}</EditableText>
               </p>
             </div>
           </div>
@@ -112,7 +113,7 @@ export default function CommunityLandingPage() {
             href="/community/events"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-lg transition-colors"
           >
-            {t('exploreEvents')}
+            <EditableText tKey="community.exploreEvents">{t('exploreEvents')}</EditableText>
           </Link>
         </div>
       </section>

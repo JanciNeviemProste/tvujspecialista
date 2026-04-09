@@ -16,6 +16,7 @@ import {
 import { Link } from '@/i18n/routing';
 import { useRouter } from '@/i18n/routing';
 import { useEffect, useMemo } from 'react';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface StatCardProps {
   icon: React.ElementType;
@@ -172,8 +173,8 @@ export default function MyLearningPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{t('myLearning.title')}</h1>
-        <p className="text-gray-500">{t('myLearning.subtitle')}</p>
+        <h1 className="text-3xl font-bold mb-2"><EditableText tKey="academy.myLearning.title">{t('myLearning.title')}</EditableText></h1>
+        <p className="text-gray-500"><EditableText tKey="academy.myLearning.subtitle">{t('myLearning.subtitle')}</EditableText></p>
       </div>
 
       {/* Stats Cards */}
@@ -210,7 +211,7 @@ export default function MyLearningPage() {
 
       {/* Continue Learning Section */}
       <section className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">{t('myLearning.continueLearning')}</h2>
+        <h2 className="text-2xl font-bold mb-6"><EditableText tKey="academy.myLearning.continueLearning">{t('myLearning.continueLearning')}</EditableText></h2>
 
         {activeEnrollments.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -231,7 +232,7 @@ export default function MyLearningPage() {
 
       {/* Completed Courses Section */}
       <section>
-        <h2 className="text-2xl font-bold mb-6">{t('myLearning.completedSection')}</h2>
+        <h2 className="text-2xl font-bold mb-6"><EditableText tKey="academy.myLearning.completedSection">{t('myLearning.completedSection')}</EditableText></h2>
 
         {completedEnrollments.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

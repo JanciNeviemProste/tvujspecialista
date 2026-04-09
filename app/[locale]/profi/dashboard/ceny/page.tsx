@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { PricingCard } from '@/components/subscriptions/PricingCard';
 import { PricingPlan, SubscriptionType } from '@/types/subscriptions';
 import { useCreateCheckout, useMyActiveSubscription } from '@/lib/hooks/useSubscriptions';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function DashboardPricingPage() {
   const { data: activeSubscription } = useMyActiveSubscription();
@@ -122,10 +123,10 @@ export default function DashboardPricingPage() {
       <section className="py-12 sm:py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="mb-4 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {t('hero.title')}
+            <EditableText tKey="pricing.hero.title">{t('hero.title')}</EditableText>
           </h1>
           <p className="mx-auto max-w-2xl text-base sm:text-lg text-gray-600 dark:text-gray-400">
-            {t('hero.subtitle')}
+            <EditableText tKey="pricing.hero.subtitle">{t('hero.subtitle')}</EditableText>
           </p>
         </div>
       </section>
@@ -135,10 +136,10 @@ export default function DashboardPricingPage() {
         <div className="container mx-auto px-4">
           <div className="mb-8 text-center">
             <span className="inline-block rounded-full bg-blue-100 px-4 py-1.5 text-sm font-semibold text-blue-700 mb-3">
-              {t('forSpecialists.badge')}
+              <EditableText tKey="pricing.forSpecialists.badge">{t('forSpecialists.badge')}</EditableText>
             </span>
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('forSpecialists.title')}
+              <EditableText tKey="pricing.forSpecialists.title">{t('forSpecialists.title')}</EditableText>
             </h2>
           </div>
           <div className="mx-auto max-w-4xl grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2">
@@ -159,14 +160,14 @@ export default function DashboardPricingPage() {
       {/* Features Comparison */}
       <section className="border-t bg-white dark:bg-gray-900 py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{t('comparison.title')}</h2>
+          <h2 className="mb-12 text-center text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white"><EditableText tKey="pricing.comparison.title">{t('comparison.title')}</EditableText></h2>
           <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="border-b">
-                  <th className="py-4 text-left text-xs sm:text-sm font-semibold">{t('comparison.feature')}</th>
-                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">{t('comparison.monthlyLabel')}</th>
-                  <th className="py-4 text-center text-xs sm:text-sm font-semibold">{t('comparison.yearlyLabel')}</th>
+                  <th className="py-4 text-left text-xs sm:text-sm font-semibold"><EditableText tKey="pricing.comparison.feature">{t('comparison.feature')}</EditableText></th>
+                  <th className="py-4 text-center text-xs sm:text-sm font-semibold"><EditableText tKey="pricing.comparison.monthlyLabel">{t('comparison.monthlyLabel')}</EditableText></th>
+                  <th className="py-4 text-center text-xs sm:text-sm font-semibold"><EditableText tKey="pricing.comparison.yearlyLabel">{t('comparison.yearlyLabel')}</EditableText></th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -207,7 +208,7 @@ export default function DashboardPricingPage() {
       {/* FAQ */}
       <section className="border-t py-16">
         <div className="container mx-auto px-4">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 dark:text-white">{t('faq.title')}</h2>
+          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 dark:text-white"><EditableText tKey="pricing.faq.title">{t('faq.title')}</EditableText></h2>
           <div className="mx-auto max-w-3xl space-y-8">
             {faqs.map((faq, index) => (
               <div key={index}>

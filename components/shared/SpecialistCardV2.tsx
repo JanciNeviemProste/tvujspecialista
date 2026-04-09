@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Star, ShieldCheck, Sparkles, MapPin, ArrowUpRight } from 'lucide-react';
+import { EditableText } from '@/components/editor/EditableText';
 
 interface SpecialistCardV2Props {
   specialist: {
@@ -100,13 +101,13 @@ export const SpecialistCardV2 = memo(function SpecialistCardV2({
           {specialist.verified && (
             <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-neutral-900 backdrop-blur-md">
               <ShieldCheck className="h-3 w-3 text-indigo-600" strokeWidth={3} />
-              {tCommon('status.verified')}
+              <EditableText tKey="common.status.verified">{tCommon('status.verified')}</EditableText>
             </span>
           )}
           {specialist.topSpecialist && (
             <span className="inline-flex items-center gap-1 rounded-full bg-gradient-to-br from-amber-500 to-amber-600 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-white shadow-premium">
               <Sparkles className="h-3 w-3" strokeWidth={3} />
-              {tCommon('status.top')}
+              <EditableText tKey="common.status.top">{tCommon('status.top')}</EditableText>
             </span>
           )}
         </div>

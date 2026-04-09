@@ -1,3 +1,4 @@
+import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { memo } from 'react'
@@ -117,7 +118,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
               {event.format === EventFormat.ONLINE ? (
                 <>
                   <Video className="h-4 w-4 shrink-0" />
-                  <span>{t('event.onlineMeeting')}</span>
+                  <span><EditableText tKey="community.event.onlineMeeting">{t('event.onlineMeeting')}</EditableText></span>
                 </>
               ) : (
                 <>
@@ -136,7 +137,7 @@ export const EventCard = memo(function EventCard({ event, showRSVPButton = true,
               </span>
               {isFullyBooked && (
                 <span className="inline-flex items-center rounded-full bg-red-100 text-red-700 px-2 py-0.5 text-xs font-medium">
-                  {t('event.full')}
+                  <EditableText tKey="community.event.full">{t('event.full')}</EditableText>
                 </span>
               )}
               {!isFullyBooked && spotsLeft !== null && spotsLeft <= 10 && (
