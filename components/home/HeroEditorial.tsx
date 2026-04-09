@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { motion, type Variants } from 'framer-motion';
 import { ArrowRight, Search, Star, ShieldCheck } from 'lucide-react';
@@ -131,19 +132,38 @@ export function HeroEditorial() {
               className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4"
             >
               <div className="flex items-center gap-3">
-                {/* Avatar stack */}
+                {/* Avatar stack — real specialist photos from pexels (whitelisted in next.config) */}
                 <div className="flex -space-x-2">
                   {[
-                    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&fit=crop',
-                    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop',
-                    'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop',
-                    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop',
-                  ].map((src, i) => (
+                    {
+                      src: 'https://images.pexels.com/photos/5060991/pexels-photo-5060991.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop',
+                      alt: 'Jan Novák',
+                    },
+                    {
+                      src: 'https://images.pexels.com/photos/7550900/pexels-photo-7550900.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop',
+                      alt: 'Petra Svobodová',
+                    },
+                    {
+                      src: 'https://images.pexels.com/photos/7648248/pexels-photo-7648248.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop',
+                      alt: 'Martin Dvořák',
+                    },
+                    {
+                      src: 'https://images.pexels.com/photos/7222279/pexels-photo-7222279.jpeg?auto=compress&cs=tinysrgb&w=160&h=160&fit=crop',
+                      alt: 'Jana Horáková',
+                    },
+                  ].map((avatar) => (
                     <div
-                      key={i}
-                      className="h-9 w-9 overflow-hidden rounded-full border-2 border-background bg-muted"
-                      style={{ backgroundImage: `url(${src})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-                    />
+                      key={avatar.alt}
+                      className="relative h-9 w-9 overflow-hidden rounded-full border-2 border-background bg-muted"
+                    >
+                      <Image
+                        src={avatar.src}
+                        alt={avatar.alt}
+                        fill
+                        sizes="36px"
+                        className="object-cover object-top"
+                      />
+                    </div>
                   ))}
                 </div>
                 <div className="text-sm">
