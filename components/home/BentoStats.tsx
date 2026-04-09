@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { motion, type Variants } from 'framer-motion';
 import { TrendingUp, Users, Award, Sparkles, Target, Clock } from 'lucide-react';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
+import { EditableText } from '@/components/editor/EditableText';
 
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
@@ -35,7 +36,7 @@ export function BentoStats() {
           className="mx-auto mb-16 max-w-3xl text-center"
         >
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            {t('eyebrow')}
+            <EditableText tKey="home.v2.stats.eyebrow">{t('eyebrow')}</EditableText>
           </div>
           <h2 className="text-balance text-display-3 font-bold tracking-tight text-foreground">
             {t.rich('title', {
@@ -44,7 +45,7 @@ export function BentoStats() {
               ),
             })}
           </h2>
-          <p className="mt-4 text-balance text-lg text-muted-foreground">{t('subtitle')}</p>
+          <p className="mt-4 text-balance text-lg text-muted-foreground"><EditableText tKey="home.v2.stats.subtitle">{t('subtitle')}</EditableText></p>
         </motion.div>
 
         {/* Bento grid — 12 col asymmetric */}
@@ -67,15 +68,15 @@ export function BentoStats() {
                   <AnimatedCounter target={t('featured.value')} />
                 </div>
                 <div className="mt-3 text-base font-semibold text-foreground">
-                  {t('featured.label')}
+                  <EditableText tKey="home.v2.stats.featured.label">{t('featured.label')}</EditableText>
                 </div>
                 <p className="mt-2 max-w-md text-sm text-muted-foreground">
-                  {t('featured.description')}
+                  <EditableText tKey="home.v2.stats.featured.description">{t('featured.description')}</EditableText>
                 </p>
               </div>
               <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-primary">
                 <TrendingUp className="h-4 w-4" />
-                {t('featured.trend')}
+                <EditableText tKey="home.v2.stats.featured.trend">{t('featured.trend')}</EditableText>
               </div>
             </div>
 
@@ -98,7 +99,7 @@ export function BentoStats() {
             <div className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               <AnimatedCounter target={t('cell1.value')} />
             </div>
-            <div className="mt-1 text-sm font-medium text-muted-foreground">{t('cell1.label')}</div>
+            <div className="mt-1 text-sm font-medium text-muted-foreground"><EditableText tKey="home.v2.stats.cell1.label">{t('cell1.label')}</EditableText></div>
           </motion.div>
 
           <motion.div
@@ -115,7 +116,7 @@ export function BentoStats() {
             <div className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               <AnimatedCounter target={t('cell2.value')} />
             </div>
-            <div className="mt-1 text-sm font-medium text-muted-foreground">{t('cell2.label')}</div>
+            <div className="mt-1 text-sm font-medium text-muted-foreground"><EditableText tKey="home.v2.stats.cell2.label">{t('cell2.label')}</EditableText></div>
           </motion.div>
 
           <motion.div
@@ -132,7 +133,7 @@ export function BentoStats() {
             <div className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               <AnimatedCounter target={t('cell3.value')} />
             </div>
-            <div className="mt-1 text-sm font-medium text-muted-foreground">{t('cell3.label')}</div>
+            <div className="mt-1 text-sm font-medium text-muted-foreground"><EditableText tKey="home.v2.stats.cell3.label">{t('cell3.label')}</EditableText></div>
           </motion.div>
 
           <motion.div
@@ -149,7 +150,7 @@ export function BentoStats() {
             <div className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               <AnimatedCounter target={t('cell4.value')} />
             </div>
-            <div className="mt-1 text-sm font-medium text-muted-foreground">{t('cell4.label')}</div>
+            <div className="mt-1 text-sm font-medium text-muted-foreground"><EditableText tKey="home.v2.stats.cell4.label">{t('cell4.label')}</EditableText></div>
           </motion.div>
         </div>
       </div>

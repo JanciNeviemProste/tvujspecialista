@@ -1,6 +1,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
+import { EditableText } from '@/components/editor/EditableText';
 
 const PARTNERS = [
   'OVB',
@@ -20,7 +21,7 @@ export function LogoMarquee() {
     <section className="relative border-y border-border/40 bg-background/50 py-12 backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <p className="mb-8 text-center text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-          {t('label')}
+          <EditableText tKey="home.v2.trust.label">{t('label')}</EditableText>
         </p>
 
         <div className="marquee-mask relative overflow-hidden">

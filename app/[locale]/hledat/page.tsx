@@ -8,6 +8,7 @@ import { PublicHeader } from '@/components/layout/PublicHeader';
 import { useSpecialists } from '@/lib/hooks/useSpecialists';
 import { SpecialistCategory, Specialist } from '@/types/specialist';
 import { regions } from '@/mocks/regions';
+import { EditableText } from '@/components/editor/EditableText';
 
 export default function SearchPage() {
   const searchParams = useSearchParams();
@@ -45,7 +46,7 @@ export default function SearchPage() {
 
       <div className="container mx-auto px-4 py-8">
         <div className="mb-6">
-          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground">{t('title')}</h1>
+          <h1 className="mb-2 text-3xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="search.title">{t('title')}</EditableText></h1>
           <p className="text-gray-600 dark:text-muted-foreground">
             {isLoading ? (
               t('loading')
@@ -53,7 +54,7 @@ export default function SearchPage() {
               t('loadError')
             ) : (
               <>
-                {t('found')} <span className="font-semibold">{data?.total || 0}</span> {t('specialists')}
+                <EditableText tKey="search.found">{t('found')}</EditableText> <span className="font-semibold">{data?.total || 0}</span> <EditableText tKey="search.specialists">{t('specialists')}</EditableText>
               </>
             )}
           </p>
@@ -63,18 +64,18 @@ export default function SearchPage() {
           {/* Filters Sidebar */}
           <aside className="lg:col-span-1">
             <div className="rounded-lg border dark:border-border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-lg font-semibold dark:text-foreground">{t('filters.title')}</h2>
+              <h2 className="mb-4 text-lg font-semibold dark:text-foreground"><EditableText tKey="search.filters.title">{t('filters.title')}</EditableText></h2>
 
               {/* Category Filter */}
               <div className="mb-6">
-                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">{t('filters.category')}</label>
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground"><EditableText tKey="search.filters.category">{t('filters.category')}</EditableText></label>
                 <select
                   aria-label={t('filters.selectCategory')}
                   className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.category}
                   onChange={(e) => updateFilters({ category: e.target.value })}
                 >
-                  <option value="">{t('filters.allCategories')}</option>
+                  <option value=""><EditableText tKey="search.filters.allCategories">{t('filters.allCategories')}</EditableText></option>
                   <option value="Finanční poradce">Finanční poradce</option>
                   <option value="Realitní makléř">Realitní makléř</option>
                 </select>
@@ -82,14 +83,14 @@ export default function SearchPage() {
 
               {/* Location Filter */}
               <div className="mb-6">
-                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">{t('filters.location')}</label>
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground"><EditableText tKey="search.filters.location">{t('filters.location')}</EditableText></label>
                 <select
                   aria-label={t('filters.selectLocation')}
                   className="w-full rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   value={filters.region || ''}
                   onChange={(e) => updateFilters({ region: e.target.value })}
                 >
-                  <option value="">{t('filters.allLocations')}</option>
+                  <option value=""><EditableText tKey="search.filters.allLocations">{t('filters.allLocations')}</EditableText></option>
                   {regions.filter(r => r.country === 'CZ').map(r => (
                     <option key={r.id} value={r.id}>{r.name}</option>
                   ))}
@@ -99,7 +100,7 @@ export default function SearchPage() {
               {/* Rating Filter */}
               <div className="mb-6">
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-foreground">
-                  {t('filters.minRating')}
+                  <EditableText tKey="search.filters.minRating">{t('filters.minRating')}</EditableText>
                 </label>
                 <div className="space-y-2">
                   {[4, 3, 2].map((rating) => (
@@ -129,7 +130,7 @@ export default function SearchPage() {
                     checked={filters.verified}
                     onChange={(e) => updateFilters({ verified: e.target.checked })}
                   />
-                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground">{t('filters.verifiedOnly')}</span>
+                  <span className="ml-2 text-sm text-gray-700 dark:text-muted-foreground"><EditableText tKey="search.filters.verifiedOnly">{t('filters.verifiedOnly')}</EditableText></span>
                 </label>
               </div>
 
@@ -140,7 +141,7 @@ export default function SearchPage() {
           <div className="lg:col-span-3">
             {/* Sort */}
             <div className="mb-4 flex items-center justify-between">
-              <p className="text-sm text-gray-600 dark:text-muted-foreground">{t('sort.label')}</p>
+              <p className="text-sm text-gray-600 dark:text-muted-foreground"><EditableText tKey="search.sort.label">{t('sort.label')}</EditableText></p>
               <select
                 aria-label={t('sort.sortResults')}
                 className="rounded-md border border-gray-300 dark:border-border bg-white dark:bg-background dark:text-foreground px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -151,8 +152,8 @@ export default function SearchPage() {
                   })
                 }
               >
-                <option value="rating">{t('sort.bestRating')}</option>
-                <option value="newest">{t('sort.newest')}</option>
+                <option value="rating"><EditableText tKey="search.sort.bestRating">{t('sort.bestRating')}</EditableText></option>
+                <option value="newest"><EditableText tKey="search.sort.newest">{t('sort.newest')}</EditableText></option>
               </select>
             </div>
 
@@ -161,7 +162,7 @@ export default function SearchPage() {
               <div className="flex items-center justify-center py-12">
                 <div className="text-center">
                   <div className="mb-4 text-4xl">⏳</div>
-                  <p className="text-gray-600 dark:text-muted-foreground">{t('loadingSpecialists')}</p>
+                  <p className="text-gray-600 dark:text-muted-foreground"><EditableText tKey="search.loadingSpecialists">{t('loadingSpecialists')}</EditableText></p>
                 </div>
               </div>
             )}
@@ -170,7 +171,7 @@ export default function SearchPage() {
             {error && (
               <div className="rounded-lg border border-red-200 bg-red-50 dark:bg-red-950/20 dark:border-red-800 p-6 text-center">
                 <p className="text-red-600 dark:text-red-400">
-                  {t('loadErrorLong')}
+                  <EditableText tKey="search.loadErrorLong">{t('loadErrorLong')}</EditableText>
                 </p>
               </div>
             )}
@@ -182,10 +183,10 @@ export default function SearchPage() {
                   <div className="rounded-lg border dark:border-border bg-white dark:bg-card p-12 text-center">
                     <div className="mb-4 text-5xl">🔍</div>
                     <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-foreground">
-                      {t('empty.title')}
+                      <EditableText tKey="search.empty.title">{t('empty.title')}</EditableText>
                     </h3>
                     <p className="text-gray-600 dark:text-muted-foreground">
-                      {t('empty.description')}
+                      <EditableText tKey="search.empty.description">{t('empty.description')}</EditableText>
                     </p>
                   </div>
                 ) : (
@@ -204,7 +205,7 @@ export default function SearchPage() {
                       disabled={page <= 1}
                       onClick={() => setPage(page - 1)}
                     >
-                      {tCommon('actions.previous')}
+                      <EditableText tKey="common.actions.previous">{tCommon('actions.previous')}</EditableText>
                     </button>
                     {Array.from({ length: data.totalPages }, (_, i) => i + 1).map((p) => (
                       <button
@@ -224,7 +225,7 @@ export default function SearchPage() {
                       disabled={page >= data.totalPages}
                       onClick={() => setPage(page + 1)}
                     >
-                      {tCommon('actions.next')}
+                      <EditableText tKey="common.actions.next">{tCommon('actions.next')}</EditableText>
                     </button>
                   </div>
                 )}

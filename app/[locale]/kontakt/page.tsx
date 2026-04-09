@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
+import { EditableText } from '@/components/editor/EditableText';
 
 type ContactFormData = {
   name: string;
@@ -64,16 +65,16 @@ export default function ContactPage() {
       <PublicHeader />
 
       <div className="container mx-auto max-w-5xl px-4 py-12">
-        <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
+        <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white"><EditableText tKey="contact.title">{t('title')}</EditableText></h1>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Contact Form */}
           <div className="rounded-lg border bg-white dark:bg-card p-8">
-            <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">{t('form.title')}</h2>
+            <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white"><EditableText tKey="contact.form.title">{t('form.title')}</EditableText></h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('form.name')}
+                  <EditableText tKey="contact.form.name">{t('form.name')}</EditableText>
                 </label>
                 <input
                   type="text"
@@ -90,7 +91,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('form.email')}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="contact.form.email">{t('form.email')}</EditableText></label>
                 <input
                   type="email"
                   id="contact-email"
@@ -107,7 +108,7 @@ export default function ContactPage() {
 
               <div>
                 <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('form.phone')}
+                  <EditableText tKey="contact.form.phone">{t('form.phone')}</EditableText>
                 </label>
                 <input
                   type="tel"
@@ -118,7 +119,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('form.subject')}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="contact.form.subject">{t('form.subject')}</EditableText></label>
                 <select
                   id="contact-subject"
                   aria-invalid={!!errors.subject}
@@ -126,12 +127,12 @@ export default function ContactPage() {
                   className="w-full rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   {...register('subject')}
                 >
-                  <option value="">{t('form.selectSubject')}</option>
-                  <option value="general">{t('form.subjectGeneral')}</option>
-                  <option value="specialist">{t('form.subjectSpecialist')}</option>
-                  <option value="customer">{t('form.subjectCustomer')}</option>
-                  <option value="technical">{t('form.subjectTechnical')}</option>
-                  <option value="partnership">{t('form.subjectPartnership')}</option>
+                  <option value=""><EditableText tKey="contact.form.selectSubject">{t('form.selectSubject')}</EditableText></option>
+                  <option value="general"><EditableText tKey="contact.form.subjectGeneral">{t('form.subjectGeneral')}</EditableText></option>
+                  <option value="specialist"><EditableText tKey="contact.form.subjectSpecialist">{t('form.subjectSpecialist')}</EditableText></option>
+                  <option value="customer"><EditableText tKey="contact.form.subjectCustomer">{t('form.subjectCustomer')}</EditableText></option>
+                  <option value="technical"><EditableText tKey="contact.form.subjectTechnical">{t('form.subjectTechnical')}</EditableText></option>
+                  <option value="partnership"><EditableText tKey="contact.form.subjectPartnership">{t('form.subjectPartnership')}</EditableText></option>
                 </select>
                 {errors.subject && (
                   <p id="subject-error" role="alert" className="text-sm text-red-500">{errors.subject.message}</p>
@@ -139,7 +140,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('form.message')}</label>
+                <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="contact.form.message">{t('form.message')}</EditableText></label>
                 <textarea
                   id="contact-message"
                   rows={6}
@@ -168,7 +169,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             {/* Company Info */}
             <div className="rounded-lg border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">{t('info.title')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="contact.info.title">{t('info.title')}</EditableText></h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <div className="text-blue-600">
@@ -187,7 +188,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">{t('info.email')}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white"><EditableText tKey="contact.info.email">{t('info.email')}</EditableText></div>
                     <a
                       href="mailto:info@tvujspecialista.cz"
                       className="text-blue-600 hover:underline"
@@ -214,11 +215,11 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">{t('info.phone')}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white"><EditableText tKey="contact.info.phone">{t('info.phone')}</EditableText></div>
                     <a href="tel:+420777123456" className="text-blue-600 hover:underline">
                       +420 777 123 456
                     </a>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('info.phoneHours')}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400"><EditableText tKey="contact.info.phoneHours">{t('info.phoneHours')}</EditableText></p>
                   </div>
                 </div>
 
@@ -245,7 +246,7 @@ export default function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 dark:text-white">{t('info.address')}</div>
+                    <div className="font-semibold text-gray-900 dark:text-white"><EditableText tKey="contact.info.address">{t('info.address')}</EditableText></div>
                     <p className="text-gray-600 dark:text-gray-400">
                       tvujspecialista.cz s.r.o.
                       <br />
@@ -260,29 +261,29 @@ export default function ContactPage() {
 
             {/* Quick Links */}
             <div className="rounded-lg border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">{t('quickLinks.title')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="contact.quickLinks.title">{t('quickLinks.title')}</EditableText></h2>
               <div className="space-y-2">
                 <Link href="/o-nas" className="block text-blue-600 hover:underline">
-                  {t('quickLinks.aboutUs')}
+                  <EditableText tKey="contact.quickLinks.aboutUs">{t('quickLinks.aboutUs')}</EditableText>
                 </Link>
                 <Link href="/profi/dashboard/ceny" className="block text-blue-600 hover:underline">
-                  {t('quickLinks.pricing')}
+                  <EditableText tKey="contact.quickLinks.pricing">{t('quickLinks.pricing')}</EditableText>
                 </Link>
                 <Link href="/pravidla" className="block text-blue-600 hover:underline">
-                  {t('quickLinks.terms')}
+                  <EditableText tKey="contact.quickLinks.terms">{t('quickLinks.terms')}</EditableText>
                 </Link>
                 <Link
                   href="/ochrana-osobnich-udaju"
                   className="block text-blue-600 hover:underline"
                 >
-                  {t('quickLinks.privacy')}
+                  <EditableText tKey="contact.quickLinks.privacy">{t('quickLinks.privacy')}</EditableText>
                 </Link>
               </div>
             </div>
 
             {/* Social Media */}
             <div className="rounded-lg border bg-white dark:bg-card p-6">
-              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">{t('social.title')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white"><EditableText tKey="contact.social.title">{t('social.title')}</EditableText></h2>
               <div className="flex gap-4">
                 <a
                   href="#"
@@ -316,15 +317,15 @@ export default function ContactPage() {
 
             {/* FAQ */}
             <div className="rounded-lg bg-blue-50 p-6">
-              <h3 className="mb-2 font-semibold text-blue-900">{t('faq.title')}</h3>
+              <h3 className="mb-2 font-semibold text-blue-900"><EditableText tKey="contact.faq.title">{t('faq.title')}</EditableText></h3>
               <p className="mb-3 text-sm text-blue-700">
-                {t('faq.description')}
+                <EditableText tKey="contact.faq.description">{t('faq.description')}</EditableText>
               </p>
               <a
                 href="#"
                 className="inline-block rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
               >
-                {t('faq.goToFaq')}
+                <EditableText tKey="contact.faq.goToFaq">{t('faq.goToFaq')}</EditableText>
               </a>
             </div>
           </div>

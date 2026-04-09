@@ -9,6 +9,7 @@ import { ShieldCheck, X } from 'lucide-react';
 import { useCreateLead } from '@/lib/hooks/useCreateLead';
 import type { SpecialistDetail } from '@/lib/hooks/useSpecialist';
 import type { Review } from '@/types/review';
+import { EditableText } from '@/components/editor/EditableText';
 
 function getVideoEmbedUrl(url: string): string {
   // YouTube
@@ -111,12 +112,12 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                     <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">{specialist.name}</h1>
                     {specialist.verified && (
                       <span className="rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
-                        {tCommon('status.verified')}
+                        <EditableText tKey="common.status.verified">{tCommon('status.verified')}</EditableText>
                       </span>
                     )}
                     {specialist.topSpecialist && (
                       <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-700">
-                        {tCommon('status.top')}
+                        <EditableText tKey="common.status.top">{tCommon('status.top')}</EditableText>
                       </span>
                     )}
                   </div>
@@ -136,30 +137,30 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
 
             {/* About */}
             <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-              <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('aboutMe')}</h2>
+              <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white"><EditableText tKey="specialist.aboutMe">{t('aboutMe')}</EditableText></h2>
               <p className="leading-relaxed text-gray-700 dark:text-gray-300">{specialist.bio}</p>
             </div>
 
             {/* Trust Signals */}
             <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-foreground">{t('trustSignals')}</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="specialist.trustSignals">{t('trustSignals')}</EditableText></h2>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div className="rounded-lg bg-blue-50 dark:bg-blue-900/20 p-4 text-center">
                   <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{specialist.yearsExperience}+</div>
-                  <div className="text-xs text-gray-600 dark:text-muted-foreground">{t('yearsExp')}</div>
+                  <div className="text-xs text-gray-600 dark:text-muted-foreground"><EditableText tKey="specialist.yearsExp">{t('yearsExp')}</EditableText></div>
                 </div>
                 <div className="rounded-lg bg-green-50 dark:bg-green-900/20 p-4 text-center">
                   <div className="text-2xl font-bold text-green-600 dark:text-green-400">{specialist.reviewsCount}</div>
-                  <div className="text-xs text-gray-600 dark:text-muted-foreground">{t('reviewsLabel')}</div>
+                  <div className="text-xs text-gray-600 dark:text-muted-foreground"><EditableText tKey="specialist.reviewsLabel">{t('reviewsLabel')}</EditableText></div>
                 </div>
                 <div className="rounded-lg bg-amber-50 dark:bg-amber-900/20 p-4 text-center">
                   <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{specialist.rating}</div>
-                  <div className="text-xs text-gray-600 dark:text-muted-foreground">{t('avgRating')}</div>
+                  <div className="text-xs text-gray-600 dark:text-muted-foreground"><EditableText tKey="specialist.avgRating">{t('avgRating')}</EditableText></div>
                 </div>
                 {specialist.verified && (
                   <div className="rounded-lg bg-emerald-50 dark:bg-emerald-900/20 p-4 text-center">
                     <ShieldCheck className="mx-auto mb-1 h-6 w-6 text-emerald-600 dark:text-emerald-400" />
-                    <div className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">{t('verifiedSpecialist')}</div>
+                    <div className="text-xs font-semibold text-emerald-700 dark:text-emerald-400"><EditableText tKey="specialist.verifiedSpecialist">{t('verifiedSpecialist')}</EditableText></div>
                   </div>
                 )}
               </div>
@@ -171,7 +172,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
               const videos = specialist.mediaGallery.filter((item: { type: string }) => item.type === 'video');
               return (
                 <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-                  <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-foreground">{t('gallery')}</h2>
+                  <h2 className="mb-6 text-xl font-bold text-gray-900 dark:text-foreground"><EditableText tKey="specialist.gallery">{t('gallery')}</EditableText></h2>
 
                   {/* Photos grid — 3 columns */}
                   {photos.length > 0 && (
@@ -223,7 +224,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             {/* Services */}
             {specialist.services && specialist.services.length > 0 && (
               <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('services')}</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white"><EditableText tKey="specialist.services">{t('services')}</EditableText></h2>
                 <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                   {specialist.services.map((service: string, index: number) => (
                     <div key={index} className="flex items-center">
@@ -248,17 +249,17 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             {/* Credentials */}
             {(specialist.education || (specialist.certifications && specialist.certifications.length > 0)) && (
               <div className="rounded-lg border bg-white dark:bg-card p-4 sm:p-6 lg:p-8">
-                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{t('credentials')}</h2>
+                <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white"><EditableText tKey="specialist.credentials">{t('credentials')}</EditableText></h2>
                 <div className="space-y-3">
                   {specialist.education && (
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{t('education')}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white"><EditableText tKey="specialist.education">{t('education')}</EditableText></h3>
                       <p className="text-gray-700 dark:text-gray-300">{specialist.education}</p>
                     </div>
                   )}
                   {specialist.certifications && specialist.certifications.length > 0 && (
                     <div>
-                      <h3 className="font-semibold text-gray-900 dark:text-white">{t('certifications')}</h3>
+                      <h3 className="font-semibold text-gray-900 dark:text-white"><EditableText tKey="specialist.certifications">{t('certifications')}</EditableText></h3>
                       <ul className="list-inside list-disc text-gray-700 dark:text-gray-300">
                         {specialist.certifications.map((cert: string, index: number) => (
                           <li key={index}>{cert}</li>
@@ -284,7 +285,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                           <h3 className="font-semibold text-gray-900 dark:text-white">{review.customerName}</h3>
                           {review.verified && (
                             <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">
-                              {tCommon('status.verifiedReview')}
+                              <EditableText tKey="common.status.verifiedReview">{tCommon('status.verifiedReview')}</EditableText>
                             </span>
                           )}
                         </div>
@@ -298,7 +299,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                       <p className="text-gray-700 dark:text-gray-300">{review.text}</p>
                       {review.response && (
                         <div className="mt-3 rounded-lg bg-gray-50 dark:bg-gray-800 p-3">
-                          <p className="text-sm font-semibold text-gray-900 dark:text-white">{t('specialistResponse')}</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white"><EditableText tKey="specialist.specialistResponse">{t('specialistResponse')}</EditableText></p>
                           <p className="text-sm text-gray-700 dark:text-gray-300">{review.response.text}</p>
                         </div>
                       )}
@@ -314,13 +315,13 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
             <div className="sticky top-4 space-y-6">
               {/* Contact Card */}
               <div className="rounded-lg border bg-white dark:bg-card p-6">
-                <h3 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">{t('contactSpecialist')}</h3>
+                <h3 className="mb-4 text-lg font-bold text-gray-900 dark:text-white"><EditableText tKey="specialist.contactSpecialist">{t('contactSpecialist')}</EditableText></h3>
 
                 {submitSuccess && (
                   <div className="mb-4 rounded-lg bg-green-50 p-4 text-center">
                     <div className="mb-2 text-3xl">✅</div>
-                    <p className="text-sm font-semibold text-green-900">{t('contactForm.success')}</p>
-                    <p className="text-xs text-green-700">{t('contactForm.successDesc')}</p>
+                    <p className="text-sm font-semibold text-green-900"><EditableText tKey="specialist.contactForm.success">{t('contactForm.success')}</EditableText></p>
+                    <p className="text-xs text-green-700"><EditableText tKey="specialist.contactForm.successDesc">{t('contactForm.successDesc')}</EditableText></p>
                   </div>
                 )}
 
@@ -338,7 +339,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {t('contactForm.name')}
+                      <EditableText tKey="specialist.contactForm.name">{t('contactForm.name')}</EditableText>
                     </label>
                     <input
                       type="text"
@@ -350,7 +351,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                     />
                   </div>
                   <div>
-                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t('contactForm.email')}</label>
+                    <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300"><EditableText tKey="specialist.contactForm.email">{t('contactForm.email')}</EditableText></label>
                     <input
                       type="email"
                       required
@@ -362,7 +363,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {t('contactForm.phone')}
+                      <EditableText tKey="specialist.contactForm.phone">{t('contactForm.phone')}</EditableText>
                     </label>
                     <input
                       type="tel"
@@ -375,7 +376,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      {t('contactForm.message')}
+                      <EditableText tKey="specialist.contactForm.message">{t('contactForm.message')}</EditableText>
                     </label>
                     <textarea
                       required
@@ -395,7 +396,7 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
                       className="mt-0.5 h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600"
                     />
                     <span className="text-gray-600 dark:text-muted-foreground">
-                      {t('contactForm.gdprConsent')}
+                      <EditableText tKey="specialist.contactForm.gdprConsent">{t('contactForm.gdprConsent')}</EditableText>
                     </span>
                   </label>
                   <button
@@ -410,11 +411,11 @@ export default function SpecialistPageClient({ specialist }: SpecialistPageClien
 
               {/* Info Card */}
               <div className="rounded-lg border bg-gray-50 dark:bg-gray-800 p-6">
-                <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">{t('moreInfo')}</h3>
+                <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white"><EditableText tKey="specialist.moreInfo">{t('moreInfo')}</EditableText></h3>
                 <div className="space-y-3 text-sm">
                   {specialist.availability && specialist.availability.length > 0 && (
                     <div>
-                      <span className="text-gray-600 dark:text-gray-300">{t('availability')}</span>
+                      <span className="text-gray-600 dark:text-gray-300"><EditableText tKey="specialist.availability">{t('availability')}</EditableText></span>
                       <div className="mt-1 space-y-1">
                         {specialist.availability.map((slot: string, i: number) => (
                           <p key={i} className="font-medium text-gray-900 dark:text-foreground text-xs">

@@ -11,6 +11,7 @@ import { TestimonialCard } from '@/components/home/TestimonialCard';
 import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { StaggerGrid, StaggerItem } from '@/components/shared/StaggerGrid';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
+import { EditableText } from '@/components/editor/EditableText';
 import {
   ShieldAlert,
   Clock,
@@ -83,10 +84,10 @@ export default function HomePageClient() {
             <ScrollReveal>
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  {t('problem.title')}
+                  <EditableText tKey="home.problem.title">{t('problem.title')}</EditableText>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  {t('problem.subtitle')}
+                  <EditableText tKey="home.problem.subtitle">{t('problem.subtitle')}</EditableText>
                 </p>
               </div>
             </ScrollReveal>
@@ -97,10 +98,10 @@ export default function HomePageClient() {
                     <ShieldAlert className="h-7 w-7 text-red-500 dark:text-red-400" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('problem.trust.title')}
+                    <EditableText tKey="home.problem.trust.title">{t('problem.trust.title')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {t('problem.trust.description')}
+                    <EditableText tKey="home.problem.trust.description">{t('problem.trust.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -110,10 +111,10 @@ export default function HomePageClient() {
                     <Clock className="h-7 w-7 text-orange-500 dark:text-orange-400" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('problem.time.title')}
+                    <EditableText tKey="home.problem.time.title">{t('problem.time.title')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {t('problem.time.description')}
+                    <EditableText tKey="home.problem.time.description">{t('problem.time.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -123,10 +124,10 @@ export default function HomePageClient() {
                     <Coins className="h-7 w-7 text-yellow-600 dark:text-yellow-400" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('problem.fees.title')}
+                    <EditableText tKey="home.problem.fees.title">{t('problem.fees.title')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {t('problem.fees.description')}
+                    <EditableText tKey="home.problem.fees.description">{t('problem.fees.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -140,10 +141,10 @@ export default function HomePageClient() {
             <ScrollReveal>
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  {t('howItWorks.title')}
+                  <EditableText tKey="home.howItWorks.title">{t('howItWorks.title')}</EditableText>
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  {t('howItWorks.subtitle')}
+                  <EditableText tKey="home.howItWorks.subtitle">{t('howItWorks.subtitle')}</EditableText>
                 </p>
               </div>
             </ScrollReveal>
@@ -157,10 +158,10 @@ export default function HomePageClient() {
                     <Search className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('howItWorks.step1.title')}
+                    <EditableText tKey="home.howItWorks.step1.title">{t('howItWorks.step1.title')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {t('howItWorks.step1.description')}
+                    <EditableText tKey="home.howItWorks.step1.description">{t('howItWorks.step1.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -173,10 +174,10 @@ export default function HomePageClient() {
                     <Users className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('howItWorks.step2.title')}
+                    <EditableText tKey="home.howItWorks.step2.title">{t('howItWorks.step2.title')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {t('howItWorks.step2.description')}
+                    <EditableText tKey="home.howItWorks.step2.description">{t('howItWorks.step2.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -189,10 +190,10 @@ export default function HomePageClient() {
                     <Send className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('howItWorks.step3.title')}
+                    <EditableText tKey="home.howItWorks.step3.title">{t('howItWorks.step3.title')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    {t('howItWorks.step3.description')}
+                    <EditableText tKey="home.howItWorks.step3.description">{t('howItWorks.step3.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -203,7 +204,7 @@ export default function HomePageClient() {
                   href="/hledat"
                   className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-all hover:-translate-y-0.5 hover:shadow-indigo"
                 >
-                  {t('howItWorks.cta')}
+                  <EditableText tKey="home.howItWorks.cta">{t('howItWorks.cta')}</EditableText>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
@@ -217,10 +218,10 @@ export default function HomePageClient() {
             <ScrollReveal>
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  {t('categories.title')}
+                  <EditableText tKey="home.categories.title">{t('categories.title')}</EditableText>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  {t('categories.subtitle')}
+                  <EditableText tKey="home.categories.subtitle">{t('categories.subtitle')}</EditableText>
                 </p>
               </div>
             </ScrollReveal>
@@ -234,31 +235,31 @@ export default function HomePageClient() {
                     <Briefcase className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {t('categories.financialAdvisor')}
+                    <EditableText tKey="home.categories.financialAdvisor">{t('categories.financialAdvisor')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    {t('categories.financialAdvisorDesc')}
+                    <EditableText tKey="home.categories.financialAdvisorDesc">{t('categories.financialAdvisorDesc')}</EditableText>
                   </p>
                   <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.financialAdvisorFeatures.mortgages')}
+                      <EditableText tKey="home.categories.financialAdvisorFeatures.mortgages">{t('categories.financialAdvisorFeatures.mortgages')}</EditableText>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.financialAdvisorFeatures.insurance')}
+                      <EditableText tKey="home.categories.financialAdvisorFeatures.insurance">{t('categories.financialAdvisorFeatures.insurance')}</EditableText>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.financialAdvisorFeatures.investments')}
+                      <EditableText tKey="home.categories.financialAdvisorFeatures.investments">{t('categories.financialAdvisorFeatures.investments')}</EditableText>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.financialAdvisorFeatures.loans')}
+                      <EditableText tKey="home.categories.financialAdvisorFeatures.loans">{t('categories.financialAdvisorFeatures.loans')}</EditableText>
                     </li>
                   </ul>
                   <div className="text-sm font-medium text-primary group-hover:underline">
-                    {t('categories.showSpecialists')}
+                    <EditableText tKey="home.categories.showSpecialists">{t('categories.showSpecialists')}</EditableText>
                   </div>
                 </Link>
               </StaggerItem>
@@ -271,31 +272,31 @@ export default function HomePageClient() {
                     <Home className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
                   <h3 className="text-xl font-semibold text-foreground mb-2">
-                    {t('categories.realEstateAgent')}
+                    <EditableText tKey="home.categories.realEstateAgent">{t('categories.realEstateAgent')}</EditableText>
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4">
-                    {t('categories.realEstateAgentDesc')}
+                    <EditableText tKey="home.categories.realEstateAgentDesc">{t('categories.realEstateAgentDesc')}</EditableText>
                   </p>
                   <ul className="space-y-2 mb-6 text-sm text-muted-foreground">
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.realEstateAgentFeatures.sale')}
+                      <EditableText tKey="home.categories.realEstateAgentFeatures.sale">{t('categories.realEstateAgentFeatures.sale')}</EditableText>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.realEstateAgentFeatures.purchase')}
+                      <EditableText tKey="home.categories.realEstateAgentFeatures.purchase">{t('categories.realEstateAgentFeatures.purchase')}</EditableText>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.realEstateAgentFeatures.rental')}
+                      <EditableText tKey="home.categories.realEstateAgentFeatures.rental">{t('categories.realEstateAgentFeatures.rental')}</EditableText>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
-                      {t('categories.realEstateAgentFeatures.commercial')}
+                      <EditableText tKey="home.categories.realEstateAgentFeatures.commercial">{t('categories.realEstateAgentFeatures.commercial')}</EditableText>
                     </li>
                   </ul>
                   <div className="text-sm font-medium text-primary group-hover:underline">
-                    {t('categories.showSpecialists')}
+                    <EditableText tKey="home.categories.showSpecialists">{t('categories.showSpecialists')}</EditableText>
                   </div>
                 </Link>
               </StaggerItem>
@@ -309,10 +310,10 @@ export default function HomePageClient() {
             <ScrollReveal>
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  {t('testimonials.title')}
+                  <EditableText tKey="home.testimonials.title">{t('testimonials.title')}</EditableText>
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  {t('testimonials.subtitle')}
+                  <EditableText tKey="home.testimonials.subtitle">{t('testimonials.subtitle')}</EditableText>
                 </p>
               </div>
             </ScrollReveal>
@@ -338,10 +339,10 @@ export default function HomePageClient() {
             <ScrollReveal>
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  {t('benefits.title')}
+                  <EditableText tKey="home.benefits.title">{t('benefits.title')}</EditableText>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  {t('benefits.subtitle')}
+                  <EditableText tKey="home.benefits.subtitle">{t('benefits.subtitle')}</EditableText>
                 </p>
               </div>
             </ScrollReveal>
@@ -352,10 +353,10 @@ export default function HomePageClient() {
                     <ShieldCheck className="h-6 w-6 text-primary" />
                   </div>
                   <h3 className="text-base font-semibold text-foreground mb-2">
-                    {t('benefits.verified.title')}
+                    <EditableText tKey="home.benefits.verified.title">{t('benefits.verified.title')}</EditableText>
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {t('benefits.verified.description')}
+                    <EditableText tKey="home.benefits.verified.description">{t('benefits.verified.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -365,10 +366,10 @@ export default function HomePageClient() {
                     <Star className="h-6 w-6 text-yellow-500 dark:text-yellow-400" />
                   </div>
                   <h3 className="text-base font-semibold text-foreground mb-2">
-                    {t('benefits.reviews.title')}
+                    <EditableText tKey="home.benefits.reviews.title">{t('benefits.reviews.title')}</EditableText>
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {t('benefits.reviews.description')}
+                    <EditableText tKey="home.benefits.reviews.description">{t('benefits.reviews.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -378,10 +379,10 @@ export default function HomePageClient() {
                     <Gift className="h-6 w-6 text-green-600 dark:text-green-400" />
                   </div>
                   <h3 className="text-base font-semibold text-foreground mb-2">
-                    {t('benefits.free.title')}
+                    <EditableText tKey="home.benefits.free.title">{t('benefits.free.title')}</EditableText>
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {t('benefits.free.description')}
+                    <EditableText tKey="home.benefits.free.description">{t('benefits.free.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -391,10 +392,10 @@ export default function HomePageClient() {
                     <Unlock className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                   </div>
                   <h3 className="text-base font-semibold text-foreground mb-2">
-                    {t('benefits.noStrings.title')}
+                    <EditableText tKey="home.benefits.noStrings.title">{t('benefits.noStrings.title')}</EditableText>
                   </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {t('benefits.noStrings.description')}
+                    <EditableText tKey="home.benefits.noStrings.description">{t('benefits.noStrings.description')}</EditableText>
                   </p>
                 </div>
               </StaggerItem>
@@ -407,7 +408,7 @@ export default function HomePageClient() {
           <div className="container mx-auto px-4">
             <ScrollReveal>
               <h2 className="text-3xl sm:text-4xl font-bold text-foreground text-center mb-12">
-                {t('stats.title')}
+                <EditableText tKey="home.stats.title">{t('stats.title')}</EditableText>
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={0.2}>
@@ -417,7 +418,7 @@ export default function HomePageClient() {
                     <AnimatedCounter target={t('stats.specialistsCount')} />
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    {t('stats.specialists')}
+                    <EditableText tKey="home.stats.specialists">{t('stats.specialists')}</EditableText>
                   </div>
                 </div>
                 <div className="text-center">
@@ -425,7 +426,7 @@ export default function HomePageClient() {
                     <AnimatedCounter target={t('stats.customersCount')} />
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    {t('stats.customers')}
+                    <EditableText tKey="home.stats.customers">{t('stats.customers')}</EditableText>
                   </div>
                 </div>
                 <div className="text-center">
@@ -433,7 +434,7 @@ export default function HomePageClient() {
                     <AnimatedCounter target={t('stats.successRateValue')} />
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    {t('stats.successRate')}
+                    <EditableText tKey="home.stats.successRate">{t('stats.successRate')}</EditableText>
                   </div>
                 </div>
                 <div className="text-center">
@@ -441,7 +442,7 @@ export default function HomePageClient() {
                     <AnimatedCounter target={t('stats.avgRatingValue')} />
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    {t('stats.avgRating')}
+                    <EditableText tKey="home.stats.avgRating">{t('stats.avgRating')}</EditableText>
                   </div>
                 </div>
               </div>
@@ -454,30 +455,30 @@ export default function HomePageClient() {
           <div className="container mx-auto px-4 text-center">
             <ScrollReveal>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4">
-                {t('ctaSpecialist.title')}
+                <EditableText tKey="home.ctaSpecialist.title">{t('ctaSpecialist.title')}</EditableText>
               </h2>
               <p className="text-lg text-background/80 mb-8 max-w-2xl mx-auto">
-                {t('ctaSpecialist.subtitle')}
+                <EditableText tKey="home.ctaSpecialist.subtitle">{t('ctaSpecialist.subtitle')}</EditableText>
               </p>
               <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-8 text-sm text-background/80">
                 <div className="flex items-center gap-2">
                   <Check className="h-4 w-4" />
-                  <span>{t('ctaSpecialist.benefit1')}</span>
+                  <span><EditableText tKey="home.ctaSpecialist.benefit1">{t('ctaSpecialist.benefit1')}</EditableText></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="h-4 w-4" />
-                  <span>{t('ctaSpecialist.benefit2')}</span>
+                  <span><EditableText tKey="home.ctaSpecialist.benefit2">{t('ctaSpecialist.benefit2')}</EditableText></span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Check className="h-4 w-4" />
-                  <span>{t('ctaSpecialist.benefit3')}</span>
+                  <span><EditableText tKey="home.ctaSpecialist.benefit3">{t('ctaSpecialist.benefit3')}</EditableText></span>
                 </div>
               </div>
               <Link
                 href="/profi/registrace"
                 className="inline-flex items-center gap-2 rounded-lg bg-background px-8 py-3.5 text-base font-semibold text-foreground hover:bg-background/90 transition-all shadow-elevation-3 hover:-translate-y-0.5 hover:shadow-elevation-5"
               >
-                {t('ctaSpecialist.button')}
+                <EditableText tKey="home.ctaSpecialist.button">{t('ctaSpecialist.button')}</EditableText>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </ScrollReveal>
@@ -490,10 +491,10 @@ export default function HomePageClient() {
             <ScrollReveal>
               <div className="text-center mb-12">
                 <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">
-                  {t('faq.title')}
+                  <EditableText tKey="home.faq.title">{t('faq.title')}</EditableText>
                 </h2>
                 <p className="text-lg text-muted-foreground">
-                  {t('faq.subtitle')}
+                  <EditableText tKey="home.faq.subtitle">{t('faq.subtitle')}</EditableText>
                 </p>
               </div>
             </ScrollReveal>
@@ -508,17 +509,17 @@ export default function HomePageClient() {
           <div className="container mx-auto px-4 text-center">
             <ScrollReveal>
               <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                {t('finalCta.title')}
+                <EditableText tKey="home.finalCta.title">{t('finalCta.title')}</EditableText>
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-                {t('finalCta.subtitle')}
+                <EditableText tKey="home.finalCta.subtitle">{t('finalCta.subtitle')}</EditableText>
               </p>
               <Link
                 href="/hledat"
                 className="inline-flex items-center gap-2 rounded-lg bg-primary px-8 py-3.5 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-all shadow-indigo hover:-translate-y-0.5 hover:shadow-indigo-lg"
               >
                 <Search className="h-5 w-5" />
-                {t('finalCta.button')}
+                <EditableText tKey="home.finalCta.button">{t('finalCta.button')}</EditableText>
               </Link>
             </ScrollReveal>
           </div>
@@ -530,28 +531,28 @@ export default function HomePageClient() {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
             <div>
               <h3 className="mb-4 font-bold dark:text-foreground">tvujspecialista.cz</h3>
-              <p className="text-sm text-muted-foreground">{footer('description')}</p>
+              <p className="text-sm text-muted-foreground"><EditableText tKey="common.footer.description">{footer('description')}</EditableText></p>
             </div>
             <div>
-              <h4 className="mb-4 font-semibold dark:text-foreground">{footer('forCustomers')}</h4>
+              <h4 className="mb-4 font-semibold dark:text-foreground"><EditableText tKey="common.footer.forCustomers">{footer('forCustomers')}</EditableText></h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/hledat" className="text-muted-foreground hover:text-primary transition-colors">{nav('searchSpecialist')}</Link></li>
-                <li><Link href="/o-nas" className="text-muted-foreground hover:text-primary transition-colors">{footer('aboutUs')}</Link></li>
+                <li><Link href="/hledat" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.nav.searchSpecialist">{nav('searchSpecialist')}</EditableText></Link></li>
+                <li><Link href="/o-nas" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.footer.aboutUs">{footer('aboutUs')}</EditableText></Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="mb-4 font-semibold dark:text-foreground">{footer('forSpecialists')}</h4>
+              <h4 className="mb-4 font-semibold dark:text-foreground"><EditableText tKey="common.footer.forSpecialists">{footer('forSpecialists')}</EditableText></h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/profi/dashboard/ceny" className="text-muted-foreground hover:text-primary transition-colors">{nav('pricing')}</Link></li>
-                <li><Link href="/profi/prihlaseni" className="text-muted-foreground hover:text-primary transition-colors">{footer('login')}</Link></li>
-                <li><Link href="/profi/registrace" className="text-muted-foreground hover:text-primary transition-colors">{footer('registration')}</Link></li>
+                <li><Link href="/profi/dashboard/ceny" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.nav.pricing">{nav('pricing')}</EditableText></Link></li>
+                <li><Link href="/profi/prihlaseni" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.footer.login">{footer('login')}</EditableText></Link></li>
+                <li><Link href="/profi/registrace" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.footer.registration">{footer('registration')}</EditableText></Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="mb-4 font-semibold dark:text-foreground">{footer('legalInfo')}</h4>
+              <h4 className="mb-4 font-semibold dark:text-foreground"><EditableText tKey="common.footer.legalInfo">{footer('legalInfo')}</EditableText></h4>
               <ul className="space-y-2 text-sm">
-                <li><Link href="/pravidla" className="text-muted-foreground hover:text-primary transition-colors">{footer('rules')}</Link></li>
-                <li><Link href="/ochrana-osobnich-udaju" className="text-muted-foreground hover:text-primary transition-colors">{footer('privacy')}</Link></li>
+                <li><Link href="/pravidla" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.footer.rules">{footer('rules')}</EditableText></Link></li>
+                <li><Link href="/ochrana-osobnich-udaju" className="text-muted-foreground hover:text-primary transition-colors"><EditableText tKey="common.footer.privacy">{footer('privacy')}</EditableText></Link></li>
               </ul>
             </div>
           </div>
