@@ -104,7 +104,7 @@ export default function DesignIndexPage() {
       <div className="container mx-auto px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-3xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-400">
-            5 Concepts · 1 Brand
+            3 Pages · 6 Concepts each
           </div>
           <h1 className="text-5xl font-bold tracking-tight text-neutral-900 dark:text-white sm:text-7xl">
             Ktorý sa páči{' '}
@@ -113,10 +113,39 @@ export default function DesignIndexPage() {
             </span>
           </h1>
           <p className="mt-6 text-lg text-neutral-600 dark:text-neutral-400">
-            Päť úplne odlišných vizuálnych konceptov pre tvujspecialista.cz. Každý má inú paletu, typografiu a
-            osobnosť. Klikni na ktorýkoľvek a pozri si ho v plnej veľkosti — medzi variantami sa dá prepínať cez
-            floating menu na spodku stránky.
+            Šesť úplne odlišných vizuálnych konceptov pre tri kľúčové stránky — homepage, registrácia špecialistu,
+            a detail profilu špecialistu. Každý má inú paletu, typografiu, a konverzný prístup.
           </p>
+
+          {/* Quick navigation to 3 sections */}
+          <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link
+              href="#homepage"
+              className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white px-5 py-2.5 text-sm font-semibold text-neutral-900 transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-neutral-800 dark:bg-neutral-900 dark:text-white"
+            >
+              🏠 Homepage
+            </Link>
+            <Link
+              href="/design/registrace"
+              className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-5 py-2.5 text-sm font-semibold text-indigo-900 transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200"
+            >
+              ✍️ Registrácia špecialistu →
+            </Link>
+            <Link
+              href="/design/specialista"
+              className="inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-5 py-2.5 text-sm font-semibold text-amber-900 transition-all hover:-translate-y-0.5 hover:shadow-md dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200"
+            >
+              👤 Profil špecialistu →
+            </Link>
+          </div>
+        </div>
+
+        <div id="homepage" className="mt-24 mb-8 flex items-center gap-4">
+          <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800" />
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
+            Homepage · 6 konceptov
+          </h2>
+          <div className="h-px flex-1 bg-neutral-200 dark:bg-neutral-800" />
         </div>
 
         {/* Variant cards — bento-ish grid */}
