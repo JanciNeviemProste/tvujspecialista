@@ -9,8 +9,8 @@ import { MobileNav } from '@/components/layout/MobileNav';
 import { NotificationBell } from '@/components/shared/NotificationBell';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ChevronDown, LogIn, UserPlus } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export function PublicHeader() {
   const nav = useTranslations('common.nav');
   const spec = useTranslations('common.nav.specialistDropdown');

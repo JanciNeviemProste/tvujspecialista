@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Cookie, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export function CookieConsent() {
   const t = useTranslations('cookies');
   const [visible, setVisible] = useState(false);

@@ -10,8 +10,8 @@ import { NotificationBell } from '@/components/shared/NotificationBell';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { ChevronDown, LogIn, UserPlus } from 'lucide-react';
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export function PremiumHeader() {

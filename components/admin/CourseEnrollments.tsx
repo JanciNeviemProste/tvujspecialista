@@ -4,8 +4,8 @@ import { useTranslations, useLocale } from 'next-intl';
 import { Users } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { adminApi } from '@/lib/api/admin';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface CourseEnrollmentsProps {
   courseId: string;
 }

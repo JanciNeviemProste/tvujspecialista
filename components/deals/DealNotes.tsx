@@ -3,8 +3,8 @@
 import { useTranslations } from 'next-intl';
 import { Deal } from '@/types/deals';
 import { MessageSquare, Plus } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface DealNotesProps {
   deal: Deal;
   isClosed: boolean;

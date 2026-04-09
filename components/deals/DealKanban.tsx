@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { DealCard } from './DealCard';
 import { cn } from '@/lib/utils/cn';
-import { EditableText } from '@/components/editor/EditableText';
 import {
   DndContext,
   DragOverlay,
@@ -19,6 +18,7 @@ import {
   type DragEndEvent,
 } from '@dnd-kit/core';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface DealKanbanProps {
   deals: Deal[];
   onStatusChange?: (deal: Deal, newStatus: DealStatus) => void;

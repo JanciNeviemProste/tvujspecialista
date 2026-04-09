@@ -11,8 +11,8 @@ import type { Module, Lesson } from '@/types/academy';
 import ModuleForm from '@/components/admin/ModuleForm';
 import LessonRow from '@/components/admin/LessonRow';
 import LessonModal from '@/components/admin/LessonModal';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface ModuleSectionProps {
   module: Module;
   index: number;

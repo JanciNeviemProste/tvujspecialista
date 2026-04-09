@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
@@ -13,6 +12,7 @@ import { CourseCategory, CourseLevel } from '@/types/academy'
 import { Search, X } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function CourseCatalogPage() {
   const t = useTranslations('academy')
   const [filters, setFilters] = useState({

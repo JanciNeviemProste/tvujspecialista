@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { use, useEffect, useState } from 'react'
@@ -19,6 +18,7 @@ import { useRouter } from '@/i18n/routing'
 import { CourseLevel, CourseCategory } from '@/types/academy'
 import { getErrorMessage } from '@/lib/utils/error'
 
+import { EditableText } from '@/components/editor/EditableText';
 interface CourseDetailPageProps {
   params: Promise<{ slug: string }>
 }

@@ -6,8 +6,8 @@ import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Star, ShieldCheck, Sparkles, MapPin, ArrowUpRight } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface SpecialistCardV2Props {
   specialist: {
     slug: string;

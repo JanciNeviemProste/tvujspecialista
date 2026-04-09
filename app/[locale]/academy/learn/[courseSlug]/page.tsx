@@ -11,8 +11,8 @@ import { LessonSidebar } from '@/components/academy/LessonSidebar';
 import { useCourse, useEnrollmentProgress, useUpdateProgress, useEnrollmentByCourse } from '@/lib/hooks/useAcademy';
 import { cn } from '@/lib/utils/cn';
 import type { Lesson } from '@/types/academy';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function LearnPage() {
   const t = useTranslations('academy');
   const params = useParams();

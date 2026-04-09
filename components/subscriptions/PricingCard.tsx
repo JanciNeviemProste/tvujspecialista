@@ -7,8 +7,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { PricingPlan } from '@/types/subscriptions';
 import { cn } from '@/lib/utils/cn';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface PricingCardProps {
   plan: PricingPlan;
   isRecommended?: boolean;

@@ -13,8 +13,8 @@ import React, { useMemo, useCallback } from 'react';
 import { BookOpen, MessageSquare, Calendar, Users, Shield, TrendingUp, CreditCard, Crown, Home, Landmark, GraduationCap } from 'lucide-react';
 import type { Lead } from '@/types/lead';
 import { OnboardingWizard } from '@/components/onboarding/OnboardingWizard';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function DashboardPage() {
   const t = useTranslations('dashboard.main');
   const tStatus = useTranslations('common.status');

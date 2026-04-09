@@ -106,14 +106,22 @@ function processFile(relPath) {
     return { file: relPath, skipped: 'no inline {t(...)} patterns' };
   }
 
-  // 3. Insert import after last existing import line
-  const importLines = newSrc.match(/^import .+;$/gm) ?? [];
-  if (importLines.length > 0) {
-    const lastImport = importLines[importLines.length - 1];
-    const idx = newSrc.lastIndexOf(lastImport) + lastImport.length;
+  // 3. Insert import after the LAST `from '...'` line (handles multi-line imports).
+  //    Fallback: insert after `'use client'` directive if present, else at top.
+  const fromRegex = /^.*from\s+['"][^'"]+['"];?\s*$/gm;
+  const fromMatches = [...newSrc.matchAll(fromRegex)];
+  if (fromMatches.length > 0) {
+    const last = fromMatches[fromMatches.length - 1];
+    const idx = last.index + last[0].length;
     newSrc = newSrc.slice(0, idx) + '\n' + IMPORT_LINE + newSrc.slice(idx);
   } else {
-    newSrc = IMPORT_LINE + '\n' + newSrc;
+    const directiveMatch = newSrc.match(/^['"]use client['"];?\s*$/m);
+    if (directiveMatch) {
+      const idx = newSrc.indexOf(directiveMatch[0]) + directiveMatch[0].length;
+      newSrc = newSrc.slice(0, idx) + '\n' + IMPORT_LINE + newSrc.slice(idx);
+    } else {
+      newSrc = IMPORT_LINE + '\n' + newSrc;
+    }
   }
 
   writeFileSync(abs, newSrc, 'utf8');

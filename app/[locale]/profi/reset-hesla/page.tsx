@@ -11,8 +11,8 @@ import { authApi } from '@/lib/api/auth';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function ResetPasswordPage() {
   const t = useTranslations('auth.resetPassword');
   const tActions = useTranslations('common.actions');

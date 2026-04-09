@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -17,6 +16,7 @@ import { EventType, EventFormat, EventCategory } from '@/types/community'
 import { formatDatePattern as formatDate } from '@/lib/utils/format'
 import { useAuth } from '@/contexts/AuthContext'
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function EventDetailPage() {
   const t = useTranslations('community.eventDetail')
   const tCatalog = useTranslations('community.eventsCatalog')

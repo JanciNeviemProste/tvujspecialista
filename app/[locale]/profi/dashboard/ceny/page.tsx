@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { PricingCard } from '@/components/subscriptions/PricingCard';
 import { PricingPlan, SubscriptionType } from '@/types/subscriptions';
 import { useCreateCheckout, useMyActiveSubscription } from '@/lib/hooks/useSubscriptions';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function DashboardPricingPage() {
   const { data: activeSubscription } = useMyActiveSubscription();
   const [selectedPlan, setSelectedPlan] = useState<SubscriptionType | null>(null);

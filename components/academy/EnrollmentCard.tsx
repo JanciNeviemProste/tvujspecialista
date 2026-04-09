@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 import { memo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Enrollment } from '@/types/academy'
@@ -11,6 +10,7 @@ import Image from 'next/image'
 import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils/cn'
 
+import { EditableText } from '@/components/editor/EditableText';
 interface EnrollmentCardProps {
   enrollment: Enrollment
   className?: string

@@ -12,8 +12,8 @@ import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import CourseFormModal, { type CourseFormData } from '@/components/admin/CourseFormModal';
 import CourseEnrollments from '@/components/admin/CourseEnrollments';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const emptyForm: CourseFormData = {
   title: '',
   description: '',

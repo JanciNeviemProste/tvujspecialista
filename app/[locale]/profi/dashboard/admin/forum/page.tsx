@@ -10,8 +10,8 @@ import { forumApi } from '@/lib/api/forum';
 import { ArrowLeft, MessageSquare, Pin, Lock, Unlock } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function AdminForumPage() {
   const router = useRouter();
   const t = useTranslations('dashboard.admin.forum');

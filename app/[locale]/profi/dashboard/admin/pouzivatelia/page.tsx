@@ -8,8 +8,8 @@ import { adminApi } from '@/lib/api/admin';
 import { ArrowLeft, KeyRound, CheckCircle, XCircle, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import { useQuery } from '@tanstack/react-query';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface User {
   id: string;
   email: string;

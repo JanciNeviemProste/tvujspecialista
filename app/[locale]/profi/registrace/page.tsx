@@ -17,7 +17,6 @@ import { ScrollReveal } from '@/components/shared/ScrollReveal';
 import { AnimatedCounter } from '@/components/shared/AnimatedCounter';
 import { StaggerGrid, StaggerItem } from '@/components/shared/StaggerGrid';
 import { RatingStars } from '@/components/shared/RatingStars';
-import { EditableText } from '@/components/editor/EditableText';
 import {
   TrendingUp,
   UserCheck,
@@ -35,6 +34,7 @@ import {
   CreditCard,
 } from 'lucide-react';
 
+import { EditableText } from '@/components/editor/EditableText';
 // ─── Zod schema (simplified — professional info filled after registration) ────
 const registrationSchema = z
   .object({

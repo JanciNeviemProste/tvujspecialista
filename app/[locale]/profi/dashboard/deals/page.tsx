@@ -13,8 +13,8 @@ import { DealFilters } from '@/components/deals/DealFilters';
 import { KanbanSkeleton, DealCardSkeleton } from '@/components/deals/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { LayoutGrid, List } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const DealDetailModal = dynamic(
   () => import('@/components/deals/DealDetailModal').then(mod => mod.DealDetailModal),
   { ssr: false }

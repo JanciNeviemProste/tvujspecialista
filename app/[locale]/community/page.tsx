@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useTranslations } from 'next-intl'
@@ -8,6 +7,7 @@ import { useUpcomingEvents } from '@/lib/hooks/useCommunity'
 import { Users, Calendar, TrendingUp } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function CommunityLandingPage() {
   const t = useTranslations('community')
   const { data: featuredEvents, isLoading, error } = useUpcomingEvents()

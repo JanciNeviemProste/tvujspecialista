@@ -6,8 +6,8 @@ import { academyApi } from '@/lib/api/academy';
 import { Trash2, X, Upload, Loader2, Play } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Lesson } from '@/types/academy';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface VideoUploadZoneProps {
   lesson: Lesson;
   onUploadDone: () => void;

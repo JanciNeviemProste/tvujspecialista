@@ -4,8 +4,8 @@ import { Link } from '@/i18n/routing';
 import { useRouter, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslations } from 'next-intl';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export function DashboardHeader() {
   const t = useTranslations('dashboard.header');
   const router = useRouter();

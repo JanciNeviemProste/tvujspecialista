@@ -9,8 +9,8 @@ import { DealInfo } from '@/components/deals/DealInfo';
 import { DealNotes } from '@/components/deals/DealNotes';
 import { X, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface DealDetailModalProps {
   deal: Deal | null;
   isOpen: boolean;

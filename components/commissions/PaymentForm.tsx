@@ -7,8 +7,8 @@ import { StripeCardElementOptions } from '@stripe/stripe-js';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle, CheckCircle2, CreditCard } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface PaymentFormProps {
   clientSecret: string;
   amount: number;

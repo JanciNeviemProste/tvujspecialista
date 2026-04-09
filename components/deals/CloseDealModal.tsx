@@ -8,8 +8,8 @@ import { useTranslations } from 'next-intl';
 import { Deal, DealStatus } from '@/types/deals';
 import { X, CheckCircle, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface CloseDealModalProps {
   deal: Deal | null;
   isOpen: boolean;

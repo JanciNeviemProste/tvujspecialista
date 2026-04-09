@@ -7,8 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import { reviewsApi } from '@/lib/api/reviews';
 import type { Lead } from '@/types/lead';
 import type { Review } from '@/types/review';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 // ── helpers ──────────────────────────────────────────────────────────
 
 function getMonthKey(date: Date): string {

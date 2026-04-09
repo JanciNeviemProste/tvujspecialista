@@ -10,8 +10,8 @@ import { useAuth } from '@/contexts/AuthContext';
 import { getErrorMessage } from '@/lib/utils/error';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const loginSchema = z.object({
   email: z.string().min(1, 'emailRequired').email('emailInvalid'),
   password: z.string().min(1, 'passwordRequired'),

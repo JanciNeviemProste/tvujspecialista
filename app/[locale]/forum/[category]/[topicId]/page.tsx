@@ -13,8 +13,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Pin, Lock, Eye, MessageSquare } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 interface TopicDetailPageProps {

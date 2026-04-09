@@ -17,8 +17,8 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Play, X } from 'lucide-react';
 import type { Specialist } from '@/types/specialist';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const profileSchema = z.object({
   name: z.string().min(2, 'Jmeno musi mit alespon 2 znaky'),
   phone: z.string().min(9, 'Zadejte platne telefonni cislo'),

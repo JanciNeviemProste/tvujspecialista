@@ -8,8 +8,8 @@ import {
 } from 'lucide-react';
 import type { Lesson } from '@/types/academy';
 import VideoUploadZone from '@/components/admin/VideoUploadZone';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface LessonRowProps {
   lesson: Lesson;
   index: number;

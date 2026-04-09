@@ -29,8 +29,8 @@ import { useLocale, useTranslations } from 'next-intl';
 import { SubscriptionType } from '@/types/subscriptions';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 const upgradeOptions = {

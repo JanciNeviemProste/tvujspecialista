@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 import { memo } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
 import { RSVP, RSVPStatus } from '@/types/community'
@@ -12,6 +11,7 @@ import { cn } from '@/lib/utils/cn'
 import { formatDatePattern as formatDate } from '@/lib/utils/format'
 import { EventFormat } from '@/types/community'
 
+import { EditableText } from '@/components/editor/EditableText';
 interface RSVPCardProps {
   rsvp: RSVP
   onCancel?: (id: string) => void

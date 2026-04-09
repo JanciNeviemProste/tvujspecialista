@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useTranslations } from 'next-intl'
@@ -7,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { Calendar, Home, Library, User, LayoutDashboard, Settings } from 'lucide-react'
 import { cn } from '@/lib/utils/cn'
 
+import { EditableText } from '@/components/editor/EditableText';
 interface CommunityLayoutClientProps {
   children: React.ReactNode
 }

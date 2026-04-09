@@ -8,8 +8,8 @@ import { toast } from 'sonner';
 import { Briefcase, Camera, FileText, Award, MapPin, CheckCircle } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { regions } from '@/mocks/regions';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const STEPS = ['basics', 'photo', 'bio', 'credentials', 'regions', 'complete'] as const;
 
 export function OnboardingWizard({ onComplete }: { onComplete: () => void }) {

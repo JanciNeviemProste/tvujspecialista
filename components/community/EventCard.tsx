@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { memo } from 'react'
@@ -10,6 +9,7 @@ import { Link } from '@/i18n/routing'
 import { cn } from '@/lib/utils/cn'
 import { formatDatePattern as formatDate } from '@/lib/utils/format'
 
+import { EditableText } from '@/components/editor/EditableText';
 interface EventCardProps {
   event: Event
   showRSVPButton?: boolean

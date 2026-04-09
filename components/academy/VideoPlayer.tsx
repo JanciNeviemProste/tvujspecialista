@@ -7,8 +7,8 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
 import { VideoControls } from '@/components/academy/VideoControls';
 import type { Video } from '@/types/academy';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 /**
  * Pridá Cloudinary transformáciu pre browser-kompatibilný formát (MP4 + H.264 + AAC).
  * Rieši MEDIA_ERR_DECODE keď originálny súbor má nekompatibilný kodek.

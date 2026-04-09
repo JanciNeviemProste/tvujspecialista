@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
@@ -13,6 +12,7 @@ import { EventType, EventFormat, EventCategory } from '@/types/community'
 import { Search, X } from 'lucide-react'
 import { useDebounce } from '@/lib/hooks/useDebounce'
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function EventsCatalogPage() {
   const t = useTranslations('community.eventsCatalog')
   const [filters, setFilters] = useState({

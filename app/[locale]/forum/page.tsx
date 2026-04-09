@@ -9,8 +9,8 @@ import { CategoryCard } from '@/components/forum/CategoryCard';
 import { CategoriesGridSkeleton } from '@/components/forum/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { MessageSquare, PenSquare } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function ForumPage() {
   const t = useTranslations('forum');
   const router = useRouter();

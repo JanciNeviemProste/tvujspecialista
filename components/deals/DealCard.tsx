@@ -7,8 +7,8 @@ import { Mail, Phone, ArrowRight, Lock, Clock, TrendingDown } from 'lucide-react
 import { cn } from '@/lib/utils/cn';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 function getSuccessChance(createdAt: string): { percent: number; color: string; label: string } {

@@ -11,8 +11,8 @@ import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { cn } from '@/lib/utils/cn';
 import { useUpdatePost } from '@/lib/hooks/useForum';
 import type { ForumPost } from '@/types/forum';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 interface PostCardProps {

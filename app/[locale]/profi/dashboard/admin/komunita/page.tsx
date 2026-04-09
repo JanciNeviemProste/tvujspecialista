@@ -13,8 +13,8 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import EventCard from '@/components/admin/EventCard';
 import EventsListHeader from '@/components/admin/EventsListHeader';
 import EventsEmptyState from '@/components/admin/EventsEmptyState';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface EventFormData {
   title: string;
   description: string;

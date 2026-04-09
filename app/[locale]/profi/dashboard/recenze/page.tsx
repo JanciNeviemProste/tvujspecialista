@@ -8,8 +8,8 @@ import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import type { Review } from '@/types/review';
 import { useTranslations, useLocale } from 'next-intl';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex items-center gap-0.5">

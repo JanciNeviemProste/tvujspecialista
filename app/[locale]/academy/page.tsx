@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useTranslations } from 'next-intl'
@@ -8,6 +7,7 @@ import { useCourses } from '@/lib/hooks/useAcademy'
 import { GraduationCap, Clock, Award } from 'lucide-react'
 import { Link } from '@/i18n/routing'
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function AcademyLandingPage() {
   const t = useTranslations('academy')
   const { data: featuredCourses, isLoading, error } = useCourses({ featured: true, limit: 3 })

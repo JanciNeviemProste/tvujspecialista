@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { memo } from 'react'
@@ -6,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { RatingStars } from './RatingStars'
 
+import { EditableText } from '@/components/editor/EditableText';
 interface SpecialistCardProps {
   specialist: {
     slug: string

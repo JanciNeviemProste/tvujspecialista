@@ -11,8 +11,8 @@ import { TopicsListSkeleton } from '@/components/forum/LoadingStates';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { PenSquare, Search, ChevronLeft, ChevronRight } from 'lucide-react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface CategoryPageProps {
   params: Promise<{ category: string }>;
 }

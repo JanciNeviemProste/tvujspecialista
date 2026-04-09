@@ -1,4 +1,3 @@
-import { EditableText } from '@/components/editor/EditableText';
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -14,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useAuth } from '@/contexts/AuthContext'
 import { RSVPStatus } from '@/types/community'
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function MyEventsPage() {
   const t = useTranslations('community.myEvents')
   const router = useRouter()

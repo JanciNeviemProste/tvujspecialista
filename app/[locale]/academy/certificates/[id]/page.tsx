@@ -9,8 +9,8 @@ import { use } from 'react';
 import { format } from 'date-fns';
 import { cs, sk, enUS, pl } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 const dateFnsLocaleMap: Record<string, typeof cs> = { cs, sk, en: enUS, pl };
 
 export default function CertificatePage({ params }: { params: Promise<{ id: string }> }) {

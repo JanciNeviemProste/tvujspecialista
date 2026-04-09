@@ -5,8 +5,8 @@ import { Link, usePathname } from '@/i18n/routing';
 import { useAuth } from '@/contexts/AuthContext';
 import { BookOpen, Home, Library, User, LayoutDashboard, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface AcademyLayoutClientProps {
   children: React.ReactNode;
 }

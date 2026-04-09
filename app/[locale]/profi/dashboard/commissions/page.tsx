@@ -11,8 +11,8 @@ import { CommissionCard } from '@/components/commissions/CommissionCard';
 import { CommissionStatsSkeleton, CommissionCardSkeleton } from '@/components/commissions/LoadingStates';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function CommissionsPage() {
   const t = useTranslations('dashboard.commissions');
   const router = useRouter();

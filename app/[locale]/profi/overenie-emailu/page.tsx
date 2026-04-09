@@ -6,8 +6,8 @@ import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { PublicHeader } from '@/components/layout/PublicHeader';
 import { authApi } from '@/lib/api/auth';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 export default function VerifyEmailPage() {
   const t = useTranslations('auth.verifyEmail');
   const searchParams = useSearchParams();

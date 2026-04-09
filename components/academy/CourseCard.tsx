@@ -7,8 +7,8 @@ import { Clock, BookOpen, Star } from 'lucide-react';
 import Image from 'next/image';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/lib/utils/cn';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface CourseCardProps {
   course: Course;
   enrolled?: boolean;

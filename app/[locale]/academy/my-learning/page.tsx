@@ -16,8 +16,8 @@ import {
 import { Link } from '@/i18n/routing';
 import { useRouter } from '@/i18n/routing';
 import { useEffect, useMemo } from 'react';
-import { EditableText } from '@/components/editor/EditableText';
 
+import { EditableText } from '@/components/editor/EditableText';
 interface StatCardProps {
   icon: React.ElementType;
   value: string | number;
