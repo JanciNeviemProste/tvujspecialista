@@ -51,3 +51,6 @@ nul
 
 # backup files
 *-backup.*
+
+# temp screenshots from Chrome DevTools MCP
+.tmp-screenshots/
