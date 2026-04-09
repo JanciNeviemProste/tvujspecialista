@@ -14,39 +14,7 @@ export function HeroV5() {
       className="relative min-h-screen bg-background"
       style={{ fontFamily: 'var(--font-v5-sans), ui-sans-serif, system-ui, sans-serif' }}
     >
-      {/* Newspaper masthead */}
-      <div className="border-y-2 border-foreground">
-        <div className="container mx-auto grid grid-cols-3 items-center px-6 py-4 lg:px-12">
-          <div className="text-xs uppercase tracking-widest text-muted-foreground" style={{ letterSpacing: '0.15em' }}>
-            Vol. I · No. 01
-          </div>
-          <div
-            className="text-center text-2xl tracking-tight text-foreground"
-            style={{ fontFamily: 'var(--font-display-serif), Georgia, serif', fontWeight: 400 }}
-          >
-            TVŮJ<em className="italic text-accent">·</em>SPECIALISTA
-          </div>
-          <div className="text-right text-xs uppercase tracking-widest text-muted-foreground" style={{ letterSpacing: '0.15em' }}>
-            Praha · Apríl 2026
-          </div>
-        </div>
-      </div>
-
-      {/* Nav strip */}
-      <div className="border-b border-foreground/20">
-        <div className="container mx-auto flex items-center justify-between px-6 py-3 lg:px-12">
-          <nav className="flex items-center gap-8 text-xs uppercase tracking-widest text-foreground" style={{ letterSpacing: '0.12em' }}>
-            <Link href="/hledat" className="hover:text-accent">Marketplace</Link>
-            <Link href="/o-nas" className="hover:text-accent">Kolekcia</Link>
-            <Link href="/kontakt" className="hover:text-accent">Redakcia</Link>
-          </nav>
-          <Link href="/profi/registrace" className="text-xs uppercase tracking-widest text-foreground hover:text-accent" style={{ letterSpacing: '0.12em' }}>
-            Som špecialista →
-          </Link>
-        </div>
-      </div>
-
-      {/* Main editorial grid */}
+      {/* Main editorial grid (masthead + nav strip handled by HeaderV5 above) */}
       <div className="container mx-auto px-6 py-12 lg:px-12 lg:py-20">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
           {/* LEFT COLUMN — headline + dropcap body (8 cols) */}

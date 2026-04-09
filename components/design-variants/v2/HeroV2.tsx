@@ -10,7 +10,7 @@ export function HeroV2() {
   return (
     <section
       data-theme="v2"
-      className="relative isolate min-h-screen overflow-hidden bg-background pt-20 font-v2"
+      className="relative isolate min-h-screen overflow-hidden bg-background pt-8 font-v2"
       style={{ fontFamily: 'var(--font-v2-sans), ui-sans-serif, system-ui, sans-serif' }}
     >
       {/* Grid background */}

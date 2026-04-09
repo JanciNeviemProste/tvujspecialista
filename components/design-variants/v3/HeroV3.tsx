@@ -14,31 +14,7 @@ export function HeroV3() {
       className="relative min-h-screen overflow-hidden bg-background"
       style={{ fontFamily: 'var(--font-v3-sans), ui-sans-serif, system-ui, sans-serif' }}
     >
-      {/* Minimal top nav */}
-      <div className="absolute left-0 right-0 top-0 z-20 border-b border-border/50">
-        <div className="flex items-center justify-between px-8 py-6 lg:px-16">
-          <div
-            className="text-sm font-medium tracking-widest text-foreground uppercase"
-            style={{ letterSpacing: '0.15em' }}
-          >
-            TVŮJ<span className="text-accent">·</span>SPECIALISTA
-          </div>
-          <div className="hidden items-center gap-10 text-xs uppercase tracking-widest text-muted-foreground md:flex" style={{ letterSpacing: '0.12em' }}>
-            <Link href="/hledat" className="hover:text-foreground">Hľadať</Link>
-            <Link href="/o-nas" className="hover:text-foreground">O nás</Link>
-            <Link href="/kontakt" className="hover:text-foreground">Kontakt</Link>
-          </div>
-          <Link
-            href="/profi/registrace"
-            className="inline-flex items-center gap-2 border border-foreground px-5 py-2.5 text-xs font-semibold uppercase tracking-widest text-foreground transition-colors hover:bg-foreground hover:text-background"
-            style={{ letterSpacing: '0.12em' }}
-          >
-            Som špecialista
-          </Link>
-        </div>
-      </div>
-
-      {/* Split-screen layout */}
+      {/* Split-screen layout (nav handled by HeaderV3 above) */}
       <div className="grid min-h-screen grid-cols-1 lg:grid-cols-12">
         {/* LEFT — Editorial headline */}
         <div className="relative flex items-center lg:col-span-7 lg:pr-16">
