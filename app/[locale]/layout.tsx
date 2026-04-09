@@ -7,6 +7,8 @@ import { Providers } from '../providers';
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/seo/JsonLd';
 import { SkipLink } from '@/components/a11y/SkipLink';
 import { CookieConsent } from '@/components/shared/CookieConsent';
+import { EditModeProvider } from '@/components/editor/EditModeProvider';
+import { EditModePanel } from '@/components/editor/EditModePanel';
 
 type Props = {
   children: React.ReactNode;
@@ -103,7 +105,10 @@ export default async function LocaleLayout({ children, params }: Props) {
       <OrganizationJsonLd locale={locale} />
       <WebSiteJsonLd />
       <Providers>
-        {children}
+        <EditModeProvider locale={locale}>
+          {children}
+          <EditModePanel />
+        </EditModeProvider>
         <CookieConsent />
       </Providers>
     </NextIntlClientProvider>
