@@ -76,13 +76,15 @@ export function EditModeProvider({ locale, children }: EditModeProviderProps) {
   // Track deploy timer for auto-clear of 'live' badge
   const deployTimer = useRef<number | null>(null);
 
-  // 1. Detect ?edit=1 in URL on mount
+  // 1. Aktivuj edit mód ak:
+  //    a) URL má ?edit=1 (prvé otvorenie), ALEBO
+  //    b) v sessionStorage už je JWT z predošlého prihlásenia (stačí navigovať)
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('edit') === '1') {
+    const stored = sessionStorage.getItem(STORAGE_KEY);
+    const hasEditParam = new URLSearchParams(window.location.search).get('edit') === '1';
+    if (stored || hasEditParam) {
       setIsEditMode(true);
-      const stored = sessionStorage.getItem(STORAGE_KEY);
       if (stored) setJwt(stored);
     }
   }, []);
