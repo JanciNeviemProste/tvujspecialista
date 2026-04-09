@@ -24,22 +24,13 @@ interface SpecialistaV3Props {
   specialist: SpecialistDetail;
 }
 
-const SERVICES = [
-  { numeral: 'I.', name: 'Úvodná konzultácia', price: 'Zdarma' },
-  { numeral: 'II.', name: 'Hypotekárne poradenstvo', price: '1 500 Kč' },
-  { numeral: 'III.', name: 'Komplexné finančné plánovanie', price: '2 900 Kč' },
-  { numeral: 'IV.', name: 'Refinancovanie hypotéky', price: '1 900 Kč' },
-  { numeral: 'V.', name: 'Investičné portfólio — review', price: '2 400 Kč' },
-];
-
-const SCHEDULE = [
-  { day: 'Pondelok', hours: '09:00 — 17:00' },
-  { day: 'Utorok', hours: '09:00 — 17:00' },
-  { day: 'Streda', hours: '09:00 — 17:00' },
-  { day: 'Štvrtok', hours: '09:00 — 19:00' },
-  { day: 'Piatok', hours: '09:00 — 15:00' },
-  { day: 'Sobota', hours: 'Na objednávku' },
-  { day: 'Nedeľa', hours: 'Zatvorené' },
+// Kompetencie — bez cien (lead-gen model)
+const COMPETENCIES = [
+  { numeral: 'I.', name: 'Hypotéky a refinancovanie' },
+  { numeral: 'II.', name: 'Životné poistenie' },
+  { numeral: 'III.', name: 'Investičné portfóliá' },
+  { numeral: 'IV.', name: 'Dôchodkové sporenie' },
+  { numeral: 'V.', name: 'Finančné plánovanie rodiny' },
 ];
 
 const SERIF = 'var(--font-display-serif), Georgia, serif';
@@ -158,8 +149,14 @@ export function SpecialistaV3({ specialist }: SpecialistaV3Props) {
               className="mt-12 inline-block border border-[#0f0f0f] px-10 py-4 text-[10px] uppercase text-[#0f0f0f] transition-colors hover:bg-[#0f0f0f] hover:text-[#faf8f3]"
               style={{ letterSpacing: '0.25em' }}
             >
-              Apply for consultation
+              Požiadať o konzultáciu
             </a>
+            <div
+              className="mt-6 text-[10px] uppercase text-[#5a5a5a]"
+              style={{ letterSpacing: '0.2em' }}
+            >
+              — Typicky odpovedá do ~2 hodín —
+            </div>
           </div>
         </div>
       </section>
@@ -184,88 +181,49 @@ export function SpecialistaV3({ specialist }: SpecialistaV3Props) {
         </div>
       </section>
 
-      {/* 4. Services — numbered list */}
+      {/* 4. Kompetencie — numbered list, no pricing (lead-gen model) */}
       <section className="py-32">
         <div className="container mx-auto max-w-4xl px-8">
           <div
             className="mb-16 text-center text-[10px] uppercase text-[#c9a96e]"
             style={{ letterSpacing: '0.3em' }}
           >
-            — Index služieb —
+            — Oblasti expertízy —
           </div>
           <h2
             className="mb-20 text-center text-5xl tracking-tight"
             style={{ fontFamily: SERIF, fontWeight: 400 }}
           >
-            Služby a <em className="italic text-[#c9a96e]">honoráre</em>
+            S čím vám <em className="italic text-[#c9a96e]">dokáže pomôcť</em>
           </h2>
           <ul>
-            {SERVICES.map((svc) => (
+            {COMPETENCIES.map((comp) => (
               <li
-                key={svc.numeral}
-                className="flex items-baseline justify-between gap-8 border-t border-[#0f0f0f]/30 py-8"
+                key={comp.numeral}
+                className="flex items-baseline gap-8 border-t border-[#0f0f0f]/30 py-8"
               >
-                <div className="flex items-baseline gap-6">
-                  <span
-                    className="text-[#c9a96e]"
-                    style={{ fontFamily: SERIF, fontSize: '1.25rem' }}
-                  >
-                    {svc.numeral}
-                  </span>
-                  <span
-                    className="text-2xl"
-                    style={{ fontFamily: SERIF, fontWeight: 400 }}
-                  >
-                    {svc.name}
-                  </span>
-                </div>
-                <div
-                  className="text-[11px] uppercase text-[#0f0f0f]"
-                  style={{ letterSpacing: '0.2em' }}
+                <span
+                  className="text-[#c9a96e]"
+                  style={{ fontFamily: SERIF, fontSize: '1.25rem', minWidth: '2rem' }}
                 >
-                  {svc.price}
-                </div>
+                  {comp.numeral}
+                </span>
+                <span
+                  className="text-2xl"
+                  style={{ fontFamily: SERIF, fontWeight: 400 }}
+                >
+                  {comp.name}
+                </span>
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* 5. Availability schedule */}
-      <section className="border-y border-[#0f0f0f]/20 bg-[#f3efe4] py-32">
-        <div className="container mx-auto max-w-3xl px-8">
-          <div
-            className="mb-10 text-center text-[10px] uppercase text-[#c9a96e]"
-            style={{ letterSpacing: '0.3em' }}
-          >
-            — Otváracie hodiny —
-          </div>
           <p
-            className="mb-16 text-center text-3xl italic leading-snug text-[#0f0f0f]"
+            className="mx-auto mt-20 max-w-2xl text-center text-lg italic leading-relaxed text-[#5a5a5a]"
             style={{ fontFamily: SERIF }}
           >
-            Príjmam klientov: Pondelok — Piatok, 9:00 — 17:00
+            „Konkrétne podmienky a honorár pripravíme na mieru po prijatí vašej žiadosti.
+            Žiadosti o konzultáciu sú spracované do 24 hodín."
           </p>
-          <table className="mx-auto w-full max-w-xl">
-            <tbody>
-              {SCHEDULE.map((row) => (
-                <tr key={row.day} className="border-t border-[#0f0f0f]/20">
-                  <td
-                    className="py-4 text-lg"
-                    style={{ fontFamily: SERIF, fontWeight: 400 }}
-                  >
-                    {row.day}
-                  </td>
-                  <td
-                    className="py-4 text-right text-[11px] uppercase text-[#5a5a5a]"
-                    style={{ letterSpacing: '0.2em' }}
-                  >
-                    {row.hours}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </section>
 

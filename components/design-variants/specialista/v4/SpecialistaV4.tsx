@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,27 +29,18 @@ interface SpecialistaV4Props {
   specialist: SpecialistDetail;
 }
 
-const SERVICE_MENU = [
-  { name: 'Úvodná konzultácia', duration: '30 MIN', price: 'FREE', featured: true },
-  { name: 'Hypotekárne poradenstvo', duration: '60 MIN', price: '1 500 Kč' },
-  { name: 'Komplexné finančné plánovanie', duration: '90 MIN', price: '2 900 Kč' },
-  { name: 'Refinancovanie hypotéky', duration: '60 MIN', price: '1 900 Kč' },
-  { name: 'Investičné portfólio — review', duration: '60 MIN', price: '2 400 Kč' },
-];
-
-const AVAILABLE_SLOTS = [
-  { day: 'PO', date: '14.04', slots: ['09:00', '10:30', '14:00'] },
-  { day: 'UT', date: '15.04', slots: ['09:00', '11:00', '15:30'] },
-  { day: 'ST', date: '16.04', slots: ['10:00', '14:00'] },
-  { day: 'ŠT', date: '17.04', slots: ['09:30', '11:30', '16:00'] },
-  { day: 'PI', date: '18.04', slots: ['09:00', '10:30', '13:00'] },
-  { day: 'SO', date: '19.04', slots: ['10:00'] },
-  { day: 'NE', date: '20.04', slots: [] },
+// Expertise blocks — no pricing (lead-gen model)
+const EXPERTISE_BLOCKS = [
+  'HYPOTÉKY',
+  'POISTENIE',
+  'INVESTÍCIE',
+  'REFINANC',
+  'PENZIJNÉ',
+  'PLÁNOVANIE',
 ];
 
 export function SpecialistaV4({ specialist }: SpecialistaV4Props) {
   const createLead = useCreateLead();
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
 
   const {
     register,
@@ -102,7 +92,7 @@ export function SpecialistaV4({ specialist }: SpecialistaV4Props) {
             >
               {Array.from({ length: 10 }).map((_, i) => (
                 <span key={i} className="flex items-center gap-12 whitespace-nowrap">
-                  ★ TOP RATED · ONLINE NOW · BOOK TODAY ★
+                  ★ TOP RATED · ONLINE NOW · RESPONSE ~2H ★
                 </span>
               ))}
             </div>
@@ -164,7 +154,7 @@ export function SpecialistaV4({ specialist }: SpecialistaV4Props) {
             {specialist.bio}
           </p>
 
-          {/* 3. GIANT BOOK NOW BUTTON */}
+          {/* 3. GIANT FORM CTA — lead-gen model, form is the only contact path */}
           <div className="mt-12 flex justify-center">
             <button
               type="button"
@@ -172,11 +162,19 @@ export function SpecialistaV4({ specialist }: SpecialistaV4Props) {
               className={`group inline-flex h-20 items-center gap-4 rounded-full border-4 border-foreground bg-primary px-12 text-2xl font-black uppercase tracking-wider text-primary-foreground ${SHADOW_CHUNKY_LG} transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[10px_10px_0_hsl(var(--foreground))] lg:h-24 lg:text-3xl lg:px-16`}
               style={{ fontFamily: V4_SANS }}
             >
-              → BOOK CONSULTATION
+              → POŽIADAŤ O KONZULTÁCIU
               <div className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-primary-foreground bg-accent text-accent-foreground transition-transform group-hover:rotate-[-45deg]">
                 <ArrowRight className="h-6 w-6" strokeWidth={4} />
               </div>
             </button>
+          </div>
+
+          <div
+            className="mt-6 flex items-center justify-center gap-3 text-sm font-black uppercase tracking-widest text-muted-foreground"
+            style={{ fontFamily: V4_MONO }}
+          >
+            <Zap className="h-4 w-4 text-accent" strokeWidth={3} />
+            ONLINE · ODPOVEĎ DO ~2H · PLATFORMA-MEDIATED
           </div>
         </div>
       </section>
@@ -217,126 +215,40 @@ export function SpecialistaV4({ specialist }: SpecialistaV4Props) {
         </div>
       </section>
 
-      {/* 5. SERVICE CATALOG */}
+      {/* 5. EXPERTISE BLOCKS — no pricing, no calendar (lead-gen model) */}
       <section className="border-y-4 border-foreground bg-secondary/30 px-6 py-20 lg:px-12">
-        <div className="mx-auto max-w-5xl">
-          <h2
-            className="mb-12 text-5xl font-black uppercase tracking-tight lg:text-7xl"
-            style={{ fontFamily: V4_SANS }}
-          >
-            SLUŽBY +<br />
-            <span className={`inline-block rounded-3xl border-4 border-foreground bg-accent px-6 py-2 text-accent-foreground ${SHADOW_CHUNKY}`}>
-              CENY
-            </span>
-          </h2>
-
-          <div className="space-y-5">
-            {SERVICE_MENU.map((svc) => (
-              <div
-                key={svc.name}
-                className={`flex flex-wrap items-center justify-between gap-4 rounded-3xl border-4 border-foreground p-6 ${SHADOW_CHUNKY} ${
-                  svc.featured ? 'bg-primary text-primary-foreground' : 'bg-card'
-                }`}
-              >
-                <div className="flex-1 min-w-[200px]">
-                  <h3 className="text-2xl font-black lg:text-3xl">{svc.name}</h3>
-                  <div
-                    className="mt-2 text-xs font-black uppercase tracking-widest opacity-70"
-                    style={{ fontFamily: V4_MONO }}
-                  >
-                    ⏱ {svc.duration}
-                  </div>
-                </div>
-                <div
-                  className={`rounded-2xl border-4 border-foreground px-5 py-3 text-2xl font-black ${
-                    svc.price === 'FREE'
-                      ? 'bg-accent text-accent-foreground'
-                      : 'bg-background text-foreground'
-                  }`}
-                  style={{ fontFamily: V4_MONO }}
-                >
-                  {svc.price}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. INLINE CALENDAR */}
-      <section className="px-6 py-20 lg:px-12">
         <div className="mx-auto max-w-6xl">
           <h2
             className="mb-12 text-5xl font-black uppercase tracking-tight lg:text-7xl"
             style={{ fontFamily: V4_SANS }}
           >
-            VOĽNÉ<br />
-            <span className={`inline-block rounded-3xl border-4 border-foreground bg-primary px-6 py-2 text-primary-foreground ${SHADOW_CHUNKY}`}>
-              TERMÍNY →
+            EXPERTÍZA +<br />
+            <span className={`inline-block rounded-3xl border-4 border-foreground bg-accent px-6 py-2 text-accent-foreground ${SHADOW_CHUNKY}`}>
+              SKÚSENOSTI
             </span>
           </h2>
 
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-7">
-            {AVAILABLE_SLOTS.map((day) => (
+          <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
+            {EXPERTISE_BLOCKS.map((area, i) => (
               <div
-                key={day.date}
-                className={`rounded-3xl border-4 border-foreground bg-card p-4 ${SHADOW_CHUNKY}`}
+                key={area}
+                className={`flex items-center justify-center rounded-3xl border-4 border-foreground p-8 text-center ${SHADOW_CHUNKY} ${
+                  i % 2 === 0 ? 'bg-card' : 'bg-primary text-primary-foreground'
+                }`}
               >
-                <div className="mb-3 border-b-4 border-foreground pb-3">
-                  <div
-                    className="text-xs font-black uppercase tracking-widest text-muted-foreground"
-                    style={{ fontFamily: V4_MONO }}
-                  >
-                    {day.day}
-                  </div>
-                  <div className="text-2xl font-black">{day.date}</div>
-                </div>
-                <div className="space-y-2">
-                  {day.slots.length === 0 ? (
-                    <div
-                      className="text-xs font-black uppercase text-muted-foreground"
-                      style={{ fontFamily: V4_MONO }}
-                    >
-                      OBSADENÉ
-                    </div>
-                  ) : (
-                    day.slots.map((slot) => {
-                      const id = `${day.date} ${slot}`;
-                      const active = selectedSlot === id;
-                      return (
-                        <button
-                          key={slot}
-                          type="button"
-                          onClick={() => setSelectedSlot(id)}
-                          className={`block w-full rounded-full border-4 border-foreground px-3 py-2 text-sm font-black transition-all ${
-                            active
-                              ? `bg-accent text-accent-foreground ${SHADOW_CHUNKY}`
-                              : 'bg-background text-foreground hover:bg-accent/30'
-                          }`}
-                          style={{ fontFamily: V4_MONO }}
-                        >
-                          {slot}
-                        </button>
-                      );
-                    })
-                  )}
-                </div>
+                <h3 className="text-2xl font-black uppercase tracking-wider lg:text-3xl">{area}</h3>
               </div>
             ))}
           </div>
 
-          {selectedSlot && (
-            <div className="mt-10 flex justify-center">
-              <button
-                type="button"
-                onClick={scrollToForm}
-                className={`inline-flex items-center gap-3 rounded-full border-4 border-foreground bg-accent px-8 py-4 text-lg font-black uppercase tracking-wider text-accent-foreground ${SHADOW_CHUNKY} transition-all hover:-translate-y-1`}
-              >
-                BOOK THIS SLOT → {selectedSlot}
-                <ArrowRight className="h-5 w-5" strokeWidth={4} />
-              </button>
-            </div>
-          )}
+          <p
+            className="mx-auto mt-16 max-w-2xl text-center text-lg font-black uppercase tracking-widest text-muted-foreground"
+            style={{ fontFamily: V4_MONO }}
+          >
+            // KONKRÉTNE PODMIENKY INDIVIDUÁLNE
+            <br />
+            // PO ODOSLANÍ ŽIADOSTI
+          </p>
         </div>
       </section>
 
@@ -459,17 +371,15 @@ export function SpecialistaV4({ specialist }: SpecialistaV4Props) {
             className="mb-10 text-base font-black uppercase tracking-wider text-muted-foreground"
             style={{ fontFamily: V4_MONO }}
           >
-            // ODPOVEĎ DO 24H · ZDARMA · BEZ ZÁVÄZKOV
+            // ODPOVEĎ DO 24H · BEZ ZÁVÄZKOV
           </p>
 
-          {selectedSlot && (
-            <div
-              className={`mb-8 inline-flex items-center gap-3 rounded-full border-4 border-foreground bg-accent px-5 py-3 text-sm font-black uppercase tracking-wider text-accent-foreground ${SHADOW_CHUNKY}`}
-              style={{ fontFamily: V4_MONO }}
-            >
-              ✓ TERMÍN: {selectedSlot}
-            </div>
-          )}
+          <div
+            className={`mb-8 inline-flex items-center gap-3 rounded-full border-4 border-foreground bg-accent px-5 py-3 text-sm font-black uppercase tracking-wider text-accent-foreground ${SHADOW_CHUNKY}`}
+            style={{ fontFamily: V4_MONO }}
+          >
+            🛡 ZABEZPEČENÝ KONTAKT CEZ PLATFORMU
+          </div>
 
           <form
             onSubmit={handleSubmit(onSubmit)}

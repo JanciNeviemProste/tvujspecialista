@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,9 +8,7 @@ import {
   Terminal,
   Star,
   MessageSquare,
-  Phone,
-  Video,
-  Calendar,
+  ShieldCheck,
   ChevronRight,
 } from 'lucide-react';
 
@@ -38,27 +35,18 @@ interface SpecialistaV2Props {
   specialist: SpecialistDetail;
 }
 
-const SERVICE_MENU = [
-  { name: 'intro_consultation', duration: '30min', price: 'FREE' },
-  { name: 'mortgage_advisory', duration: '60min', price: '1,500 CZK' },
-  { name: 'financial_planning', duration: '90min', price: '2,900 CZK' },
-  { name: 'mortgage_refinance', duration: '60min', price: '1,900 CZK' },
-  { name: 'portfolio_review', duration: '60min', price: '2,400 CZK' },
+// Expertise tags — no pricing, no duration (lead-gen model)
+const EXPERTISE_TAGS = [
+  'mortgages',
+  'refinancing',
+  'life_insurance',
+  'portfolio',
+  'pension',
+  'family_planning',
 ];
-
-const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-const HOURS = ['08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'];
-
-// deterministic availability pattern
-function isAvailable(day: number, hour: number): boolean {
-  if (day >= 5) return hour % 3 === 0; // weekends sparse
-  if (hour === 12) return false; // lunch
-  return (day * 7 + hour * 3) % 5 !== 0;
-}
 
 export function SpecialistaV2({ specialist }: SpecialistaV2Props) {
   const createLead = useCreateLead();
-  const [selectedCell, setSelectedCell] = useState<string | null>(null);
 
   const {
     register,
@@ -202,142 +190,58 @@ export function SpecialistaV2({ specialist }: SpecialistaV2Props) {
             {specialist.bio}
           </p>
 
-          {/* Inline action bar */}
-          <div
-            className="mt-6 flex flex-wrap gap-2"
-            style={{ fontFamily: MONO }}
-          >
-            {[
-              { icon: MessageSquare, label: 'message', href: '#booking-form' },
-              { icon: Phone, label: 'call', href: `tel:${specialist.phone}` },
-              { icon: Video, label: 'video', href: '#booking-form' },
-              { icon: Calendar, label: 'calendar', href: '#availability' },
-            ].map(({ icon: Icon, label, href }) => (
-              <a
-                key={label}
-                href={href}
-                className="group inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-xs font-medium text-foreground transition-colors hover:border-[#10b981] hover:text-[#10b981]"
-              >
-                <Icon className="h-3.5 w-3.5" />
-                {label}()
-              </a>
-            ))}
+          {/* Primary CTA — form-only contact (lead-gen model) */}
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <a
+              href="#booking-form"
+              className="group inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5"
+              style={{ background: EMERALD, fontFamily: MONO }}
+            >
+              <MessageSquare className="h-4 w-4" />
+              $ request_consultation
+            </a>
+            <div
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-3 text-xs text-muted-foreground"
+              style={{ fontFamily: MONO }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inset-0 animate-ping rounded-full opacity-75" style={{ background: EMERALD }} />
+                <span className="relative inline-flex h-2 w-2 rounded-full" style={{ background: EMERALD }} />
+              </span>
+              response_time: ~2h
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Service catalog — data table */}
+      {/* Expertise tags — no pricing (lead-gen model) */}
       <section className="border-b border-border py-12">
         <div className="container mx-auto px-6">
           <div
             className="mb-4 text-xs uppercase tracking-wider text-muted-foreground"
             style={{ fontFamily: MONO }}
           >
-            // service_catalog.tsv
+            // areas_of_expertise
           </div>
-          <div
-            className="overflow-hidden rounded-md border border-border"
-            style={{ fontFamily: MONO }}
-          >
-            <div className="grid grid-cols-[1fr_120px_140px] gap-2 border-b border-border bg-secondary/60 px-4 py-2 text-[10px] uppercase tracking-wider text-muted-foreground">
-              <div>service_name</div>
-              <div>duration</div>
-              <div className="text-right">price</div>
-            </div>
-            {SERVICE_MENU.map((svc, i) => (
-              <div
-                key={svc.name}
-                className={`grid grid-cols-[1fr_120px_140px] gap-2 px-4 py-3 text-xs text-foreground ${
-                  i % 2 === 0 ? 'bg-card' : 'bg-background'
-                }`}
+          <div className="flex flex-wrap gap-2" style={{ fontFamily: MONO }}>
+            {EXPERTISE_TAGS.map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-3 py-2 text-xs text-foreground"
               >
-                <div className="font-semibold">{svc.name}</div>
-                <div className="text-muted-foreground">{svc.duration}</div>
-                <div
-                  className="text-right font-semibold"
-                  style={{ color: svc.price === 'FREE' ? EMERALD : undefined }}
-                >
-                  {svc.price}
-                </div>
-              </div>
+                <span style={{ color: EMERALD }}>#</span>
+                {tag}
+              </span>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Availability heatmap */}
-      <section id="availability" className="border-b border-border py-12">
-        <div className="container mx-auto px-6">
-          <div
-            className="mb-4 text-xs uppercase tracking-wider text-muted-foreground"
+          <p
+            className="mt-6 max-w-2xl text-xs leading-relaxed text-muted-foreground"
             style={{ fontFamily: MONO }}
           >
-            // availability_matrix [click to select]
-          </div>
-          <div
-            className="inline-block overflow-hidden rounded-md border border-border bg-card p-3"
-            style={{ fontFamily: MONO }}
-          >
-            <div className="grid grid-cols-[40px_repeat(7,minmax(32px,1fr))] gap-1">
-              <div />
-              {DAYS.map((d) => (
-                <div
-                  key={d}
-                  className="text-center text-[10px] font-semibold text-muted-foreground"
-                >
-                  {d}
-                </div>
-              ))}
-              {HOURS.map((h, hIdx) => (
-                <>
-                  <div
-                    key={`h-${h}`}
-                    className="flex items-center justify-end pr-1 text-[10px] text-muted-foreground"
-                  >
-                    {h}:00
-                  </div>
-                  {DAYS.map((d, dIdx) => {
-                    const key = `${d}-${h}`;
-                    const available = isAvailable(dIdx, hIdx);
-                    const selected = selectedCell === key;
-                    return (
-                      <button
-                        key={key}
-                        type="button"
-                        disabled={!available}
-                        onClick={() => setSelectedCell(key)}
-                        className="h-6 rounded-sm border border-border transition-all disabled:cursor-not-allowed"
-                        style={{
-                          background: selected
-                            ? EMERALD
-                            : available
-                            ? 'rgba(16,185,129,0.25)'
-                            : 'hsl(var(--secondary))',
-                          outline: selected ? `2px solid ${EMERALD}` : 'none',
-                        }}
-                        aria-label={`${d} ${h}:00 ${available ? 'available' : 'booked'}`}
-                      />
-                    );
-                  })}
-                </>
-              ))}
-            </div>
-            <div className="mt-3 flex items-center gap-4 text-[10px] text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded-sm" style={{ background: 'rgba(16,185,129,0.25)' }} />
-                available
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="inline-block h-3 w-3 rounded-sm bg-secondary" />
-                booked
-              </span>
-              {selectedCell && (
-                <span style={{ color: EMERALD }}>
-                  selected: {selectedCell}
-                </span>
-              )}
-            </div>
-          </div>
+            // Cenník a konkrétne podmienky sú individuálne.
+            <br />
+            // Špecialista ich pripraví po odoslaní žiadosti cez formulár nižšie.
+          </p>
         </div>
       </section>
 

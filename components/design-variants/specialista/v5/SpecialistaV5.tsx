@@ -31,12 +31,13 @@ interface SpecialistaV5Props {
   specialist: SpecialistDetail;
 }
 
-const SERVICE_MENU = [
-  { name: 'Bezplatná konzultácia', duration: '30 min', price: 'Zdarma', featured: true },
-  { name: 'Hypotekárne poradenstvo', duration: '60 min', price: '1 500 Kč' },
-  { name: 'Komplexné finančné plánovanie', duration: '90 min', price: '2 900 Kč' },
-  { name: 'Refinancovanie hypotéky', duration: '60 min', price: '1 900 Kč' },
-  { name: 'Investičné portfólio — review', duration: '60 min', price: '2 400 Kč' },
+// Kompetencie — bez cien (lead-gen model)
+const COMPETENCIES = [
+  { numeral: 'N° 01', name: 'Hypotéky a refinancovanie' },
+  { numeral: 'N° 02', name: 'Životné poistenie' },
+  { numeral: 'N° 03', name: 'Investičné portfóliá' },
+  { numeral: 'N° 04', name: 'Dôchodkové sporenie' },
+  { numeral: 'N° 05', name: 'Finančné plánovanie rodiny' },
 ];
 
 export function SpecialistaV5({ specialist }: SpecialistaV5Props) {
@@ -240,64 +241,56 @@ export function SpecialistaV5({ specialist }: SpecialistaV5Props) {
         </div>
       </section>
 
-      {/* 4. SERVICES — CLASSIFIED */}
+      {/* 4. KOMPETENCIE — no pricing (lead-gen model) */}
       <section className="container mx-auto px-6 py-20 lg:px-12">
         <div className="mx-auto max-w-4xl">
           <div
             className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em]"
             style={{ color: RUST }}
           >
-            § II · Classifieds
+            § II · Kompetencie
           </div>
           <h2
             className="text-[clamp(2rem,5vw,4rem)] leading-[0.95] tracking-[-0.02em]"
             style={{ fontFamily: SERIF, fontWeight: 400 }}
           >
-            Nabídka <em className="italic" style={{ color: RUST }}>služieb</em>
+            Oblasti <em className="italic" style={{ color: RUST }}>expertízy</em>
           </h2>
 
           <div className="mt-10 border-b-2" style={{ borderColor: INK }}>
-            {SERVICE_MENU.map((svc) => (
+            {COMPETENCIES.map((comp) => (
               <div
-                key={svc.name}
-                className="flex items-baseline justify-between gap-6 border-t py-5"
-                style={{
-                  borderColor: INK,
-                  background: svc.featured ? 'rgba(200,65,11,0.06)' : 'transparent',
-                }}
+                key={comp.numeral}
+                className="flex items-baseline gap-6 border-t py-5"
+                style={{ borderColor: INK }}
               >
-                <div className="flex-1">
-                  <h3
-                    className="text-xl sm:text-2xl"
-                    style={{
-                      fontFamily: SERIF,
-                      fontWeight: 400,
-                      color: svc.featured ? RUST : INK,
-                    }}
-                  >
-                    {svc.name}
-                  </h3>
-                  <div className="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] opacity-60">
-                    {svc.duration}
-                  </div>
-                </div>
                 <div
-                  className="text-xl sm:text-2xl"
-                  style={{
-                    fontFamily: SERIF,
-                    fontWeight: 400,
-                    color: svc.featured ? RUST : INK,
-                  }}
+                  className="text-[11px] font-bold uppercase tracking-[0.2em]"
+                  style={{ color: RUST, minWidth: '4rem' }}
                 >
-                  {svc.price}
+                  {comp.numeral}
                 </div>
+                <h3
+                  className="flex-1 text-xl sm:text-2xl"
+                  style={{ fontFamily: SERIF, fontWeight: 400, color: INK }}
+                >
+                  {comp.name}
+                </h3>
               </div>
             ))}
           </div>
+
+          <p
+            className="mx-auto mt-12 max-w-2xl text-center text-lg italic opacity-70"
+            style={{ fontFamily: SERIF }}
+          >
+            „Konkrétne podmienky a honorár sú individuálne. Špecialista ich
+            pripraví po obdržaní vašej žiadosti o konzultáciu."
+          </p>
         </div>
       </section>
 
-      {/* 5. AVAILABILITY */}
+      {/* 5. RESPONSE TIME — passive trust signal, no scheduling */}
       <section
         className="border-y-2"
         style={{ borderColor: INK, background: 'rgba(10,10,10,0.03)' }}
@@ -307,19 +300,19 @@ export function SpecialistaV5({ specialist }: SpecialistaV5Props) {
             className="mb-3 text-[11px] font-bold uppercase tracking-[0.25em]"
             style={{ color: RUST }}
           >
-            § III · Hours
+            § III · Odozva
           </div>
           <p
             className="mx-auto max-w-3xl text-3xl leading-[1.3] sm:text-4xl"
             style={{ fontFamily: SERIF, fontWeight: 400 }}
           >
-            Príjmam klientov: <em className="italic">Pondelok–Piatok, 9:00–17:00</em>
+            Žiadosti spracujem typicky <em className="italic">do ~24 hodín</em>
           </p>
           <p
             className="mx-auto mt-6 max-w-2xl text-lg italic opacity-70"
             style={{ fontFamily: SERIF }}
           >
-            Telefonické konzultácie aj video hovory dostupné.
+            Všetka komunikácia prebieha bezpečne cez platformu tvujspecialista.cz.
           </p>
         </div>
       </section>

@@ -17,7 +17,6 @@ import {
   Zap,
   TrendingUp,
   Star,
-  Shield,
   Clock,
   Flame,
 } from 'lucide-react';
