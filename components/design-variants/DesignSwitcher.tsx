@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Layout, ArrowLeft } from 'lucide-react';
 
 const VARIANTS = [
+  { id: 'v0', label: 'V0', name: 'Originál', href: '/design/v0' as const },
   { id: 'v1', label: 'V1', name: 'Trusted Authority', href: '/design/v1' as const },
   { id: 'v2', label: 'V2', name: 'Modern Tech', href: '/design/v2' as const },
   { id: 'v3', label: 'V3', name: 'Quiet Luxury', href: '/design/v3' as const },

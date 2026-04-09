@@ -3,6 +3,18 @@ import { ArrowUpRight, Sparkles } from 'lucide-react';
 
 const VARIANTS = [
   {
+    id: 'v0',
+    name: 'Originál (pred redesignom)',
+    tagline: 'Current production — Blue + Gold + Inter',
+    description:
+      'Pôvodná verzia tvujspecialista.cz pred redesignom — čistý SaaS layout so štandardnými modrými CTA a zlatými akcentmi, 10 centrovaných sekcií (hero, problém, ako to funguje, kategórie, testimonials, benefity, stats, CTA, FAQ, finálny CTA). Referenčný bod pre porovnanie.',
+    palette: ['#3b82f6', '#f59e0b', '#ffffff'],
+    font: 'Inter',
+    vibe: 'current production · clean · SaaS standard',
+    bg: 'bg-gradient-to-br from-blue-50 via-white to-yellow-50',
+    darkBg: 'dark:from-blue-950/40 dark:via-neutral-950 dark:to-yellow-950/20',
+  },
+  {
     id: 'v1',
     name: 'Trusted Authority',
     tagline: 'Asymmetric editorial, Indigo + Amber',
