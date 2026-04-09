@@ -6,6 +6,7 @@ import { Link } from '@/i18n/routing';
 import { motion, type Variants } from 'framer-motion';
 import { ArrowRight, Search, Star, ShieldCheck } from 'lucide-react';
 import { SpecialistCardV2 } from '@/components/shared/SpecialistCardV2';
+import { EditableText } from '@/components/editor/EditableText';
 
 const PREVIEW_PHOTO = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80';
 
@@ -67,7 +68,7 @@ export function HeroEditorial() {
                 <span className="absolute inset-0 animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
-              {t('eyebrow')}
+              <EditableText tKey="home.v2.hero.eyebrow">{t('eyebrow')}</EditableText>
             </motion.div>
 
             {/* Headline — mixed serif + sans */}
@@ -78,6 +79,10 @@ export function HeroEditorial() {
               variants={fadeUp}
               className="text-balance text-display-2 font-bold tracking-tight text-foreground lg:text-display-1"
             >
+              <EditableText
+                tKey="home.v2.hero.title"
+                rawValue={(t.raw('title') as string).replace(/<serif>(.*?)<\/serif>/g, '[$1]')}
+              >
               {t.rich('title', {
                 serif: (chunks) => (
                   <span className="text-serif-italic font-normal text-primary">
@@ -85,6 +90,7 @@ export function HeroEditorial() {
                   </span>
                 ),
               })}
+              </EditableText>
             </motion.h1>
 
             {/* Subtitle */}
@@ -95,7 +101,7 @@ export function HeroEditorial() {
               variants={fadeUp}
               className="mt-6 max-w-2xl text-balance text-lg leading-relaxed text-muted-foreground sm:text-xl"
             >
-              {t('subtitle')}
+              <EditableText tKey="home.v2.hero.subtitle">{t('subtitle')}</EditableText>
             </motion.p>
 
             {/* CTAs */}
@@ -111,14 +117,14 @@ export function HeroEditorial() {
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-foreground px-7 py-4 text-base font-semibold text-background shadow-elevation-3 transition-all hover:-translate-y-0.5 hover:shadow-elevation-5"
               >
                 <Search className="h-4 w-4" />
-                {t('ctaPrimary')}
+                <EditableText tKey="home.v2.hero.ctaPrimary">{t('ctaPrimary')}</EditableText>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
               <Link
                 href="/profi/registrace"
                 className="group inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background/80 px-7 py-4 text-base font-semibold text-foreground backdrop-blur-md transition-all hover:bg-background hover:-translate-y-0.5"
               >
-                {t('ctaSecondary')}
+                <EditableText tKey="home.v2.hero.ctaSecondary">{t('ctaSecondary')}</EditableText>
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
             </motion.div>
@@ -167,8 +173,12 @@ export function HeroEditorial() {
                   ))}
                 </div>
                 <div className="text-sm">
-                  <div className="font-semibold text-foreground">{t('trustNumber')}</div>
-                  <div className="text-xs text-muted-foreground">{t('trustLabel')}</div>
+                  <div className="font-semibold text-foreground">
+                    <EditableText tKey="home.v2.hero.trustNumber">{t('trustNumber')}</EditableText>
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    <EditableText tKey="home.v2.hero.trustLabel">{t('trustLabel')}</EditableText>
+                  </div>
                 </div>
               </div>
 
@@ -180,13 +190,15 @@ export function HeroEditorial() {
                 </div>
                 <div className="text-sm">
                   <span className="font-semibold text-foreground">4.9</span>
-                  <span className="text-muted-foreground"> · {t('reviewsLabel')}</span>
+                  <span className="text-muted-foreground"> · <EditableText tKey="home.v2.hero.reviewsLabel">{t('reviewsLabel')}</EditableText></span>
                 </div>
               </div>
 
               <div className="flex items-center gap-2 text-sm">
                 <ShieldCheck className="h-4 w-4 text-primary" strokeWidth={2.5} />
-                <span className="font-medium text-foreground">{t('verifiedLabel')}</span>
+                <span className="font-medium text-foreground">
+                  <EditableText tKey="home.v2.hero.verifiedLabel">{t('verifiedLabel')}</EditableText>
+                </span>
               </div>
             </motion.div>
           </div>
