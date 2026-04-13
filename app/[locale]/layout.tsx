@@ -108,8 +108,8 @@ export default async function LocaleLayout({ children, params }: Props) {
         <EditModeProvider locale={locale}>
           {children}
           <EditModePanel />
+          <CookieConsent />
         </EditModeProvider>
-        <CookieConsent />
       </Providers>
     </NextIntlClientProvider>
   );

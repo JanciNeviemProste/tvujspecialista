@@ -25,7 +25,7 @@ export function LogoMarquee() {
         </p>
 
         <div className="marquee-mask relative overflow-hidden">
-          <div className="flex w-max animate-marquee items-center gap-16">
+          <div className="flex w-max items-center gap-16 motion-safe:animate-marquee">
             {[...PARTNERS, ...PARTNERS].map((partner, i) => (
               <div
                 key={`${partner}-${i}`}

@@ -48,9 +48,9 @@ export function HeroEditorial() {
       <div className="absolute inset-0 -z-10 gradient-mesh" />
       <div className="absolute inset-0 -z-10 bg-grid opacity-60" />
 
-      {/* Floating decorative blobs */}
-      <div className="pointer-events-none absolute -left-32 top-32 -z-10 h-96 w-96 rounded-full bg-primary/20 blur-[120px] animate-mesh-drift" />
-      <div className="pointer-events-none absolute -right-32 top-64 -z-10 h-96 w-96 rounded-full bg-accent/20 blur-[120px] animate-mesh-drift" style={{ animationDelay: '7s' }} />
+      {/* Floating decorative blobs — hidden on mobile (blur-[120px] + infinite animation kills mobile GPU) */}
+      <div className="pointer-events-none absolute -left-32 top-32 -z-10 hidden h-96 w-96 rounded-full bg-primary/20 blur-[120px] animate-mesh-drift md:block" />
+      <div className="pointer-events-none absolute -right-32 top-64 -z-10 hidden h-96 w-96 rounded-full bg-accent/20 blur-[120px] animate-mesh-drift md:block" style={{ animationDelay: '7s' }} />
 
       <div className="container mx-auto px-4 pt-16 pb-20 sm:pt-24 sm:pb-28 lg:pt-32 lg:pb-36">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
@@ -65,7 +65,7 @@ export function HeroEditorial() {
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground backdrop-blur-md"
             >
               <span className="relative flex h-2 w-2">
-                <span className="absolute inset-0 animate-ping rounded-full bg-primary opacity-75" />
+                <span className="absolute inset-0 rounded-full bg-primary opacity-75 md:animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
               </span>
               <EditableText tKey="home.v2.hero.eyebrow">{t('eyebrow')}</EditableText>

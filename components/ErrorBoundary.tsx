@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AlertCircle, RefreshCw, Home } from 'lucide-react';
 
-import { EditableText } from '@/components/editor/EditableText';
 interface Props {
   children: ReactNode;
   fallback?: ReactNode;
@@ -32,18 +31,18 @@ function ErrorFallbackUI({ error, errorInfo, resetErrorBoundary }: { error: Erro
         <CardHeader>
           <div className="flex items-center gap-3">
             <AlertCircle className="h-8 w-8 text-destructive" />
-            <CardTitle className="text-2xl"><EditableText tKey="errors.boundary.title">{t('boundary.title')}</EditableText></CardTitle>
+            <CardTitle className="text-2xl">{t('boundary.title')}</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-muted-foreground">
-            <EditableText tKey="errors.boundary.description">{t('boundary.description')}</EditableText>
+{t('boundary.description')}
           </p>
 
           {process.env.NODE_ENV === 'development' && error && (
             <div className="mt-4 p-4 bg-destructive/10 border border-destructive/20 rounded-md">
               <p className="font-semibold text-sm text-destructive mb-2">
-                <EditableText tKey="errors.boundary.details">{t('boundary.details')}</EditableText>
+{t('boundary.details')}
               </p>
               <pre className="text-xs overflow-auto max-h-48 text-destructive">
                 {error.toString()}
@@ -68,7 +67,7 @@ function ErrorFallbackUI({ error, errorInfo, resetErrorBoundary }: { error: Erro
               className="flex-1"
             >
               <RefreshCw className="mr-2 h-4 w-4" />
-              <EditableText tKey="errors.boundary.reload">{t('boundary.reload')}</EditableText>
+{t('boundary.reload')}
             </Button>
             <Button
               onClick={handleGoHome}
@@ -76,7 +75,7 @@ function ErrorFallbackUI({ error, errorInfo, resetErrorBoundary }: { error: Erro
               className="flex-1"
             >
               <Home className="mr-2 h-4 w-4" />
-              <EditableText tKey="errors.boundary.home">{t('boundary.home')}</EditableText>
+{t('boundary.home')}
             </Button>
           </div>
         </CardContent>
